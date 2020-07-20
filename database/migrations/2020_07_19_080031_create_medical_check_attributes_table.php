@@ -19,6 +19,7 @@ class CreateMedicalCheckAttributesTable extends Migration
             $table->unsignedBigInteger('attribute_id');
             $table->string('nilai');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

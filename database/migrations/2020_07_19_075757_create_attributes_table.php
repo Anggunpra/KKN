@@ -16,12 +16,11 @@ class CreateAttributesTable extends Migration
         Schema::create('attributes', function (Blueprint $table) {
             $table->id();
             $table->string('nama_atribut');
-            $table->boolean('wajib');
             $table->string('relasi_atribut');
             $table->string('nilai');
-
+            $table->boolean('wajib');
             $table->timestamps();
-
+            $table->softDeletes();
         });
     }
 
