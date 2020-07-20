@@ -3,12 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Attribute extends Model
 {
+    use SoftDeletes;
     protected $guarded = ['id'];
-    public function medicalCheck()
+
+    public function medicals()
     {
-        return $this->hasMany('App\Comment');
+        return $this->hasMany('App\MedicalCheckAttribute', 'medical_check_attribute_id', 'id');
     }
 }
