@@ -13,4 +13,9 @@ class Attribute extends Model
     {
         return $this->hasMany('App\MedicalCheckAttribute', 'medical_check_attribute_id', 'id');
     }
+
+    public function surveys()
+    {
+        return $this->hasMany('App\Survey');
+    }
 }

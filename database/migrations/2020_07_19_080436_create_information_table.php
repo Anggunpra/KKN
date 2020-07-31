@@ -16,6 +16,7 @@ class CreateInformationTable extends Migration
         Schema::create('information', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
+            $table->string('slug');
             $table->string('gambar');
             $table->string('judul');
             $table->text('deskripsi');

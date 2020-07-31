@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('pekerjaan');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
