@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon-->
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('front_asset/image/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('front_asset/image/bwi.png')}}">
     <link rel="stylesheet" href="{{ asset('front_asset/css/bootstrap.css') }}">
     <link href="{{ asset('front_asset/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('front_asset/css/responsive.css') }}" rel="stylesheet">
