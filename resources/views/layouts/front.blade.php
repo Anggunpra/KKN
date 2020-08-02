@@ -28,7 +28,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"><img src="{{ asset('front_asset/image/logo.png') }}"
+                    <a class="navbar-brand" href="#"><img src="{{ asset('front_asset/image/Desa Karetan.png') }}" height="45"
                             alt="logo"></a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
