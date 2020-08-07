@@ -9,7 +9,7 @@
                     <p>Selaras dengan program Kementerian Desa, Pembangunan Daerah Tertinggal dan Transmigrasi RI dalam membentuk Desa Tanggap COVID-19, Desa Karetan mengupayakan ikut berpartisipasi aktif dalam program tersebut.
                     </p>
                     <div class="banner-btn ">
-                        <a href="" class="btn btn-pink button6">Daftar Sekarang</a>
+                        <a href="{}" class="btn btn-pink button6">Daftar Sekarang</a>
                         <a href="" class="btn btn-blue button6">Pengajuan Surat Pernyataan</a>
                     </div>
                 </div>
@@ -37,20 +37,11 @@
                         <img src="{{ asset('front_asset/image/feature1.png') }}" alt="feature">
                         <img src="{{ asset('front_asset/image/feature1-hover.png') }}" class="img-feature" alt="feature">
                     </div>
-                    <h4>Free trial</h4>
-                    <p>Class aptent is not conub lorem ipsum is simply free text available rep tos.</p>
+                    <h4>Pembuatan Surat</h4>
+                    <p>Pembuatan surat keterangan atau pernyataan dari desa setempat.</p>
                 </div>
             </div>
-            <div class="col-md-4 text-center ">
-                <div class="check-out-text  wow animated slideInUp">
-                    <div class="feature-card">
-                        <img src="{{ asset('front_asset/image/feature2.png') }}" alt="feature">
-                        <img src="{{ asset('front_asset/image/feature2-hover.png') }}" class="img-feature" alt="feature">
-                    </div>
-                    <h4>Secure Payment</h4>
-                    <p>Class aptent is not conub lorem ipsum is simply free text available rep tos.</p>
-                </div>
-            </div>
+
             <div class="col-md-4 text-center ">
                 <div class="check-out-text  wow animated slideInRight">
                     <div class="feature-card">
@@ -58,11 +49,11 @@
                         <img src="{{ asset('front_asset/image/feature3-hover.png') }}" class="img-feature"
                             alt="feature">
                     </div>
-                    <h4>No Setup</h4>
-                    <p>Class aptent is not conub lorem ipsum is simply free text available rep tos.</p>
+                    <h4>Survey COVID-19</h4>
+                    <p>Survey ini bertujuan untuk mendata kondisi kesehatan masyarakat.</p>
                 </div>
             </div>
-            <div class="clear-fix"></div>
+            {{-- <div class="clear-fix"></div> --}}
             <div class="col-md-4 text-center  wow animated slideInLeft">
                 <div class="check-out-text">
                     <div class="feature-card">
@@ -70,28 +61,8 @@
                         <img src="{{ asset('front_asset/image/feature4-hover.png') }}" class="img-feature"
                             alt="feature">
                     </div>
-                    <h4>Daily Updates</h4>
-                    <p>Class aptent is not conub lorem ipsum is simply free text available rep tos.</p>
-                </div>
-            </div>
-            <div class="col-md-4 text-center ">
-                <div class="check-out-text  wow animated slideInUp">
-                    <div class="feature-card">
-                        <img src="{{ asset('front_asset/image/feature5.png')}}" alt="feature">
-                        <img src="{{ asset('front_asset/image/feature5-hover.png') }}" class="img-feature" alt="feature">
-                    </div>
-                    <h4>Manage Users</h4>
-                    <p>Class aptent is not conub lorem ipsum is simply free text available rep tos.</p>
-                </div>
-            </div>
-            <div class="col-md-4 text-center ">
-                <div class="check-out-text  wow animated slideInRight">
-                    <div class="feature-card">
-                        <img src="{{ asset('front_asset/image/feature6.png')}}" alt="feature">
-                        <img src="{{ asset('front_asset/image/feature6-hover.png')}}" class="img-feature" alt="feature">
-                    </div>
-                    <h4>Quick Access</h4>
-                    <p>Class aptent is not conub lorem ipsum is simply free text available rep tos.</p>
+                    <h4>Info Grafik COVID-19</h4>
+                    <p>Fitur ini akan menampilkan data dari hasil survey COVID-19.</p>
                 </div>
             </div>
         </div>
@@ -102,7 +73,7 @@
         <div class="row">
             <div class="col-md-6 col-sm-6">
                 <div class="right-text  wow animated slideInLeft">
-                    <h4>Powerful tool for your customer</h4>
+                    <h4>Dapatkan Info Terbaru</h4>
                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have
                         suffered alteration in some form, by injected humour lorem ipsum is simply free text in the
                         market or randomised words.</p>
