@@ -49,11 +49,17 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        $validator = Validator::make($data, [
+            'nama_lengkap' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:5|confirmed',
+            'pekerjaan' => 'required|string',
+            'nomor_telepon' => 'required|numeric|digits_between:10,13|unique:users,nomor_telepon',
+            'nomor_ktp' => 'required|numeric|min:16|unique:users,nomor_ktp',
+            'alamat_tinggal' => 'required|string',
+            'tanggal_lahir' => 'required|date',
         ]);
+        return $validator;
     }
 
     /**
@@ -64,10 +70,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $user = User::create([
+            'nama_lengkap' => $data['nama_lengkap'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => bcrypt($data['password']),
+            'pekerjaan' => $data['pekerjaan'],
+            'nomor_telepon' => $data['nomor_telepon'],
+            'nomor_ktp' => $data['nomor_ktp'],
+            'alamat_tinggal' => $data['alamat_tinggal'],
+            'tanggal_lahir' => $data['tanggal_lahir'],
         ]);
+        $user->assignRole('Masyarakat');
+        return $user;
     }
 }

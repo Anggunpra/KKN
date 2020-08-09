@@ -25,7 +25,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:5|confirmed',
             'pekerjaan' => 'required|string',
-            'nomor_telepon' => 'required|numeric|digits_between:10,13|unique:users,nomor_telpon',
+            'nomor_telepon' => 'required|numeric|digits_between:10,13|unique:users,nomor_telepon',
             'nomor_ktp' => 'required|numeric|min:16|unique:users,nomor_ktp',
             'alamat_tinggal' => 'required|string',
             'tanggal_lahir' => 'required|date',
