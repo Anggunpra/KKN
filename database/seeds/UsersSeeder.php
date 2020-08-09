@@ -20,9 +20,9 @@ class UsersSeeder extends Seeder
         }
         $users = [
             [
-                'nama_lengkap' => 'Anggun Pratiwi',
+                'nama_lengkap' => 'Perangkat Desa',
                 'tanggal_lahir' => '1999-05-28',
-                'email' => 'anggunpra207@gmail.com',
+                'email' => 'admin@admin.com',
                 'password' => bcrypt('secret'),
                 'nomor_telepon' => '081357763665',
                 'nomor_ktp' => '350916888987654',
@@ -30,9 +30,9 @@ class UsersSeeder extends Seeder
                 'pekerjaan' => 'Mahasiswa',
             ],
             [
-                'nama_lengkap' => 'Rizky Septiawan',
+                'nama_lengkap' => 'Masyarakat',
                 'tanggal_lahir' => '1998-09-10',
-                'email' => 'rizseptiawan@gmail.com',
+                'email' => 'masyarakat@masyarakat.com',
                 'password' => bcrypt('secret'),
                 'nomor_telepon' => '085800000935',
                 'nomor_ktp' => '350916888987653',
@@ -42,7 +42,7 @@ class UsersSeeder extends Seeder
         ];
         foreach ($users as $user) {
             $user = \App\User::create($user);
-            if($user->nama_lengkap == 'Anggun Pratiwi'){
+            if($user->nama_lengkap == 'Perangkat Desa'){
                 $user->assignRole('Perangkat Desa');
             }else{
                 $user->assignRole('Masyarakat');
