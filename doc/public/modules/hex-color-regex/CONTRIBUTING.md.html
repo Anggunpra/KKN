@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CONTRIBUTING.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\hex-color-regex\\CONTRIBUTING.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#contributing-guidelines">Contributing Guidelines</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installing">Installing</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#testing">Testing</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#code-style">Code Style</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="contributing-guidelines">
+  <h1>
+    <a href="#contributing-guidelines" name="contributing-guidelines" class="pilcrow"></a>
+Contributing Guidelines
+  </h1>
+</div>
+<p>Contributions are always welcome!</p>
+<p><strong>Before spending lots of time on something, ask for feedback on your idea first!</strong></p>
+<p>Please search issues and pull requests before adding something new to avoid duplicating efforts and conversations.</p>
+<div class="pilwrap" id="installing">
+  <h2>
+    <a href="#installing" name="installing" class="pilcrow"></a>
+Installing
+  </h2>
+</div>
+<p>Fork and clone the repo, then <code>npm install</code> to install all dependencies and <code>npm test</code> to ensure all is okey before you start anything.</p>
+<div class="pilwrap" id="testing">
+  <h2>
+    <a href="#testing" name="testing" class="pilcrow"></a>
+Testing
+  </h2>
+</div>
+<p>Tests are run with <code>npm test</code>. Please ensure all tests are passing before submitting a pull request (unless you're creating a failing test to increase test coverage or show a problem).</p>
+<div class="pilwrap" id="code-style">
+  <h2>
+    <a href="#code-style" name="code-style" class="pilcrow"></a>
+Code Style
+  </h2>
+</div>
+<p><a href="https://github.com/feross/standard"><img src="https://cdn.rawgit.com/feross/standard/master/badge.svg" alt="standard"></a></p>
+<p>This repository uses <a href="https://github.com/feross/standard"><code>standard</code></a> to maintain code style and consistency, and to avoid style arguments. You are encouraged to install it globally. <code>npm test</code> runs <code>standard</code> so you don't have to!</p>
+<pre><code>npm i standard -g
+</code></pre>
+<p>It is intentional to don't have <code>standard</code>, <code>istanbul</code> and <code>coveralls</code> in the devDependencies. Travis will handle all that stuffs. That approach will save bandwidth also installing and development time.</p>
+</div>
+  </div>
+</body>
+</html>

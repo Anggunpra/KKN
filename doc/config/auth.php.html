@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>auth.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "config\\auth.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>auth.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">return</span> [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Authentication Defaults</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This option controls the default authentication &quot;guard&quot; and password</td>
+</tr>
+<tr>
+<td>reset options for your application. You may change these defaults</td>
+</tr>
+<tr>
+<td>as required, but they're a perfect start for most applications.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'defaults'</span> =&gt; [
+        <span class="hljs-string">'guard'</span> =&gt; <span class="hljs-string">'web'</span>,
+        <span class="hljs-string">'passwords'</span> =&gt; <span class="hljs-string">'users'</span>,
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Authentication Guards</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Next, you may define every authentication guard for your application.</td>
+</tr>
+<tr>
+<td>Of course, a great default configuration has been defined for you</td>
+</tr>
+<tr>
+<td>here which uses session storage and the Eloquent user provider.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>All authentication drivers have a user provider. This defines how the</td>
+</tr>
+<tr>
+<td>users are actually retrieved out of your database or other storage</td>
+</tr>
+<tr>
+<td>mechanisms used by this application to persist your user's data.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Supported: &quot;session&quot;, &quot;token&quot;</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'guards'</span> =&gt; [
+        <span class="hljs-string">'web'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'session'</span>,
+            <span class="hljs-string">'provider'</span> =&gt; <span class="hljs-string">'users'</span>,
+        ],
+
+        <span class="hljs-string">'api'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'token'</span>,
+            <span class="hljs-string">'provider'</span> =&gt; <span class="hljs-string">'users'</span>,
+            <span class="hljs-string">'hash'</span> =&gt; <span class="hljs-keyword">false</span>,
+        ],
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>User Providers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>All authentication drivers have a user provider. This defines how the</td>
+</tr>
+<tr>
+<td>users are actually retrieved out of your database or other storage</td>
+</tr>
+<tr>
+<td>mechanisms used by this application to persist your user's data.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>If you have multiple user tables or models you may configure multiple</td>
+</tr>
+<tr>
+<td>sources which represent each model / table. These sources may then</td>
+</tr>
+<tr>
+<td>be assigned to any extra authentication guards you have defined.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Supported: &quot;database&quot;, &quot;eloquent&quot;</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'providers'</span> =&gt; [
+        <span class="hljs-string">'users'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'eloquent'</span>,
+            <span class="hljs-string">'model'</span> =&gt; App\User::class,
+        ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>'users' =&gt; [
+'driver' =&gt; 'database',
+'table' =&gt; 'users',
+],</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Resetting Passwords</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>You may specify multiple password reset configurations if you have more</td>
+</tr>
+<tr>
+<td>than one user table or model in the application and you want to have</td>
+</tr>
+<tr>
+<td>separate password reset settings based on the specific user types.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>The expire time is the number of minutes that the reset token should be</td>
+</tr>
+<tr>
+<td>considered valid. This security feature keeps tokens short-lived so</td>
+</tr>
+<tr>
+<td>they have less time to be guessed. You may change this as needed.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'passwords'</span> =&gt; [
+        <span class="hljs-string">'users'</span> =&gt; [
+            <span class="hljs-string">'provider'</span> =&gt; <span class="hljs-string">'users'</span>,
+            <span class="hljs-string">'table'</span> =&gt; <span class="hljs-string">'password_resets'</span>,
+            <span class="hljs-string">'expire'</span> =&gt; <span class="hljs-number">60</span>,
+            <span class="hljs-string">'throttle'</span> =&gt; <span class="hljs-number">60</span>,
+        ],
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Password Confirmation Timeout</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may define the amount of seconds before a password confirmation</td>
+</tr>
+<tr>
+<td>times out and the user is prompted to re-enter their password via the</td>
+</tr>
+<tr>
+<td>confirmation screen. By default, the timeout lasts for three hours.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'password_timeout'</span> =&gt; <span class="hljs-number">10800</span>,
+
+];
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

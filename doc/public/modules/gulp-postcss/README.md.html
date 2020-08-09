@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-postcss\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gulp-postcss">gulp-postcss</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#basic-usage">Basic usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#passing-plugins-directly">Passing plugins directly</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#passing-additional-options-to-postcss">Passing additional options to PostCSS</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#using-a-custom-processor">Using a custom processor</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#source-map-support">Source map support</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#advanced-usage">Advanced usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#changelog">Changelog</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="gulp-postcss">
+  <h1>
+    <a href="#gulp-postcss" name="gulp-postcss" class="pilcrow"></a>
+gulp-postcss
+  </h1>
+</div>
+<p><a href="https://travis-ci.org/postcss/gulp-postcss"><img src="https://img.shields.io/travis/postcss/gulp-postcss.png" alt="Build Status"></a>
+<a href="https://coveralls.io/r/postcss/gulp-postcss"><img src="https://img.shields.io/coveralls/postcss/gulp-postcss.png" alt="Coverage Status"></a></p>
+<p><a href="https://github.com/postcss/postcss">PostCSS</a> gulp plugin to pipe CSS through
+several plugins, but parse CSS only once.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save-dev gulp-postcss
+</code></pre>
+<p>Install required <a href="https://www.npmjs.com/browse/keyword/postcss-plugin">postcss plugins</a> separately. E.g. for autoprefixer, you need to install <a href="https://github.com/postcss/autoprefixer">autoprefixer</a> package.</p>
+<div class="pilwrap" id="basic-usage">
+  <h2>
+    <a href="#basic-usage" name="basic-usage" class="pilcrow"></a>
+Basic usage
+  </h2>
+</div>
+<p>The configuration is loaded automatically from <code>postcss.config.js</code>
+as <a href="https://www.npmjs.com/package/postcss-load-config">described here</a>,
+so you don't have to specify any options.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> postcss = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-postcss'</span>);
+<span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+
+gulp.task(<span class="hljs-string">'css'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./src/*.css'</span>)
+        .pipe(postcss())
+        .pipe(gulp.dest(<span class="hljs-string">'./dest'</span>));
+});
+</code></pre>
+<div class="pilwrap" id="passing-plugins-directly">
+  <h2>
+    <a href="#passing-plugins-directly" name="passing-plugins-directly" class="pilcrow"></a>
+Passing plugins directly
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> postcss = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-postcss'</span>);
+<span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> autoprefixer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'autoprefixer'</span>);
+<span class="hljs-keyword">var</span> cssnano = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cssnano'</span>);
+
+gulp.task(<span class="hljs-string">'css'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> plugins = [
+        autoprefixer({<span class="hljs-attr">browsers</span>: [<span class="hljs-string">'last 1 version'</span>]}),
+        cssnano()
+    ];
+    <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./src/*.css'</span>)
+        .pipe(postcss(plugins))
+        .pipe(gulp.dest(<span class="hljs-string">'./dest'</span>));
+});
+</code></pre>
+<div class="pilwrap" id="passing-additional-options-to-postcss">
+  <h2>
+    <a href="#passing-additional-options-to-postcss" name="passing-additional-options-to-postcss" class="pilcrow"></a>
+Passing additional options to PostCSS
+  </h2>
+</div>
+<p>The second optional argument to gulp-postcss is passed to PostCSS.</p>
+<p>This, for instance, may be used to enable custom parser:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> postcss = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-postcss'</span>);
+<span class="hljs-keyword">var</span> nested = <span class="hljs-built_in">require</span>(<span class="hljs-string">'postcss-nested'</span>);
+<span class="hljs-keyword">var</span> sugarss = <span class="hljs-built_in">require</span>(<span class="hljs-string">'sugarss'</span>);
+
+gulp.task(<span class="hljs-string">'default'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> plugins = [nested];
+    <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'in.sss'</span>)
+        .pipe(postcss(plugins, { <span class="hljs-attr">parser</span>: sugarss }))
+        .pipe(gulp.dest(<span class="hljs-string">'out'</span>));
+});
+</code></pre>
+<div class="pilwrap" id="using-a-custom-processor">
+  <h2>
+    <a href="#using-a-custom-processor" name="using-a-custom-processor" class="pilcrow"></a>
+Using a custom processor
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> postcss = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-postcss'</span>);
+<span class="hljs-keyword">var</span> cssnext = <span class="hljs-built_in">require</span>(<span class="hljs-string">'postcss-cssnext'</span>);
+<span class="hljs-keyword">var</span> opacity = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">css, opts</span>) </span>{
+    css.eachDecl(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">decl</span>) </span>{
+        <span class="hljs-keyword">if</span> (decl.prop === <span class="hljs-string">'opacity'</span>) {
+            decl.parent.insertAfter(decl, {
+                <span class="hljs-attr">prop</span>: <span class="hljs-string">'-ms-filter'</span>,
+                <span class="hljs-attr">value</span>: <span class="hljs-string">'"progid:DXImageTransform.Microsoft.Alpha(Opacity='</span> + (<span class="hljs-built_in">parseFloat</span>(decl.value) * <span class="hljs-number">100</span>) + <span class="hljs-string">')"'</span>
+            });
+        }
+    });
+};
+
+gulp.task(<span class="hljs-string">'css'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> plugins = [
+        cssnext({<span class="hljs-attr">browsers</span>: [<span class="hljs-string">'last 1 version'</span>]}),
+        opacity
+    ];
+    <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./src/*.css'</span>)
+        .pipe(postcss(plugins))
+        .pipe(gulp.dest(<span class="hljs-string">'./dest'</span>));
+});
+</code></pre>
+<div class="pilwrap" id="source-map-support">
+  <h2>
+    <a href="#source-map-support" name="source-map-support" class="pilcrow"></a>
+Source map support
+  </h2>
+</div>
+<p>Source map is disabled by default, to extract map use together
+with <a href="https://github.com/floridoo/gulp-sourcemaps">gulp-sourcemaps</a>.</p>
+<pre><code class="js"><span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./src/*.css'</span>)
+    .pipe(sourcemaps.init())
+    .pipe(postcss(plugins))
+    .pipe(sourcemaps.write(<span class="hljs-string">'.'</span>))
+    .pipe(gulp.dest(<span class="hljs-string">'./dest'</span>));
+</code></pre>
+<div class="pilwrap" id="advanced-usage">
+  <h2>
+    <a href="#advanced-usage" name="advanced-usage" class="pilcrow"></a>
+Advanced usage
+  </h2>
+</div>
+<p>If you want to configure postcss on per-file-basis, you can pass a callback
+that receives <a href="https://github.com/gulpjs/vinyl">vinyl file object</a> and returns
+<code>{ plugins: plugins, options: options }</code>. For example, when you need to
+parse different extensions differntly:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> postcss = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-postcss'</span>);
+
+gulp.task(<span class="hljs-string">'css'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">callback</span>(<span class="hljs-params">file</span>) </span>{
+        <span class="hljs-keyword">return</span> {
+            <span class="hljs-attr">plugins</span>: [
+                <span class="hljs-built_in">require</span>(<span class="hljs-string">'postcss-import'</span>)({ <span class="hljs-attr">root</span>: file.dirname }),
+                <span class="hljs-built_in">require</span>(<span class="hljs-string">'postcss-modules'</span>)
+            ],
+            <span class="hljs-attr">options</span>: {
+                <span class="hljs-attr">parser</span>: file.extname === <span class="hljs-string">'.sss'</span> ? <span class="hljs-built_in">require</span>(<span class="hljs-string">'sugarss'</span>) : <span class="hljs-literal">false</span>
+            }
+        }
+    }
+    <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./src/*.css'</span>)
+        .pipe(postcss(callback))
+        .pipe(gulp.dest(<span class="hljs-string">'./dest'</span>));
+});
+</code></pre>
+<p>The same result may be achieved with
+<a href="https://www.npmjs.com/package/postcss-load-config"><code>postcss-load-config</code></a>,
+because it receives <code>ctx</code> with the context options and the vinyl file.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> postcss = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-postcss'</span>);
+
+gulp.task(<span class="hljs-string">'css'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> contextOptions = { <span class="hljs-attr">modules</span>: <span class="hljs-literal">true</span> };
+    <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./src/*.css'</span>)
+        .pipe(postcss(contextOptions))
+        .pipe(gulp.dest(<span class="hljs-string">'./dest'</span>));
+});
+</code></pre>
+<pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ctx</span>) </span>{
+    <span class="hljs-keyword">var</span> file = ctx.file;
+    <span class="hljs-keyword">var</span> options = ctx.options;
+    <span class="hljs-keyword">return</span> {
+        <span class="hljs-attr">parser</span>: file.extname === <span class="hljs-string">'.sss'</span> ? : <span class="hljs-string">'sugarss'</span> : <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">plugins</span>: {
+           <span class="hljs-string">'postcss-import'</span>: { <span class="hljs-attr">root</span>: file.dirname }
+           <span class="hljs-string">'postcss-modules'</span>: options.modules ? {} : <span class="hljs-literal">false</span>
+        }
+    }
+})
+</code></pre>
+<div class="pilwrap" id="changelog">
+  <h2>
+    <a href="#changelog" name="changelog" class="pilcrow"></a>
+Changelog
+  </h2>
+</div>
+<ul>
+<li>
+<p>8.0.0</p>
+<ul>
+<li>Bump PostCSS to 7.0</li>
+<li>Drop Node 4 support</li>
+</ul>
+</li>
+<li>
+<p>7.0.1</p>
+<ul>
+<li>Drop dependency on gulp-util</li>
+</ul>
+</li>
+<li>
+<p>7.0.0</p>
+<ul>
+<li>Bump PostCSS to 6.0</li>
+<li>Smaller module size</li>
+<li>Use eslint instead of jshint</li>
+</ul>
+</li>
+<li>
+<p>6.4.0</p>
+<ul>
+<li>Add more details to <code>PluginError</code> object</li>
+</ul>
+</li>
+<li>
+<p>6.3.0</p>
+<ul>
+<li>Integrated with postcss-load-config</li>
+<li>Added a callback to configure postcss on per-file-basis</li>
+<li>Dropped node 0.10 support</li>
+</ul>
+</li>
+<li>
+<p>6.2.0</p>
+<ul>
+<li>Fix syntax error message for PostCSS 5.2 compatibility</li>
+</ul>
+</li>
+<li>
+<p>6.1.1</p>
+<ul>
+<li>Fixed the error output</li>
+</ul>
+</li>
+<li>
+<p>6.1.0</p>
+<ul>
+<li>Support for <code>null</code> files</li>
+<li>Updated dependencies</li>
+</ul>
+</li>
+<li>
+<p>6.0.1</p>
+<ul>
+<li>Added an example and a test to pass options to PostCSS (e.g. <code>syntax</code> option)</li>
+<li>Updated vinyl-sourcemaps-apply to 0.2.0</li>
+</ul>
+</li>
+<li>
+<p>6.0.0</p>
+<ul>
+<li>Updated PostCSS to version 5.0.0</li>
+</ul>
+</li>
+<li>
+<p>5.1.10</p>
+<ul>
+<li>Use autoprefixer in README</li>
+</ul>
+</li>
+<li>
+<p>5.1.9</p>
+<ul>
+<li>Prevent unhandled exception of the following pipes from being suppressed by Promise</li>
+</ul>
+</li>
+<li>
+<p>5.1.8</p>
+<ul>
+<li>Prevent stream’s unhandled exception from being suppressed by Promise</li>
+</ul>
+</li>
+<li>
+<p>5.1.7</p>
+<ul>
+<li>Updated direct dependencies</li>
+</ul>
+</li>
+<li>
+<p>5.1.6</p>
+<ul>
+<li>Updated <code>CssSyntaxError</code> check</li>
+</ul>
+</li>
+<li>
+<p>5.1.4</p>
+<ul>
+<li>Simplified error handling</li>
+<li>Simplified postcss execution with object plugins</li>
+</ul>
+</li>
+<li>
+<p>5.1.3 Updated travis banner</p>
+</li>
+<li>
+<p>5.1.2 Transferred repo into postcss org on github</p>
+</li>
+<li>
+<p>5.1.1</p>
+<ul>
+<li>Allow override of <code>to</code> option</li>
+</ul>
+</li>
+<li>
+<p>5.1.0 PostCSS Runner Guidelines</p>
+<ul>
+<li>Set <code>from</code> and <code>to</code> processing options</li>
+<li>Don't output js stack trace for <code>CssSyntaxError</code></li>
+<li>Display <code>result.warnings()</code> content</li>
+</ul>
+</li>
+<li>
+<p>5.0.1</p>
+<ul>
+<li>Fix to support object plugins</li>
+</ul>
+</li>
+<li>
+<p>5.0.0</p>
+<ul>
+<li>Use async API</li>
+</ul>
+</li>
+<li>
+<p>4.0.3</p>
+<ul>
+<li>Fixed bug with relative source map</li>
+</ul>
+</li>
+<li>
+<p>4.0.2</p>
+<ul>
+<li>Made PostCSS a simple dependency, because peer dependency is deprecated</li>
+</ul>
+</li>
+<li>
+<p>4.0.1</p>
+<ul>
+<li>Made PostCSS 4.x a peer dependency</li>
+</ul>
+</li>
+<li>
+<p>4.0.0</p>
+<ul>
+<li>Updated PostCSS to 4.0</li>
+</ul>
+</li>
+<li>
+<p>3.0.0</p>
+<ul>
+<li>Updated PostCSS to 3.0 and fixed tests</li>
+</ul>
+</li>
+<li>
+<p>2.0.1</p>
+<ul>
+<li>Added Changelog</li>
+<li>Added example for a custom processor in README</li>
+</ul>
+</li>
+<li>
+<p>2.0.0</p>
+<ul>
+<li>Disable source map by default</li>
+<li>Test source map</li>
+<li>Added Travis support</li>
+<li>Use autoprefixer-core in README</li>
+</ul>
+</li>
+<li>
+<p>1.0.2</p>
+<ul>
+<li>Improved README</li>
+</ul>
+</li>
+<li>
+<p>1.0.1</p>
+<ul>
+<li>Don't add source map comment if used with gulp-sourcemaps</li>
+</ul>
+</li>
+<li>
+<p>1.0.0</p>
+<ul>
+<li>Initial release</li>
+</ul>
+</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

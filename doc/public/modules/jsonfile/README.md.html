@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\jsonfile\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#node.js-jsonfile">Node.js - jsonfile</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#why">Why?</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#readfile-filename-options-callback">readFile(filename, [options], callback)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#readfilesync-filename-options">readFileSync(filename, [options])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#writefile-filename-obj-options-callback">writeFile(filename, obj, [options], callback)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#writefilesync-filename-obj-options">writeFileSync(filename, obj, [options])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#spaces">spaces</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="node.js-jsonfile">
+  <h1>
+    <a href="#node.js-jsonfile" name="node.js-jsonfile" class="pilcrow"></a>
+Node.js - jsonfile
+  </h1>
+</div>
+<p>Easily read/write JSON files.</p>
+<p><a href="https://www.npmjs.org/package/jsonfile"><img src="https://img.shields.io/npm/v/jsonfile.svg?style=flat-square" alt="npm Package"></a>
+<a href="http://travis-ci.org/jprichardson/node-jsonfile"><img src="https://secure.travis-ci.org/jprichardson/node-jsonfile.svg" alt="build status"></a>
+<a href="https://ci.appveyor.com/project/jprichardson/node-jsonfile/branch/master"><img src="https://img.shields.io/appveyor/ci/jprichardson/node-jsonfile/master.svg?label=windows%20build" alt="windows Build status"></a></p>
+<p><a href="https://github.com/feross/standard"><img src="https://cdn.rawgit.com/feross/standard/master/sticker.svg" alt="Standard JavaScript" width="100"></a></p>
+<div class="pilwrap" id="why">
+  <h2>
+    <a href="#why" name="why" class="pilcrow"></a>
+Why?
+  </h2>
+</div>
+<p>Writing <code>JSON.stringify()</code> and then <code>fs.writeFile()</code> and <code>JSON.parse()</code> with <code>fs.readFile()</code> enclosed in <code>try/catch</code> blocks became annoying.</p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<pre><code>npm install --save jsonfile
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="readfile-filename-options-callback">
+  <h3>
+    <a href="#readfile-filename-options-callback" name="readfile-filename-options-callback" class="pilcrow"></a>
+readFile(filename, [options], callback)
+  </h3>
+</div>
+<p><code>options</code> (<code>object</code>, default <code>undefined</code>): Pass in any <code>fs.readFile</code> options or set <code>reviver</code> for a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse">JSON reviver</a>.</p>
+<ul>
+<li><code>throws</code> (<code>boolean</code>, default: <code>true</code>). If <code>JSON.parse</code> throws an error, pass this error to the callback.
+If <code>false</code>, returns <code>null</code> for the object.</li>
+</ul>
+<pre><code class="js"><span class="hljs-keyword">var</span> jsonfile = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonfile'</span>)
+<span class="hljs-keyword">var</span> file = <span class="hljs-string">'/tmp/data.json'</span>
+jsonfile.readFile(file, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, obj</span>) </span>{
+  <span class="hljs-built_in">console</span>.dir(obj)
+})
+</code></pre>
+<div class="pilwrap" id="readfilesync-filename-options">
+  <h3>
+    <a href="#readfilesync-filename-options" name="readfilesync-filename-options" class="pilcrow"></a>
+readFileSync(filename, [options])
+  </h3>
+</div>
+<p><code>options</code> (<code>object</code>, default <code>undefined</code>): Pass in any <code>fs.readFileSync</code> options or set <code>reviver</code> for a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse">JSON reviver</a>.</p>
+<ul>
+<li><code>throws</code> (<code>boolean</code>, default: <code>true</code>). If an error is encountered reading or parsing the file, throw the error. If <code>false</code>, returns <code>null</code> for the object.</li>
+</ul>
+<pre><code class="js"><span class="hljs-keyword">var</span> jsonfile = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonfile'</span>)
+<span class="hljs-keyword">var</span> file = <span class="hljs-string">'/tmp/data.json'</span>
+
+<span class="hljs-built_in">console</span>.dir(jsonfile.readFileSync(file))
+</code></pre>
+<div class="pilwrap" id="writefile-filename-obj-options-callback">
+  <h3>
+    <a href="#writefile-filename-obj-options-callback" name="writefile-filename-obj-options-callback" class="pilcrow"></a>
+writeFile(filename, obj, [options], callback)
+  </h3>
+</div>
+<p><code>options</code>: Pass in any <code>fs.writeFile</code> options or set <code>replacer</code> for a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify">JSON replacer</a>. Can also pass in <code>spaces</code>.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> jsonfile = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonfile'</span>)
+
+<span class="hljs-keyword">var</span> file = <span class="hljs-string">'/tmp/data.json'</span>
+<span class="hljs-keyword">var</span> obj = {<span class="hljs-attr">name</span>: <span class="hljs-string">'JP'</span>}
+
+jsonfile.writeFile(file, obj, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-built_in">console</span>.error(err)
+})
+</code></pre>
+<p><strong>formatting with spaces:</strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> jsonfile = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonfile'</span>)
+
+<span class="hljs-keyword">var</span> file = <span class="hljs-string">'/tmp/data.json'</span>
+<span class="hljs-keyword">var</span> obj = {<span class="hljs-attr">name</span>: <span class="hljs-string">'JP'</span>}
+
+jsonfile.writeFile(file, obj, {<span class="hljs-attr">spaces</span>: <span class="hljs-number">2</span>}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-built_in">console</span>.error(err)
+})
+</code></pre>
+<p><strong>appending to an existing JSON file:</strong></p>
+<p>You can use <code>fs.writeFile</code> option <code>{flag: 'a'}</code> to achieve this.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> jsonfile = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonfile'</span>)
+
+<span class="hljs-keyword">var</span> file = <span class="hljs-string">'/tmp/mayAlreadyExistedData.json'</span>
+<span class="hljs-keyword">var</span> obj = {<span class="hljs-attr">name</span>: <span class="hljs-string">'JP'</span>}
+
+jsonfile.writeFile(file, obj, {<span class="hljs-attr">flag</span>: <span class="hljs-string">'a'</span>}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-built_in">console</span>.error(err)
+})
+</code></pre>
+<div class="pilwrap" id="writefilesync-filename-obj-options">
+  <h3>
+    <a href="#writefilesync-filename-obj-options" name="writefilesync-filename-obj-options" class="pilcrow"></a>
+writeFileSync(filename, obj, [options])
+  </h3>
+</div>
+<p><code>options</code>: Pass in any <code>fs.writeFileSync</code> options or set <code>replacer</code> for a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify">JSON replacer</a>. Can also pass in <code>spaces</code>.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> jsonfile = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonfile'</span>)
+
+<span class="hljs-keyword">var</span> file = <span class="hljs-string">'/tmp/data.json'</span>
+<span class="hljs-keyword">var</span> obj = {<span class="hljs-attr">name</span>: <span class="hljs-string">'JP'</span>}
+
+jsonfile.writeFileSync(file, obj)
+</code></pre>
+<p><strong>formatting with spaces:</strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> jsonfile = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonfile'</span>)
+
+<span class="hljs-keyword">var</span> file = <span class="hljs-string">'/tmp/data.json'</span>
+<span class="hljs-keyword">var</span> obj = {<span class="hljs-attr">name</span>: <span class="hljs-string">'JP'</span>}
+
+jsonfile.writeFileSync(file, obj, {<span class="hljs-attr">spaces</span>: <span class="hljs-number">2</span>})
+</code></pre>
+<p><strong>appending to an existing JSON file:</strong></p>
+<p>You can use <code>fs.writeFileSync</code> option <code>{flag: 'a'}</code> to achieve this.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> jsonfile = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonfile'</span>)
+
+<span class="hljs-keyword">var</span> file = <span class="hljs-string">'/tmp/mayAlreadyExistedData.json'</span>
+<span class="hljs-keyword">var</span> obj = {<span class="hljs-attr">name</span>: <span class="hljs-string">'JP'</span>}
+
+jsonfile.writeFileSync(file, obj, {<span class="hljs-attr">flag</span>: <span class="hljs-string">'a'</span>})
+</code></pre>
+<div class="pilwrap" id="spaces">
+  <h3>
+    <a href="#spaces" name="spaces" class="pilcrow"></a>
+spaces
+  </h3>
+</div>
+<p>Global configuration to set spaces to indent JSON files.</p>
+<p><strong>default:</strong> <code>null</code></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> jsonfile = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonfile'</span>)
+
+jsonfile.spaces = <span class="hljs-number">4</span>
+
+<span class="hljs-keyword">var</span> file = <span class="hljs-string">'/tmp/data.json'</span>
+<span class="hljs-keyword">var</span> obj = {<span class="hljs-attr">name</span>: <span class="hljs-string">'JP'</span>}
+
+<span class="hljs-comment">// json file has four space indenting now</span>
+jsonfile.writeFile(file, obj, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-built_in">console</span>.error(err)
+})
+</code></pre>
+<p>Note, it's bound to <code>this.spaces</code>. So, if you do this:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> myObj = {}
+myObj.writeJsonSync = jsonfile.writeFileSync
+<span class="hljs-comment">// =&gt; this.spaces = null</span>
+</code></pre>
+<p>Could do the following:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> jsonfile = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonfile'</span>)
+jsonfile.spaces = <span class="hljs-number">4</span>
+jsonfile.writeFileSync(file, obj) <span class="hljs-comment">// will have 4 spaces indentation</span>
+
+<span class="hljs-keyword">var</span> myCrazyObj = {<span class="hljs-attr">spaces</span>: <span class="hljs-number">32</span>}
+myCrazyObj.writeJsonSync = jsonfile.writeFileSync
+myCrazyObj.writeJsonSync(file, obj) <span class="hljs-comment">// will have 32 space indentation</span>
+myCrazyObj.writeJsonSync(file, obj, {<span class="hljs-attr">spaces</span>: <span class="hljs-number">2</span>}) <span class="hljs-comment">// will have only 2</span>
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>(MIT License)</p>
+<p>Copyright 2012-2016, JP Richardson  <a href="mailto:jprichardson@gmail.com.html">jprichardson@gmail.com</a></p>
+</div>
+  </div>
+</body>
+</html>

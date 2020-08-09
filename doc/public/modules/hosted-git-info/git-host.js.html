@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>git-host.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\hosted-git-info\\git-host.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>git-host.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+<span class="hljs-keyword">var</span> gitHosts = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./git-host-info.js'</span>)
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>eslint-disable node/no-deprecated-api</p>
+</div>
+<div class="body">
+<p>// copy-pasta util._extend from node's source, to avoid pulling
+// the whole util module into peoples' webpack bundles.
+/* istanbul ignore next */</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> extend = <span class="hljs-built_in">Object</span>.assign || <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_extend</span> (<span class="hljs-params">target, source</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>Don't do anything if source isn't an object</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (source === <span class="hljs-literal">null</span> || <span class="hljs-keyword">typeof</span> source !== <span class="hljs-string">'object'</span>) <span class="hljs-keyword">return</span> target
+
+  <span class="hljs-keyword">var</span> keys = <span class="hljs-built_in">Object</span>.keys(source)
+  <span class="hljs-keyword">var</span> i = keys.length
+  <span class="hljs-keyword">while</span> (i--) {
+    target[keys[i]] = source[keys[i]]
+  }
+  <span class="hljs-keyword">return</span> target
+}
+
+<span class="hljs-built_in">module</span>.exports = GitHost
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">GitHost</span> (<span class="hljs-params">type, user, auth, project, committish, defaultRepresentation, opts</span>) </span>{
+  <span class="hljs-keyword">var</span> gitHostInfo = <span class="hljs-keyword">this</span>
+  gitHostInfo.type = type
+  <span class="hljs-built_in">Object</span>.keys(gitHosts[type]).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>{
+    gitHostInfo[key] = gitHosts[type][key]
+  })
+  gitHostInfo.user = user
+  gitHostInfo.auth = auth
+  gitHostInfo.project = project
+  gitHostInfo.committish = committish
+  gitHostInfo.default = defaultRepresentation
+  gitHostInfo.opts = opts || {}
+}
+
+GitHost.prototype.hash = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.committish ? <span class="hljs-string">'#'</span> + <span class="hljs-keyword">this</span>.committish : <span class="hljs-string">''</span>
+}
+
+GitHost.prototype._fill = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">template, opts</span>) </span>{
+  <span class="hljs-keyword">if</span> (!template) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">var</span> vars = extend({}, opts)
+  vars.path = vars.path ? vars.path.replace(<span class="hljs-regexp">/^[/]+/g</span>, <span class="hljs-string">''</span>) : <span class="hljs-string">''</span>
+  opts = extend(extend({}, <span class="hljs-keyword">this</span>.opts), opts)
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>
+  <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">if</span> (self[key] != <span class="hljs-literal">null</span> &amp;&amp; vars[key] == <span class="hljs-literal">null</span>) vars[key] = self[key]
+  })
+  <span class="hljs-keyword">var</span> rawAuth = vars.auth
+  <span class="hljs-keyword">var</span> rawcommittish = vars.committish
+  <span class="hljs-keyword">var</span> rawFragment = vars.fragment
+  <span class="hljs-keyword">var</span> rawPath = vars.path
+  <span class="hljs-keyword">var</span> rawProject = vars.project
+  <span class="hljs-built_in">Object</span>.keys(vars).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">var</span> value = vars[key]
+    <span class="hljs-keyword">if</span> ((key === <span class="hljs-string">'path'</span> || key === <span class="hljs-string">'project'</span>) &amp;&amp; <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'string'</span>) {
+      vars[key] = value.split(<span class="hljs-string">'/'</span>).map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pathComponent</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">encodeURIComponent</span>(pathComponent)
+      }).join(<span class="hljs-string">'/'</span>)
+    } <span class="hljs-keyword">else</span> {
+      vars[key] = <span class="hljs-built_in">encodeURIComponent</span>(value)
+    }
+  })
+  vars[<span class="hljs-string">'auth@'</span>] = rawAuth ? rawAuth + <span class="hljs-string">'@'</span> : <span class="hljs-string">''</span>
+  vars[<span class="hljs-string">'#fragment'</span>] = rawFragment ? <span class="hljs-string">'#'</span> + <span class="hljs-keyword">this</span>.hashformat(rawFragment) : <span class="hljs-string">''</span>
+  vars.fragment = vars.fragment ? vars.fragment : <span class="hljs-string">''</span>
+  vars[<span class="hljs-string">'#path'</span>] = rawPath ? <span class="hljs-string">'#'</span> + <span class="hljs-keyword">this</span>.hashformat(rawPath) : <span class="hljs-string">''</span>
+  vars[<span class="hljs-string">'/path'</span>] = vars.path ? <span class="hljs-string">'/'</span> + vars.path : <span class="hljs-string">''</span>
+  vars.projectPath = rawProject.split(<span class="hljs-string">'/'</span>).map(<span class="hljs-built_in">encodeURIComponent</span>).join(<span class="hljs-string">'/'</span>)
+  <span class="hljs-keyword">if</span> (opts.noCommittish) {
+    vars[<span class="hljs-string">'#committish'</span>] = <span class="hljs-string">''</span>
+    vars[<span class="hljs-string">'/tree/committish'</span>] = <span class="hljs-string">''</span>
+    vars[<span class="hljs-string">'/committish'</span>] = <span class="hljs-string">''</span>
+    vars.committish = <span class="hljs-string">''</span>
+  } <span class="hljs-keyword">else</span> {
+    vars[<span class="hljs-string">'#committish'</span>] = rawcommittish ? <span class="hljs-string">'#'</span> + rawcommittish : <span class="hljs-string">''</span>
+    vars[<span class="hljs-string">'/tree/committish'</span>] = vars.committish
+      ? <span class="hljs-string">'/'</span> + vars.treepath + <span class="hljs-string">'/'</span> + vars.committish
+      : <span class="hljs-string">''</span>
+    vars[<span class="hljs-string">'/committish'</span>] = vars.committish ? <span class="hljs-string">'/'</span> + vars.committish : <span class="hljs-string">''</span>
+    vars.committish = vars.committish || <span class="hljs-string">'master'</span>
+  }
+  <span class="hljs-keyword">var</span> res = template
+  <span class="hljs-built_in">Object</span>.keys(vars).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>{
+    res = res.replace(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'[{]'</span> + key + <span class="hljs-string">'[}]'</span>, <span class="hljs-string">'g'</span>), vars[key])
+  })
+  <span class="hljs-keyword">if</span> (opts.noGitPlus) {
+    <span class="hljs-keyword">return</span> res.replace(<span class="hljs-regexp">/^git[+]/</span>, <span class="hljs-string">''</span>)
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> res
+  }
+}
+
+GitHost.prototype.ssh = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._fill(<span class="hljs-keyword">this</span>.sshtemplate, opts)
+}
+
+GitHost.prototype.sshurl = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._fill(<span class="hljs-keyword">this</span>.sshurltemplate, opts)
+}
+
+GitHost.prototype.browse = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">P, F, opts</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> P === <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> F !== <span class="hljs-string">'string'</span>) {
+      opts = F
+      F = <span class="hljs-literal">null</span>
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._fill(<span class="hljs-keyword">this</span>.browsefiletemplate, extend({
+      <span class="hljs-attr">fragment</span>: F,
+      <span class="hljs-attr">path</span>: P
+    }, opts))
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._fill(<span class="hljs-keyword">this</span>.browsetemplate, P)
+  }
+}
+
+GitHost.prototype.docs = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._fill(<span class="hljs-keyword">this</span>.docstemplate, opts)
+}
+
+GitHost.prototype.bugs = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._fill(<span class="hljs-keyword">this</span>.bugstemplate, opts)
+}
+
+GitHost.prototype.https = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._fill(<span class="hljs-keyword">this</span>.httpstemplate, opts)
+}
+
+GitHost.prototype.git = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._fill(<span class="hljs-keyword">this</span>.gittemplate, opts)
+}
+
+GitHost.prototype.shortcut = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._fill(<span class="hljs-keyword">this</span>.shortcuttemplate, opts)
+}
+
+GitHost.prototype.path = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._fill(<span class="hljs-keyword">this</span>.pathtemplate, opts)
+}
+
+GitHost.prototype.tarball = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts_</span>) </span>{
+  <span class="hljs-keyword">var</span> opts = extend({}, opts_, { <span class="hljs-attr">noCommittish</span>: <span class="hljs-literal">false</span> })
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._fill(<span class="hljs-keyword">this</span>.tarballtemplate, opts)
+}
+
+GitHost.prototype.file = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">P, opts</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._fill(<span class="hljs-keyword">this</span>.filetemplate, extend({ <span class="hljs-attr">path</span>: P }, opts))
+}
+
+GitHost.prototype.getDefaultRepresentation = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.default
+}
+
+GitHost.prototype.toString = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.default &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span>[<span class="hljs-keyword">this</span>.default] === <span class="hljs-string">'function'</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-keyword">this</span>.default](opts)
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.sshurl(opts)
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

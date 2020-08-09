@@ -1,0 +1,2977 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\lodash.template\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Lodash (Custom Build) <a href="https://lodash.com/">https://lodash.com/</a>
+Build: <code>lodash modularize exports=&quot;npm&quot; -o ./</code>
+Copyright OpenJS Foundation and other contributors <a href="https://openjsf.org/">https://openjsf.org/</a>
+Released under MIT license <a href="https://lodash.com/license">https://lodash.com/license</a>
+Based on Underscore.js 1.8.3 <a href="http://underscorejs.org/LICENSE">http://underscorejs.org/LICENSE</a>
+Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters &amp; Editors</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> reInterpolate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash._reinterpolate'</span>),
+    templateSettings = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash.templatesettings'</span>);
+
+<span class="hljs-comment">/** Used to detect hot functions by number of calls within a span of milliseconds. */</span>
+<span class="hljs-keyword">var</span> HOT_COUNT = <span class="hljs-number">800</span>,
+    HOT_SPAN = <span class="hljs-number">16</span>;
+
+<span class="hljs-comment">/** Used as references for various `Number` constants. */</span>
+<span class="hljs-keyword">var</span> INFINITY = <span class="hljs-number">1</span> / <span class="hljs-number">0</span>,
+    MAX_SAFE_INTEGER = <span class="hljs-number">9007199254740991</span>;
+
+<span class="hljs-comment">/** `Object#toString` result references. */</span>
+<span class="hljs-keyword">var</span> argsTag = <span class="hljs-string">'[object Arguments]'</span>,
+    arrayTag = <span class="hljs-string">'[object Array]'</span>,
+    asyncTag = <span class="hljs-string">'[object AsyncFunction]'</span>,
+    boolTag = <span class="hljs-string">'[object Boolean]'</span>,
+    dateTag = <span class="hljs-string">'[object Date]'</span>,
+    domExcTag = <span class="hljs-string">'[object DOMException]'</span>,
+    errorTag = <span class="hljs-string">'[object Error]'</span>,
+    funcTag = <span class="hljs-string">'[object Function]'</span>,
+    genTag = <span class="hljs-string">'[object GeneratorFunction]'</span>,
+    mapTag = <span class="hljs-string">'[object Map]'</span>,
+    numberTag = <span class="hljs-string">'[object Number]'</span>,
+    nullTag = <span class="hljs-string">'[object Null]'</span>,
+    objectTag = <span class="hljs-string">'[object Object]'</span>,
+    proxyTag = <span class="hljs-string">'[object Proxy]'</span>,
+    regexpTag = <span class="hljs-string">'[object RegExp]'</span>,
+    setTag = <span class="hljs-string">'[object Set]'</span>,
+    stringTag = <span class="hljs-string">'[object String]'</span>,
+    symbolTag = <span class="hljs-string">'[object Symbol]'</span>,
+    undefinedTag = <span class="hljs-string">'[object Undefined]'</span>,
+    weakMapTag = <span class="hljs-string">'[object WeakMap]'</span>;
+
+<span class="hljs-keyword">var</span> arrayBufferTag = <span class="hljs-string">'[object ArrayBuffer]'</span>,
+    dataViewTag = <span class="hljs-string">'[object DataView]'</span>,
+    float32Tag = <span class="hljs-string">'[object Float32Array]'</span>,
+    float64Tag = <span class="hljs-string">'[object Float64Array]'</span>,
+    int8Tag = <span class="hljs-string">'[object Int8Array]'</span>,
+    int16Tag = <span class="hljs-string">'[object Int16Array]'</span>,
+    int32Tag = <span class="hljs-string">'[object Int32Array]'</span>,
+    uint8Tag = <span class="hljs-string">'[object Uint8Array]'</span>,
+    uint8ClampedTag = <span class="hljs-string">'[object Uint8ClampedArray]'</span>,
+    uint16Tag = <span class="hljs-string">'[object Uint16Array]'</span>,
+    uint32Tag = <span class="hljs-string">'[object Uint32Array]'</span>;
+
+<span class="hljs-comment">/** Used to match empty string literals in compiled template source. */</span>
+<span class="hljs-keyword">var</span> reEmptyStringLeading = <span class="hljs-regexp">/\b__p \+= '';/g</span>,
+    reEmptyStringMiddle = <span class="hljs-regexp">/\b(__p \+=) '' \+/g</span>,
+    reEmptyStringTrailing = <span class="hljs-regexp">/(__e\(.*?\)|\b__t\)) \+\n'';/g</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Used to match <code>RegExp</code>
+<a href="http://ecma-international.org/ecma-262/7.0/#sec-patterns">syntax characters</a>.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> reRegExpChar = <span class="hljs-regexp">/[\\^$.*+?()[\]{}|]/g</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Used to match
+<a href="http://ecma-international.org/ecma-262/7.0/#sec-template-literal-lexical-components">ES template delimiters</a>.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> reEsTemplate = <span class="hljs-regexp">/\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g</span>;
+
+<span class="hljs-comment">/** Used to detect host constructors (Safari). */</span>
+<span class="hljs-keyword">var</span> reIsHostCtor = <span class="hljs-regexp">/^\[object .+?Constructor\]$/</span>;
+
+<span class="hljs-comment">/** Used to detect unsigned integer values. */</span>
+<span class="hljs-keyword">var</span> reIsUint = <span class="hljs-regexp">/^(?:0|[1-9]\d*)$/</span>;
+
+<span class="hljs-comment">/** Used to ensure capturing order of template delimiters. */</span>
+<span class="hljs-keyword">var</span> reNoMatch = <span class="hljs-regexp">/($^)/</span>;
+
+<span class="hljs-comment">/** Used to match unescaped characters in compiled string literals. */</span>
+<span class="hljs-keyword">var</span> reUnescapedString = <span class="hljs-regexp">/['\n\r\u2028\u2029\\]/g</span>;
+
+<span class="hljs-comment">/** Used to identify `toStringTag` values of typed arrays. */</span>
+<span class="hljs-keyword">var</span> typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+typedArrayTags[uint32Tag] = <span class="hljs-literal">true</span>;
+typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+typedArrayTags[errorTag] = typedArrayTags[funcTag] =
+typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
+typedArrayTags[setTag] = typedArrayTags[stringTag] =
+typedArrayTags[weakMapTag] = <span class="hljs-literal">false</span>;
+
+<span class="hljs-comment">/** Used to escape characters for inclusion in compiled string literals. */</span>
+<span class="hljs-keyword">var</span> stringEscapes = {
+  <span class="hljs-string">'\\'</span>: <span class="hljs-string">'\\'</span>,
+  <span class="hljs-string">"'"</span>: <span class="hljs-string">"'"</span>,
+  <span class="hljs-string">'\n'</span>: <span class="hljs-string">'n'</span>,
+  <span class="hljs-string">'\r'</span>: <span class="hljs-string">'r'</span>,
+  <span class="hljs-string">'\u2028'</span>: <span class="hljs-string">'u2028'</span>,
+  <span class="hljs-string">'\u2029'</span>: <span class="hljs-string">'u2029'</span>
+};
+
+<span class="hljs-comment">/** Detect free variable `global` from Node.js. */</span>
+<span class="hljs-keyword">var</span> freeGlobal = <span class="hljs-keyword">typeof</span> global == <span class="hljs-string">'object'</span> &amp;&amp; global &amp;&amp; global.Object === <span class="hljs-built_in">Object</span> &amp;&amp; global;
+
+<span class="hljs-comment">/** Detect free variable `self`. */</span>
+<span class="hljs-keyword">var</span> freeSelf = <span class="hljs-keyword">typeof</span> self == <span class="hljs-string">'object'</span> &amp;&amp; self &amp;&amp; self.Object === <span class="hljs-built_in">Object</span> &amp;&amp; self;
+
+<span class="hljs-comment">/** Used as a reference to the global object. */</span>
+<span class="hljs-keyword">var</span> root = freeGlobal || freeSelf || <span class="hljs-built_in">Function</span>(<span class="hljs-string">'return this'</span>)();
+
+<span class="hljs-comment">/** Detect free variable `exports`. */</span>
+<span class="hljs-keyword">var</span> freeExports = <span class="hljs-keyword">typeof</span> exports == <span class="hljs-string">'object'</span> &amp;&amp; exports &amp;&amp; !exports.nodeType &amp;&amp; exports;
+
+<span class="hljs-comment">/** Detect free variable `module`. */</span>
+<span class="hljs-keyword">var</span> freeModule = freeExports &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span> == <span class="hljs-string">'object'</span> &amp;&amp; <span class="hljs-built_in">module</span> &amp;&amp; !<span class="hljs-built_in">module</span>.nodeType &amp;&amp; <span class="hljs-built_in">module</span>;
+
+<span class="hljs-comment">/** Detect the popular CommonJS extension `module.exports`. */</span>
+<span class="hljs-keyword">var</span> moduleExports = freeModule &amp;&amp; freeModule.exports === freeExports;
+
+<span class="hljs-comment">/** Detect free variable `process` from Node.js. */</span>
+<span class="hljs-keyword">var</span> freeProcess = moduleExports &amp;&amp; freeGlobal.process;
+
+<span class="hljs-comment">/** Used to access faster Node.js helpers. */</span>
+<span class="hljs-keyword">var</span> nodeUtil = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">try</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Use <code>util.types</code> for Node.js 10+.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">var</span> types = freeModule &amp;&amp; freeModule.require &amp;&amp; freeModule.require(<span class="hljs-string">'util'</span>).types;
+
+    <span class="hljs-keyword">if</span> (types) {
+      <span class="hljs-keyword">return</span> types;
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>Legacy <code>process.binding('util')</code> for Node.js &lt; 10.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">return</span> freeProcess &amp;&amp; freeProcess.binding &amp;&amp; freeProcess.binding(<span class="hljs-string">'util'</span>);
+  } <span class="hljs-keyword">catch</span> (e) {}
+}());
+
+<span class="hljs-comment">/* Node.js helper references. */</span>
+<span class="hljs-keyword">var</span> nodeIsTypedArray = nodeUtil &amp;&amp; nodeUtil.isTypedArray;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>A faster alternative to <code>Function#apply</code>, this function invokes <code>func</code>
+with the <code>this</code> binding of <code>thisArg</code> and the arguments of <code>args</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to invoke.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">thisArg</span>
+<span>The <code>this</code> binding of <code>func</code>.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">args</span>
+<span class="dox_type">Array</span>
+<span>The arguments to invoke <code>func</code> with.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">apply</span>(<span class="hljs-params">func, thisArg, args</span>) </span>{
+  <span class="hljs-keyword">switch</span> (args.length) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-keyword">return</span> func.call(thisArg);
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-keyword">return</span> func.call(thisArg, args[<span class="hljs-number">0</span>]);
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: <span class="hljs-keyword">return</span> func.call(thisArg, args[<span class="hljs-number">0</span>], args[<span class="hljs-number">1</span>]);
+    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>: <span class="hljs-keyword">return</span> func.call(thisArg, args[<span class="hljs-number">0</span>], args[<span class="hljs-number">1</span>], args[<span class="hljs-number">2</span>]);
+  }
+  <span class="hljs-keyword">return</span> func.apply(thisArg, args);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>A specialized version of <code>_.map</code> for arrays without support for iteratee
+shorthands.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[array]</span>
+<span class="dox_type">Array</span>
+<span>The array to iterate over.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">iteratee</span>
+<span class="dox_type">Function</span>
+<span>The function invoked per iteration.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arrayMap</span>(<span class="hljs-params">array, iteratee</span>) </span>{
+  <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+      length = array == <span class="hljs-literal">null</span> ? <span class="hljs-number">0</span> : array.length,
+      result = <span class="hljs-built_in">Array</span>(length);
+
+  <span class="hljs-keyword">while</span> (++index &lt; length) {
+    result[index] = iteratee(array[index], index, array);
+  }
+  <span class="hljs-keyword">return</span> result;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.times</code> without support for iteratee shorthands
+or max array length checks.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">n</span>
+<span class="dox_type">number</span>
+<span>The number of times to invoke <code>iteratee</code>.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">iteratee</span>
+<span class="dox_type">Function</span>
+<span>The function invoked per iteration.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseTimes</span>(<span class="hljs-params">n, iteratee</span>) </span>{
+  <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+      result = <span class="hljs-built_in">Array</span>(n);
+
+  <span class="hljs-keyword">while</span> (++index &lt; n) {
+    result[index] = iteratee(index);
+  }
+  <span class="hljs-keyword">return</span> result;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.unary</code> without support for storing metadata.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to cap arguments for.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseUnary</span>(<span class="hljs-params">func</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> func(value);
+  };
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.values</code> and <code>_.valuesIn</code> which creates an
+array of <code>object</code> property values corresponding to the property names
+of <code>props</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">props</span>
+<span class="dox_type">Array</span>
+<span>The property names to get values for.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseValues</span>(<span class="hljs-params">object, props</span>) </span>{
+  <span class="hljs-keyword">return</span> arrayMap(props, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">return</span> object[key];
+  });
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Used by <code>_.template</code> to escape characters for inclusion in compiled string literals.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">chr</span>
+<span class="dox_type">string</span>
+<span>The matched character to escape.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">escapeStringChar</span>(<span class="hljs-params">chr</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-string">'\\'</span> + stringEscapes[chr];
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the value at <code>key</code> of <code>object</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[object]</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the property to get.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValue</span>(<span class="hljs-params">object, key</span>) </span>{
+  <span class="hljs-keyword">return</span> object == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : object[key];
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a unary function that invokes <code>func</code> with its argument transformed.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to wrap.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">transform</span>
+<span class="dox_type">Function</span>
+<span>The argument transform.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">overArg</span>(<span class="hljs-params">func, transform</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arg</span>) </span>{
+    <span class="hljs-keyword">return</span> func(transform(arg));
+  };
+}
+
+<span class="hljs-comment">/** Used for built-in method references. */</span>
+<span class="hljs-keyword">var</span> funcProto = <span class="hljs-built_in">Function</span>.prototype,
+    objectProto = <span class="hljs-built_in">Object</span>.prototype;
+
+<span class="hljs-comment">/** Used to detect overreaching core-js shims. */</span>
+<span class="hljs-keyword">var</span> coreJsData = root[<span class="hljs-string">'__core-js_shared__'</span>];
+
+<span class="hljs-comment">/** Used to resolve the decompiled source of functions. */</span>
+<span class="hljs-keyword">var</span> funcToString = funcProto.toString;
+
+<span class="hljs-comment">/** Used to check objects for own properties. */</span>
+<span class="hljs-keyword">var</span> hasOwnProperty = objectProto.hasOwnProperty;
+
+<span class="hljs-comment">/** Used to detect methods masquerading as native. */</span>
+<span class="hljs-keyword">var</span> maskSrcKey = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> uid = <span class="hljs-regexp">/[^.]+$/</span>.exec(coreJsData &amp;&amp; coreJsData.keys &amp;&amp; coreJsData.keys.IE_PROTO || <span class="hljs-string">''</span>);
+  <span class="hljs-keyword">return</span> uid ? (<span class="hljs-string">'Symbol(src)_1.'</span> + uid) : <span class="hljs-string">''</span>;
+}());
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Used to resolve the
+<a href="http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring"><code>toStringTag</code></a>
+of values.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> nativeObjectToString = objectProto.toString;
+
+<span class="hljs-comment">/** Used to infer the `Object` constructor. */</span>
+<span class="hljs-keyword">var</span> objectCtorString = funcToString.call(<span class="hljs-built_in">Object</span>);
+
+<span class="hljs-comment">/** Used to detect if a method is native. */</span>
+<span class="hljs-keyword">var</span> reIsNative = <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^'</span> +
+  funcToString.call(hasOwnProperty).replace(reRegExpChar, <span class="hljs-string">'\\$&amp;'</span>)
+  .replace(<span class="hljs-regexp">/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g</span>, <span class="hljs-string">'$1.*?'</span>) + <span class="hljs-string">'$'</span>
+);
+
+<span class="hljs-comment">/** Built-in value references. */</span>
+<span class="hljs-keyword">var</span> Buffer = moduleExports ? root.Buffer : <span class="hljs-literal">undefined</span>,
+    <span class="hljs-built_in">Symbol</span> = root.Symbol,
+    getPrototype = overArg(<span class="hljs-built_in">Object</span>.getPrototypeOf, <span class="hljs-built_in">Object</span>),
+    propertyIsEnumerable = objectProto.propertyIsEnumerable,
+    symToStringTag = <span class="hljs-built_in">Symbol</span> ? <span class="hljs-built_in">Symbol</span>.toStringTag : <span class="hljs-literal">undefined</span>;
+
+<span class="hljs-keyword">var</span> defineProperty = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">var</span> func = getNative(<span class="hljs-built_in">Object</span>, <span class="hljs-string">'defineProperty'</span>);
+    func({}, <span class="hljs-string">''</span>, {});
+    <span class="hljs-keyword">return</span> func;
+  } <span class="hljs-keyword">catch</span> (e) {}
+}());
+
+<span class="hljs-comment">/* Built-in method references for those with the same name as other `lodash` methods. */</span>
+<span class="hljs-keyword">var</span> nativeIsBuffer = Buffer ? Buffer.isBuffer : <span class="hljs-literal">undefined</span>,
+    nativeKeys = overArg(<span class="hljs-built_in">Object</span>.keys, <span class="hljs-built_in">Object</span>),
+    nativeMax = <span class="hljs-built_in">Math</span>.max,
+    nativeNow = <span class="hljs-built_in">Date</span>.now;
+
+<span class="hljs-comment">/** Used to convert symbols to primitives and strings. */</span>
+<span class="hljs-keyword">var</span> symbolProto = <span class="hljs-built_in">Symbol</span> ? <span class="hljs-built_in">Symbol</span>.prototype : <span class="hljs-literal">undefined</span>,
+    symbolToString = symbolProto ? symbolProto.toString : <span class="hljs-literal">undefined</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates an array of the enumerable property names of the array-like <code>value</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to query.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">inherited</span>
+<span class="dox_type">boolean</span>
+<span>Specify returning inherited property names.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arrayLikeKeys</span>(<span class="hljs-params">value, inherited</span>) </span>{
+  <span class="hljs-keyword">var</span> isArr = isArray(value),
+      isArg = !isArr &amp;&amp; isArguments(value),
+      isBuff = !isArr &amp;&amp; !isArg &amp;&amp; isBuffer(value),
+      isType = !isArr &amp;&amp; !isArg &amp;&amp; !isBuff &amp;&amp; isTypedArray(value),
+      skipIndexes = isArr || isArg || isBuff || isType,
+      result = skipIndexes ? baseTimes(value.length, <span class="hljs-built_in">String</span>) : [],
+      length = result.length;
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> value) {
+    <span class="hljs-keyword">if</span> ((inherited || hasOwnProperty.call(value, key)) &amp;&amp;
+        !(skipIndexes &amp;&amp; (
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>Safari 9 has enumerable <code>arguments.length</code> in strict mode.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">           key == <span class="hljs-string">'length'</span> ||
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<p>Node.js 0.10 has enumerable non-index properties on buffers.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">           (isBuff &amp;&amp; (key == <span class="hljs-string">'offset'</span> || key == <span class="hljs-string">'parent'</span>)) ||
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>PhantomJS 2 has enumerable non-index properties on typed arrays.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">           (isType &amp;&amp; (key == <span class="hljs-string">'buffer'</span> || key == <span class="hljs-string">'byteLength'</span> || key == <span class="hljs-string">'byteOffset'</span>)) ||
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>Skip index properties.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">           isIndex(key, length)
+        ))) {
+      result.push(key);
+    }
+  }
+  <span class="hljs-keyword">return</span> result;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Assigns <code>value</code> to <code>key</code> of <code>object</code> if the existing value is not equivalent
+using <a href="http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero"><code>SameValueZero</code></a>
+for equality comparisons.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to modify.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the property to assign.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to assign.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assignValue</span>(<span class="hljs-params">object, key, value</span>) </span>{
+  <span class="hljs-keyword">var</span> objValue = object[key];
+  <span class="hljs-keyword">if</span> (!(hasOwnProperty.call(object, key) &amp;&amp; eq(objValue, value)) ||
+      (value === <span class="hljs-literal">undefined</span> &amp;&amp; !(key <span class="hljs-keyword">in</span> object))) {
+    baseAssignValue(object, key, value);
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>assignValue</code> and <code>assignMergeValue</code> without
+value checks.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to modify.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the property to assign.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to assign.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseAssignValue</span>(<span class="hljs-params">object, key, value</span>) </span>{
+  <span class="hljs-keyword">if</span> (key == <span class="hljs-string">'__proto__'</span> &amp;&amp; defineProperty) {
+    defineProperty(object, key, {
+      <span class="hljs-string">'configurable'</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-string">'enumerable'</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-string">'value'</span>: value,
+      <span class="hljs-string">'writable'</span>: <span class="hljs-literal">true</span>
+    });
+  } <span class="hljs-keyword">else</span> {
+    object[key] = value;
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>getTag</code> without fallbacks for buggy environments.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseGetTag</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">if</span> (value == <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">return</span> value === <span class="hljs-literal">undefined</span> ? undefinedTag : nullTag;
+  }
+  <span class="hljs-keyword">return</span> (symToStringTag &amp;&amp; symToStringTag <span class="hljs-keyword">in</span> <span class="hljs-built_in">Object</span>(value))
+    ? getRawTag(value)
+    : objectToString(value);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.isArguments</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseIsArguments</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> isObjectLike(value) &amp;&amp; baseGetTag(value) == argsTag;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.isNative</code> without bad shim checks.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseIsNative</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">if</span> (!isObject(value) || isMasked(value)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+  <span class="hljs-keyword">var</span> pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+  <span class="hljs-keyword">return</span> pattern.test(toSource(value));
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.isTypedArray</code> without Node.js optimizations.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseIsTypedArray</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> isObjectLike(value) &amp;&amp;
+    isLength(value.length) &amp;&amp; !!typedArrayTags[baseGetTag(value)];
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.keys</code> which doesn't treat sparse arrays as dense.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseKeys</span>(<span class="hljs-params">object</span>) </span>{
+  <span class="hljs-keyword">if</span> (!isPrototype(object)) {
+    <span class="hljs-keyword">return</span> nativeKeys(object);
+  }
+  <span class="hljs-keyword">var</span> result = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> <span class="hljs-built_in">Object</span>(object)) {
+    <span class="hljs-keyword">if</span> (hasOwnProperty.call(object, key) &amp;&amp; key != <span class="hljs-string">'constructor'</span>) {
+      result.push(key);
+    }
+  }
+  <span class="hljs-keyword">return</span> result;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.keysIn</code> which doesn't treat sparse arrays as dense.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseKeysIn</span>(<span class="hljs-params">object</span>) </span>{
+  <span class="hljs-keyword">if</span> (!isObject(object)) {
+    <span class="hljs-keyword">return</span> nativeKeysIn(object);
+  }
+  <span class="hljs-keyword">var</span> isProto = isPrototype(object),
+      result = [];
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> object) {
+    <span class="hljs-keyword">if</span> (!(key == <span class="hljs-string">'constructor'</span> &amp;&amp; (isProto || !hasOwnProperty.call(object, key)))) {
+      result.push(key);
+    }
+  }
+  <span class="hljs-keyword">return</span> result;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.rest</code> which doesn't validate or coerce arguments.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to apply a rest parameter to.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[start=func.length-1]</span>
+<span class="dox_type">number</span>
+<span>The start position of the rest parameter.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseRest</span>(<span class="hljs-params">func, start</span>) </span>{
+  <span class="hljs-keyword">return</span> setToString(overRest(func, start, identity), func + <span class="hljs-string">''</span>);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>setToString</code> without support for hot loop shorting.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to modify.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">string</span>
+<span class="dox_type">Function</span>
+<span>The <code>toString</code> result.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> baseSetToString = !defineProperty ? identity : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">func, string</span>) </span>{
+  <span class="hljs-keyword">return</span> defineProperty(func, <span class="hljs-string">'toString'</span>, {
+    <span class="hljs-string">'configurable'</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">'enumerable'</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-string">'value'</span>: constant(string),
+    <span class="hljs-string">'writable'</span>: <span class="hljs-literal">true</span>
+  });
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.toString</code> which doesn't convert nullish
+values to empty strings.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to process.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseToString</span>(<span class="hljs-params">value</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
+</div>
+<p>Exit early for strings to avoid a performance hit in some environments.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">return</span> value;
+  }
+  <span class="hljs-keyword">if</span> (isArray(value)) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
+</div>
+<p>Recursively convert values (susceptible to call stack limits).</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">return</span> arrayMap(value, baseToString) + <span class="hljs-string">''</span>;
+  }
+  <span class="hljs-keyword">if</span> (isSymbol(value)) {
+    <span class="hljs-keyword">return</span> symbolToString ? symbolToString.call(value) : <span class="hljs-string">''</span>;
+  }
+  <span class="hljs-keyword">var</span> result = (value + <span class="hljs-string">''</span>);
+  <span class="hljs-keyword">return</span> (result == <span class="hljs-string">'0'</span> &amp;&amp; (<span class="hljs-number">1</span> / value) == -INFINITY) ? <span class="hljs-string">'-0'</span> : result;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Copies properties of <code>source</code> to <code>object</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">source</span>
+<span class="dox_type">Object</span>
+<span>The object to copy properties from.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">props</span>
+<span class="dox_type">Array</span>
+<span>The property identifiers to copy.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[object={}]</span>
+<span class="dox_type">Object</span>
+<span>The object to copy properties to.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[customizer]</span>
+<span class="dox_type">Function</span>
+<span>The function to customize copied values.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copyObject</span>(<span class="hljs-params">source, props, object, customizer</span>) </span>{
+  <span class="hljs-keyword">var</span> isNew = !object;
+  object || (object = {});
+
+  <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+      length = props.length;
+
+  <span class="hljs-keyword">while</span> (++index &lt; length) {
+    <span class="hljs-keyword">var</span> key = props[index];
+
+    <span class="hljs-keyword">var</span> newValue = customizer
+      ? customizer(object[key], source[key], key, object, source)
+      : <span class="hljs-literal">undefined</span>;
+
+    <span class="hljs-keyword">if</span> (newValue === <span class="hljs-literal">undefined</span>) {
+      newValue = source[key];
+    }
+    <span class="hljs-keyword">if</span> (isNew) {
+      baseAssignValue(object, key, newValue);
+    } <span class="hljs-keyword">else</span> {
+      assignValue(object, key, newValue);
+    }
+  }
+  <span class="hljs-keyword">return</span> object;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a function like <code>_.assign</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">assigner</span>
+<span class="dox_type">Function</span>
+<span>The function to assign values.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createAssigner</span>(<span class="hljs-params">assigner</span>) </span>{
+  <span class="hljs-keyword">return</span> baseRest(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, sources</span>) </span>{
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+        length = sources.length,
+        customizer = length &gt; <span class="hljs-number">1</span> ? sources[length - <span class="hljs-number">1</span>] : <span class="hljs-literal">undefined</span>,
+        guard = length &gt; <span class="hljs-number">2</span> ? sources[<span class="hljs-number">2</span>] : <span class="hljs-literal">undefined</span>;
+
+    customizer = (assigner.length &gt; <span class="hljs-number">3</span> &amp;&amp; <span class="hljs-keyword">typeof</span> customizer == <span class="hljs-string">'function'</span>)
+      ? (length--, customizer)
+      : <span class="hljs-literal">undefined</span>;
+
+    <span class="hljs-keyword">if</span> (guard &amp;&amp; isIterateeCall(sources[<span class="hljs-number">0</span>], sources[<span class="hljs-number">1</span>], guard)) {
+      customizer = length &lt; <span class="hljs-number">3</span> ? <span class="hljs-literal">undefined</span> : customizer;
+      length = <span class="hljs-number">1</span>;
+    }
+    object = <span class="hljs-built_in">Object</span>(object);
+    <span class="hljs-keyword">while</span> (++index &lt; length) {
+      <span class="hljs-keyword">var</span> source = sources[index];
+      <span class="hljs-keyword">if</span> (source) {
+        assigner(object, source, index, customizer);
+      }
+    }
+    <span class="hljs-keyword">return</span> object;
+  });
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Used by <code>_.defaults</code> to customize its <code>_.assignIn</code> use to assign properties
+of source objects to the destination object for all destination properties
+that resolve to <code>undefined</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">objValue</span>
+<span>The destination value.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">srcValue</span>
+<span>The source value.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the property to assign.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The parent object of <code>objValue</code>.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">customDefaultsAssignIn</span>(<span class="hljs-params">objValue, srcValue, key, object</span>) </span>{
+  <span class="hljs-keyword">if</span> (objValue === <span class="hljs-literal">undefined</span> ||
+      (eq(objValue, objectProto[key]) &amp;&amp; !hasOwnProperty.call(object, key))) {
+    <span class="hljs-keyword">return</span> srcValue;
+  }
+  <span class="hljs-keyword">return</span> objValue;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the native function at <code>key</code> of <code>object</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the method to get.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getNative</span>(<span class="hljs-params">object, key</span>) </span>{
+  <span class="hljs-keyword">var</span> value = getValue(object, key);
+  <span class="hljs-keyword">return</span> baseIsNative(value) ? value : <span class="hljs-literal">undefined</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>A specialized version of <code>baseGetTag</code> which ignores <code>Symbol.toStringTag</code> values.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getRawTag</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">var</span> isOwn = hasOwnProperty.call(value, symToStringTag),
+      tag = value[symToStringTag];
+
+  <span class="hljs-keyword">try</span> {
+    value[symToStringTag] = <span class="hljs-literal">undefined</span>;
+    <span class="hljs-keyword">var</span> unmasked = <span class="hljs-literal">true</span>;
+  } <span class="hljs-keyword">catch</span> (e) {}
+
+  <span class="hljs-keyword">var</span> result = nativeObjectToString.call(value);
+  <span class="hljs-keyword">if</span> (unmasked) {
+    <span class="hljs-keyword">if</span> (isOwn) {
+      value[symToStringTag] = tag;
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">delete</span> value[symToStringTag];
+    }
+  }
+  <span class="hljs-keyword">return</span> result;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a valid array-like index.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[length=MAX_SAFE_INTEGER]</span>
+<span class="dox_type">number</span>
+<span>The upper bounds of a valid index.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isIndex</span>(<span class="hljs-params">value, length</span>) </span>{
+  <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> value;
+  length = length == <span class="hljs-literal">null</span> ? MAX_SAFE_INTEGER : length;
+
+  <span class="hljs-keyword">return</span> !!length &amp;&amp;
+    (type == <span class="hljs-string">'number'</span> ||
+      (type != <span class="hljs-string">'symbol'</span> &amp;&amp; reIsUint.test(value))) &amp;&amp;
+        (value &gt; <span class="hljs-number">-1</span> &amp;&amp; value % <span class="hljs-number">1</span> == <span class="hljs-number">0</span> &amp;&amp; value &lt; length);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-39" id="section-39"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if the given arguments are from an iteratee call.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The potential iteratee value argument.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">index</span>
+<span>The potential iteratee index or key argument.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span>The potential iteratee object argument.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isIterateeCall</span>(<span class="hljs-params">value, index, object</span>) </span>{
+  <span class="hljs-keyword">if</span> (!isObject(object)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+  <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> index;
+  <span class="hljs-keyword">if</span> (type == <span class="hljs-string">'number'</span>
+        ? (isArrayLike(object) &amp;&amp; isIndex(index, object.length))
+        : (type == <span class="hljs-string">'string'</span> &amp;&amp; index <span class="hljs-keyword">in</span> object)
+      ) {
+    <span class="hljs-keyword">return</span> eq(object[index], value);
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-40" id="section-40"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>func</code> has its source masked.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isMasked</span>(<span class="hljs-params">func</span>) </span>{
+  <span class="hljs-keyword">return</span> !!maskSrcKey &amp;&amp; (maskSrcKey <span class="hljs-keyword">in</span> func);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-41" id="section-41"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is likely a prototype object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isPrototype</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">var</span> Ctor = value &amp;&amp; value.constructor,
+      proto = (<span class="hljs-keyword">typeof</span> Ctor == <span class="hljs-string">'function'</span> &amp;&amp; Ctor.prototype) || objectProto;
+
+  <span class="hljs-keyword">return</span> value === proto;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-42" id="section-42"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>This function is like
+<a href="http://ecma-international.org/ecma-262/7.0/#sec-object.keys"><code>Object.keys</code></a>
+except that it includes inherited enumerable properties.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nativeKeysIn</span>(<span class="hljs-params">object</span>) </span>{
+  <span class="hljs-keyword">var</span> result = [];
+  <span class="hljs-keyword">if</span> (object != <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> <span class="hljs-built_in">Object</span>(object)) {
+      result.push(key);
+    }
+  }
+  <span class="hljs-keyword">return</span> result;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Converts <code>value</code> to a string using <code>Object.prototype.toString</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to convert.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">objectToString</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> nativeObjectToString.call(value);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>A specialized version of <code>baseRest</code> which transforms the rest array.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to apply a rest parameter to.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[start=func.length-1]</span>
+<span class="dox_type">number</span>
+<span>The start position of the rest parameter.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">transform</span>
+<span class="dox_type">Function</span>
+<span>The rest array transform.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">overRest</span>(<span class="hljs-params">func, start, transform</span>) </span>{
+  start = nativeMax(start === <span class="hljs-literal">undefined</span> ? (func.length - <span class="hljs-number">1</span>) : start, <span class="hljs-number">0</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">arguments</span>,
+        index = <span class="hljs-number">-1</span>,
+        length = nativeMax(args.length - start, <span class="hljs-number">0</span>),
+        array = <span class="hljs-built_in">Array</span>(length);
+
+    <span class="hljs-keyword">while</span> (++index &lt; length) {
+      array[index] = args[start + index];
+    }
+    index = <span class="hljs-number">-1</span>;
+    <span class="hljs-keyword">var</span> otherArgs = <span class="hljs-built_in">Array</span>(start + <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">while</span> (++index &lt; start) {
+      otherArgs[index] = args[index];
+    }
+    otherArgs[start] = transform(array);
+    <span class="hljs-keyword">return</span> apply(func, <span class="hljs-keyword">this</span>, otherArgs);
+  };
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Sets the <code>toString</code> method of <code>func</code> to return <code>string</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to modify.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">string</span>
+<span class="dox_type">Function</span>
+<span>The <code>toString</code> result.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> setToString = shortOut(baseSetToString);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-46" id="section-46"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a function that'll short out and invoke <code>identity</code> instead
+of <code>func</code> when it's called <code>HOT_COUNT</code> or more times in <code>HOT_SPAN</code>
+milliseconds.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to restrict.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shortOut</span>(<span class="hljs-params">func</span>) </span>{
+  <span class="hljs-keyword">var</span> count = <span class="hljs-number">0</span>,
+      lastCalled = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> stamp = nativeNow(),
+        remaining = HOT_SPAN - (stamp - lastCalled);
+
+    lastCalled = stamp;
+    <span class="hljs-keyword">if</span> (remaining &gt; <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">if</span> (++count &gt;= HOT_COUNT) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>];
+      }
+    } <span class="hljs-keyword">else</span> {
+      count = <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-keyword">return</span> func.apply(<span class="hljs-literal">undefined</span>, <span class="hljs-built_in">arguments</span>);
+  };
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-47" id="section-47"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Converts <code>func</code> to its source code.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to convert.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toSource</span>(<span class="hljs-params">func</span>) </span>{
+  <span class="hljs-keyword">if</span> (func != <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">return</span> funcToString.call(func);
+    } <span class="hljs-keyword">catch</span> (e) {}
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">return</span> (func + <span class="hljs-string">''</span>);
+    } <span class="hljs-keyword">catch</span> (e) {}
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-48" id="section-48"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Performs a
+<a href="http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero"><code>SameValueZero</code></a>
+comparison between two values to determine if they are equivalent.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to compare.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">other</span>
+<span>The other value to compare.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">eq</span>(<span class="hljs-params">value, other</span>) </span>{
+  <span class="hljs-keyword">return</span> value === other || (value !== value &amp;&amp; other !== other);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-49" id="section-49"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is likely an <code>arguments</code> object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> isArguments = baseIsArguments(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">arguments</span>; }()) ? baseIsArguments : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> isObjectLike(value) &amp;&amp; hasOwnProperty.call(value, <span class="hljs-string">'callee'</span>) &amp;&amp;
+    !propertyIsEnumerable.call(value, <span class="hljs-string">'callee'</span>);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-50" id="section-50"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is classified as an <code>Array</code> object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> isArray = <span class="hljs-built_in">Array</span>.isArray;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-51" id="section-51"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is array-like. A value is considered array-like if it's
+not a function and has a <code>value.length</code> that's an integer greater than or
+equal to <code>0</code> and less than or equal to <code>Number.MAX_SAFE_INTEGER</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isArrayLike</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> value != <span class="hljs-literal">null</span> &amp;&amp; isLength(value.length) &amp;&amp; !isFunction(value);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-52" id="section-52"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a buffer.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> isBuffer = nativeIsBuffer || stubFalse;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-53" id="section-53"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is an <code>Error</code>, <code>EvalError</code>, <code>RangeError</code>, <code>ReferenceError</code>,
+<code>SyntaxError</code>, <code>TypeError</code>, or <code>URIError</code> object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isError</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">if</span> (!isObjectLike(value)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+  <span class="hljs-keyword">var</span> tag = baseGetTag(value);
+  <span class="hljs-keyword">return</span> tag == errorTag || tag == domExcTag ||
+    (<span class="hljs-keyword">typeof</span> value.message == <span class="hljs-string">'string'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> value.name == <span class="hljs-string">'string'</span> &amp;&amp; !isPlainObject(value));
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-54" id="section-54"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is classified as a <code>Function</code> object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isFunction</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">if</span> (!isObject(value)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-55" id="section-55"></a>
+</div>
+<p>The use of <code>Object#toString</code> avoids issues with the <code>typeof</code> operator
+in Safari 9 which returns 'object' for typed arrays and other constructors.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> tag = baseGetTag(value);
+  <span class="hljs-keyword">return</span> tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-56" id="section-56"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a valid array-like length.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> This method is loosely based on
+<a href="http://ecma-international.org/ecma-262/7.0/#sec-tolength"><code>ToLength</code></a>.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isLength</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'number'</span> &amp;&amp;
+    value &gt; <span class="hljs-number">-1</span> &amp;&amp; value % <span class="hljs-number">1</span> == <span class="hljs-number">0</span> &amp;&amp; value &lt;= MAX_SAFE_INTEGER;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-57" id="section-57"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is the
+<a href="http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types">language type</a>
+of <code>Object</code>. (e.g. arrays, functions, objects, regexes, <code>new Number(0)</code>, and <code>new String('')</code>)</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> value;
+  <span class="hljs-keyword">return</span> value != <span class="hljs-literal">null</span> &amp;&amp; (type == <span class="hljs-string">'object'</span> || type == <span class="hljs-string">'function'</span>);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-58" id="section-58"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is object-like. A value is object-like if it's not <code>null</code>
+and has a <code>typeof</code> result of &quot;object&quot;.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObjectLike</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> value != <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'object'</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-59" id="section-59"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a plain object, that is, an object created by the
+<code>Object</code> constructor or one with a <code>[[Prototype]]</code> of <code>null</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isPlainObject</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">if</span> (!isObjectLike(value) || baseGetTag(value) != objectTag) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+  <span class="hljs-keyword">var</span> proto = getPrototype(value);
+  <span class="hljs-keyword">if</span> (proto === <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+  <span class="hljs-keyword">var</span> Ctor = hasOwnProperty.call(proto, <span class="hljs-string">'constructor'</span>) &amp;&amp; proto.constructor;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> Ctor == <span class="hljs-string">'function'</span> &amp;&amp; Ctor <span class="hljs-keyword">instanceof</span> Ctor &amp;&amp;
+    funcToString.call(Ctor) == objectCtorString;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-60" id="section-60"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is classified as a <code>Symbol</code> primitive or object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSymbol</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'symbol'</span> ||
+    (isObjectLike(value) &amp;&amp; baseGetTag(value) == symbolTag);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-61" id="section-61"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is classified as a typed array.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-62" id="section-62"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Converts <code>value</code> to a string. An empty string is returned for <code>null</code>
+and <code>undefined</code> values. The sign of <code>-0</code> is preserved.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to convert.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toString</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> value == <span class="hljs-literal">null</span> ? <span class="hljs-string">''</span> : baseToString(value);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-63" id="section-63"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>This method is like <code>_.assignIn</code> except that it accepts <code>customizer</code>
+which is invoked to produce the assigned values. If <code>customizer</code> returns
+<code>undefined</code>, assignment is handled by the method instead. The <code>customizer</code>
+is invoked with five arguments: (objValue, srcValue, key, object, source).</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> This method mutates <code>object</code>.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The destination object.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">sources</span>
+<span class="dox_type">Object</span>
+<span>The source objects.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[customizer]</span>
+<span class="dox_type">Function</span>
+<span>The function to customize assigned values.
+</span>
+</div>
+<div class="dox_tag_title">See</div>
+<div class="dox_tag_detail">
+<span class="dox_type">_.assignWith</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> assignInWith = createAssigner(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, source, srcIndex, customizer</span>) </span>{
+  copyObject(source, keysIn(source), object, customizer);
+});
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-64" id="section-64"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates an array of the own enumerable property names of <code>object</code>.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> Non-object values are coerced to objects. See the
+<a href="http://ecma-international.org/ecma-262/7.0/#sec-object.keys">ES spec</a>
+for more details.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keys</span>(<span class="hljs-params">object</span>) </span>{
+  <span class="hljs-keyword">return</span> isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-65" id="section-65"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates an array of the own and inherited enumerable property names of <code>object</code>.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> Non-object values are coerced to objects.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keysIn</span>(<span class="hljs-params">object</span>) </span>{
+  <span class="hljs-keyword">return</span> isArrayLike(object) ? arrayLikeKeys(object, <span class="hljs-literal">true</span>) : baseKeysIn(object);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-66" id="section-66"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a compiled template function that can interpolate data properties
+in &quot;interpolate&quot; delimiters, HTML-escape interpolated data properties in
+&quot;escape&quot; delimiters, and execute JavaScript in &quot;evaluate&quot; delimiters. Data
+properties may be accessed as free variables in the template. If a setting
+object is given, it takes precedence over <code>_.templateSettings</code> values.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> In the development build <code>_.template</code> utilizes
+<a href="http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl">sourceURLs</a>
+for easier debugging.</p>
+<p>For more information on precompiling templates see
+<a href="https://lodash.com/custom-builds">lodash's custom builds documentation</a>.</p>
+<p>For more information on Chrome extension sandboxes see
+<a href="https://developer.chrome.com/extensions/sandboxingEval">Chrome's extensions documentation</a>.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[string=&#39;&#39;]</span>
+<span class="dox_type">string</span>
+<span>The template string.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[options={}]</span>
+<span class="dox_type">Object</span>
+<span>The options object.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[options.escape=_.templateSettings.escape]</span>
+<span class="dox_type">RegExp</span>
+<span>The HTML &quot;escape&quot; delimiter.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[options.evaluate=_.templateSettings.evaluate]</span>
+<span class="dox_type">RegExp</span>
+<span>The &quot;evaluate&quot; delimiter.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[options.imports=_.templateSettings.imports]</span>
+<span class="dox_type">Object</span>
+<span>An object to import into the template as free variables.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[options.interpolate=_.templateSettings.interpolate]</span>
+<span class="dox_type">RegExp</span>
+<span>The &quot;interpolate&quot; delimiter.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[options.sourceURL=&#39;templateSources[n]&#39;]</span>
+<span class="dox_type">string</span>
+<span>The sourceURL of the compiled template.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[options.variable=&#39;obj&#39;]</span>
+<span class="dox_type">string</span>
+<span>The data object variable name.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">template</span>(<span class="hljs-params">string, options, guard</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-67" id="section-67"></a>
+</div>
+<p>Based on John Resig's <code>tmpl</code> implementation
+(http://ejohn.org/blog/javascript-micro-templating/)
+and Laura Doktorova's doT.js (https://github.com/olado/doT).</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> settings = templateSettings.imports._.templateSettings || templateSettings;
+
+  <span class="hljs-keyword">if</span> (guard &amp;&amp; isIterateeCall(string, options, guard)) {
+    options = <span class="hljs-literal">undefined</span>;
+  }
+  string = toString(string);
+  options = assignInWith({}, options, settings, customDefaultsAssignIn);
+
+  <span class="hljs-keyword">var</span> imports = assignInWith({}, options.imports, settings.imports, customDefaultsAssignIn),
+      importsKeys = keys(imports),
+      importsValues = baseValues(imports, importsKeys);
+
+  <span class="hljs-keyword">var</span> isEscaping,
+      isEvaluating,
+      index = <span class="hljs-number">0</span>,
+      interpolate = options.interpolate || reNoMatch,
+      source = <span class="hljs-string">"__p += '"</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-68" id="section-68"></a>
+</div>
+<p>Compile the regexp to match each delimiter.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> reDelimiters = <span class="hljs-built_in">RegExp</span>(
+    (options.escape || reNoMatch).source + <span class="hljs-string">'|'</span> +
+    interpolate.source + <span class="hljs-string">'|'</span> +
+    (interpolate === reInterpolate ? reEsTemplate : reNoMatch).source + <span class="hljs-string">'|'</span> +
+    (options.evaluate || reNoMatch).source + <span class="hljs-string">'|$'</span>
+  , <span class="hljs-string">'g'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-69" id="section-69"></a>
+</div>
+<p>Use a sourceURL for easier debugging.
+The sourceURL gets injected into the source that's eval-ed, so be careful
+with lookup (in case of e.g. prototype pollution), and strip newlines if any.
+A newline wouldn't be a valid sourceURL anyway, and it'd enable code injection.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> sourceURL = hasOwnProperty.call(options, <span class="hljs-string">'sourceURL'</span>)
+    ? (<span class="hljs-string">'//# sourceURL='</span> +
+       (options.sourceURL + <span class="hljs-string">''</span>).replace(<span class="hljs-regexp">/[\r\n]/g</span>, <span class="hljs-string">' '</span>) +
+       <span class="hljs-string">'\n'</span>)
+    : <span class="hljs-string">''</span>;
+
+  string.replace(reDelimiters, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">match, escapeValue, interpolateValue, esTemplateValue, evaluateValue, offset</span>) </span>{
+    interpolateValue || (interpolateValue = esTemplateValue);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-70" id="section-70"></a>
+</div>
+<p>Escape characters that can't be included in string literals.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    source += string.slice(index, offset).replace(reUnescapedString, escapeStringChar);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-71" id="section-71"></a>
+</div>
+<p>Replace delimiters with snippets.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (escapeValue) {
+      isEscaping = <span class="hljs-literal">true</span>;
+      source += <span class="hljs-string">"' +\n__e("</span> + escapeValue + <span class="hljs-string">") +\n'"</span>;
+    }
+    <span class="hljs-keyword">if</span> (evaluateValue) {
+      isEvaluating = <span class="hljs-literal">true</span>;
+      source += <span class="hljs-string">"';\n"</span> + evaluateValue + <span class="hljs-string">";\n__p += '"</span>;
+    }
+    <span class="hljs-keyword">if</span> (interpolateValue) {
+      source += <span class="hljs-string">"' +\n((__t = ("</span> + interpolateValue + <span class="hljs-string">")) == null ? '' : __t) +\n'"</span>;
+    }
+    index = offset + match.length;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-72" id="section-72"></a>
+</div>
+<p>The JS engine embedded in Adobe products needs <code>match</code> returned in
+order to produce the correct <code>offset</code> value.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">return</span> match;
+  });
+
+  source += <span class="hljs-string">"';\n"</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-73" id="section-73"></a>
+</div>
+<p>If <code>variable</code> is not specified wrap a with-statement around the generated
+code to add the data object to the top of the scope chain.
+Like with sourceURL, we take care to not check the option's prototype,
+as this configuration is a code injection vector.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> variable = hasOwnProperty.call(options, <span class="hljs-string">'variable'</span>) &amp;&amp; options.variable;
+  <span class="hljs-keyword">if</span> (!variable) {
+    source = <span class="hljs-string">'with (obj) {\n'</span> + source + <span class="hljs-string">'\n}\n'</span>;
+  }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-74" id="section-74"></a>
+</div>
+<p>Cleanup code by stripping empty strings.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  source = (isEvaluating ? source.replace(reEmptyStringLeading, <span class="hljs-string">''</span>) : source)
+    .replace(reEmptyStringMiddle, <span class="hljs-string">'$1'</span>)
+    .replace(reEmptyStringTrailing, <span class="hljs-string">'$1;'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-75" id="section-75"></a>
+</div>
+<p>Frame code as the function body.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  source = <span class="hljs-string">'function('</span> + (variable || <span class="hljs-string">'obj'</span>) + <span class="hljs-string">') {\n'</span> +
+    (variable
+      ? <span class="hljs-string">''</span>
+      : <span class="hljs-string">'obj || (obj = {});\n'</span>
+    ) +
+    <span class="hljs-string">"var __t, __p = ''"</span> +
+    (isEscaping
+       ? <span class="hljs-string">', __e = _.escape'</span>
+       : <span class="hljs-string">''</span>
+    ) +
+    (isEvaluating
+      ? <span class="hljs-string">', __j = Array.prototype.join;\n'</span> +
+        <span class="hljs-string">"function print() { __p += __j.call(arguments, '') }\n"</span>
+      : <span class="hljs-string">';\n'</span>
+    ) +
+    source +
+    <span class="hljs-string">'return __p\n}'</span>;
+
+  <span class="hljs-keyword">var</span> result = attempt(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Function</span>(importsKeys, sourceURL + <span class="hljs-string">'return '</span> + source)
+      .apply(<span class="hljs-literal">undefined</span>, importsValues);
+  });
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-76" id="section-76"></a>
+</div>
+<p>Provide the compiled function's source by its <code>toString</code> method or
+the <code>source</code> property as a convenience for inlining compiled templates.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  result.source = source;
+  <span class="hljs-keyword">if</span> (isError(result)) {
+    <span class="hljs-keyword">throw</span> result;
+  }
+  <span class="hljs-keyword">return</span> result;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-77" id="section-77"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Attempts to invoke <code>func</code>, returning either the result or the caught error
+object. Any additional arguments are provided to <code>func</code> when it's invoked.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to attempt.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[args]</span>
+<span>The arguments to invoke <code>func</code> with.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> attempt = baseRest(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">func, args</span>) </span>{
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">return</span> apply(func, <span class="hljs-literal">undefined</span>, args);
+  } <span class="hljs-keyword">catch</span> (e) {
+    <span class="hljs-keyword">return</span> isError(e) ? e : <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(e);
+  }
+});
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-78" id="section-78"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a function that returns <code>value</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to return from the new function.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">constant</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> value;
+  };
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-79" id="section-79"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>This method returns the first argument it receives.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>Any value.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identity</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> value;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-80" id="section-80"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>This method returns <code>false</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stubFalse</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+
+<span class="hljs-built_in">module</span>.exports = template;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

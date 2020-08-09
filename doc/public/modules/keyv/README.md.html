@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\keyv\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#">
+	
+	
+	
+</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#features">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#namespaces">Namespaces</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#official-storage-adapters">Official Storage Adapters</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#third-party-storage-adapters">Third-party Storage Adapters</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#add-cache-support-to-your-module">Add Cache Support to your Module</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#new-keyv-uri-options">new Keyv([uri], [options])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#uri">uri</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.namespace">options.namespace</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.ttl">options.ttl</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.store">options.store</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.adapter">options.adapter</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#instance">Instance</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#.set-key-value-ttl">.set(key, value, [ttl])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#.get-key">.get(key)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#.delete-key">.delete(key)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#.clear">.clear()</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="">
+  <h1 align="center">
+    <a href="#" name="" class="pilcrow"></a>
+
+	<img width="250" src="https://rawgit.com/lukechilds/keyv/master/media/logo.svg" alt="keyv">
+	<br>
+	<br>
+
+  </h1>
+</div>
+<blockquote>
+<p>Simple key-value storage with support for multiple backends</p>
+</blockquote>
+<p><a href="https://travis-ci.org/lukechilds/keyv"><img src="https://travis-ci.org/lukechilds/keyv.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/github/lukechilds/keyv?branch=master"><img src="https://coveralls.io/repos/github/lukechilds/keyv/badge.svg?branch=master" alt="Coverage Status"></a>
+<a href="https://www.npmjs.com/package/keyv"><img src="https://img.shields.io/npm/v/keyv.svg" alt="npm"></a></p>
+<p>Keyv provides a consistent interface for key-value storage across multiple backends via storage adapters. It supports TTL based expiry, making it suitable as a cache or a persistent key-value store.</p>
+<div class="pilwrap" id="features">
+  <h2>
+    <a href="#features" name="features" class="pilcrow"></a>
+Features
+  </h2>
+</div>
+<p>There are a few existing modules similar to Keyv, however Keyv is different because it:</p>
+<ul>
+<li>Isn't bloated</li>
+<li>Has a simple Promise based API</li>
+<li>Suitable as a TTL based cache or persistent key-value store</li>
+<li><a href="#add-cache-support-to-your-module.html">Easily embeddable</a> inside another module</li>
+<li>Works with any storage that implements the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map"><code>Map</code></a> API</li>
+<li>Handles all JavaScript types (values can be <code>Buffer</code>/<code>null</code>/<code>undefined</code>)</li>
+<li>Supports namespaces</li>
+<li>Wide range of <a href="#official-storage-adapters.html"><strong>efficient, well tested</strong></a> storage adapters</li>
+<li>Connection errors are passed through (db failures won't kill your app)</li>
+<li>Supports the current active LTS version of Node.js or higher</li>
+</ul>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>Install Keyv.</p>
+<pre><code>npm install --save keyv
+</code></pre>
+<p>By default everything is stored in memory, you can optionally also install a storage adapter.</p>
+<pre><code>npm install --save @keyv/redis
+npm install --save @keyv/mongo
+npm install --save @keyv/sqlite
+npm install --save @keyv/postgres
+npm install --save @keyv/mysql
+</code></pre>
+<p>Create a new Keyv instance, passing your connection string if applicable. Keyv will automatically load the correct storage adapter.</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> Keyv = <span class="hljs-built_in">require</span>(<span class="hljs-string">'keyv'</span>);
+
+<span class="hljs-comment">// One of the following</span>
+<span class="hljs-keyword">const</span> keyv = <span class="hljs-keyword">new</span> Keyv();
+<span class="hljs-keyword">const</span> keyv = <span class="hljs-keyword">new</span> Keyv(<span class="hljs-string">'redis://user:pass@localhost:6379'</span>);
+<span class="hljs-keyword">const</span> keyv = <span class="hljs-keyword">new</span> Keyv(<span class="hljs-string">'mongodb://user:pass@localhost:27017/dbname'</span>);
+<span class="hljs-keyword">const</span> keyv = <span class="hljs-keyword">new</span> Keyv(<span class="hljs-string">'sqlite://path/to/database.sqlite'</span>);
+<span class="hljs-keyword">const</span> keyv = <span class="hljs-keyword">new</span> Keyv(<span class="hljs-string">'postgresql://user:pass@localhost:5432/dbname'</span>);
+<span class="hljs-keyword">const</span> keyv = <span class="hljs-keyword">new</span> Keyv(<span class="hljs-string">'mysql://user:pass@localhost:3306/dbname'</span>);
+
+<span class="hljs-comment">// Handle DB connection errors</span>
+keyv.on(<span class="hljs-string">'error'</span> err =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Connection Error'</span>, err));
+
+<span class="hljs-keyword">await</span> keyv.set(<span class="hljs-string">'foo'</span>, <span class="hljs-string">'expires in 1 second'</span>, <span class="hljs-number">1000</span>); <span class="hljs-comment">// true</span>
+<span class="hljs-keyword">await</span> keyv.set(<span class="hljs-string">'foo'</span>, <span class="hljs-string">'never expires'</span>); <span class="hljs-comment">// true</span>
+<span class="hljs-keyword">await</span> keyv.get(<span class="hljs-string">'foo'</span>); <span class="hljs-comment">// 'never expires'</span>
+<span class="hljs-keyword">await</span> keyv.delete(<span class="hljs-string">'foo'</span>); <span class="hljs-comment">// true</span>
+<span class="hljs-keyword">await</span> keyv.clear(); <span class="hljs-comment">// undefined</span>
+</code></pre>
+<div class="pilwrap" id="namespaces">
+  <h3>
+    <a href="#namespaces" name="namespaces" class="pilcrow"></a>
+Namespaces
+  </h3>
+</div>
+<p>You can namespace your Keyv instance to avoid key collisions and allow you to clear only a certain namespace while using the same database.</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> users = <span class="hljs-keyword">new</span> Keyv(<span class="hljs-string">'redis://user:pass@localhost:6379'</span>, { <span class="hljs-attr">namespace</span>: <span class="hljs-string">'users'</span> });
+<span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> Keyv(<span class="hljs-string">'redis://user:pass@localhost:6379'</span>, { <span class="hljs-attr">namespace</span>: <span class="hljs-string">'cache'</span> });
+
+<span class="hljs-keyword">await</span> users.set(<span class="hljs-string">'foo'</span>, <span class="hljs-string">'users'</span>); <span class="hljs-comment">// true</span>
+<span class="hljs-keyword">await</span> cache.set(<span class="hljs-string">'foo'</span>, <span class="hljs-string">'cache'</span>); <span class="hljs-comment">// true</span>
+<span class="hljs-keyword">await</span> users.get(<span class="hljs-string">'foo'</span>); <span class="hljs-comment">// 'users'</span>
+<span class="hljs-keyword">await</span> cache.get(<span class="hljs-string">'foo'</span>); <span class="hljs-comment">// 'cache'</span>
+<span class="hljs-keyword">await</span> users.clear(); <span class="hljs-comment">// undefined</span>
+<span class="hljs-keyword">await</span> users.get(<span class="hljs-string">'foo'</span>); <span class="hljs-comment">// undefined</span>
+<span class="hljs-keyword">await</span> cache.get(<span class="hljs-string">'foo'</span>); <span class="hljs-comment">// 'cache'</span>
+</code></pre>
+<div class="pilwrap" id="official-storage-adapters">
+  <h2>
+    <a href="#official-storage-adapters" name="official-storage-adapters" class="pilcrow"></a>
+Official Storage Adapters
+  </h2>
+</div>
+<p>The official storage adapters are covered by <a href="https://travis-ci.org/lukechilds/keyv/jobs/260418145">over 150 integration tests</a> to guarantee consistent behaviour. They are lightweight, efficient wrappers over the DB clients making use of indexes and native TTLs where available.</p>
+<table>
+<thead>
+<tr>
+<th>Database</th>
+<th>Adapter</th>
+<th>Native TTL</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Redis</td>
+<td><a href="https://github.com/lukechilds/keyv-redis">@keyv/redis</a></td>
+<td>Yes</td>
+<td><a href="https://travis-ci.org/lukechilds/keyv-redis"><img src="https://travis-ci.org/lukechilds/keyv-redis.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/lukechilds/keyv-redis?branch=master"><img src="https://coveralls.io/repos/github/lukechilds/keyv-redis/badge.svg?branch=master" alt="Coverage Status"></a></td>
+</tr>
+<tr>
+<td>MongoDB</td>
+<td><a href="https://github.com/lukechilds/keyv-mongo">@keyv/mongo</a></td>
+<td>Yes</td>
+<td><a href="https://travis-ci.org/lukechilds/keyv-mongo"><img src="https://travis-ci.org/lukechilds/keyv-mongo.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/lukechilds/keyv-mongo?branch=master"><img src="https://coveralls.io/repos/github/lukechilds/keyv-mongo/badge.svg?branch=master" alt="Coverage Status"></a></td>
+</tr>
+<tr>
+<td>SQLite</td>
+<td><a href="https://github.com/lukechilds/keyv-sqlite">@keyv/sqlite</a></td>
+<td>No</td>
+<td><a href="https://travis-ci.org/lukechilds/keyv-sqlite"><img src="https://travis-ci.org/lukechilds/keyv-sqlite.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/lukechilds/keyv-sqlite?branch=master"><img src="https://coveralls.io/repos/github/lukechilds/keyv-sqlite/badge.svg?branch=master" alt="Coverage Status"></a></td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td><a href="https://github.com/lukechilds/keyv-postgres">@keyv/postgres</a></td>
+<td>No</td>
+<td><a href="https://travis-ci.org/lukechildskeyv-postgreskeyv"><img src="https://travis-ci.org/lukechilds/keyv-postgres.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/lukechilds/keyv-postgres?branch=master"><img src="https://coveralls.io/repos/github/lukechilds/keyv-postgres/badge.svg?branch=master" alt="Coverage Status"></a></td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td><a href="https://github.com/lukechilds/keyv-mysql">@keyv/mysql</a></td>
+<td>No</td>
+<td><a href="https://travis-ci.org/lukechilds/keyv-mysql"><img src="https://travis-ci.org/lukechilds/keyv-mysql.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/lukechilds/keyv-mysql?branch=master"><img src="https://coveralls.io/repos/github/lukechilds/keyv-mysql/badge.svg?branch=master" alt="Coverage Status"></a></td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="third-party-storage-adapters">
+  <h2>
+    <a href="#third-party-storage-adapters" name="third-party-storage-adapters" class="pilcrow"></a>
+Third-party Storage Adapters
+  </h2>
+</div>
+<p>You can also use third-party storage adapters or build your own. Keyv will wrap these storage adapters in TTL functionality and handle complex types internally.</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> Keyv = <span class="hljs-built_in">require</span>(<span class="hljs-string">'keyv'</span>);
+<span class="hljs-keyword">const</span> myAdapter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./my-storage-adapter'</span>);
+
+<span class="hljs-keyword">const</span> keyv = <span class="hljs-keyword">new</span> Keyv({ <span class="hljs-attr">store</span>: myAdapter });
+</code></pre>
+<p>Any store that follows the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map"><code>Map</code></a> api will work.</p>
+<pre><code class="js"><span class="hljs-keyword">new</span> Keyv({ <span class="hljs-attr">store</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>() });
+</code></pre>
+<p>For example, <a href="https://github.com/sindresorhus/quick-lru"><code>quick-lru</code></a> is a completely unrelated module that implements the Map API.</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> Keyv = <span class="hljs-built_in">require</span>(<span class="hljs-string">'keyv'</span>);
+<span class="hljs-keyword">const</span> QuickLRU = <span class="hljs-built_in">require</span>(<span class="hljs-string">'quick-lru'</span>);
+
+<span class="hljs-keyword">const</span> lru = <span class="hljs-keyword">new</span> QuickLRU({ <span class="hljs-attr">maxSize</span>: <span class="hljs-number">1000</span> });
+<span class="hljs-keyword">const</span> keyv = <span class="hljs-keyword">new</span> Keyv({ <span class="hljs-attr">store</span>: lru });
+</code></pre>
+<div class="pilwrap" id="add-cache-support-to-your-module">
+  <h2>
+    <a href="#add-cache-support-to-your-module" name="add-cache-support-to-your-module" class="pilcrow"></a>
+Add Cache Support to your Module
+  </h2>
+</div>
+<p>Keyv is designed to be easily embedded into other modules to add cache support. The recommended pattern is to expose a <code>cache</code> option in your modules options which is passed through to Keyv. Caching will work in memory by default and users have the option to also install a Keyv storage adapter and pass in a connection string, or any other storage that implements the <code>Map</code> API.</p>
+<p>You should also set a namespace for your module so you can safely call <code>.clear()</code> without clearing unrelated app data.</p>
+<p>Inside your module:</p>
+<pre><code class="js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AwesomeModule</span> </span>{
+	<span class="hljs-keyword">constructor</span>(opts) {
+		<span class="hljs-keyword">this</span>.cache = <span class="hljs-keyword">new</span> Keyv({
+			<span class="hljs-attr">uri</span>: <span class="hljs-keyword">typeof</span> opts.cache === <span class="hljs-string">'string'</span> &amp;&amp; opts.cache,
+			<span class="hljs-attr">store</span>: <span class="hljs-keyword">typeof</span> opts.cache !== <span class="hljs-string">'string'</span> &amp;&amp; opts.cache,
+			<span class="hljs-attr">namespace</span>: <span class="hljs-string">'awesome-module'</span>
+		});
+	}
+}
+</code></pre>
+<p>Now it can be consumed like this:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> AwesomeModule = <span class="hljs-built_in">require</span>(<span class="hljs-string">'awesome-module'</span>);
+
+<span class="hljs-comment">// Caches stuff in memory by default</span>
+<span class="hljs-keyword">const</span> awesomeModule = <span class="hljs-keyword">new</span> AwesomeModule();
+
+<span class="hljs-comment">// After npm install --save keyv-redis</span>
+<span class="hljs-keyword">const</span> awesomeModule = <span class="hljs-keyword">new</span> AwesomeModule({ <span class="hljs-attr">cache</span>: <span class="hljs-string">'redis://localhost'</span> });
+
+<span class="hljs-comment">// Some third-party module that implements the Map API</span>
+<span class="hljs-keyword">const</span> awesomeModule = <span class="hljs-keyword">new</span> AwesomeModule({ <span class="hljs-attr">cache</span>: some3rdPartyStore });
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="new-keyv-uri-options">
+  <h3>
+    <a href="#new-keyv-uri-options" name="new-keyv-uri-options" class="pilcrow"></a>
+new Keyv([uri], [options])
+  </h3>
+</div>
+<p>Returns a new Keyv instance.</p>
+<p>The Keyv instance is also an <code>EventEmitter</code> that will emit an <code>'error'</code> event if the storage adapter connection fails.</p>
+<div class="pilwrap" id="uri">
+  <h3>
+    <a href="#uri" name="uri" class="pilcrow"></a>
+uri
+  </h3>
+</div>
+<p>Type: <code>String</code><br>
+Default: <code>undefined</code></p>
+<p>The connection string URI.</p>
+<p>Merged into the options object as options.uri.</p>
+<div class="pilwrap" id="options">
+  <h3>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h3>
+</div>
+<p>Type: <code>Object</code></p>
+<p>The options object is also passed through to the storage adapter. Check your storage adapter docs for any extra options.</p>
+<div class="pilwrap" id="options.namespace">
+  <h4>
+    <a href="#options.namespace" name="options.namespace" class="pilcrow"></a>
+options.namespace
+  </h4>
+</div>
+<p>Type: <code>String</code><br>
+Default: <code>'keyv'</code></p>
+<p>Namespace for the current instance.</p>
+<div class="pilwrap" id="options.ttl">
+  <h4>
+    <a href="#options.ttl" name="options.ttl" class="pilcrow"></a>
+options.ttl
+  </h4>
+</div>
+<p>Type: <code>Number</code><br>
+Default: <code>undefined</code></p>
+<p>Default TTL. Can be overridden by specififying a TTL on <code>.set()</code>.</p>
+<div class="pilwrap" id="options.store">
+  <h4>
+    <a href="#options.store" name="options.store" class="pilcrow"></a>
+options.store
+  </h4>
+</div>
+<p>Type: <code>Storage adapter instance</code><br>
+Default: <code>new Map()</code></p>
+<p>The storage adapter instance to be used by Keyv.</p>
+<div class="pilwrap" id="options.adapter">
+  <h4>
+    <a href="#options.adapter" name="options.adapter" class="pilcrow"></a>
+options.adapter
+  </h4>
+</div>
+<p>Type: <code>String</code><br>
+Default: <code>undefined</code></p>
+<p>Specify an adapter to use. e.g <code>'redis'</code> or <code>'mongodb'</code>.</p>
+<div class="pilwrap" id="instance">
+  <h3>
+    <a href="#instance" name="instance" class="pilcrow"></a>
+Instance
+  </h3>
+</div>
+<p>Keys must always be strings. Values can be of any type.</p>
+<div class="pilwrap" id=".set-key-value-ttl">
+  <h4>
+    <a href="#.set-key-value-ttl" name=".set-key-value-ttl" class="pilcrow"></a>
+.set(key, value, [ttl])
+  </h4>
+</div>
+<p>Set a value.</p>
+<p>By default keys are persistent. You can set an expiry TTL in milliseconds.</p>
+<p>Returns <code>true</code>.</p>
+<div class="pilwrap" id=".get-key">
+  <h4>
+    <a href="#.get-key" name=".get-key" class="pilcrow"></a>
+.get(key)
+  </h4>
+</div>
+<p>Returns the value.</p>
+<div class="pilwrap" id=".delete-key">
+  <h4>
+    <a href="#.delete-key" name=".delete-key" class="pilcrow"></a>
+.delete(key)
+  </h4>
+</div>
+<p>Deletes an entry.</p>
+<p>Returns <code>true</code> if the key existed, <code>false</code> if not.</p>
+<div class="pilwrap" id=".clear">
+  <h4>
+    <a href="#.clear" name=".clear" class="pilcrow"></a>
+.clear()
+  </h4>
+</div>
+<p>Delete all entries in the current namespace.</p>
+<p>Returns <code>undefined</code>.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © Luke Childs</p>
+</div>
+  </div>
+</body>
+</html>

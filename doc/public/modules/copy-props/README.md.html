@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\copy-props\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#copy-props">copy-props     </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#load-this-module">Load this module</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#copyprops-src-dst-fromto-converter-reverse-greater-object">copyProps(src, dst [, fromto] [, converter] [, reverse]) =&amp;gt; object</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#parameters">Parameters:</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#returns">Returns:</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="copy-props">
+  <h1>
+    <a href="#copy-props" name="copy-props" class="pilcrow"></a>
+<a href="https://github.com/sttk/copy-props/">copy-props</a> <a href="https://www.npmjs.org/package/copy-props/"><img src="https://img.shields.io/badge/npm-v2.0.4-blue.svg" alt="NPM"></a> <a href="https://opensource.org/licenses.MIT"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT License"></a> <a href="https://travis-ci.org/sttk/copy-props"><img src="https://travis-ci.org/sttk/copy-props.svg?branch=master" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/sttk/copy-props"><img src="https://ci.appveyor.com/api/projects/status/github/sttk/copy-props?branch=master&amp;svg=true" alt="Build Status"></a> <a href="https://coveralls.io/github/sttk/copy-props?branch=master"><img src="https://coveralls.io/repos/github/sttk/copy-props/badge.svg?branch=master" alt="Coverage Status"></a>
+  </h1>
+</div>
+<p>Copy properties between two objects deeply.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>To install from npm:</p>
+<pre><code class="sh">$ npm i copy-props --save
+</code></pre>
+<div class="pilwrap" id="load-this-module">
+  <h2>
+    <a href="#load-this-module" name="load-this-module" class="pilcrow"></a>
+Load this module
+  </h2>
+</div>
+<p>For Node.js:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> copyProps = <span class="hljs-built_in">require</span>(<span class="hljs-string">'copy-props'</span>);
+</code></pre>
+<p>For Web browser:</p>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"copy-props.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>Copy <em>src</em> to <em>dst</em> simply (and return <em>dst</em>) :</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> src = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: { <span class="hljs-attr">b1</span>: <span class="hljs-string">'bbb'</span> }, <span class="hljs-attr">c</span>: <span class="hljs-string">'ccc'</span> };
+<span class="hljs-keyword">var</span> dst = { <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">b</span>: { <span class="hljs-attr">b1</span>: <span class="hljs-string">'xxx'</span>, <span class="hljs-attr">b2</span>: <span class="hljs-string">'yyy'</span> } };
+
+copyProps(src, dst);
+<span class="hljs-comment">// =&gt; { a: 1, b: { b1: 'bbb', b2: 'yyy' }, c: 'ccc' }</span>
+</code></pre>
+<p>Copy <em>src</em> to <em>dst</em> with property mapping (and return <em>dst</em>) :</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> src = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: { <span class="hljs-attr">b1</span>: <span class="hljs-string">'bbb'</span> }, <span class="hljs-attr">c</span>: <span class="hljs-string">'ccc'</span>, <span class="hljs-attr">d</span>: <span class="hljs-string">'ddd'</span> };
+<span class="hljs-keyword">var</span> dst = { <span class="hljs-attr">f</span>: { <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">b1</span>: <span class="hljs-string">'xxx'</span>, <span class="hljs-attr">b2</span>: <span class="hljs-string">'yyy'</span> }, <span class="hljs-attr">e</span>: <span class="hljs-string">'zzz'</span> };
+
+copyProps(src, dst, {
+  <span class="hljs-attr">a</span>: <span class="hljs-string">'f.a'</span>,
+  <span class="hljs-string">'b.b1'</span>: <span class="hljs-string">'f.b1'</span>,
+  <span class="hljs-string">'b.b2'</span>: <span class="hljs-string">'f.b2'</span>,
+  <span class="hljs-string">'c'</span>: <span class="hljs-string">'f.c'</span>,
+});
+<span class="hljs-comment">// =&gt; { f: { a: 1, b1: 'bbb', b2: 'yyy', c: 'ccc' }, e: 'zzz' }</span>
+</code></pre>
+<p>Copy <em>src</em> to <em>dst</em> with convert function (and return <em>dst</em>) :</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> src = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: { <span class="hljs-attr">b1</span>: <span class="hljs-string">'bbb'</span> } };
+<span class="hljs-keyword">var</span> dst = { <span class="hljs-attr">a</span>: <span class="hljs-number">0</span> };
+
+copyProps(src, dst, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">srcInfo</span>) </span>{
+  <span class="hljs-keyword">if</span> (srcInfo.keyChain === <span class="hljs-string">'a'</span>) {
+    <span class="hljs-keyword">return</span> srcInfo.value * <span class="hljs-number">2</span>;
+  }
+  <span class="hljs-keyword">if</span> (srcInfo.keyChain === <span class="hljs-string">'b.b1'</span>) {
+    <span class="hljs-keyword">return</span> srcInfo.value.toUpperCase();
+  }
+});
+<span class="hljs-comment">// =&gt; { a: 2, b: { b1: 'BBB' } }</span>
+</code></pre>
+<p>Can use an array instead of a map as property mapping :</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> src = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: { <span class="hljs-attr">c</span>: <span class="hljs-string">'CCC'</span> }, <span class="hljs-attr">d</span>: { <span class="hljs-attr">e</span>: <span class="hljs-string">'EEE'</span> } };
+<span class="hljs-keyword">var</span> dst = { <span class="hljs-attr">a</span>: <span class="hljs-number">9</span>, <span class="hljs-attr">b</span>: { <span class="hljs-attr">c</span>: <span class="hljs-string">'xxx'</span> }, <span class="hljs-attr">d</span>: { <span class="hljs-attr">e</span>: <span class="hljs-string">'yyy'</span> } };
+<span class="hljs-keyword">var</span> fromto = [ <span class="hljs-string">'b.c'</span>, <span class="hljs-string">'d.e'</span> ];
+copyProps(src, dst, fromto);
+<span class="hljs-comment">// =&gt; { a: 9, b: { c: 'CCC' }, d: { e: 'EEE' } }</span>
+</code></pre>
+<p>Can copy reversively (from <em>dst</em> to <em>src</em>) by reverse flag (and return <em>src</em>):</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> src = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: { <span class="hljs-attr">b1</span>: <span class="hljs-string">'bbb'</span> }, <span class="hljs-attr">c</span>: <span class="hljs-string">'ccc'</span> };
+<span class="hljs-keyword">var</span> dst = { <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">b</span>: { <span class="hljs-attr">b1</span>: <span class="hljs-string">'xxx'</span>, <span class="hljs-attr">b2</span>: <span class="hljs-string">'yyy'</span> } };
+
+copyProps(src, dst, <span class="hljs-literal">true</span>);
+<span class="hljs-comment">// =&gt; { a: 2, b: { b1: 'xxx', b2: 'yyy' }, c: 'ccc' }</span>
+</code></pre>
+<pre><code class="js"><span class="hljs-keyword">var</span> src = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: { <span class="hljs-attr">b1</span>: <span class="hljs-string">'bbb'</span> }, <span class="hljs-attr">c</span>: <span class="hljs-string">'ccc'</span>, <span class="hljs-attr">d</span>: <span class="hljs-string">'ddd'</span> };
+<span class="hljs-keyword">var</span> dst = { <span class="hljs-attr">f</span>: { <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">b1</span>: <span class="hljs-string">'xxx'</span>, <span class="hljs-attr">b2</span>: <span class="hljs-string">'yyy'</span> }, <span class="hljs-attr">e</span>: <span class="hljs-string">'zzz'</span> };
+
+copyProps(src, dst, {
+  <span class="hljs-attr">a</span>: <span class="hljs-string">'f.a'</span>,
+  <span class="hljs-string">'b.b2'</span>: <span class="hljs-string">'f.b2'</span>,
+  <span class="hljs-string">'c'</span>: <span class="hljs-string">'f.c'</span>,
+}, <span class="hljs-literal">true</span>);
+<span class="hljs-comment">// =&gt; { a: 2, b: { b1: 'bbb', b2: 'yyy' }, c: 'ccc', d: 'ddd' }</span>
+</code></pre>
+<p>If a value of source property is undefined (when not using converter), or a result of converter is undefined (when using converter), the value is not copied.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> src = { <span class="hljs-attr">a</span>: <span class="hljs-string">'A'</span>, <span class="hljs-attr">b</span>: <span class="hljs-literal">undefined</span>, <span class="hljs-attr">c</span>: <span class="hljs-literal">null</span>, <span class="hljs-attr">d</span>: <span class="hljs-number">1</span> };
+<span class="hljs-keyword">var</span> dst = { <span class="hljs-attr">a</span>: <span class="hljs-string">'a'</span>, <span class="hljs-attr">b</span>: <span class="hljs-string">'b'</span>, <span class="hljs-attr">c</span>: <span class="hljs-string">'c'</span> };
+
+copyProps(src, dst, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">srcInfo</span>) </span>{
+  <span class="hljs-keyword">if</span> (srcInfo.keyChain === <span class="hljs-string">'d'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> srcInfo.value;
+  }
+});
+<span class="hljs-comment">// =&gt; { a: 'A', b: 'b', c: null }</span>
+</code></pre>
+<p>You can operate the parent node object directly in converter.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> src = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> };
+<span class="hljs-keyword">var</span> dst = {};
+
+copyProps(src, dst, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">srcInfo, dstInfo</span>) </span>{
+  <span class="hljs-built_in">Object</span>.defineProperty(dstInfo.parent, dstInfo.key, {
+    <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">value</span>: srcInfo.value * <span class="hljs-number">2</span>
+  })
+}); <span class="hljs-comment">// =&gt; { a: 2, b: 4 }</span>
+
+dst <span class="hljs-comment">// =&gt; { a: 2, b: 4 }</span>
+dst.a = <span class="hljs-number">9</span>
+dst <span class="hljs-comment">// -&gt; { a: 2, b: 4 }</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="copyprops-src-dst-fromto-converter-reverse-greater-object">
+  <h3>
+    <a href="#copyprops-src-dst-fromto-converter-reverse-greater-object" name="copyprops-src-dst-fromto-converter-reverse-greater-object" class="pilcrow"></a>
+<u>copyProps(src, dst [, fromto] [, converter] [, reverse]) =&gt; object</u>
+  </h3>
+</div>
+<p>Copy properties of <em>src</em> to <em>dst</em> deeply.
+If <em>fromto</em> is given, it is able to copy between different properties.
+If <em>converter</em> is given, it is able to convert the terminal values.</p>
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" name="parameters" class="pilcrow"></a>
+Parameters:
+  </h4>
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><em>src</em></td>
+<td style="text-align:center">object</td>
+<td style="text-align:left">A source object of copy.</td>
+</tr>
+<tr>
+<td style="text-align:left"><em>dst</em></td>
+<td style="text-align:center">object</td>
+<td style="text-align:left">A destinate object of copy.</td>
+</tr>
+<tr>
+<td style="text-align:left"><em>fromto</em></td>
+<td style="text-align:center">object | array</td>
+<td style="text-align:left">An object mapping properties between <em>src</em> and <em>dst</em>. (Optional)</td>
+</tr>
+<tr>
+<td style="text-align:left"><em>converter</em></td>
+<td style="text-align:center">function</td>
+<td style="text-align:left">A function to convert terminal values in <em>src</em>. (Optional)</td>
+</tr>
+<tr>
+<td style="text-align:left"><em>reverse</em></td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:left">True, if copying reversively from dst to src and returns src object. <code>fromto</code> is also reversively used from value to key. This default value is <code>false</code>. (Optional)</td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="returns">
+  <h4>
+    <a href="#returns" name="returns" class="pilcrow"></a>
+Returns:
+  </h4>
+</div>
+<p><em>dst</em> object after copying.</p>
+<p><strong>Type:</strong> object</p>
+<ul>
+<li>
+<p><strong>Format of <i>fromto</i></strong></p>
+<p><em>fromto</em> is a non-nested key-value object. And the <em>key</em>s are property key    chains of <em>src</em> and the <em>value</em>s are property key chains of <em>dst</em>.
+The key chain is a string which is concatenated property keys on each level with dots, like <code>'aaa.bbb.ccc'</code>.</p>
+<p>The following example copys the value of <code>src.aaa.bbb.ccc</code> to <code>dst.xxx.yyy</code>.</p>
+<pre><code class="js">copyProps(src, dst, {
+  <span class="hljs-string">'aaa.bbb.ccc'</span> : <span class="hljs-string">'xxx.yyy'</span>
+})
+</code></pre>
+<p><em>fromto</em> can be an array. In that case, the array works as a map which has pairs of same key and value.</p>
+</li>
+<li>
+<p><strong>API of <i>converter</i></strong></p>
+<p><strong><u>converter(srcInfo, dstInfo) : Any</u></strong></p>
+<p><em>converter</em> is a function to convert terminal values of propeerties of <em>src</em>.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>srcInfo</em></td>
+<td style="text-align:left">object</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>dstInfo</em></td>
+<td style="text-align:left">object</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return:</strong></p>
+<p>The converted value to be set as a destination property value. If this value is undefined, the destination property is not set to the destination node object.</p>
+<p><strong>Type:</strong> <em>Any</em></p>
+<ul>
+<li>
+<p><strong>Properties of <i>srcInfo</i> and <i>dstInfo</i></strong></p>
+<p><em>srcInfo</em> and <em>dstInfo</em> has same properties, as follows:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>value</em></td>
+<td style="text-align:left"><em>Any</em></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>key</em></td>
+<td style="text-align:left">string</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>keyChain</em></td>
+<td style="text-align:left">string</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>depth</em></td>
+<td style="text-align:left">number</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>parent</em></td>
+<td style="text-align:left">object</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>Copyright (C) 2016-2018 Takayuki Sato</p>
+<p>This program is free software under <a href="https://opensource.org/licenses.MIT">MIT</a> License.
+See the file LICENSE in this distribution for more details.</p>
+</div>
+  </div>
+</body>
+</html>

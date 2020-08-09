@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\lead\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#lead">lead</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#sink-stream">sink(stream)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p align="center">
+  <a href="http://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+</p>
+<div class="pilwrap" id="lead">
+  <h1>
+    <a href="#lead" name="lead" class="pilcrow"></a>
+lead
+  </h1>
+</div>
+<p><a href="https://npmjs.com/package/lead"><img src="http://img.shields.io/npm/v/lead.svg" alt="NPM version"></a> <a href="https://npmjs.com/package/lead"><img src="http://img.shields.io/npm/dm/lead.svg" alt="Downloads"></a> <a href="https://travis-ci.org/gulpjs/lead"><img src="http://img.shields.io/travis/gulpjs/lead.svg?label=travis-ci" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/gulpjs/lead"><img src="https://img.shields.io/appveyor/ci/gulpjs/lead.svg?label=appveyor" alt="AppVeyor Build Status"></a> <a href="https://coveralls.io/r/gulpjs/lead"><img src="http://img.shields.io/coveralls/gulpjs/lead/master.svg" alt="Coveralls Status"></a> <a href="https://gitter.im/gulpjs/gulp"><img src="https://badges.gitter.im/gulpjs/gulp.png" alt="Gitter chat"></a></p>
+<p>Sink your streams.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> <span class="hljs-keyword">from</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'from2'</span>);
+<span class="hljs-keyword">var</span> through = <span class="hljs-built_in">require</span>(<span class="hljs-string">'through2'</span>);
+<span class="hljs-keyword">var</span> sink = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lead'</span>);
+
+<span class="hljs-comment">// Might be used as a Transform or Writeable</span>
+<span class="hljs-keyword">var</span> maybeThrough = through(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">chunk, enc, cb</span>) </span>{
+  <span class="hljs-comment">// processing</span>
+  cb(<span class="hljs-literal">null</span>, chunk);
+});
+
+<span class="hljs-keyword">from</span>([<span class="hljs-string">'hello'</span>, <span class="hljs-string">'world'</span>])
+  <span class="hljs-comment">// Sink it to behave like a Writeable</span>
+  .pipe(sink(maybeThrough))
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="sink-stream">
+  <h3>
+    <a href="#sink-stream" name="sink-stream" class="pilcrow"></a>
+<code>sink(stream)</code>
+  </h3>
+</div>
+<p>Takes a <code>stream</code> to sink and returns the same stream. Sets up event listeners to infer if the stream is being used as a <code>Transform</code> or <code>Writeable</code> stream and sinks it on <code>nextTick</code> if necessary. If the stream is being used as a <code>Transform</code> stream but becomes unpiped, it will be sunk. Respects <code>pipe</code>, <code>on('data')</code> and <code>on('readable')</code> handlers.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

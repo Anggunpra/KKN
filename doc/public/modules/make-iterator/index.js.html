@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\make-iterator\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>!
+make-iterator <a href="https://github.com/jonschlinkert/make-iterator">https://github.com/jonschlinkert/make-iterator</a></p>
+</div>
+<div class="body">
+<p>Copyright (c) 2014-2018, Jon Schlinkert.
+Released under the MIT License.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">
+'use strict'</span>;
+
+<span class="hljs-keyword">var</span> typeOf = <span class="hljs-built_in">require</span>(<span class="hljs-string">'kind-of'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeIterator</span>(<span class="hljs-params">target, thisArg</span>) </span>{
+  <span class="hljs-keyword">switch</span> (typeOf(target)) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'undefined'</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'null'</span>:
+      <span class="hljs-keyword">return</span> noop;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'function'</span>:
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>function is the first to improve perf (most common case)
+also avoid using <code>Function#call</code> if not needed, which boosts
+perf a lot in some cases</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">return</span> (<span class="hljs-keyword">typeof</span> thisArg !== <span class="hljs-string">'undefined'</span>) ? <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">val, i, arr</span>) </span>{
+        <span class="hljs-keyword">return</span> target.call(thisArg, val, i, arr);
+      } : target;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'object'</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">val</span>) </span>{
+        <span class="hljs-keyword">return</span> deepMatches(val, target);
+      };
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'regexp'</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">str</span>) </span>{
+        <span class="hljs-keyword">return</span> target.test(str);
+      };
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'string'</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'number'</span>:
+    <span class="hljs-keyword">default</span>: {
+      <span class="hljs-keyword">return</span> prop(target);
+    }
+  }
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">containsMatch</span>(<span class="hljs-params">array, value</span>) </span>{
+  <span class="hljs-keyword">var</span> len = array.length;
+  <span class="hljs-keyword">var</span> i = <span class="hljs-number">-1</span>;
+
+  <span class="hljs-keyword">while</span> (++i &lt; len) {
+    <span class="hljs-keyword">if</span> (deepMatches(array[i], value)) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">matchArray</span>(<span class="hljs-params">arr, value</span>) </span>{
+  <span class="hljs-keyword">var</span> len = value.length;
+  <span class="hljs-keyword">var</span> i = <span class="hljs-number">-1</span>;
+
+  <span class="hljs-keyword">while</span> (++i &lt; len) {
+    <span class="hljs-keyword">if</span> (!containsMatch(arr, value[i])) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">matchObject</span>(<span class="hljs-params">obj, value</span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> value) {
+    <span class="hljs-keyword">if</span> (value.hasOwnProperty(key)) {
+      <span class="hljs-keyword">if</span> (deepMatches(obj[key], value[key]) === <span class="hljs-literal">false</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      }
+    }
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Recursively compare objects</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deepMatches</span>(<span class="hljs-params">val, value</span>) </span>{
+  <span class="hljs-keyword">if</span> (typeOf(val) === <span class="hljs-string">'object'</span>) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(val) &amp;&amp; <span class="hljs-built_in">Array</span>.isArray(value)) {
+      <span class="hljs-keyword">return</span> matchArray(val, value);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> matchObject(val, value);
+    }
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> val === value;
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">prop</span>(<span class="hljs-params">name</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj</span>) </span>{
+    <span class="hljs-keyword">return</span> obj[name];
+  };
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">noop</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">return</span> val;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

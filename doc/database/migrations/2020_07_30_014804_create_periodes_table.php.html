@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>2020_07_30_014804_create_periodes_table.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "database\\migrations\\2020_07_30_014804_create_periodes_table.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>2020_07_30_014804_create_periodes_table.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Migrations</span>\<span class="hljs-title">Migration</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Schema</span>\<span class="hljs-title">Blueprint</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Schema</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CreatePeriodesTable</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Migration</span>
+</span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Run the migrations.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>void
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">up</span><span class="hljs-params">()</span>
+    </span>{
+        Schema::create(<span class="hljs-string">'periodes'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Blueprint $table)</span> </span>{
+            $table-&gt;id();
+            $table-&gt;string(<span class="hljs-string">'nama_periode'</span>);
+            $table-&gt;dateTime(<span class="hljs-string">'open_date'</span>);
+            $table-&gt;dateTime(<span class="hljs-string">'close_date'</span>);
+            $table-&gt;timestamps();
+            $table-&gt;softDeletes();
+        });
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Reverse the migrations.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>void
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">down</span><span class="hljs-params">()</span>
+    </span>{
+        Schema::dropIfExists(<span class="hljs-string">'periodes'</span>);
+    }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

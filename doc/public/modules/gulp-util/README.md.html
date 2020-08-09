@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-util\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gulp-util">gulp-util    </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#information">Information</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#log-msg...">log(msg...)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#colors">colors</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#replaceextension-path-newextension">replaceExtension(path, newExtension)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#isstream-obj">isStream(obj)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#isbuffer-obj">isBuffer(obj)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#template-string-data">template(string[, data])</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#new-file-obj">new File(obj)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#noop">noop()</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#buffer-cb">buffer(cb)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#new-pluginerror-pluginname-message-options">new PluginError(pluginName, message[, options])</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="gulp-util">
+  <h1>
+    <a href="#gulp-util" name="gulp-util" class="pilcrow"></a>
+gulp-util <a href="https://www.npmjs.com/package/gulp-util"><img src="https://badge.fury.io/js/gulp-util.svg" alt="NPM version"></a> <a href="https://travis-ci.org/gulpjs/gulp-util"><img src="https://img.shields.io/travis/gulpjs/gulp-util.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/r/gulpjs/gulp-util"><img src="https://img.shields.io/coveralls/gulpjs/gulp-util.svg" alt="Coveralls Status"></a> <a href="https://david-dm.org/gulpjs/gulp-util"><img src="https://david-dm.org/gulpjs/gulp-util.svg" alt="Dependency Status"></a>
+  </h1>
+</div>
+<div class="pilwrap" id="information">
+  <h2>
+    <a href="#information" name="information" class="pilcrow"></a>
+Information
+  </h2>
+</div>
+<table>
+<tr> 
+<td>Package</td><td>gulp-util</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Utility functions for gulp plugins</td>
+</tr>
+<tr>
+<td>Node Version</td>
+<td>>= 0.10</td>
+</tr>
+</table>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> gutil = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-util'</span>);
+
+gutil.log(<span class="hljs-string">'stuff happened'</span>, <span class="hljs-string">'Really it did'</span>, gutil.colors.magenta(<span class="hljs-string">'123'</span>));
+
+gutil.replaceExtension(<span class="hljs-string">'file.coffee'</span>, <span class="hljs-string">'.js'</span>); <span class="hljs-comment">// file.js</span>
+
+<span class="hljs-keyword">var</span> opt = {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'todd'</span>,
+  <span class="hljs-attr">file</span>: someGulpFile
+};
+gutil.template(<span class="hljs-string">'test &lt;%= name %&gt; &lt;%= file.path %&gt;'</span>, opt) <span class="hljs-comment">// test todd /js/hi.js</span>
+</code></pre>
+<div class="pilwrap" id="log-msg...">
+  <h3>
+    <a href="#log-msg..." name="log-msg..." class="pilcrow"></a>
+log(msg...)
+  </h3>
+</div>
+<p>Logs stuff. Already prefixed with [gulp] and all that. If you pass in multiple arguments it will join them by a space.</p>
+<p>The default gulp coloring using gutil.colors.<color>:</p>
+<pre><code>values (files, module names, etc.) = cyan
+numbers (times, counts, etc) = magenta
+</code></pre>
+<div class="pilwrap" id="colors">
+  <h3>
+    <a href="#colors" name="colors" class="pilcrow"></a>
+colors
+  </h3>
+</div>
+<p>Is an instance of <a href="https://github.com/sindresorhus/chalk">chalk</a>.</p>
+<div class="pilwrap" id="replaceextension-path-newextension">
+  <h3>
+    <a href="#replaceextension-path-newextension" name="replaceextension-path-newextension" class="pilcrow"></a>
+replaceExtension(path, newExtension)
+  </h3>
+</div>
+<p>Replaces a file extension in a path. Returns the new path.</p>
+<div class="pilwrap" id="isstream-obj">
+  <h3>
+    <a href="#isstream-obj" name="isstream-obj" class="pilcrow"></a>
+isStream(obj)
+  </h3>
+</div>
+<p>Returns true or false if an object is a stream.</p>
+<div class="pilwrap" id="isbuffer-obj">
+  <h3>
+    <a href="#isbuffer-obj" name="isbuffer-obj" class="pilcrow"></a>
+isBuffer(obj)
+  </h3>
+</div>
+<p>Returns true or false if an object is a Buffer.</p>
+<div class="pilwrap" id="template-string-data">
+  <h3>
+    <a href="#template-string-data" name="template-string-data" class="pilcrow"></a>
+template(string[, data])
+  </h3>
+</div>
+<p>This is a lodash.template function wrapper. You must pass in a valid gulp file object so it is available to the user or it will error. You can not configure any of the delimiters. Look at the <a href="http://lodash.com/docs#template">lodash docs</a> for more info.</p>
+<div class="pilwrap" id="new-file-obj">
+  <h2>
+    <a href="#new-file-obj" name="new-file-obj" class="pilcrow"></a>
+new File(obj)
+  </h2>
+</div>
+<p>This is just <a href="https://github.com/wearefractal/vinyl">vinyl</a></p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> file = <span class="hljs-keyword">new</span> gutil.File({
+  <span class="hljs-attr">base</span>: path.join(__dirname, <span class="hljs-string">'./fixtures/'</span>),
+  <span class="hljs-attr">cwd</span>: __dirname,
+  <span class="hljs-attr">path</span>: path.join(__dirname, <span class="hljs-string">'./fixtures/test.coffee'</span>)
+});
+</code></pre>
+<div class="pilwrap" id="noop">
+  <h2>
+    <a href="#noop" name="noop" class="pilcrow"></a>
+noop()
+  </h2>
+</div>
+<p>Returns a stream that does nothing but pass data straight through.</p>
+<pre><code class="javascript"><span class="hljs-comment">// gulp should be called like this :</span>
+<span class="hljs-comment">// $ gulp --type production</span>
+gulp.task(<span class="hljs-string">'scripts'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  gulp.src(<span class="hljs-string">'src/**/*.js'</span>)
+    .pipe(concat(<span class="hljs-string">'script.js'</span>))
+    .pipe(gutil.env.type === <span class="hljs-string">'production'</span> ? uglify() : gutil.noop())
+    .pipe(gulp.dest(<span class="hljs-string">'dist/'</span>));
+});
+</code></pre>
+<div class="pilwrap" id="buffer-cb">
+  <h2>
+    <a href="#buffer-cb" name="buffer-cb" class="pilcrow"></a>
+buffer(cb)
+  </h2>
+</div>
+<p>This is similar to es.wait but instead of buffering text into one string it buffers anything into an array (so very useful for file objects).</p>
+<p>Returns a stream that can be piped to.</p>
+<p>The stream will emit one data event after the stream piped to it has ended. The data will be the same array passed to the callback.</p>
+<p>Callback is optional and receives two arguments: error and data</p>
+<pre><code class="javascript">gulp.src(<span class="hljs-string">'stuff/*.js'</span>)
+  .pipe(gutil.buffer(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, files</span>) </span>{
+  
+  }));
+</code></pre>
+<div class="pilwrap" id="new-pluginerror-pluginname-message-options">
+  <h2>
+    <a href="#new-pluginerror-pluginname-message-options" name="new-pluginerror-pluginname-message-options" class="pilcrow"></a>
+new PluginError(pluginName, message[, options])
+  </h2>
+</div>
+<ul>
+<li>pluginName should be the module name of your plugin</li>
+<li>message can be a string or an existing error</li>
+<li>By default the stack will not be shown. Set <code>options.showStack</code> to true if you think the stack is important for your error.</li>
+<li>If you pass an error in as the message the stack will be pulled from that, otherwise one will be created.</li>
+<li>Note that if you pass in a custom stack string you need to include the message along with that.</li>
+<li>Error properties will be included in <code>err.toString()</code>. Can be omitted by including <code>{showProperties: false}</code> in the options.</li>
+</ul>
+<p>These are all acceptable forms of instantiation:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> err = <span class="hljs-keyword">new</span> gutil.PluginError(<span class="hljs-string">'test'</span>, {
+  <span class="hljs-attr">message</span>: <span class="hljs-string">'something broke'</span>
+});
+
+<span class="hljs-keyword">var</span> err = <span class="hljs-keyword">new</span> gutil.PluginError({
+  <span class="hljs-attr">plugin</span>: <span class="hljs-string">'test'</span>,
+  <span class="hljs-attr">message</span>: <span class="hljs-string">'something broke'</span>
+});
+
+<span class="hljs-keyword">var</span> err = <span class="hljs-keyword">new</span> gutil.PluginError(<span class="hljs-string">'test'</span>, <span class="hljs-string">'something broke'</span>);
+
+<span class="hljs-keyword">var</span> err = <span class="hljs-keyword">new</span> gutil.PluginError(<span class="hljs-string">'test'</span>, <span class="hljs-string">'something broke'</span>, {<span class="hljs-attr">showStack</span>: <span class="hljs-literal">true</span>});
+
+<span class="hljs-keyword">var</span> existingError = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'OMG'</span>);
+<span class="hljs-keyword">var</span> err = <span class="hljs-keyword">new</span> gutil.PluginError(<span class="hljs-string">'test'</span>, existingError, {<span class="hljs-attr">showStack</span>: <span class="hljs-literal">true</span>});
+</code></pre>
+</div>
+  </div>
+</body>
+</html>

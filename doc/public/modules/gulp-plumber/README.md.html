@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-plumber\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#monkey-gulp-plumber">:monkey: gulp-plumber</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage-monkey">Usage :monkey:</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api-monkey">API :monkey:</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#monkey-plumber-options">:monkey: plumber([options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.inherit">options.inherit</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.errorhandler">options.errorHandler</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#plumber.stop">plumber.stop()</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license-monkey">License :monkey:</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="monkey-gulp-plumber">
+  <h1>
+    <a href="#monkey-gulp-plumber" name="monkey-gulp-plumber" class="pilcrow"></a>
+:monkey: gulp-plumber
+  </h1>
+</div>
+<p><a href="https://npmjs.org/package/gulp-plumber"><img src="http://img.shields.io/npm/v/gulp-plumber.svg?style=flat" alt="NPM version"></a> <a href="https://travis-ci.org/floatdrop/gulp-plumber"><img src="http://img.shields.io/travis/floatdrop/gulp-plumber.svg?style=flat" alt="Build Status"></a> <a href="https://david-dm.org/floatdrop/gulp-plumber"><img src="http://img.shields.io/david/floatdrop/gulp-plumber.svg?style=flat" alt="Dependency Status"></a></p>
+<blockquote>
+<p>Prevent pipe breaking caused by errors from <a href="https://github.com/wearefractal/gulp">gulp</a> plugins</p>
+</blockquote>
+<p>This :monkey:-patch plugin is fixing <a href="https://github.com/gulpjs/gulp/issues/91">issue with Node Streams piping</a>. For explanations, read <a href="https://gist.github.com/floatdrop/8269868">this small article</a>.</p>
+<p>Briefly it replaces <code>pipe</code> method and removes standard <code>onerror</code> handler on <code>error</code> event, which unpipes streams on error by default.</p>
+<div class="pilwrap" id="usage-monkey">
+  <h2>
+    <a href="#usage-monkey" name="usage-monkey" class="pilcrow"></a>
+Usage :monkey:
+  </h2>
+</div>
+<p>First, install <code>gulp-plumber</code> as a development dependency:</p>
+<pre><code class="shell">npm install --save-dev gulp-plumber
+</code></pre>
+<p>Then, add it to your <code>gulpfile.js</code>:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> plumber = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-plumber'</span>);
+<span class="hljs-keyword">var</span> coffee = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-coffee'</span>);
+
+gulp.src(<span class="hljs-string">'./src/*.ext'</span>)
+	.pipe(plumber())
+	.pipe(coffee())
+	.pipe(gulp.dest(<span class="hljs-string">'./dist'</span>));
+</code></pre>
+<div class="pilwrap" id="api-monkey">
+  <h2>
+    <a href="#api-monkey" name="api-monkey" class="pilcrow"></a>
+API :monkey:
+  </h2>
+</div>
+<div class="pilwrap" id="monkey-plumber-options">
+  <h3>
+    <a href="#monkey-plumber-options" name="monkey-plumber-options" class="pilcrow"></a>
+:monkey: plumber([options])
+  </h3>
+</div>
+<p>Returns Stream, that fixes <code>pipe</code> methods on Streams that are next in pipeline.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>Object</code> / <code>Function</code>
+Default: <code>{}</code></p>
+<p>Sets options described below from its properties. If type is <code>Function</code> it will be set as <code>errorHandler</code>.</p>
+<div class="pilwrap" id="options.inherit">
+  <h4>
+    <a href="#options.inherit" name="options.inherit" class="pilcrow"></a>
+options.inherit
+  </h4>
+</div>
+<p>Type: <code>Boolean</code>
+Default: <code>true</code></p>
+<p>Monkeypatch <code>pipe</code> functions in underlying streams in pipeline.</p>
+<div class="pilwrap" id="options.errorhandler">
+  <h4>
+    <a href="#options.errorhandler" name="options.errorhandler" class="pilcrow"></a>
+options.errorHandler
+  </h4>
+</div>
+<p>Type: <code>Boolean</code> / <code>Function</code> <br/>
+Default: <code>true</code></p>
+<p>Handle errors in underlying streams and output them to console.</p>
+<ul>
+<li><code>function</code> - it will be attached to stream <code>on('error')</code>.</li>
+<li><code>false</code> - error handler will not be attached.</li>
+<li><code>true</code> - default error handler will be attached.</li>
+</ul>
+<div class="pilwrap" id="plumber.stop">
+  <h3>
+    <a href="#plumber.stop" name="plumber.stop" class="pilcrow"></a>
+plumber.stop()
+  </h3>
+</div>
+<p>This method will return default behaviour for pipeline after it was piped.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> plumber = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-plumber'</span>);
+
+gulp.src(<span class="hljs-string">'./src/*.scss'</span>)
+    .pipe(plumber())
+    .pipe(sass())
+    .pipe(uglify())
+    .pipe(plumber.stop())
+    .pipe(gulp.dest(<span class="hljs-string">'./dist'</span>));
+</code></pre>
+<div class="pilwrap" id="license-monkey">
+  <h2>
+    <a href="#license-monkey" name="license-monkey" class="pilcrow"></a>
+License :monkey:
+  </h2>
+</div>
+<p><a href="http://en.wikipedia.org/wiki/MIT_License">MIT License</a></p>
+</div>
+  </div>
+</body>
+</html>

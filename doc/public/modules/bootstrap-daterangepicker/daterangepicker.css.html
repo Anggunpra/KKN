@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>daterangepicker.css</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bootstrap-daterangepicker\\daterangepicker.css";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>daterangepicker.css</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="css"><span class="hljs-selector-class">.daterangepicker</span> {
+  <span class="hljs-attribute">position</span>: absolute;
+  <span class="hljs-attribute">color</span>: inherit;
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fff</span>;
+  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ddd</span>;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">278px</span>;
+  <span class="hljs-attribute">max-width</span>: none;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">7px</span>;
+  <span class="hljs-attribute">top</span>: <span class="hljs-number">100px</span>;
+  <span class="hljs-attribute">left</span>: <span class="hljs-number">20px</span>;
+  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">3001</span>;
+  <span class="hljs-attribute">display</span>: none;
+  <span class="hljs-attribute">font-family</span>: arial;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">15px</span>;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1em</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-pseudo">:before</span>, <span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-pseudo">:after</span> {
+  <span class="hljs-attribute">position</span>: absolute;
+  <span class="hljs-attribute">display</span>: inline-block;
+  <span class="hljs-attribute">border-bottom-color</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.2</span>);
+  <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-pseudo">:before</span> {
+  <span class="hljs-attribute">top</span>: -<span class="hljs-number">7px</span>;
+  <span class="hljs-attribute">border-right</span>: <span class="hljs-number">7px</span> solid transparent;
+  <span class="hljs-attribute">border-left</span>: <span class="hljs-number">7px</span> solid transparent;
+  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">7px</span> solid <span class="hljs-number">#ccc</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-pseudo">:after</span> {
+  <span class="hljs-attribute">top</span>: -<span class="hljs-number">6px</span>;
+  <span class="hljs-attribute">border-right</span>: <span class="hljs-number">6px</span> solid transparent;
+  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">6px</span> solid <span class="hljs-number">#fff</span>;
+  <span class="hljs-attribute">border-left</span>: <span class="hljs-number">6px</span> solid transparent;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.opensleft</span><span class="hljs-selector-pseudo">:before</span> {
+  <span class="hljs-attribute">right</span>: <span class="hljs-number">9px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.opensleft</span><span class="hljs-selector-pseudo">:after</span> {
+  <span class="hljs-attribute">right</span>: <span class="hljs-number">10px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.openscenter</span><span class="hljs-selector-pseudo">:before</span> {
+  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">margin-left</span>: auto;
+  <span class="hljs-attribute">margin-right</span>: auto;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.openscenter</span><span class="hljs-selector-pseudo">:after</span> {
+  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">margin-left</span>: auto;
+  <span class="hljs-attribute">margin-right</span>: auto;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.opensright</span><span class="hljs-selector-pseudo">:before</span> {
+  <span class="hljs-attribute">left</span>: <span class="hljs-number">9px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.opensright</span><span class="hljs-selector-pseudo">:after</span> {
+  <span class="hljs-attribute">left</span>: <span class="hljs-number">10px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.drop-up</span> {
+  <span class="hljs-attribute">margin-top</span>: -<span class="hljs-number">7px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.drop-up</span><span class="hljs-selector-pseudo">:before</span> {
+  <span class="hljs-attribute">top</span>: initial;
+  <span class="hljs-attribute">bottom</span>: -<span class="hljs-number">7px</span>;
+  <span class="hljs-attribute">border-bottom</span>: initial;
+  <span class="hljs-attribute">border-top</span>: <span class="hljs-number">7px</span> solid <span class="hljs-number">#ccc</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.drop-up</span><span class="hljs-selector-pseudo">:after</span> {
+  <span class="hljs-attribute">top</span>: initial;
+  <span class="hljs-attribute">bottom</span>: -<span class="hljs-number">6px</span>;
+  <span class="hljs-attribute">border-bottom</span>: initial;
+  <span class="hljs-attribute">border-top</span>: <span class="hljs-number">6px</span> solid <span class="hljs-number">#fff</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.single</span> <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.ranges</span>, <span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.single</span> <span class="hljs-selector-class">.drp-calendar</span> {
+  <span class="hljs-attribute">float</span>: none;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.single</span> <span class="hljs-selector-class">.drp-selected</span> {
+  <span class="hljs-attribute">display</span>: none;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.show-calendar</span> <span class="hljs-selector-class">.drp-calendar</span> {
+  <span class="hljs-attribute">display</span>: block;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.show-calendar</span> <span class="hljs-selector-class">.drp-buttons</span> {
+  <span class="hljs-attribute">display</span>: block;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.auto-apply</span> <span class="hljs-selector-class">.drp-buttons</span> {
+  <span class="hljs-attribute">display</span>: none;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-calendar</span> {
+  <span class="hljs-attribute">display</span>: none;
+  <span class="hljs-attribute">max-width</span>: <span class="hljs-number">270px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.left</span> {
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">8px</span> <span class="hljs-number">0</span> <span class="hljs-number">8px</span> <span class="hljs-number">8px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.right</span> {
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">8px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.single</span> <span class="hljs-selector-class">.calendar-table</span> {
+  <span class="hljs-attribute">border</span>: none;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.calendar-table</span> <span class="hljs-selector-class">.next</span> <span class="hljs-selector-tag">span</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.calendar-table</span> <span class="hljs-selector-class">.prev</span> <span class="hljs-selector-tag">span</span> {
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+  <span class="hljs-attribute">border</span>: solid black;
+  <span class="hljs-attribute">border-width</span>: <span class="hljs-number">0</span> <span class="hljs-number">2px</span> <span class="hljs-number">2px</span> <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">display</span>: inline-block;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">3px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.calendar-table</span> <span class="hljs-selector-class">.next</span> <span class="hljs-selector-tag">span</span> {
+  <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(-<span class="hljs-number">45deg</span>);
+  <span class="hljs-attribute">-webkit-transform</span>: <span class="hljs-built_in">rotate</span>(-<span class="hljs-number">45deg</span>);
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.calendar-table</span> <span class="hljs-selector-class">.prev</span> <span class="hljs-selector-tag">span</span> {
+  <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">135deg</span>);
+  <span class="hljs-attribute">-webkit-transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">135deg</span>);
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.calendar-table</span> <span class="hljs-selector-tag">th</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.calendar-table</span> <span class="hljs-selector-tag">td</span> {
+  <span class="hljs-attribute">white-space</span>: nowrap;
+  <span class="hljs-attribute">text-align</span>: center;
+  <span class="hljs-attribute">vertical-align</span>: middle;
+  <span class="hljs-attribute">min-width</span>: <span class="hljs-number">32px</span>;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">32px</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">24px</span>;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">24px</span>;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">12px</span>;
+  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid transparent;
+  <span class="hljs-attribute">white-space</span>: nowrap;
+  <span class="hljs-attribute">cursor</span>: pointer;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.calendar-table</span> {
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#fff</span>;
+  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fff</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.calendar-table</span> <span class="hljs-selector-tag">table</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">border-spacing</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">border-collapse</span>: collapse;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">td</span><span class="hljs-selector-class">.available</span><span class="hljs-selector-pseudo">:hover</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">th</span><span class="hljs-selector-class">.available</span><span class="hljs-selector-pseudo">:hover</span> {
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#eee</span>;
+  <span class="hljs-attribute">border-color</span>: transparent;
+  <span class="hljs-attribute">color</span>: inherit;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">td</span><span class="hljs-selector-class">.week</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">th</span><span class="hljs-selector-class">.week</span> {
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">80%</span>;
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#ccc</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">td</span><span class="hljs-selector-class">.off</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">td</span><span class="hljs-selector-class">.off</span><span class="hljs-selector-class">.in-range</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">td</span><span class="hljs-selector-class">.off</span><span class="hljs-selector-class">.start-date</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">td</span><span class="hljs-selector-class">.off</span><span class="hljs-selector-class">.end-date</span> {
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fff</span>;
+  <span class="hljs-attribute">border-color</span>: transparent;
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#999</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">td</span><span class="hljs-selector-class">.in-range</span> {
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#ebf4f8</span>;
+  <span class="hljs-attribute">border-color</span>: transparent;
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#000</span>;
+  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">td</span><span class="hljs-selector-class">.start-date</span> {
+  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">4px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">td</span><span class="hljs-selector-class">.end-date</span> {
+  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span> <span class="hljs-number">4px</span> <span class="hljs-number">4px</span> <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">td</span><span class="hljs-selector-class">.start-date</span><span class="hljs-selector-class">.end-date</span> {
+  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">td</span><span class="hljs-selector-class">.active</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">td</span><span class="hljs-selector-class">.active</span><span class="hljs-selector-pseudo">:hover</span> {
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#357ebd</span>;
+  <span class="hljs-attribute">border-color</span>: transparent;
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">th</span><span class="hljs-selector-class">.month</span> {
+  <span class="hljs-attribute">width</span>: auto;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">td</span><span class="hljs-selector-class">.disabled</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">option</span><span class="hljs-selector-class">.disabled</span> {
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#999</span>;
+  <span class="hljs-attribute">cursor</span>: not-allowed;
+  <span class="hljs-attribute">text-decoration</span>: line-through;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">select</span><span class="hljs-selector-class">.monthselect</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">select</span><span class="hljs-selector-class">.yearselect</span> {
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">12px</span>;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">1px</span>;
+  <span class="hljs-attribute">height</span>: auto;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">cursor</span>: default;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">select</span><span class="hljs-selector-class">.monthselect</span> {
+  <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">2%</span>;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">56%</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">select</span><span class="hljs-selector-class">.yearselect</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">40%</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">select</span><span class="hljs-selector-class">.hourselect</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">select</span><span class="hljs-selector-class">.minuteselect</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">select</span><span class="hljs-selector-class">.secondselect</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-tag">select</span><span class="hljs-selector-class">.ampmselect</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">50px</span>;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+  <span class="hljs-attribute">background</span>: <span class="hljs-number">#eee</span>;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#eee</span>;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">2px</span>;
+  <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">12px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.calendar-time</span> {
+  <span class="hljs-attribute">text-align</span>: center;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">4px</span> auto <span class="hljs-number">0</span> auto;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">30px</span>;
+  <span class="hljs-attribute">position</span>: relative;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.calendar-time</span> <span class="hljs-selector-tag">select</span><span class="hljs-selector-class">.disabled</span> {
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#ccc</span>;
+  <span class="hljs-attribute">cursor</span>: not-allowed;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-buttons</span> {
+  <span class="hljs-attribute">clear</span>: both;
+  <span class="hljs-attribute">text-align</span>: right;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">8px</span>;
+  <span class="hljs-attribute">border-top</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ddd</span>;
+  <span class="hljs-attribute">display</span>: none;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">12px</span>;
+  <span class="hljs-attribute">vertical-align</span>: middle;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-selected</span> {
+  <span class="hljs-attribute">display</span>: inline-block;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">12px</span>;
+  <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">8px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-buttons</span> <span class="hljs-selector-class">.btn</span> {
+  <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">8px</span>;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">12px</span>;
+  <span class="hljs-attribute">font-weight</span>: bold;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">4px</span> <span class="hljs-number">8px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.show-ranges</span><span class="hljs-selector-class">.single</span><span class="hljs-selector-class">.rtl</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.left</span> {
+  <span class="hljs-attribute">border-right</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ddd</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.show-ranges</span><span class="hljs-selector-class">.single</span><span class="hljs-selector-class">.ltr</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.left</span> {
+  <span class="hljs-attribute">border-left</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ddd</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.show-ranges</span><span class="hljs-selector-class">.rtl</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.right</span> {
+  <span class="hljs-attribute">border-right</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ddd</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.show-ranges</span><span class="hljs-selector-class">.ltr</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.left</span> {
+  <span class="hljs-attribute">border-left</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ddd</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.ranges</span> {
+  <span class="hljs-attribute">float</span>: none;
+  <span class="hljs-attribute">text-align</span>: left;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.show-calendar</span> <span class="hljs-selector-class">.ranges</span> {
+  <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">8px</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.ranges</span> <span class="hljs-selector-tag">ul</span> {
+  <span class="hljs-attribute">list-style</span>: none;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.ranges</span> <span class="hljs-selector-tag">li</span> {
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">12px</span>;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">8px</span> <span class="hljs-number">12px</span>;
+  <span class="hljs-attribute">cursor</span>: pointer;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.ranges</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:hover</span> {
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#eee</span>;
+}
+
+<span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.ranges</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-class">.active</span> {
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#08c</span>;
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+}
+
+<span class="hljs-comment">/*  Larger Screen Styling */</span>
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">564px</span>) {
+  <span class="hljs-selector-class">.daterangepicker</span> {
+    <span class="hljs-attribute">width</span>: auto;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.ranges</span> <span class="hljs-selector-tag">ul</span> {
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">140px</span>;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.single</span> <span class="hljs-selector-class">.ranges</span> <span class="hljs-selector-tag">ul</span> {
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.single</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.left</span> {
+    <span class="hljs-attribute">clear</span>: none;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.single</span> <span class="hljs-selector-class">.ranges</span>, <span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.single</span> <span class="hljs-selector-class">.drp-calendar</span> {
+    <span class="hljs-attribute">float</span>: left;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span> {
+    <span class="hljs-attribute">direction</span>: ltr;
+    <span class="hljs-attribute">text-align</span>: left;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.left</span> {
+    <span class="hljs-attribute">clear</span>: left;
+    <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">0</span>;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.left</span> <span class="hljs-selector-class">.calendar-table</span> {
+    <span class="hljs-attribute">border-right</span>: none;
+    <span class="hljs-attribute">border-top-right-radius</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">border-bottom-right-radius</span>: <span class="hljs-number">0</span>;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.right</span> {
+    <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">0</span>;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.right</span> <span class="hljs-selector-class">.calendar-table</span> {
+    <span class="hljs-attribute">border-left</span>: none;
+    <span class="hljs-attribute">border-top-left-radius</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">border-bottom-left-radius</span>: <span class="hljs-number">0</span>;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.left</span> <span class="hljs-selector-class">.calendar-table</span> {
+    <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">8px</span>;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.ranges</span>, <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-calendar</span> {
+    <span class="hljs-attribute">float</span>: left;
+  }
+}
+
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">730px</span>) {
+  <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.ranges</span> {
+    <span class="hljs-attribute">width</span>: auto;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.ranges</span> {
+    <span class="hljs-attribute">float</span>: left;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span><span class="hljs-selector-class">.rtl</span> <span class="hljs-selector-class">.ranges</span> {
+    <span class="hljs-attribute">float</span>: right;
+  }
+
+  <span class="hljs-selector-class">.daterangepicker</span> <span class="hljs-selector-class">.drp-calendar</span><span class="hljs-selector-class">.left</span> {
+    <span class="hljs-attribute">clear</span>: none <span class="hljs-meta">!important</span>;
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

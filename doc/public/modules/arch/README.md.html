@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\arch\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#arch">arch    </a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#better-os.arch-for-node-and-the-browser-detect-os-architecture">Better os.arch() for node and the browser -- detect OS architecture</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node.js-proposal-os.sysarch">Node.js proposal - os.sysarch()</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">license</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="arch">
+  <h1>
+    <a href="#arch" name="arch" class="pilcrow"></a>
+arch <a href="https://travis-ci.org/feross/arch"><img src="https://img.shields.io/travis/feross/arch/master.svg" alt="travis"></a> <a href="https://npmjs.org/package/arch"><img src="https://img.shields.io/npm/v/arch.svg" alt="npm"></a> <a href="https://npmjs.org/package/arch"><img src="https://img.shields.io/npm/dm/arch.svg" alt="downloads"></a> <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="javascript style guide"></a>
+  </h1>
+</div>
+<div class="pilwrap" id="better-os.arch-for-node-and-the-browser-detect-os-architecture">
+  <h3>
+    <a href="#better-os.arch-for-node-and-the-browser-detect-os-architecture" name="better-os.arch-for-node-and-the-browser-detect-os-architecture" class="pilcrow"></a>
+Better <code>os.arch()</code> for node and the browser -- detect OS architecture
+  </h3>
+</div>
+<p><a href="https://saucelabs.com/u/arch2"><img src="https://saucelabs.com/browser-matrix/arch2.svg" alt="Sauce Test Status"></a></p>
+<p>This module is used by <a href="http://webtorrent.io/desktop">WebTorrent Desktop</a> to
+determine if the user is on a 32-bit vs. 64-bit operating system to offer the
+right app installer.</p>
+<p>In Node.js, the <code>os.arch()</code> method (and <code>process.arch</code> property) returns a string
+identifying the operating system CPU architecture <strong>for which the Node.js binary
+was compiled</strong>.</p>
+<p>This is not the same as the <strong>operating system CPU architecture</strong>. For example,
+you can run Node.js 32-bit on a 64-bit OS. In that situation, <code>os.arch()</code> will
+return a misleading 'x86' (32-bit) value, instead of 'x64' (64-bit).</p>
+<p>Use this package to get the actual operating system CPU architecture.</p>
+<p><strong>BONUS: This package works in the browser too.</strong></p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+install
+  </h2>
+</div>
+<pre><code>npm install arch
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> arch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'arch'</span>)
+<span class="hljs-built_in">console</span>.log(arch()) <span class="hljs-comment">// always returns 'x64' or 'x86'</span>
+</code></pre>
+<p>In the browser, there is no spec that defines where this information lives, so we
+check all known locations including <code>navigator.userAgent</code>, <code>navigator.platform</code>,
+and <code>navigator.cpuClass</code> to make a best guess.</p>
+<p>If there is no <em>affirmative indication</em> that the architecture is 64-bit, then
+32-bit will be assumed. This makes this package perfect for determining what
+installer executable to offer to desktop app users. If there is ambiguity, then
+the user will get the 32-bit installer, which will work fine even for a user with
+a 64-bit OS.</p>
+<p>For reference, <code>x64</code> means 64-bit and <code>x86</code> means 32-bit.</p>
+<p>Here is some history behind these naming conventions:</p>
+<ul>
+<li>https://en.wikipedia.org/wiki/X86</li>
+<li>https://en.wikipedia.org/wiki/IA-32</li>
+<li>https://en.wikipedia.org/wiki/X86-64</li>
+</ul>
+<div class="pilwrap" id="node.js-proposal-os.sysarch">
+  <h2>
+    <a href="#node.js-proposal-os.sysarch" name="node.js-proposal-os.sysarch" class="pilcrow"></a>
+Node.js proposal - <code>os.sysarch()</code>
+  </h2>
+</div>
+<p>Note: There is
+<a href="https://github.com/nodejs/node-v0.x-archive/issues/2862#issuecomment-103942051">a proposal</a>
+to add this functionality to Node.js as <code>os.sysarch()</code>.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+license
+  </h2>
+</div>
+<p>MIT. Copyright (c) <a href="http://feross.org">Feross Aboukhadijeh</a>.</p>
+</div>
+  </div>
+</body>
+</html>

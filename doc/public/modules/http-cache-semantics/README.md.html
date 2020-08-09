@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\http-cache-semantics\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#can-i-cache-this">Can I cache this? </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#constructor-options">Constructor options</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#storable">storable()</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#satisfieswithoutrevalidation-newrequest">satisfiesWithoutRevalidation(newRequest)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#responseheaders">responseHeaders()</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#timetolive">timeToLive()</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#toobject-fromobject-json">toObject()/fromObject(json)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#refreshing-stale-cache-revalidation">Refreshing stale cache (revalidation)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#revalidationheaders-newrequest">revalidationHeaders(newRequest)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#revalidatedpolicy-revalidationrequest-revalidationresponse">revalidatedPolicy(revalidationRequest, revalidationResponse)</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#yo-fresh">Yo, FRESH</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#used-by">Used by</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#implemented">Implemented</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#unimplemented">Unimplemented</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="can-i-cache-this">
+  <h1>
+    <a href="#can-i-cache-this" name="can-i-cache-this" class="pilcrow"></a>
+Can I cache this? <a href="https://travis-ci.org/pornel/http-cache-semantics"><img src="https://travis-ci.org/pornel/http-cache-semantics.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<p><code>CachePolicy</code> tells when responses can be reused from a cache, taking into account <a href="http://httpwg.org/specs/rfc7234.html">HTTP RFC 7234</a> rules for user agents and shared caches. It's aware of many tricky details such as the <code>Vary</code> header, proxy revalidation, and authenticated responses.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>Cacheability of an HTTP response depends on how it was requested, so both <code>request</code> and <code>response</code> are required to create the policy.</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> policy = <span class="hljs-keyword">new</span> CachePolicy(request, response, options);
+
+<span class="hljs-keyword">if</span> (!policy.storable()) {
+    <span class="hljs-comment">// throw the response away, it's not usable at all</span>
+    <span class="hljs-keyword">return</span>;
+}
+
+<span class="hljs-comment">// Cache the data AND the policy object in your cache</span>
+<span class="hljs-comment">// (this is pseudocode, roll your own cache (lru-cache package works))</span>
+letsPretendThisIsSomeCache.set(request.url, {policy, response}, policy.timeToLive());
+</code></pre>
+<pre><code class="js"><span class="hljs-comment">// And later, when you receive a new request:</span>
+<span class="hljs-keyword">const</span> {policy, response} = letsPretendThisIsSomeCache.get(newRequest.url);
+
+<span class="hljs-comment">// It's not enough that it exists in the cache, it has to match the new request, too:</span>
+<span class="hljs-keyword">if</span> (policy &amp;&amp; policy.satisfiesWithoutRevalidation(newRequest)) {
+    <span class="hljs-comment">// OK, the previous response can be used to respond to the `newRequest`.</span>
+    <span class="hljs-comment">// Response headers have to be updated, e.g. to add Age and remove uncacheable headers.</span>
+    response.headers = policy.responseHeaders();
+    <span class="hljs-keyword">return</span> response;
+}
+</code></pre>
+<p>It may be surprising, but it's not enough for an HTTP response to be <a href="#yo-fresh.html">fresh</a> to satisfy a request. It may need to match request headers specified in <code>Vary</code>. Even a matching fresh response may still not be usable if the new request restricted cacheability, etc.</p>
+<p>The key method is <code>satisfiesWithoutRevalidation(newRequest)</code>, which checks whether the <code>newRequest</code> is compatible with the original request and whether all caching conditions are met.</p>
+<div class="pilwrap" id="constructor-options">
+  <h3>
+    <a href="#constructor-options" name="constructor-options" class="pilcrow"></a>
+Constructor options
+  </h3>
+</div>
+<p>Request and response must have a <code>headers</code> property with all header names in lower case. <code>url</code>, <code>status</code> and <code>method</code> are optional (defaults are any URL, status <code>200</code>, and <code>GET</code> method).</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> request = {
+    <span class="hljs-attr">url</span>: <span class="hljs-string">'/'</span>,
+    <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+    <span class="hljs-attr">headers</span>: {
+        <span class="hljs-attr">accept</span>: <span class="hljs-string">'*/*'</span>,
+    },
+};
+
+<span class="hljs-keyword">const</span> response = {
+    <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
+    <span class="hljs-attr">headers</span>: {
+        <span class="hljs-string">'cache-control'</span>: <span class="hljs-string">'public, max-age=7234'</span>,
+    },
+};
+
+<span class="hljs-keyword">const</span> options = {
+    <span class="hljs-attr">shared</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">cacheHeuristic</span>: <span class="hljs-number">0.1</span>,
+    <span class="hljs-attr">immutableMinTimeToLive</span>: <span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span>, <span class="hljs-comment">// 24h</span>
+    <span class="hljs-attr">ignoreCargoCult</span>: <span class="hljs-literal">false</span>,
+};
+</code></pre>
+<p>If <code>options.shared</code> is <code>true</code> (default), then the response is evaluated from a perspective of a shared cache (i.e. <code>private</code> is not cacheable and <code>s-maxage</code> is respected). If <code>options.shared</code> is <code>false</code>, then the response is evaluated from a perspective of a single-user cache (i.e. <code>private</code> is cacheable and <code>s-maxage</code> is ignored).</p>
+<p><code>options.cacheHeuristic</code> is a fraction of response's age that is used as a fallback cache duration. The default is 0.1 (10%), e.g. if a file hasn't been modified for 100 days, it'll be cached for 100*0.1 = 10 days.</p>
+<p><code>options.immutableMinTimeToLive</code> is a number of milliseconds to assume as the default time to cache responses with <code>Cache-Control: immutable</code>. Note that <a href="http://httpwg.org/http-extensions/immutable.html">per RFC</a> these can become stale, so <code>max-age</code> still overrides the default.</p>
+<p>If <code>options.ignoreCargoCult</code> is true, common anti-cache directives will be completely ignored if the non-standard <code>pre-check</code> and <code>post-check</code> directives are present. These two useless directives are most commonly found in bad StackOverflow answers and PHP's &quot;session limiter&quot; defaults.</p>
+<div class="pilwrap" id="storable">
+  <h3>
+    <a href="#storable" name="storable" class="pilcrow"></a>
+<code>storable()</code>
+  </h3>
+</div>
+<p>Returns <code>true</code> if the response can be stored in a cache. If it's <code>false</code> then you MUST NOT store either the request or the response.</p>
+<div class="pilwrap" id="satisfieswithoutrevalidation-newrequest">
+  <h3>
+    <a href="#satisfieswithoutrevalidation-newrequest" name="satisfieswithoutrevalidation-newrequest" class="pilcrow"></a>
+<code>satisfiesWithoutRevalidation(newRequest)</code>
+  </h3>
+</div>
+<p>This is the most important method. Use this method to check whether the cached response is still fresh in the context of the new request.</p>
+<p>If it returns <code>true</code>, then the given <code>request</code> matches the original response this cache policy has been created with, and the response can be reused without contacting the server. Note that the old response can't be returned without being updated, see <code>responseHeaders()</code>.</p>
+<p>If it returns <code>false</code>, then the response may not be matching at all (e.g. it's for a different URL or method), or may require to be refreshed first (see <code>revalidationHeaders()</code>).</p>
+<div class="pilwrap" id="responseheaders">
+  <h3>
+    <a href="#responseheaders" name="responseheaders" class="pilcrow"></a>
+<code>responseHeaders()</code>
+  </h3>
+</div>
+<p>Returns updated, filtered set of response headers to return to clients receiving the cached response. This function is necessary, because proxies MUST always remove hop-by-hop headers (such as <code>TE</code> and <code>Connection</code>) and update response's <code>Age</code> to avoid doubling cache time.</p>
+<pre><code class="js">cachedResponse.headers = cachePolicy.responseHeaders(cachedResponse);
+</code></pre>
+<div class="pilwrap" id="timetolive">
+  <h3>
+    <a href="#timetolive" name="timetolive" class="pilcrow"></a>
+<code>timeToLive()</code>
+  </h3>
+</div>
+<p>Returns approximate time in <em>milliseconds</em> until the response becomes stale (i.e. not fresh).</p>
+<p>After that time (when <code>timeToLive() &lt;= 0</code>) the response might not be usable without revalidation. However, there are exceptions, e.g. a client can explicitly allow stale responses, so always check with <code>satisfiesWithoutRevalidation()</code>.</p>
+<div class="pilwrap" id="toobject-fromobject-json">
+  <h3>
+    <a href="#toobject-fromobject-json" name="toobject-fromobject-json" class="pilcrow"></a>
+<code>toObject()</code>/<code>fromObject(json)</code>
+  </h3>
+</div>
+<p>Chances are you'll want to store the <code>CachePolicy</code> object along with the cached response. <code>obj = policy.toObject()</code> gives a plain JSON-serializable object. <code>policy = CachePolicy.fromObject(obj)</code> creates an instance from it.</p>
+<div class="pilwrap" id="refreshing-stale-cache-revalidation">
+  <h3>
+    <a href="#refreshing-stale-cache-revalidation" name="refreshing-stale-cache-revalidation" class="pilcrow"></a>
+Refreshing stale cache (revalidation)
+  </h3>
+</div>
+<p>When a cached response has expired, it can be made fresh again by making a request to the origin server. The server may respond with status 304 (Not Modified) without sending the response body again, saving bandwidth.</p>
+<p>The following methods help perform the update efficiently and correctly.</p>
+<div class="pilwrap" id="revalidationheaders-newrequest">
+  <h4>
+    <a href="#revalidationheaders-newrequest" name="revalidationheaders-newrequest" class="pilcrow"></a>
+<code>revalidationHeaders(newRequest)</code>
+  </h4>
+</div>
+<p>Returns updated, filtered set of request headers to send to the origin server to check if the cached response can be reused. These headers allow the origin server to return status 304 indicating the response is still fresh. All headers unrelated to caching are passed through as-is.</p>
+<p>Use this method when updating cache from the origin server.</p>
+<pre><code class="js">updateRequest.headers = cachePolicy.revalidationHeaders(updateRequest);
+</code></pre>
+<div class="pilwrap" id="revalidatedpolicy-revalidationrequest-revalidationresponse">
+  <h4>
+    <a href="#revalidatedpolicy-revalidationrequest-revalidationresponse" name="revalidatedpolicy-revalidationrequest-revalidationresponse" class="pilcrow"></a>
+<code>revalidatedPolicy(revalidationRequest, revalidationResponse)</code>
+  </h4>
+</div>
+<p>Use this method to update the cache after receiving a new response from the origin server. It returns an object with two keys:</p>
+<ul>
+<li><code>policy</code> — A new <code>CachePolicy</code> with HTTP headers updated from <code>revalidationResponse</code>. You can always replace the old cached <code>CachePolicy</code> with the new one.</li>
+<li><code>modified</code> — Boolean indicating whether the response body has changed.
+<ul>
+<li>If <code>false</code>, then a valid 304 Not Modified response has been received, and you can reuse the old cached response body.</li>
+<li>If <code>true</code>, you should use new response's body (if present), or make another request to the origin server without any conditional headers (i.e. don't use <code>revalidationHeaders()</code> this time) to get the new resource.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="js"><span class="hljs-comment">// When serving requests from cache:</span>
+<span class="hljs-keyword">const</span> {oldPolicy, oldResponse} = letsPretendThisIsSomeCache.get(newRequest.url);
+
+<span class="hljs-keyword">if</span> (!oldPolicy.satisfiesWithoutRevalidation(newRequest)) {
+    <span class="hljs-comment">// Change the request to ask the origin server if the cached response can be used</span>
+    newRequest.headers = oldPolicy.revalidationHeaders(newRequest);
+
+    <span class="hljs-comment">// Send request to the origin server. The server may respond with status 304</span>
+    <span class="hljs-keyword">const</span> newResponse = <span class="hljs-keyword">await</span> makeRequest(newResponse);
+
+    <span class="hljs-comment">// Create updated policy and combined response from the old and new data</span>
+    <span class="hljs-keyword">const</span> {policy, modified} = oldPolicy.revalidatedPolicy(newRequest, newResponse);
+    <span class="hljs-keyword">const</span> response = modified ? newResponse : oldResponse;
+
+    <span class="hljs-comment">// Update the cache with the newer/fresher response</span>
+    letsPretendThisIsSomeCache.set(newRequest.url, {policy, response}, policy.timeToLive());
+
+    <span class="hljs-comment">// And proceed returning cached response as usual</span>
+    response.headers = policy.responseHeaders();
+    <span class="hljs-keyword">return</span> response;
+}
+</code></pre>
+<div class="pilwrap" id="yo-fresh">
+  <h1>
+    <a href="#yo-fresh" name="yo-fresh" class="pilcrow"></a>
+Yo, FRESH
+  </h1>
+</div>
+<p><img src="fresh.jpg" alt="satisfiesWithoutRevalidation"></p>
+<div class="pilwrap" id="used-by">
+  <h2>
+    <a href="#used-by" name="used-by" class="pilcrow"></a>
+Used by
+  </h2>
+</div>
+<ul>
+<li><a href="https://imageoptim.com/api">ImageOptim API</a>, <a href="https://github.com/zkat/make-fetch-happen">make-fetch-happen</a>, <a href="https://www.npmjs.com/package/cacheable-request">cacheable-request</a>, <a href="https://github.com/npm/registry-fetch">npm/registry-fetch</a>, <a href="https://github.com/pornel/http-cache-semantics/network/dependents">etc.</a></li>
+</ul>
+<div class="pilwrap" id="implemented">
+  <h2>
+    <a href="#implemented" name="implemented" class="pilcrow"></a>
+Implemented
+  </h2>
+</div>
+<ul>
+<li><code>Cache-Control</code> response header with all the quirks.</li>
+<li><code>Expires</code> with check for bad clocks.</li>
+<li><code>Pragma</code> response header.</li>
+<li><code>Age</code> response header.</li>
+<li><code>Vary</code> response header.</li>
+<li>Default cacheability of statuses and methods.</li>
+<li>Requests for stale data.</li>
+<li>Filtering of hop-by-hop headers.</li>
+<li>Basic revalidation request</li>
+</ul>
+<div class="pilwrap" id="unimplemented">
+  <h2>
+    <a href="#unimplemented" name="unimplemented" class="pilcrow"></a>
+Unimplemented
+  </h2>
+</div>
+<ul>
+<li>Merging of range requests, If-Range (but correctly supports them as non-cacheable)</li>
+<li>Revalidation of multiple representations</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

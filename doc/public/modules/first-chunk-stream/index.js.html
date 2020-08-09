@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\first-chunk-stream\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">var</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
+<span class="hljs-keyword">var</span> Transform = <span class="hljs-built_in">require</span>(<span class="hljs-string">'stream'</span>).Transform;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ctor</span>(<span class="hljs-params">options, transform</span>) </span>{
+	util.inherits(FirstChunk, Transform);
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options === <span class="hljs-string">'function'</span>) {
+		transform = options;
+		options = {};
+	}
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> transform !== <span class="hljs-string">'function'</span>) {
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'transform function required'</span>);
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FirstChunk</span>(<span class="hljs-params">options2</span>) </span>{
+		<span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> FirstChunk)) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> FirstChunk(options2);
+		}
+
+		Transform.call(<span class="hljs-keyword">this</span>, options2);
+
+		<span class="hljs-keyword">this</span>._firstChunk = <span class="hljs-literal">true</span>;
+		<span class="hljs-keyword">this</span>._transformCalled = <span class="hljs-literal">false</span>;
+		<span class="hljs-keyword">this</span>._minSize = options.minSize;
+	}
+
+	FirstChunk.prototype._transform = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">chunk, enc, cb</span>) </span>{
+		<span class="hljs-keyword">this</span>._enc = enc;
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._firstChunk) {
+			<span class="hljs-keyword">this</span>._firstChunk = <span class="hljs-literal">false</span>;
+
+			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._minSize == <span class="hljs-literal">null</span>) {
+				transform.call(<span class="hljs-keyword">this</span>, chunk, enc, cb);
+				<span class="hljs-keyword">this</span>._transformCalled = <span class="hljs-literal">true</span>;
+				<span class="hljs-keyword">return</span>;
+			}
+
+			<span class="hljs-keyword">this</span>._buffer = chunk;
+			cb();
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._minSize == <span class="hljs-literal">null</span>) {
+			<span class="hljs-keyword">this</span>.push(chunk);
+			cb();
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._buffer.length &lt; <span class="hljs-keyword">this</span>._minSize) {
+			<span class="hljs-keyword">this</span>._buffer = Buffer.concat([<span class="hljs-keyword">this</span>._buffer, chunk]);
+			cb();
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._buffer.length &gt;= <span class="hljs-keyword">this</span>._minSize) {
+			transform.call(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">this</span>._buffer.slice(), enc, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">this</span>.push(chunk);
+				cb();
+			}.bind(<span class="hljs-keyword">this</span>));
+			<span class="hljs-keyword">this</span>._transformCalled = <span class="hljs-literal">true</span>;
+			<span class="hljs-keyword">this</span>._buffer = <span class="hljs-literal">false</span>;
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">this</span>.push(chunk);
+		cb();
+	};
+
+	FirstChunk.prototype._flush = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">cb</span>) </span>{
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._buffer) {
+			cb();
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._transformCalled) {
+			<span class="hljs-keyword">this</span>.push(<span class="hljs-keyword">this</span>._buffer);
+			cb();
+		} <span class="hljs-keyword">else</span> {
+			transform.call(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">this</span>._buffer.slice(), <span class="hljs-keyword">this</span>._enc, cb);
+		}
+	};
+
+	<span class="hljs-keyword">return</span> FirstChunk;
+}
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+	<span class="hljs-keyword">return</span> ctor.apply(ctor, <span class="hljs-built_in">arguments</span>)();
+};
+
+<span class="hljs-built_in">module</span>.exports.ctor = ctor;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

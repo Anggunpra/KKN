@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\json-parse-better-errors\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+
+<span class="hljs-built_in">module</span>.exports = parseJson
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parseJson</span> (<span class="hljs-params">txt, reviver, context</span>) </span>{
+  context = context || <span class="hljs-number">20</span>
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(txt, reviver)
+  } <span class="hljs-keyword">catch</span> (e) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> txt !== <span class="hljs-string">'string'</span>) {
+      <span class="hljs-keyword">const</span> isEmptyArray = <span class="hljs-built_in">Array</span>.isArray(txt) &amp;&amp; txt.length === <span class="hljs-number">0</span>
+      <span class="hljs-keyword">const</span> errorMessage = <span class="hljs-string">'Cannot parse '</span> +
+      (isEmptyArray ? <span class="hljs-string">'an empty array'</span> : <span class="hljs-built_in">String</span>(txt))
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(errorMessage)
+    }
+    <span class="hljs-keyword">const</span> syntaxErr = e.message.match(<span class="hljs-regexp">/^Unexpected token.*position\s+(\d+)/i</span>)
+    <span class="hljs-keyword">const</span> errIdx = syntaxErr
+    ? +syntaxErr[<span class="hljs-number">1</span>]
+    : e.message.match(<span class="hljs-regexp">/^Unexpected end of JSON.*/i</span>)
+    ? txt.length - <span class="hljs-number">1</span>
+    : <span class="hljs-literal">null</span>
+    <span class="hljs-keyword">if</span> (errIdx != <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">const</span> start = errIdx &lt;= context
+      ? <span class="hljs-number">0</span>
+      : errIdx - context
+      <span class="hljs-keyword">const</span> end = errIdx + context &gt;= txt.length
+      ? txt.length
+      : errIdx + context
+      e.message += <span class="hljs-string">` while parsing near '<span class="hljs-subst">${
+        start === <span class="hljs-number">0</span> ? <span class="hljs-string">''</span> : <span class="hljs-string">'...'</span>
+      }</span><span class="hljs-subst">${txt.slice(start, end)}</span><span class="hljs-subst">${
+        end === txt.length ? <span class="hljs-string">''</span> : <span class="hljs-string">'...'</span>
+      }</span>'`</span>
+    } <span class="hljs-keyword">else</span> {
+      e.message += <span class="hljs-string">` while parsing '<span class="hljs-subst">${txt.slice(<span class="hljs-number">0</span>, context * <span class="hljs-number">2</span>)}</span>'`</span>
+    }
+    <span class="hljs-keyword">throw</span> e
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

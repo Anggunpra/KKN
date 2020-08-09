@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\meow\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#meow">meow </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#features">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#meow-options-minimistoptions">meow(options, [minimistOptions])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#description">description</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#help">help</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#version">version</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#pkg">pkg</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#argv">argv</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#minimistoptions">minimistOptions</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#promises">Promises</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#tips">Tips</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="meow">
+  <h1>
+    <a href="#meow" name="meow" class="pilcrow"></a>
+meow <a href="https://travis-ci.org/sindresorhus/meow"><img src="https://travis-ci.org/sindresorhus/meow.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>CLI app helper</p>
+</blockquote>
+<p><img src="meow.gif" alt=""></p>
+<div class="pilwrap" id="features">
+  <h2>
+    <a href="#features" name="features" class="pilcrow"></a>
+Features
+  </h2>
+</div>
+<ul>
+<li>Parses arguments using <a href="https://github.com/substack/minimist">minimist</a></li>
+<li>Converts flags to <a href="https://github.com/sindresorhus/camelcase">camelCase</a></li>
+<li>Outputs version when <code>--version</code></li>
+<li>Outputs description and supplied help text when <code>--help</code></li>
+<li>Makes unhandled rejected promises <a href="https://github.com/sindresorhus/loud-rejection">fail loudly</a> instead of the default silent fail</li>
+<li>Sets the process title to the binary name defined in package.json</li>
+</ul>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save meow
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code>$ ./foo-app.js unicorns --rainbow-cake
+</code></pre>
+<pre><code class="js"><span class="hljs-meta">#!/usr/bin/env node</span>
+<span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">const</span> meow = <span class="hljs-built_in">require</span>(<span class="hljs-string">'meow'</span>);
+<span class="hljs-keyword">const</span> foo = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./'</span>);
+
+<span class="hljs-keyword">const</span> cli = meow(<span class="hljs-string">`
+	Usage
+	  $ foo &lt;input&gt;
+
+	Options
+	  -r, --rainbow  Include a rainbow
+
+	Examples
+	  $ foo unicorns --rainbow
+	  🌈 unicorns 🌈
+`</span>, {
+	<span class="hljs-attr">alias</span>: {
+		<span class="hljs-attr">r</span>: <span class="hljs-string">'rainbow'</span>
+	}
+});
+<span class="hljs-comment">/*
+{
+	input: ['unicorns'],
+	flags: {rainbow: true},
+	...
+}
+*/</span>
+
+foo(cli.input[<span class="hljs-number">0</span>], cli.flags);
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="meow-options-minimistoptions">
+  <h3>
+    <a href="#meow-options-minimistoptions" name="meow-options-minimistoptions" class="pilcrow"></a>
+meow(options, [minimistOptions])
+  </h3>
+</div>
+<p>Returns an object with:</p>
+<ul>
+<li><code>input</code> <em>(array)</em> - Non-flag arguments</li>
+<li><code>flags</code> <em>(object)</em> - Flags converted to camelCase</li>
+<li><code>pkg</code> <em>(object)</em> - The <code>package.json</code> object</li>
+<li><code>help</code> <em>(object)</em> - The help text used with <code>--help</code></li>
+<li><code>showHelp([code=0])</code> <em>(function)</em> - Show the help text and exit with <code>code</code></li>
+</ul>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>object</code>, <code>array</code>, <code>string</code></p>
+<p>Can either be a string/array that is the <code>help</code> or an options object.</p>
+<div class="pilwrap" id="description">
+  <h5>
+    <a href="#description" name="description" class="pilcrow"></a>
+description
+  </h5>
+</div>
+<p>Type: <code>string</code>, <code>boolean</code>
+Default: The package.json <code>&quot;description&quot;</code> property</p>
+<p>A description to show above the help text.</p>
+<p>Set it to <code>false</code> to disable it altogether.</p>
+<div class="pilwrap" id="help">
+  <h5>
+    <a href="#help" name="help" class="pilcrow"></a>
+help
+  </h5>
+</div>
+<p>Type: <code>string</code>, <code>boolean</code></p>
+<p>The help text you want shown.</p>
+<p>The input is reindented and starting/ending newlines are trimmed which means you can use a <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/template_strings">template literal</a> without having to care about using the correct amount of indent.</p>
+<p><del>If it's an array each item will be a line.</del><br>
+<em>(Still supported, but you should use a template literal instead.)</em></p>
+<p>The description will be shown above your help text automatically.</p>
+<p>Set it to <code>false</code> to disable it altogether.</p>
+<div class="pilwrap" id="version">
+  <h5>
+    <a href="#version" name="version" class="pilcrow"></a>
+version
+  </h5>
+</div>
+<p>Type: <code>string</code>, <code>boolean</code><br>
+Default: The package.json <code>&quot;version&quot;</code> property</p>
+<p>Set a custom version output.</p>
+<p>Set it to <code>false</code> to disable it altogether.</p>
+<div class="pilwrap" id="pkg">
+  <h5>
+    <a href="#pkg" name="pkg" class="pilcrow"></a>
+pkg
+  </h5>
+</div>
+<p>Type: <code>string</code>, <code>object</code><br>
+Default: Closest package.json upwards</p>
+<p>Relative path to package.json or as an object.</p>
+<div class="pilwrap" id="argv">
+  <h5>
+    <a href="#argv" name="argv" class="pilcrow"></a>
+argv
+  </h5>
+</div>
+<p>Type: <code>array</code><br>
+Default: <code>process.argv.slice(2)</code></p>
+<p>Custom arguments object.</p>
+<div class="pilwrap" id="minimistoptions">
+  <h4>
+    <a href="#minimistoptions" name="minimistoptions" class="pilcrow"></a>
+minimistOptions
+  </h4>
+</div>
+<p>Type: <code>object</code><br>
+Default: <code>{}</code></p>
+<p>Minimist <a href="https://github.com/substack/minimist#var-argv--parseargsargs-opts">options</a>.</p>
+<p>Keys passed to the minimist <code>default</code> option are <a href="https://github.com/sindresorhus/decamelize">decamelized</a>, so you can for example pass in <code>fooBar: 'baz'</code> and have it be the default for the <code>--foo-bar</code> flag.</p>
+<div class="pilwrap" id="promises">
+  <h2>
+    <a href="#promises" name="promises" class="pilcrow"></a>
+Promises
+  </h2>
+</div>
+<p>Meow will make unhandled rejected promises <a href="https://github.com/sindresorhus/loud-rejection">fail loudly</a> instead of the default silent fail. Meaning you don't have to manually <code>.catch()</code> promises used in your CLI.</p>
+<div class="pilwrap" id="tips">
+  <h2>
+    <a href="#tips" name="tips" class="pilcrow"></a>
+Tips
+  </h2>
+</div>
+<p>See <a href="https://github.com/chalk/chalk"><code>chalk</code></a> if you want to colorize the terminal output.</p>
+<p>See <a href="https://github.com/sindresorhus/get-stdin"><code>get-stdin</code></a> if you want to accept input from stdin.</p>
+<p>See <a href="https://github.com/yeoman/update-notifier"><code>update-notifier</code></a> if you want update notifications.</p>
+<p>See <a href="https://github.com/yeoman/configstore"><code>configstore</code></a> if you need to persist some data.</p>
+<p><a href="https://github.com/sindresorhus/awesome-nodejs#command-line-utilities">More useful CLI utilities.</a></p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

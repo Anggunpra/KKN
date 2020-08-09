@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\co\\Readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#co">Co</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#platform-compatibility">Platform Compatibility</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#associated-libraries">Associated libraries</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#example">Example</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#yieldables">Yieldables</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#thunks-vs-promises">Thunks vs promises</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#receiver-propagation">Receiver propagation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#co-fn">co(fn)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#yield-array">yield array</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#yield-object">yield object</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#performance">Performance</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="co">
+  <h1>
+    <a href="#co" name="co" class="pilcrow"></a>
+Co
+  </h1>
+</div>
+<p><a href="https://travis-ci.org/visionmedia/co"><img src="https://travis-ci.org/visionmedia/co.svg?branch=master" alt="Build Status"></a></p>
+<p>Generator based flow-control goodness for nodejs and the browser, using
+thunks <em>or</em> promises, letting you write non-blocking code in a nice-ish
+way.</p>
+<p>Co is careful to relay any errors that occur back to the generator, including those
+within the thunk, or from the thunk's callback. &quot;Uncaught&quot; exceptions in the generator
+are passed to <code>co()</code>'s thunk.</p>
+<p>Make sure to view the <a href="https://github.com/visionmedia/co/tree/master/examples">examples</a>.</p>
+<div class="pilwrap" id="platform-compatibility">
+  <h2>
+    <a href="#platform-compatibility" name="platform-compatibility" class="pilcrow"></a>
+Platform Compatibility
+  </h2>
+</div>
+<p>When using node 0.11.x or greater, you must use the <code>--harmony-generators</code>
+flag or just <code>--harmony</code> to get access to generators.</p>
+<p>When using node 0.10.x and lower or browsers without generator support,
+you must use <a href="https://github.com/TooTallNate/gnode">gnode</a> and/or <a href="http://facebook.github.io/regenerator/">regenerator</a>.</p>
+<p>When using node 0.8.x and lower or browsers without <code>setImmediate</code>,
+you must include a <code>setImmediate</code> polyfill.
+For a really simple polyfill, you may use <a href="https://github.com/component/setimmediate.js">component/setimmediate.js</a>.
+For a more robust polyfill, you may use <a href="https://github.com/YuzuJS/setImmediate">YuzuJS/setImmediate</a>.</p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<pre><code>$ npm install co
+</code></pre>
+<div class="pilwrap" id="associated-libraries">
+  <h2>
+    <a href="#associated-libraries" name="associated-libraries" class="pilcrow"></a>
+Associated libraries
+  </h2>
+</div>
+<p>View the <a href="https://github.com/visionmedia/co/wiki">wiki</a> for libraries that
+work well with Co.</p>
+<div class="pilwrap" id="example">
+  <h2>
+    <a href="#example" name="example" class="pilcrow"></a>
+Example
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<span class="hljs-keyword">var</span> thunkify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'thunkify'</span>);
+<span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
+<span class="hljs-keyword">var</span> <span class="hljs-keyword">get</span> = thunkify(request.<span class="hljs-keyword">get</span>);
+
+co(function *(){
+  <span class="hljs-keyword">var</span> a = <span class="hljs-keyword">yield</span> <span class="hljs-keyword">get</span>('http://google.com');
+  var b = yield <span class="hljs-keyword">get</span>('http://yahoo.com');
+  var c = yield <span class="hljs-keyword">get</span>('http://cloudup.com');
+  console.log(a[0].statusCode);
+  console.log(b[0].statusCode);
+  console.log(c[0].statusCode);
+})()
+
+co(function *(){
+  <span class="hljs-keyword">var</span> a = <span class="hljs-keyword">get</span>('http://google.com');
+  var b = <span class="hljs-keyword">get</span>('http://yahoo.com');
+  var c = <span class="hljs-keyword">get</span>('http://cloudup.com');
+  var res = yield [a, b, c];
+  console.log(res);
+})()
+
+// Error handling
+
+co(function *(){
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">var</span> res = <span class="hljs-keyword">yield</span> <span class="hljs-keyword">get</span>('http://badhost.invalid');
+    console.log(res);
+  } catch(e) {
+    <span class="hljs-built_in">console</span>.log(e.code) <span class="hljs-comment">// ENOTFOUND</span>
+ }
+})()
+</code></pre>
+<div class="pilwrap" id="yieldables">
+  <h2>
+    <a href="#yieldables" name="yieldables" class="pilcrow"></a>
+Yieldables
+  </h2>
+</div>
+<p>The &quot;yieldable&quot; objects currently supported are:</p>
+<ul>
+<li>promises</li>
+<li>thunks (functions)</li>
+<li>array (parallel execution)</li>
+<li>objects (parallel execution)</li>
+<li>generators (delegation)</li>
+<li>generator functions (delegation)</li>
+</ul>
+<p>To convert a regular node function that accepts a callback into one which returns a thunk you may want to use <a href="https://github.com/visionmedia/node-thunkify">thunkify</a> or similar.</p>
+<div class="pilwrap" id="thunks-vs-promises">
+  <h2>
+    <a href="#thunks-vs-promises" name="thunks-vs-promises" class="pilcrow"></a>
+Thunks vs promises
+  </h2>
+</div>
+<p>While co supports promises, you may return &quot;thunks&quot; from your functions,
+which otherwise behaves just like the traditional node-style callback
+with a signature of: <code>(err, result)</code>.</p>
+<p>For example take <code>fs.readFile</code>, we all know the signature is:</p>
+<pre><code class="js">fs.readFile(path, encoding, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, result</span>)</span>{
+
+});
+</code></pre>
+<p>To work with Co we need a function to return another function of
+the same signature:</p>
+<pre><code class="js">fs.readFile(path, encoding)(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, result</span>)</span>{
+
+});
+</code></pre>
+<p>Which basically looks like this:</p>
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">read</span>(<span class="hljs-params">path, encoding</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cb</span>)</span>{
+    fs.readFile(path, encoding, cb);
+  }
+}
+</code></pre>
+<p>or to execute immediately like this (see <a href="https://github.com/visionmedia/node-thunkify"><code>thunkify</code></a>):</p>
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">read</span>(<span class="hljs-params">path, encoding</span>) </span>{
+  <span class="hljs-comment">// call fs.readFile immediately, store result later</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cb</span>)</span>{
+    <span class="hljs-comment">// cb(err, result) or when result ready</span>
+  }
+}
+</code></pre>
+<div class="pilwrap" id="receiver-propagation">
+  <h2>
+    <a href="#receiver-propagation" name="receiver-propagation" class="pilcrow"></a>
+Receiver propagation
+  </h2>
+</div>
+<p>When <code>co</code> is invoked with a receiver it will propagate to most yieldables,
+allowing you to alter <code>this</code>.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> ctx = {};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+  assert(<span class="hljs-keyword">this</span> == ctx);
+}
+
+co(<span class="hljs-function"><span class="hljs-keyword">function</span> *(<span class="hljs-params"></span>)</span>{
+  assert(<span class="hljs-keyword">this</span> == ctx);
+  <span class="hljs-keyword">yield</span> foo;
+}).call(ctx)
+</code></pre>
+<p>You also pass arguments through the generator:</p>
+<pre><code class="js">co(<span class="hljs-function"><span class="hljs-keyword">function</span> *(<span class="hljs-params">a</span>)</span>{
+  assert(<span class="hljs-keyword">this</span> == ctx);
+  assert(<span class="hljs-string">'yay'</span> == a);
+  <span class="hljs-keyword">yield</span> foo;
+}).call(ctx, <span class="hljs-string">'yay'</span>);
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="co-fn">
+  <h3>
+    <a href="#co-fn" name="co-fn" class="pilcrow"></a>
+co(fn)
+  </h3>
+</div>
+<p>Pass a generator <code>fn</code> and return a thunk. The thunk's signature is
+<code>(err, result)</code>, where <code>result</code> is the value passed to the <code>return</code>
+statement.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">read</span>(<span class="hljs-params">file</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>)</span>{
+    fs.readFile(file, <span class="hljs-string">'utf8'</span>, fn);
+  }
+}
+
+co(<span class="hljs-function"><span class="hljs-keyword">function</span> *(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> a = <span class="hljs-keyword">yield</span> read(<span class="hljs-string">'.gitignore'</span>);
+  <span class="hljs-keyword">var</span> b = <span class="hljs-keyword">yield</span> read(<span class="hljs-string">'Makefile'</span>);
+  <span class="hljs-keyword">var</span> c = <span class="hljs-keyword">yield</span> read(<span class="hljs-string">'package.json'</span>);
+  <span class="hljs-keyword">return</span> [a, b, c];
+})()
+</code></pre>
+<p>You may also yield <code>Generator</code> objects to support nesting:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">size</span>(<span class="hljs-params">file</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>)</span>{
+    fs.stat(file, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, stat</span>)</span>{
+      <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> fn(err);
+      fn(<span class="hljs-literal">null</span>, stat.size);
+    });
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> *<span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> a = <span class="hljs-keyword">yield</span> size(<span class="hljs-string">'.gitignore'</span>);
+  <span class="hljs-keyword">var</span> b = <span class="hljs-keyword">yield</span> size(<span class="hljs-string">'Makefile'</span>);
+  <span class="hljs-keyword">var</span> c = <span class="hljs-keyword">yield</span> size(<span class="hljs-string">'package.json'</span>);
+  <span class="hljs-keyword">return</span> [a, b, c];
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> *<span class="hljs-title">bar</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> a = <span class="hljs-keyword">yield</span> size(<span class="hljs-string">'examples/parallel.js'</span>);
+  <span class="hljs-keyword">var</span> b = <span class="hljs-keyword">yield</span> size(<span class="hljs-string">'examples/nested.js'</span>);
+  <span class="hljs-keyword">var</span> c = <span class="hljs-keyword">yield</span> size(<span class="hljs-string">'examples/simple.js'</span>);
+  <span class="hljs-keyword">return</span> [a, b, c];
+}
+
+co(<span class="hljs-function"><span class="hljs-keyword">function</span> *(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> results = <span class="hljs-keyword">yield</span> [foo(), bar()];
+  <span class="hljs-built_in">console</span>.log(results);
+})()
+</code></pre>
+<p>Or if the generator functions do not require arguments, simply <code>yield</code> the function:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<span class="hljs-keyword">var</span> thunkify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'thunkify'</span>);
+<span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
+
+<span class="hljs-keyword">var</span> <span class="hljs-keyword">get</span> = thunkify(request.<span class="hljs-keyword">get</span>);
+
+function *results() {
+  <span class="hljs-keyword">var</span> a = <span class="hljs-keyword">get</span>('http://google.com')
+  var b = <span class="hljs-keyword">get</span>('http://yahoo.com')
+  var c = <span class="hljs-keyword">get</span>('http://ign.com')
+  return yield [a, b, c]
+}
+
+co(function *(){
+  <span class="hljs-comment">// 3 concurrent requests at a time</span>
+  <span class="hljs-keyword">var</span> a = <span class="hljs-keyword">yield</span> results;
+  <span class="hljs-keyword">var</span> b = <span class="hljs-keyword">yield</span> results;
+  <span class="hljs-built_in">console</span>.log(a, b);
+
+  <span class="hljs-comment">// 6 concurrent requests</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">yield</span> [results, results]);
+})()
+</code></pre>
+<p>If a thunk is written to execute immediately you may achieve parallelism
+by simply <code>yield</code>-ing <em>after</em> the call. The following are equivalent if
+each call kicks off execution immediately:</p>
+<pre><code class="js">co(<span class="hljs-function"><span class="hljs-keyword">function</span> *(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> a = size(<span class="hljs-string">'package.json'</span>);
+  <span class="hljs-keyword">var</span> b = size(<span class="hljs-string">'Readme.md'</span>);
+  <span class="hljs-keyword">var</span> c = size(<span class="hljs-string">'Makefile'</span>);
+
+  <span class="hljs-keyword">return</span> [<span class="hljs-keyword">yield</span> a, <span class="hljs-keyword">yield</span> b, <span class="hljs-keyword">yield</span> c];
+})()
+</code></pre>
+<p>Or:</p>
+<pre><code class="js">co(<span class="hljs-function"><span class="hljs-keyword">function</span> *(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> a = size(<span class="hljs-string">'package.json'</span>);
+  <span class="hljs-keyword">var</span> b = size(<span class="hljs-string">'Readme.md'</span>);
+  <span class="hljs-keyword">var</span> c = size(<span class="hljs-string">'Makefile'</span>);
+
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">yield</span> [a, b, c];
+})()
+</code></pre>
+<p>You can also pass arguments into the generator. The last argument, <code>done</code>, is
+the callback function. Here's an example:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> exec = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co-exec'</span>);
+co(<span class="hljs-function"><span class="hljs-keyword">function</span> *(<span class="hljs-params">cmd</span>) </span>{
+  <span class="hljs-keyword">var</span> res = <span class="hljs-keyword">yield</span> exec(cmd);
+  <span class="hljs-keyword">return</span> res;
+})(<span class="hljs-string">'pwd'</span>, done);
+</code></pre>
+<div class="pilwrap" id="yield-array">
+  <h3>
+    <a href="#yield-array" name="yield-array" class="pilcrow"></a>
+yield array
+  </h3>
+</div>
+<p>By yielding an array of thunks you may &quot;join&quot; them all into a single thunk which executes them all concurrently,
+instead of in sequence. Note that the resulting array ordering <em>is</em> retained.</p>
+<pre><code class="js">
+<span class="hljs-keyword">var</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">size</span>(<span class="hljs-params">file</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>)</span>{
+    fs.stat(file, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, stat</span>)</span>{
+      <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> fn(err);
+      fn(<span class="hljs-literal">null</span>, stat.size);
+    });
+  }
+}
+
+co(<span class="hljs-function"><span class="hljs-keyword">function</span> *(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> a = size(<span class="hljs-string">'.gitignore'</span>);
+  <span class="hljs-keyword">var</span> b = size(<span class="hljs-string">'index.js'</span>);
+  <span class="hljs-keyword">var</span> c = size(<span class="hljs-string">'Makefile'</span>);
+  <span class="hljs-keyword">var</span> res = <span class="hljs-keyword">yield</span> [a, b, c];
+  <span class="hljs-built_in">console</span>.log(res);
+  <span class="hljs-comment">// =&gt; [ 13, 1687, 129 ]</span>
+})()
+</code></pre>
+<p>Nested arrays may also be expressed as simple nested arrays:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> a = [
+  <span class="hljs-keyword">get</span>('http://google.com'),
+  <span class="hljs-keyword">get</span>('http://yahoo.com'),
+  <span class="hljs-keyword">get</span>('http://ign.com')
+];
+
+var b = [
+  <span class="hljs-keyword">get</span>('http://google.com'),
+  <span class="hljs-keyword">get</span>('http://yahoo.com'),
+  <span class="hljs-keyword">get</span>('http://ign.com')
+];
+
+console.log(yield [a, b]);
+</code></pre>
+<div class="pilwrap" id="yield-object">
+  <h3>
+    <a href="#yield-object" name="yield-object" class="pilcrow"></a>
+yield object
+  </h3>
+</div>
+<p>Yielding an object behaves much like yielding an array, however recursion is supported:</p>
+<pre><code class="js">co(<span class="hljs-function"><span class="hljs-keyword">function</span> *(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> user = <span class="hljs-keyword">yield</span> {
+    <span class="hljs-attr">name</span>: {
+      <span class="hljs-attr">first</span>: <span class="hljs-keyword">get</span>('name.first'),
+      last: <span class="hljs-keyword">get</span>('name.last')
+    }
+  };
+})()
+</code></pre>
+<p>Here is the sequential equivalent without yielding an object:</p>
+<pre><code class="js">co(<span class="hljs-function"><span class="hljs-keyword">function</span> *(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> user = {
+    <span class="hljs-attr">name</span>: {
+      <span class="hljs-attr">first</span>: <span class="hljs-keyword">yield</span> <span class="hljs-keyword">get</span>('name.first'),
+      last: yield <span class="hljs-keyword">get</span>('name.last')
+    }
+  };
+})()
+</code></pre>
+<div class="pilwrap" id="performance">
+  <h3>
+    <a href="#performance" name="performance" class="pilcrow"></a>
+Performance
+  </h3>
+</div>
+<p>On my machine 30,000 sequential stat()s takes an avg of 570ms,
+while the same number of sequential stat()s with <code>co()</code> takes
+610ms, aka the overhead introduced by generators is <em>extremely</em> negligible.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

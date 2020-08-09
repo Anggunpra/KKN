@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\has-binary2\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/* global Blob File */</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Module requirements.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">var</span> isArray = <span class="hljs-built_in">require</span>(<span class="hljs-string">'isarray'</span>);
+
+<span class="hljs-keyword">var</span> toString = <span class="hljs-built_in">Object</span>.prototype.toString;
+<span class="hljs-keyword">var</span> withNativeBlob = <span class="hljs-keyword">typeof</span> Blob === <span class="hljs-string">'function'</span> ||
+                        <span class="hljs-keyword">typeof</span> Blob !== <span class="hljs-string">'undefined'</span> &amp;&amp; toString.call(Blob) === <span class="hljs-string">'[object BlobConstructor]'</span>;
+<span class="hljs-keyword">var</span> withNativeFile = <span class="hljs-keyword">typeof</span> File === <span class="hljs-string">'function'</span> ||
+                        <span class="hljs-keyword">typeof</span> File !== <span class="hljs-string">'undefined'</span> &amp;&amp; toString.call(File) === <span class="hljs-string">'[object FileConstructor]'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Module exports.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">module</span>.exports = hasBinary;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks for binary data.</p>
+</div>
+<div class="body">
+<p>Supports Buffer, ArrayBuffer, Blob and File.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">anything</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasBinary</span> (<span class="hljs-params">obj</span>) </span>{
+  <span class="hljs-keyword">if</span> (!obj || <span class="hljs-keyword">typeof</span> obj !== <span class="hljs-string">'object'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (isArray(obj)) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, l = obj.length; i &lt; l; i++) {
+      <span class="hljs-keyword">if</span> (hasBinary(obj[i])) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-keyword">if</span> ((<span class="hljs-keyword">typeof</span> Buffer === <span class="hljs-string">'function'</span> &amp;&amp; Buffer.isBuffer &amp;&amp; Buffer.isBuffer(obj)) ||
+    (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">ArrayBuffer</span> === <span class="hljs-string">'function'</span> &amp;&amp; obj <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">ArrayBuffer</span>) ||
+    (withNativeBlob &amp;&amp; obj <span class="hljs-keyword">instanceof</span> Blob) ||
+    (withNativeFile &amp;&amp; obj <span class="hljs-keyword">instanceof</span> File)
+  ) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>see: https://github.com/Automattic/has-binary/pull/4</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (obj.toJSON &amp;&amp; <span class="hljs-keyword">typeof</span> obj.toJSON === <span class="hljs-string">'function'</span> &amp;&amp; <span class="hljs-built_in">arguments</span>.length === <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">return</span> hasBinary(obj.toJSON(), <span class="hljs-literal">true</span>);
+  }
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> obj) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(obj, key) &amp;&amp; hasBinary(obj[key])) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

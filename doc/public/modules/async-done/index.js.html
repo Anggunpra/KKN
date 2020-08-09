@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\async-done\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> domain = <span class="hljs-built_in">require</span>(<span class="hljs-string">'domain'</span>);
+
+<span class="hljs-keyword">var</span> eos = <span class="hljs-built_in">require</span>(<span class="hljs-string">'end-of-stream'</span>);
+<span class="hljs-keyword">var</span> p = <span class="hljs-built_in">require</span>(<span class="hljs-string">'process-nextick-args'</span>);
+<span class="hljs-keyword">var</span> once = <span class="hljs-built_in">require</span>(<span class="hljs-string">'once'</span>);
+<span class="hljs-keyword">var</span> exhaust = <span class="hljs-built_in">require</span>(<span class="hljs-string">'stream-exhaust'</span>);
+
+<span class="hljs-keyword">var</span> eosConfig = {
+  <span class="hljs-attr">error</span>: <span class="hljs-literal">false</span>,
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rethrowAsync</span>(<span class="hljs-params">err</span>) </span>{
+  process.nextTick(rethrow);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rethrow</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">throw</span> err;
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tryCatch</span>(<span class="hljs-params">fn, args</span>) </span>{
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">return</span> fn.apply(<span class="hljs-literal">null</span>, args);
+  } <span class="hljs-keyword">catch</span> (err) {
+    rethrowAsync(err);
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">asyncDone</span>(<span class="hljs-params">fn, cb</span>) </span>{
+  cb = once(cb);
+
+  <span class="hljs-keyword">var</span> d = domain.create();
+  d.once(<span class="hljs-string">'error'</span>, onError);
+  <span class="hljs-keyword">var</span> domainBoundFn = d.bind(fn);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">done</span>(<span class="hljs-params"></span>) </span>{
+    d.removeListener(<span class="hljs-string">'error'</span>, onError);
+    d.exit();
+    <span class="hljs-keyword">return</span> tryCatch(cb, <span class="hljs-built_in">arguments</span>);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onSuccess</span>(<span class="hljs-params">result</span>) </span>{
+    done(<span class="hljs-literal">null</span>, result);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onError</span>(<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-keyword">if</span> (!error) {
+      error = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Promise rejected without Error'</span>);
+    }
+    done(error);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">asyncRunner</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> result = domainBoundFn(done);
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onNext</span>(<span class="hljs-params">state</span>) </span>{
+      onNext.state = state;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onCompleted</span>(<span class="hljs-params"></span>) </span>{
+      onSuccess(onNext.state);
+    }
+
+    <span class="hljs-keyword">if</span> (result &amp;&amp; <span class="hljs-keyword">typeof</span> result.on === <span class="hljs-string">'function'</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Assume node stream</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      d.add(result);
+      eos(exhaust(result), eosConfig, done);
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">if</span> (result &amp;&amp; <span class="hljs-keyword">typeof</span> result.subscribe === <span class="hljs-string">'function'</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>Assume RxJS observable</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      result.subscribe(onNext, onError, onCompleted);
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">if</span> (result &amp;&amp; <span class="hljs-keyword">typeof</span> result.then === <span class="hljs-string">'function'</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Assume promise</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      result.then(onSuccess, onError);
+      <span class="hljs-keyword">return</span>;
+    }
+  }
+
+  p.nextTick(asyncRunner);
+}
+
+<span class="hljs-built_in">module</span>.exports = asyncDone;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

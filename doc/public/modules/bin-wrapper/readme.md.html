@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bin-wrapper\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#bin-wrapper">bin-wrapper </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#new-binwrapper-options">new BinWrapper(options)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.skipcheck">options.skipCheck</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.strip">options.strip</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.src-url-os-arch">.src(url, [os], [arch])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#url">url</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#os">os</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arch">arch</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.dest-dest">.dest(dest)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#dest">dest</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.use-bin">.use(bin)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#bin">bin</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.path">.path()</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.version-range">.version(range)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#range">range</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.run-cmd-callback">.run([cmd], callback)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd">cmd</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#callback-err">callback(err)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="bin-wrapper">
+  <h1>
+    <a href="#bin-wrapper" name="bin-wrapper" class="pilcrow"></a>
+bin-wrapper <a href="https://travis-ci.org/kevva/bin-wrapper"><img src="http://img.shields.io/travis/kevva/bin-wrapper.svg?style=flat" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Binary wrapper that makes your programs seamlessly available as local dependencies</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save bin-wrapper
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> BinWrapper = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bin-wrapper'</span>);
+
+<span class="hljs-keyword">var</span> base = <span class="hljs-string">'https://github.com/imagemin/gifsicle-bin/raw/master/vendor'</span>;
+<span class="hljs-keyword">var</span> bin = <span class="hljs-keyword">new</span> BinWrapper()
+	.src(base + <span class="hljs-string">'/osx/gifsicle'</span>, <span class="hljs-string">'darwin'</span>)
+	.src(base + <span class="hljs-string">'/linux/x64/gifsicle'</span>, <span class="hljs-string">'linux'</span>, <span class="hljs-string">'x64'</span>)
+	.src(base + <span class="hljs-string">'/win/x64/gifsicle.exe'</span>, <span class="hljs-string">'win32'</span>, <span class="hljs-string">'x64'</span>)
+	.dest(path.join(<span class="hljs-string">'vendor'</span>))
+	.use(process.platform === <span class="hljs-string">'win32'</span> ? <span class="hljs-string">'gifsicle.exe'</span> : <span class="hljs-string">'gifsicle'</span>)
+	.version(<span class="hljs-string">'&gt;=1.71'</span>);
+
+bin.run([<span class="hljs-string">'--version'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'gifsicle is working'</span>);
+});
+</code></pre>
+<p>Get the path to your binary with <code>bin.path()</code>:</p>
+<pre><code class="js"><span class="hljs-built_in">console</span>.log(bin.path()); <span class="hljs-comment">// =&gt; path/to/vendor/gifsicle</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="new-binwrapper-options">
+  <h3>
+    <a href="#new-binwrapper-options" name="new-binwrapper-options" class="pilcrow"></a>
+new BinWrapper(options)
+  </h3>
+</div>
+<p>Creates a new <code>BinWrapper</code> instance.</p>
+<div class="pilwrap" id="options.skipcheck">
+  <h4>
+    <a href="#options.skipcheck" name="options.skipcheck" class="pilcrow"></a>
+options.skipCheck
+  </h4>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code></p>
+<p>Whether to skip the binary check or not.</p>
+<div class="pilwrap" id="options.strip">
+  <h4>
+    <a href="#options.strip" name="options.strip" class="pilcrow"></a>
+options.strip
+  </h4>
+</div>
+<p>Type: <code>number</code><br>
+Default: <code>1</code></p>
+<p>Strip a number of leading paths from file names on extraction.</p>
+<div class="pilwrap" id=".src-url-os-arch">
+  <h3>
+    <a href="#.src-url-os-arch" name=".src-url-os-arch" class="pilcrow"></a>
+.src(url, [os], [arch])
+  </h3>
+</div>
+<p>Adds a source to download.</p>
+<div class="pilwrap" id="url">
+  <h4>
+    <a href="#url" name="url" class="pilcrow"></a>
+url
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Accepts a URL pointing to a file to download.</p>
+<div class="pilwrap" id="os">
+  <h4>
+    <a href="#os" name="os" class="pilcrow"></a>
+os
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Tie the source to a specific OS.</p>
+<div class="pilwrap" id="arch">
+  <h4>
+    <a href="#arch" name="arch" class="pilcrow"></a>
+arch
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Tie the source to a specific arch.</p>
+<div class="pilwrap" id=".dest-dest">
+  <h3>
+    <a href="#.dest-dest" name=".dest-dest" class="pilcrow"></a>
+.dest(dest)
+  </h3>
+</div>
+<div class="pilwrap" id="dest">
+  <h4>
+    <a href="#dest" name="dest" class="pilcrow"></a>
+dest
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Accepts a path which the files will be downloaded to.</p>
+<div class="pilwrap" id=".use-bin">
+  <h3>
+    <a href="#.use-bin" name=".use-bin" class="pilcrow"></a>
+.use(bin)
+  </h3>
+</div>
+<div class="pilwrap" id="bin">
+  <h4>
+    <a href="#bin" name="bin" class="pilcrow"></a>
+bin
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Define which file to use as the binary.</p>
+<div class="pilwrap" id=".path">
+  <h3>
+    <a href="#.path" name=".path" class="pilcrow"></a>
+.path()
+  </h3>
+</div>
+<p>Returns the full path to your binary.</p>
+<div class="pilwrap" id=".version-range">
+  <h3>
+    <a href="#.version-range" name=".version-range" class="pilcrow"></a>
+.version(range)
+  </h3>
+</div>
+<div class="pilwrap" id="range">
+  <h4>
+    <a href="#range" name="range" class="pilcrow"></a>
+range
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Define a <a href="https://github.com/isaacs/node-semver#ranges">semver range</a> to check
+the binary against.</p>
+<div class="pilwrap" id=".run-cmd-callback">
+  <h3>
+    <a href="#.run-cmd-callback" name=".run-cmd-callback" class="pilcrow"></a>
+.run([cmd], callback)
+  </h3>
+</div>
+<p>Runs the search for the binary. If no binary is found it will download the file
+using the URL provided in <code>.src()</code>.</p>
+<div class="pilwrap" id="cmd">
+  <h4>
+    <a href="#cmd" name="cmd" class="pilcrow"></a>
+cmd
+  </h4>
+</div>
+<p>Type: <code>array</code><br>
+Default: <code>['--version']</code></p>
+<p>Command to run the binary with. If it exits with code <code>0</code> it means that the
+binary is working.</p>
+<div class="pilwrap" id="callback-err">
+  <h4>
+    <a href="#callback-err" name="callback-err" class="pilcrow"></a>
+callback(err)
+  </h4>
+</div>
+<p>Type: <code>function</code></p>
+<p>Returns nothing but a possible error.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://kevinmartensson.com">Kevin Mårtensson</a></p>
+</div>
+  </div>
+</body>
+</html>

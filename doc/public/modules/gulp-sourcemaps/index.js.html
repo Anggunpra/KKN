@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-sourcemaps\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">var</span> through = <span class="hljs-built_in">require</span>(<span class="hljs-string">'through2'</span>);
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'graceful-fs'</span>);
+<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">var</span> File = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vinyl'</span>);
+<span class="hljs-keyword">var</span> convert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'convert-source-map'</span>);
+<span class="hljs-keyword">var</span> stripBom = <span class="hljs-built_in">require</span>(<span class="hljs-string">'strip-bom'</span>);
+
+<span class="hljs-keyword">var</span> PLUGIN_NAME = <span class="hljs-string">'gulp-sourcemap'</span>;
+<span class="hljs-keyword">var</span> urlRegex = <span class="hljs-regexp">/^(https?|webpack(-[^:]+)?):\/\//</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Initialize source mapping chain</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-built_in">module</span>.exports.init = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sourceMapInit</span>(<span class="hljs-params">file, encoding, callback</span>) </span>{
+    <span class="hljs-comment">/*jshint validthis:true */</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>pass through if file is null or already has a source map</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (file.isNull() || file.sourceMap) {
+      <span class="hljs-keyword">this</span>.push(file);
+      <span class="hljs-keyword">return</span> callback();
+    }
+
+    <span class="hljs-keyword">if</span> (file.isStream()) {
+      <span class="hljs-keyword">return</span> callback(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(PLUGIN_NAME + <span class="hljs-string">'-init: Streaming not supported'</span>));
+    }
+
+    <span class="hljs-keyword">var</span> fileContent = file.contents.toString();
+    <span class="hljs-keyword">var</span> sourceMap;
+
+    <span class="hljs-keyword">if</span> (options &amp;&amp; options.loadMaps) {
+      <span class="hljs-keyword">var</span> sourcePath = <span class="hljs-string">''</span>; <span class="hljs-comment">//root path for the sources in the map</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Try to read inline source map</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      sourceMap = convert.fromSource(fileContent);
+      <span class="hljs-keyword">if</span> (sourceMap) {
+        sourceMap = sourceMap.toObject();
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>sources in map are relative to the source file</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        sourcePath = path.dirname(file.path);
+        fileContent = convert.removeComments(fileContent);
+      } <span class="hljs-keyword">else</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>look for source map comment referencing a source map file</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">var</span> mapComment = convert.mapFileCommentRegex.exec(fileContent);
+
+        <span class="hljs-keyword">var</span> mapFile;
+        <span class="hljs-keyword">if</span> (mapComment) {
+          mapFile = path.resolve(path.dirname(file.path), mapComment[<span class="hljs-number">1</span>] || mapComment[<span class="hljs-number">2</span>]);
+          fileContent = convert.removeMapFileComments(fileContent);
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>if no comment try map file with same name as source file</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        } <span class="hljs-keyword">else</span> {
+          mapFile = file.path + <span class="hljs-string">'.map'</span>;
+        }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>sources in external map are relative to map file</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        sourcePath = path.dirname(mapFile);
+
+        <span class="hljs-keyword">try</span> {
+          sourceMap = <span class="hljs-built_in">JSON</span>.parse(stripBom(fs.readFileSync(mapFile, <span class="hljs-string">'utf8'</span>)));
+        } <span class="hljs-keyword">catch</span>(e) {}
+      }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>fix source paths and sourceContent for imported source map</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">if</span> (sourceMap) {
+        sourceMap.sourcesContent = sourceMap.sourcesContent || [];
+        sourceMap.sources.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">source, i</span>) </span>{
+          <span class="hljs-keyword">if</span> (source.match(urlRegex)) {
+            sourceMap.sourcesContent[i] = sourceMap.sourcesContent[i] || <span class="hljs-literal">null</span>;
+            <span class="hljs-keyword">return</span>;
+          }
+          <span class="hljs-keyword">var</span> absPath = path.resolve(sourcePath, source);
+          sourceMap.sources[i] = unixStylePath(path.relative(file.base, absPath));
+
+          <span class="hljs-keyword">if</span> (!sourceMap.sourcesContent[i]) {
+            <span class="hljs-keyword">var</span> sourceContent = <span class="hljs-literal">null</span>;
+            <span class="hljs-keyword">if</span> (sourceMap.sourceRoot) {
+              <span class="hljs-keyword">if</span> (sourceMap.sourceRoot.match(urlRegex)) {
+                sourceMap.sourcesContent[i] = <span class="hljs-literal">null</span>;
+                <span class="hljs-keyword">return</span>;
+              }
+              absPath = path.resolve(sourcePath, sourceMap.sourceRoot, source);
+            }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>if current file: use content</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span> (absPath === file.path) {
+              sourceContent = fileContent;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>else load content from file</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            } <span class="hljs-keyword">else</span> {
+              <span class="hljs-keyword">try</span> {
+                <span class="hljs-keyword">if</span> (options.debug)
+                  <span class="hljs-built_in">console</span>.log(PLUGIN_NAME + <span class="hljs-string">'-init: No source content for "'</span> + source + <span class="hljs-string">'". Loading from file.'</span>);
+                sourceContent = stripBom(fs.readFileSync(absPath, <span class="hljs-string">'utf8'</span>));
+              } <span class="hljs-keyword">catch</span> (e) {
+                <span class="hljs-keyword">if</span> (options.debug)
+                  <span class="hljs-built_in">console</span>.warn(PLUGIN_NAME + <span class="hljs-string">'-init: source file not found: '</span> + absPath);
+              }
+            }
+            sourceMap.sourcesContent[i] = sourceContent;
+          }
+        });
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>remove source map comment from source</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        file.contents = <span class="hljs-keyword">new</span> Buffer(fileContent, <span class="hljs-string">'utf8'</span>);
+      }
+    }
+
+    <span class="hljs-keyword">if</span> (!sourceMap) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>Make an empty source map</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      sourceMap = {
+        <span class="hljs-attr">version</span> : <span class="hljs-number">3</span>,
+        <span class="hljs-attr">names</span>: [],
+        <span class="hljs-attr">mappings</span>: <span class="hljs-string">''</span>,
+        <span class="hljs-attr">sources</span>: [unixStylePath(file.relative)],
+        <span class="hljs-attr">sourcesContent</span>: [fileContent]
+      };
+    }
+
+    sourceMap.file = unixStylePath(file.relative);
+    file.sourceMap = sourceMap;
+
+    <span class="hljs-keyword">this</span>.push(file);
+    callback();
+  }
+
+  <span class="hljs-keyword">return</span> through.obj(sourceMapInit);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Write the source map</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">options</span>
+<span>options to change the way the source map is written
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-built_in">module</span>.exports.write = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">write</span>(<span class="hljs-params">destPath, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (options === <span class="hljs-literal">undefined</span> &amp;&amp; <span class="hljs-built_in">Object</span>.prototype.toString.call(destPath) === <span class="hljs-string">'[object Object]'</span>) {
+    options = destPath;
+    destPath = <span class="hljs-literal">undefined</span>;
+  }
+  options = options || {};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>set defaults for options if unset</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (options.includeContent === <span class="hljs-literal">undefined</span>)
+    options.includeContent = <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">if</span> (options.addComment === <span class="hljs-literal">undefined</span>)
+    options.addComment = <span class="hljs-literal">true</span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sourceMapWrite</span>(<span class="hljs-params">file, encoding, callback</span>) </span>{
+    <span class="hljs-comment">/*jshint validthis:true */</span>
+
+    <span class="hljs-keyword">if</span> (file.isNull() || !file.sourceMap) {
+      <span class="hljs-keyword">this</span>.push(file);
+      <span class="hljs-keyword">return</span> callback();
+    }
+
+    <span class="hljs-keyword">if</span> (file.isStream()) {
+      <span class="hljs-keyword">return</span> callback(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(PLUGIN_NAME + <span class="hljs-string">'-write: Streaming not supported'</span>));
+    }
+
+    <span class="hljs-keyword">var</span> sourceMap = file.sourceMap;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>fix paths if Windows style paths</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    sourceMap.file = unixStylePath(file.relative);
+    sourceMap.sources = sourceMap.sources.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">filePath</span>) </span>{
+      <span class="hljs-keyword">return</span> unixStylePath(filePath);
+    });
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.sourceRoot === <span class="hljs-string">'function'</span>) {
+      sourceMap.sourceRoot = options.sourceRoot(file);
+    } <span class="hljs-keyword">else</span> {
+      sourceMap.sourceRoot = options.sourceRoot;
+    }
+
+    <span class="hljs-keyword">if</span> (options.includeContent) {
+      sourceMap.sourcesContent = sourceMap.sourcesContent || [];
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<p>load missing source content</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; file.sourceMap.sources.length; i++) {
+        <span class="hljs-keyword">if</span> (!sourceMap.sourcesContent[i]) {
+          <span class="hljs-keyword">var</span> sourcePath = path.resolve(sourceMap.sourceRoot || file.base, sourceMap.sources[i]);
+          <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (options.debug)
+              <span class="hljs-built_in">console</span>.log(PLUGIN_NAME + <span class="hljs-string">'-write: No source content for "'</span> + sourceMap.sources[i] + <span class="hljs-string">'". Loading from file.'</span>);
+            sourceMap.sourcesContent[i] = stripBom(fs.readFileSync(sourcePath, <span class="hljs-string">'utf8'</span>));
+          } <span class="hljs-keyword">catch</span> (e) {
+            <span class="hljs-keyword">if</span> (options.debug)
+              <span class="hljs-built_in">console</span>.warn(PLUGIN_NAME + <span class="hljs-string">'-write: source file not found: '</span> + sourcePath);
+          }
+        }
+      }
+      <span class="hljs-keyword">if</span> (sourceMap.sourceRoot === <span class="hljs-literal">undefined</span>) {
+        sourceMap.sourceRoot = <span class="hljs-string">'/source/'</span>;
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (sourceMap.sourceRoot === <span class="hljs-literal">null</span>) {
+        sourceMap.sourceRoot = <span class="hljs-literal">undefined</span>;
+      }
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">delete</span> sourceMap.sourcesContent;
+    }
+
+    <span class="hljs-keyword">var</span> extension = file.relative.split(<span class="hljs-string">'.'</span>).pop();
+    <span class="hljs-keyword">var</span> commentFormatter;
+
+    <span class="hljs-keyword">switch</span> (extension) {
+      <span class="hljs-keyword">case</span> <span class="hljs-string">'css'</span>:
+        commentFormatter = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">url</span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-string">"\n/*# sourceMappingURL="</span> + url + <span class="hljs-string">" */\n"</span>; };
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">'js'</span>:
+        commentFormatter = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">url</span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-string">"\n//# sourceMappingURL="</span> + url + <span class="hljs-string">"\n"</span>; };
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">default</span>:
+        commentFormatter = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">url</span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>; };
+    }
+
+    <span class="hljs-keyword">var</span> comment, sourceMappingURLPrefix;
+    <span class="hljs-keyword">if</span> (!destPath) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>encode source map into comment</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">var</span> base64Map = <span class="hljs-keyword">new</span> Buffer(<span class="hljs-built_in">JSON</span>.stringify(sourceMap)).toString(<span class="hljs-string">'base64'</span>);
+      comment = commentFormatter(<span class="hljs-string">'data:application/json;base64,'</span> + base64Map);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">var</span> sourceMapPath = path.join(file.base, destPath, file.relative) + <span class="hljs-string">'.map'</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>add new source map file to stream</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">var</span> sourceMapFile = <span class="hljs-keyword">new</span> File({
+        <span class="hljs-attr">cwd</span>: file.cwd,
+        <span class="hljs-attr">base</span>: file.base,
+        <span class="hljs-attr">path</span>: sourceMapPath,
+        <span class="hljs-attr">contents</span>: <span class="hljs-keyword">new</span> Buffer(<span class="hljs-built_in">JSON</span>.stringify(sourceMap)),
+        <span class="hljs-attr">stat</span>: {
+          <span class="hljs-attr">isFile</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; },
+          <span class="hljs-attr">isDirectory</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; },
+          <span class="hljs-attr">isBlockDevice</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; },
+          <span class="hljs-attr">isCharacterDevice</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; },
+          <span class="hljs-attr">isSymbolicLink</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; },
+          <span class="hljs-attr">isFIFO</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; },
+          <span class="hljs-attr">isSocket</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; }
+        }
+      });
+      <span class="hljs-keyword">this</span>.push(sourceMapFile);
+
+      <span class="hljs-keyword">var</span> sourceMapPathRelative = path.relative(path.dirname(file.path), sourceMapPath);
+
+      <span class="hljs-keyword">if</span> (options.sourceMappingURLPrefix) {
+        <span class="hljs-keyword">var</span> prefix = <span class="hljs-string">''</span>;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.sourceMappingURLPrefix === <span class="hljs-string">'function'</span>) {
+          prefix = options.sourceMappingURLPrefix(file);
+        } <span class="hljs-keyword">else</span> {
+          prefix = options.sourceMappingURLPrefix;
+        }
+        sourceMapPathRelative = prefix+path.join(<span class="hljs-string">'/'</span>, sourceMapPathRelative);
+      }
+      comment = commentFormatter(unixStylePath(sourceMapPathRelative));
+
+      <span class="hljs-keyword">if</span> (options.sourceMappingURL &amp;&amp; <span class="hljs-keyword">typeof</span> options.sourceMappingURL === <span class="hljs-string">'function'</span>) {
+        comment = commentFormatter(options.sourceMappingURL(file));
+      }
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
+</div>
+<p>append source map comment</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (options.addComment)
+      file.contents = Buffer.concat([file.contents, <span class="hljs-keyword">new</span> Buffer(comment)]);
+
+    <span class="hljs-keyword">this</span>.push(file);
+    callback();
+  }
+
+  <span class="hljs-keyword">return</span> through.obj(sourceMapWrite);
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unixStylePath</span>(<span class="hljs-params">filePath</span>) </span>{
+  <span class="hljs-keyword">return</span> filePath.split(path.sep).join(<span class="hljs-string">'/'</span>);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-nunjucks\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gulp-nunjucks">gulp-nunjucks </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#compile">Compile</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#precompile">Precompile</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#nunjucks.compile-data-options">nunjucks.compile([data], [options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#data">data</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#options.env">options.env</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#options.filters">options.filters</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#nunjucks.precompile-options">nunjucks.precompile([options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options-1">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#name">name</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="gulp-nunjucks">
+  <h1>
+    <a href="#gulp-nunjucks" name="gulp-nunjucks" class="pilcrow"></a>
+gulp-nunjucks <a href="https://travis-ci.org/sindresorhus/gulp-nunjucks"><img src="https://travis-ci.org/sindresorhus/gulp-nunjucks.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Compile/precompile <a href="https://mozilla.github.io/nunjucks/">Nunjucks</a> templates</p>
+</blockquote>
+<p><em>Issues with the output should be reported on the Nunjucks <a href="https://github.com/mozilla/nunjucks/issues">issue tracker</a>.</em></p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save-dev gulp-nunjucks
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<div class="pilwrap" id="compile">
+  <h3>
+    <a href="#compile" name="compile" class="pilcrow"></a>
+Compile
+  </h3>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">const</span> nunjucks = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-nunjucks'</span>);
+
+gulp.task(<span class="hljs-string">'default'</span>, () =&gt;
+	gulp.src(<span class="hljs-string">'templates/greeting.html'</span>)
+		.pipe(nunjucks.compile({<span class="hljs-attr">name</span>: <span class="hljs-string">'Sindre'</span>}))
+		.pipe(gulp.dest(<span class="hljs-string">'dist'</span>))
+);
+</code></pre>
+<p>You can alternatively use <a href="https://github.com/colynb/gulp-data">gulp-data</a> to inject the data:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">const</span> nunjucks = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-nunjucks'</span>);
+<span class="hljs-keyword">const</span> data = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-data'</span>);
+
+gulp.task(<span class="hljs-string">'default'</span>, () =&gt;
+	gulp.src(<span class="hljs-string">'templates/greeting.html'</span>)
+		.pipe(data(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({<span class="hljs-attr">name</span>: <span class="hljs-string">'Sindre'</span>})))
+		.pipe(nunjucks.compile())
+		.pipe(gulp.dest(<span class="hljs-string">'dist'</span>))
+);
+</code></pre>
+<div class="pilwrap" id="precompile">
+  <h3>
+    <a href="#precompile" name="precompile" class="pilcrow"></a>
+Precompile
+  </h3>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">const</span> nunjucks = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-nunjucks'</span>);
+
+gulp.task(<span class="hljs-string">'default'</span>, () =&gt;
+	gulp.src(<span class="hljs-string">'templates/greeting.html'</span>)
+		.pipe(nunjucks.precompile())
+		.pipe(gulp.dest(<span class="hljs-string">'dist'</span>))
+);
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="nunjucks.compile-data-options">
+  <h3>
+    <a href="#nunjucks.compile-data-options" name="nunjucks.compile-data-options" class="pilcrow"></a>
+nunjucks.compile([data], [options])
+  </h3>
+</div>
+<p>Compile a template using the provided <code>data</code>.</p>
+<div class="pilwrap" id="data">
+  <h4>
+    <a href="#data" name="data" class="pilcrow"></a>
+data
+  </h4>
+</div>
+<p>Type: <code>Object</code></p>
+<p>The data object used to populate the text.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>Object</code></p>
+<p>Options will be passed directly to the Nunjucks <a href="https://mozilla.github.io/nunjucks/api.html#constructor">Environment constructor</a> which will be used to compile templates.</p>
+<div class="pilwrap" id="options.env">
+  <h5>
+    <a href="#options.env" name="options.env" class="pilcrow"></a>
+options.env
+  </h5>
+</div>
+<p>Type: <code>nunjucks.Environment</code><br>
+Default: <code>new nunjucks.Environment()</code></p>
+<p>The custom Nunjucks <a href="https://mozilla.github.io/nunjucks/api.html#environment">Environment object</a> which will be used to compile templates. If supplied, the rest of <code>options</code> will be ignored.</p>
+<div class="pilwrap" id="options.filters">
+  <h5>
+    <a href="#options.filters" name="options.filters" class="pilcrow"></a>
+options.filters
+  </h5>
+</div>
+<p>Type: <code>Object</code></p>
+<p>An object containing <a href="https://mozilla.github.io/nunjucks/api.html#custom-filters">custom filters</a> that will be passed to Nunjucks, with the filter's name as key and the filter function as value.</p>
+<p>Example:</p>
+<pre><code class="js">{
+	<span class="hljs-string">'shorten'</span>: <span class="hljs-function"><span class="hljs-params">str</span> =&gt;</span> str.slice(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>),
+	<span class="hljs-string">'round'</span>: <span class="hljs-function"><span class="hljs-params">num</span> =&gt;</span> <span class="hljs-built_in">Math</span>.round(num)
+}
+</code></pre>
+<div class="pilwrap" id="nunjucks.precompile-options">
+  <h3>
+    <a href="#nunjucks.precompile-options" name="nunjucks.precompile-options" class="pilcrow"></a>
+nunjucks.precompile([options])
+  </h3>
+</div>
+<p>Precompile a template for rendering dynamically at a later time.</p>
+<p>Same options as <a href="https://mozilla.github.io/nunjucks/api.html#precompile"><code>nunjucks.precompile()</code></a> except for <code>name</code>.</p>
+<div class="pilwrap" id="options-1">
+  <h4>
+    <a href="#options-1" name="options-1" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>Object</code></p>
+<div class="pilwrap" id="name">
+  <h5>
+    <a href="#name" name="name" class="pilcrow"></a>
+name
+  </h5>
+</div>
+<p>Type: <code>Function</code><br>
+Default: Relative template path<br>
+Example: <code>templates/list.html</code></p>
+<p>You can override the default behavior by supplying a function which gets the current <a href="https://github.com/gulpjs/vinyl#options">File</a> object and is expected to return the name.</p>
+<p>Example:</p>
+<pre><code class="js">{
+	<span class="hljs-attr">name</span>: <span class="hljs-function"><span class="hljs-params">file</span> =&gt;</span> <span class="hljs-string">`tpl-<span class="hljs-subst">${file.relative}</span>`</span>
+}
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

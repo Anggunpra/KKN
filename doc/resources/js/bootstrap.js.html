@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>bootstrap.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "resources\\js\\bootstrap.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>bootstrap.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-built_in">window</span>._ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>We'll load jQuery and the Bootstrap jQuery plugin which provides support
+for JavaScript based Bootstrap features such as modals and tabs. This
+code may be modified to fit the specific needs of your application.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-built_in">window</span>.Popper = <span class="hljs-built_in">require</span>(<span class="hljs-string">'popper.js'</span>).default;
+    <span class="hljs-built_in">window</span>.$ = <span class="hljs-built_in">window</span>.jQuery = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jquery'</span>);
+
+    <span class="hljs-built_in">require</span>(<span class="hljs-string">'bootstrap'</span>);
+} <span class="hljs-keyword">catch</span> (e) {}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>We'll load the axios HTTP library which allows us to easily issue requests
+to our Laravel back-end. This library automatically handles sending the
+CSRF token as a header based on the value of the &quot;XSRF&quot; token cookie.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">window</span>.axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+
+<span class="hljs-built_in">window</span>.axios.defaults.headers.common[<span class="hljs-string">'X-Requested-With'</span>] = <span class="hljs-string">'XMLHttpRequest'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Echo exposes an expressive API for subscribing to channels and listening
+for events that are broadcast by Laravel. Echo and event broadcasting
+allows your team to easily build robust real-time web applications.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>import Echo from 'laravel-echo';</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>window.Pusher = require('pusher-js');</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>window.Echo = new Echo({
+broadcaster: 'pusher',
+key: process.env.MIX_PUSHER_APP_KEY,
+cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+forceTLS: true
+});</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\is\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#is">is </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#general">general</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#arguments">arguments</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#array">array</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#boolean">boolean</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#date">date</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#element">element</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#error">error</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#function">function</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#number">number</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#object">object</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#regexp">regexp</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#string">string</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#encoded-binary">encoded binary</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#symbols">Symbols</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bigints">BigInts</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contributors">Contributors</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="is">
+  <h1>
+    <a href="#is" name="is" class="pilcrow"></a>
+is <sup><a href="https://npmjs.org/package/is"><img src="http://versionbadg.es/enricomarino/is.svg" alt="Version Badge"></a></sup>
+  </h1>
+</div>
+<p><a href="https://travis-ci.org/enricomarino/is"><img src="https://travis-ci.org/enricomarino/is.svg" alt="Build Status"></a>
+<a href="https://david-dm.org/enricomarino/is"><img src="https://david-dm.org/enricomarino/is.svg" alt="dependency status"></a>
+<a href="https://david-dm.org/enricomarino/is#info=devDependencies"><img src="https://david-dm.org/enricomarino/is/dev-status.svg" alt="dev dependency status"></a>
+<a href="LICENSE.md.html"><img src="http://img.shields.io/npm/l/is.svg" alt="License"></a>
+<a href="http://npm-stat.com/charts.html?package=is"><img src="http://img.shields.io/npm/dm/is.svg" alt="Downloads"></a></p>
+<p><a href="https://npmjs.org/package/is"><img src="https://nodei.co/npm/is.png?downloads=true&amp;stars=true" alt="npm badge"></a></p>
+<p><a href="https://ci.testling.com/enricomarino/is"><img src="https://ci.testling.com/enricomarino/is.png" alt="browser support"></a></p>
+<p>The definitive JavaScript type testing library</p>
+<p>To be or not to be? This is the library!</p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<p>As a node.js module</p>
+<pre><code class="shell"><span class="hljs-meta">$</span><span class="bash"> npm install is</span>
+</code></pre>
+<p>As a component</p>
+<pre><code class="shell"><span class="hljs-meta">$</span><span class="bash"> component install enricomarino/is</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="general">
+  <h3>
+    <a href="#general" name="general" class="pilcrow"></a>
+general
+  </h3>
+</div>
+<ul>
+<li><code>is.a</code> (value, type) or <code>is.type</code> (value, type)</li>
+<li><code>is.defined</code> (value)</li>
+<li><code>is.empty</code> (value)</li>
+<li><code>is.equal</code> (value, other)</li>
+<li><code>is.hosted</code> (value, host)</li>
+<li><code>is.instance</code> (value, constructor)</li>
+<li><code>is.instanceof</code> (value, constructor) - deprecated, because in ES3 browsers, &quot;instanceof&quot; is a reserved word</li>
+<li><code>is.nil</code> (value)</li>
+<li><code>is.null</code> (value) - deprecated, because in ES3 browsers, &quot;null&quot; is a reserved word</li>
+<li><code>is.undef</code> (value)</li>
+<li><code>is.undefined</code> (value) - deprecated, because in ES3 browsers, &quot;undefined&quot; is a reserved word</li>
+</ul>
+<div class="pilwrap" id="arguments">
+  <h3>
+    <a href="#arguments" name="arguments" class="pilcrow"></a>
+arguments
+  </h3>
+</div>
+<ul>
+<li><code>is.args</code> (value)</li>
+<li><code>is.arguments</code> (value) - deprecated, because &quot;arguments&quot; is a reserved word</li>
+<li><code>is.args.empty</code> (value)</li>
+</ul>
+<div class="pilwrap" id="array">
+  <h3>
+    <a href="#array" name="array" class="pilcrow"></a>
+array
+  </h3>
+</div>
+<ul>
+<li><code>is.array</code> (value)</li>
+<li><code>is.array.empty</code> (value)</li>
+<li><code>is.arraylike</code> (value)</li>
+</ul>
+<div class="pilwrap" id="boolean">
+  <h3>
+    <a href="#boolean" name="boolean" class="pilcrow"></a>
+boolean
+  </h3>
+</div>
+<ul>
+<li><code>is.bool</code> (value)</li>
+<li><code>is.boolean</code> (value) - deprecated, because in ES3 browsers, &quot;boolean&quot; is a reserved word</li>
+<li><code>is.false</code> (value) - deprecated, because in ES3 browsers, &quot;false&quot; is a reserved word</li>
+<li><code>is.true</code> (value) - deprecated, because in ES3 browsers, &quot;true&quot; is a reserved word</li>
+</ul>
+<div class="pilwrap" id="date">
+  <h3>
+    <a href="#date" name="date" class="pilcrow"></a>
+date
+  </h3>
+</div>
+<ul>
+<li><code>is.date</code> (value)</li>
+</ul>
+<div class="pilwrap" id="element">
+  <h3>
+    <a href="#element" name="element" class="pilcrow"></a>
+element
+  </h3>
+</div>
+<ul>
+<li><code>is.element</code> (value)</li>
+</ul>
+<div class="pilwrap" id="error">
+  <h3>
+    <a href="#error" name="error" class="pilcrow"></a>
+error
+  </h3>
+</div>
+<ul>
+<li><code>is.error</code> (value)</li>
+</ul>
+<div class="pilwrap" id="function">
+  <h3>
+    <a href="#function" name="function" class="pilcrow"></a>
+function
+  </h3>
+</div>
+<ul>
+<li><code>is.fn</code> (value)</li>
+<li><code>is.function</code> (value) - deprecated, because in ES3 browsers, &quot;function&quot; is a reserved word</li>
+</ul>
+<div class="pilwrap" id="number">
+  <h3>
+    <a href="#number" name="number" class="pilcrow"></a>
+number
+  </h3>
+</div>
+<ul>
+<li><code>is.number</code> (value)</li>
+<li><code>is.infinite</code> (value)</li>
+<li><code>is.decimal</code> (value)</li>
+<li><code>is.divisibleBy</code> (value, n)</li>
+<li><code>is.integer</code> (value)</li>
+<li><code>is.int</code> (value) - deprecated, because in ES3 browsers, &quot;int&quot; is a reserved word</li>
+<li><code>is.maximum</code> (value, others)</li>
+<li><code>is.minimum</code> (value, others)</li>
+<li><code>is.nan</code> (value)</li>
+<li><code>is.even</code> (value)</li>
+<li><code>is.odd</code> (value)</li>
+<li><code>is.ge</code> (value, other)</li>
+<li><code>is.gt</code> (value, other)</li>
+<li><code>is.le</code> (value, other)</li>
+<li><code>is.lt</code> (value, other)</li>
+<li><code>is.within</code> (value, start, finish)</li>
+</ul>
+<div class="pilwrap" id="object">
+  <h3>
+    <a href="#object" name="object" class="pilcrow"></a>
+object
+  </h3>
+</div>
+<ul>
+<li><code>is.object</code> (value)</li>
+</ul>
+<div class="pilwrap" id="regexp">
+  <h3>
+    <a href="#regexp" name="regexp" class="pilcrow"></a>
+regexp
+  </h3>
+</div>
+<ul>
+<li><code>is.regexp</code> (value)</li>
+</ul>
+<div class="pilwrap" id="string">
+  <h3>
+    <a href="#string" name="string" class="pilcrow"></a>
+string
+  </h3>
+</div>
+<ul>
+<li><code>is.string</code> (value)</li>
+</ul>
+<div class="pilwrap" id="encoded-binary">
+  <h3>
+    <a href="#encoded-binary" name="encoded-binary" class="pilcrow"></a>
+encoded binary
+  </h3>
+</div>
+<ul>
+<li><code>is.base64</code> (value)</li>
+<li><code>is.hex</code> (value)</li>
+</ul>
+<div class="pilwrap" id="symbols">
+  <h3>
+    <a href="#symbols" name="symbols" class="pilcrow"></a>
+Symbols
+  </h3>
+</div>
+<ul>
+<li><code>is.symbol</code> (value)</li>
+</ul>
+<div class="pilwrap" id="bigints">
+  <h3>
+    <a href="#bigints" name="bigints" class="pilcrow"></a>
+BigInts
+  </h3>
+</div>
+<ul>
+<li><code>is.bigint</code> (value)</li>
+</ul>
+<div class="pilwrap" id="contributors">
+  <h2>
+    <a href="#contributors" name="contributors" class="pilcrow"></a>
+Contributors
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/ljharb">Jordan Harband</a></li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\camelcase-keys\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#camelcase-keys">camelcase-keys </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#camelcasekeys-input-options">camelcaseKeys(input, [options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#input">input</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#exclude">exclude</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="camelcase-keys">
+  <h1>
+    <a href="#camelcase-keys" name="camelcase-keys" class="pilcrow"></a>
+camelcase-keys <a href="https://travis-ci.org/sindresorhus/camelcase-keys"><img src="https://travis-ci.org/sindresorhus/camelcase-keys.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Convert object keys to camelCase using <a href="https://github.com/sindresorhus/camelcase"><code>camelcase</code></a></p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save camelcase-keys
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> camelcaseKeys = <span class="hljs-built_in">require</span>(<span class="hljs-string">'camelcase-keys'</span>);
+
+camelcaseKeys({<span class="hljs-string">'foo-bar'</span>: <span class="hljs-literal">true</span>});
+<span class="hljs-comment">//=&gt; {fooBar: true}</span>
+
+
+<span class="hljs-keyword">const</span> argv = <span class="hljs-built_in">require</span>(<span class="hljs-string">'minimist'</span>)(process.argv.slice(<span class="hljs-number">2</span>));
+<span class="hljs-comment">//=&gt; {_: [], 'foo-bar': true}</span>
+
+camelcaseKeys(argv);
+<span class="hljs-comment">//=&gt; {_: [], fooBar: true}</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="camelcasekeys-input-options">
+  <h3>
+    <a href="#camelcasekeys-input-options" name="camelcasekeys-input-options" class="pilcrow"></a>
+camelcaseKeys(input, [options])
+  </h3>
+</div>
+<div class="pilwrap" id="input">
+  <h4>
+    <a href="#input" name="input" class="pilcrow"></a>
+input
+  </h4>
+</div>
+<p>Type: <code>object</code></p>
+<p>Object to camelCase.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>object</code></p>
+<div class="pilwrap" id="exclude">
+  <h5>
+    <a href="#exclude" name="exclude" class="pilcrow"></a>
+exclude
+  </h5>
+</div>
+<p>Type: <code>array</code><br>
+Default: <code>[]</code></p>
+<p>Exclude keys from being camelCased.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

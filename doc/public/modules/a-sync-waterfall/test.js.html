@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\a-sync-waterfall\\test.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>test.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">"use strict"</span>;
+<span class="hljs-keyword">const</span> waterfall = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./index'</span>);
+
+<span class="hljs-keyword">var</span> generateSyncTask = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index</span>) </span>{
+	<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>)</span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cb</span>)</span>{
+			<span class="hljs-built_in">console</span>.log(x);
+			cb(<span class="hljs-literal">null</span>);
+		};
+	}(index);
+};
+
+
+<span class="hljs-keyword">var</span> generateAsyncTask = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index</span>) </span>{
+	<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>)</span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cb</span>)</span>{
+			setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+				<span class="hljs-built_in">console</span>.log(x);
+				cb(<span class="hljs-literal">null</span>);
+			}, <span class="hljs-number">0</span>);
+		};
+	}(index);
+};
+
+<span class="hljs-keyword">var</span> generateSyncTasks = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">count</span>)</span>{
+	<span class="hljs-keyword">var</span> tasks = [];
+	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>; i&lt;count; i++) {
+		tasks.push(generateSyncTask(i));
+	}
+	<span class="hljs-keyword">return</span> tasks;
+}
+
+<span class="hljs-keyword">var</span> generateAsyncTasks = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">count</span>)</span>{
+	<span class="hljs-keyword">var</span> tasks = [];
+	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>; i&lt;count; i++) {
+		tasks.push(generateAsyncTask(i));
+	}
+	<span class="hljs-keyword">return</span> tasks;
+}
+
+
+<span class="hljs-keyword">var</span> generateRandomTasks = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">count</span>)</span>{
+	<span class="hljs-keyword">var</span> tasks = [];
+	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>; i&lt;count; i++) {
+		<span class="hljs-built_in">Math</span>.random() &gt; <span class="hljs-number">.5</span> ? tasks.push(generateAsyncTask(i)) : tasks.push(generateSyncTask(i))
+	}
+	<span class="hljs-keyword">return</span> tasks;
+}
+
+<span class="hljs-keyword">var</span> done = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>);
+}
+
+<span class="hljs-keyword">var</span> testSync = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+	waterfall(generateSyncTasks(<span class="hljs-number">10</span>), done);
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'this text should be after waterfall'</span>);
+
+};
+
+<span class="hljs-keyword">var</span> testAsync = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+	waterfall(generateAsyncTasks(<span class="hljs-number">5</span>), done);
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'this text should be before waterfall'</span>);
+};
+
+<span class="hljs-keyword">var</span> testMixed = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+	waterfall(generateRandomTasks(<span class="hljs-number">20</span>), done);
+};
+
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'testSync:'</span>);
+testSync();
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>console.log('\ntestAsync: ');
+testAsync();</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\ntestMixed: '</span>);
+testMixed();
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

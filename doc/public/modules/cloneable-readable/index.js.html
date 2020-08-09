@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\cloneable-readable\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+
+<span class="hljs-keyword">var</span> PassThrough = <span class="hljs-built_in">require</span>(<span class="hljs-string">'readable-stream'</span>).PassThrough
+<span class="hljs-keyword">var</span> inherits = <span class="hljs-built_in">require</span>(<span class="hljs-string">'inherits'</span>)
+<span class="hljs-keyword">var</span> p = <span class="hljs-built_in">require</span>(<span class="hljs-string">'process-nextick-args'</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Cloneable</span> (<span class="hljs-params">stream, opts</span>) </span>{
+  <span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> Cloneable)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Cloneable(stream, opts)
+  }
+
+  <span class="hljs-keyword">var</span> objectMode = stream._readableState.objectMode
+  <span class="hljs-keyword">this</span>._original = stream
+  <span class="hljs-keyword">this</span>._clonesCount = <span class="hljs-number">1</span>
+
+  opts = opts || {}
+  opts.objectMode = objectMode
+
+  PassThrough.call(<span class="hljs-keyword">this</span>, opts)
+
+  forwardDestroy(stream, <span class="hljs-keyword">this</span>)
+
+  <span class="hljs-keyword">this</span>.on(<span class="hljs-string">'newListener'</span>, onData)
+  <span class="hljs-keyword">this</span>.once(<span class="hljs-string">'resume'</span>, onResume)
+
+  <span class="hljs-keyword">this</span>._hasListener = <span class="hljs-literal">true</span>
+}
+
+inherits(Cloneable, PassThrough)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onData</span> (<span class="hljs-params">event, listener</span>) </span>{
+  <span class="hljs-keyword">if</span> (event === <span class="hljs-string">'data'</span> || event === <span class="hljs-string">'readable'</span>) {
+    <span class="hljs-keyword">this</span>._hasListener = <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">this</span>.removeListener(<span class="hljs-string">'newListener'</span>, onData)
+    <span class="hljs-keyword">this</span>.removeListener(<span class="hljs-string">'resume'</span>, onResume)
+    p.nextTick(clonePiped, <span class="hljs-keyword">this</span>)
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onResume</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>._hasListener = <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">this</span>.removeListener(<span class="hljs-string">'newListener'</span>, onData)
+  p.nextTick(clonePiped, <span class="hljs-keyword">this</span>)
+}
+
+Cloneable.prototype.clone = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._original) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'already started'</span>)
+  }
+
+  <span class="hljs-keyword">this</span>._clonesCount++
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>the events added by the clone should not count
+for starting the flow</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">this</span>.removeListener(<span class="hljs-string">'newListener'</span>, onData)
+  <span class="hljs-keyword">var</span> clone = <span class="hljs-keyword">new</span> Clone(<span class="hljs-keyword">this</span>)
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._hasListener) {
+    <span class="hljs-keyword">this</span>.on(<span class="hljs-string">'newListener'</span>, onData)
+  }
+
+  <span class="hljs-keyword">return</span> clone
+}
+
+Cloneable.prototype._destroy = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, cb</span>) </span>{
+  <span class="hljs-keyword">if</span> (!err) {
+    <span class="hljs-keyword">this</span>.push(<span class="hljs-literal">null</span>)
+    <span class="hljs-keyword">this</span>.end()
+    <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'close'</span>)
+  }
+
+  p.nextTick(cb, err)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">forwardDestroy</span> (<span class="hljs-params">src, dest</span>) </span>{
+  src.on(<span class="hljs-string">'error'</span>, destroy)
+  src.on(<span class="hljs-string">'close'</span>, onClose)
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">destroy</span> (<span class="hljs-params">err</span>) </span>{
+    src.removeListener(<span class="hljs-string">'close'</span>, onClose)
+    dest.destroy(err)
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onClose</span> (<span class="hljs-params"></span>) </span>{
+    dest.end()
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clonePiped</span> (<span class="hljs-params">that</span>) </span>{
+  <span class="hljs-keyword">if</span> (--that._clonesCount === <span class="hljs-number">0</span> &amp;&amp; !that._readableState.destroyed) {
+    that._original.pipe(that)
+    that._original = <span class="hljs-literal">undefined</span>
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Clone</span> (<span class="hljs-params">parent, opts</span>) </span>{
+  <span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> Clone)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Clone(parent, opts)
+  }
+
+  <span class="hljs-keyword">var</span> objectMode = parent._readableState.objectMode
+
+  opts = opts || {}
+  opts.objectMode = objectMode
+
+  <span class="hljs-keyword">this</span>.parent = parent
+
+  PassThrough.call(<span class="hljs-keyword">this</span>, opts)
+
+  forwardDestroy(parent, <span class="hljs-keyword">this</span>)
+
+  parent.pipe(<span class="hljs-keyword">this</span>)
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>the events added by the clone should not count
+for starting the flow
+so we add the newListener handle after we are done</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">this</span>.on(<span class="hljs-string">'newListener'</span>, onDataClone)
+  <span class="hljs-keyword">this</span>.on(<span class="hljs-string">'resume'</span>, onResumeClone)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onDataClone</span> (<span class="hljs-params">event, listener</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>We start the flow once all clones are piped or destroyed</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (event === <span class="hljs-string">'data'</span> || event === <span class="hljs-string">'readable'</span> || event === <span class="hljs-string">'close'</span>) {
+    p.nextTick(clonePiped, <span class="hljs-keyword">this</span>.parent)
+    <span class="hljs-keyword">this</span>.removeListener(<span class="hljs-string">'newListener'</span>, onDataClone)
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onResumeClone</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.removeListener(<span class="hljs-string">'newListener'</span>, onDataClone)
+  p.nextTick(clonePiped, <span class="hljs-keyword">this</span>.parent)
+}
+
+inherits(Clone, PassThrough)
+
+Clone.prototype.clone = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.parent.clone()
+}
+
+Cloneable.isCloneable = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">stream</span>) </span>{
+  <span class="hljs-keyword">return</span> stream <span class="hljs-keyword">instanceof</span> Cloneable || stream <span class="hljs-keyword">instanceof</span> Clone
+}
+
+Clone.prototype._destroy = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, cb</span>) </span>{
+  <span class="hljs-keyword">if</span> (!err) {
+    <span class="hljs-keyword">this</span>.push(<span class="hljs-literal">null</span>)
+    <span class="hljs-keyword">this</span>.end()
+    <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'close'</span>)
+  }
+
+  p.nextTick(cb, err)
+}
+
+<span class="hljs-built_in">module</span>.exports = Cloneable
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\fast-deep-equal\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#fast-deep-equal">fast-deep-equal</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#features">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#performance-benchmark">Performance benchmark</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="fast-deep-equal">
+  <h1>
+    <a href="#fast-deep-equal" name="fast-deep-equal" class="pilcrow"></a>
+fast-deep-equal
+  </h1>
+</div>
+<p>The fastest deep equal</p>
+<p><a href="https://travis-ci.org/epoberezkin/fast-deep-equal"><img src="https://travis-ci.org/epoberezkin/fast-deep-equal.svg?branch=master" alt="Build Status"></a>
+<a href="http://badge.fury.io/js/fast-deep-equal"><img src="https://badge.fury.io/js/fast-deep-equal.svg" alt="npm version"></a>
+<a href="https://coveralls.io/github/epoberezkin/fast-deep-equal?branch=master"><img src="https://coveralls.io/repos/github/epoberezkin/fast-deep-equal/badge.svg?branch=master" alt="Coverage Status"></a></p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code class="bash">npm install fast-deep-equal
+</code></pre>
+<div class="pilwrap" id="features">
+  <h2>
+    <a href="#features" name="features" class="pilcrow"></a>
+Features
+  </h2>
+</div>
+<ul>
+<li>ES5 compatible</li>
+<li>works in node.js (0.10+) and browsers (IE9+)</li>
+<li>checks equality of Date and RegExp objects by value.</li>
+</ul>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> equal = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fast-deep-equal'</span>);
+<span class="hljs-built_in">console</span>.log(equal({<span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span>}, {<span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span>})); <span class="hljs-comment">// true</span>
+</code></pre>
+<div class="pilwrap" id="performance-benchmark">
+  <h2>
+    <a href="#performance-benchmark" name="performance-benchmark" class="pilcrow"></a>
+Performance benchmark
+  </h2>
+</div>
+<p>Node.js v9.11.1:</p>
+<pre><code>fast-deep-equal x 226,960 ops/sec ±1.55% (86 runs sampled)
+nano-equal x 218,210 ops/sec ±0.79% (89 runs sampled)
+shallow-equal-fuzzy x 206,762 ops/sec ±0.84% (88 runs sampled)
+underscore.isEqual x 128,668 ops/sec ±0.75% (91 runs sampled)
+lodash.isEqual x 44,895 ops/sec ±0.67% (85 runs sampled)
+deep-equal x 51,616 ops/sec ±0.96% (90 runs sampled)
+deep-eql x 28,218 ops/sec ±0.42% (85 runs sampled)
+assert.deepStrictEqual x 1,777 ops/sec ±1.05% (86 runs sampled)
+ramda.equals x 13,466 ops/sec ±0.82% (86 runs sampled)
+The fastest is fast-deep-equal
+</code></pre>
+<p>To run benchmark (requires node.js 6+):</p>
+<pre><code class="bash">npm install
+node benchmark
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p><a href="https://github.com/epoberezkin/fast-deep-equal/blob/master/LICENSE">MIT</a></p>
+</div>
+  </div>
+</body>
+</html>

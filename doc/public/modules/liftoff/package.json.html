@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\liftoff\\package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"liftoff"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"3.1.0"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Launch your command line tool with ease."</span>,
+  <span class="hljs-attr">"author"</span>: <span class="hljs-string">"Tyler Kellen (http://goingslowly.com/)"</span>,
+  <span class="hljs-attr">"contributors"</span>: [],
+  <span class="hljs-attr">"repository"</span>: <span class="hljs-string">"js-cli/js-liftoff"</span>,
+  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"MIT"</span>,
+  <span class="hljs-attr">"engines"</span>: {
+    <span class="hljs-attr">"node"</span>: <span class="hljs-string">"&gt;= 0.8"</span>
+  },
+  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"index.js"</span>,
+  <span class="hljs-attr">"files"</span>: [
+    <span class="hljs-string">"index.js"</span>,
+    <span class="hljs-string">"lib"</span>,
+    <span class="hljs-string">"LICENSE"</span>
+  ],
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"pretest"</span>: <span class="hljs-string">"eslint ."</span>,
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"mocha -t 5000 -b -R spec test/index &amp;&amp; npm run legacy-test"</span>,
+    <span class="hljs-attr">"legacy-test"</span>: <span class="hljs-string">"mocha -t 5000 -b -R spec test/launch"</span>,
+    <span class="hljs-attr">"cover"</span>: <span class="hljs-string">"nyc --reporter=lcov --reporter=text-summary npm test"</span>
+  },
+  <span class="hljs-attr">"dependencies"</span>: {
+    <span class="hljs-attr">"extend"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"findup-sync"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"fined"</span>: <span class="hljs-string">"^1.0.1"</span>,
+    <span class="hljs-attr">"flagged-respawn"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"is-plain-object"</span>: <span class="hljs-string">"^2.0.4"</span>,
+    <span class="hljs-attr">"object.map"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"rechoir"</span>: <span class="hljs-string">"^0.6.2"</span>,
+    <span class="hljs-attr">"resolve"</span>: <span class="hljs-string">"^1.1.7"</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"chai"</span>: <span class="hljs-string">"^3.5.0"</span>,
+    <span class="hljs-attr">"coffeescript"</span>: <span class="hljs-string">"^1.10.0"</span>,
+    <span class="hljs-attr">"eslint"</span>: <span class="hljs-string">"^2.13.1"</span>,
+    <span class="hljs-attr">"eslint-config-gulp"</span>: <span class="hljs-string">"^3.0.1"</span>,
+    <span class="hljs-attr">"mocha"</span>: <span class="hljs-string">"^3.5.3"</span>,
+    <span class="hljs-attr">"nyc"</span>: <span class="hljs-string">"^13.3.0"</span>,
+    <span class="hljs-attr">"sinon"</span>: <span class="hljs-string">"~1.17.4"</span>
+  },
+  <span class="hljs-attr">"keywords"</span>: [
+    <span class="hljs-string">"command line"</span>
+  ]
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\css-select-base-adapter\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+
+<span class="hljs-built_in">module</span>.exports = adapterFactory;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">adapterFactory</span>(<span class="hljs-params">implementation</span>)</span>{
+	ensureImplementation(implementation);
+
+	<span class="hljs-keyword">var</span> adapter = {}
+
+	<span class="hljs-keyword">var</span> baseAdapter = {
+		<span class="hljs-attr">removeSubsets</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">nodes</span>)</span>{
+			<span class="hljs-keyword">return</span> removeSubsets(adapter, nodes);
+		},
+		<span class="hljs-attr">existsOne</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">test, elems</span>)</span>{
+			<span class="hljs-keyword">return</span> existsOne(adapter, test, elems);
+		},
+		<span class="hljs-attr">getSiblings</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">elem</span>)</span>{
+			<span class="hljs-keyword">return</span> getSiblings(adapter, elem);
+		},
+		<span class="hljs-attr">hasAttrib</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">elem, name</span>)</span>{
+			<span class="hljs-keyword">return</span> hasAttrib(adapter, elem, name);
+		},
+		<span class="hljs-attr">findOne</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">test, arr</span>)</span>{
+			<span class="hljs-keyword">return</span> findOne(adapter, test, arr);
+		},
+		<span class="hljs-attr">findAll</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">test, elems</span>)</span>{
+			<span class="hljs-keyword">return</span> findAll(adapter, test, elems)
+		}
+	};
+
+	<span class="hljs-built_in">Object</span>.assign(adapter, baseAdapter, implementation);
+
+	<span class="hljs-keyword">return</span> adapter;
+}
+
+<span class="hljs-keyword">var</span> expectImplemented = [
+	<span class="hljs-string">"isTag"</span>, <span class="hljs-string">"getAttributeValue"</span>, <span class="hljs-string">"getChildren"</span>, <span class="hljs-string">"getName"</span>, <span class="hljs-string">"getParent"</span>,
+	<span class="hljs-string">"getText"</span>
+];
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ensureImplementation</span>(<span class="hljs-params">implementation</span>)</span>{
+	<span class="hljs-keyword">if</span>(!implementation)	<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Expected implementation"</span>)
+
+	<span class="hljs-keyword">var</span> notImplemented = expectImplemented.filter(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fname</span>)</span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> implementation[fname] !== <span class="hljs-string">"function"</span>;
+	});
+
+	<span class="hljs-keyword">if</span>(notImplemented.length){
+		<span class="hljs-keyword">var</span> notList = <span class="hljs-string">"("</span> + notImplemented.join(<span class="hljs-string">", "</span>) + <span class="hljs-string">")"</span>;
+		<span class="hljs-keyword">var</span> message = <span class="hljs-string">"Expected functions "</span> + notList + <span class="hljs-string">" to be implemented"</span>;
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(message);
+	}
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeSubsets</span>(<span class="hljs-params">adapter, nodes</span>)</span>{
+	<span class="hljs-keyword">var</span> idx = nodes.length, node, ancestor, replace;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Check if each node (or one of its ancestors) is already contained in the
+array.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-keyword">while</span>(--idx &gt; <span class="hljs-number">-1</span>){
+		node = ancestor = nodes[idx];
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>Temporarily remove the node under consideration</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		nodes[idx] = <span class="hljs-literal">null</span>;
+		replace = <span class="hljs-literal">true</span>;
+
+		<span class="hljs-keyword">while</span>(ancestor){
+			<span class="hljs-keyword">if</span>(nodes.indexOf(ancestor) &gt; <span class="hljs-number">-1</span>){
+				replace = <span class="hljs-literal">false</span>;
+				nodes.splice(idx, <span class="hljs-number">1</span>);
+				<span class="hljs-keyword">break</span>;
+			}
+			ancestor = adapter.getParent(ancestor)
+		}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>If the node has been found to be unique, re-insert it.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">if</span>(replace){
+			nodes[idx] = node;
+		}
+	}
+
+	<span class="hljs-keyword">return</span> nodes;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">existsOne</span>(<span class="hljs-params">adapter, test, elems</span>)</span>{
+	<span class="hljs-keyword">return</span> elems.some(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">elem</span>)</span>{
+		<span class="hljs-keyword">return</span> adapter.isTag(elem) ?
+			test(elem) || adapter.existsOne(test, adapter.getChildren(elem)) :
+			<span class="hljs-literal">false</span>;
+	});
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getSiblings</span>(<span class="hljs-params">adapter, elem</span>)</span>{
+	<span class="hljs-keyword">var</span> parent = adapter.getParent(elem);
+	<span class="hljs-keyword">return</span> parent &amp;&amp; adapter.getChildren(parent);
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasAttrib</span>(<span class="hljs-params">adapter, elem, name</span>)</span>{
+	<span class="hljs-keyword">return</span> adapter.getAttributeValue(elem,name) !== <span class="hljs-literal">undefined</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findOne</span>(<span class="hljs-params">adapter, test, arr</span>)</span>{
+	<span class="hljs-keyword">var</span> elem = <span class="hljs-literal">null</span>;
+
+	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, l = arr.length; i &lt; l &amp;&amp; !elem; i++){
+		<span class="hljs-keyword">if</span>(test(arr[i])){
+			elem = arr[i];
+		} <span class="hljs-keyword">else</span> {
+			<span class="hljs-keyword">var</span> childs = adapter.getChildren(arr[i]);
+			<span class="hljs-keyword">if</span>(childs &amp;&amp; childs.length &gt; <span class="hljs-number">0</span>){
+				elem = adapter.findOne(test, childs);
+			}
+		}
+	}
+
+	<span class="hljs-keyword">return</span> elem;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findAll</span>(<span class="hljs-params">adapter, test, elems</span>)</span>{
+	<span class="hljs-keyword">var</span> result = [];
+
+	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, j = elems.length; i &lt; j; i++){
+		<span class="hljs-keyword">if</span>(!adapter.isTag(elems[i])) <span class="hljs-keyword">continue</span>;
+		<span class="hljs-keyword">if</span>(test(elems[i])) result.push(elems[i]);
+		<span class="hljs-keyword">var</span> childs = adapter.getChildren(elems[i]);
+		<span class="hljs-keyword">if</span>(childs) result = result.concat(adapter.findAll(test, childs));
+	}
+
+	<span class="hljs-keyword">return</span> result;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -15,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('front.landing');
+})->name('front.landing');
+Route::group(['as' => 'front.','prefix' => 'page'], function () {
+    Route::get('/sejarah', 'PageController@history')->name('history');
+    Route::get('/redaksi', 'PageController@information')->name('information');
+    Route::get('/redaksi/{slug}', 'PageController@showInformation')->name('information.detail');
+    Route::get('/pemimpin', 'PageController@team')->name('team');
+    Route::get('/grafik', 'PageController@showGraphic')->name('graphic');
+    Route::get('/kontak', 'PageController@contact')->name('contact');
 });
 
 Auth::routes();

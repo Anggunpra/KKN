@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>wide-truncate.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gauge\\wide-truncate.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>wide-truncate.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+<span class="hljs-keyword">var</span> stringWidth = <span class="hljs-built_in">require</span>(<span class="hljs-string">'string-width'</span>)
+<span class="hljs-keyword">var</span> stripAnsi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'strip-ansi'</span>)
+
+<span class="hljs-built_in">module</span>.exports = wideTruncate
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wideTruncate</span> (<span class="hljs-params">str, target</span>) </span>{
+  <span class="hljs-keyword">if</span> (stringWidth(str) === <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> str
+  <span class="hljs-keyword">if</span> (target &lt;= <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>
+  <span class="hljs-keyword">if</span> (stringWidth(str) &lt;= target) <span class="hljs-keyword">return</span> str
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>We compute the number of bytes of ansi sequences here and add
+that to our initial truncation to ensure that we don't slice one
+that we want to keep in half.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> noAnsi = stripAnsi(str)
+  <span class="hljs-keyword">var</span> ansiSize = str.length + noAnsi.length
+  <span class="hljs-keyword">var</span> truncated = str.slice(<span class="hljs-number">0</span>, target + ansiSize)
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>we have to shrink the result to account for our ansi sequence buffer
+(if an ansi sequence was truncated) and double width characters.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">while</span> (stringWidth(truncated) &gt; target) {
+    truncated = truncated.slice(<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>)
+  }
+  <span class="hljs-keyword">return</span> truncated
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

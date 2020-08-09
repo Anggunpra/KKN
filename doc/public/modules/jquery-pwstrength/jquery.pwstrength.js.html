@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jquery.pwstrength.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\jquery-pwstrength\\jquery.pwstrength.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>jquery.pwstrength.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>jquery.pwstrength http://matoilic.github.com/jquery.pwstrength</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">;(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$</span>) </span>{
+    $.pwstrength = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">password</span>) </span>{
+        <span class="hljs-keyword">var</span> score = <span class="hljs-number">0</span>, length = password.length, upperCase, lowerCase, digits, nonAlpha;
+        
+        <span class="hljs-keyword">if</span>(length &lt; <span class="hljs-number">5</span>) score += <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(length &lt; <span class="hljs-number">8</span>) score += <span class="hljs-number">5</span>;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(length &lt; <span class="hljs-number">16</span>) score += <span class="hljs-number">10</span>;
+        <span class="hljs-keyword">else</span> score += <span class="hljs-number">15</span>;
+        
+        lowerCase = password.match(<span class="hljs-regexp">/[a-z]/g</span>);
+        <span class="hljs-keyword">if</span>(lowerCase) score += <span class="hljs-number">1</span>;
+        
+        upperCase = password.match(<span class="hljs-regexp">/[A-Z]/g</span>);
+        <span class="hljs-keyword">if</span>(upperCase) score += <span class="hljs-number">5</span>;
+        
+        <span class="hljs-keyword">if</span>(upperCase &amp;&amp; lowerCase) score += <span class="hljs-number">2</span>;
+        
+        digits = password.match(<span class="hljs-regexp">/\d/g</span>);
+        <span class="hljs-keyword">if</span>(digits &amp;&amp; digits.length &gt; <span class="hljs-number">1</span>) score += <span class="hljs-number">5</span>;
+        
+        nonAlpha = password.match(<span class="hljs-regexp">/\W/g</span>)
+        <span class="hljs-keyword">if</span>(nonAlpha) score += (nonAlpha.length &gt; <span class="hljs-number">1</span>) ? <span class="hljs-number">15</span> : <span class="hljs-number">10</span>;
+        
+        <span class="hljs-keyword">if</span>(upperCase &amp;&amp; lowerCase &amp;&amp; digits &amp;&amp; nonAlpha) score += <span class="hljs-number">15</span>;
+
+        <span class="hljs-keyword">if</span>(password.match(<span class="hljs-regexp">/\s/</span>)) score += <span class="hljs-number">10</span>;
+
+        <span class="hljs-keyword">if</span>(score &lt; <span class="hljs-number">15</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span>(score &lt; <span class="hljs-number">20</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">if</span>(score &lt; <span class="hljs-number">35</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;
+        <span class="hljs-keyword">if</span>(score &lt; <span class="hljs-number">50</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">4</span>;
+    };
+    
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateIndicator</span>(<span class="hljs-params">event</span>) </span>{
+        <span class="hljs-keyword">var</span> strength = $.pwstrength($(<span class="hljs-keyword">this</span>).val()), options = event.data, klass;
+        klass = options.classes[strength];
+        
+        options.indicator.removeClass(options.indicator.data(<span class="hljs-string">'pwclass'</span>));
+        options.indicator.data(<span class="hljs-string">'pwclass'</span>, klass);
+        options.indicator.addClass(klass);
+        options.indicator.find(options.label).html(options.texts[strength]);
+    }
+    
+    $.fn.pwstrength = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+        <span class="hljs-keyword">var</span> options = $.extend({
+            <span class="hljs-attr">label</span>: <span class="hljs-string">'.label'</span>,
+            <span class="hljs-attr">classes</span>: [<span class="hljs-string">'pw-very-weak'</span>, <span class="hljs-string">'pw-weak'</span>, <span class="hljs-string">'pw-mediocre'</span>, <span class="hljs-string">'pw-strong'</span>, <span class="hljs-string">'pw-very-strong'</span>],
+            <span class="hljs-attr">texts</span>: [<span class="hljs-string">'very weak'</span>, <span class="hljs-string">'weak'</span>, <span class="hljs-string">'mediocre'</span>, <span class="hljs-string">'strong'</span>, <span class="hljs-string">'very strong'</span>]
+        }, options || {});
+        options.indicator = $(<span class="hljs-string">'#'</span> + <span class="hljs-keyword">this</span>.data(<span class="hljs-string">'indicator'</span>));
+        
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.keyup(options, updateIndicator);
+    };
+})(jQuery);
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

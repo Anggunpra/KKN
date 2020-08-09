@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\mitt\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#mitt">Mitt</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#table-of-contents">Table of Contents</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#typescript">Typescript</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#examples-and-demos">Examples &amp;amp; Demos</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#mitt-1">mitt</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#on">on</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#off">off</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#emit">emit</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contribute">Contribute</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#reporting-issues">Reporting Issues</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#submitting-pull-requests">Submitting pull requests</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p align="center">
+  <img src="https://i.imgur.com/BqsX9NT.png" width="300" height="300" alt="mitt">
+  <br>
+  <a href="https://www.npmjs.org/package/mitt"><img src="https://img.shields.io/npm/v/mitt.svg?style=flat" alt="npm"></a> <a href="https://travis-ci.org/developit/mitt"><img src="https://travis-ci.org/developit/mitt.svg?branch=master" alt="travis"></a> <a href="https://david-dm.org/developit/mitt"><img src="https://david-dm.org/developit/mitt/status.svg" alt="dependencies Status"></a>
+</p>
+<div class="pilwrap" id="mitt">
+  <h1>
+    <a href="#mitt" name="mitt" class="pilcrow"></a>
+Mitt
+  </h1>
+</div>
+<blockquote>
+<p>Tiny 200b functional event emitter / pubsub.</p>
+</blockquote>
+<ul>
+<li><strong>Microscopic:</strong> weighs less than 200 bytes gzipped</li>
+<li><strong>Useful:</strong> a wildcard <code>&quot;*&quot;</code> event type listens to all events</li>
+<li><strong>Familiar:</strong> same names &amp; ideas as <a href="https://nodejs.org/api/events.html#events_class_eventemitter">Node's EventEmitter</a></li>
+<li><strong>Functional:</strong> methods don't rely on <code>this</code></li>
+<li><strong>Great Name:</strong> somehow <a href="https://npm.im/mitt">mitt</a> wasn't taken</li>
+</ul>
+<p>Mitt was made for the browser, but works in any JavaScript runtime. It has no dependencies and supports IE9+.</p>
+<div class="pilwrap" id="table-of-contents">
+  <h2>
+    <a href="#table-of-contents" name="table-of-contents" class="pilcrow"></a>
+Table of Contents
+  </h2>
+</div>
+<ul>
+<li><a href="#install.html">Install</a></li>
+<li><a href="#usage.html">Usage</a></li>
+<li><a href="#examples--demos.html">Examples &amp; Demos</a></li>
+<li><a href="#api.html">API</a></li>
+<li><a href="#contribute.html">Contribute</a></li>
+<li><a href="#license.html">License</a></li>
+</ul>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>This project uses <a href="http://nodejs.org">node</a> and <a href="https://npmjs.com">npm</a>. Go check them out if you don't have them locally installed.</p>
+<pre><code class="sh">$ npm install --save mitt
+</code></pre>
+<p>Then with a module bundler like <a href="http://rollupjs.org/">rollup</a> or <a href="https://webpack.js.org/">webpack</a>, use as you would anything else:</p>
+<pre><code class="javascript"><span class="hljs-comment">// using ES6 modules</span>
+<span class="hljs-keyword">import</span> mitt <span class="hljs-keyword">from</span> <span class="hljs-string">'mitt'</span>
+
+<span class="hljs-comment">// using CommonJS modules</span>
+<span class="hljs-keyword">var</span> mitt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mitt'</span>)
+</code></pre>
+<p>The <a href="https://github.com/umdjs/umd">UMD</a> build is also available on <a href="https://unpkg.com">unpkg</a>:</p>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/mitt/dist/mitt.umd.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>You can find the library on <code>window.mitt</code>.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">import</span> mitt <span class="hljs-keyword">from</span> <span class="hljs-string">'mitt'</span>
+
+<span class="hljs-keyword">let</span> emitter = mitt()
+
+<span class="hljs-comment">// listen to an event</span>
+emitter.on(<span class="hljs-string">'foo'</span>, e =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo'</span>, e) )
+
+<span class="hljs-comment">// listen to all events</span>
+emitter.on(<span class="hljs-string">'*'</span>, (type, e) =&gt; <span class="hljs-built_in">console</span>.log(type, e) )
+
+<span class="hljs-comment">// fire an event</span>
+emitter.emit(<span class="hljs-string">'foo'</span>, { <span class="hljs-attr">a</span>: <span class="hljs-string">'b'</span> })
+
+<span class="hljs-comment">// working with handler references:</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onFoo</span>(<span class="hljs-params"></span>) </span>{}
+emitter.on(<span class="hljs-string">'foo'</span>, onFoo)   <span class="hljs-comment">// listen</span>
+emitter.off(<span class="hljs-string">'foo'</span>, onFoo)  <span class="hljs-comment">// unlisten</span>
+</code></pre>
+<div class="pilwrap" id="typescript">
+  <h3>
+    <a href="#typescript" name="typescript" class="pilcrow"></a>
+Typescript
+  </h3>
+</div>
+<pre><code class="ts"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> mitt <span class="hljs-keyword">from</span> <span class="hljs-string">'mitt'</span>;
+<span class="hljs-keyword">let</span> emitter: mitt.Emitter = <span class="hljs-keyword">new</span> mitt();
+</code></pre>
+<div class="pilwrap" id="examples-and-demos">
+  <h2>
+    <a href="#examples-and-demos" name="examples-and-demos" class="pilcrow"></a>
+Examples &amp; Demos
+  </h2>
+</div>
+<a href="http://codepen.io/developit/pen/rjMEwW?editors=0110">
+  <b>Preact + Mitt Codepen Demo</b>
+  <br>
+  <img src="https://i.imgur.com/CjBgOfJ.png" width="278" alt="preact + mitt preview">
+</a>
+<hr>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<!-- Generated by documentation.js. Update this documentation by updating the source code. -->
+<div class="pilwrap" id="mitt-1">
+  <h3>
+    <a href="#mitt-1" name="mitt-1" class="pilcrow"></a>
+mitt
+  </h3>
+</div>
+<p>Mitt: Tiny (~200b) functional event emitter / pubsub.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>all</code> <strong>EventHandlerMap</strong></li>
+</ul>
+<p>Returns <strong>Mitt</strong></p>
+<div class="pilwrap" id="on">
+  <h3>
+    <a href="#on" name="on" class="pilcrow"></a>
+on
+  </h3>
+</div>
+<p>Register an event handler for the given type.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>type</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></strong> Type of event to listen for, or <code>&quot;*&quot;</code> for all events</li>
+<li><code>handler</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></strong> Function to call in response to given event</li>
+</ul>
+<div class="pilwrap" id="off">
+  <h3>
+    <a href="#off" name="off" class="pilcrow"></a>
+off
+  </h3>
+</div>
+<p>Remove an event handler for the given type.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>type</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></strong> Type of event to unregister <code>handler</code> from, or <code>&quot;*&quot;</code></li>
+<li><code>handler</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></strong> Handler function to remove</li>
+</ul>
+<div class="pilwrap" id="emit">
+  <h3>
+    <a href="#emit" name="emit" class="pilcrow"></a>
+emit
+  </h3>
+</div>
+<p>Invoke all handlers for the given type.
+If present, <code>&quot;*&quot;</code> handlers are invoked after type-matched handlers.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>type</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></strong> The event type to invoke</li>
+<li><code>evt</code> <strong>Any?</strong> Any value (object is recommended and powerful), passed to each handler</li>
+</ul>
+<div class="pilwrap" id="contribute">
+  <h2>
+    <a href="#contribute" name="contribute" class="pilcrow"></a>
+Contribute
+  </h2>
+</div>
+<p>First off, thanks for taking the time to contribute!
+Now, take a moment to be sure your contributions make sense to everyone else.</p>
+<p>Development Start:</p>
+<p>This project is typed with Flow Type annotations. To ensure you have the proper typings for this project run</p>
+<p><code>flow-typed install</code></p>
+<div class="pilwrap" id="reporting-issues">
+  <h3>
+    <a href="#reporting-issues" name="reporting-issues" class="pilcrow"></a>
+Reporting Issues
+  </h3>
+</div>
+<p>Found a problem? Want a new feature? First of all see if your issue or idea has <a href="../../issues.html">already been reported</a>.
+If don't, just open a <a href="../../issues/new.html">new clear and descriptive issue</a>.</p>
+<div class="pilwrap" id="submitting-pull-requests">
+  <h3>
+    <a href="#submitting-pull-requests" name="submitting-pull-requests" class="pilcrow"></a>
+Submitting pull requests
+  </h3>
+</div>
+<p>Pull requests are the greatest contributions, so be sure they are focused in scope, and do avoid unrelated commits.</p>
+<ul>
+<li>Fork it!</li>
+<li>Clone your fork: <code>git clone https://github.com/&lt;your-username&gt;/mitt</code></li>
+<li>Navigate to the newly cloned directory: <code>cd mitt</code></li>
+<li>Create a new branch for the new feature: <code>git checkout -b my-new-feature</code></li>
+<li>Install the tools necessary for development: <code>npm install</code></li>
+<li>Make your changes.</li>
+<li>Commit your changes: <code>git commit -am 'Add some feature'</code></li>
+<li>Push to the branch: <code>git push origin my-new-feature</code></li>
+<li>Submit a pull request with full remarks documenting your changes.</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p><a href="LICENSE.md.html">MIT License</a> © <a href="https://jasonformat.com/">Jason Miller</a></p>
+</div>
+  </div>
+</body>
+</html>

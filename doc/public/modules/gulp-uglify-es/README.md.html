@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-uglify-es\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gulp-uglify-es">gulp-uglify-es</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#source-maps">Source maps</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="gulp-uglify-es">
+  <h1>
+    <a href="#gulp-uglify-es" name="gulp-uglify-es" class="pilcrow"></a>
+gulp-uglify-es
+  </h1>
+</div>
+<p>gulp stream to uglify with 'terser' (es6 supported).</p>
+<p>terser is the new 'uglify-es'. uglify-es is no longer maintained.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>npm install --save-dev gulp-uglify-es</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>gulpfile.js</p>
+<pre><code class="js"><span class="hljs-keyword">let</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">"gulp"</span>);
+<span class="hljs-keyword">let</span> rename = <span class="hljs-built_in">require</span>(<span class="hljs-string">"gulp-rename"</span>);
+<span class="hljs-keyword">let</span> uglify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-uglify-es'</span>).default;
+
+gulp.task(<span class="hljs-string">"uglify"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+	<span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">"lib/bundle.js"</span>)
+		.pipe(rename(<span class="hljs-string">"bundle.min.js"</span>))
+		.pipe(uglify(<span class="hljs-comment">/* options */</span>))
+		.pipe(gulp.dest(<span class="hljs-string">"lib/"</span>));
+});
+</code></pre>
+<p>For documentation about the options-object, See the <a href="https://www.npmjs.com/package/terser#api-reference">Uglify API Reference</a>.</p>
+<div class="pilwrap" id="source-maps">
+  <h2>
+    <a href="#source-maps" name="source-maps" class="pilcrow"></a>
+Source maps
+  </h2>
+</div>
+<p>To generate source maps, use <a href="https://www.npmjs.com/package/gulp-sourcemaps">gulp-sourcemaps</a>.<br>
+Example:</p>
+<pre><code class="js"><span class="hljs-keyword">let</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">"gulp"</span>);
+<span class="hljs-keyword">let</span> rename = <span class="hljs-built_in">require</span>(<span class="hljs-string">"gulp-rename"</span>);
+<span class="hljs-keyword">var</span> sourcemaps = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-sourcemaps'</span>);
+<span class="hljs-keyword">let</span> uglify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-uglify-es'</span>).default;
+
+gulp.task(<span class="hljs-string">"uglify"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+	<span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">"lib/bundle.js"</span>)
+		.pipe(rename(<span class="hljs-string">"bundle.min.js"</span>))
+		.pipe(sourcemaps.init())
+		.pipe(uglify())
+		.pipe(sourcemaps.write()) <span class="hljs-comment">// Inline source maps.</span>
+		<span class="hljs-comment">// For external source map file:</span>
+		<span class="hljs-comment">//.pipe(sourcemaps.write("./maps")) // In this case: lib/maps/bundle.min.js.map</span>
+		.pipe(gulp.dest(<span class="hljs-string">"lib/"</span>));
+});
+</code></pre>
+</div>
+  </div>
+</body>
+</html>

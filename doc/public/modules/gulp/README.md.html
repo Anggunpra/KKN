@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#what-is-gulp">What is gulp?</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#whats-new-in-4.0">What&#39;s new in 4.0?!</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#roadmap">Roadmap</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#documentation">Documentation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#sample-gulpfile.js">Sample gulpfile.js</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#use-latest-javascript-version-in-your-gulpfile">Use latest JavaScript version in your gulpfile</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#incremental-builds">Incremental Builds</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#want-to-contribute">Want to contribute?</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#backers">Backers</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#sponsors">Sponsors</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p align="center">
+  <a href="https://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+  <p align="center">The streaming build system</p>
+</p>
+<p><a href="https://www.npmjs.com/package/gulp"><img src="https://img.shields.io/npm/v/gulp.svg" alt="NPM version"></a> <a href="https://www.npmjs.com/package/gulp"><img src="https://img.shields.io/npm/dm/gulp.svg" alt="Downloads"></a> <a href="https://dev.azure.com/gulpjs/gulp/_build/latest?definitionId=1&amp;branchName=master"><img src="https://dev.azure.com/gulpjs/gulp/_apis/build/status/gulp?branchName=master" alt="Azure Pipelines Build Status"></a> <a href="https://travis-ci.org/gulpjs/gulp"><img src="https://img.shields.io/travis/gulpjs/gulp.svg?label=travis-ci" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/gulpjs/gulp"><img src="https://img.shields.io/appveyor/ci/gulpjs/gulp.svg?label=appveyor" alt="AppVeyor Build Status"></a> <a href="https://coveralls.io/r/gulpjs/gulp"><img src="https://img.shields.io/coveralls/gulpjs/gulp/master.svg" alt="Coveralls Status"></a> <a href="#backers.html"><img src="https://opencollective.com/gulpjs/backers/badge.svg?color=blue" alt="OpenCollective Backers"></a> <a href="#sponsors.html"><img src="https://opencollective.com/gulpjs/sponsors/badge.svg?color=blue" alt="OpenCollective Sponsors"></a> <a href="https://gitter.im/gulpjs/gulp"><img src="https://badges.gitter.im/gulpjs/gulp.svg" alt="Gitter chat"></a></p>
+<div class="pilwrap" id="what-is-gulp">
+  <h2>
+    <a href="#what-is-gulp" name="what-is-gulp" class="pilcrow"></a>
+What is gulp?
+  </h2>
+</div>
+<ul>
+<li><strong>Automation</strong> - gulp is a toolkit that helps you automate painful or time-consuming tasks in your development workflow.</li>
+<li><strong>Platform-agnostic</strong> - Integrations are built into all major IDEs and people are using gulp with PHP, .NET, Node.js, Java, and other platforms.</li>
+<li><strong>Strong Ecosystem</strong> - Use npm modules to do anything you want + over 2000 curated plugins for streaming file transformations</li>
+<li><strong>Simple</strong> - By providing only a minimal API surface, gulp is easy to learn and simple to use</li>
+</ul>
+<div class="pilwrap" id="whats-new-in-4.0">
+  <h2>
+    <a href="#whats-new-in-4.0" name="whats-new-in-4.0" class="pilcrow"></a>
+What's new in 4.0?!
+  </h2>
+</div>
+<ul>
+<li>The task system was rewritten from the ground-up, allowing task composition using <code>series()</code> and <code>parallel()</code> methods</li>
+<li>The watcher was updated, now using chokidar (no more need for gulp-watch!), with feature parity to our task system</li>
+<li>First-class support was added for incremental builds using <code>lastRun()</code></li>
+<li>A <code>symlink()</code> method was exposed to create symlinks instead of copying files</li>
+<li>Built-in support for sourcemaps was added - the gulp-sourcemaps plugin is no longer necessary!</li>
+<li>Task registration of exported functions - using node or ES exports - is now recommended</li>
+<li>Custom registries were designed, allowing for shared tasks or augmented functionality</li>
+<li>Stream implementations were improved, allowing for better conditional and phased builds</li>
+</ul>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<p>Follow our <a href="https://gulpjs.com/docs/en/getting-started/quick-start">Quick Start guide</a>.</p>
+<div class="pilwrap" id="roadmap">
+  <h2>
+    <a href="#roadmap" name="roadmap" class="pilcrow"></a>
+Roadmap
+  </h2>
+</div>
+<p>Find out about all our work-in-progress and outstanding issues at https://github.com/orgs/gulpjs/projects.</p>
+<div class="pilwrap" id="documentation">
+  <h2>
+    <a href="#documentation" name="documentation" class="pilcrow"></a>
+Documentation
+  </h2>
+</div>
+<p>Check out the <a href="https://gulpjs.com/docs/en/getting-started/quick-start">Getting Started guide</a> and <a href="https://gulpjs.com/docs/en/api/concepts">API docs</a> on our website!</p>
+<p><strong>Excuse our dust! All other docs will be behind until we get everything updated. Please open an issue if something isn't working.</strong></p>
+<div class="pilwrap" id="sample-gulpfile.js">
+  <h2>
+    <a href="#sample-gulpfile.js" name="sample-gulpfile.js" class="pilcrow"></a>
+Sample <code>gulpfile.js</code>
+  </h2>
+</div>
+<p>This file will give you a taste of what gulp does.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> less = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-less'</span>);
+<span class="hljs-keyword">var</span> babel = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-babel'</span>);
+<span class="hljs-keyword">var</span> concat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-concat'</span>);
+<span class="hljs-keyword">var</span> uglify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-uglify'</span>);
+<span class="hljs-keyword">var</span> rename = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-rename'</span>);
+<span class="hljs-keyword">var</span> cleanCSS = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-clean-css'</span>);
+<span class="hljs-keyword">var</span> del = <span class="hljs-built_in">require</span>(<span class="hljs-string">'del'</span>);
+
+<span class="hljs-keyword">var</span> paths = {
+  <span class="hljs-attr">styles</span>: {
+    <span class="hljs-attr">src</span>: <span class="hljs-string">'src/styles/**/*.less'</span>,
+    <span class="hljs-attr">dest</span>: <span class="hljs-string">'assets/styles/'</span>
+  },
+  <span class="hljs-attr">scripts</span>: {
+    <span class="hljs-attr">src</span>: <span class="hljs-string">'src/scripts/**/*.js'</span>,
+    <span class="hljs-attr">dest</span>: <span class="hljs-string">'assets/scripts/'</span>
+  }
+};
+
+<span class="hljs-comment">/* Not all tasks need to use streams, a gulpfile is just another node program
+ * and you can use all packages available on npm, but it must return either a
+ * Promise, a Stream or take a callback and call it
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clean</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// You can use multiple globbing patterns as you would with `gulp.src`,</span>
+  <span class="hljs-comment">// for example if you are using del 2.0 or above, return its promise</span>
+  <span class="hljs-keyword">return</span> del([ <span class="hljs-string">'assets'</span> ]);
+}
+
+<span class="hljs-comment">/*
+ * Define our tasks using plain functions
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">styles</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> gulp.src(paths.styles.src)
+    .pipe(less())
+    .pipe(cleanCSS())
+    <span class="hljs-comment">// pass in options to the stream</span>
+    .pipe(rename({
+      <span class="hljs-attr">basename</span>: <span class="hljs-string">'main'</span>,
+      <span class="hljs-attr">suffix</span>: <span class="hljs-string">'.min'</span>
+    }))
+    .pipe(gulp.dest(paths.styles.dest));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">scripts</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> gulp.src(paths.scripts.src, { <span class="hljs-attr">sourcemaps</span>: <span class="hljs-literal">true</span> })
+    .pipe(babel())
+    .pipe(uglify())
+    .pipe(concat(<span class="hljs-string">'main.min.js'</span>))
+    .pipe(gulp.dest(paths.scripts.dest));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">watch</span>(<span class="hljs-params"></span>) </span>{
+  gulp.watch(paths.scripts.src, scripts);
+  gulp.watch(paths.styles.src, styles);
+}
+
+<span class="hljs-comment">/*
+ * Specify if tasks run in series or parallel using `gulp.series` and `gulp.parallel`
+ */</span>
+<span class="hljs-keyword">var</span> build = gulp.series(clean, gulp.parallel(styles, scripts));
+
+<span class="hljs-comment">/*
+ * You can use CommonJS `exports` module notation to declare tasks
+ */</span>
+exports.clean = clean;
+exports.styles = styles;
+exports.scripts = scripts;
+exports.watch = watch;
+exports.build = build;
+<span class="hljs-comment">/*
+ * Define default task that can be called by just running `gulp` from cli
+ */</span>
+exports.default = build;
+</code></pre>
+<div class="pilwrap" id="use-latest-javascript-version-in-your-gulpfile">
+  <h2>
+    <a href="#use-latest-javascript-version-in-your-gulpfile" name="use-latest-javascript-version-in-your-gulpfile" class="pilcrow"></a>
+Use latest JavaScript version in your gulpfile
+  </h2>
+</div>
+<p><strong>Most new versions of node support most features that Babel provides, except the <code>import</code>/<code>export</code> syntax. When only that syntax is desired, rename to <code>gulpfile.esm.js</code>, install the [esm][esm-module] module, and skip the Babel portion below.</strong></p>
+<p>Node already supports a lot of <strong>ES2015+</strong> features, but to avoid compatibility problems we suggest to install Babel and rename your <code>gulpfile.js</code> to <code>gulpfile.babel.js</code>.</p>
+<pre><code class="sh">npm install --save-dev @babel/register @babel/core @babel/preset-env
+</code></pre>
+<p>Then create a <strong>.babelrc</strong> file with the preset configuration.</p>
+<pre><code class="js">{
+  <span class="hljs-string">"presets"</span>: [ <span class="hljs-string">"@babel/preset-env"</span> ]
+}
+</code></pre>
+<p>And here's the same sample from above written in <strong>ES2015+</strong>.</p>
+<pre><code class="js"><span class="hljs-keyword">import</span> gulp <span class="hljs-keyword">from</span> <span class="hljs-string">'gulp'</span>;
+<span class="hljs-keyword">import</span> less <span class="hljs-keyword">from</span> <span class="hljs-string">'gulp-less'</span>;
+<span class="hljs-keyword">import</span> babel <span class="hljs-keyword">from</span> <span class="hljs-string">'gulp-babel'</span>;
+<span class="hljs-keyword">import</span> concat <span class="hljs-keyword">from</span> <span class="hljs-string">'gulp-concat'</span>;
+<span class="hljs-keyword">import</span> uglify <span class="hljs-keyword">from</span> <span class="hljs-string">'gulp-uglify'</span>;
+<span class="hljs-keyword">import</span> rename <span class="hljs-keyword">from</span> <span class="hljs-string">'gulp-rename'</span>;
+<span class="hljs-keyword">import</span> cleanCSS <span class="hljs-keyword">from</span> <span class="hljs-string">'gulp-clean-css'</span>;
+<span class="hljs-keyword">import</span> del <span class="hljs-keyword">from</span> <span class="hljs-string">'del'</span>;
+
+<span class="hljs-keyword">const</span> paths = {
+  <span class="hljs-attr">styles</span>: {
+    <span class="hljs-attr">src</span>: <span class="hljs-string">'src/styles/**/*.less'</span>,
+    <span class="hljs-attr">dest</span>: <span class="hljs-string">'assets/styles/'</span>
+  },
+  <span class="hljs-attr">scripts</span>: {
+    <span class="hljs-attr">src</span>: <span class="hljs-string">'src/scripts/**/*.js'</span>,
+    <span class="hljs-attr">dest</span>: <span class="hljs-string">'assets/scripts/'</span>
+  }
+};
+
+<span class="hljs-comment">/*
+ * For small tasks you can export arrow functions
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> clean = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> del([ <span class="hljs-string">'assets'</span> ]);
+
+<span class="hljs-comment">/*
+ * You can also declare named functions and export them as tasks
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">styles</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> gulp.src(paths.styles.src)
+    .pipe(less())
+    .pipe(cleanCSS())
+    <span class="hljs-comment">// pass in options to the stream</span>
+    .pipe(rename({
+      <span class="hljs-attr">basename</span>: <span class="hljs-string">'main'</span>,
+      <span class="hljs-attr">suffix</span>: <span class="hljs-string">'.min'</span>
+    }))
+    .pipe(gulp.dest(paths.styles.dest));
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">scripts</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> gulp.src(paths.scripts.src, { <span class="hljs-attr">sourcemaps</span>: <span class="hljs-literal">true</span> })
+    .pipe(babel())
+    .pipe(uglify())
+    .pipe(concat(<span class="hljs-string">'main.min.js'</span>))
+    .pipe(gulp.dest(paths.scripts.dest));
+}
+
+ <span class="hljs-comment">/*
+  * You could even use `export as` to rename exported tasks
+  */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">watchFiles</span>(<span class="hljs-params"></span>) </span>{
+  gulp.watch(paths.scripts.src, scripts);
+  gulp.watch(paths.styles.src, styles);
+}
+<span class="hljs-keyword">export</span> { watchFiles <span class="hljs-keyword">as</span> watch };
+
+<span class="hljs-keyword">const</span> build = gulp.series(clean, gulp.parallel(styles, scripts));
+<span class="hljs-comment">/*
+ * Export a default task
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> build;
+</code></pre>
+<div class="pilwrap" id="incremental-builds">
+  <h2>
+    <a href="#incremental-builds" name="incremental-builds" class="pilcrow"></a>
+Incremental Builds
+  </h2>
+</div>
+<p>You can filter out unchanged files between runs of a task using
+the <code>gulp.src</code> function's <code>since</code> option and <code>gulp.lastRun</code>:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> paths = {
+  ...
+  images: {
+    <span class="hljs-attr">src</span>: <span class="hljs-string">'src/images/**/*.{jpg,jpeg,png}'</span>,
+    <span class="hljs-attr">dest</span>: <span class="hljs-string">'build/img/'</span>
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">images</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> gulp.src(paths.images.src, {<span class="hljs-attr">since</span>: gulp.lastRun(images)})
+    .pipe(imagemin({<span class="hljs-attr">optimizationLevel</span>: <span class="hljs-number">5</span>}))
+    .pipe(gulp.dest(paths.images.dest));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">watch</span>(<span class="hljs-params"></span>) </span>{
+  gulp.watch(paths.images.src, images);
+}
+</code></pre>
+<p>Task run times are saved in memory and are lost when gulp exits. It will only
+save time during the <code>watch</code> task when running the <code>images</code> task
+for a second time.</p>
+<div class="pilwrap" id="want-to-contribute">
+  <h2>
+    <a href="#want-to-contribute" name="want-to-contribute" class="pilcrow"></a>
+Want to contribute?
+  </h2>
+</div>
+<p>Anyone can help make this project better - check out our <a href="/CONTRIBUTING.md.html">Contributing guide</a>!</p>
+<div class="pilwrap" id="backers">
+  <h2>
+    <a href="#backers" name="backers" class="pilcrow"></a>
+Backers
+  </h2>
+</div>
+<p>Support us with a monthly donation and help us continue our activities.</p>
+<p><a href="https://opencollective.com/gulpjs#support"><img src="https://opencollective.com/gulpjs/backers.svg" alt="Backers"></a></p>
+<div class="pilwrap" id="sponsors">
+  <h2>
+    <a href="#sponsors" name="sponsors" class="pilcrow"></a>
+Sponsors
+  </h2>
+</div>
+<p>Become a sponsor to get your logo on our README on Github.</p>
+<p><a href="https://opencollective.com/gulpjs#support"><img src="https://opencollective.com/gulpjs/sponsors.svg" alt="Sponsors"></a></p>
+</div>
+  </div>
+</body>
+</html>

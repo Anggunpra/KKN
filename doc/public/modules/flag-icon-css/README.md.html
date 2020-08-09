@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\flag-icon-css\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#flag-icon-css">flag-icon-css</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#development">Development</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#credits">Credits</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="flag-icon-css">
+  <h1>
+    <a href="#flag-icon-css" name="flag-icon-css" class="pilcrow"></a>
+flag-icon-css
+  </h1>
+</div>
+<p><a href="https://badge.fury.io/js/flag-icon-css"><img src="https://badge.fury.io/js/flag-icon-css.svg" alt="npm version"></a></p>
+<p>A collection of all country flags in SVG — plus the CSS for easier integration.
+See the <a href="http://lipis.github.io/flag-icon-css/">demo</a>.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>You can either <a href="https://github.com/lipis/flag-icon-css/archive/master.zip">download</a>
+the whole project as is or install it via Bower or NPM:</p>
+<pre><code class="bash">$ bower install flag-icon-css
+$ npm install flag-icon-css
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>For using the flags inline with text add the classes <code>.flag-icon</code> and
+<code>.flag-icon-xx</code> (where <code>xx</code> is the
+<a href="https://www.iso.org/obp/ui/#search/code/">ISO 3166-1-alpha-2 code</a>
+of a country) to an empty <code>&lt;span&gt;</code>. If you want to have a squared version flag
+then add the class <code>flag-icon-squared</code> as well. Example:</p>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"flag-icon flag-icon-gr"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"flag-icon flag-icon-gr flag-icon-squared"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+</code></pre>
+<p>You could also apply this to any element, but in that case you'll have to use the
+<code>flag-icon-background</code> instead of <code>flag-icon</code> and you're set. This will add the
+correct background with the following CSS properties:</p>
+<pre><code class="css"><span class="hljs-selector-tag">background-size</span>: <span class="hljs-selector-tag">contain</span>;
+<span class="hljs-selector-tag">background-position</span>: 50%;
+<span class="hljs-selector-tag">background-repeat</span>: <span class="hljs-selector-tag">no-repeat</span>;
+</code></pre>
+<p>Which means that the flag is just going to appear in the middle of an element, so
+you will have to set manually the correct size of 4 by 3 ratio or if it's squared
+add also the <code>flag-icon-squared</code> class.</p>
+<div class="pilwrap" id="development">
+  <h2>
+    <a href="#development" name="development" class="pilcrow"></a>
+Development
+  </h2>
+</div>
+<p>Run the <code>npm install</code> to install the dependencies after cloning the project and
+you'll be able to:</p>
+<p>To watch for changes and live reload if served</p>
+<pre><code class="bash">$ grunt
+</code></pre>
+<p>To build <code>*.less</code> files</p>
+<pre><code class="bash">$ grunt build
+</code></pre>
+<p>To serve it on <code>localhost:8000</code></p>
+<pre><code class="bash">$ grunt connect
+</code></pre>
+<p>To have only specific countries in the css file, remove the ones that you don't
+need from the
+<a href="https://github.com/lipis/flag-icon-css/blob/master/less/flag-icon-list.less"><code>flag-icon-list.less</code></a>
+file and build it again.</p>
+<div class="pilwrap" id="credits">
+  <h2>
+    <a href="#credits" name="credits" class="pilcrow"></a>
+Credits
+  </h2>
+</div>
+<p>This project wouldn't exist without the awesome and now deleted collection of
+SVG flags by <a href="https://github.com/koppi">koppi</a>.</p>
+</div>
+  </div>
+</body>
+</html>

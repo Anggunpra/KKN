@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>permission.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "config\\permission.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>permission.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">return</span> [
+
+    <span class="hljs-string">'models'</span> =&gt; [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>When using the &quot;HasPermissions&quot; trait from this package, we need to know which
+Eloquent model should be used to retrieve your permissions. Of course, it
+is often just the &quot;Permission&quot; model but you may use whatever you like.</p>
+</div>
+<div class="body">
+<p>The model you want to use as a Permission model needs to implement the
+<code>Spatie\Permission\Contracts\Permission</code> contract.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+        <span class="hljs-string">'permission'</span> =&gt; Spatie\Permission\Models\Permission::class,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>When using the &quot;HasRoles&quot; trait from this package, we need to know which
+Eloquent model should be used to retrieve your roles. Of course, it
+is often just the &quot;Role&quot; model but you may use whatever you like.</p>
+</div>
+<div class="body">
+<p>The model you want to use as a Role model needs to implement the
+<code>Spatie\Permission\Contracts\Role</code> contract.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+        <span class="hljs-string">'role'</span> =&gt; Spatie\Permission\Models\Role::class,
+
+    ],
+
+    <span class="hljs-string">'table_names'</span> =&gt; [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>When using the &quot;HasRoles&quot; trait from this package, we need to know which
+table should be used to retrieve your roles. We have chosen a basic
+default value but you may easily change it to any table you like.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+        <span class="hljs-string">'roles'</span> =&gt; <span class="hljs-string">'roles'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>When using the &quot;HasPermissions&quot; trait from this package, we need to know which
+table should be used to retrieve your permissions. We have chosen a basic
+default value but you may easily change it to any table you like.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+        <span class="hljs-string">'permissions'</span> =&gt; <span class="hljs-string">'permissions'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>When using the &quot;HasPermissions&quot; trait from this package, we need to know which
+table should be used to retrieve your models permissions. We have chosen a
+basic default value but you may easily change it to any table you like.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+        <span class="hljs-string">'model_has_permissions'</span> =&gt; <span class="hljs-string">'model_has_permissions'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>When using the &quot;HasRoles&quot; trait from this package, we need to know which
+table should be used to retrieve your models roles. We have chosen a
+basic default value but you may easily change it to any table you like.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+        <span class="hljs-string">'model_has_roles'</span> =&gt; <span class="hljs-string">'model_has_roles'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>When using the &quot;HasRoles&quot; trait from this package, we need to know which
+table should be used to retrieve your roles permissions. We have chosen a
+basic default value but you may easily change it to any table you like.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+        <span class="hljs-string">'role_has_permissions'</span> =&gt; <span class="hljs-string">'role_has_permissions'</span>,
+    ],
+
+    <span class="hljs-string">'column_names'</span> =&gt; [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Change this if you want to name the related model primary key other than
+<code>model_id</code>.</p>
+</div>
+<div class="body">
+<p>For example, this would be nice if your primary keys are all UUIDs. In
+that case, name this <code>model_uuid</code>.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+        <span class="hljs-string">'model_morph_key'</span> =&gt; <span class="hljs-string">'model_id'</span>,
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>When set to true, the required permission names are added to the exception
+message. This could be considered an information leak in some contexts, so
+the default setting is false here for optimum safety.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'display_permission_in_exception'</span> =&gt; <span class="hljs-keyword">false</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>When set to true, the required role names are added to the exception
+message. This could be considered an information leak in some contexts, so
+the default setting is false here for optimum safety.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'display_role_in_exception'</span> =&gt; <span class="hljs-keyword">false</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>By default wildcard permission lookups are disabled.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'enable_wildcard_permission'</span> =&gt; <span class="hljs-keyword">false</span>,
+
+    <span class="hljs-string">'cache'</span> =&gt; [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>By default all permissions are cached for 24 hours to speed up performance.
+When permissions or roles are updated the cache is flushed automatically.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+        <span class="hljs-string">'expiration_time'</span> =&gt; \DateInterval::createFromDateString(<span class="hljs-string">'24 hours'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The cache key used to store all permissions.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+        <span class="hljs-string">'key'</span> =&gt; <span class="hljs-string">'spatie.permission.cache'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>When checking for a permission against a model by passing a Permission
+instance to the check, this key determines what attribute on the
+Permissions model is used to cache against.</p>
+</div>
+<div class="body">
+<p>Ideally, this should match your preferred way of checking permissions, eg:
+<code>$user-&gt;can('view-posts')</code> would be 'name'.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+        <span class="hljs-string">'model_key'</span> =&gt; <span class="hljs-string">'name'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>You may optionally indicate a specific cache driver to use for permission and
+role caching using any of the <code>store</code> drivers listed in the cache.php config
+file. Using 'default' here means to use the <code>default</code> set in cache.php.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+        <span class="hljs-string">'store'</span> =&gt; <span class="hljs-string">'default'</span>,
+    ],
+];
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

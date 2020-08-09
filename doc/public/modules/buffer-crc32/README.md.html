@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\buffer-crc32\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#buffer-crc32">buffer-crc32</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#install">install</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#example">example</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#tests">tests</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#see-also">see also</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#license">license</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="buffer-crc32">
+  <h1>
+    <a href="#buffer-crc32" name="buffer-crc32" class="pilcrow"></a>
+buffer-crc32
+  </h1>
+</div>
+<p><a href="http://travis-ci.org/brianloveswords/buffer-crc32"><img src="https://secure.travis-ci.org/brianloveswords/buffer-crc32.png?branch=master" alt="Build Status"></a></p>
+<p>crc32 that works with binary data and fancy character sets, outputs
+buffer, signed or unsigned data and has tests.</p>
+<p>Derived from the sample CRC implementation in the PNG specification: http://www.w3.org/TR/PNG/#D-CRCAppendix</p>
+<div class="pilwrap" id="install">
+  <h1>
+    <a href="#install" name="install" class="pilcrow"></a>
+install
+  </h1>
+</div>
+<pre><code>npm install buffer-crc32
+</code></pre>
+<div class="pilwrap" id="example">
+  <h1>
+    <a href="#example" name="example" class="pilcrow"></a>
+example
+  </h1>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> crc32 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'buffer-crc32'</span>);
+<span class="hljs-comment">// works with buffers</span>
+<span class="hljs-keyword">var</span> buf = Buffer([<span class="hljs-number">0x00</span>, <span class="hljs-number">0x73</span>, <span class="hljs-number">0x75</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0x20</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0x72</span>, <span class="hljs-number">0x6f</span>, <span class="hljs-number">0x00</span>])
+crc32(buf) <span class="hljs-comment">// -&gt; &lt;Buffer 94 5a ab 4a&gt;</span>
+
+<span class="hljs-comment">// has convenience methods for getting signed or unsigned ints</span>
+crc32.signed(buf) <span class="hljs-comment">// -&gt; -1805997238</span>
+crc32.unsigned(buf) <span class="hljs-comment">// -&gt; 2488970058</span>
+
+<span class="hljs-comment">// will cast to buffer if given a string, so you can</span>
+<span class="hljs-comment">// directly use foreign characters safely</span>
+crc32(<span class="hljs-string">'自動販売機'</span>) <span class="hljs-comment">// -&gt; &lt;Buffer cb 03 1a c5&gt;</span>
+
+<span class="hljs-comment">// and works in append mode too</span>
+<span class="hljs-keyword">var</span> partialCrc = crc32(<span class="hljs-string">'hey'</span>);
+<span class="hljs-keyword">var</span> partialCrc = crc32(<span class="hljs-string">' '</span>, partialCrc);
+<span class="hljs-keyword">var</span> partialCrc = crc32(<span class="hljs-string">'sup'</span>, partialCrc);
+<span class="hljs-keyword">var</span> partialCrc = crc32(<span class="hljs-string">' '</span>, partialCrc);
+<span class="hljs-keyword">var</span> finalCrc = crc32(<span class="hljs-string">'bros'</span>, partialCrc); <span class="hljs-comment">// -&gt; &lt;Buffer 47 fa 55 70&gt;</span>
+</code></pre>
+<div class="pilwrap" id="tests">
+  <h1>
+    <a href="#tests" name="tests" class="pilcrow"></a>
+tests
+  </h1>
+</div>
+<p>This was tested against the output of zlib's crc32 method. You can run
+the tests with<code>npm test</code> (requires tap)</p>
+<div class="pilwrap" id="see-also">
+  <h1>
+    <a href="#see-also" name="see-also" class="pilcrow"></a>
+see also
+  </h1>
+</div>
+<p>https://github.com/alexgorbatchev/node-crc, <code>crc.buffer.crc32</code> also
+supports buffer inputs and return unsigned ints (thanks @tjholowaychuk).</p>
+<div class="pilwrap" id="license">
+  <h1>
+    <a href="#license" name="license" class="pilcrow"></a>
+license
+  </h1>
+</div>
+<p>MIT/X11</p>
+</div>
+  </div>
+</body>
+</html>

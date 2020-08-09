@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\cosmiconfig\\package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"cosmiconfig"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"5.2.1"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Find and load configuration from a package.json property, rc file, or CommonJS module"</span>,
+  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"dist/index.js"</span>,
+  <span class="hljs-attr">"files"</span>: [
+    <span class="hljs-string">"dist"</span>
+  ],
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"precommit"</span>: <span class="hljs-string">"lint-staged &amp;&amp; jest &amp;&amp; flow check"</span>,
+    <span class="hljs-attr">"lint:md-partial"</span>: <span class="hljs-string">"remark -u remark-preset-davidtheclark --frail --quiet --no-stdout --output --"</span>,
+    <span class="hljs-attr">"lint:md"</span>: <span class="hljs-string">"npm run lint:md-partial -- *.md"</span>,
+    <span class="hljs-attr">"lint:fix"</span>: <span class="hljs-string">"eslint . --fix"</span>,
+    <span class="hljs-attr">"lint"</span>: <span class="hljs-string">"eslint . &amp;&amp; npm run lint:md"</span>,
+    <span class="hljs-attr">"format"</span>: <span class="hljs-string">"prettier --write \"{src/*.js,test/*.js}\""</span>,
+    <span class="hljs-attr">"pretest"</span>: <span class="hljs-string">"npm run lint &amp;&amp; flow check"</span>,
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"jest --coverage"</span>,
+    <span class="hljs-attr">"test:watch"</span>: <span class="hljs-string">"jest --watch"</span>,
+    <span class="hljs-attr">"coverage"</span>: <span class="hljs-string">"jest --coverage --coverageReporters=html --coverageReporters=text"</span>,
+    <span class="hljs-attr">"build"</span>: <span class="hljs-string">"flow-remove-types src --out-dir dist --quiet"</span>,
+    <span class="hljs-attr">"prepublishOnly"</span>: <span class="hljs-string">"npm run build"</span>
+  },
+  <span class="hljs-attr">"lint-staged"</span>: {
+    <span class="hljs-attr">"*.js"</span>: [
+      <span class="hljs-string">"eslint --fix"</span>,
+      <span class="hljs-string">"prettier --write"</span>,
+      <span class="hljs-string">"git add"</span>
+    ],
+    <span class="hljs-attr">"*.md"</span>: [
+      <span class="hljs-string">"npm run lint:md-partial"</span>,
+      <span class="hljs-string">"git add"</span>
+    ]
+  },
+  <span class="hljs-attr">"repository"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"git"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"git+https://github.com/davidtheclark/cosmiconfig.git"</span>
+  },
+  <span class="hljs-attr">"keywords"</span>: [
+    <span class="hljs-string">"load"</span>,
+    <span class="hljs-string">"configuration"</span>,
+    <span class="hljs-string">"config"</span>
+  ],
+  <span class="hljs-attr">"author"</span>: <span class="hljs-string">"David Clark &lt;david.dave.clark@gmail.com&gt;"</span>,
+  <span class="hljs-attr">"contributors"</span>: [
+    <span class="hljs-string">"Bogdan Chadkin &lt;trysound@yandex.ru&gt;"</span>,
+    <span class="hljs-string">"Suhas Karanth &lt;sudo.suhas@gmail.com&gt;"</span>
+  ],
+  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"MIT"</span>,
+  <span class="hljs-attr">"bugs"</span>: {
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/davidtheclark/cosmiconfig/issues"</span>
+  },
+  <span class="hljs-attr">"homepage"</span>: <span class="hljs-string">"https://github.com/davidtheclark/cosmiconfig#readme"</span>,
+  <span class="hljs-attr">"prettier"</span>: {
+    <span class="hljs-attr">"trailingComma"</span>: <span class="hljs-string">"es5"</span>,
+    <span class="hljs-attr">"singleQuote"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"printWidth"</span>: <span class="hljs-number">80</span>,
+    <span class="hljs-attr">"tabWidth"</span>: <span class="hljs-number">2</span>
+  },
+  <span class="hljs-attr">"jest"</span>: {
+    <span class="hljs-attr">"testEnvironment"</span>: <span class="hljs-string">"node"</span>,
+    <span class="hljs-attr">"collectCoverageFrom"</span>: [
+      <span class="hljs-string">"src/*.js"</span>
+    ],
+    <span class="hljs-attr">"coverageReporters"</span>: [
+      <span class="hljs-string">"text"</span>,
+      <span class="hljs-string">"html"</span>,
+      <span class="hljs-string">"lcov"</span>
+    ],
+    <span class="hljs-attr">"coverageThreshold"</span>: {
+      <span class="hljs-attr">"global"</span>: {
+        <span class="hljs-attr">"branches"</span>: <span class="hljs-number">100</span>,
+        <span class="hljs-attr">"functions"</span>: <span class="hljs-number">100</span>,
+        <span class="hljs-attr">"lines"</span>: <span class="hljs-number">100</span>,
+        <span class="hljs-attr">"statements"</span>: <span class="hljs-number">100</span>
+      }
+    },
+    <span class="hljs-attr">"resetModules"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"resetMocks"</span>: <span class="hljs-literal">true</span>
+  },
+  <span class="hljs-attr">"babel"</span>: {
+    <span class="hljs-attr">"plugins"</span>: [
+      <span class="hljs-string">"transform-flow-strip-types"</span>
+    ]
+  },
+  <span class="hljs-attr">"dependencies"</span>: {
+    <span class="hljs-attr">"import-fresh"</span>: <span class="hljs-string">"^2.0.0"</span>,
+    <span class="hljs-attr">"is-directory"</span>: <span class="hljs-string">"^0.3.1"</span>,
+    <span class="hljs-attr">"js-yaml"</span>: <span class="hljs-string">"^3.13.1"</span>,
+    <span class="hljs-attr">"parse-json"</span>: <span class="hljs-string">"^4.0.0"</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"babel-eslint"</span>: <span class="hljs-string">"^8.0.3"</span>,
+    <span class="hljs-attr">"babel-plugin-transform-flow-strip-types"</span>: <span class="hljs-string">"^6.22.0"</span>,
+    <span class="hljs-attr">"del"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"eslint"</span>: <span class="hljs-string">"^4.12.1"</span>,
+    <span class="hljs-attr">"eslint-config-davidtheclark-node"</span>: <span class="hljs-string">"^0.2.2"</span>,
+    <span class="hljs-attr">"eslint-config-prettier"</span>: <span class="hljs-string">"^2.9.0"</span>,
+    <span class="hljs-attr">"eslint-plugin-flowtype"</span>: <span class="hljs-string">"^2.39.1"</span>,
+    <span class="hljs-attr">"eslint-plugin-node"</span>: <span class="hljs-string">"^5.2.1"</span>,
+    <span class="hljs-attr">"flow-bin"</span>: <span class="hljs-string">"^0.68.0"</span>,
+    <span class="hljs-attr">"flow-remove-types"</span>: <span class="hljs-string">"^1.2.3"</span>,
+    <span class="hljs-attr">"husky"</span>: <span class="hljs-string">"^0.14.3"</span>,
+    <span class="hljs-attr">"jest"</span>: <span class="hljs-string">"^21.2.1"</span>,
+    <span class="hljs-attr">"lint-staged"</span>: <span class="hljs-string">"^6.0.0"</span>,
+    <span class="hljs-attr">"make-dir"</span>: <span class="hljs-string">"^1.2.0"</span>,
+    <span class="hljs-attr">"parent-module"</span>: <span class="hljs-string">"^0.1.0"</span>,
+    <span class="hljs-attr">"prettier"</span>: <span class="hljs-string">"^1.8.2"</span>,
+    <span class="hljs-attr">"remark-cli"</span>: <span class="hljs-string">"^5.0.0"</span>,
+    <span class="hljs-attr">"remark-preset-davidtheclark"</span>: <span class="hljs-string">"^0.7.0"</span>
+  },
+  <span class="hljs-attr">"engines"</span>: {
+    <span class="hljs-attr">"node"</span>: <span class="hljs-string">"&gt;=4"</span>
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

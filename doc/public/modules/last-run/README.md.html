@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\last-run\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#last-run">last-run</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#lastrun-fn-timeresolution-greater-timestamp">lastRun(fn, [timeResolution]) =&amp;gt; [Timestamp]</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#lastrun.capture-fn-timestamp">lastRun.capture(fn, [timestamp])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#lastrun.release-fn">lastRun.release(fn)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p align="center">
+  <a href="http://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+</p>
+<div class="pilwrap" id="last-run">
+  <h1>
+    <a href="#last-run" name="last-run" class="pilcrow"></a>
+last-run
+  </h1>
+</div>
+<p><a href="https://www.npmjs.com/package/last-run"><img src="http://img.shields.io/npm/v/last-run.svg" alt="NPM version"></a> <a href="https://www.npmjs.com/package/last-run"><img src="http://img.shields.io/npm/dm/last-run.svg" alt="Downloads"></a> <a href="https://travis-ci.org/gulpjs/last-run"><img src="http://img.shields.io/travis/gulpjs/last-run.svg?label=travis-ci" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/gulpjs/last-run"><img src="https://img.shields.io/appveyor/ci/gulpjs/last-run.svg?label=appveyor" alt="AppVeyor Build Status"></a> <a href="https://coveralls.io/r/gulpjs/last-run"><img src="http://img.shields.io/coveralls/gulpjs/last-run/master.svg" alt="Coveralls Status"></a> <a href="https://gitter.im/gulpjs/gulp"><img src="https://badges.gitter.im/gulpjs/gulp.svg" alt="Gitter chat"></a></p>
+<p>Capture and retrieve the last time a function was run.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> lastRun = <span class="hljs-built_in">require</span>(<span class="hljs-string">'last-run'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myFunc</span>(<span class="hljs-params"></span>)</span>{}
+
+myFunc();
+<span class="hljs-comment">// capture the run after (or before) calling the function</span>
+lastRun.capture(myFunc);
+
+<span class="hljs-comment">// retrieve the last run time</span>
+lastRun(myFunc);
+<span class="hljs-comment">//-&gt; outputs the Date.now() when capture was called</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<p><strong>Note: this module uses a WeakMap shim, and throws on non-extensible functions on platforms that
+don't have a native WeakMap implementation</strong></p>
+<div class="pilwrap" id="lastrun-fn-timeresolution-greater-timestamp">
+  <h3>
+    <a href="#lastrun-fn-timeresolution-greater-timestamp" name="lastrun-fn-timeresolution-greater-timestamp" class="pilcrow"></a>
+lastRun(fn, [timeResolution]) =&gt; [Timestamp]
+  </h3>
+</div>
+<p>Takes a function (<code>fn</code>) and returns a timestamp of the last time the function was captured.</p>
+<p>Returns undefined if the function has not been captured.</p>
+<p>The timestamp is always given in millisecond but the time resolution can be reduced (rounded down).
+The use case is to be able to compare a build time to a file time attribute.
+On node v0.10 or with file system like HFS or FAT, <code>fs.stat</code> time attributes like <code>mtime</code> precision is one second.</p>
+<p>Assuming <code>lastRun(fn)</code> returns 1426000001111, <code>lastRun(fn, 1000)</code> returns 1426000001000.</p>
+<p>The default time resolution is 1000 on node v0.10, 0 on node 0.11+ and iojs.
+More information at <a href="https://github.com/gulpjs/default-resolution"><code>default-resolution</code></a> and
+<a href="https://github.com/gulpjs/undertaker/pull/17#issuecomment-82374512">undertaker PR #17</a>.</p>
+<div class="pilwrap" id="lastrun.capture-fn-timestamp">
+  <h3>
+    <a href="#lastrun.capture-fn-timestamp" name="lastrun.capture-fn-timestamp" class="pilcrow"></a>
+lastRun.capture(fn, [timestamp])
+  </h3>
+</div>
+<p>Takes a function (<code>fn</code>) and captures the current timestamp with <code>Date.now()</code>.
+If passed the optional timestamp, captures that time instead of <code>Date.now()</code>.
+The captured timestamp can then be retrieved using the <code>lastRun</code> function.</p>
+<div class="pilwrap" id="lastrun.release-fn">
+  <h3>
+    <a href="#lastrun.release-fn" name="lastrun.release-fn" class="pilcrow"></a>
+lastRun.release(fn)
+  </h3>
+</div>
+<p>Takes a function (<code>fn</code>) and removes the last run timestamp for it.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

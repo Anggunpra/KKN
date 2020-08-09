@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>app.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "bootstrap\\app.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>app.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Create The Application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>The first thing we will do is create a new Laravel application instance</td>
+</tr>
+<tr>
+<td>which serves as the &quot;glue&quot; for all the components of Laravel, and is</td>
+</tr>
+<tr>
+<td>the IoC container for the system binding all of the various parts.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+$app = <span class="hljs-keyword">new</span> Illuminate\Foundation\Application(
+    $_ENV[<span class="hljs-string">'APP_BASE_PATH'</span>] ?? dirname(<span class="hljs-keyword">__DIR__</span>)
+);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Bind Important Interfaces</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Next, we need to bind some important interfaces into the container so</td>
+</tr>
+<tr>
+<td>we will be able to resolve them when needed. The kernels serve the</td>
+</tr>
+<tr>
+<td>incoming requests to this application from both the web and CLI.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+$app-&gt;singleton(
+    Illuminate\Contracts\Http\Kernel::class,
+    App\Http\Kernel::class
+);
+
+$app-&gt;singleton(
+    Illuminate\Contracts\Console\Kernel::class,
+    App\Console\Kernel::class
+);
+
+$app-&gt;singleton(
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    App\Exceptions\Handler::class
+);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Return The Application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This script returns the application instance. The instance is given to</td>
+</tr>
+<tr>
+<td>the calling script so we can separate the building of the instances</td>
+</tr>
+<tr>
+<td>from the actual running of the application and sending responses.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+<span class="hljs-keyword">return</span> $app;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

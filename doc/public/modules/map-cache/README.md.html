@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\map-cache\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#map-cache">map-cache   </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#mapcache">MapCache</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.set">.set</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.get">.get</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.has">.has</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.del">.del</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#building-docs">Building docs</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#running-tests">Running tests</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="map-cache">
+  <h1>
+    <a href="#map-cache" name="map-cache" class="pilcrow"></a>
+map-cache <a href="https://www.npmjs.com/package/map-cache"><img src="https://img.shields.io/npm/v/map-cache.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.org/package/map-cache"><img src="https://img.shields.io/npm/dm/map-cache.svg?style=flat" alt="NPM downloads"></a> <a href="https://travis-ci.org/jonschlinkert/map-cache"><img src="https://img.shields.io/travis/jonschlinkert/map-cache.svg?style=flat" alt="Build Status"></a>
+  </h1>
+</div>
+<p>Basic cache object for storing key-value pairs.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://www.npmjs.com/">npm</a>:</p>
+<pre><code class="sh">$ npm install map-cache --save
+</code></pre>
+<p>Based on MapCache in Lo-dash v3.0. <a href="https://github.com/lodash/lodash/blob/master/LICENSE.txt">MIT License</a></p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> MapCache = <span class="hljs-built_in">require</span>(<span class="hljs-string">'map-cache'</span>);
+<span class="hljs-keyword">var</span> mapCache = <span class="hljs-keyword">new</span> MapCache();
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="mapcache">
+  <h3>
+    <a href="#mapcache" name="mapcache" class="pilcrow"></a>
+<a href="index.js#L28.html">MapCache</a>
+  </h3>
+</div>
+<p>Creates a cache object to store key/value pairs.</p>
+<p><strong>Example</strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> cache = <span class="hljs-keyword">new</span> MapCache();
+</code></pre>
+<div class="pilwrap" id=".set">
+  <h3>
+    <a href="#.set" name=".set" class="pilcrow"></a>
+<a href="index.js#L45.html">.set</a>
+  </h3>
+</div>
+<p>Adds <code>value</code> to <code>key</code> on the cache.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>key</code> <strong>{String}</strong>: The key of the value to cache.</li>
+<li><code>value</code> <strong>{any}</strong>: The value to cache.</li>
+<li><code>returns</code> <strong>{Object}</strong>: Returns the <code>Cache</code> object for chaining.</li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js">cache.set(<span class="hljs-string">'foo'</span>, <span class="hljs-string">'bar'</span>);
+</code></pre>
+<div class="pilwrap" id=".get">
+  <h3>
+    <a href="#.get" name=".get" class="pilcrow"></a>
+<a href="index.js#L65.html">.get</a>
+  </h3>
+</div>
+<p>Gets the cached value for <code>key</code>.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>key</code> <strong>{String}</strong>: The key of the value to get.</li>
+<li><code>returns</code> <strong>{any}</strong>: Returns the cached value.</li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js">cache.get(<span class="hljs-string">'foo'</span>);
+<span class="hljs-comment">//=&gt; 'bar'</span>
+</code></pre>
+<div class="pilwrap" id=".has">
+  <h3>
+    <a href="#.has" name=".has" class="pilcrow"></a>
+<a href="index.js#L82.html">.has</a>
+  </h3>
+</div>
+<p>Checks if a cached value for <code>key</code> exists.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>key</code> <strong>{String}</strong>: The key of the entry to check.</li>
+<li><code>returns</code> <strong>{Boolean}</strong>: Returns <code>true</code> if an entry for <code>key</code> exists, else <code>false</code>.</li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js">cache.has(<span class="hljs-string">'foo'</span>);
+<span class="hljs-comment">//=&gt; true</span>
+</code></pre>
+<div class="pilwrap" id=".del">
+  <h3>
+    <a href="#.del" name=".del" class="pilcrow"></a>
+<a href="index.js#L98.html">.del</a>
+  </h3>
+</div>
+<p>Removes <code>key</code> and its value from the cache.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>key</code> <strong>{String}</strong>: The key of the value to remove.</li>
+<li><code>returns</code> <strong>{Boolean}</strong>: Returns <code>true</code> if the entry was removed successfully, else <code>false</code>.</li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js">cache.del(<span class="hljs-string">'foo'</span>);
+</code></pre>
+<div class="pilwrap" id="related-projects">
+  <h2>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h2>
+</div>
+<p>You might also be interested in these projects:</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/cache-base">cache-base</a>: Basic object cache with <code>get</code>, <code>set</code>, <code>del</code>, and <code>has</code> methods for node.js/javascript projects. | <a href="https://github.com/jonschlinkert/cache-base">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/config-cache">config-cache</a>: General purpose JavaScript object storage methods. | <a href="https://github.com/jonschlinkert/config-cache">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/option-cache">option-cache</a>: Simple API for managing options in JavaScript applications. | <a href="https://github.com/jonschlinkert/option-cache">homepage</a></li>
+</ul>
+<div class="pilwrap" id="contributing">
+  <h2>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h2>
+</div>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="https://github.com/jonschlinkert/map-cache/issues/new">please create an issue</a>.</p>
+<div class="pilwrap" id="building-docs">
+  <h2>
+    <a href="#building-docs" name="building-docs" class="pilcrow"></a>
+Building docs
+  </h2>
+</div>
+<p>Generate readme and API documentation with <a href="https://github.com/verbose/verb">verb</a>:</p>
+<pre><code class="sh">$ npm install verb &amp;&amp; npm run docs
+</code></pre>
+<p>Or, if <a href="https://github.com/verbose/verb">verb</a> is installed globally:</p>
+<pre><code class="sh">$ verb
+</code></pre>
+<div class="pilwrap" id="running-tests">
+  <h2>
+    <a href="#running-tests" name="running-tests" class="pilcrow"></a>
+Running tests
+  </h2>
+</div>
+<p>Install dev dependencies:</p>
+<pre><code class="sh">$ npm install -d &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="author">
+  <h2>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h2>
+</div>
+<p><strong>Jon Schlinkert</strong></p>
+<ul>
+<li><a href="https://github.com/jonschlinkert">github/jonschlinkert</a></li>
+<li><a href="http://twitter.com/jonschlinkert">twitter/jonschlinkert</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>Copyright © 2016, <a href="https://github.com/jonschlinkert">Jon Schlinkert</a>.
+Released under the <a href="https://github.com/jonschlinkert/map-cache/blob/master/LICENSE">MIT license</a>.</p>
+<hr>
+<p><em>This file was generated by <a href="https://github.com/verbose/verb">verb</a>, v0.9.0, on May 10, 2016.</em></p>
+</div>
+  </div>
+</body>
+</html>

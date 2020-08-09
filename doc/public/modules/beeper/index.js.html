@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\beeper\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> BEEP_DELAY = <span class="hljs-number">500</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">beep</span>(<span class="hljs-params"></span>) </span>{
+	process.stdout.write(<span class="hljs-string">'\u0007'</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">melodicalBeep</span>(<span class="hljs-params">val, cb</span>) </span>{
+	<span class="hljs-keyword">if</span> (val.length === <span class="hljs-number">0</span>) {
+		cb();
+		<span class="hljs-keyword">return</span>;
+	}
+
+	setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">if</span> (val.shift() === <span class="hljs-string">'*'</span>) {
+			beep();
+		}
+
+		melodicalBeep(val, cb);
+	}, BEEP_DELAY);
+}
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val, cb</span>) </span>{
+	<span class="hljs-keyword">if</span> (!process.stdout.isTTY ||
+		process.argv.indexOf(<span class="hljs-string">'--no-beep'</span>) !== <span class="hljs-number">-1</span> ||
+		process.argv.indexOf(<span class="hljs-string">'--beep=false'</span>) !== <span class="hljs-number">-1</span>) {
+		<span class="hljs-keyword">return</span>;
+	}
+
+	cb = cb || <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
+
+	<span class="hljs-keyword">if</span> (val === <span class="hljs-built_in">parseInt</span>(val)) {
+		<span class="hljs-keyword">if</span> (val &lt; <span class="hljs-number">0</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Negative numbers are not accepted'</span>);
+		}
+
+		<span class="hljs-keyword">if</span> (val === <span class="hljs-number">0</span>) {
+			cb();
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; val; i++) {
+			setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i</span>) </span>{
+				beep();
+
+				<span class="hljs-keyword">if</span> (i === val - <span class="hljs-number">1</span>) {
+					cb();
+				}
+			}, BEEP_DELAY * i, i);
+		}
+	} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!val) {
+		beep();
+		cb();
+	} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> val === <span class="hljs-string">'string'</span>) {
+		melodicalBeep(val.split(<span class="hljs-string">''</span>), cb);
+	} <span class="hljs-keyword">else</span> {
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Not an accepted type'</span>);
+	}
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

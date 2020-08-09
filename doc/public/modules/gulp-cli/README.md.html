@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-cli\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gulp-cli">gulp-cli</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#custom-metadata">Custom Metadata</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#tasks">Tasks</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#completion">Completion</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#bash">Bash:</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#zsh">Zsh:</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#powershell">Powershell:</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#fish">Fish:</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#compilers">Compilers</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#environment">Environment</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#configuration">Configuration</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#flags">Flags</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p align="center">
+  <a href="http://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+</p>
+<div class="pilwrap" id="gulp-cli">
+  <h1>
+    <a href="#gulp-cli" name="gulp-cli" class="pilcrow"></a>
+gulp-cli
+  </h1>
+</div>
+<p><a href="https://www.npmjs.com/package/gulp-cli"><img src="http://img.shields.io/npm/v/gulp-cli.svg" alt="NPM version"></a> <a href="https://www.npmjs.com/package/gulp-cli"><img src="http://img.shields.io/npm/dm/gulp-cli.svg" alt="Downloads"></a> <a href="https://travis-ci.org/gulpjs/gulp-cli"><img src="http://img.shields.io/travis/gulpjs/gulp-cli.svg?label=travis-ci" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/gulpjs/gulp-cli"><img src="https://img.shields.io/appveyor/ci/gulpjs/gulp-cli.svg?label=appveyor" alt="AppVeyor Build Status"></a> <a href="https://coveralls.io/r/gulpjs/gulp-cli"><img src="http://img.shields.io/coveralls/gulpjs/gulp-cli/master.svg" alt="Coveralls Status"></a> <a href="https://gitter.im/gulpjs/gulp"><img src="https://badges.gitter.im/gulpjs/gulp.svg" alt="Gitter chat"></a></p>
+<p>Command Line Utility for Gulp</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="bash">&gt; gulp [flags] &lt;task&gt; &lt;task&gt;...
+</code></pre>
+<div class="pilwrap" id="custom-metadata">
+  <h2>
+    <a href="#custom-metadata" name="custom-metadata" class="pilcrow"></a>
+Custom Metadata
+  </h2>
+</div>
+<p>When listing tasks with the <code>gulp -T</code> command, gulp-cli displays some custom metadata as defined upon task functions. Currently supported properties:</p>
+<ul>
+<li><code>task.description</code> - String of the description to display.</li>
+</ul>
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clean</span>(<span class="hljs-params"></span>) </span>{ ... }
+clean.description = <span class="hljs-string">'Cleans up generated files.'</span>;
+</code></pre>
+<ul>
+<li><code>task.flags</code> - Object with key/value pairs being flag/description to display.</li>
+</ul>
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">build</span>(<span class="hljs-params"></span>) </span>{ ... }
+build.flags = {
+  <span class="hljs-string">'--prod'</span>: <span class="hljs-string">'Builds in production mode.'</span>
+};
+</code></pre>
+<p>Example Usage:</p>
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">build</span>(<span class="hljs-params"></span>) </span>{ ... }
+build.description = <span class="hljs-string">'Build entire project.'</span>;
+build.flags = {
+  <span class="hljs-string">'--prod'</span>: <span class="hljs-string">'Builds in production mode (minification, etc).'</span>
+};
+<span class="hljs-comment">// gulp 3.x</span>
+gulp.task(<span class="hljs-string">'build'</span>, build);
+<span class="hljs-comment">// gulp 4.x</span>
+gulp.task(build);
+</code></pre>
+<div class="pilwrap" id="tasks">
+  <h2>
+    <a href="#tasks" name="tasks" class="pilcrow"></a>
+Tasks
+  </h2>
+</div>
+<p>The task(s) listed on the command line will be executed.
+If more than one task is listed, Gulp will execute all of them
+concurrently, that is, as if they had all been listed as dependencies of
+a single task.</p>
+<p>By default, Gulp does not serialize tasks listed on the command line. If you would like to execute tasks serially, you must specify the <code>--series</code> flag. e.g. <code>gulp clean build --series</code></p>
+<p>Just running <code>gulp</code> will execute the task <code>default</code>. If there is no
+<code>default</code> task, gulp will error.</p>
+<div class="pilwrap" id="completion">
+  <h2>
+    <a href="#completion" name="completion" class="pilcrow"></a>
+Completion
+  </h2>
+</div>
+<blockquote>
+<p>Thanks to the grunt team, specifically Tyler Kellen</p>
+</blockquote>
+<p>To enable tasks auto-completion in shell you should add <code>eval &quot;$(gulp --completion=shell)&quot;</code> in your <code>.shellrc</code> file.</p>
+<div class="pilwrap" id="bash">
+  <h6>
+    <a href="#bash" name="bash" class="pilcrow"></a>
+Bash:
+  </h6>
+</div>
+<p>Add <code>eval &quot;$(gulp --completion=bash)&quot;</code> to <code>~/.bashrc</code>.</p>
+<div class="pilwrap" id="zsh">
+  <h6>
+    <a href="#zsh" name="zsh" class="pilcrow"></a>
+Zsh:
+  </h6>
+</div>
+<p>Add <code>eval &quot;$(gulp --completion=zsh)&quot;</code> to <code>~/.zshrc</code>.</p>
+<div class="pilwrap" id="powershell">
+  <h6>
+    <a href="#powershell" name="powershell" class="pilcrow"></a>
+Powershell:
+  </h6>
+</div>
+<p>Add <code>Invoke-Expression ((gulp --completion=powershell) -join [System.Environment]::NewLine)</code> to <code>$PROFILE</code>.</p>
+<div class="pilwrap" id="fish">
+  <h6>
+    <a href="#fish" name="fish" class="pilcrow"></a>
+Fish:
+  </h6>
+</div>
+<p>Add <code>gulp --completion=fish | source</code> to <code>~/.config/fish/config.fish</code>.</p>
+<div class="pilwrap" id="compilers">
+  <h2>
+    <a href="#compilers" name="compilers" class="pilcrow"></a>
+Compilers
+  </h2>
+</div>
+<p>You can find a list of supported languages at https://github.com/js-cli/js-interpret. If you would like to add support for a new language, send pull requests/open issues on that project.</p>
+<div class="pilwrap" id="environment">
+  <h2>
+    <a href="#environment" name="environment" class="pilcrow"></a>
+Environment
+  </h2>
+</div>
+<p>The CLI adds process.env.INIT_CWD which is the original cwd it was launched from.</p>
+<div class="pilwrap" id="configuration">
+  <h2>
+    <a href="#configuration" name="configuration" class="pilcrow"></a>
+Configuration
+  </h2>
+</div>
+<p>Configuration is supported through the use of a <code>.gulp.*</code> file (e.g. <code>.gulp.json</code>, <code>.gulp.yml</code>). You can find a list of supported languages at https://github.com/js-cli/js-interpret.</p>
+<p>Configuration from the home directory (<code>~</code>) and current working directory (<code>cwd</code>) are merged with <code>cwd</code> taking precedence.</p>
+<p>Supported configurations properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>description</td>
+<td>Top-level description of the project/gulpfile (Replaces &quot;Tasks for ~/path/of/gulpfile.js&quot;)</td>
+</tr>
+<tr>
+<td>flags.continue</td>
+<td>Continue execution of tasks upon failure by default.</td>
+</tr>
+<tr>
+<td>flags.compactTasks</td>
+<td>Reduce the output of task dependency tree by default.</td>
+</tr>
+<tr>
+<td>flags.tasksDepth</td>
+<td>Set default depth of task dependency tree.</td>
+</tr>
+<tr>
+<td>flags.gulpfile</td>
+<td>Set a default gulpfile</td>
+</tr>
+<tr>
+<td>flags.silent</td>
+<td>Silence logging by default</td>
+</tr>
+<tr>
+<td>flags.series</td>
+<td>Run tasks given on the CLI in series (the default is parallel)</td>
+</tr>
+<tr>
+<td>flags.require</td>
+<td>An array of modules to require before running the gulpfile. Any relative paths will be resolved against the <code>--cwd</code> directory (if you don't want that behavior, use absolute paths)</td>
+</tr>
+<tr>
+<td>flags.nodeFlags</td>
+<td>An array of flags used to forcibly respawn the process upon startup. For example, if you always want your gulpfiles to run in node's harmony mode, you can set <code>--harmony</code> here</td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="flags">
+  <h2>
+    <a href="#flags" name="flags" class="pilcrow"></a>
+Flags
+  </h2>
+</div>
+<p>gulp has very few flags to know about. All other flags are for tasks to use if needed.</p>
+<p><strong>Some flags only work with gulp 4 and will be ignored when invoked against gulp 3.</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th width="25%">Flag</th>
+      <th width="15%">Short Flag</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>--help</td>
+      <td>-h</td>
+      <td>Show this help.</td>
+    </tr>
+    <tr>
+      <td>--version</td>
+      <td>-v</td>
+      <td>Print the global and local gulp versions.</td>
+    </tr>
+    <tr>
+      <td>--require [path]</td>
+      <td></td>
+      <td>Will require a module before running the gulpfile. This is useful for transpilers but also has other applications.</td>
+    </tr>
+    <tr>
+      <td>--gulpfile [path]</td>
+      <td>-f</td>
+      <td>Manually set path of gulpfile. Useful if you have multiple gulpfiles. This will set the CWD to the gulpfile directory as well.</td>
+    </tr>
+    <tr>
+      <td>--cwd [path]</td>
+      <td></td>
+      <td>Manually set the CWD. The search for the gulpfile, as well as the relativity of all requires (including the `--require` flag) will be from here.</td>
+    </tr>
+    <tr>
+      <td>--verify [path (optional)]</td>
+      <td></td>
+      <td>Will verify plugins referenced in project's package.json against the plugins blacklist.</td>
+    </tr>
+    <tr>
+      <td>--tasks</td>
+      <td>-T</td>
+      <td>Print the task dependency tree for the loaded gulpfile.</td>
+    </tr>
+    <tr>
+      <td>--tasks-simple</td>
+      <td></td>
+      <td>Print a plaintext list of tasks for the loaded gulpfile.</td>
+    </tr>
+    <tr>
+      <td>--tasks-json [path]</td>
+      <td></td>
+      <td>Print the task dependency tree, in JSON format, for the loaded gulpfile. The [path] argument is optional, and if given writes the JSON to the path.</td>
+    </tr>
+    <tr>
+      <td>--tasks-depth [number]</td>
+      <td></td>
+      <td>Specify the depth of the task dependency tree to print. This flag can be used with --tasks or --tasks-json. (This flag was named --depth before but is deprecated.)</td>
+    </tr>
+    <tr>
+      <td>--compact-tasks</td>
+      <td></td>
+      <td>Reduce the output of task dependency tree by printing only top tasks and their child tasks. This flag can be used with --tasks or --tasks-json.</td>
+    </tr>
+    <tr>
+      <td>--sort-tasks</td>
+      <td></td>
+      <td>Will sort top tasks of task dependency tree. This flag can be used with --tasks.</td>
+    </tr>
+    <tr>
+      <td>--color</td>
+      <td></td>
+      <td>Will force gulp and gulp plugins to display colors, even when no color support is detected.</td>
+    </tr>
+    <tr>
+      <td>--no-color</td>
+      <td></td>
+      <td>Will force gulp and gulp plugins to not display colors, even when color support is detected.</td>
+    </tr>
+    <tr>
+      <td>--silent</td>
+      <td>-S</td>
+      <td>Suppress all gulp logging.</td>
+    </tr>
+    <tr>
+      <td>--continue</td>
+      <td></td>
+      <td>Continue execution of tasks upon failure.</td>
+    </tr>
+    <tr>
+      <td>--series</td>
+      <td></td>
+      <td>Run tasks given on the CLI in series (the default is parallel).</td>
+    </tr>
+    <tr>
+      <td>--log-level</td>
+      <td>-L</td>
+      <td>Set the loglevel. -L for least verbose and -LLLL for most verbose. -LLL is default.</td>
+    </tr>
+  </tbody>
+</table>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

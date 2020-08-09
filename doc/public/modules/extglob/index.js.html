@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\extglob\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Module dependencies</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">var</span> extend = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extend-shallow'</span>);
+<span class="hljs-keyword">var</span> unique = <span class="hljs-built_in">require</span>(<span class="hljs-string">'array-unique'</span>);
+<span class="hljs-keyword">var</span> toRegex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'to-regex'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Local dependencies</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">var</span> compilers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/compilers'</span>);
+<span class="hljs-keyword">var</span> parsers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/parsers'</span>);
+<span class="hljs-keyword">var</span> Extglob = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/extglob'</span>);
+<span class="hljs-keyword">var</span> utils = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/utils'</span>);
+<span class="hljs-keyword">var</span> MAX_LENGTH = <span class="hljs-number">1024</span> * <span class="hljs-number">64</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Convert the given <code>extglob</code> pattern into a regex-compatible string. Returns
+an object with the compiled result and the parsed AST.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> extglob = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extglob'</span>);
+<span class="hljs-built_in">console</span>.log(extglob(<span class="hljs-string">'*.!(*a)'</span>));
+<span class="hljs-comment">//=&gt; '(?!\\.)[^/]*?\\.(?!(?!\\.)[^/]*?a\\b).*?'</span>
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">extglob</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">return</span> extglob.create(pattern, options).output;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Takes an array of strings and an extglob pattern and returns a new
+array that contains only the strings that match the pattern.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> extglob = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extglob'</span>);
+<span class="hljs-built_in">console</span>.log(extglob.match([<span class="hljs-string">'a.a'</span>, <span class="hljs-string">'a.b'</span>, <span class="hljs-string">'a.c'</span>], <span class="hljs-string">'*.!(*a)'</span>));
+<span class="hljs-comment">//=&gt; ['a.b', 'a.c']</span>
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`list`</span>
+<span class="dox_type">Array</span>
+<span>Array of strings to match
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>Extglob pattern
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Array</span>
+<span>Returns an array of matches
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+extglob.match = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">list, pattern, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> pattern !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected pattern to be a string'</span>);
+  }
+
+  list = utils.arrayify(list);
+  <span class="hljs-keyword">var</span> isMatch = extglob.matcher(pattern, options);
+  <span class="hljs-keyword">var</span> len = list.length;
+  <span class="hljs-keyword">var</span> idx = <span class="hljs-number">-1</span>;
+  <span class="hljs-keyword">var</span> matches = [];
+
+  <span class="hljs-keyword">while</span> (++idx &lt; len) {
+    <span class="hljs-keyword">var</span> ele = list[idx];
+
+    <span class="hljs-keyword">if</span> (isMatch(ele)) {
+      matches.push(ele);
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>if no options were passed, uniquify results and return</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options === <span class="hljs-string">'undefined'</span>) {
+    <span class="hljs-keyword">return</span> unique(matches);
+  }
+
+  <span class="hljs-keyword">if</span> (matches.length === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">if</span> (options.failglob === <span class="hljs-literal">true</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'no matches found for "'</span> + pattern + <span class="hljs-string">'"'</span>);
+    }
+    <span class="hljs-keyword">if</span> (options.nonull === <span class="hljs-literal">true</span> || options.nullglob === <span class="hljs-literal">true</span>) {
+      <span class="hljs-keyword">return</span> [pattern.split(<span class="hljs-string">'\\'</span>).join(<span class="hljs-string">''</span>)];
+    }
+  }
+
+  <span class="hljs-keyword">return</span> options.nodupes !== <span class="hljs-literal">false</span> ? unique(matches) : matches;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if the specified <code>string</code> matches the given
+extglob <code>pattern</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> extglob = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extglob'</span>);
+<p><span class="hljs-built_in">console</span>.log(extglob.isMatch(<span class="hljs-string">'a.a'</span>, <span class="hljs-string">'*.!(<em>a)'</span>));
+<span class="hljs-comment">//=&gt; false</span>
+<span class="hljs-built_in">console</span>.log(extglob.isMatch(<span class="hljs-string">'a.b'</span>, <span class="hljs-string">'</em>.!(*a)'</span>));
+<span class="hljs-comment">//=&gt; true</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`string`</span>
+<span class="dox_type">String</span>
+<span>String to match
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>Extglob pattern
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+extglob.isMatch = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">str, pattern, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> pattern !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected pattern to be a string'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> str !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected a string'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (pattern === str) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (pattern === <span class="hljs-string">''</span> || pattern === <span class="hljs-string">' '</span> || pattern === <span class="hljs-string">'.'</span>) {
+    <span class="hljs-keyword">return</span> pattern === str;
+  }
+
+  <span class="hljs-keyword">var</span> isMatch = utils.memoize(<span class="hljs-string">'isMatch'</span>, pattern, options, extglob.matcher);
+  <span class="hljs-keyword">return</span> isMatch(str);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if the given <code>string</code> contains the given pattern. Similar to <code>.isMatch</code> but
+the pattern can match any part of the string.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> extglob = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extglob'</span>);
+<span class="hljs-built_in">console</span>.log(extglob.contains(<span class="hljs-string">'aa/bb/cc'</span>, <span class="hljs-string">'*b'</span>));
+<span class="hljs-comment">//=&gt; true</span>
+<span class="hljs-built_in">console</span>.log(extglob.contains(<span class="hljs-string">'aa/bb/cc'</span>, <span class="hljs-string">'*d'</span>));
+<span class="hljs-comment">//=&gt; false</span>
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`str`</span>
+<span class="dox_type">String</span>
+<span>The string to match.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>Glob pattern to use for matching.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>Returns true if the patter matches any part of <code>str</code>.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+extglob.contains = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">str, pattern, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> str !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected a string'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (pattern === <span class="hljs-string">''</span> || pattern === <span class="hljs-string">' '</span> || pattern === <span class="hljs-string">'.'</span>) {
+    <span class="hljs-keyword">return</span> pattern === str;
+  }
+
+  <span class="hljs-keyword">var</span> opts = extend({}, options, {<span class="hljs-attr">contains</span>: <span class="hljs-literal">true</span>});
+  opts.strictClose = <span class="hljs-literal">false</span>;
+  opts.strictOpen = <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">return</span> extglob.isMatch(str, pattern, opts);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Takes an extglob pattern and returns a matcher function. The returned
+function takes the string to match as its only argument.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> extglob = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extglob'</span>);
+<span class="hljs-keyword">var</span> isMatch = extglob.matcher(<span class="hljs-string">'*.!(*a)'</span>);
+<p><span class="hljs-built_in">console</span>.log(isMatch(<span class="hljs-string">'a.a'</span>));
+<span class="hljs-comment">//=&gt; false</span>
+<span class="hljs-built_in">console</span>.log(isMatch(<span class="hljs-string">'a.b'</span>));
+<span class="hljs-comment">//=&gt; true</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>Extglob pattern
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+extglob.matcher = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> pattern !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected pattern to be a string'</span>);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">matcher</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> re = extglob.makeRe(pattern, options);
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">str</span>) </span>{
+      <span class="hljs-keyword">return</span> re.test(str);
+    };
+  }
+
+  <span class="hljs-keyword">return</span> utils.memoize(<span class="hljs-string">'matcher'</span>, pattern, options, matcher);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Convert the given <code>extglob</code> pattern into a regex-compatible string. Returns
+an object with the compiled result and the parsed AST.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> extglob = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extglob'</span>);
+<span class="hljs-built_in">console</span>.log(extglob.create(<span class="hljs-string">'*.!(*a)'</span>).output);
+<span class="hljs-comment">//=&gt; '(?!\\.)[^/]*?\\.(?!(?!\\.)[^/]*?a\\b).*?'</span>
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`str`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+extglob.create = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> pattern !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected pattern to be a string'</span>);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> ext = <span class="hljs-keyword">new</span> Extglob(options);
+    <span class="hljs-keyword">var</span> ast = ext.parse(pattern, options);
+    <span class="hljs-keyword">return</span> ext.compile(ast, options);
+  }
+
+  <span class="hljs-keyword">return</span> utils.memoize(<span class="hljs-string">'create'</span>, pattern, options, create);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns an array of matches captured by <code>pattern</code> in <code>string</code>, or <code>null</code>
+if the pattern did not match.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> extglob = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extglob'</span>);
+extglob.capture(pattern, string[, options]);
+<p><span class="hljs-built_in">console</span>.log(extglob.capture(<span class="hljs-string">'test/<em>.js'</span>, <span class="hljs-string">'test/foo.js'</span>));
+<span class="hljs-comment">//=&gt; ['foo']</span>
+<span class="hljs-built_in">console</span>.log(extglob.capture(<span class="hljs-string">'test/</em>.js'</span>, <span class="hljs-string">'foo/bar.css'</span>));
+<span class="hljs-comment">//=&gt; null</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>Glob pattern to use for matching.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`string`</span>
+<span class="dox_type">String</span>
+<span>String to match
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>Returns an array of captures if the string matches the glob pattern, otherwise <code>null</code>.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+extglob.capture = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, str, options</span>) </span>{
+  <span class="hljs-keyword">var</span> re = extglob.makeRe(pattern, extend({<span class="hljs-attr">capture</span>: <span class="hljs-literal">true</span>}, options));
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">match</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">string</span>) </span>{
+      <span class="hljs-keyword">var</span> match = re.exec(string);
+      <span class="hljs-keyword">if</span> (!match) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+      }
+
+      <span class="hljs-keyword">return</span> match.slice(<span class="hljs-number">1</span>);
+    };
+  }
+
+  <span class="hljs-keyword">var</span> capture = utils.memoize(<span class="hljs-string">'capture'</span>, pattern, options, match);
+  <span class="hljs-keyword">return</span> capture(str);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Create a regular expression from the given <code>pattern</code> and <code>options</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> extglob = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extglob'</span>);
+<span class="hljs-keyword">var</span> re = extglob.makeRe(<span class="hljs-string">'*.!(*a)'</span>);
+<span class="hljs-built_in">console</span>.log(re);
+<span class="hljs-comment">//=&gt; /^[^\/]*?\.(?![^\/]*?a)[^\/]*?$/</span>
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>The pattern to convert to regex.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">RegExp</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+extglob.makeRe = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (pattern <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">RegExp</span>) {
+    <span class="hljs-keyword">return</span> pattern;
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> pattern !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected pattern to be a string'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (pattern.length &gt; MAX_LENGTH) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'expected pattern to be less than '</span> + MAX_LENGTH + <span class="hljs-string">' characters'</span>);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeRe</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> opts = extend({<span class="hljs-attr">strictErrors</span>: <span class="hljs-literal">false</span>}, options);
+    <span class="hljs-keyword">if</span> (opts.strictErrors === <span class="hljs-literal">true</span>) opts.strict = <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">var</span> res = extglob.create(pattern, opts);
+    <span class="hljs-keyword">return</span> toRegex(res.output, opts);
+  }
+
+  <span class="hljs-keyword">var</span> regex = utils.memoize(<span class="hljs-string">'makeRe'</span>, pattern, options, makeRe);
+  <span class="hljs-keyword">if</span> (regex.source.length &gt; MAX_LENGTH) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">'potentially malicious regex detected'</span>);
+  }
+
+  <span class="hljs-keyword">return</span> regex;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Cache</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+extglob.cache = utils.cache;
+extglob.clearCache = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  extglob.cache.__data__ = {};
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose <code>Extglob</code> constructor, parsers and compilers</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+extglob.Extglob = Extglob;
+extglob.compilers = compilers;
+extglob.parsers = parsers;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose <code>extglob</code></p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">Function</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">module</span>.exports = extglob;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

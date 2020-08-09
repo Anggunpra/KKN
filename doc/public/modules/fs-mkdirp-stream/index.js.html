@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\fs-mkdirp-stream\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> through = <span class="hljs-built_in">require</span>(<span class="hljs-string">'through2'</span>);
+
+<span class="hljs-keyword">var</span> mkdirp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./mkdirp'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toFunction</span>(<span class="hljs-params">dirpath</span>) </span>{
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringResolver</span>(<span class="hljs-params">chunk, callback</span>) </span>{
+    callback(<span class="hljs-literal">null</span>, dirpath);
+  }
+
+  <span class="hljs-keyword">return</span> stringResolver;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">define</span>(<span class="hljs-params">options</span>) </span>{
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mkdirpStream</span>(<span class="hljs-params">resolver</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Handle resolver that's just a dirpath</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> resolver === <span class="hljs-string">'string'</span>) {
+      resolver = toFunction(resolver);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeFileDirs</span>(<span class="hljs-params">chunk, enc, callback</span>) </span>{
+      resolver(chunk, onDirpath);
+
+      <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onDirpath</span>(<span class="hljs-params">dirpathErr, dirpath, mode</span>) </span>{
+        <span class="hljs-keyword">if</span> (dirpathErr) {
+          <span class="hljs-keyword">return</span> callback(dirpathErr);
+        }
+
+        mkdirp(dirpath, mode, onMkdirp);
+      }
+
+      <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onMkdirp</span>(<span class="hljs-params">mkdirpErr</span>) </span>{
+        <span class="hljs-keyword">if</span> (mkdirpErr) {
+          <span class="hljs-keyword">return</span> callback(mkdirpErr);
+        }
+
+        callback(<span class="hljs-literal">null</span>, chunk);
+      }
+    }
+
+    <span class="hljs-keyword">return</span> through(options, makeFileDirs);
+  }
+
+  <span class="hljs-keyword">return</span> mkdirpStream;
+}
+
+<span class="hljs-built_in">module</span>.exports = define();
+<span class="hljs-built_in">module</span>.exports.obj = define({ <span class="hljs-attr">objectMode</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">highWaterMark</span>: <span class="hljs-number">16</span> });
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

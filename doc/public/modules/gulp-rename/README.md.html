@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-rename\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gulp-rename">gulp-rename</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#notes">Notes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="gulp-rename">
+  <h1>
+    <a href="#gulp-rename" name="gulp-rename" class="pilcrow"></a>
+gulp-rename
+  </h1>
+</div>
+<p>gulp-rename is a <a href="https://github.com/wearefractal/gulp">gulp</a> plugin to rename files easily.</p>
+<p><a href="https://nodei.co/npm/gulp-rename/"><img src="https://nodei.co/npm/gulp-rename.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM"></a></p>
+<p><a href="http://travis-ci.org/hparra/gulp-rename"><img src="https://secure.travis-ci.org/hparra/gulp-rename.svg" alt="build status"></a>
+<a href="https://david-dm.org/hparra/gulp-rename#info=devDependencies"><img src="https://david-dm.org/hparra/gulp-rename/dev-status.svg" alt="devDependency Status"></a></p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>gulp-rename provides simple file renaming methods.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> rename = <span class="hljs-built_in">require</span>(<span class="hljs-string">"gulp-rename"</span>);
+
+<span class="hljs-comment">// rename via string</span>
+gulp.src(<span class="hljs-string">"./src/main/text/hello.txt"</span>)
+  .pipe(rename(<span class="hljs-string">"main/text/ciao/goodbye.md"</span>))
+  .pipe(gulp.dest(<span class="hljs-string">"./dist"</span>)); <span class="hljs-comment">// ./dist/main/text/ciao/goodbye.md</span>
+
+<span class="hljs-comment">// rename via function</span>
+gulp.src(<span class="hljs-string">"./src/**/hello.txt"</span>)
+  .pipe(rename(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">path</span>) </span>{
+    path.dirname += <span class="hljs-string">"/ciao"</span>;
+    path.basename += <span class="hljs-string">"-goodbye"</span>;
+    path.extname = <span class="hljs-string">".md"</span>;
+  }))
+  .pipe(gulp.dest(<span class="hljs-string">"./dist"</span>)); <span class="hljs-comment">// ./dist/main/text/ciao/hello-goodbye.md</span>
+
+<span class="hljs-comment">// rename via hash</span>
+gulp.src(<span class="hljs-string">"./src/main/text/hello.txt"</span>, { <span class="hljs-attr">base</span>: process.cwd() })
+  .pipe(rename({
+    <span class="hljs-attr">dirname</span>: <span class="hljs-string">"main/text/ciao"</span>,
+    <span class="hljs-attr">basename</span>: <span class="hljs-string">"aloha"</span>,
+    <span class="hljs-attr">prefix</span>: <span class="hljs-string">"bonjour-"</span>,
+    <span class="hljs-attr">suffix</span>: <span class="hljs-string">"-hola"</span>,
+    <span class="hljs-attr">extname</span>: <span class="hljs-string">".md"</span>
+  }))
+  .pipe(gulp.dest(<span class="hljs-string">"./dist"</span>)); <span class="hljs-comment">// ./dist/main/text/ciao/bonjour-aloha-hola.md</span>
+</code></pre>
+<p><strong>See test/rename.spec.js for more examples and test/path-parsing.spec.js for hairy details.</strong></p>
+<div class="pilwrap" id="notes">
+  <h2>
+    <a href="#notes" name="notes" class="pilcrow"></a>
+Notes
+  </h2>
+</div>
+<ul>
+<li><code>dirname</code> is the relative path from the base directory set by <code>gulp.src</code> to the filename.
+<ul>
+<li><code>gulp.src()</code> uses glob-stream which sets the base to the parent of the first directory glob (<code>*</code>, <code>**</code>, [], or extglob). <code>dirname</code> is the remaining directories or <code>./</code> if none. glob-stream versions &gt;= 3.1.0 (used by gulp &gt;= 3.2.2) accept a <code>base</code> option, which can be used to explicitly set the base.</li>
+<li><code>gulp.dest()</code> renames the directories between <code>process.cwd()</code> and <code>dirname</code> (i.e. the base relative to CWD). Use <code>dirname</code> to rename the directories matched by the glob or descendents of the base of option.</li>
+</ul>
+</li>
+<li><code>basename</code> is the filename without the extension like path.basename(filename, path.extname(filename)).</li>
+<li><code>extname</code> is the file extension including the '.' like path.extname(filename).</li>
+<li>when using a function, a second <code>file</code> argument is provided with the whole context and original file value</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p><a href="http://en.wikipedia.org/wiki/MIT_License">MIT License</a></p>
+</div>
+  </div>
+</body>
+</html>

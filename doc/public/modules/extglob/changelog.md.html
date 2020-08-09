@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>changelog.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\extglob\\changelog.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#changelog">Changelog</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#v2.0.0">v2.0.0</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#v1.0.0">v1.0.0</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="changelog">
+  <h2>
+    <a href="#changelog" name="changelog" class="pilcrow"></a>
+Changelog
+  </h2>
+</div>
+<div class="pilwrap" id="v2.0.0">
+  <h3>
+    <a href="#v2.0.0" name="v2.0.0" class="pilcrow"></a>
+v2.0.0
+  </h3>
+</div>
+<p><strong>Added features</strong></p>
+<ul>
+<li>Adds <a href="readme.md#capture.html">.capture</a> method for capturing matches, thanks to <a href="https://github.com/devongovett">devongovett</a></li>
+</ul>
+<div class="pilwrap" id="v1.0.0">
+  <h3>
+    <a href="#v1.0.0" name="v1.0.0" class="pilcrow"></a>
+v1.0.0
+  </h3>
+</div>
+<p><strong>Breaking changes</strong></p>
+<ul>
+<li>The main export now returns the compiled string, instead of the object returned from the compiler</li>
+</ul>
+<p><strong>Added features</strong></p>
+<ul>
+<li>Adds a <code>.create</code> method to do what the main function did before v1.0.0</li>
+</ul>
+<p><strong>Other changes</strong></p>
+<ul>
+<li>adds <code>expand-brackets</code> parsers/compilers to handle nested brackets and extglobs</li>
+<li>uses <code>to-regex</code> to build regex for <code>makeRe</code> method</li>
+<li>improves coverage</li>
+<li>optimizations</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

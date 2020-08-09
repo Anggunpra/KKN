@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gruntfile.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bootstrap-tagsinput\\Gruntfile.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>Gruntfile.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">grunt</span>) </span>{
+
+  grunt.loadNpmTasks(<span class="hljs-string">'grunt-contrib-copy'</span>);
+  grunt.loadNpmTasks(<span class="hljs-string">'grunt-contrib-uglify'</span>);
+  grunt.loadNpmTasks(<span class="hljs-string">'grunt-karma'</span>);
+  grunt.loadNpmTasks(<span class="hljs-string">'grunt-zip'</span>);
+  grunt.loadNpmTasks(<span class="hljs-string">'grunt-jquerymanifest'</span>);
+  grunt.loadNpmTasks(<span class="hljs-string">'grunt-bower-task'</span>);
+
+  grunt.initConfig({
+    <span class="hljs-attr">pkg</span>: grunt.file.readJSON(<span class="hljs-string">'package.json'</span>),
+    <span class="hljs-attr">bower</span>: {
+      <span class="hljs-attr">install</span>: {
+        <span class="hljs-attr">options</span>: {
+          <span class="hljs-attr">targetDir</span>: <span class="hljs-string">'./lib'</span>,
+          <span class="hljs-attr">layout</span>: <span class="hljs-string">'byType'</span>,
+          <span class="hljs-attr">install</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">cleanTargetDir</span>: <span class="hljs-literal">false</span>,
+          <span class="hljs-attr">cleanBowerDir</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">bowerOptions</span>: {
+            <span class="hljs-attr">forceLatest</span>: <span class="hljs-literal">true</span>
+          }
+        }
+      }
+    },
+    <span class="hljs-attr">copy</span>: {
+      <span class="hljs-attr">build</span>: {
+        <span class="hljs-attr">files</span>: [
+          { <span class="hljs-attr">expand</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">flatten</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">src</span>: [<span class="hljs-string">'src/*.*'</span>], <span class="hljs-attr">dest</span>: <span class="hljs-string">'dist/'</span>, <span class="hljs-attr">filter</span>: <span class="hljs-string">'isFile'</span> }
+        ]
+      }
+    },
+    <span class="hljs-attr">uglify</span>: {
+      <span class="hljs-attr">options</span>: {
+        <span class="hljs-attr">banner</span>: <span class="hljs-string">'&lt;%= pkg.banner %&gt;'</span>,
+        <span class="hljs-attr">sourceMap</span>: <span class="hljs-string">'dist/&lt;%= pkg.name %&gt;.min.js.map'</span>,
+        <span class="hljs-attr">sourceMappingURL</span>: <span class="hljs-string">'&lt;%= pkg.name %&gt;.min.js.map'</span>
+      },
+      <span class="hljs-attr">build</span>: {
+        <span class="hljs-attr">files</span>: {
+          <span class="hljs-string">'dist/&lt;%= pkg.name %&gt;.min.js'</span>: <span class="hljs-string">'src/&lt;%= pkg.name %&gt;.js'</span>,
+          <span class="hljs-string">'dist/&lt;%= pkg.name %&gt;-angular.min.js'</span>: <span class="hljs-string">'src/&lt;%= pkg.name %&gt;-angular.js'</span>
+        }
+      }
+    },
+    <span class="hljs-attr">karma</span>: {
+      <span class="hljs-attr">unit</span>: {
+        <span class="hljs-attr">configFile</span>: <span class="hljs-string">'karma.conf.js'</span>,
+        <span class="hljs-attr">runnerPort</span>: <span class="hljs-number">9999</span>,
+        <span class="hljs-attr">singleRun</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">autoWatch</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">browsers</span>: [<span class="hljs-string">'PhantomJS'</span>]
+      }
+    },
+    <span class="hljs-attr">zip</span>: {
+      <span class="hljs-attr">delpoy</span>: {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>cwd: 'dist/',</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        src:  [
+            <span class="hljs-string">'dist/bootstrap-tagsinput*.js'</span>,
+            <span class="hljs-string">'dist/bootstrap-tagsinput*.css'</span>,
+            <span class="hljs-string">'dist/bootstrap-tagsinput*.less'</span>,
+            <span class="hljs-string">'dist/bootstrap-tagsinput*.map'</span>
+         ],
+        <span class="hljs-attr">dest</span>:  <span class="hljs-string">'dist/&lt;%= pkg.name %&gt;.zip'</span>
+      }
+    },
+    <span class="hljs-attr">jquerymanifest</span>: {
+      <span class="hljs-attr">options</span>: {
+        <span class="hljs-attr">source</span>: grunt.file.readJSON(<span class="hljs-string">'package.json'</span>),
+        <span class="hljs-attr">overrides</span>: {
+          <span class="hljs-attr">title</span>: <span class="hljs-string">'&lt;%= pkg.title %&gt;'</span>
+        }
+      }
+    }
+  });
+
+  grunt.registerTask(<span class="hljs-string">'install'</span>, [<span class="hljs-string">'bower'</span>]);
+  grunt.registerTask(<span class="hljs-string">'compile'</span>, [<span class="hljs-string">'uglify'</span>, <span class="hljs-string">'copy'</span>]);
+  grunt.registerTask(<span class="hljs-string">'test'</span>, [<span class="hljs-string">'compile'</span>, <span class="hljs-string">'karma'</span>]);
+  grunt.registerTask(<span class="hljs-string">'build'</span>, [<span class="hljs-string">'test'</span>, <span class="hljs-string">'jquerymanifest'</span>, <span class="hljs-string">'zip'</span>]);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

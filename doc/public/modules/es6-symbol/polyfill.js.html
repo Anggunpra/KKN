@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>polyfill.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es6-symbol\\polyfill.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>polyfill.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<p>ES2015 Symbol polyfill for environments that do not (or partially) support it</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">
+"use strict"</span>;
+
+<span class="hljs-keyword">var</span> d                    = <span class="hljs-built_in">require</span>(<span class="hljs-string">"d"</span>)
+  , validateSymbol       = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./validate-symbol"</span>)
+  , NativeSymbol         = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/global"</span>).Symbol
+  , generateName         = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./lib/private/generate-name"</span>)
+  , setupStandardSymbols = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./lib/private/setup/standard-symbols"</span>)
+  , setupSymbolRegistry  = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./lib/private/setup/symbol-registry"</span>);
+
+<span class="hljs-keyword">var</span> create = <span class="hljs-built_in">Object</span>.create
+  , defineProperties = <span class="hljs-built_in">Object</span>.defineProperties
+  , defineProperty = <span class="hljs-built_in">Object</span>.defineProperty;
+
+<span class="hljs-keyword">var</span> SymbolPolyfill, HiddenSymbol, isNativeSafe;
+
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> NativeSymbol === <span class="hljs-string">"function"</span>) {
+	<span class="hljs-keyword">try</span> {
+		<span class="hljs-built_in">String</span>(NativeSymbol());
+		isNativeSafe = <span class="hljs-literal">true</span>;
+	} <span class="hljs-keyword">catch</span> (ignore) {}
+} <span class="hljs-keyword">else</span> {
+	NativeSymbol = <span class="hljs-literal">null</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Internal constructor (not one exposed) for creating Symbol instances.
+This one is used to ensure that <code>someSymbol instanceof Symbol</code> always return false</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">HiddenSymbol = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Symbol</span>(<span class="hljs-params">description</span>) </span>{
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> HiddenSymbol) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Symbol is not a constructor"</span>);
+	<span class="hljs-keyword">return</span> SymbolPolyfill(description);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>Exposed <code>Symbol</code> constructor
+(returns instances of HiddenSymbol)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-built_in">module</span>.exports = SymbolPolyfill = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Symbol</span>(<span class="hljs-params">description</span>) </span>{
+	<span class="hljs-keyword">var</span> symbol;
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Symbol</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Symbol is not a constructor"</span>);
+	<span class="hljs-keyword">if</span> (isNativeSafe) <span class="hljs-keyword">return</span> NativeSymbol(description);
+	symbol = create(HiddenSymbol.prototype);
+	description = description === <span class="hljs-literal">undefined</span> ? <span class="hljs-string">""</span> : <span class="hljs-built_in">String</span>(description);
+	<span class="hljs-keyword">return</span> defineProperties(symbol, {
+		<span class="hljs-attr">__description__</span>: d(<span class="hljs-string">""</span>, description),
+		<span class="hljs-attr">__name__</span>: d(<span class="hljs-string">""</span>, generateName(description))
+	});
+};
+
+setupStandardSymbols(SymbolPolyfill);
+setupSymbolRegistry(SymbolPolyfill);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Internal tweaks for real symbol producer</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">defineProperties(HiddenSymbol.prototype, {
+	<span class="hljs-attr">constructor</span>: d(SymbolPolyfill),
+	<span class="hljs-attr">toString</span>: d(<span class="hljs-string">""</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.__name__; })
+});
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>Proper implementation of methods exposed on Symbol.prototype
+They won't be accessible on produced symbol instances as they derive from HiddenSymbol.prototype</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">defineProperties(SymbolPolyfill.prototype, {
+	<span class="hljs-attr">toString</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-string">"Symbol ("</span> + validateSymbol(<span class="hljs-keyword">this</span>).__description__ + <span class="hljs-string">")"</span>; }),
+	<span class="hljs-attr">valueOf</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> validateSymbol(<span class="hljs-keyword">this</span>); })
+});
+defineProperty(
+	SymbolPolyfill.prototype,
+	SymbolPolyfill.toPrimitive,
+	d(<span class="hljs-string">""</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">var</span> symbol = validateSymbol(<span class="hljs-keyword">this</span>);
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> symbol === <span class="hljs-string">"symbol"</span>) <span class="hljs-keyword">return</span> symbol;
+		<span class="hljs-keyword">return</span> symbol.toString();
+	})
+);
+defineProperty(SymbolPolyfill.prototype, SymbolPolyfill.toStringTag, d(<span class="hljs-string">"c"</span>, <span class="hljs-string">"Symbol"</span>));
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>Proper implementaton of toPrimitive and toStringTag for returned symbol instances</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">defineProperty(
+	HiddenSymbol.prototype, SymbolPolyfill.toStringTag,
+	d(<span class="hljs-string">"c"</span>, SymbolPolyfill.prototype[SymbolPolyfill.toStringTag])
+);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>Note: It's important to define <code>toPrimitive</code> as last one, as some implementations
+implement <code>toPrimitive</code> natively without implementing <code>toStringTag</code> (or other specified symbols)
+And that may invoke error in definition flow:
+See: https://github.com/medikoo/es6-symbol/issues/13#issuecomment-164146149</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">defineProperty(
+	HiddenSymbol.prototype, SymbolPolyfill.toPrimitive,
+	d(<span class="hljs-string">"c"</span>, SymbolPolyfill.prototype[SymbolPolyfill.toPrimitive])
+);
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

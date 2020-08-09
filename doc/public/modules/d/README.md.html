@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\d\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#d">D</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#property-descriptor-factory">Property descriptor factory</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#other-utilities">Other utilities</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#autobind-obj-props-dauto-bind">autoBind(obj, props) (d/auto-bind)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#lazy-obj-props-dlazy">lazy(obj, props) (d/lazy)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#tests">Tests </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#security-contact-information">Security contact information</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="d">
+  <h1>
+    <a href="#d" name="d" class="pilcrow"></a>
+D
+  </h1>
+</div>
+<div class="pilwrap" id="property-descriptor-factory">
+  <h2>
+    <a href="#property-descriptor-factory" name="property-descriptor-factory" class="pilcrow"></a>
+Property descriptor factory
+  </h2>
+</div>
+<p><em>Originally derived from <a href="https://github.com/medikoo/es5-ext">es5-ext</a> package.</em></p>
+<p>Defining properties with descriptors is very verbose:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> Account = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
+<span class="hljs-built_in">Object</span>.defineProperties(Account.prototype, {
+  <span class="hljs-attr">deposit</span>: {
+    <span class="hljs-attr">value</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">/* ... */</span>
+    },
+    <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span>
+  },
+  <span class="hljs-attr">withdraw</span>: {
+    <span class="hljs-attr">value</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">/* ... */</span>
+    },
+    <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span>
+  },
+  <span class="hljs-attr">balance</span>: {
+    <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">/* ... */</span>
+    },
+    <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>
+  }
+});
+</code></pre>
+<p>D cuts that to:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> d = <span class="hljs-built_in">require</span>(<span class="hljs-string">"d"</span>);
+
+<span class="hljs-keyword">var</span> Account = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
+<span class="hljs-built_in">Object</span>.defineProperties(Account.prototype, {
+  <span class="hljs-attr">deposit</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">/* ... */</span>
+  }),
+  <span class="hljs-attr">withdraw</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">/* ... */</span>
+  }),
+  <span class="hljs-attr">balance</span>: d.gs(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">/* ... */</span>
+  })
+});
+</code></pre>
+<p>By default, created descriptor follow characteristics of native ES5 properties, and defines values as:</p>
+<pre><code class="javascript">{ <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span> }
+</code></pre>
+<p>You can overwrite it by preceding <em>value</em> argument with instruction:</p>
+<pre><code class="javascript">d(<span class="hljs-string">"c"</span>, value); <span class="hljs-comment">// { configurable: true, enumerable: false, writable: false }</span>
+d(<span class="hljs-string">"ce"</span>, value); <span class="hljs-comment">// { configurable: true, enumerable: true, writable: false }</span>
+d(<span class="hljs-string">"e"</span>, value); <span class="hljs-comment">// { configurable: false, enumerable: true, writable: false }</span>
+
+<span class="hljs-comment">// Same way for get/set:</span>
+d.gs(<span class="hljs-string">"e"</span>, value); <span class="hljs-comment">// { configurable: false, enumerable: true }</span>
+</code></pre>
+<div class="pilwrap" id="installation">
+  <h3>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h3>
+</div>
+<pre><code>$ npm install d
+</code></pre>
+<p>To port it to Browser or any other (non CJS) environment, use your favorite CJS bundler. No favorite yet? Try: <a href="http://browserify.org/">Browserify</a>, <a href="https://github.com/medikoo/modules-webmake">Webmake</a> or <a href="http://webpack.github.io/">Webpack</a></p>
+<div class="pilwrap" id="other-utilities">
+  <h3>
+    <a href="#other-utilities" name="other-utilities" class="pilcrow"></a>
+Other utilities
+  </h3>
+</div>
+<div class="pilwrap" id="autobind-obj-props-dauto-bind">
+  <h4>
+    <a href="#autobind-obj-props-dauto-bind" name="autobind-obj-props-dauto-bind" class="pilcrow"></a>
+autoBind(obj, props) <em>(d/auto-bind)</em>
+  </h4>
+</div>
+<p>Define methods which will be automatically bound to its instances</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> d = <span class="hljs-built_in">require</span>(<span class="hljs-string">'d'</span>);
+<span class="hljs-keyword">var</span> autoBind = <span class="hljs-built_in">require</span>(<span class="hljs-string">'d/auto-bind'</span>);
+
+<span class="hljs-keyword">var</span> Foo = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">this</span>._count = <span class="hljs-number">0</span>; };
+<span class="hljs-built_in">Object</span>.defineProperties(Foo.prototype, autoBind({
+  <span class="hljs-attr">increment</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ ++<span class="hljs-keyword">this</span>._count; });
+}));
+
+<span class="hljs-keyword">var</span> foo = <span class="hljs-keyword">new</span> Foo();
+
+<span class="hljs-comment">// Increment foo counter on each domEl click</span>
+domEl.addEventListener(<span class="hljs-string">'click'</span>, foo.increment, <span class="hljs-literal">false</span>);
+</code></pre>
+<div class="pilwrap" id="lazy-obj-props-dlazy">
+  <h4>
+    <a href="#lazy-obj-props-dlazy" name="lazy-obj-props-dlazy" class="pilcrow"></a>
+lazy(obj, props) <em>(d/lazy)</em>
+  </h4>
+</div>
+<p>Define lazy properties, which will be resolved on first access</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> d = <span class="hljs-built_in">require</span>(<span class="hljs-string">"d"</span>);
+<span class="hljs-keyword">var</span> lazy = <span class="hljs-built_in">require</span>(<span class="hljs-string">"d/lazy"</span>);
+
+<span class="hljs-keyword">var</span> Foo = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
+<span class="hljs-built_in">Object</span>.defineProperties(Foo.prototype, lazy({ <span class="hljs-attr">items</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> []; }) }));
+
+<span class="hljs-keyword">var</span> foo = <span class="hljs-keyword">new</span> Foo();
+foo.items.push(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>); <span class="hljs-comment">// foo.items array created and defined directly on foo</span>
+</code></pre>
+<div class="pilwrap" id="tests">
+  <h2>
+    <a href="#tests" name="tests" class="pilcrow"></a>
+Tests <a href="https://travis-ci.org/medikoo/d"><img src="https://travis-ci.org/medikoo/d.png" alt="Build Status"></a>
+  </h2>
+</div>
+<pre><code>$ npm test
+</code></pre>
+<div class="pilwrap" id="security-contact-information">
+  <h2>
+    <a href="#security-contact-information" name="security-contact-information" class="pilcrow"></a>
+Security contact information
+  </h2>
+</div>
+<p>To report a security vulnerability, please use the <a href="https://tidelift.com/security">Tidelift security contact</a>. Tidelift will coordinate the fix and disclosure.</p>
+<hr>
+<div align="center">
+	<b>
+		<a href="https://tidelift.com/subscription/pkg/npm-d?utm_source=npm-d&utm_medium=referral&utm_campaign=readme">Get professional support for d with a Tidelift subscription</a>
+	</b>
+	<br>
+	<sub>
+		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
+	</sub>
+</div>
+</div>
+  </div>
+</body>
+</html>

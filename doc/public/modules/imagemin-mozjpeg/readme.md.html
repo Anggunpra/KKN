@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\imagemin-mozjpeg\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#imagemin-mozjpeg">imagemin-mozjpeg  </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#imageminmozjpeg-options-buffer">imageminMozjpeg([options])(buffer)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#quality">quality</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#progressive">progressive</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#targa">targa</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#revert">revert</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#fastcrush">fastCrush</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#dcscanopt">dcScanOpt</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#trellis">trellis</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#trellisdc">trellisDC</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#tune">tune</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#overshoot">overshoot</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#arithmetic">arithmetic</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#dct">dct</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#quantbaseline">quantBaseline</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#quanttable">quantTable</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#smooth">smooth</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#maxmemory">maxMemory</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#sample">sample</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#buffer">buffer</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="imagemin-mozjpeg">
+  <h1>
+    <a href="#imagemin-mozjpeg" name="imagemin-mozjpeg" class="pilcrow"></a>
+imagemin-mozjpeg <a href="https://travis-ci.org/imagemin/imagemin-mozjpeg"><img src="https://travis-ci.org/imagemin/imagemin-mozjpeg.svg?branch=master" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/ShinnosukeWatanabe/imagemin-mozjpeg"><img src="https://ci.appveyor.com/api/projects/status/uuh7yi48erf4ykyo?svg=true" alt="Build status"></a>
+  </h1>
+</div>
+<blockquote>
+<p><a href="https://github.com/imagemin/imagemin">Imagemin</a> plugin for <a href="https://github.com/mozilla/mozjpeg">mozjpeg</a></p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install imagemin-mozjpeg
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> imagemin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin'</span>);
+<span class="hljs-keyword">const</span> imageminMozjpeg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin-mozjpeg'</span>);
+
+<span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span> (</span>) =&gt;</span> {
+	<span class="hljs-keyword">await</span> imagemin([<span class="hljs-string">'images/*.jpg'</span>], <span class="hljs-string">'build/images'</span>, {
+		<span class="hljs-attr">use</span>: [
+			imageminMozjpeg()
+		]
+	});
+
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Images optimized'</span>);
+})();
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="imageminmozjpeg-options-buffer">
+  <h3>
+    <a href="#imageminmozjpeg-options-buffer" name="imageminmozjpeg-options-buffer" class="pilcrow"></a>
+imageminMozjpeg([options])(buffer)
+  </h3>
+</div>
+<p>Returns a <code>Promise&lt;Buffer&gt;</code>.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<div class="pilwrap" id="quality">
+  <h5>
+    <a href="#quality" name="quality" class="pilcrow"></a>
+quality
+  </h5>
+</div>
+<p>Type: <code>number</code></p>
+<p>Compression quality, in range <code>0</code> (worst) to <code>100</code> (perfect).</p>
+<div class="pilwrap" id="progressive">
+  <h5>
+    <a href="#progressive" name="progressive" class="pilcrow"></a>
+progressive
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>true</code></p>
+<p><code>false</code> creates baseline JPEG file.</p>
+<div class="pilwrap" id="targa">
+  <h5>
+    <a href="#targa" name="targa" class="pilcrow"></a>
+targa
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code></p>
+<p>Input file is Targa format (usually not needed).</p>
+<div class="pilwrap" id="revert">
+  <h5>
+    <a href="#revert" name="revert" class="pilcrow"></a>
+revert
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code></p>
+<p>Revert to standard defaults instead of mozjpeg defaults.</p>
+<div class="pilwrap" id="fastcrush">
+  <h5>
+    <a href="#fastcrush" name="fastcrush" class="pilcrow"></a>
+fastCrush
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code></p>
+<p>Disable progressive scan optimization.</p>
+<div class="pilwrap" id="dcscanopt">
+  <h5>
+    <a href="#dcscanopt" name="dcscanopt" class="pilcrow"></a>
+dcScanOpt
+  </h5>
+</div>
+<p>Type: <code>number</code><br>
+Default: <code>1</code></p>
+<p>Set DC scan optimization mode.</p>
+<ul>
+<li><code>0</code> One scan for all components</li>
+<li><code>1</code> One scan per component</li>
+<li><code>2</code> Optimize between one scan for all components and one scan for 1st component plus one scan for remaining components</li>
+</ul>
+<div class="pilwrap" id="trellis">
+  <h5>
+    <a href="#trellis" name="trellis" class="pilcrow"></a>
+trellis
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>true</code></p>
+<p><a href="https://en.wikipedia.org/wiki/Trellis_quantization">Trellis optimization</a>.</p>
+<div class="pilwrap" id="trellisdc">
+  <h5>
+    <a href="#trellisdc" name="trellisdc" class="pilcrow"></a>
+trellisDC
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>true</code></p>
+<p>Trellis optimization of DC coefficients.</p>
+<div class="pilwrap" id="tune">
+  <h5>
+    <a href="#tune" name="tune" class="pilcrow"></a>
+tune
+  </h5>
+</div>
+<p>Type: <code>string</code><br>
+Default: <code>hvs-psnr</code></p>
+<p>Set Trellis optimization method. Available methods: <code>psnr</code>, <code>hvs-psnr</code>, <code>ssim</code>, <code>ms-ssim</code></p>
+<div class="pilwrap" id="overshoot">
+  <h5>
+    <a href="#overshoot" name="overshoot" class="pilcrow"></a>
+overshoot
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>true</code></p>
+<p>Black-on-white deringing via overshoot.</p>
+<div class="pilwrap" id="arithmetic">
+  <h5>
+    <a href="#arithmetic" name="arithmetic" class="pilcrow"></a>
+arithmetic
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code></p>
+<p>Use <a href="https://en.wikipedia.org/wiki/Arithmetic_coding">arithmetic coding</a>.</p>
+<div class="pilwrap" id="dct">
+  <h5>
+    <a href="#dct" name="dct" class="pilcrow"></a>
+dct
+  </h5>
+</div>
+<p>Type: <code>string</code><br>
+Default: <code>int</code></p>
+<p>Set <a href="https://en.wikipedia.org/wiki/Discrete_cosine_transform">DCT</a> method:</p>
+<ul>
+<li><code>int</code> Use integer DCT</li>
+<li><code>fast</code> Use fast integer DCT (less accurate)</li>
+<li><code>float</code> Use floating-point DCT</li>
+</ul>
+<div class="pilwrap" id="quantbaseline">
+  <h5>
+    <a href="#quantbaseline" name="quantbaseline" class="pilcrow"></a>
+quantBaseline
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code></p>
+<p>Use 8-bit quantization table entries for baseline JPEG compatibility.</p>
+<div class="pilwrap" id="quanttable">
+  <h5>
+    <a href="#quanttable" name="quanttable" class="pilcrow"></a>
+quantTable
+  </h5>
+</div>
+<p>Type: <code>number</code></p>
+<p>Use predefined quantization table.</p>
+<ul>
+<li><code>0</code> JPEG Annex K</li>
+<li><code>1</code> Flat</li>
+<li><code>2</code> Custom, tuned for MS-SSIM</li>
+<li><code>3</code> ImageMagick table by N. Robidoux</li>
+<li><code>4</code> Custom, tuned for PSNR-HVS</li>
+<li><code>5</code> Table from paper by Klein, Silverstein and Carney</li>
+</ul>
+<div class="pilwrap" id="smooth">
+  <h5>
+    <a href="#smooth" name="smooth" class="pilcrow"></a>
+smooth
+  </h5>
+</div>
+<p>Type: <code>number</code></p>
+<p>Set the strength of smooth dithered input. (1...100)</p>
+<div class="pilwrap" id="maxmemory">
+  <h5>
+    <a href="#maxmemory" name="maxmemory" class="pilcrow"></a>
+maxMemory
+  </h5>
+</div>
+<p>Type: <code>number</code></p>
+<p>Set the maximum memory to use in kilobytes.</p>
+<div class="pilwrap" id="sample">
+  <h5>
+    <a href="#sample" name="sample" class="pilcrow"></a>
+sample
+  </h5>
+</div>
+<p>Type: <code>string[]</code></p>
+<p>Set component sampling factors. Each item should be in the format <code>HxV</code>, for example <code>2x1</code>.</p>
+<div class="pilwrap" id="buffer">
+  <h4>
+    <a href="#buffer" name="buffer" class="pilcrow"></a>
+buffer
+  </h4>
+</div>
+<p>Type: <code>buffer</code></p>
+<p>Buffer to optimize.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/imagemin">Imagemin</a></p>
+</div>
+  </div>
+</body>
+</html>

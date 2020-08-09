@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\from2\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> Readable = <span class="hljs-built_in">require</span>(<span class="hljs-string">'readable-stream'</span>).Readable
+<span class="hljs-keyword">var</span> inherits = <span class="hljs-built_in">require</span>(<span class="hljs-string">'inherits'</span>)
+
+<span class="hljs-built_in">module</span>.exports = from2
+
+from2.ctor = ctor
+from2.obj = obj
+
+<span class="hljs-keyword">var</span> Proto = ctor()
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toFunction</span>(<span class="hljs-params">list</span>) </span>{
+  list = list.slice()
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">_, cb</span>) </span>{
+    <span class="hljs-keyword">var</span> err = <span class="hljs-literal">null</span>
+    <span class="hljs-keyword">var</span> item = list.length ? list.shift() : <span class="hljs-literal">null</span>
+    <span class="hljs-keyword">if</span> (item <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Error</span>) {
+      err = item
+      item = <span class="hljs-literal">null</span>
+    }
+
+    cb(err, item)
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">from2</span>(<span class="hljs-params">opts, read</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opts !== <span class="hljs-string">'object'</span> || <span class="hljs-built_in">Array</span>.isArray(opts)) {
+    read = opts
+    opts = {}
+  }
+
+  <span class="hljs-keyword">var</span> rs = <span class="hljs-keyword">new</span> Proto(opts)
+  rs._from = <span class="hljs-built_in">Array</span>.isArray(read) ? toFunction(read) : (read || noop)
+  <span class="hljs-keyword">return</span> rs
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ctor</span>(<span class="hljs-params">opts, read</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opts === <span class="hljs-string">'function'</span>) {
+    read = opts
+    opts = {}
+  }
+
+  opts = defaults(opts)
+
+  inherits(Class, Readable)
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Class</span>(<span class="hljs-params">override</span>) </span>{
+    <span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> Class)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Class(override)
+    <span class="hljs-keyword">this</span>._reading = <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">this</span>._callback = check
+    <span class="hljs-keyword">this</span>.destroyed = <span class="hljs-literal">false</span>
+    Readable.call(<span class="hljs-keyword">this</span>, override || opts)
+
+    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>
+    <span class="hljs-keyword">var</span> hwm = <span class="hljs-keyword">this</span>._readableState.highWaterMark
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params">err, data</span>) </span>{
+      <span class="hljs-keyword">if</span> (self.destroyed) <span class="hljs-keyword">return</span>
+      <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> self.destroy(err)
+      <span class="hljs-keyword">if</span> (data === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> self.push(<span class="hljs-literal">null</span>)
+      self._reading = <span class="hljs-literal">false</span>
+      <span class="hljs-keyword">if</span> (self.push(data)) self._read(hwm)
+    }
+  }
+
+  Class.prototype._from = read || noop
+  Class.prototype._read = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">size</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._reading || <span class="hljs-keyword">this</span>.destroyed) <span class="hljs-keyword">return</span>
+    <span class="hljs-keyword">this</span>._reading = <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">this</span>._from(size, <span class="hljs-keyword">this</span>._callback)
+  }
+
+  Class.prototype.destroy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.destroyed) <span class="hljs-keyword">return</span>
+    <span class="hljs-keyword">this</span>.destroyed = <span class="hljs-literal">true</span>
+
+    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>
+    process.nextTick(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">if</span> (err) self.emit(<span class="hljs-string">'error'</span>, err)
+      self.emit(<span class="hljs-string">'close'</span>)
+    })
+  }
+
+  <span class="hljs-keyword">return</span> Class
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">obj</span>(<span class="hljs-params">opts, read</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opts === <span class="hljs-string">'function'</span> || <span class="hljs-built_in">Array</span>.isArray(opts)) {
+    read = opts
+    opts = {}
+  }
+
+  opts = defaults(opts)
+  opts.objectMode = <span class="hljs-literal">true</span>
+  opts.highWaterMark = <span class="hljs-number">16</span>
+
+  <span class="hljs-keyword">return</span> from2(opts, read)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">noop</span> (<span class="hljs-params"></span>) </span>{}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">defaults</span>(<span class="hljs-params">opts</span>) </span>{
+  opts = opts || {}
+  <span class="hljs-keyword">return</span> opts
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

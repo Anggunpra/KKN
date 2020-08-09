@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\copy-descriptor\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>!
+copy-descriptor <a href="https://github.com/jonschlinkert/copy-descriptor">https://github.com/jonschlinkert/copy-descriptor</a></p>
+</div>
+<div class="body">
+<p>Copyright (c) 2015, Jon Schlinkert.
+Licensed under the MIT License.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">
+'use strict'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Copy a descriptor from one object to another.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.cache = {};
+}
+App.prototype.set = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key, val</span>) </span>{
+  <span class="hljs-keyword">this</span>.cache[key] = val;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+<span class="hljs-built_in">Object</span>.defineProperty(App.prototype, <span class="hljs-string">'count'</span>, {
+  <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.cache).length;
+  }
+});
+<p>copy(App.prototype, <span class="hljs-string">'count'</span>, <span class="hljs-string">'len'</span>);</p>
+<p><span class="hljs-comment">// create an instance</span>
+<span class="hljs-keyword">var</span> app = <span class="hljs-keyword">new</span> App();</p>
+<p>app.set(<span class="hljs-string">'a'</span>, <span class="hljs-literal">true</span>);
+app.set(<span class="hljs-string">'b'</span>, <span class="hljs-literal">true</span>);
+app.set(<span class="hljs-string">'c'</span>, <span class="hljs-literal">true</span>);</p>
+<p><span class="hljs-built_in">console</span>.log(app.count);
+<span class="hljs-comment">//=&gt; 3</span>
+<span class="hljs-built_in">console</span>.log(app.len);
+<span class="hljs-comment">//=&gt; 3</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`receiver`</span>
+<span class="dox_type">Object</span>
+<span>The target object
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`provider`</span>
+<span class="dox_type">Object</span>
+<span>The provider object
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`from`</span>
+<span class="dox_type">String</span>
+<span>The key to copy on provider.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`to`</span>
+<span class="dox_type">String</span>
+<span>Optionally specify a new key name to use.
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copyDescriptor</span>(<span class="hljs-params">receiver, provider, from, to</span>) </span>{
+  <span class="hljs-keyword">if</span> (!isObject(provider) &amp;&amp; <span class="hljs-keyword">typeof</span> provider !== <span class="hljs-string">'function'</span>) {
+    to = <span class="hljs-keyword">from</span>;
+    <span class="hljs-keyword">from</span> = provider;
+    provider = receiver;
+  }
+  <span class="hljs-keyword">if</span> (!isObject(receiver) &amp;&amp; <span class="hljs-keyword">typeof</span> receiver !== <span class="hljs-string">'function'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected the first argument to be an object'</span>);
+  }
+  <span class="hljs-keyword">if</span> (!isObject(provider) &amp;&amp; <span class="hljs-keyword">typeof</span> provider !== <span class="hljs-string">'function'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected provider to be an object'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> to !== <span class="hljs-string">'string'</span>) {
+    to = <span class="hljs-keyword">from</span>;
+  }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">from</span> !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected key to be a string'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">from</span> <span class="hljs-keyword">in</span> provider)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'property "'</span> + <span class="hljs-keyword">from</span> + <span class="hljs-string">'" does not exist'</span>);
+  }
+
+  <span class="hljs-keyword">var</span> val = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(provider, <span class="hljs-keyword">from</span>);
+  <span class="hljs-keyword">if</span> (val) <span class="hljs-built_in">Object</span>.defineProperty(receiver, to, val);
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">return</span> {}.toString.call(val) === <span class="hljs-string">'[object Object]'</span>;
+}
+
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

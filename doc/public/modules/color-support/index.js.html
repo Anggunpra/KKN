@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\color-support\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<p>call it on itself so we can test the export val for basic stuff</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-built_in">module</span>.exports = colorSupport({ <span class="hljs-attr">alwaysReturn</span>: <span class="hljs-literal">true</span> }, colorSupport)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasNone</span> (<span class="hljs-params">obj, options</span>) </span>{
+  obj.level = <span class="hljs-number">0</span>
+  obj.hasBasic = <span class="hljs-literal">false</span>
+  obj.has256 = <span class="hljs-literal">false</span>
+  obj.has16m = <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">if</span> (!options.alwaysReturn) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+  }
+  <span class="hljs-keyword">return</span> obj
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasBasic</span> (<span class="hljs-params">obj</span>) </span>{
+  obj.hasBasic = <span class="hljs-literal">true</span>
+  obj.has256 = <span class="hljs-literal">false</span>
+  obj.has16m = <span class="hljs-literal">false</span>
+  obj.level = <span class="hljs-number">1</span>
+  <span class="hljs-keyword">return</span> obj
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">has256</span> (<span class="hljs-params">obj</span>) </span>{
+  obj.hasBasic = <span class="hljs-literal">true</span>
+  obj.has256 = <span class="hljs-literal">true</span>
+  obj.has16m = <span class="hljs-literal">false</span>
+  obj.level = <span class="hljs-number">2</span>
+  <span class="hljs-keyword">return</span> obj
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">has16m</span> (<span class="hljs-params">obj</span>) </span>{
+  obj.hasBasic = <span class="hljs-literal">true</span>
+  obj.has256 = <span class="hljs-literal">true</span>
+  obj.has16m = <span class="hljs-literal">true</span>
+  obj.level = <span class="hljs-number">3</span>
+  <span class="hljs-keyword">return</span> obj
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">colorSupport</span> (<span class="hljs-params">options, obj</span>) </span>{
+  options = options || {}
+
+  obj = obj || {}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>if just requesting a specific level, then return that.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.level === <span class="hljs-string">'number'</span>) {
+    <span class="hljs-keyword">switch</span> (options.level) {
+      <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> hasNone(obj, options)
+      <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+        <span class="hljs-keyword">return</span> hasBasic(obj)
+      <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">return</span> has256(obj)
+      <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
+        <span class="hljs-keyword">return</span> has16m(obj)
+    }
+  }
+
+  obj.level = <span class="hljs-number">0</span>
+  obj.hasBasic = <span class="hljs-literal">false</span>
+  obj.has256 = <span class="hljs-literal">false</span>
+  obj.has16m = <span class="hljs-literal">false</span>
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> process === <span class="hljs-string">'undefined'</span> ||
+      !process ||
+      !process.stdout ||
+      !process.env ||
+      !process.platform) {
+    <span class="hljs-keyword">return</span> hasNone(obj, options)
+  }
+
+  <span class="hljs-keyword">var</span> env = options.env || process.env
+  <span class="hljs-keyword">var</span> stream = options.stream || process.stdout
+  <span class="hljs-keyword">var</span> term = options.term || env.TERM || <span class="hljs-string">''</span>
+  <span class="hljs-keyword">var</span> platform = options.platform || process.platform
+
+  <span class="hljs-keyword">if</span> (!options.ignoreTTY &amp;&amp; !stream.isTTY) {
+    <span class="hljs-keyword">return</span> hasNone(obj, options)
+  }
+
+  <span class="hljs-keyword">if</span> (!options.ignoreDumb &amp;&amp; term === <span class="hljs-string">'dumb'</span> &amp;&amp; !env.COLORTERM) {
+    <span class="hljs-keyword">return</span> hasNone(obj, options)
+  }
+
+  <span class="hljs-keyword">if</span> (platform === <span class="hljs-string">'win32'</span>) {
+    <span class="hljs-keyword">return</span> hasBasic(obj)
+  }
+
+  <span class="hljs-keyword">if</span> (env.TMUX) {
+    <span class="hljs-keyword">return</span> has256(obj)
+  }
+
+  <span class="hljs-keyword">if</span> (!options.ignoreCI &amp;&amp; (env.CI || env.TEAMCITY_VERSION)) {
+    <span class="hljs-keyword">if</span> (env.TRAVIS) {
+      <span class="hljs-keyword">return</span> has256(obj)
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> hasNone(obj, options)
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>TODO: add more term programs</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">switch</span> (env.TERM_PROGRAM) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'iTerm.app'</span>:
+      <span class="hljs-keyword">var</span> ver = env.TERM_PROGRAM_VERSION || <span class="hljs-string">'0.'</span>
+      <span class="hljs-keyword">if</span> (<span class="hljs-regexp">/^[0-2]\./</span>.test(ver)) {
+        <span class="hljs-keyword">return</span> has256(obj)
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> has16m(obj)
+      }
+
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'HyperTerm'</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'Hyper'</span>:
+      <span class="hljs-keyword">return</span> has16m(obj)
+
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'MacTerm'</span>:
+      <span class="hljs-keyword">return</span> has16m(obj)
+
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'Apple_Terminal'</span>:
+      <span class="hljs-keyword">return</span> has256(obj)
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-regexp">/^xterm-256/</span>.test(term)) {
+    <span class="hljs-keyword">return</span> has256(obj)
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-regexp">/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i</span>.test(term)) {
+    <span class="hljs-keyword">return</span> hasBasic(obj)
+  }
+
+  <span class="hljs-keyword">if</span> (env.COLORTERM) {
+    <span class="hljs-keyword">return</span> hasBasic(obj)
+  }
+
+  <span class="hljs-keyword">return</span> hasNone(obj, options)
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

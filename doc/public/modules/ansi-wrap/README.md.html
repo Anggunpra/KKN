@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\ansi-wrap\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#ansi-wrap">ansi-wrap </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#running-tests">Running tests</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="ansi-wrap">
+  <h1>
+    <a href="#ansi-wrap" name="ansi-wrap" class="pilcrow"></a>
+ansi-wrap <a href="http://badge.fury.io/js/ansi-wrap"><img src="https://badge.fury.io/js/ansi-wrap.svg" alt="NPM version"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Create ansi colors by passing the open and close codes.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://www.npmjs.com/">npm</a></p>
+<pre><code class="sh">$ npm i ansi-wrap --save
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> wrap = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ansi-wrap'</span>);
+</code></pre>
+<p><strong>Example</strong></p>
+<p>Pass codes for <a href="https://github.com/jonschlinkert/ansi-bgmagenta">ansi magenta background</a>:</p>
+<pre><code class="js"><span class="hljs-built_in">console</span>.log(wrap(<span class="hljs-number">45</span>, <span class="hljs-number">49</span>, <span class="hljs-string">'This is a message...'</span>));
+<span class="hljs-comment">//=&gt; '\u001b[45mfoo\u001b[49m'</span>
+</code></pre>
+<p>Which prints out...</p>
+<p><a href="https://www.npmjs.com/"><img src="https://cloud.githubusercontent.com/assets/383994/7761769/12488afa-fff8-11e4-9cc1-71a8a6ec14a4.png" alt="screen shot 2015-05-21 at 8 28 32 pm"></a></p>
+<div class="pilwrap" id="related-projects">
+  <h2>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h2>
+</div>
+<p>This is used in these projects:</p>
+<ul>
+<li><a href="https://github.com/jonschlinkert/ansi-reset">ansi-reset</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-bold">ansi-bold</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-dim">ansi-dim</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-italic">ansi-italic</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-underline">ansi-underline</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-inverse">ansi-inverse</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-hidden">ansi-hidden</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-strikethrough">ansi-strikethrough</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-black">ansi-black</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-red">ansi-red</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-green">ansi-green</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-yellow">ansi-yellow</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-blue">ansi-blue</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-magenta">ansi-magenta</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-cyan">ansi-cyan</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-white">ansi-white</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-gray">ansi-gray</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-grey">ansi-grey</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-bgblack">ansi-bgblack</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-bgred">ansi-bgred</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-bggreen">ansi-bggreen</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-bgyellow">ansi-bgyellow</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-bgblue">ansi-bgblue</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-bgmagenta">ansi-bgmagenta</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-bgcyan">ansi-bgcyan</a></li>
+<li><a href="https://github.com/jonschlinkert/ansi-bgwhite">ansi-bgwhite</a></li>
+</ul>
+<div class="pilwrap" id="running-tests">
+  <h2>
+    <a href="#running-tests" name="running-tests" class="pilcrow"></a>
+Running tests
+  </h2>
+</div>
+<p>Install dev dependencies:</p>
+<pre><code class="sh">$ npm i -d &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="contributing">
+  <h2>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h2>
+</div>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="https://github.com/jonschlinkert/ansi-wrap/issues/new">please create an issue</a></p>
+<div class="pilwrap" id="author">
+  <h2>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h2>
+</div>
+<p><strong>Jon Schlinkert</strong></p>
+<ul>
+<li><a href="https://github.com/jonschlinkert">github/jonschlinkert</a></li>
+<li><a href="http://twitter.com/jonschlinkert">twitter/jonschlinkert</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>Copyright © 2015 Jon Schlinkert
+Released under the MIT license.</p>
+<hr>
+<p><em>This file was generated by <a href="https://github.com/assemble/verb-cli">verb-cli</a> on May 21, 2015.</em></p>
+</div>
+  </div>
+</body>
+</html>

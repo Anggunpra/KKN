@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>.htaccess</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "public\\.htaccess";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>.htaccess</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="apache"><span class="hljs-section">&lt;IfModule mod_rewrite.c&gt;</span>
+    <span class="hljs-section">&lt;IfModule mod_negotiation.c&gt;</span>
+        <span class="hljs-attribute"><span class="hljs-nomarkup">Options</span></span> -MultiViews -Indexes
+    <span class="hljs-section">&lt;/IfModule&gt;</span>
+
+    <span class="hljs-attribute"><span class="hljs-nomarkup">RewriteEngine</span></span> <span class="hljs-literal">On</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Handle Authorization Header</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="apache">    <span class="hljs-attribute"><span class="hljs-nomarkup">RewriteCond</span></span> <span class="hljs-variable">%{HTTP:Authorization}</span> .
+    <span class="hljs-attribute"><span class="hljs-nomarkup">RewriteRule</span></span> .* -<span class="hljs-meta"> [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>Redirect Trailing Slashes If Not A Folder...</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="apache">    <span class="hljs-attribute"><span class="hljs-nomarkup">RewriteCond</span></span> <span class="hljs-variable">%{REQUEST_FILENAME}</span> !-d
+    <span class="hljs-attribute"><span class="hljs-nomarkup">RewriteCond</span></span> <span class="hljs-variable">%{REQUEST_URI}</span> (.+)/$
+    <span class="hljs-attribute"><span class="hljs-nomarkup">RewriteRule</span></span> ^ <span class="hljs-number">%1</span><span class="hljs-meta"> [L,R=301]</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Send Requests To Front Controller...</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="apache">    <span class="hljs-attribute"><span class="hljs-nomarkup">RewriteCond</span></span> <span class="hljs-variable">%{REQUEST_FILENAME}</span> !-d
+    <span class="hljs-attribute"><span class="hljs-nomarkup">RewriteCond</span></span> <span class="hljs-variable">%{REQUEST_FILENAME}</span> !-f
+    <span class="hljs-attribute"><span class="hljs-nomarkup">RewriteRule</span></span> ^ index.php<span class="hljs-meta"> [L]</span>
+<span class="hljs-section">&lt;/IfModule&gt;</span>
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

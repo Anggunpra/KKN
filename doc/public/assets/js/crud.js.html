@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>crud.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\assets\\js\\crud.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>crud.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">$.ajaxSetup({
+    <span class="hljs-attr">headers</span>: {
+        <span class="hljs-string">'X-CSRF-TOKEN'</span>: $(<span class="hljs-string">'meta[name="csrf-token"]'</span>).attr(<span class="hljs-string">'content'</span>)
+    }
+});
+$(<span class="hljs-string">"#create-form"</span>).submit(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+    <span class="hljs-comment">/* stop form from submitting normally */</span>
+    event.preventDefault();
+
+    <span class="hljs-comment">/* get the action attribute from the &lt;form action=""&gt; element */</span>
+    <span class="hljs-keyword">var</span> $form = $(<span class="hljs-keyword">this</span>),
+        url = $form.attr(<span class="hljs-string">'action'</span>);
+
+    $.ajax({
+        <span class="hljs-attr">type</span>: <span class="hljs-string">"POST"</span>,
+        <span class="hljs-attr">url</span>: url,
+        <span class="hljs-attr">data</span>: <span class="hljs-keyword">new</span> FormData(<span class="hljs-keyword">this</span>),
+        <span class="hljs-attr">contentType</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">processData</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+            iziToast.success({
+                <span class="hljs-attr">title</span> : <span class="hljs-string">'Berhasil!'</span>,
+                <span class="hljs-attr">message</span> : response.message,
+                <span class="hljs-attr">position</span> : <span class="hljs-string">'topRight'</span>,
+            });
+            $form.trigger(<span class="hljs-string">"reset"</span>);
+            location.reload();
+        },
+        <span class="hljs-attr">error</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">xhr, status, error</span>) </span>{
+            <span class="hljs-keyword">var</span> json = <span class="hljs-built_in">JSON</span>.parse(xhr.responseText);
+            <span class="hljs-keyword">var</span> data = json.message;
+            <span class="hljs-keyword">var</span> message = <span class="hljs-string">''</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>console.log($.isArray(data));</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span>($.isArray(data)){
+                data.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">datum</span>) </span>{
+                    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'pesan :'</span> + datum)
+                    message += datum + <span class="hljs-string">'&lt;br&gt;'</span>;
+                });
+            }<span class="hljs-keyword">else</span>{
+                message += data;
+            }
+            iziToast.error({
+                <span class="hljs-attr">title</span> : <span class="hljs-string">'Gagal'</span>,
+                <span class="hljs-attr">message</span> : message,
+                <span class="hljs-attr">position</span> : <span class="hljs-string">'topRight'</span>,
+            });
+        },
+    });
+});
+$(<span class="hljs-string">"#download-form"</span>).submit(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+    <span class="hljs-comment">/* stop form from submitting normally */</span>
+    event.preventDefault();
+
+    <span class="hljs-comment">/* get the action attribute from the &lt;form action=""&gt; element */</span>
+    <span class="hljs-keyword">var</span> $form = $(<span class="hljs-keyword">this</span>),
+        url = $form.attr(<span class="hljs-string">'action'</span>);
+
+    $.ajax({
+        <span class="hljs-attr">type</span>: <span class="hljs-string">"POST"</span>,
+        <span class="hljs-attr">url</span>: url,
+        <span class="hljs-attr">data</span>: <span class="hljs-keyword">new</span> FormData(<span class="hljs-keyword">this</span>),
+        <span class="hljs-attr">contentType</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">processData</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+            iziToast.success({
+                <span class="hljs-attr">title</span> : <span class="hljs-string">'Berhasil!'</span>,
+                <span class="hljs-attr">message</span> : response.message,
+                <span class="hljs-attr">position</span> : <span class="hljs-string">'topRight'</span>,
+            });
+            location.href = response.file;
+        },
+        <span class="hljs-attr">error</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">xhr, status, error</span>) </span>{
+            <span class="hljs-keyword">var</span> json = <span class="hljs-built_in">JSON</span>.parse(xhr.responseText);
+            <span class="hljs-keyword">var</span> data = json.message;
+            <span class="hljs-keyword">var</span> message = <span class="hljs-string">''</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>console.log($.isArray(data));</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span>($.isArray(data)){
+                data.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">datum</span>) </span>{
+                    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'pesan :'</span> + datum)
+                    message += datum + <span class="hljs-string">'&lt;br&gt;'</span>;
+                });
+            }<span class="hljs-keyword">else</span>{
+                message += data;
+            }
+            iziToast.error({
+                <span class="hljs-attr">title</span> : <span class="hljs-string">'Gagal'</span>,
+                <span class="hljs-attr">message</span> : message,
+                <span class="hljs-attr">position</span> : <span class="hljs-string">'topRight'</span>,
+            });
+        },
+    });
+});
+<span class="hljs-comment">/* attach a submit handler to the form */</span>
+$(<span class="hljs-string">"#update-form"</span>).submit(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+    <span class="hljs-comment">/* stop form from submitting normally */</span>
+    event.preventDefault();
+
+    <span class="hljs-comment">/* get the action attribute from the &lt;form action=""&gt; element */</span>
+    <span class="hljs-keyword">var</span> $form = $(<span class="hljs-keyword">this</span>),
+        url = $form.attr(<span class="hljs-string">'action'</span>);
+
+    $.ajax({
+        <span class="hljs-attr">type</span>: <span class="hljs-string">"POST"</span>,
+        <span class="hljs-attr">url</span>: url,
+        <span class="hljs-attr">data</span>: <span class="hljs-keyword">new</span> FormData(<span class="hljs-keyword">this</span>),
+        <span class="hljs-attr">contentType</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">processData</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+            iziToast.success({
+                <span class="hljs-attr">title</span> : <span class="hljs-string">'Berhasil!'</span>,
+                <span class="hljs-attr">message</span> : response.message,
+                <span class="hljs-attr">position</span> : <span class="hljs-string">'topRight'</span>,
+            });
+            location.reload();
+        },
+        <span class="hljs-attr">error</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">xhr, status, error</span>) </span>{
+            <span class="hljs-keyword">var</span> json = <span class="hljs-built_in">JSON</span>.parse(xhr.responseText);
+            <span class="hljs-keyword">var</span> data = json.message;
+            <span class="hljs-keyword">var</span> message = <span class="hljs-string">''</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>console.log($.isArray(data));</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span>($.isArray(data)){
+                data.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">datum</span>) </span>{
+                    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'pesan :'</span> + datum)
+                    message += datum + <span class="hljs-string">'&lt;br&gt;'</span>;
+                });
+            }<span class="hljs-keyword">else</span>{
+                message += data;
+            }
+            iziToast.error({
+                <span class="hljs-attr">title</span> : <span class="hljs-string">'Gagal'</span>,
+                <span class="hljs-attr">message</span> : message,
+                <span class="hljs-attr">position</span> : <span class="hljs-string">'topRight'</span>,
+            });
+        },
+    });
+});
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deleteData</span>(<span class="hljs-params">link, item</span>) </span>{
+    <span class="hljs-keyword">const</span> swalWithBootstrapButtons = Swal.mixin({
+        <span class="hljs-attr">customClass</span>: {
+            <span class="hljs-attr">confirmButton</span>: <span class="hljs-string">'btn btn-success'</span>,
+            <span class="hljs-attr">cancelButton</span>: <span class="hljs-string">'btn btn-danger'</span>
+        },
+        <span class="hljs-attr">buttonsStyling</span>: <span class="hljs-literal">false</span>
+    })
+    swalWithBootstrapButtons.fire({
+        <span class="hljs-attr">title</span>: <span class="hljs-string">'Apakah Anda yakin akan menghapus data '</span> + item + <span class="hljs-string">' ?'</span>,
+        <span class="hljs-attr">text</span>: <span class="hljs-string">"Anda tidak dapat mengembalikan ini"</span>,
+        <span class="hljs-attr">icon</span>: <span class="hljs-string">'warning'</span>,
+        <span class="hljs-attr">showCancelButton</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">confirmButtonText</span>: <span class="hljs-string">'Lanjutkan'</span>,
+        <span class="hljs-attr">cancelButtonText</span>: <span class="hljs-string">'Batalkan'</span>,
+        <span class="hljs-attr">reverseButtons</span>: <span class="hljs-literal">true</span>
+    }).then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+        <span class="hljs-keyword">var</span> url = link;
+        <span class="hljs-keyword">if</span> (result.value) {
+            $.ajax({
+                <span class="hljs-attr">type</span>: <span class="hljs-string">"DELETE"</span>,
+                <span class="hljs-attr">url</span>: url,
+                <span class="hljs-attr">dataType</span>: <span class="hljs-string">"json"</span>,
+                <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+                    <span class="hljs-keyword">if</span> (response.status) {
+                        swalWithBootstrapButtons.fire(
+                            <span class="hljs-string">'Berhasil!'</span>,
+                            response.message,
+                            <span class="hljs-string">'success'</span>
+                        )
+                        location.reload();
+                    } <span class="hljs-keyword">else</span> {
+                        swalWithBootstrapButtons.fire(
+                            <span class="hljs-string">'Gagal'</span>,
+                            response.message,
+                            <span class="hljs-string">'error'</span>
+                        )
+                    }
+                },
+                <span class="hljs-attr">error</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">xhr, status, error</span>) </span>{
+                    <span class="hljs-keyword">var</span> json = <span class="hljs-built_in">JSON</span>.parse(xhr.responseText);
+                    <span class="hljs-keyword">var</span> data = json.message;
+                    <span class="hljs-keyword">var</span> message = <span class="hljs-string">''</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>console.log($.isArray(data));</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span>($.isArray(data)){
+                        data.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">datum</span>) </span>{
+                            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'pesan :'</span> + datum)
+                            message += datum + <span class="hljs-string">'&lt;br&gt;'</span>;
+                        });
+                    }<span class="hljs-keyword">else</span>{
+                        message += data;
+                    }
+                    iziToast.error({
+                        <span class="hljs-attr">title</span> : <span class="hljs-string">'Gagal'</span>,
+                        <span class="hljs-attr">message</span> : message,
+                        <span class="hljs-attr">position</span> : <span class="hljs-string">'topRight'</span>,
+                    });
+                },
+            });
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+                <span class="hljs-string">'Dibatalkan'</span>,
+                <span class="hljs-string">'Anda batal menghapus data'</span>,
+                <span class="hljs-string">'error'</span>
+            )
+        }
+    });
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">acceptData</span>(<span class="hljs-params">link, item</span>) </span>{
+    <span class="hljs-keyword">const</span> swalWithBootstrapButtons = Swal.mixin({
+        <span class="hljs-attr">customClass</span>: {
+            <span class="hljs-attr">confirmButton</span>: <span class="hljs-string">'btn btn-success'</span>,
+            <span class="hljs-attr">cancelButton</span>: <span class="hljs-string">'btn btn-danger'</span>
+        },
+        <span class="hljs-attr">buttonsStyling</span>: <span class="hljs-literal">false</span>
+    })
+    <span class="hljs-keyword">const</span> inputOptions = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> {
+        setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+          resolve({
+            <span class="hljs-string">'Kolektif'</span>: <span class="hljs-string">'Kolektif'</span>,
+            <span class="hljs-string">'Individu'</span>: <span class="hljs-string">'Individu'</span>,
+          })
+        }, <span class="hljs-number">100</span>)
+    })
+    swalWithBootstrapButtons.fire({
+        <span class="hljs-attr">title</span>: <span class="hljs-string">'Apakah Anda yakin akan menerima data pembayaran dan/atau berkas dari '</span> + item + <span class="hljs-string">' ?'</span>,
+        <span class="hljs-attr">text</span>: <span class="hljs-string">"Anda tidak dapat mengembalikan ini"</span>,
+        <span class="hljs-attr">icon</span>: <span class="hljs-string">'warning'</span>,
+        <span class="hljs-attr">showCancelButton</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">confirmButtonText</span>: <span class="hljs-string">'Lanjutkan'</span>,
+        <span class="hljs-attr">cancelButtonText</span>: <span class="hljs-string">'Batalkan'</span>,
+        <span class="hljs-attr">title</span>: <span class="hljs-string">'Pilih Skema Pembayaran'</span>,
+        <span class="hljs-attr">input</span>: <span class="hljs-string">'radio'</span>,
+        <span class="hljs-attr">inputOptions</span>: inputOptions,
+        <span class="hljs-attr">inputValidator</span>: <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {
+            <span class="hljs-keyword">if</span> (!value) {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'Anda wajib memilih salah satu'</span>
+            }
+        },
+        <span class="hljs-attr">reverseButtons</span>: <span class="hljs-literal">true</span>
+    }).then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+        <span class="hljs-keyword">var</span> url = link;
+        <span class="hljs-keyword">if</span> (result.value) {
+            $.ajax({
+                <span class="hljs-attr">type</span>: <span class="hljs-string">"PATCH"</span>,
+                <span class="hljs-attr">url</span>: url+<span class="hljs-string">'?skema_pembayaran='</span>+result.value,
+                <span class="hljs-attr">dataType</span>: <span class="hljs-string">"json"</span>,
+                <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+                    <span class="hljs-keyword">if</span> (response.status) {
+                        swalWithBootstrapButtons.fire(
+                            <span class="hljs-string">'Berhasil!'</span>,
+                            response.message,
+                            <span class="hljs-string">'success'</span>
+                        )
+                        location.reload();
+                    } <span class="hljs-keyword">else</span> {
+                        swalWithBootstrapButtons.fire(
+                            <span class="hljs-string">'Gagal'</span>,
+                            response.message,
+                            <span class="hljs-string">'error'</span>
+                        )
+                    }
+                },
+                <span class="hljs-attr">error</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">xhr, status, error</span>) </span>{
+                    <span class="hljs-keyword">var</span> json = <span class="hljs-built_in">JSON</span>.parse(xhr.responseText);
+                    <span class="hljs-keyword">var</span> data = json.message;
+                    <span class="hljs-keyword">var</span> message = <span class="hljs-string">''</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>console.log($.isArray(data));</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span>($.isArray(data)){
+                        data.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">datum</span>) </span>{
+                            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'pesan :'</span> + datum)
+                            message += datum + <span class="hljs-string">'&lt;br&gt;'</span>;
+                        });
+                    }<span class="hljs-keyword">else</span>{
+                        message += data;
+                    }
+                    iziToast.error({
+                        <span class="hljs-attr">title</span> : <span class="hljs-string">'Gagal'</span>,
+                        <span class="hljs-attr">message</span> : message,
+                        <span class="hljs-attr">position</span> : <span class="hljs-string">'topRight'</span>,
+                    });
+                },
+            });
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+                <span class="hljs-string">'Dibatalkan'</span>,
+                <span class="hljs-string">'Anda batal menerima data pembayaran ini'</span>,
+                <span class="hljs-string">'error'</span>
+            )
+        }
+    });
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">declineData</span>(<span class="hljs-params">link, item</span>) </span>{
+    <span class="hljs-keyword">const</span> swalWithBootstrapButtons = Swal.mixin({
+        <span class="hljs-attr">customClass</span>: {
+            <span class="hljs-attr">confirmButton</span>: <span class="hljs-string">'btn btn-success'</span>,
+            <span class="hljs-attr">cancelButton</span>: <span class="hljs-string">'btn btn-danger'</span>
+        },
+        <span class="hljs-attr">buttonsStyling</span>: <span class="hljs-literal">false</span>
+    })
+
+    swalWithBootstrapButtons.fire({
+        <span class="hljs-attr">title</span>: <span class="hljs-string">'Apakah Anda yakin akan menolak data pembayaran dan/atau berkas dari '</span> + item + <span class="hljs-string">' ?'</span>,
+        <span class="hljs-attr">text</span>: <span class="hljs-string">"Anda tidak dapat mengembalikan ini"</span>,
+        <span class="hljs-attr">icon</span>: <span class="hljs-string">'warning'</span>,
+        <span class="hljs-attr">input</span> : <span class="hljs-string">'textarea'</span>,
+        <span class="hljs-attr">inputPlaceHolder</span>: <span class="hljs-string">'Silahkan masukkan alasan penolakan'</span>,
+        <span class="hljs-attr">inputAttributes</span>: {
+            <span class="hljs-string">'aria-label'</span>: <span class="hljs-string">'Silahkan masukkan alasan penolakan'</span>,
+            <span class="hljs-string">'required'</span> : <span class="hljs-literal">true</span>,
+        },
+        <span class="hljs-attr">inputValidator</span>: <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {
+            <span class="hljs-keyword">if</span> (!value) {
+              <span class="hljs-keyword">return</span> <span class="hljs-string">'Anda belum menginputkan pesan apapun!'</span>
+            }
+        },
+        <span class="hljs-attr">showCancelButton</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">confirmButtonText</span>: <span class="hljs-string">'Lanjutkan'</span>,
+        <span class="hljs-attr">cancelButtonText</span>: <span class="hljs-string">'Batalkan'</span>,
+        <span class="hljs-attr">reverseButtons</span>: <span class="hljs-literal">true</span>
+    }).then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+        <span class="hljs-keyword">var</span> url = link;
+        <span class="hljs-keyword">if</span> (result.value) {
+            $.ajax({
+                <span class="hljs-attr">type</span>: <span class="hljs-string">"PATCH"</span>,
+                <span class="hljs-attr">url</span>: url+<span class="hljs-string">'?pesan='</span>+result.value,
+                <span class="hljs-attr">dataType</span>: <span class="hljs-string">"json"</span>,
+                <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+                    <span class="hljs-keyword">if</span> (response.status) {
+                        swalWithBootstrapButtons.fire(
+                            <span class="hljs-string">'Berhasil!'</span>,
+                            response.message,
+                            <span class="hljs-string">'success'</span>
+                        )
+                        location.reload();
+                    } <span class="hljs-keyword">else</span> {
+                        swalWithBootstrapButtons.fire(
+                            <span class="hljs-string">'Gagal'</span>,
+                            response.message,
+                            <span class="hljs-string">'error'</span>
+                        )
+                    }
+                },
+                <span class="hljs-attr">error</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">xhr, status, error</span>) </span>{
+                    <span class="hljs-keyword">var</span> json = <span class="hljs-built_in">JSON</span>.parse(xhr.responseText);
+                    <span class="hljs-keyword">var</span> data = json.message;
+                    <span class="hljs-keyword">var</span> message = <span class="hljs-string">''</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>console.log($.isArray(data));</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span>($.isArray(data)){
+                        data.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">datum</span>) </span>{
+                            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'pesan :'</span> + datum)
+                            message += datum + <span class="hljs-string">'&lt;br&gt;'</span>;
+                        });
+                    }<span class="hljs-keyword">else</span>{
+                        message += data;
+                    }
+                    iziToast.error({
+                        <span class="hljs-attr">title</span> : <span class="hljs-string">'Gagal'</span>,
+                        <span class="hljs-attr">message</span> : message,
+                        <span class="hljs-attr">position</span> : <span class="hljs-string">'topRight'</span>,
+                    });
+                },
+            });
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+                <span class="hljs-string">'Dibatalkan'</span>,
+                <span class="hljs-string">'Anda batal menolak data pembayaran ini'</span>,
+                <span class="hljs-string">'error'</span>
+            )
+        }
+    });
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

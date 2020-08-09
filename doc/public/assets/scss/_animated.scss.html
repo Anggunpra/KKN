@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>_animated.scss</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\assets\\scss\\_animated.scss";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#animated-icons">Animated Icons</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="animated-icons">
+  <h2>
+    <a href="#animated-icons" name="animated-icons" class="pilcrow"></a>
+Animated Icons
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="scss">
+.#{<span class="hljs-variable">$fa-css-prefix</span>}-spin {
+  <span class="hljs-attribute">animation</span>: fa-spin <span class="hljs-number">2s</span> infinite linear;
+}
+
+.#{<span class="hljs-variable">$fa-css-prefix</span>}-pulse {
+  <span class="hljs-attribute">animation</span>: fa-spin <span class="hljs-number">1s</span> infinite steps(<span class="hljs-number">8</span>);
+}
+
+<span class="hljs-keyword">@keyframes</span> fa-spin {
+  0% {
+    <span class="hljs-attribute">transform</span>: rotate(<span class="hljs-number">0deg</span>);
+  }
+
+  100% {
+    <span class="hljs-attribute">transform</span>: rotate(<span class="hljs-number">360deg</span>);
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

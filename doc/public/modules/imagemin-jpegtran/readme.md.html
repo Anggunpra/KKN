@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\imagemin-jpegtran\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#imagemin-jpegtran">imagemin-jpegtran  </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#imageminjpegtran-options-buffer">imageminJpegtran([options])(buffer)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#progressive">progressive</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#arithmetic">arithmetic</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#buffer">buffer</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="imagemin-jpegtran">
+  <h1>
+    <a href="#imagemin-jpegtran" name="imagemin-jpegtran" class="pilcrow"></a>
+imagemin-jpegtran <a href="https://travis-ci.org/imagemin/imagemin-jpegtran"><img src="https://travis-ci.org/imagemin/imagemin-jpegtran.svg?branch=master" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/ShinnosukeWatanabe/imagemin-jpegtran"><img src="https://ci.appveyor.com/api/projects/status/rwf4by6qcbne1qet?svg=true" alt="Build status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>jpegtran imagemin plugin</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save imagemin-jpegtran
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> imagemin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin'</span>);
+<span class="hljs-keyword">const</span> imageminJpegtran = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin-jpegtran'</span>);
+
+imagemin([<span class="hljs-string">'images/*.jpg'</span>], <span class="hljs-string">'build/images'</span>, {<span class="hljs-attr">use</span>: [imageminJpegtran()]}).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Images optimized'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="imageminjpegtran-options-buffer">
+  <h3>
+    <a href="#imageminjpegtran-options-buffer" name="imageminjpegtran-options-buffer" class="pilcrow"></a>
+imageminJpegtran([options])(buffer)
+  </h3>
+</div>
+<p>Returns a promise for a buffer.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<div class="pilwrap" id="progressive">
+  <h5>
+    <a href="#progressive" name="progressive" class="pilcrow"></a>
+progressive
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code></p>
+<p>Lossless conversion to progressive.</p>
+<div class="pilwrap" id="arithmetic">
+  <h5>
+    <a href="#arithmetic" name="arithmetic" class="pilcrow"></a>
+arithmetic
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code></p>
+<p>Use <a href="http://en.wikipedia.org/wiki/Arithmetic_coding">arithmetic coding</a>.</p>
+<div class="pilwrap" id="buffer">
+  <h4>
+    <a href="#buffer" name="buffer" class="pilcrow"></a>
+buffer
+  </h4>
+</div>
+<p>Type: <code>buffer</code></p>
+<p>Buffer to optimize.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/imagemin">imagemin</a></p>
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>base64.html</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\js-base64\\base64.html";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>base64.html</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">HTML</span> <span class="hljs-meta-keyword">PUBLIC</span> <span class="hljs-meta-string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- $Id: base64.html,v 1.1 2009/03/01 22:00:28 dankogai Exp dankogai $ --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">"Content-Type"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"text/html; charset=UTF-8"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Demo for base64.js<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Demo for base64.js<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>$Id: base64.html,v 1.1 2009/03/01 22:00:28 dankogai Exp dankogai $<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"640"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"50%"</span>&gt;</span>Text<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Base64
+(URL Safe <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"encodeURI"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"doit()"</span>&gt;</span>)<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"srctxt"</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">"32"</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">"4"</span> <span class="hljs-attr">onkeyup</span>=<span class="hljs-string">"doit()"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"base64"</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">"32"</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">"4"</span> <span class="hljs-attr">onkeyup</span>=<span class="hljs-string">"
+    $('srctxt').value = Base64.decode(this.value);
+    doit();
+    if (1 /*@cc_on -1 @*/) $('data').src = 'data:text/plain;base64,' + this.value;
+"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"50%"</span>&gt;</span>Roundtrip<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>iframe w/ data: (no IE)<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"roundtrip"</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">32</span>" <span class="hljs-attr">rows</span>=<span class="hljs-string">"4"</span> <span class="hljs-attr">disabled</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"data"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"80%"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"64"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./base64.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+$ = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">id</span>)</span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">document</span>.getElementById(id) };
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doit</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">var</span> encoded = Base64[ 
+        <span class="hljs-string">'encode'</span> + ($(<span class="hljs-string">'encodeURI'</span>).checked ? <span class="hljs-string">'URI'</span> : <span class="hljs-string">''</span>)
+     ]($(<span class="hljs-string">'srctxt'</span>).value);
+    $(<span class="hljs-string">'base64'</span>).value = encoded;
+    <span class="hljs-keyword">if</span> (<span class="hljs-number">1</span> <span class="hljs-comment">/*@cc_on -1 @*/</span>) {
+        $(<span class="hljs-string">'data'</span>).src = <span class="hljs-string">'data:text/plain;base64,'</span> 
+            + Base64.encode(Base64.decode(encoded));
+    }
+    $(<span class="hljs-string">'roundtrip'</span>).value = Base64.decode(encoded);
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

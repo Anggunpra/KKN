@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CHANGELOG.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\is-callable\\CHANGELOG.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#1.1.4-2018-07-02">1.1.4 / 2018-07-02</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#1.1.3-2016-02-27">1.1.3 / 2016-02-27</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#1.1.2-2016-01-15">1.1.2 / 2016-01-15</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#1.1.1-2015-11-30">1.1.1 / 2015-11-30</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#1.1.0-2015-10-02">1.1.0 / 2015-10-02</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#1.0.4-2015-01-30">1.0.4 / 2015-01-30</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#1.0.3-2015-01-29">1.0.3 / 2015-01-29</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#1.0.2-2015-01-29">1.0.2 / 2015-01-29</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#1.0.1-2015-01-29">1.0.1 / 2015-01-29</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#1.0.0-2015-01-29">1.0.0 / 2015-01-29</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="1.1.4-2018-07-02">
+  <h1>
+    <a href="#1.1.4-2018-07-02" name="1.1.4-2018-07-02" class="pilcrow"></a>
+1.1.4 / 2018-07-02
+  </h1>
+</div>
+<ul>
+<li>[Fix] improve <code>class</code> and arrow function detection (#30, #31)</li>
+<li>[Tests] on all latest node minors; improve matrix</li>
+<li>[Dev Deps] update all dev deps</li>
+</ul>
+<div class="pilwrap" id="1.1.3-2016-02-27">
+  <h1>
+    <a href="#1.1.3-2016-02-27" name="1.1.3-2016-02-27" class="pilcrow"></a>
+1.1.3 / 2016-02-27
+  </h1>
+</div>
+<ul>
+<li>[Fix] ensure “class “ doesn’t screw up “class” detection</li>
+<li>[Tests] up to <code>node</code> <code>v5.7</code>, <code>v4.3</code></li>
+<li>[Dev Deps] update to <code>eslint</code> v2, <code>@ljharb/eslint-config</code>, <code>jscs</code></li>
+</ul>
+<div class="pilwrap" id="1.1.2-2016-01-15">
+  <h1>
+    <a href="#1.1.2-2016-01-15" name="1.1.2-2016-01-15" class="pilcrow"></a>
+1.1.2 / 2016-01-15
+  </h1>
+</div>
+<ul>
+<li>[Fix] Make sure comments don’t screw up “class” detection (#4)</li>
+<li>[Tests] up to <code>node</code> <code>v5.3</code></li>
+<li>[Tests] Add <code>parallelshell</code>, run both <code>--es-staging</code> and stock tests at once</li>
+<li>[Dev Deps] update <code>tape</code>, <code>jscs</code>, <code>nsp</code>, <code>eslint</code>, <code>@ljharb/eslint-config</code></li>
+<li>[Refactor] convert <code>isNonES6ClassFn</code> into <code>isES6ClassFn</code></li>
+</ul>
+<div class="pilwrap" id="1.1.1-2015-11-30">
+  <h1>
+    <a href="#1.1.1-2015-11-30" name="1.1.1-2015-11-30" class="pilcrow"></a>
+1.1.1 / 2015-11-30
+  </h1>
+</div>
+<ul>
+<li>[Fix] do not throw when a non-function has a function in its [[Prototype]] (#2)</li>
+<li>[Dev Deps] update <code>tape</code>, <code>eslint</code>, <code>@ljharb/eslint-config</code>, <code>jscs</code>, <code>nsp</code>, <code>semver</code></li>
+<li>[Tests] up to <code>node</code> <code>v5.1</code></li>
+<li>[Tests] no longer allow node 0.8 to fail.</li>
+<li>[Tests] fix npm upgrades in older nodes</li>
+</ul>
+<div class="pilwrap" id="1.1.0-2015-10-02">
+  <h1>
+    <a href="#1.1.0-2015-10-02" name="1.1.0-2015-10-02" class="pilcrow"></a>
+1.1.0 / 2015-10-02
+  </h1>
+</div>
+<ul>
+<li>[Fix] Some browsers report TypedArray constructors as <code>typeof object</code></li>
+<li>[New] return false for &quot;class&quot; constructors, when possible.</li>
+<li>[Tests] up to <code>io.js</code> <code>v3.3</code>, <code>node</code> <code>v4.1</code></li>
+<li>[Dev Deps] update <code>eslint</code>, <code>editorconfig-tools</code>, <code>nsp</code>, <code>tape</code>, <code>semver</code>, <code>jscs</code>, <code>covert</code>, <code>make-arrow-function</code></li>
+<li>[Docs] Switch from vb.teelaun.ch to versionbadg.es for the npm version badge SVG</li>
+</ul>
+<div class="pilwrap" id="1.0.4-2015-01-30">
+  <h1>
+    <a href="#1.0.4-2015-01-30" name="1.0.4-2015-01-30" class="pilcrow"></a>
+1.0.4 / 2015-01-30
+  </h1>
+</div>
+<ul>
+<li>If @@toStringTag is not present, use the old-school Object#toString test.</li>
+</ul>
+<div class="pilwrap" id="1.0.3-2015-01-29">
+  <h1>
+    <a href="#1.0.3-2015-01-29" name="1.0.3-2015-01-29" class="pilcrow"></a>
+1.0.3 / 2015-01-29
+  </h1>
+</div>
+<ul>
+<li>Add tests to ensure arrow functions are callable.</li>
+<li>Refactor to aid optimization of non-try/catch code.</li>
+</ul>
+<div class="pilwrap" id="1.0.2-2015-01-29">
+  <h1>
+    <a href="#1.0.2-2015-01-29" name="1.0.2-2015-01-29" class="pilcrow"></a>
+1.0.2 / 2015-01-29
+  </h1>
+</div>
+<ul>
+<li>Fix broken package.json</li>
+</ul>
+<div class="pilwrap" id="1.0.1-2015-01-29">
+  <h1>
+    <a href="#1.0.1-2015-01-29" name="1.0.1-2015-01-29" class="pilcrow"></a>
+1.0.1 / 2015-01-29
+  </h1>
+</div>
+<ul>
+<li>Add early exit for typeof not &quot;function&quot;</li>
+</ul>
+<div class="pilwrap" id="1.0.0-2015-01-29">
+  <h1>
+    <a href="#1.0.0-2015-01-29" name="1.0.0-2015-01-29" class="pilcrow"></a>
+1.0.0 / 2015-01-29
+  </h1>
+</div>
+<ul>
+<li>Initial release.</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

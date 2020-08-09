@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>karma.conf.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\delegate\\karma.conf.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>karma.conf.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">karma</span>) </span>{
+    karma.set({
+        <span class="hljs-attr">plugins</span>: [<span class="hljs-string">'karma-browserify'</span>, <span class="hljs-string">'karma-chai'</span>, <span class="hljs-string">'karma-sinon'</span>, <span class="hljs-string">'karma-mocha'</span>, <span class="hljs-string">'karma-phantomjs-launcher'</span>],
+
+        <span class="hljs-attr">frameworks</span>: [<span class="hljs-string">'browserify'</span>, <span class="hljs-string">'chai'</span>, <span class="hljs-string">'sinon'</span>, <span class="hljs-string">'mocha'</span>],
+
+        <span class="hljs-attr">files</span>: [
+            <span class="hljs-string">'src/**/*.js'</span>,
+            <span class="hljs-string">'test/**/*.js'</span>,
+            <span class="hljs-string">'./node_modules/phantomjs-polyfill/bind-polyfill.js'</span>
+        ],
+
+        <span class="hljs-attr">preprocessors</span>: {
+            <span class="hljs-string">'src/**/*.js'</span> : [<span class="hljs-string">'browserify'</span>],
+            <span class="hljs-string">'test/**/*.js'</span>: [<span class="hljs-string">'browserify'</span>]
+        },
+
+        <span class="hljs-attr">browserify</span>: {
+            <span class="hljs-attr">debug</span>: <span class="hljs-literal">true</span>
+        },
+
+        <span class="hljs-attr">browsers</span>: [<span class="hljs-string">'PhantomJS'</span>]
+    });
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

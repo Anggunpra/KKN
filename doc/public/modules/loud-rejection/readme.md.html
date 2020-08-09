@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\loud-rejection\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#loud-rejection">loud-rejection  </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#register-script">Register script</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#loudrejection-log">loudRejection([log])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#log">log</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="loud-rejection">
+  <h1>
+    <a href="#loud-rejection" name="loud-rejection" class="pilcrow"></a>
+loud-rejection <a href="https://travis-ci.org/sindresorhus/loud-rejection"><img src="https://travis-ci.org/sindresorhus/loud-rejection.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/sindresorhus/loud-rejection?branch=master"><img src="https://coveralls.io/repos/github/sindresorhus/loud-rejection/badge.svg?branch=master" alt="Coverage Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Make unhandled promise rejections fail loudly instead of the default <a href="https://gist.github.com/benjamingr/0237932cee84712951a2">silent fail</a></p>
+</blockquote>
+<p>By default, promises fail silently if you don't attach a <code>.catch()</code> handler to them.</p>
+<p>Use this in top-level things like tests, CLI tools, apps, etc, <strong>but not in reusable modules.</strong><br>
+Not needed in the browser as unhandled promises are shown in the console.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save loud-rejection
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> loudRejection = <span class="hljs-built_in">require</span>(<span class="hljs-string">'loud-rejection'</span>);
+<span class="hljs-keyword">const</span> promiseFn = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise-fn'</span>);
+
+<span class="hljs-comment">// Install the unhandledRejection listeners</span>
+loudRejection();
+
+promiseFn();
+</code></pre>
+<p>Without this module it's more verbose and you might even miss some that will fail silently:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> promiseFn = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise-fn'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params">err</span>) </span>{
+	<span class="hljs-built_in">console</span>.error(err.stack);
+	process.exit(<span class="hljs-number">1</span>);
+}
+
+promiseFn().catch(error);
+</code></pre>
+<div class="pilwrap" id="register-script">
+  <h3>
+    <a href="#register-script" name="register-script" class="pilcrow"></a>
+Register script
+  </h3>
+</div>
+<p>Alternatively to the above, you may simply require <code>loud-rejection/register</code> and the unhandledRejection listener will be automagically installed for you.</p>
+<p>This is handy for ES2015 imports:</p>
+<pre><code class="js"><span class="hljs-keyword">import</span> <span class="hljs-string">'loud-rejection/register'</span>;
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="loudrejection-log">
+  <h3>
+    <a href="#loudrejection-log" name="loudrejection-log" class="pilcrow"></a>
+loudRejection([log])
+  </h3>
+</div>
+<div class="pilwrap" id="log">
+  <h4>
+    <a href="#log" name="log" class="pilcrow"></a>
+log
+  </h4>
+</div>
+<p>Type: <code>Function</code><br>
+Default: <code>console.error</code></p>
+<p>Custom logging function to print the rejected promise. Receives the error stack.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

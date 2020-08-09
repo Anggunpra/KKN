@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\buffer-fill\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/* Node.js 6.4.0 and up has full support */</span>
+<span class="hljs-keyword">var</span> hasFullSupport = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">if</span> (!Buffer.isEncoding(<span class="hljs-string">'latin1'</span>)) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    }
+
+    <span class="hljs-keyword">var</span> buf = Buffer.alloc ? Buffer.alloc(<span class="hljs-number">4</span>) : <span class="hljs-keyword">new</span> Buffer(<span class="hljs-number">4</span>)
+
+    buf.fill(<span class="hljs-string">'ab'</span>, <span class="hljs-string">'ucs2'</span>)
+
+    <span class="hljs-keyword">return</span> (buf.toString(<span class="hljs-string">'hex'</span>) === <span class="hljs-string">'61006200'</span>)
+  } <span class="hljs-keyword">catch</span> (_) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+  }
+}())
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSingleByte</span> (<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">return</span> (val.length === <span class="hljs-number">1</span> &amp;&amp; val.charCodeAt(<span class="hljs-number">0</span>) &lt; <span class="hljs-number">256</span>)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fillWithNumber</span> (<span class="hljs-params">buffer, val, start, end</span>) </span>{
+  <span class="hljs-keyword">if</span> (start &lt; <span class="hljs-number">0</span> || end &gt; buffer.length) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RangeError</span>(<span class="hljs-string">'Out of range index'</span>)
+  }
+
+  start = start &gt;&gt;&gt; <span class="hljs-number">0</span>
+  end = end === <span class="hljs-literal">undefined</span> ? buffer.length : end &gt;&gt;&gt; <span class="hljs-number">0</span>
+
+  <span class="hljs-keyword">if</span> (end &gt; start) {
+    buffer.fill(val, start, end)
+  }
+
+  <span class="hljs-keyword">return</span> buffer
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fillWithBuffer</span> (<span class="hljs-params">buffer, val, start, end</span>) </span>{
+  <span class="hljs-keyword">if</span> (start &lt; <span class="hljs-number">0</span> || end &gt; buffer.length) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RangeError</span>(<span class="hljs-string">'Out of range index'</span>)
+  }
+
+  <span class="hljs-keyword">if</span> (end &lt;= start) {
+    <span class="hljs-keyword">return</span> buffer
+  }
+
+  start = start &gt;&gt;&gt; <span class="hljs-number">0</span>
+  end = end === <span class="hljs-literal">undefined</span> ? buffer.length : end &gt;&gt;&gt; <span class="hljs-number">0</span>
+
+  <span class="hljs-keyword">var</span> pos = start
+  <span class="hljs-keyword">var</span> len = val.length
+  <span class="hljs-keyword">while</span> (pos &lt;= (end - len)) {
+    val.copy(buffer, pos)
+    pos += len
+  }
+
+  <span class="hljs-keyword">if</span> (pos !== end) {
+    val.copy(buffer, pos, <span class="hljs-number">0</span>, end - pos)
+  }
+
+  <span class="hljs-keyword">return</span> buffer
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fill</span> (<span class="hljs-params">buffer, val, start, end, encoding</span>) </span>{
+  <span class="hljs-keyword">if</span> (hasFullSupport) {
+    <span class="hljs-keyword">return</span> buffer.fill(val, start, end, encoding)
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> val === <span class="hljs-string">'number'</span>) {
+    <span class="hljs-keyword">return</span> fillWithNumber(buffer, val, start, end)
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> val === <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> start === <span class="hljs-string">'string'</span>) {
+      encoding = start
+      start = <span class="hljs-number">0</span>
+      end = buffer.length
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> end === <span class="hljs-string">'string'</span>) {
+      encoding = end
+      end = buffer.length
+    }
+
+    <span class="hljs-keyword">if</span> (encoding !== <span class="hljs-literal">undefined</span> &amp;&amp; <span class="hljs-keyword">typeof</span> encoding !== <span class="hljs-string">'string'</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'encoding must be a string'</span>)
+    }
+
+    <span class="hljs-keyword">if</span> (encoding === <span class="hljs-string">'latin1'</span>) {
+      encoding = <span class="hljs-string">'binary'</span>
+    }
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> encoding === <span class="hljs-string">'string'</span> &amp;&amp; !Buffer.isEncoding(encoding)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Unknown encoding: '</span> + encoding)
+    }
+
+    <span class="hljs-keyword">if</span> (val === <span class="hljs-string">''</span>) {
+      <span class="hljs-keyword">return</span> fillWithNumber(buffer, <span class="hljs-number">0</span>, start, end)
+    }
+
+    <span class="hljs-keyword">if</span> (isSingleByte(val)) {
+      <span class="hljs-keyword">return</span> fillWithNumber(buffer, val.charCodeAt(<span class="hljs-number">0</span>), start, end)
+    }
+
+    val = <span class="hljs-keyword">new</span> Buffer(val, encoding)
+  }
+
+  <span class="hljs-keyword">if</span> (Buffer.isBuffer(val)) {
+    <span class="hljs-keyword">return</span> fillWithBuffer(buffer, val, start, end)
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Other values (e.g. undefined, boolean, object) results in zero-fill</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">return</span> fillWithNumber(buffer, <span class="hljs-number">0</span>, start, end)
+}
+
+<span class="hljs-built_in">module</span>.exports = fill
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

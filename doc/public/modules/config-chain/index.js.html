@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\config-chain\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> ProtoList = <span class="hljs-built_in">require</span>(<span class="hljs-string">'proto-list'</span>)
+  , path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
+  , fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)
+  , ini = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ini'</span>)
+  , EE = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>).EventEmitter
+  , url = <span class="hljs-built_in">require</span>(<span class="hljs-string">'url'</span>)
+  , http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>)
+
+<span class="hljs-keyword">var</span> exports = <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> args = [].slice.call(<span class="hljs-built_in">arguments</span>)
+    , conf = <span class="hljs-keyword">new</span> ConfigChain()
+
+  <span class="hljs-keyword">while</span>(args.length) {
+    <span class="hljs-keyword">var</span> a = args.shift()
+    <span class="hljs-keyword">if</span>(a) conf.push
+          ( <span class="hljs-string">'string'</span> === <span class="hljs-keyword">typeof</span> a
+            ? json(a)
+            : a )
+  }
+
+  <span class="hljs-keyword">return</span> conf
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>recursively find a file...</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">var</span> find = exports.find = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> rel = path.join.apply(<span class="hljs-literal">null</span>, [].slice.call(<span class="hljs-built_in">arguments</span>))
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">find</span>(<span class="hljs-params">start, rel</span>) </span>{
+    <span class="hljs-keyword">var</span> file = path.join(start, rel)
+    <span class="hljs-keyword">try</span> {
+      fs.statSync(file)
+      <span class="hljs-keyword">return</span> file
+    } <span class="hljs-keyword">catch</span> (err) {
+      <span class="hljs-keyword">if</span>(path.dirname(start) !== start) <span class="hljs-comment">// root</span>
+        <span class="hljs-keyword">return</span> find(path.dirname(start), rel)
+    }
+  }
+  <span class="hljs-keyword">return</span> find(__dirname, rel)
+}
+
+<span class="hljs-keyword">var</span> parse = exports.parse = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">content, file, type</span>) </span>{
+  content = <span class="hljs-string">''</span> + content
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>if we don't know what it is, try json and fall back to ini
+if we know what it is, then it must be that.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (!type) {
+    <span class="hljs-keyword">try</span> { <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(content) }
+    <span class="hljs-keyword">catch</span> (er) { <span class="hljs-keyword">return</span> ini.parse(content) }
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'json'</span>) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.emit) {
+      <span class="hljs-keyword">try</span> { <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(content) }
+      <span class="hljs-keyword">catch</span> (er) { <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, er) }
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(content)
+    }
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> ini.parse(content)
+  }
+}
+
+<span class="hljs-keyword">var</span> json = exports.json = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> args = [].slice.call(<span class="hljs-built_in">arguments</span>).filter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">arg</span>) </span>{ <span class="hljs-keyword">return</span> arg != <span class="hljs-literal">null</span> })
+  <span class="hljs-keyword">var</span> file = path.join.apply(<span class="hljs-literal">null</span>, args)
+  <span class="hljs-keyword">var</span> content
+  <span class="hljs-keyword">try</span> {
+    content = fs.readFileSync(file,<span class="hljs-string">'utf-8'</span>)
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-keyword">return</span>
+  }
+  <span class="hljs-keyword">return</span> parse(content, file, <span class="hljs-string">'json'</span>)
+}
+
+<span class="hljs-keyword">var</span> env = exports.env = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">prefix, env</span>) </span>{
+  env = env || process.env
+  <span class="hljs-keyword">var</span> obj = {}
+  <span class="hljs-keyword">var</span> l = prefix.length
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> k <span class="hljs-keyword">in</span> env) {
+    <span class="hljs-keyword">if</span>(k.indexOf(prefix) === <span class="hljs-number">0</span>)
+      obj[k.substring(l)] = env[k]
+  }
+
+  <span class="hljs-keyword">return</span> obj
+}
+
+exports.ConfigChain = ConfigChain
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ConfigChain</span> (<span class="hljs-params"></span>) </span>{
+  EE.apply(<span class="hljs-keyword">this</span>)
+  ProtoList.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>)
+  <span class="hljs-keyword">this</span>._awaiting = <span class="hljs-number">0</span>
+  <span class="hljs-keyword">this</span>._saving = <span class="hljs-number">0</span>
+  <span class="hljs-keyword">this</span>.sources = {}
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>multi-inheritance-ish</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> extras = {
+  <span class="hljs-attr">constructor</span>: { <span class="hljs-attr">value</span>: ConfigChain }
+}
+<span class="hljs-built_in">Object</span>.keys(EE.prototype).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">k</span>) </span>{
+  extras[k] = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(EE.prototype, k)
+})
+ConfigChain.prototype = <span class="hljs-built_in">Object</span>.create(ProtoList.prototype, extras)
+
+ConfigChain.prototype.del = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key, where</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>if not specified where, then delete from the whole chain, scorched
+earth style</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (where) {
+    <span class="hljs-keyword">var</span> target = <span class="hljs-keyword">this</span>.sources[where]
+    target = target &amp;&amp; target.data
+    <span class="hljs-keyword">if</span> (!target) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'not found '</span>+where))
+    }
+    <span class="hljs-keyword">delete</span> target[key]
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, l = <span class="hljs-keyword">this</span>.list.length; i &lt; l; i ++) {
+      <span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>.list[i][key]
+    }
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+}
+
+ConfigChain.prototype.set = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key, value, where</span>) </span>{
+  <span class="hljs-keyword">var</span> target
+
+  <span class="hljs-keyword">if</span> (where) {
+    target = <span class="hljs-keyword">this</span>.sources[where]
+    target = target &amp;&amp; target.data
+    <span class="hljs-keyword">if</span> (!target) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'not found '</span>+where))
+    }
+  } <span class="hljs-keyword">else</span> {
+    target = <span class="hljs-keyword">this</span>.list[<span class="hljs-number">0</span>]
+    <span class="hljs-keyword">if</span> (!target) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'cannot set, no confs!'</span>))
+    }
+  }
+  target[key] = value
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+}
+
+ConfigChain.prototype.get = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key, where</span>) </span>{
+  <span class="hljs-keyword">if</span> (where) {
+    where = <span class="hljs-keyword">this</span>.sources[where]
+    <span class="hljs-keyword">if</span> (where) where = where.data
+    <span class="hljs-keyword">if</span> (where &amp;&amp; <span class="hljs-built_in">Object</span>.hasOwnProperty.call(where, key)) <span class="hljs-keyword">return</span> where[key]
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.list[<span class="hljs-number">0</span>][key]
+}
+
+ConfigChain.prototype.save = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">where, type, cb</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> type === <span class="hljs-string">'function'</span>) cb = type, type = <span class="hljs-literal">null</span>
+  <span class="hljs-keyword">var</span> target = <span class="hljs-keyword">this</span>.sources[where]
+  <span class="hljs-keyword">if</span> (!target || !(target.path || target.source) || !target.data) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>TODO: maybe save() to a url target could be a PUT or something?
+would be easy to swap out with a reddis type thing, too</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'bad save target: '</span>+where))
+  }
+
+  <span class="hljs-keyword">if</span> (target.source) {
+    <span class="hljs-keyword">var</span> pref = target.prefix || <span class="hljs-string">''</span>
+    <span class="hljs-built_in">Object</span>.keys(target.data).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">k</span>) </span>{
+      target.source[pref + k] = target.data[k]
+    })
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+  }
+
+  <span class="hljs-keyword">var</span> type = type || target.type
+  <span class="hljs-keyword">var</span> data = target.data
+  <span class="hljs-keyword">if</span> (target.type === <span class="hljs-string">'json'</span>) {
+    data = <span class="hljs-built_in">JSON</span>.stringify(data)
+  } <span class="hljs-keyword">else</span> {
+    data = ini.stringify(data)
+  }
+
+  <span class="hljs-keyword">this</span>._saving ++
+  fs.writeFile(target.path, data, <span class="hljs-string">'utf8'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">er</span>) </span>{
+    <span class="hljs-keyword">this</span>._saving --
+    <span class="hljs-keyword">if</span> (er) {
+      <span class="hljs-keyword">if</span> (cb) <span class="hljs-keyword">return</span> cb(er)
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, er)
+    }
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._saving === <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">if</span> (cb) cb()
+      <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'save'</span>)
+    }
+  }.bind(<span class="hljs-keyword">this</span>))
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+}
+
+ConfigChain.prototype.addFile = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">file, type, name</span>) </span>{
+  name = name || file
+  <span class="hljs-keyword">var</span> marker = {<span class="hljs-attr">__source__</span>:name}
+  <span class="hljs-keyword">this</span>.sources[name] = { <span class="hljs-attr">path</span>: file, <span class="hljs-attr">type</span>: type }
+  <span class="hljs-keyword">this</span>.push(marker)
+  <span class="hljs-keyword">this</span>._await()
+  fs.readFile(file, <span class="hljs-string">'utf8'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">er, data</span>) </span>{
+    <span class="hljs-keyword">if</span> (er) <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, er)
+    <span class="hljs-keyword">this</span>.addString(data, file, type, marker)
+  }.bind(<span class="hljs-keyword">this</span>))
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+}
+
+ConfigChain.prototype.addEnv = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">prefix, env, name</span>) </span>{
+  name = name || <span class="hljs-string">'env'</span>
+  <span class="hljs-keyword">var</span> data = exports.env(prefix, env)
+  <span class="hljs-keyword">this</span>.sources[name] = { <span class="hljs-attr">data</span>: data, <span class="hljs-attr">source</span>: env, <span class="hljs-attr">prefix</span>: prefix }
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.add(data, name)
+}
+
+ConfigChain.prototype.addUrl = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, type, name</span>) </span>{
+  <span class="hljs-keyword">this</span>._await()
+  <span class="hljs-keyword">var</span> href = url.format(req)
+  name = name || href
+  <span class="hljs-keyword">var</span> marker = {<span class="hljs-attr">__source__</span>:name}
+  <span class="hljs-keyword">this</span>.sources[name] = { <span class="hljs-attr">href</span>: href, <span class="hljs-attr">type</span>: type }
+  <span class="hljs-keyword">this</span>.push(marker)
+  http.request(req, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">var</span> c = []
+    <span class="hljs-keyword">var</span> ct = res.headers[<span class="hljs-string">'content-type'</span>]
+    <span class="hljs-keyword">if</span> (!type) {
+      type = ct.indexOf(<span class="hljs-string">'json'</span>) !== <span class="hljs-number">-1</span> ? <span class="hljs-string">'json'</span>
+           : ct.indexOf(<span class="hljs-string">'ini'</span>) !== <span class="hljs-number">-1</span> ? <span class="hljs-string">'ini'</span>
+           : href.match(<span class="hljs-regexp">/\.json$/</span>) ? <span class="hljs-string">'json'</span>
+           : href.match(<span class="hljs-regexp">/\.ini$/</span>) ? <span class="hljs-string">'ini'</span>
+           : <span class="hljs-literal">null</span>
+      marker.type = type
+    }
+
+    res.on(<span class="hljs-string">'data'</span>, c.push.bind(c))
+    .on(<span class="hljs-string">'end'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">this</span>.addString(Buffer.concat(c), href, type, marker)
+    }.bind(<span class="hljs-keyword">this</span>))
+    .on(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">this</span>.emit.bind(<span class="hljs-keyword">this</span>, <span class="hljs-string">'error'</span>))
+
+  }.bind(<span class="hljs-keyword">this</span>))
+  .on(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">this</span>.emit.bind(<span class="hljs-keyword">this</span>, <span class="hljs-string">'error'</span>))
+  .end()
+
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+}
+
+ConfigChain.prototype.addString = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data, file, type, marker</span>) </span>{
+  data = <span class="hljs-keyword">this</span>.parse(data, file, type)
+  <span class="hljs-keyword">this</span>.add(data, marker)
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+}
+
+ConfigChain.prototype.add = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data, marker</span>) </span>{
+  <span class="hljs-keyword">if</span> (marker &amp;&amp; <span class="hljs-keyword">typeof</span> marker === <span class="hljs-string">'object'</span>) {
+    <span class="hljs-keyword">var</span> i = <span class="hljs-keyword">this</span>.list.indexOf(marker)
+    <span class="hljs-keyword">if</span> (i === <span class="hljs-number">-1</span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'bad marker'</span>))
+    }
+    <span class="hljs-keyword">this</span>.splice(i, <span class="hljs-number">1</span>, data)
+    marker = marker.__source__
+    <span class="hljs-keyword">this</span>.sources[marker] = <span class="hljs-keyword">this</span>.sources[marker] || {}
+    <span class="hljs-keyword">this</span>.sources[marker].data = data
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>we were waiting for this.  maybe emit 'load'</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>._resolve()
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> marker === <span class="hljs-string">'string'</span>) {
+      <span class="hljs-keyword">this</span>.sources[marker] = <span class="hljs-keyword">this</span>.sources[marker] || {}
+      <span class="hljs-keyword">this</span>.sources[marker].data = data
+    }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>trigger the load event if nothing was already going to do so.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>._await()
+    <span class="hljs-keyword">this</span>.push(data)
+    process.nextTick(<span class="hljs-keyword">this</span>._resolve.bind(<span class="hljs-keyword">this</span>))
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+}
+
+ConfigChain.prototype.parse = exports.parse
+
+ConfigChain.prototype._await = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>._awaiting++
+}
+
+ConfigChain.prototype._resolve = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>._awaiting--
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._awaiting === <span class="hljs-number">0</span>) <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'load'</span>, <span class="hljs-keyword">this</span>)
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\class-utils\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#class-utils">class-utils    </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.has">.has</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.hasall">.hasAll</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.arrayify">.arrayify</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.hasconstructor">.hasConstructor</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.nativekeys">.nativeKeys</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.getdescriptor">.getDescriptor</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.copydescriptor">.copyDescriptor</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.copy">.copy</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.inherit">.inherit</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.extend">.extend</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.bubble">.bubble</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#about">About</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributors">Contributors</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="class-utils">
+  <h1>
+    <a href="#class-utils" name="class-utils" class="pilcrow"></a>
+class-utils <a href="https://www.npmjs.com/package/class-utils"><img src="https://img.shields.io/npm/v/class-utils.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.org/package/class-utils"><img src="https://img.shields.io/npm/dm/class-utils.svg?style=flat" alt="NPM monthly downloads"></a> <a href="https://npmjs.org/package/class-utils"><img src="https://img.shields.io/npm/dt/class-utils.svg?style=flat" alt="NPM total downloads"></a> <a href="https://travis-ci.org/jonschlinkert/class-utils"><img src="https://img.shields.io/travis/jonschlinkert/class-utils.svg?style=flat&amp;label=Travis" alt="Linux Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Utils for working with JavaScript classes and prototype methods.</p>
+</blockquote>
+<p>Please consider following this project's author, <a href="https://github.com/jonschlinkert">Jon Schlinkert</a>, and consider starring the project to show your :heart: and support.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://www.npmjs.com/">npm</a>:</p>
+<pre><code class="sh">$ npm install --save class-utils
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> cu = <span class="hljs-built_in">require</span>(<span class="hljs-string">'class-utils'</span>);
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id=".has">
+  <h3>
+    <a href="#.has" name=".has" class="pilcrow"></a>
+<a href="index.js#L43.html">.has</a>
+  </h3>
+</div>
+<p>Returns true if an array has any of the given elements, or an object has any of the give keys.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>obj</code> <strong>{Object}</strong></li>
+<li><code>val</code> <strong>{String|Array}</strong></li>
+<li><code>returns</code> <strong>{Boolean}</strong></li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js">cu.has([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>], <span class="hljs-string">'c'</span>);
+<span class="hljs-comment">//=&gt; true</span>
+
+cu.has([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>], [<span class="hljs-string">'c'</span>, <span class="hljs-string">'z'</span>]);
+<span class="hljs-comment">//=&gt; true</span>
+
+cu.has({<span class="hljs-attr">a</span>: <span class="hljs-string">'b'</span>, <span class="hljs-attr">c</span>: <span class="hljs-string">'d'</span>}, [<span class="hljs-string">'c'</span>, <span class="hljs-string">'z'</span>]);
+<span class="hljs-comment">//=&gt; true</span>
+</code></pre>
+<div class="pilwrap" id=".hasall">
+  <h3>
+    <a href="#.hasall" name=".hasall" class="pilcrow"></a>
+<a href="index.js#L90.html">.hasAll</a>
+  </h3>
+</div>
+<p>Returns true if an array or object has all of the given values.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>val</code> <strong>{Object|Array}</strong></li>
+<li><code>values</code> <strong>{String|Array}</strong></li>
+<li><code>returns</code> <strong>{Boolean}</strong></li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js">cu.hasAll([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>], <span class="hljs-string">'c'</span>);
+<span class="hljs-comment">//=&gt; true</span>
+
+cu.hasAll([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>], [<span class="hljs-string">'c'</span>, <span class="hljs-string">'z'</span>]);
+<span class="hljs-comment">//=&gt; false</span>
+
+cu.hasAll({<span class="hljs-attr">a</span>: <span class="hljs-string">'b'</span>, <span class="hljs-attr">c</span>: <span class="hljs-string">'d'</span>}, [<span class="hljs-string">'c'</span>, <span class="hljs-string">'z'</span>]);
+<span class="hljs-comment">//=&gt; false</span>
+</code></pre>
+<div class="pilwrap" id=".arrayify">
+  <h3>
+    <a href="#.arrayify" name=".arrayify" class="pilcrow"></a>
+<a href="index.js#L117.html">.arrayify</a>
+  </h3>
+</div>
+<p>Cast the given value to an array.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>val</code> <strong>{String|Array}</strong></li>
+<li><code>returns</code> <strong>{Array}</strong></li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js">cu.arrayify(<span class="hljs-string">'foo'</span>);
+<span class="hljs-comment">//=&gt; ['foo']</span>
+
+cu.arrayify([<span class="hljs-string">'foo'</span>]);
+<span class="hljs-comment">//=&gt; ['foo']</span>
+</code></pre>
+<div class="pilwrap" id=".hasconstructor">
+  <h3>
+    <a href="#.hasconstructor" name=".hasconstructor" class="pilcrow"></a>
+<a href="index.js#L152.html">.hasConstructor</a>
+  </h3>
+</div>
+<p>Returns true if a value has a <code>contructor</code></p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>value</code> <strong>{Object}</strong></li>
+<li><code>returns</code> <strong>{Boolean}</strong></li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js">cu.hasConstructor({});
+<span class="hljs-comment">//=&gt; true</span>
+
+cu.hasConstructor(<span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>));
+<span class="hljs-comment">//=&gt; false</span>
+</code></pre>
+<div class="pilwrap" id=".nativekeys">
+  <h3>
+    <a href="#.nativekeys" name=".nativekeys" class="pilcrow"></a>
+<a href="index.js#L174.html">.nativeKeys</a>
+  </h3>
+</div>
+<p>Get the native <code>ownPropertyNames</code> from the constructor of the given <code>object</code>. An empty array is returned if the object does not have a constructor.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>obj</code> <strong>{Object}</strong>: Object that has a <code>constructor</code>.</li>
+<li><code>returns</code> <strong>{Array}</strong>: Array of keys.</li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js">cu.nativeKeys({<span class="hljs-attr">a</span>: <span class="hljs-string">'b'</span>, <span class="hljs-attr">b</span>: <span class="hljs-string">'c'</span>, <span class="hljs-attr">c</span>: <span class="hljs-string">'d'</span>})
+<span class="hljs-comment">//=&gt; ['a', 'b', 'c']</span>
+
+cu.nativeKeys(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{})
+<span class="hljs-comment">//=&gt; ['length', 'caller']</span>
+</code></pre>
+<div class="pilwrap" id=".getdescriptor">
+  <h3>
+    <a href="#.getdescriptor" name=".getdescriptor" class="pilcrow"></a>
+<a href="index.js#L208.html">.getDescriptor</a>
+  </h3>
+</div>
+<p>Returns property descriptor <code>key</code> if it's an &quot;own&quot; property of the given object.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>obj</code> <strong>{Object}</strong></li>
+<li><code>key</code> <strong>{String}</strong></li>
+<li><code>returns</code> <strong>{Object}</strong>: Returns descriptor <code>key</code></li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{}
+<span class="hljs-built_in">Object</span>.defineProperty(App.prototype, <span class="hljs-string">'count'</span>, {
+  <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>).length;
+  }
+});
+cu.getDescriptor(App.prototype, <span class="hljs-string">'count'</span>);
+<span class="hljs-comment">// returns:</span>
+<span class="hljs-comment">// {</span>
+<span class="hljs-comment">//   get: [Function],</span>
+<span class="hljs-comment">//   set: undefined,</span>
+<span class="hljs-comment">//   enumerable: false,</span>
+<span class="hljs-comment">//   configurable: false</span>
+<span class="hljs-comment">// }</span>
+</code></pre>
+<div class="pilwrap" id=".copydescriptor">
+  <h3>
+    <a href="#.copydescriptor" name=".copydescriptor" class="pilcrow"></a>
+<a href="index.js#L238.html">.copyDescriptor</a>
+  </h3>
+</div>
+<p>Copy a descriptor from one object to another.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>receiver</code> <strong>{Object}</strong></li>
+<li><code>provider</code> <strong>{Object}</strong></li>
+<li><code>name</code> <strong>{String}</strong></li>
+<li><code>returns</code> <strong>{Object}</strong></li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{}
+<span class="hljs-built_in">Object</span>.defineProperty(App.prototype, <span class="hljs-string">'count'</span>, {
+  <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>).length;
+  }
+});
+<span class="hljs-keyword">var</span> obj = {};
+cu.copyDescriptor(obj, App.prototype, <span class="hljs-string">'count'</span>);
+</code></pre>
+<div class="pilwrap" id=".copy">
+  <h3>
+    <a href="#.copy" name=".copy" class="pilcrow"></a>
+<a href="index.js#L264.html">.copy</a>
+  </h3>
+</div>
+<p>Copy static properties, prototype properties, and descriptors
+from one object to another.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>receiver</code> <strong>{Object}</strong></li>
+<li><code>provider</code> <strong>{Object}</strong></li>
+<li><code>omit</code> <strong>{String|Array}</strong>: One or more properties to omit</li>
+<li><code>returns</code> <strong>{Object}</strong></li>
+</ul>
+<div class="pilwrap" id=".inherit">
+  <h3>
+    <a href="#.inherit" name=".inherit" class="pilcrow"></a>
+<a href="index.js#L299.html">.inherit</a>
+  </h3>
+</div>
+<p>Inherit the static properties, prototype properties, and descriptors
+from of an object.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>receiver</code> <strong>{Object}</strong></li>
+<li><code>provider</code> <strong>{Object}</strong></li>
+<li><code>omit</code> <strong>{String|Array}</strong>: One or more properties to omit</li>
+<li><code>returns</code> <strong>{Object}</strong></li>
+</ul>
+<div class="pilwrap" id=".extend">
+  <h3>
+    <a href="#.extend" name=".extend" class="pilcrow"></a>
+<a href="index.js#L343.html">.extend</a>
+  </h3>
+</div>
+<p>Returns a function for extending the static properties, prototype properties, and descriptors from the <code>Parent</code> constructor onto <code>Child</code> constructors.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>Parent</code> <strong>{Function}</strong>: Parent ctor</li>
+<li><code>extend</code> <strong>{Function}</strong>: Optional extend function to handle custom extensions. Useful when updating methods that require a specific prototype.</li>
+<li><code>Child</code> <strong>{Function}</strong>: Child ctor</li>
+<li><code>proto</code> <strong>{Object}</strong>: Optionally pass additional prototype properties to inherit.</li>
+<li><code>returns</code> <strong>{Object}</strong></li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> extend = cu.extend(Parent);
+Parent.extend(Child);
+
+<span class="hljs-comment">// optional methods</span>
+Parent.extend(Child, {
+  <span class="hljs-attr">foo</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{},
+  <span class="hljs-attr">bar</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{}
+});
+</code></pre>
+<div class="pilwrap" id=".bubble">
+  <h3>
+    <a href="#.bubble" name=".bubble" class="pilcrow"></a>
+<a href="index.js#L356.html">.bubble</a>
+  </h3>
+</div>
+<p>Bubble up events emitted from static methods on the Parent ctor.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>Parent</code> <strong>{Object}</strong></li>
+<li><code>events</code> <strong>{Array}</strong>: Event names to bubble up</li>
+</ul>
+<div class="pilwrap" id="about">
+  <h2>
+    <a href="#about" name="about" class="pilcrow"></a>
+About
+  </h2>
+</div>
+<details>
+<summary><strong>Contributing</strong></summary>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="../../issues/new.html">please create an issue</a>.</p>
+</details>
+<details>
+<summary><strong>Running Tests</strong></summary>
+<p>Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:</p>
+<pre><code class="sh">$ npm install &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+</details>
+<details>
+<summary><strong>Building docs</strong></summary>
+<p><em>(This project's readme.md is generated by <a href="https://github.com/verbose/verb-generate-readme">verb</a>, please don't edit the readme directly. Any changes to the readme must be made in the <a href=".verb.md.html">.verb.md</a> readme template.)</em></p>
+<p>To generate the readme, run the following command:</p>
+<pre><code class="sh">$ npm install -g verbose/verb<span class="hljs-comment">#dev verb-generate-readme &amp;&amp; verb</span>
+</code></pre>
+</details>
+<div class="pilwrap" id="related-projects">
+  <h3>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h3>
+</div>
+<p>You might also be interested in these projects:</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/define-property">define-property</a>: Define a non-enumerable property on an object. Uses Reflect.defineProperty when available, otherwise Object.defineProperty. | <a href="https://github.com/jonschlinkert/define-property" title="Define a non-enumerable property on an object. Uses Reflect.defineProperty when available, otherwise Object.defineProperty.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/delegate-properties">delegate-properties</a>: Deep-clone properties from one object to another and make them non-enumerable, or make existing properties… <a href="https://github.com/jonschlinkert/delegate-properties">more</a> | <a href="https://github.com/jonschlinkert/delegate-properties" title="Deep-clone properties from one object to another and make them non-enumerable, or make existing properties on an object non-enumerable.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/is-descriptor">is-descriptor</a>: Returns true if a value has the characteristics of a valid JavaScript descriptor. Works for… <a href="https://github.com/jonschlinkert/is-descriptor">more</a> | <a href="https://github.com/jonschlinkert/is-descriptor" title="Returns true if a value has the characteristics of a valid JavaScript descriptor. Works for data descriptors and accessor descriptors.">homepage</a></li>
+</ul>
+<div class="pilwrap" id="contributors">
+  <h3>
+    <a href="#contributors" name="contributors" class="pilcrow"></a>
+Contributors
+  </h3>
+</div>
+<table>
+<thead>
+<tr>
+<th><strong>Commits</strong></th>
+<th><strong>Contributor</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>34</td>
+<td><a href="https://github.com/jonschlinkert">jonschlinkert</a></td>
+</tr>
+<tr>
+<td>8</td>
+<td><a href="https://github.com/doowb">doowb</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="https://github.com/wtgtybhertgeghgtwtg">wtgtybhertgeghgtwtg</a></td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="author">
+  <h3>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h3>
+</div>
+<p><strong>Jon Schlinkert</strong></p>
+<ul>
+<li><a href="https://linkedin.com/in/jonschlinkert">linkedin/in/jonschlinkert</a></li>
+<li><a href="https://github.com/jonschlinkert">github/jonschlinkert</a></li>
+<li><a href="https://twitter.com/jonschlinkert">twitter/jonschlinkert</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h3>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h3>
+</div>
+<p>Copyright © 2018, <a href="https://github.com/jonschlinkert">Jon Schlinkert</a>.
+Released under the <a href="LICENSE.html">MIT License</a>.</p>
+<hr>
+<p><em>This file was generated by <a href="https://github.com/verbose/verb-generate-readme">verb-generate-readme</a>, v0.6.0, on January 11, 2018.</em></p>
+</div>
+  </div>
+</body>
+</html>

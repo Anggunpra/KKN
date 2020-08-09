@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bin-build\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">var</span> archiveType = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archive-type'</span>);
+<span class="hljs-keyword">var</span> execSeries = <span class="hljs-built_in">require</span>(<span class="hljs-string">'exec-series'</span>);
+<span class="hljs-keyword">var</span> Decompress = <span class="hljs-built_in">require</span>(<span class="hljs-string">'decompress'</span>);
+<span class="hljs-keyword">var</span> Download = <span class="hljs-built_in">require</span>(<span class="hljs-string">'download'</span>);
+<span class="hljs-keyword">var</span> rimraf = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rimraf'</span>);
+<span class="hljs-keyword">var</span> tempfile = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tempfile'</span>);
+<span class="hljs-keyword">var</span> urlRegex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'url-regex'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Initialize new <code>BinBuild</code></p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">opts</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">BinBuild</span>(<span class="hljs-params">opts</span>) </span>{
+	<span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> BinBuild)) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BinBuild(opts);
+	}
+
+	<span class="hljs-keyword">this</span>.opts = opts || {};
+	<span class="hljs-keyword">this</span>.tmp = tempfile();
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.opts.strip &lt;= <span class="hljs-number">0</span>) {
+		<span class="hljs-keyword">this</span>.opts.strip = <span class="hljs-number">0</span>;
+	} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.opts.strip) {
+		<span class="hljs-keyword">this</span>.opts.strip = <span class="hljs-number">1</span>;
+	}
+}
+
+<span class="hljs-built_in">module</span>.exports = BinBuild;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Define the source archive to download</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">str</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinBuild.prototype.src = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">str</span>) </span>{
+	<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">arguments</span>.length) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._src;
+	}
+
+	<span class="hljs-keyword">this</span>._src = str;
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Add a command to run</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">str</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinBuild.prototype.cmd = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">str</span>) </span>{
+	<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">arguments</span>.length) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._cmd;
+	}
+
+	<span class="hljs-keyword">this</span>._cmd = <span class="hljs-keyword">this</span>._cmd || [];
+	<span class="hljs-keyword">this</span>._cmd.push(str);
+
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Build</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cb</span>
+<span class="dox_type">Function</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinBuild.prototype.run = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">cb</span>) </span>{
+	cb = cb || <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
+
+	<span class="hljs-keyword">if</span> (urlRegex().test(<span class="hljs-keyword">this</span>.src())) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.download(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+			<span class="hljs-keyword">if</span> (err) {
+				cb(err);
+				<span class="hljs-keyword">return</span>;
+			}
+
+			<span class="hljs-keyword">this</span>.exec(<span class="hljs-keyword">this</span>.tmp, cb);
+		}.bind(<span class="hljs-keyword">this</span>));
+	}
+
+	fs.readFile(<span class="hljs-keyword">this</span>.src(), <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, data</span>) </span>{
+		<span class="hljs-keyword">if</span> (err &amp;&amp; err.code !== <span class="hljs-string">'EISDIR'</span>) {
+			cb(err);
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">if</span> (archiveType(data)) {
+			<span class="hljs-keyword">this</span>.extract(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+				<span class="hljs-keyword">if</span> (err) {
+					cb(err);
+					<span class="hljs-keyword">return</span>;
+				}
+
+				<span class="hljs-keyword">this</span>.exec(<span class="hljs-keyword">this</span>.tmp, cb);
+			}.bind(<span class="hljs-keyword">this</span>));
+
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">this</span>.exec(<span class="hljs-keyword">this</span>.src(), cb);
+	}.bind(<span class="hljs-keyword">this</span>));
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Execute commands</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cwd</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cb</span>
+<span class="dox_type">Function</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">private</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinBuild.prototype.exec = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">cwd, cb</span>) </span>{
+	execSeries(<span class="hljs-keyword">this</span>.cmd(), {<span class="hljs-attr">cwd</span>: cwd}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+		<span class="hljs-keyword">if</span> (err) {
+			err.message = [<span class="hljs-keyword">this</span>.cmd().join(<span class="hljs-string">' &amp;&amp; '</span>), err.message].join(<span class="hljs-string">'\n'</span>);
+			cb(err);
+			<span class="hljs-keyword">return</span>;
+		}
+
+		rimraf(<span class="hljs-keyword">this</span>.tmp, cb);
+	}.bind(<span class="hljs-keyword">this</span>));
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Decompress source</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cb</span>
+<span class="dox_type">Function</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">private</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinBuild.prototype.extract = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">cb</span>) </span>{
+	<span class="hljs-keyword">var</span> decompress = <span class="hljs-keyword">new</span> Decompress({
+		<span class="hljs-attr">mode</span>: <span class="hljs-string">'777'</span>,
+		<span class="hljs-attr">strip</span>: <span class="hljs-keyword">this</span>.opts.strip
+	});
+
+	decompress
+		.src(<span class="hljs-keyword">this</span>.src())
+		.dest(<span class="hljs-keyword">this</span>.tmp)
+		.run(cb);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Download source file</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cb</span>
+<span class="dox_type">Function</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">private</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinBuild.prototype.download = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">cb</span>) </span>{
+	<span class="hljs-keyword">var</span> download = <span class="hljs-keyword">new</span> Download({
+		<span class="hljs-attr">strip</span>: <span class="hljs-keyword">this</span>.opts.strip,
+		<span class="hljs-attr">extract</span>: <span class="hljs-literal">true</span>,
+		<span class="hljs-attr">mode</span>: <span class="hljs-string">'777'</span>
+	});
+
+	download
+		.get(<span class="hljs-keyword">this</span>.src())
+		.dest(<span class="hljs-keyword">this</span>.tmp)
+		.run(cb);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

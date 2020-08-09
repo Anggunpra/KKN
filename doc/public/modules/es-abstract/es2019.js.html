@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>es2019.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es-abstract\\es2019.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>es2019.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> trimStart = <span class="hljs-built_in">require</span>(<span class="hljs-string">'string.prototype.trimleft'</span>);
+<span class="hljs-keyword">var</span> trimEnd = <span class="hljs-built_in">require</span>(<span class="hljs-string">'string.prototype.trimright'</span>);
+<span class="hljs-keyword">var</span> inspect = <span class="hljs-built_in">require</span>(<span class="hljs-string">'object-inspect'</span>);
+
+<span class="hljs-keyword">var</span> ES2018 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./es2018'</span>);
+<span class="hljs-keyword">var</span> assign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/assign'</span>);
+
+<span class="hljs-keyword">var</span> GetIntrinsic = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./GetIntrinsic'</span>);
+
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">TypeError</span> = GetIntrinsic(<span class="hljs-string">'%TypeError%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">Number</span> = GetIntrinsic(<span class="hljs-string">'%Number%'</span>);
+<span class="hljs-keyword">var</span> MAX_SAFE_INTEGER = $<span class="hljs-built_in">Number</span>.MAX_SAFE_INTEGER || <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">53</span>) - <span class="hljs-number">1</span>;
+
+<span class="hljs-keyword">var</span> ES2019 = assign(assign({}, ES2018), {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>https://tc39.es/ecma262/#sec-add-entries-from-iterable</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	AddEntriesFromIterable: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">AddEntriesFromIterable</span>(<span class="hljs-params">target, iterable, adder</span>) </span>{
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsCallable(adder)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `adder` is not callable'</span>);
+		}
+		<span class="hljs-keyword">if</span> (iterable == <span class="hljs-literal">null</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `iterable` is present, and not nullish'</span>);
+		}
+		<span class="hljs-keyword">var</span> iteratorRecord = <span class="hljs-keyword">this</span>.GetIterator(iterable);
+		<span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) { <span class="hljs-comment">// eslint-disable-line no-constant-condition</span>
+			<span class="hljs-keyword">var</span> next = <span class="hljs-keyword">this</span>.IteratorStep(iteratorRecord);
+			<span class="hljs-keyword">if</span> (!next) {
+				<span class="hljs-keyword">return</span> target;
+			}
+			<span class="hljs-keyword">var</span> nextItem = <span class="hljs-keyword">this</span>.IteratorValue(next);
+			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(nextItem) !== <span class="hljs-string">'Object'</span>) {
+				<span class="hljs-keyword">var</span> error = <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'iterator next must return an Object, got '</span> + inspect(nextItem));
+				<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.IteratorClose(
+					iteratorRecord,
+					<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">throw</span> error; } <span class="hljs-comment">// eslint-disable-line no-loop-func</span>
+				);
+			}
+			<span class="hljs-keyword">try</span> {
+				<span class="hljs-keyword">var</span> k = <span class="hljs-keyword">this</span>.Get(nextItem, <span class="hljs-string">'0'</span>);
+				<span class="hljs-keyword">var</span> v = <span class="hljs-keyword">this</span>.Get(nextItem, <span class="hljs-string">'1'</span>);
+				<span class="hljs-keyword">this</span>.Call(adder, target, [k, v]);
+			} <span class="hljs-keyword">catch</span> (e) {
+				<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.IteratorClose(
+					iteratorRecord,
+					<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">throw</span> e; } <span class="hljs-comment">// eslint-disable-line no-loop-func</span>
+				);
+			}
+		}
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/10.0/#sec-flattenintoarray
+eslint-disable-next-line max-params, max-statements</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	FlattenIntoArray: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FlattenIntoArray</span>(<span class="hljs-params">target, source, sourceLen, start, depth</span>) </span>{
+		<span class="hljs-keyword">var</span> mapperFunction;
+		<span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">5</span>) {
+			mapperFunction = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">5</span>];
+		}
+
+		<span class="hljs-keyword">var</span> targetIndex = start;
+		<span class="hljs-keyword">var</span> sourceIndex = <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">while</span> (sourceIndex &lt; sourceLen) {
+			<span class="hljs-keyword">var</span> P = <span class="hljs-keyword">this</span>.ToString(sourceIndex);
+			<span class="hljs-keyword">var</span> exists = <span class="hljs-keyword">this</span>.HasProperty(source, P);
+			<span class="hljs-keyword">if</span> (exists === <span class="hljs-literal">true</span>) {
+				<span class="hljs-keyword">var</span> element = <span class="hljs-keyword">this</span>.Get(source, P);
+				<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> mapperFunction !== <span class="hljs-string">'undefined'</span>) {
+					<span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>.length &lt;= <span class="hljs-number">6</span>) {
+						<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: thisArg is required when mapperFunction is provided'</span>);
+					}
+					element = <span class="hljs-keyword">this</span>.Call(mapperFunction, <span class="hljs-built_in">arguments</span>[<span class="hljs-number">6</span>], [element, sourceIndex, source]);
+				}
+				<span class="hljs-keyword">var</span> shouldFlatten = <span class="hljs-literal">false</span>;
+				<span class="hljs-keyword">if</span> (depth &gt; <span class="hljs-number">0</span>) {
+					shouldFlatten = <span class="hljs-keyword">this</span>.IsArray(element);
+				}
+				<span class="hljs-keyword">if</span> (shouldFlatten) {
+					<span class="hljs-keyword">var</span> elementLen = <span class="hljs-keyword">this</span>.ToLength(<span class="hljs-keyword">this</span>.Get(element, <span class="hljs-string">'length'</span>));
+					targetIndex = <span class="hljs-keyword">this</span>.FlattenIntoArray(target, element, elementLen, targetIndex, depth - <span class="hljs-number">1</span>);
+				} <span class="hljs-keyword">else</span> {
+					<span class="hljs-keyword">if</span> (targetIndex &gt;= MAX_SAFE_INTEGER) {
+						<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'index too large'</span>);
+					}
+					<span class="hljs-keyword">this</span>.CreateDataPropertyOrThrow(target, <span class="hljs-keyword">this</span>.ToString(targetIndex), element);
+					targetIndex += <span class="hljs-number">1</span>;
+				}
+			}
+			sourceIndex += <span class="hljs-number">1</span>;
+		}
+
+		<span class="hljs-keyword">return</span> targetIndex;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/10.0/#sec-trimstring</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	TrimString: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TrimString</span>(<span class="hljs-params">string, where</span>) </span>{
+		<span class="hljs-keyword">var</span> str = <span class="hljs-keyword">this</span>.RequireObjectCoercible(string);
+		<span class="hljs-keyword">var</span> S = <span class="hljs-keyword">this</span>.ToString(str);
+		<span class="hljs-keyword">var</span> T;
+		<span class="hljs-keyword">if</span> (where === <span class="hljs-string">'start'</span>) {
+			T = trimStart(S);
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (where === <span class="hljs-string">'end'</span>) {
+			T = trimEnd(S);
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (where === <span class="hljs-string">'start+end'</span>) {
+			T = trimStart(trimEnd(S));
+		} <span class="hljs-keyword">else</span> {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: invalid `where` value; must be "start", "end", or "start+end"'</span>);
+		}
+		<span class="hljs-keyword">return</span> T;
+	}
+});
+
+<span class="hljs-built_in">module</span>.exports = ES2019;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

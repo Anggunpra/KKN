@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gruntfile.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gmaps\\Gruntfile.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>Gruntfile.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/*global module:false*/</span>
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">grunt</span>) </span>{
+
+  <span class="hljs-string">'use strict'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Project configuration.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  grunt.initConfig({
+    <span class="hljs-attr">pkg</span>: grunt.file.readJSON(<span class="hljs-string">'package.json'</span>),
+
+    <span class="hljs-attr">meta</span> : {
+      <span class="hljs-attr">banner</span> : <span class="hljs-string">'/*!\n'</span> +
+      <span class="hljs-string">' * GMaps.js v&lt;%= pkg.version %&gt;\n'</span> +
+      <span class="hljs-string">' * &lt;%= pkg.homepage %&gt;\n'</span> +
+      <span class="hljs-string">' *\n'</span> +
+      <span class="hljs-string">' * Copyright &lt;%= grunt.template.today("yyyy") %&gt;, &lt;%= pkg.author %&gt;\n'</span> +
+      <span class="hljs-string">' * Released under the &lt;%= pkg.license %&gt; License.\n'</span> +
+      <span class="hljs-string">' */\n\n'</span>
+    },
+
+    <span class="hljs-attr">concat</span>: {
+      <span class="hljs-attr">options</span>: {
+        <span class="hljs-attr">banner</span>: <span class="hljs-string">'&lt;%= meta.banner %&gt;'</span>
+      },
+      <span class="hljs-attr">dist</span>: {
+        <span class="hljs-attr">src</span>: [
+          <span class="hljs-string">'lib/gmaps.core.js'</span>,
+          <span class="hljs-string">'lib/gmaps.controls.js'</span>,
+          <span class="hljs-string">'lib/gmaps.markers.js'</span>,
+          <span class="hljs-string">'lib/gmaps.overlays.js'</span>,
+          <span class="hljs-string">'lib/gmaps.geometry.js'</span>,
+          <span class="hljs-string">'lib/gmaps.layers.js'</span>,
+          <span class="hljs-string">'lib/gmaps.routes.js'</span>,
+          <span class="hljs-string">'lib/gmaps.geofences.js'</span>,
+          <span class="hljs-string">'lib/gmaps.static.js'</span>,
+          <span class="hljs-string">'lib/gmaps.map_types.js'</span>,
+          <span class="hljs-string">'lib/gmaps.styles.js'</span>,
+          <span class="hljs-string">'lib/gmaps.streetview.js'</span>,
+          <span class="hljs-string">'lib/gmaps.events.js'</span>,
+          <span class="hljs-string">'lib/gmaps.utils.js'</span>,
+          <span class="hljs-string">'lib/gmaps.native_extensions.js'</span>
+        ],
+        <span class="hljs-attr">dest</span>: <span class="hljs-string">'gmaps.js'</span>
+      }
+    },
+
+    <span class="hljs-attr">jasmine</span>: {
+      <span class="hljs-attr">options</span>: {
+        <span class="hljs-attr">template</span>: <span class="hljs-string">'test/template/jasmine-gmaps.html'</span>,
+        <span class="hljs-attr">specs</span>: <span class="hljs-string">'test/spec/*.js'</span>,
+        <span class="hljs-attr">vendor</span>: <span class="hljs-string">'http://maps.google.com/maps/api/js?sensor=true'</span>,
+        <span class="hljs-attr">styles</span>: <span class="hljs-string">'test/style.css'</span>
+      },
+      <span class="hljs-attr">src</span> : <span class="hljs-string">'&lt;%= concat.dist.src %&gt;'</span>
+    },
+
+    <span class="hljs-attr">watch</span> : {
+      <span class="hljs-attr">files</span> : <span class="hljs-string">'&lt;%= concat.dist.src %&gt;'</span>,
+      <span class="hljs-attr">tasks</span> : <span class="hljs-string">'default'</span>
+    },
+
+    <span class="hljs-attr">jshint</span> : {
+      <span class="hljs-attr">all</span> : [<span class="hljs-string">'Gruntfile.js'</span>]
+    },
+
+    <span class="hljs-attr">uglify</span> : {
+      <span class="hljs-attr">options</span> : {
+        <span class="hljs-attr">sourceMap</span> : <span class="hljs-literal">true</span>
+      },
+      <span class="hljs-attr">all</span> : {
+        <span class="hljs-attr">files</span>: {
+           <span class="hljs-string">'gmaps.min.js'</span>: [ <span class="hljs-string">'gmaps.js'</span> ]
+        }
+      }
+    },
+
+    <span class="hljs-attr">umd</span> : {
+      <span class="hljs-attr">all</span> : {
+        <span class="hljs-attr">src</span> : <span class="hljs-string">'gmaps.js'</span>,
+        <span class="hljs-attr">objectToExport</span> : <span class="hljs-string">'GMaps'</span>,
+        <span class="hljs-attr">globalAlias</span> : <span class="hljs-string">'GMaps'</span>,
+        <span class="hljs-attr">template</span> : <span class="hljs-string">'umd.hbs'</span>,
+        <span class="hljs-attr">deps</span>: {
+          <span class="hljs-attr">amd</span>: [<span class="hljs-string">'jquery'</span>, <span class="hljs-string">'googlemaps!'</span>]
+        }
+      }
+    }
+
+  });
+
+  grunt.loadNpmTasks(<span class="hljs-string">'grunt-contrib-watch'</span>);
+  grunt.loadNpmTasks(<span class="hljs-string">'grunt-contrib-jshint'</span>);
+  grunt.loadNpmTasks(<span class="hljs-string">'grunt-contrib-concat'</span>);
+  grunt.loadNpmTasks(<span class="hljs-string">'grunt-contrib-jasmine'</span>);
+  grunt.loadNpmTasks(<span class="hljs-string">'grunt-contrib-uglify'</span>);
+  grunt.loadNpmTasks(<span class="hljs-string">'grunt-umd'</span>);
+
+  grunt.registerTask(<span class="hljs-string">'test'</span>, [<span class="hljs-string">'jshint'</span>, <span class="hljs-string">'jasmine'</span>]);
+  grunt.registerTask(<span class="hljs-string">'default'</span>, [<span class="hljs-string">'test'</span>, <span class="hljs-string">'concat'</span>, <span class="hljs-string">'umd'</span>, <span class="hljs-string">'uglify'</span>]);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\immutable\\package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"immutable"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"3.8.2"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Immutable Data Collections"</span>,
+  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"MIT"</span>,
+  <span class="hljs-attr">"homepage"</span>: <span class="hljs-string">"https://facebook.github.com/immutable-js"</span>,
+  <span class="hljs-attr">"author"</span>: {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Lee Byron"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/leebyron"</span>
+  },
+  <span class="hljs-attr">"repository"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"git"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"git://github.com/facebook/immutable-js.git"</span>
+  },
+  <span class="hljs-attr">"bugs"</span>: {
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/facebook/immutable-js/issues"</span>
+  },
+  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"dist/immutable.js"</span>,
+  <span class="hljs-attr">"typings"</span>: <span class="hljs-string">"dist/immutable-nonambient.d.ts"</span>,
+  <span class="hljs-attr">"typescript"</span>: {
+    <span class="hljs-attr">"definition"</span>: <span class="hljs-string">"dist/immutable.d.ts"</span>
+  },
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"build"</span>: <span class="hljs-string">"grunt default &amp;&amp; gulp default"</span>,
+    <span class="hljs-attr">"lint"</span>: <span class="hljs-string">"eslint src/ &amp;&amp; grunt lint &amp;&amp; gulp lint"</span>,
+    <span class="hljs-attr">"testonly"</span>: <span class="hljs-string">"./resources/node_test.sh"</span>,
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"npm run lint &amp;&amp; npm run testonly"</span>,
+    <span class="hljs-attr">"perf"</span>: <span class="hljs-string">"node ./resources/bench.js"</span>,
+    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"npm run build &amp;&amp; node ./pages/resources/start.js"</span>,
+    <span class="hljs-attr">"deploy"</span>: <span class="hljs-string">"(cd ./pages/out &amp;&amp; git init &amp;&amp; git config user.name \"Travis CI\" &amp;&amp; git config user.email \"github@fb.com\" &amp;&amp; git add . &amp;&amp; git commit -m \"Deploy to GitHub Pages\" &amp;&amp; git push --force --quiet \"https://${GH_TOKEN}@github.com/facebook/immutable-js.git\" master:gh-pages &gt; /dev/null 2&gt;1)"</span>
+  },
+  <span class="hljs-attr">"jest"</span>: {
+    <span class="hljs-attr">"scriptPreprocessor"</span>: <span class="hljs-string">"resources/jestPreprocessor.js"</span>,
+    <span class="hljs-attr">"testFileExtensions"</span>: [
+      <span class="hljs-string">"js"</span>,
+      <span class="hljs-string">"ts"</span>
+    ],
+    <span class="hljs-attr">"persistModuleRegistryBetweenSpecs"</span>: <span class="hljs-literal">true</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"acorn"</span>: <span class="hljs-string">"0.11.x"</span>,
+    <span class="hljs-attr">"babel-eslint"</span>: <span class="hljs-string">"^4.1.8"</span>,
+    <span class="hljs-attr">"benchmark"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"bluebird"</span>: <span class="hljs-string">"3.1.1"</span>,
+    <span class="hljs-attr">"browser-sync"</span>: <span class="hljs-string">"2.11.0"</span>,
+    <span class="hljs-attr">"browserify"</span>: <span class="hljs-string">"^5.11.2"</span>,
+    <span class="hljs-attr">"colors"</span>: <span class="hljs-string">"1.1.2"</span>,
+    <span class="hljs-attr">"del"</span>: <span class="hljs-string">"2.2.0"</span>,
+    <span class="hljs-attr">"es6-transpiler"</span>: <span class="hljs-string">"0.7.18"</span>,
+    <span class="hljs-attr">"eslint"</span>: <span class="hljs-string">"^1.10.3"</span>,
+    <span class="hljs-attr">"estraverse"</span>: <span class="hljs-string">"1.9.3"</span>,
+    <span class="hljs-attr">"express"</span>: <span class="hljs-string">"^4.13.4"</span>,
+    <span class="hljs-attr">"fbjs-scripts"</span>: <span class="hljs-string">"^0.5.0"</span>,
+    <span class="hljs-attr">"grunt"</span>: <span class="hljs-string">"0.4.5"</span>,
+    <span class="hljs-attr">"grunt-cli"</span>: <span class="hljs-string">"0.1.13"</span>,
+    <span class="hljs-attr">"grunt-contrib-clean"</span>: <span class="hljs-string">"0.7.0"</span>,
+    <span class="hljs-attr">"grunt-contrib-copy"</span>: <span class="hljs-string">"0.8.2"</span>,
+    <span class="hljs-attr">"grunt-contrib-jshint"</span>: <span class="hljs-string">"0.11.3"</span>,
+    <span class="hljs-attr">"grunt-release"</span>: <span class="hljs-string">"0.13.0"</span>,
+    <span class="hljs-attr">"gulp"</span>: <span class="hljs-string">"3.9.0"</span>,
+    <span class="hljs-attr">"gulp-concat"</span>: <span class="hljs-string">"2.6.0"</span>,
+    <span class="hljs-attr">"gulp-filter"</span>: <span class="hljs-string">"3.0.1"</span>,
+    <span class="hljs-attr">"gulp-header"</span>: <span class="hljs-string">"1.7.1"</span>,
+    <span class="hljs-attr">"gulp-jest"</span>: <span class="hljs-string">"^0.2.1"</span>,
+    <span class="hljs-attr">"gulp-jshint"</span>: <span class="hljs-string">"^1.8.4"</span>,
+    <span class="hljs-attr">"gulp-less"</span>: <span class="hljs-string">"3.0.5"</span>,
+    <span class="hljs-attr">"gulp-size"</span>: <span class="hljs-string">"2.0.0"</span>,
+    <span class="hljs-attr">"gulp-sourcemaps"</span>: <span class="hljs-string">"1.6.0"</span>,
+    <span class="hljs-attr">"gulp-uglify"</span>: <span class="hljs-string">"1.5.1"</span>,
+    <span class="hljs-attr">"gulp-util"</span>: <span class="hljs-string">"3.0.7"</span>,
+    <span class="hljs-attr">"harmonize"</span>: <span class="hljs-string">"1.4.4"</span>,
+    <span class="hljs-attr">"jasmine-check"</span>: <span class="hljs-string">"^0.1.2"</span>,
+    <span class="hljs-attr">"jest-cli"</span>: <span class="hljs-string">"^0.5.10"</span>,
+    <span class="hljs-attr">"jshint-stylish"</span>: <span class="hljs-string">"^0.4.0"</span>,
+    <span class="hljs-attr">"magic-string"</span>: <span class="hljs-string">"0.10.2"</span>,
+    <span class="hljs-attr">"marked"</span>: <span class="hljs-string">"0.3.5"</span>,
+    <span class="hljs-attr">"microtime"</span>: <span class="hljs-string">"^2.0.0"</span>,
+    <span class="hljs-attr">"node-jsx"</span>: <span class="hljs-string">"^0.12.4"</span>,
+    <span class="hljs-attr">"react"</span>: <span class="hljs-string">"^0.12.0"</span>,
+    <span class="hljs-attr">"react-router"</span>: <span class="hljs-string">"^0.11.2"</span>,
+    <span class="hljs-attr">"react-tools"</span>: <span class="hljs-string">"^0.12.0"</span>,
+    <span class="hljs-attr">"rollup"</span>: <span class="hljs-string">"0.24.0"</span>,
+    <span class="hljs-attr">"run-sequence"</span>: <span class="hljs-string">"1.1.5"</span>,
+    <span class="hljs-attr">"through2"</span>: <span class="hljs-string">"2.0.0"</span>,
+    <span class="hljs-attr">"typescript"</span>: <span class="hljs-string">"1.7.5"</span>,
+    <span class="hljs-attr">"uglify-js"</span>: <span class="hljs-string">"2.6.1"</span>,
+    <span class="hljs-attr">"vinyl-buffer"</span>: <span class="hljs-string">"1.0.0"</span>,
+    <span class="hljs-attr">"vinyl-source-stream"</span>: <span class="hljs-string">"1.1.0"</span>
+  },
+  <span class="hljs-attr">"engines"</span>: {
+    <span class="hljs-attr">"node"</span>: <span class="hljs-string">"&gt;=0.10.0"</span>
+  },
+  <span class="hljs-attr">"files"</span>: [
+    <span class="hljs-string">"dist"</span>,
+    <span class="hljs-string">"contrib"</span>,
+    <span class="hljs-string">"README.md"</span>,
+    <span class="hljs-string">"LICENSE"</span>
+  ],
+  <span class="hljs-attr">"keywords"</span>: [
+    <span class="hljs-string">"immutable"</span>,
+    <span class="hljs-string">"persistent"</span>,
+    <span class="hljs-string">"lazy"</span>,
+    <span class="hljs-string">"data"</span>,
+    <span class="hljs-string">"datastructure"</span>,
+    <span class="hljs-string">"functional"</span>,
+    <span class="hljs-string">"collection"</span>,
+    <span class="hljs-string">"stateless"</span>,
+    <span class="hljs-string">"sequence"</span>,
+    <span class="hljs-string">"iteration"</span>
+  ]
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

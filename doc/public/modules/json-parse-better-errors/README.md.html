@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\json-parse-better-errors\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#json-parse-better-errors">json-parse-better-errors     </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#table-of-contents">Table of Contents</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#example">Example</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features">Features</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#greater-parse-txt-reviver-context20"> &amp;gt; parse(txt, ?reviver, ?context=20)</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="json-parse-better-errors">
+  <h1>
+    <a href="#json-parse-better-errors" name="json-parse-better-errors" class="pilcrow"></a>
+json-parse-better-errors <a href="https://npm.im/json-parse-better-errors"><img src="https://img.shields.io/npm/v/json-parse-better-errors.svg" alt="npm version"></a> <a href="https://npm.im/json-parse-better-errors"><img src="https://img.shields.io/npm/l/json-parse-better-errors.svg" alt="license"></a> <a href="https://travis-ci.org/zkat/json-parse-better-errors"><img src="https://img.shields.io/travis/zkat/json-parse-better-errors.svg" alt="Travis"></a> <a href="https://ci.appveyor.com/project/zkat/json-parse-better-errors"><img src="https://ci.appveyor.com/api/projects/status/github/zkat/json-parse-better-errors?svg=true" alt="AppVeyor"></a> <a href="https://coveralls.io/github/zkat/json-parse-better-errors?branch=latest"><img src="https://coveralls.io/repos/github/zkat/json-parse-better-errors/badge.svg?branch=latest" alt="Coverage Status"></a>
+  </h1>
+</div>
+<p><a href="https://github.com/zkat/json-parse-better-errors"><code>json-parse-better-errors</code></a> is a Node.js library for
+getting nicer errors out of <code>JSON.parse()</code>, including context and position of the parse errors.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p><code>$ npm install --save json-parse-better-errors</code></p>
+<div class="pilwrap" id="table-of-contents">
+  <h2>
+    <a href="#table-of-contents" name="table-of-contents" class="pilcrow"></a>
+Table of Contents
+  </h2>
+</div>
+<ul>
+<li><a href="#example.html">Example</a></li>
+<li><a href="#features.html">Features</a></li>
+<li><a href="#contributing.html">Contributing</a></li>
+<li><a href="#api.html">API</a>
+<ul>
+<li><a href="#parse.html"><code>parse</code></a></li>
+</ul>
+</li>
+</ul>
+<div class="pilwrap" id="example">
+  <h3>
+    <a href="#example" name="example" class="pilcrow"></a>
+Example
+  </h3>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">const</span> parseJson = <span class="hljs-built_in">require</span>(<span class="hljs-string">'json-parse-better-errors'</span>)
+
+parseJson(<span class="hljs-string">'"foo"'</span>)
+parseJson(<span class="hljs-string">'garbage'</span>) <span class="hljs-comment">// more useful error message</span>
+</code></pre>
+<div class="pilwrap" id="features">
+  <h3>
+    <a href="#features" name="features" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>Like JSON.parse, but the errors are better.</li>
+</ul>
+<div class="pilwrap" id="contributing">
+  <h3>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h3>
+</div>
+<p>The npm team enthusiastically welcomes contributions and project participation! There's a bunch of things you can do if you want to contribute! The <a href="CONTRIBUTING.md.html">Contributor Guide</a> has all the information you need for everything from reporting bugs to contributing entire new features. Please don't hesitate to jump in if you'd like to, or even ask us questions if something isn't clear.</p>
+<p>All participants and maintainers in this project are expected to follow <a href="CODE_OF_CONDUCT.md.html">Code of Conduct</a>, and just generally be excellent to each other.</p>
+<p>Please refer to the <a href="CHANGELOG.md.html">Changelog</a> for project history details, too.</p>
+<p>Happy hacking!</p>
+<div class="pilwrap" id="api">
+  <h3>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h3>
+</div>
+<div class="pilwrap" id="greater-parse-txt-reviver-context20">
+  <h4>
+    <a href="#greater-parse-txt-reviver-context20" name="greater-parse-txt-reviver-context20" class="pilcrow"></a>
+<a name="parse"></a> <code>&gt; parse(txt, ?reviver, ?context=20)</code>
+  </h4>
+</div>
+<p>Works just like <code>JSON.parse</code>, but will include a bit more information when an
+error happens.</p>
+</div>
+  </div>
+</body>
+</html>

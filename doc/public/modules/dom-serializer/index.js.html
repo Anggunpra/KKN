@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\dom-serializer\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Module dependencies</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> ElementType = <span class="hljs-built_in">require</span>(<span class="hljs-string">'domelementtype'</span>);
+<span class="hljs-keyword">var</span> entities = <span class="hljs-built_in">require</span>(<span class="hljs-string">'entities'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>mixed-case SVG and MathML tags &amp; attributes
+recognized by the HTML parser, see
+https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-inforeign</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> foreignNames = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./foreignNames.json'</span>);
+foreignNames.elementNames.__proto__ = <span class="hljs-literal">null</span>; <span class="hljs-comment">/* use as a simple dictionary */</span>
+foreignNames.attributeNames.__proto__ = <span class="hljs-literal">null</span>;
+
+<span class="hljs-keyword">var</span> unencodedElements = {
+  <span class="hljs-attr">__proto__</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">style</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">script</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">xmp</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">iframe</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">noembed</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">noframes</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">plaintext</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">noscript</span>: <span class="hljs-literal">true</span>
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Format attributes</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">formatAttrs</span>(<span class="hljs-params">attributes, opts</span>) </span>{
+  <span class="hljs-keyword">if</span> (!attributes) <span class="hljs-keyword">return</span>;
+
+  <span class="hljs-keyword">var</span> output = <span class="hljs-string">''</span>;
+  <span class="hljs-keyword">var</span> value;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Loop through the attributes</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> attributes) {
+    value = attributes[key];
+    <span class="hljs-keyword">if</span> (output) {
+      output += <span class="hljs-string">' '</span>;
+    }
+
+    <span class="hljs-keyword">if</span> (opts.xmlMode === <span class="hljs-string">'foreign'</span>) {
+      <span class="hljs-comment">/* fix up mixed-case attribute names */</span>
+      key = foreignNames.attributeNames[key] || key;
+    }
+    output += key;
+    <span class="hljs-keyword">if</span> ((value !== <span class="hljs-literal">null</span> &amp;&amp; value !== <span class="hljs-string">''</span>) || opts.xmlMode) {
+      output +=
+        <span class="hljs-string">'="'</span> +
+        (opts.decodeEntities
+          ? entities.encodeXML(value)
+          : value.replace(<span class="hljs-regexp">/\"/g</span>, <span class="hljs-string">'&amp;quot;'</span>)) +
+        <span class="hljs-string">'"'</span>;
+    }
+  }
+
+  <span class="hljs-keyword">return</span> output;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Self-enclosing tags (stolen from node-htmlparser)</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> singleTag = {
+  <span class="hljs-attr">__proto__</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">area</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">base</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">basefont</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">br</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">col</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">command</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">embed</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">frame</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">hr</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">img</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">input</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">isindex</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">keygen</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">link</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">meta</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">param</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">source</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">track</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">wbr</span>: <span class="hljs-literal">true</span>
+};
+
+<span class="hljs-keyword">var</span> render = (<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">dom, opts</span>) </span>{
+  <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(dom) &amp;&amp; !dom.cheerio) dom = [dom];
+  opts = opts || {};
+
+  <span class="hljs-keyword">var</span> output = <span class="hljs-string">''</span>;
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; dom.length; i++) {
+    <span class="hljs-keyword">var</span> elem = dom[i];
+
+    <span class="hljs-keyword">if</span> (elem.type === <span class="hljs-string">'root'</span>) output += render(elem.children, opts);
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ElementType.isTag(elem)) output += renderTag(elem, opts);
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (elem.type === ElementType.Directive)
+      output += renderDirective(elem);
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (elem.type === ElementType.Comment) output += renderComment(elem);
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (elem.type === ElementType.CDATA) output += renderCdata(elem);
+    <span class="hljs-keyword">else</span> output += renderText(elem, opts);
+  }
+
+  <span class="hljs-keyword">return</span> output;
+});
+
+<span class="hljs-keyword">const</span> foreignModeIntegrationPoints = [
+  <span class="hljs-string">'mi'</span>,
+  <span class="hljs-string">'mo'</span>,
+  <span class="hljs-string">'mn'</span>,
+  <span class="hljs-string">'ms'</span>,
+  <span class="hljs-string">'mtext'</span>,
+  <span class="hljs-string">'annotation-xml'</span>,
+  <span class="hljs-string">'foreignObject'</span>,
+  <span class="hljs-string">'desc'</span>,
+  <span class="hljs-string">'title'</span>
+];
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderTag</span>(<span class="hljs-params">elem, opts</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>Handle SVG / MathML in HTML</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (opts.xmlMode === <span class="hljs-string">'foreign'</span>) {
+    <span class="hljs-comment">/* fix up mixed-case element names */</span>
+    elem.name = foreignNames.elementNames[elem.name] || elem.name;
+    <span class="hljs-comment">/* exit foreign mode at integration points */</span>
+    <span class="hljs-keyword">if</span> (
+      elem.parent &amp;&amp;
+      foreignModeIntegrationPoints.indexOf(elem.parent.name) &gt;= <span class="hljs-number">0</span>
+    )
+      opts = <span class="hljs-built_in">Object</span>.assign({}, opts, { <span class="hljs-attr">xmlMode</span>: <span class="hljs-literal">false</span> });
+  }
+  <span class="hljs-keyword">if</span> (!opts.xmlMode &amp;&amp; [<span class="hljs-string">'svg'</span>, <span class="hljs-string">'math'</span>].indexOf(elem.name) &gt;= <span class="hljs-number">0</span>) {
+    opts = <span class="hljs-built_in">Object</span>.assign({}, opts, { <span class="hljs-attr">xmlMode</span>: <span class="hljs-string">'foreign'</span> });
+  }
+
+  <span class="hljs-keyword">var</span> tag = <span class="hljs-string">'&lt;'</span> + elem.name;
+  <span class="hljs-keyword">var</span> attribs = formatAttrs(elem.attribs, opts);
+
+  <span class="hljs-keyword">if</span> (attribs) {
+    tag += <span class="hljs-string">' '</span> + attribs;
+  }
+
+  <span class="hljs-keyword">if</span> (opts.xmlMode &amp;&amp; (!elem.children || elem.children.length === <span class="hljs-number">0</span>)) {
+    tag += <span class="hljs-string">'/&gt;'</span>;
+  } <span class="hljs-keyword">else</span> {
+    tag += <span class="hljs-string">'&gt;'</span>;
+    <span class="hljs-keyword">if</span> (elem.children) {
+      tag += render(elem.children, opts);
+    }
+
+    <span class="hljs-keyword">if</span> (!singleTag[elem.name] || opts.xmlMode) {
+      tag += <span class="hljs-string">'&lt;/'</span> + elem.name + <span class="hljs-string">'&gt;'</span>;
+    }
+  }
+
+  <span class="hljs-keyword">return</span> tag;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderDirective</span>(<span class="hljs-params">elem</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;'</span> + elem.data + <span class="hljs-string">'&gt;'</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderText</span>(<span class="hljs-params">elem, opts</span>) </span>{
+  <span class="hljs-keyword">var</span> data = elem.data || <span class="hljs-string">''</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>if entities weren't decoded, no need to encode them back</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (
+    opts.decodeEntities &amp;&amp;
+    !(elem.parent &amp;&amp; elem.parent.name <span class="hljs-keyword">in</span> unencodedElements)
+  ) {
+    data = entities.encodeXML(data);
+  }
+
+  <span class="hljs-keyword">return</span> data;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderCdata</span>(<span class="hljs-params">elem</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;![CDATA['</span> + elem.children[<span class="hljs-number">0</span>].data + <span class="hljs-string">']]&gt;'</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderComment</span>(<span class="hljs-params">elem</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;!--'</span> + elem.data + <span class="hljs-string">'--&gt;'</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\js-base64\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#base64.js">base64.js</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#in-browser">In Browser</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#node.js">node.js</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#es6+">es6+</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#synopsis">SYNOPSIS</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#string-extension-for-es5">String Extension for ES5</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#typescript">TypeScript</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#.decode-vs.atob-and.encode-vs-btoa">.decode() vs .atob (and .encode() vs btoa())</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#see-also">SEE ALSO</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p><a href="http://travis-ci.org/dankogai/js-base64"><img src="https://secure.travis-ci.org/dankogai/js-base64.png" alt="build status"></a></p>
+<div class="pilwrap" id="base64.js">
+  <h1>
+    <a href="#base64.js" name="base64.js" class="pilcrow"></a>
+base64.js
+  </h1>
+</div>
+<p>Yet another Base64 transcoder</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code class="javascript">$ npm install --save js-base64
+</code></pre>
+<p>If you are using it on ES6 transpilers, you may also need:</p>
+<pre><code class="javascript">$ npm install --save babel-preset-env
+</code></pre>
+<p>Note <code>js-base64</code> itself is stand-alone so its <code>package.json</code> has no <code>dependencies</code>.  However, it is also tested on ES6 environment so <code>&quot;babel-preset-env&quot;: &quot;^1.7.0&quot;</code> is on <code>devDependencies</code>.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<div class="pilwrap" id="in-browser">
+  <h3>
+    <a href="#in-browser" name="in-browser" class="pilcrow"></a>
+In Browser
+  </h3>
+</div>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"base64.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<div class="pilwrap" id="node.js">
+  <h3>
+    <a href="#node.js" name="node.js" class="pilcrow"></a>
+node.js
+  </h3>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> Base64 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'js-base64'</span>).Base64;
+</code></pre>
+<div class="pilwrap" id="es6+">
+  <h2>
+    <a href="#es6+" name="es6+" class="pilcrow"></a>
+es6+
+  </h2>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">import</span> { Base64 } <span class="hljs-keyword">from</span> <span class="hljs-string">'js-base64'</span>;
+</code></pre>
+<div class="pilwrap" id="synopsis">
+  <h2>
+    <a href="#synopsis" name="synopsis" class="pilcrow"></a>
+SYNOPSIS
+  </h2>
+</div>
+<pre><code class="javascript">Base64.encode(<span class="hljs-string">'dankogai'</span>);  <span class="hljs-comment">// ZGFua29nYWk=</span>
+Base64.encode(<span class="hljs-string">'小飼弾'</span>);    <span class="hljs-comment">// 5bCP6aO85by+</span>
+Base64.encodeURI(<span class="hljs-string">'小飼弾'</span>); <span class="hljs-comment">// 5bCP6aO85by-</span>
+
+Base64.decode(<span class="hljs-string">'ZGFua29nYWk='</span>);  <span class="hljs-comment">// dankogai</span>
+Base64.decode(<span class="hljs-string">'5bCP6aO85by+'</span>);  <span class="hljs-comment">// 小飼弾</span>
+<span class="hljs-comment">// note .decodeURI() is unnecessary since it accepts both flavors</span>
+Base64.decode(<span class="hljs-string">'5bCP6aO85by-'</span>);  <span class="hljs-comment">// 小飼弾</span>
+</code></pre>
+<div class="pilwrap" id="string-extension-for-es5">
+  <h3>
+    <a href="#string-extension-for-es5" name="string-extension-for-es5" class="pilcrow"></a>
+String Extension for ES5
+  </h3>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">if</span> (Base64.extendString) {
+    <span class="hljs-comment">// you have to explicitly extend String.prototype</span>
+    Base64.extendString();
+    <span class="hljs-comment">// once extended, you can do the following</span>
+    <span class="hljs-string">'dankogai'</span>.toBase64();       <span class="hljs-comment">// ZGFua29nYWk=</span>
+    <span class="hljs-string">'小飼弾'</span>.toBase64();         <span class="hljs-comment">// 5bCP6aO85by+</span>
+    <span class="hljs-string">'小飼弾'</span>.toBase64(<span class="hljs-literal">true</span>);     <span class="hljs-comment">// 5bCP6aO85by-</span>
+    <span class="hljs-string">'小飼弾'</span>.toBase64URI();      <span class="hljs-comment">// 5bCP6aO85by-</span>
+    <span class="hljs-string">'ZGFua29nYWk='</span>.fromBase64(); <span class="hljs-comment">// dankogai</span>
+    <span class="hljs-string">'5bCP6aO85by+'</span>.fromBase64(); <span class="hljs-comment">// 小飼弾</span>
+    <span class="hljs-string">'5bCP6aO85by-'</span>.fromBase64(); <span class="hljs-comment">// 小飼弾</span>
+}
+</code></pre>
+<div class="pilwrap" id="typescript">
+  <h3>
+    <a href="#typescript" name="typescript" class="pilcrow"></a>
+TypeScript
+  </h3>
+</div>
+<p>TypeScript 2.0 type definition was added to the <a href="https://github.com/DefinitelyTyped/DefinitelyTyped">DefinitelyTyped repository</a>.</p>
+<pre><code class="bash">$ npm install --save @types/js-base64
+</code></pre>
+<div class="pilwrap" id=".decode-vs.atob-and.encode-vs-btoa">
+  <h2>
+    <a href="#.decode-vs.atob-and.encode-vs-btoa" name=".decode-vs.atob-and.encode-vs-btoa" class="pilcrow"></a>
+<code>.decode()</code> vs <code>.atob</code> (and <code>.encode()</code> vs <code>btoa()</code>)
+  </h2>
+</div>
+<p>Suppose you have:</p>
+<pre><code>var pngBase64 = 
+  &quot;iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=&quot;;
+</code></pre>
+<p>Which is a Base64-encoded 1x1 transparent PNG, <strong>DO NOT USE</strong> <code>Base64.decode(pngBase64)</code>.  Use <code>Base64.atob(pngBase64)</code> instead.  <code>Base64.decode()</code> decodes to UTF-8 string while <code>Base64.atob()</code> decodes to bytes, which is compatible to browser built-in <code>atob()</code> (Which is absent in node.js).  The same rule applies to the opposite direction.</p>
+<div class="pilwrap" id="see-also">
+  <h2>
+    <a href="#see-also" name="see-also" class="pilcrow"></a>
+SEE ALSO
+  </h2>
+</div>
+<ul>
+<li>http://en.wikipedia.org/wiki/Base64</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

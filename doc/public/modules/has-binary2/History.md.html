@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>History.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\has-binary2\\History.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#1.0.3-2018-05-14">1.0.3 (2018-05-14)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes">Bug Fixes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#1.0.2-2017-04-27">1.0.2 (2017-04-27)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-1">Bug Fixes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#1.0.1-2017-04-05">1.0.1 (2017-04-05)</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#1.0.0-2017-04-05">1.0.0 (2017-04-05)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-2">Bug Fixes</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#performance-improvements">Performance Improvements</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.1.7-2015-11-19">0.1.7 (2015-11-19)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.1.6-2015-01-24">0.1.6 (2015-01-24)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.1.5-2014-09-04">0.1.5 (2014-09-04)</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p><a name="1.0.3"></a></p>
+<div class="pilwrap" id="1.0.3-2018-05-14">
+  <h2>
+    <a href="#1.0.3-2018-05-14" name="1.0.3-2018-05-14" class="pilcrow"></a>
+<a href="https://github.com/darrachequesne/has-binary/compare/1.0.2...1.0.3">1.0.3</a> (2018-05-14)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes">
+  <h3>
+    <a href="#bug-fixes" name="bug-fixes" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li>avoid use of global (<a href="https://github.com/darrachequesne/has-binary/issues/4">#4</a>) (<a href="https://github.com/darrachequesne/has-binary/commit/91aa21e">91aa21e</a>)</li>
+</ul>
+<p><a name="1.0.2"></a></p>
+<div class="pilwrap" id="1.0.2-2017-04-27">
+  <h2>
+    <a href="#1.0.2-2017-04-27" name="1.0.2-2017-04-27" class="pilcrow"></a>
+<a href="https://github.com/darrachequesne/has-binary/compare/1.0.1...1.0.2">1.0.2</a> (2017-04-27)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-1">
+  <h3>
+    <a href="#bug-fixes-1" name="bug-fixes-1" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li>Fix Blob detection for iOS 8/9 (<a href="https://github.com/darrachequesne/has-binary/commit/2a7b25c">2a7b25c</a>)</li>
+</ul>
+<p><a name="1.0.1"></a></p>
+<div class="pilwrap" id="1.0.1-2017-04-05">
+  <h2>
+    <a href="#1.0.1-2017-04-05" name="1.0.1-2017-04-05" class="pilcrow"></a>
+<a href="https://github.com/darrachequesne/has-binary/compare/1.0.0...1.0.1">1.0.1</a> (2017-04-05)
+  </h2>
+</div>
+<p><a name="1.0.0"></a></p>
+<div class="pilwrap" id="1.0.0-2017-04-05">
+  <h1>
+    <a href="#1.0.0-2017-04-05" name="1.0.0-2017-04-05" class="pilcrow"></a>
+<a href="https://github.com/darrachequesne/has-binary/compare/0.1.7...1.0.0">1.0.0</a> (2017-04-05)
+  </h1>
+</div>
+<div class="pilwrap" id="bug-fixes-2">
+  <h3>
+    <a href="#bug-fixes-2" name="bug-fixes-2" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li>do not call toJSON more than once (<a href="https://github.com/darrachequesne/has-binary/issues/7">#7</a>) (<a href="https://github.com/darrachequesne/has-binary/commit/27165d2">27165d2</a>)</li>
+<li>Ensure globals are functions before running <code>instanceof</code> checks against them. (<a href="https://github.com/darrachequesne/has-binary/issues/4">#4</a>) (<a href="https://github.com/darrachequesne/has-binary/commit/f9be9b3">f9be9b3</a>)</li>
+<li>fix the case when toJSON() returns a Buffer  (<a href="https://github.com/darrachequesne/has-binary/issues/6">#6</a>) (<a href="https://github.com/darrachequesne/has-binary/commit/518747d">518747d</a>)</li>
+</ul>
+<div class="pilwrap" id="performance-improvements">
+  <h3>
+    <a href="#performance-improvements" name="performance-improvements" class="pilcrow"></a>
+Performance Improvements
+  </h3>
+</div>
+<ul>
+<li>Performance improvements (<a href="https://github.com/darrachequesne/has-binary/issues/3">#3</a>) (<a href="https://github.com/darrachequesne/has-binary/commit/3e88e81">3e88e81</a>)</li>
+</ul>
+<p><a name="0.1.7"></a></p>
+<div class="pilwrap" id="0.1.7-2015-11-19">
+  <h2>
+    <a href="#0.1.7-2015-11-19" name="0.1.7-2015-11-19" class="pilcrow"></a>
+<a href="https://github.com/darrachequesne/has-binary/compare/0.1.6...0.1.7">0.1.7</a> (2015-11-19)
+  </h2>
+</div>
+<p><a name="0.1.6"></a></p>
+<div class="pilwrap" id="0.1.6-2015-01-24">
+  <h2>
+    <a href="#0.1.6-2015-01-24" name="0.1.6-2015-01-24" class="pilcrow"></a>
+<a href="https://github.com/darrachequesne/has-binary/compare/0.1.5...0.1.6">0.1.6</a> (2015-01-24)
+  </h2>
+</div>
+<p><a name="0.1.5"></a></p>
+<div class="pilwrap" id="0.1.5-2014-09-04">
+  <h2>
+    <a href="#0.1.5-2014-09-04" name="0.1.5-2014-09-04" class="pilcrow"></a>
+0.1.5 (2014-09-04)
+  </h2>
+</div>
+</div>
+  </div>
+</body>
+</html>

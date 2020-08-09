@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\make-error-cause\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#make-error-cause">Make Error Cause</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#features">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#attribution">Attribution</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="make-error-cause">
+  <h1>
+    <a href="#make-error-cause" name="make-error-cause" class="pilcrow"></a>
+Make Error Cause
+  </h1>
+</div>
+<p><a href="https://npmjs.org/package/make-error-cause"><img src="https://img.shields.io/npm/v/make-error-cause.svg?style=flat" alt="NPM version"></a>
+<a href="https://npmjs.org/package/make-error-cause"><img src="https://img.shields.io/npm/dm/make-error-cause.svg?style=flat" alt="NPM downloads"></a>
+<a href="https://travis-ci.org/blakeembrey/make-error-cause"><img src="https://img.shields.io/travis/blakeembrey/make-error-cause.svg?style=flat" alt="Build status"></a>
+<a href="https://coveralls.io/r/blakeembrey/make-error-cause?branch=master"><img src="https://img.shields.io/coveralls/blakeembrey/make-error-cause.svg?style=flat" alt="Test coverage"></a></p>
+<blockquote>
+<p>Make your own nested error types!</p>
+</blockquote>
+<div class="pilwrap" id="features">
+  <h2>
+    <a href="#features" name="features" class="pilcrow"></a>
+Features
+  </h2>
+</div>
+<ul>
+<li>Compatible with Node and browsers</li>
+<li>Works with <code>instanceof</code></li>
+<li>Use <code>error.stack</code> and <code>error.name</code></li>
+<li>Output full cause with <code>toString</code></li>
+<li>Extends <a href="https://github.com/julien-f/js-make-error">make-error</a></li>
+</ul>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<pre><code class="sh">npm install make-error-cause --save
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>Usages from <a href="https://github.com/julien-f/js-make-error#usage"><code>make-error</code></a>. The only difference is that errors accept a second argument known as the error &quot;cause&quot;. The cause is used to wrap original errors with more intuitive feedback - for instance, wrapping a raw database error in a HTTP error.</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> CustomError = makeErrorCause(<span class="hljs-string">'CustomError'</span>)
+
+<span class="hljs-keyword">const</span> cause = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'boom!'</span>)
+<span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> CustomError(<span class="hljs-string">'something bad'</span>, cause)
+
+error.toString() <span class="hljs-comment">//=&gt; "CustomError: something bad\nCaused by: boom!"</span>
+error.stack <span class="hljs-comment">// Works!</span>
+error.cause.stack <span class="hljs-comment">// Handy!</span>
+</code></pre>
+<div class="pilwrap" id="attribution">
+  <h2>
+    <a href="#attribution" name="attribution" class="pilcrow"></a>
+Attribution
+  </h2>
+</div>
+<p>Inspired by <a href="https://www.npmjs.com/package/verror"><code>verror</code></a>, and others, but created lighter and without core dependencies for browser usage.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>Apache 2.0</p>
+</div>
+  </div>
+</body>
+</html>

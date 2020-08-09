@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\create-error-class\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#create-error-class">create-error-class </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#createerrorclass-classname-setup">createErrorClass(className, [setup])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#classname">className</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#setup">setup</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="create-error-class">
+  <h1>
+    <a href="#create-error-class" name="create-error-class" class="pilcrow"></a>
+create-error-class <a href="https://travis-ci.org/floatdrop/create-error-class"><img src="https://travis-ci.org/floatdrop/create-error-class.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Create error class</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save create-error-class
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> createErrorClass = <span class="hljs-built_in">require</span>(<span class="hljs-string">'create-error-class'</span>);
+
+<span class="hljs-keyword">var</span> HTTPError = createErrorClass(<span class="hljs-string">'HTTPError'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">props</span>) </span>{
+	<span class="hljs-keyword">this</span>.message = <span class="hljs-string">'Status code is '</span> + props.statusCode;
+});
+
+<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> HTTPError({<span class="hljs-attr">statusCode</span>: <span class="hljs-number">404</span>});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="createerrorclass-classname-setup">
+  <h3>
+    <a href="#createerrorclass-classname-setup" name="createerrorclass-classname-setup" class="pilcrow"></a>
+createErrorClass(className, [setup])
+  </h3>
+</div>
+<p>Return constructor of Errors with <code>className</code>.</p>
+<div class="pilwrap" id="classname">
+  <h4>
+    <a href="#classname" name="classname" class="pilcrow"></a>
+className
+  </h4>
+</div>
+<p><em>Required</em><br>
+Type: <code>string</code></p>
+<p>Class name of Error Object. Should contain characters from <code>[0-9a-zA-Z_$]</code> range.</p>
+<div class="pilwrap" id="setup">
+  <h4>
+    <a href="#setup" name="setup" class="pilcrow"></a>
+setup
+  </h4>
+</div>
+<p>Type: <code>function</code></p>
+<p>Setup function, that will be called after each Error object is created from constructor with context of Error object.</p>
+<p>By default <code>setup</code> function sets <code>this.message</code> as first argument:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> MyError = createErrorClass(<span class="hljs-string">'MyError'</span>);
+
+<span class="hljs-keyword">new</span> MyError(<span class="hljs-string">'Something gone wrong!'</span>).message; <span class="hljs-comment">// =&gt; 'Something gone wrong!'</span>
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://github.com/floatdrop">Vsevolod Strukchinsky</a></p>
+</div>
+  </div>
+</body>
+</html>

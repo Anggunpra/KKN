@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\css-select\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">"use strict"</span>;
+
+<span class="hljs-built_in">module</span>.exports = CSSselect;
+
+<span class="hljs-keyword">var</span> DomUtils = <span class="hljs-built_in">require</span>(<span class="hljs-string">"domutils"</span>);
+<span class="hljs-keyword">var</span> falseFunc = <span class="hljs-built_in">require</span>(<span class="hljs-string">"boolbase"</span>).falseFunc;
+<span class="hljs-keyword">var</span> compileRaw = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./lib/compile.js"</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wrapCompile</span>(<span class="hljs-params">func</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addAdapter</span>(<span class="hljs-params">selector, options, context</span>) </span>{
+        options = options || {};
+        options.adapter = options.adapter || DomUtils;
+
+        <span class="hljs-keyword">return</span> func(selector, options, context);
+    };
+}
+
+<span class="hljs-keyword">var</span> compile = wrapCompile(compileRaw);
+<span class="hljs-keyword">var</span> compileUnsafe = wrapCompile(compileRaw.compileUnsafe);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getSelectorFunc</span>(<span class="hljs-params">searchFunc</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">select</span>(<span class="hljs-params">query, elems, options</span>) </span>{
+        options = options || {};
+        options.adapter = options.adapter || DomUtils;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> query !== <span class="hljs-string">"function"</span>) {
+            query = compileUnsafe(query, options, elems);
+        }
+        <span class="hljs-keyword">if</span> (query.shouldTestNextSiblings) {
+            elems = appendNextSiblings((options &amp;&amp; options.context) || elems, options.adapter);
+        }
+        <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(elems)) elems = options.adapter.getChildren(elems);
+        <span class="hljs-keyword">else</span> elems = options.adapter.removeSubsets(elems);
+        <span class="hljs-keyword">return</span> searchFunc(query, elems, options);
+    };
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getNextSiblings</span>(<span class="hljs-params">elem, adapter</span>) </span>{
+    <span class="hljs-keyword">var</span> siblings = adapter.getSiblings(elem);
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(siblings)) <span class="hljs-keyword">return</span> [];
+    siblings = siblings.slice(<span class="hljs-number">0</span>);
+    <span class="hljs-keyword">while</span> (siblings.shift() !== elem);
+    <span class="hljs-keyword">return</span> siblings;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">appendNextSiblings</span>(<span class="hljs-params">elems, adapter</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Order matters because jQuery seems to check the children before the siblings</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(elems)) elems = [elems];
+    <span class="hljs-keyword">var</span> newElems = elems.slice(<span class="hljs-number">0</span>);
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, len = elems.length; i &lt; len; i++) {
+        <span class="hljs-keyword">var</span> nextSiblings = getNextSiblings(newElems[i], adapter);
+        newElems.push.apply(newElems, nextSiblings);
+    }
+    <span class="hljs-keyword">return</span> newElems;
+}
+
+<span class="hljs-keyword">var</span> selectAll = getSelectorFunc(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">selectAll</span>(<span class="hljs-params">query, elems, options</span>) </span>{
+    <span class="hljs-keyword">return</span> query === falseFunc || !elems || elems.length === <span class="hljs-number">0</span> ? [] : options.adapter.findAll(query, elems);
+});
+
+<span class="hljs-keyword">var</span> selectOne = getSelectorFunc(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">selectOne</span>(<span class="hljs-params">query, elems, options</span>) </span>{
+    <span class="hljs-keyword">return</span> query === falseFunc || !elems || elems.length === <span class="hljs-number">0</span> ? <span class="hljs-literal">null</span> : options.adapter.findOne(query, elems);
+});
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">is</span>(<span class="hljs-params">elem, query, options</span>) </span>{
+    options = options || {};
+    options.adapter = options.adapter || DomUtils;
+    <span class="hljs-keyword">return</span> (<span class="hljs-keyword">typeof</span> query === <span class="hljs-string">"function"</span> ? query : compile(query, options))(elem);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>the exported interface</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CSSselect</span>(<span class="hljs-params">query, elems, options</span>) </span>{
+    <span class="hljs-keyword">return</span> selectAll(query, elems, options);
+}
+
+CSSselect.compile = compile;
+CSSselect.filters = compileRaw.Pseudos.filters;
+CSSselect.pseudos = compileRaw.Pseudos.pseudos;
+
+CSSselect.selectAll = selectAll;
+CSSselect.selectOne = selectOne;
+
+CSSselect.is = is;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>legacy methods (might be removed)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">CSSselect.parse = compile;
+CSSselect.iterate = selectAll;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>hooks</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">CSSselect._compileUnsafe = compileUnsafe;
+CSSselect._compileToken = compileRaw.compileToken;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

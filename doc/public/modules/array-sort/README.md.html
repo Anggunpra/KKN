@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\array-sort\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#array-sort">array-sort      </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#params">Params</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#examples">Examples</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#about">About</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributors">Contributors</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#building-docs">Building docs</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#running-tests">Running tests</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="array-sort">
+  <h1>
+    <a href="#array-sort" name="array-sort" class="pilcrow"></a>
+array-sort <a href="https://www.npmjs.com/package/array-sort"><img src="https://img.shields.io/npm/v/array-sort.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.org/package/array-sort"><img src="https://img.shields.io/npm/dm/array-sort.svg?style=flat" alt="NPM monthly downloads"></a>  <a href="https://npmjs.org/package/array-sort"><img src="https://img.shields.io/npm/dt/array-sort.svg?style=flat" alt="NPM total downloads"></a> <a href="https://travis-ci.org/jonschlinkert/array-sort"><img src="https://img.shields.io/travis/jonschlinkert/array-sort.svg?style=flat&amp;label=Travis" alt="Linux Build Status"></a> <a href="https://ci.appveyor.com/project/jonschlinkert/array-sort"><img src="https://img.shields.io/appveyor/ci/jonschlinkert/array-sort.svg?style=flat&amp;label=AppVeyor" alt="Windows Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Fast and powerful array sorting. Sort an array of objects by one or more properties. Any number of nested properties or custom comparison functions may be used.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://www.npmjs.com/">npm</a>:</p>
+<pre><code class="sh">$ npm install --save array-sort
+</code></pre>
+<p>Install with <a href="https://yarnpkg.com">yarn</a>:</p>
+<pre><code class="sh">$ yarn add array-sort
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>Sort an array by the given object property:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> arraySort = <span class="hljs-built_in">require</span>(<span class="hljs-string">'array-sort'</span>);
+
+arraySort([{<span class="hljs-attr">foo</span>: <span class="hljs-string">'y'</span>}, {<span class="hljs-attr">foo</span>: <span class="hljs-string">'z'</span>}, {<span class="hljs-attr">foo</span>: <span class="hljs-string">'x'</span>}], <span class="hljs-string">'foo'</span>);
+<span class="hljs-comment">//=&gt; [{foo: 'x'}, {foo: 'y'}, {foo: 'z'}]</span>
+</code></pre>
+<p><strong>Reverse order</strong></p>
+<pre><code class="js">arraySort([{<span class="hljs-attr">foo</span>: <span class="hljs-string">'y'</span>}, {<span class="hljs-attr">foo</span>: <span class="hljs-string">'z'</span>}, {<span class="hljs-attr">foo</span>: <span class="hljs-string">'x'</span>}], <span class="hljs-string">'foo'</span>, {<span class="hljs-attr">reverse</span>: <span class="hljs-literal">true</span>});
+<span class="hljs-comment">//=&gt; [{foo: 'z'}, {foo: 'y'}, {foo: 'x'}]</span>
+</code></pre>
+<div class="pilwrap" id="params">
+  <h2>
+    <a href="#params" name="params" class="pilcrow"></a>
+Params
+  </h2>
+</div>
+<pre><code class="js">arraySort(array, comparisonArgs);
+</code></pre>
+<ul>
+<li><code>array</code>: <strong>{Array}</strong> The array to sort</li>
+<li><code>comparisonArgs</code>: <strong>{Function|String|Array}</strong>: One or more functions or object paths to use for sorting.</li>
+</ul>
+<div class="pilwrap" id="examples">
+  <h2>
+    <a href="#examples" name="examples" class="pilcrow"></a>
+Examples
+  </h2>
+</div>
+<p><strong><a href="examples/blog-posts.js.html">Sort blog posts</a></strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> arraySort = <span class="hljs-built_in">require</span>(<span class="hljs-string">'array-sort'</span>);
+
+<span class="hljs-keyword">var</span> posts = [
+  { <span class="hljs-attr">path</span>: <span class="hljs-string">'c.md'</span>, <span class="hljs-attr">locals</span>: { <span class="hljs-attr">date</span>: <span class="hljs-string">'2014-01-09'</span> } },
+  { <span class="hljs-attr">path</span>: <span class="hljs-string">'a.md'</span>, <span class="hljs-attr">locals</span>: { <span class="hljs-attr">date</span>: <span class="hljs-string">'2014-01-02'</span> } },
+  { <span class="hljs-attr">path</span>: <span class="hljs-string">'b.md'</span>, <span class="hljs-attr">locals</span>: { <span class="hljs-attr">date</span>: <span class="hljs-string">'2013-05-06'</span> } },
+];
+
+<span class="hljs-comment">// sort by `locals.date`</span>
+<span class="hljs-built_in">console</span>.log(arraySort(posts, <span class="hljs-string">'locals.date'</span>));
+
+<span class="hljs-comment">// sort by `path`</span>
+<span class="hljs-built_in">console</span>.log(arraySort(posts, <span class="hljs-string">'path'</span>));
+</code></pre>
+<p><strong><a href="examples/multiple-props.js.html">Sort by multiple properties</a></strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> arraySort = <span class="hljs-built_in">require</span>(<span class="hljs-string">'array-sort'</span>);
+
+<span class="hljs-keyword">var</span> posts = [
+  { <span class="hljs-attr">locals</span>: { <span class="hljs-attr">foo</span>: <span class="hljs-string">'bbb'</span>, <span class="hljs-attr">date</span>: <span class="hljs-string">'2013-05-06'</span> }},
+  { <span class="hljs-attr">locals</span>: { <span class="hljs-attr">foo</span>: <span class="hljs-string">'aaa'</span>, <span class="hljs-attr">date</span>: <span class="hljs-string">'2012-01-02'</span> }},
+  { <span class="hljs-attr">locals</span>: { <span class="hljs-attr">foo</span>: <span class="hljs-string">'ccc'</span>, <span class="hljs-attr">date</span>: <span class="hljs-string">'2014-01-02'</span> }},
+  { <span class="hljs-attr">locals</span>: { <span class="hljs-attr">foo</span>: <span class="hljs-string">'ccc'</span>, <span class="hljs-attr">date</span>: <span class="hljs-string">'2015-01-02'</span> }},
+  { <span class="hljs-attr">locals</span>: { <span class="hljs-attr">foo</span>: <span class="hljs-string">'bbb'</span>, <span class="hljs-attr">date</span>: <span class="hljs-string">'2014-06-01'</span> }},
+  { <span class="hljs-attr">locals</span>: { <span class="hljs-attr">foo</span>: <span class="hljs-string">'aaa'</span>, <span class="hljs-attr">date</span>: <span class="hljs-string">'2014-02-02'</span> }},
+];
+
+<span class="hljs-comment">// sort by `locals.foo`, then `locals.date`</span>
+<span class="hljs-keyword">var</span> result = arraySort(posts, [<span class="hljs-string">'locals.foo'</span>, <span class="hljs-string">'locals.date'</span>]);
+
+<span class="hljs-built_in">console</span>.log(result);
+<span class="hljs-comment">// [ { locals: { foo: 'aaa', date: '2012-01-02' } },</span>
+<span class="hljs-comment">//   { locals: { foo: 'aaa', date: '2014-02-02' } },</span>
+<span class="hljs-comment">//   { locals: { foo: 'bbb', date: '2013-05-06' } },</span>
+<span class="hljs-comment">//   { locals: { foo: 'bbb', date: '2014-06-01' } },</span>
+<span class="hljs-comment">//   { locals: { foo: 'ccc', date: '2014-01-02' } },</span>
+<span class="hljs-comment">//   { locals: { foo: 'ccc', date: '2015-01-02' } } ]</span>
+</code></pre>
+<p><strong><a href="examples/custom-function.js.html">Custom function</a></strong></p>
+<p>If custom functions are supplied, array elements are sorted according to the return value of the compare function. See the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort">docs for </a><code>Array.sort()</code> for more details.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> arr = [
+  {<span class="hljs-attr">one</span>: <span class="hljs-string">'w'</span>, <span class="hljs-attr">two</span>: <span class="hljs-string">'b'</span>},
+  {<span class="hljs-attr">one</span>: <span class="hljs-string">'z'</span>, <span class="hljs-attr">two</span>: <span class="hljs-string">'a'</span>},
+  {<span class="hljs-attr">one</span>: <span class="hljs-string">'x'</span>, <span class="hljs-attr">two</span>: <span class="hljs-string">'c'</span>},
+  {<span class="hljs-attr">one</span>: <span class="hljs-string">'y'</span>, <span class="hljs-attr">two</span>: <span class="hljs-string">'d'</span>},
+];
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compare</span>(<span class="hljs-params">prop</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>{
+    <span class="hljs-keyword">return</span> a[prop].localeCompare(b[prop]);
+  };
+}
+
+<span class="hljs-keyword">var</span> result = arraySort(arr, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>{
+  <span class="hljs-keyword">return</span> a.two.localeCompare(b.two);
+});
+
+<span class="hljs-built_in">console</span>.log(result);
+<span class="hljs-comment">// [ { one: 'z', two: 'a' },</span>
+<span class="hljs-comment">//   { one: 'w', two: 'b' },</span>
+<span class="hljs-comment">//   { one: 'x', two: 'c' },</span>
+<span class="hljs-comment">//   { one: 'y', two: 'd' } ]</span>
+</code></pre>
+<p><strong><a href="examples/custom-functions.js.html">Multiple custom functions</a></strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> arr = [
+  {<span class="hljs-attr">foo</span>: <span class="hljs-string">'w'</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">'y'</span>, <span class="hljs-attr">baz</span>: <span class="hljs-string">'w'</span>},
+  {<span class="hljs-attr">foo</span>: <span class="hljs-string">'x'</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">'y'</span>, <span class="hljs-attr">baz</span>: <span class="hljs-string">'w'</span>},
+  {<span class="hljs-attr">foo</span>: <span class="hljs-string">'x'</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">'y'</span>, <span class="hljs-attr">baz</span>: <span class="hljs-string">'z'</span>},
+  {<span class="hljs-attr">foo</span>: <span class="hljs-string">'x'</span>, <span class="hljs-attr">bar</span>: <span class="hljs-string">'x'</span>, <span class="hljs-attr">baz</span>: <span class="hljs-string">'w'</span>},
+];
+
+<span class="hljs-comment">// reusable compare function</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compare</span>(<span class="hljs-params">prop</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>{
+    <span class="hljs-keyword">return</span> a[prop].localeCompare(b[prop]);
+  };
+}
+
+<span class="hljs-comment">// the `compare` functions can be a list or array</span>
+<span class="hljs-keyword">var</span> result = arraySort(arr, compare(<span class="hljs-string">'foo'</span>), compare(<span class="hljs-string">'bar'</span>), compare(<span class="hljs-string">'baz'</span>));
+
+<span class="hljs-built_in">console</span>.log(result);
+<span class="hljs-comment">// [ { foo: 'w', bar: 'y', baz: 'w' },</span>
+<span class="hljs-comment">//   { foo: 'x', bar: 'x', baz: 'w' },</span>
+<span class="hljs-comment">//   { foo: 'x', bar: 'y', baz: 'w' },</span>
+<span class="hljs-comment">//   { foo: 'x', bar: 'y', baz: 'z' } ]</span>
+</code></pre>
+<div class="pilwrap" id="about">
+  <h2>
+    <a href="#about" name="about" class="pilcrow"></a>
+About
+  </h2>
+</div>
+<div class="pilwrap" id="related-projects">
+  <h3>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h3>
+</div>
+<ul>
+<li><a href="https://www.npmjs.com/package/get-value">get-value</a>: Use property paths (<code>a.b.c</code>) to get a nested value from an object. | <a href="https://github.com/jonschlinkert/get-value" title="Use property paths (`a.b.c`) to get a nested value from an object.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/set-value">set-value</a>: Create nested values and any intermediaries using dot notation (<code>'a.b.c'</code>) paths. | <a href="https://github.com/jonschlinkert/set-value" title="Create nested values and any intermediaries using dot notation (`'a.b.c'`) paths.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/sort-asc">sort-asc</a>: Sort array elements in ascending order. | <a href="https://github.com/jonschlinkert/sort-asc" title="Sort array elements in ascending order.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/sort-desc">sort-desc</a>: Sort array elements in descending order. | <a href="https://github.com/jonschlinkert/sort-desc" title="Sort array elements in descending order.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/sort-object">sort-object</a>: Sort the keys in an object. | <a href="https://github.com/doowb/sort-object" title="Sort the keys in an object.">homepage</a></li>
+</ul>
+<div class="pilwrap" id="contributing">
+  <h3>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h3>
+</div>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="../../issues/new.html">please create an issue</a>.</p>
+<div class="pilwrap" id="contributors">
+  <h3>
+    <a href="#contributors" name="contributors" class="pilcrow"></a>
+Contributors
+  </h3>
+</div>
+<table>
+<thead>
+<tr>
+<th><strong>Commits</strong></th>
+<th><strong>Contributor</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td><a href="https://github.com/jonschlinkert">jonschlinkert</a></td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="https://github.com/doowb">doowb</a></td>
+</tr>
+<tr>
+<td>1</td>
+<td><a href="https://github.com/iamstolis">iamstolis</a></td>
+</tr>
+<tr>
+<td>1</td>
+<td><a href="https://github.com/wkevina">wkevina</a></td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="building-docs">
+  <h3>
+    <a href="#building-docs" name="building-docs" class="pilcrow"></a>
+Building docs
+  </h3>
+</div>
+<p><em>(This project's readme.md is generated by <a href="https://github.com/verbose/verb-generate-readme">verb</a>, please don't edit the readme directly. Any changes to the readme must be made in the <a href=".verb.md.html">.verb.md</a> readme template.)</em></p>
+<p>To generate the readme, run the following command:</p>
+<pre><code class="sh">$ npm install -g verbose/verb<span class="hljs-comment">#dev verb-generate-readme &amp;&amp; verb</span>
+</code></pre>
+<div class="pilwrap" id="running-tests">
+  <h3>
+    <a href="#running-tests" name="running-tests" class="pilcrow"></a>
+Running tests
+  </h3>
+</div>
+<p>Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:</p>
+<pre><code class="sh">$ npm install &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="author">
+  <h3>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h3>
+</div>
+<p><strong>Jon Schlinkert</strong></p>
+<ul>
+<li><a href="https://github.com/jonschlinkert">github/jonschlinkert</a></li>
+<li><a href="https://twitter.com/jonschlinkert">twitter/jonschlinkert</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h3>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h3>
+</div>
+<p>Copyright © 2017, <a href="https://github.com/jonschlinkert">Jon Schlinkert</a>.
+Released under the <a href="LICENSE.html">MIT License</a>.</p>
+<hr>
+<p><em>This file was generated by <a href="https://github.com/verbose/verb-generate-readme">verb-generate-readme</a>, v0.6.0, on September 11, 2017.</em></p>
+</div>
+  </div>
+</body>
+</html>

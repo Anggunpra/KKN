@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\glob-watcher\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#glob-watcher">glob-watcher</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#watch-globs-options-fn">watch(globs[, options][, fn])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#fn-callback">fn([callback])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#options.ignoreinitial">options.ignoreInitial</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#options.delay">options.delay</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#options.queue">options.queue</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#options.events">options.events</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#other">other</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p align="center">
+  <a href="http://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+</p>
+<div class="pilwrap" id="glob-watcher">
+  <h1>
+    <a href="#glob-watcher" name="glob-watcher" class="pilcrow"></a>
+glob-watcher
+  </h1>
+</div>
+<p><a href="https://npmjs.com/package/glob-watcher"><img src="http://img.shields.io/npm/v/glob-watcher.svg" alt="NPM version"></a> <a href="https://npmjs.com/package/glob-watcher"><img src="http://img.shields.io/npm/dm/glob-watcher.svg" alt="Downloads"></a> <a href="https://travis-ci.org/gulpjs/glob-watcher"><img src="http://img.shields.io/travis/gulpjs/glob-watcher.svg?label=travis-ci" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/gulpjs/glob-watcher"><img src="https://img.shields.io/appveyor/ci/gulpjs/glob-watcher.svg?label=appveyor" alt="AppVeyor Build Status"></a> <a href="https://coveralls.io/r/gulpjs/glob-watcher"><img src="http://img.shields.io/coveralls/gulpjs/glob-watcher/master.svg" alt="Coveralls Status"></a> <a href="https://gitter.im/gulpjs/gulp"><img src="https://badges.gitter.im/gulpjs/gulp.png" alt="Gitter chat"></a></p>
+<p>Watch globs and execute a function upon change, with intelligent defaults for debouncing and queueing.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> watch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'glob-watcher'</span>);
+
+watch([<span class="hljs-string">'./*.js'</span>, <span class="hljs-string">'!./something.js'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+  <span class="hljs-comment">// This function will be called each time a globbed file is changed</span>
+  <span class="hljs-comment">// but is debounced with a 200ms delay (default) and queues subsequent calls</span>
+
+  <span class="hljs-comment">// Make sure to signal async completion with the callback</span>
+  <span class="hljs-comment">// or by returning a stream, promise, observable or child process</span>
+  done();
+
+  <span class="hljs-comment">// if you need access to the `path` or `stat` object, listen</span>
+  <span class="hljs-comment">// for the `change` event (see below)</span>
+
+  <span class="hljs-comment">// if you need to listen to specific events, use the returned</span>
+  <span class="hljs-comment">// watcher instance (see below)</span>
+});
+
+<span class="hljs-comment">// Raw chokidar instance</span>
+<span class="hljs-keyword">var</span> watcher = watch([<span class="hljs-string">'./*.js'</span>, <span class="hljs-string">'!./something.js'</span>]);
+
+<span class="hljs-comment">// Listen for the 'change' event to get `path`/`stat`</span>
+<span class="hljs-comment">// No async completion available because this is the raw chokidar instance</span>
+watcher.on(<span class="hljs-string">'change'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path, stat</span>) </span>{
+  <span class="hljs-comment">// `path` is the path of the changed file</span>
+  <span class="hljs-comment">// `stat` is an `fs.Stat` object (not always available)</span>
+});
+
+<span class="hljs-comment">// Listen for other events</span>
+<span class="hljs-comment">// No async completion available because this is the raw chokidar instance</span>
+watcher.on(<span class="hljs-string">'add'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path, stat</span>) </span>{
+  <span class="hljs-comment">// `path` is the path of the changed file</span>
+  <span class="hljs-comment">// `stat` is an `fs.Stat` object (not always available)</span>
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="watch-globs-options-fn">
+  <h3>
+    <a href="#watch-globs-options-fn" name="watch-globs-options-fn" class="pilcrow"></a>
+<code>watch(globs[, options][, fn])</code>
+  </h3>
+</div>
+<p>Takes a path string, an array of path strings, a <a href="https://github.com/micromatch/micromatch">glob</a> string or an array of <a href="https://github.com/micromatch/micromatch">glob</a> strings as <code>globs</code> to watch on the filesystem. Also optionally takes <code>options</code> to configure the watcher and a <code>fn</code> to execute when a file changes.</p>
+<p><strong>Note: As of 5.0.0, globs must use <code>/</code> as the separator character because <code>\\</code> is reserved for escape sequences (as per the Bash 4.3 &amp; Micromatch specs). This means you can't use <code>path.join()</code> or <code>__dirname</code> in Windows environments. If you need to use <code>path.join()</code>, you can use <a href="https://www.npmjs.com/package/normalize-path">normalize-path</a> against your paths afterwards. If you need to use <code>__dirname</code>, you can set it as the <code>cwd</code> option that gets passed directly to <a href="https://github.com/paulmillr/chokidar">chokidar</a>. The <a href="https://github.com/micromatch/micromatch#backslashes">micromatch docs</a> contain more information about backslashes.</strong></p>
+<p>Returns an instance of <a href="https://github.com/paulmillr/chokidar">chokidar</a>.</p>
+<div class="pilwrap" id="fn-callback">
+  <h4>
+    <a href="#fn-callback" name="fn-callback" class="pilcrow"></a>
+<code>fn([callback])</code>
+  </h4>
+</div>
+<p>If the <code>fn</code> is passed, it will be called when the watcher emits a <code>change</code>, <code>add</code> or <code>unlink</code> event. It is automatically debounced with a default delay of 200 milliseconds and subsequent calls will be queued and called upon completion. These defaults can be changed using the <code>options</code>.</p>
+<p>The <code>fn</code> is passed a single argument, <code>callback</code>, which is a function that must be called when work in the <code>fn</code> is complete. Instead of calling the <code>callback</code> function, <a href="https://github.com/gulpjs/async-done#completion-and-error-resolution">async completion</a> can be signalled by:</p>
+<ul>
+<li>Returning a <code>Stream</code> or <code>EventEmitter</code></li>
+<li>Returning a <code>Child Process</code></li>
+<li>Returning a <code>Promise</code></li>
+<li>Returning an <code>Observable</code></li>
+</ul>
+<p>Once async completion is signalled, if another run is queued, it will be executed.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+<code>options</code>
+  </h4>
+</div>
+<div class="pilwrap" id="options.ignoreinitial">
+  <h5>
+    <a href="#options.ignoreinitial" name="options.ignoreinitial" class="pilcrow"></a>
+<code>options.ignoreInitial</code>
+  </h5>
+</div>
+<p>If set to <code>false</code> the <code>fn</code> is called during <a href="https://github.com/paulmillr/chokidar">chokidar</a> instantiation as it discovers the file paths. Useful if it is desirable to trigger the <code>fn</code> during startup.</p>
+<p><strong>Passed through to <a href="https://github.com/paulmillr/chokidar">chokidar</a>, but defaulted to <code>true</code> instead of <code>false</code>.</strong></p>
+<p>Type: <code>Boolean</code></p>
+<p>Default: <code>true</code></p>
+<div class="pilwrap" id="options.delay">
+  <h5>
+    <a href="#options.delay" name="options.delay" class="pilcrow"></a>
+<code>options.delay</code>
+  </h5>
+</div>
+<p>The delay to wait before triggering the <code>fn</code>. Useful for waiting on many changes before doing the work on changed files, e.g. find-and-replace on many files.</p>
+<p>Type: <code>Number</code></p>
+<p>Default: <code>200</code> (milliseconds)</p>
+<div class="pilwrap" id="options.queue">
+  <h5>
+    <a href="#options.queue" name="options.queue" class="pilcrow"></a>
+<code>options.queue</code>
+  </h5>
+</div>
+<p>Whether or not a file change should queue the <code>fn</code> execution if the <code>fn</code> is already running. Useful for a long running <code>fn</code>.</p>
+<p>Type: <code>Boolean</code></p>
+<p>Default: <code>true</code></p>
+<div class="pilwrap" id="options.events">
+  <h5>
+    <a href="#options.events" name="options.events" class="pilcrow"></a>
+<code>options.events</code>
+  </h5>
+</div>
+<p>An event name or array of event names to listen for. Useful if you only need to watch specific events.</p>
+<p>Type: <code>String | Array&lt;String&gt;</code></p>
+<p>Default: <code>[ 'add', 'change', 'unlink' ]</code></p>
+<div class="pilwrap" id="other">
+  <h5>
+    <a href="#other" name="other" class="pilcrow"></a>
+other
+  </h5>
+</div>
+<p>Options are passed directly to <a href="https://github.com/paulmillr/chokidar">chokidar</a>.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

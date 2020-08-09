@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>mkdirp.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\fs-mkdirp-stream\\mkdirp.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>mkdirp.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'graceful-fs'</span>);
+
+<span class="hljs-keyword">var</span> MASK_MODE = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'7777'</span>, <span class="hljs-number">8</span>);
+<span class="hljs-keyword">var</span> DEFAULT_DIR_MODE = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'0777'</span>, <span class="hljs-number">8</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mkdirp</span>(<span class="hljs-params">dirpath, customMode, callback</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> customMode === <span class="hljs-string">'function'</span>) {
+    callback = customMode;
+    customMode = <span class="hljs-literal">undefined</span>;
+  }
+
+  <span class="hljs-keyword">var</span> mode = customMode || (DEFAULT_DIR_MODE &amp; ~process.umask());
+  dirpath = path.resolve(dirpath);
+
+  fs.mkdir(dirpath, mode, onMkdir);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onMkdir</span>(<span class="hljs-params">mkdirErr</span>) </span>{
+    <span class="hljs-keyword">if</span> (!mkdirErr) {
+      <span class="hljs-keyword">return</span> fs.stat(dirpath, onStat);
+    }
+
+    <span class="hljs-keyword">switch</span> (mkdirErr.code) {
+      <span class="hljs-keyword">case</span> <span class="hljs-string">'ENOENT'</span>: {
+        <span class="hljs-keyword">return</span> mkdirp(path.dirname(dirpath), onRecurse);
+      }
+
+      <span class="hljs-keyword">case</span> <span class="hljs-string">'EEXIST'</span>: {
+        <span class="hljs-keyword">return</span> fs.stat(dirpath, onStat);
+      }
+
+      <span class="hljs-attr">default</span>: {
+        <span class="hljs-keyword">return</span> callback(mkdirErr);
+      }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onStat</span>(<span class="hljs-params">statErr, stats</span>) </span>{
+      <span class="hljs-keyword">if</span> (statErr) {
+        <span class="hljs-keyword">return</span> callback(statErr);
+      }
+
+      <span class="hljs-keyword">if</span> (!stats.isDirectory()) {
+        <span class="hljs-keyword">return</span> callback(mkdirErr);
+      }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>TODO: Is it proper to mask like this?</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">if</span> ((stats.mode &amp; MASK_MODE) === mode) {
+        <span class="hljs-keyword">return</span> callback();
+      }
+
+      <span class="hljs-keyword">if</span> (!customMode) {
+        <span class="hljs-keyword">return</span> callback();
+      }
+
+      fs.chmod(dirpath, mode, callback);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onRecurse</span>(<span class="hljs-params">recurseErr</span>) </span>{
+    <span class="hljs-keyword">if</span> (recurseErr) {
+      <span class="hljs-keyword">return</span> callback(recurseErr);
+    }
+
+    mkdirp(dirpath, mode, callback);
+  }
+}
+
+<span class="hljs-built_in">module</span>.exports = mkdirp;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

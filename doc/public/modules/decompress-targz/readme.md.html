@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\decompress-targz\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#decompress-targz">decompress-targz </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#decompresstargz-input">decompressTargz()(input)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#input">input</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="decompress-targz">
+  <h1>
+    <a href="#decompress-targz" name="decompress-targz" class="pilcrow"></a>
+decompress-targz <a href="https://travis-ci.org/kevva/decompress-targz"><img src="https://travis-ci.org/kevva/decompress-targz.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>tar.gz decompress plugin</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install decompress-targz
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> decompress = <span class="hljs-built_in">require</span>(<span class="hljs-string">'decompress'</span>);
+<span class="hljs-keyword">const</span> decompressTargz = <span class="hljs-built_in">require</span>(<span class="hljs-string">'decompress-targz'</span>);
+
+decompress(<span class="hljs-string">'unicorn.tar.gz'</span>, <span class="hljs-string">'dist'</span>, {
+	<span class="hljs-attr">plugins</span>: [
+		decompressTargz()
+	]
+}).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Files decompressed'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="decompresstargz-input">
+  <h3>
+    <a href="#decompresstargz-input" name="decompresstargz-input" class="pilcrow"></a>
+decompressTargz()(input)
+  </h3>
+</div>
+<p>Returns both a Promise for a Buffer and a <a href="https://nodejs.org/api/stream.html#stream_class_stream_duplex">Duplex stream</a>.</p>
+<div class="pilwrap" id="input">
+  <h4>
+    <a href="#input" name="input" class="pilcrow"></a>
+input
+  </h4>
+</div>
+<p>Type: <code>Buffer</code> <code>Stream</code></p>
+<p>Buffer or stream to decompress.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/kevva">Kevin Mårtensson</a></p>
+</div>
+  </div>
+</body>
+</html>

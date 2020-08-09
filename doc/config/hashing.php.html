@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>hashing.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "config\\hashing.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>hashing.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">return</span> [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Default Hash Driver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This option controls the default hash driver that will be used to hash</td>
+</tr>
+<tr>
+<td>passwords for your application. By default, the bcrypt algorithm is</td>
+</tr>
+<tr>
+<td>used; however, you remain free to modify this option if you wish.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Supported: &quot;bcrypt&quot;, &quot;argon&quot;, &quot;argon2id&quot;</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'bcrypt'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Bcrypt Options</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may specify the configuration options that should be used when</td>
+</tr>
+<tr>
+<td>passwords are hashed using the Bcrypt algorithm. This will allow you</td>
+</tr>
+<tr>
+<td>to control the amount of time it takes to hash the given password.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'bcrypt'</span> =&gt; [
+        <span class="hljs-string">'rounds'</span> =&gt; env(<span class="hljs-string">'BCRYPT_ROUNDS'</span>, <span class="hljs-number">10</span>),
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Argon Options</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may specify the configuration options that should be used when</td>
+</tr>
+<tr>
+<td>passwords are hashed using the Argon algorithm. These will allow you</td>
+</tr>
+<tr>
+<td>to control the amount of time it takes to hash the given password.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'argon'</span> =&gt; [
+        <span class="hljs-string">'memory'</span> =&gt; <span class="hljs-number">1024</span>,
+        <span class="hljs-string">'threads'</span> =&gt; <span class="hljs-number">2</span>,
+        <span class="hljs-string">'time'</span> =&gt; <span class="hljs-number">2</span>,
+    ],
+
+];
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\is-directory\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>!
+is-directory <a href="https://github.com/jonschlinkert/is-directory">https://github.com/jonschlinkert/is-directory</a></p>
+</div>
+<div class="body">
+<p>Copyright (c) 2014-2015, Jon Schlinkert.
+Licensed under the MIT License.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">
+'use strict'</span>;
+
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>async</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isDirectory</span>(<span class="hljs-params">filepath, cb</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> cb !== <span class="hljs-string">'function'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'expected a callback function'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> filepath !== <span class="hljs-string">'string'</span>) {
+    cb(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'expected filepath to be a string'</span>));
+    <span class="hljs-keyword">return</span>;
+  }
+
+  fs.stat(filepath, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, stats</span>) </span>{
+    <span class="hljs-keyword">if</span> (err) {
+      <span class="hljs-keyword">if</span> (err.code === <span class="hljs-string">'ENOENT'</span>) {
+        cb(<span class="hljs-literal">null</span>, <span class="hljs-literal">false</span>);
+        <span class="hljs-keyword">return</span>;
+      }
+      cb(err);
+      <span class="hljs-keyword">return</span>;
+    }
+    cb(<span class="hljs-literal">null</span>, stats.isDirectory());
+  });
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>sync</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+isDirectory.sync = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isDirectorySync</span>(<span class="hljs-params">filepath</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> filepath !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'expected filepath to be a string'</span>);
+  }
+
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">var</span> stat = fs.statSync(filepath);
+    <span class="hljs-keyword">return</span> stat.isDirectory();
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-keyword">if</span> (err.code === <span class="hljs-string">'ENOENT'</span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">throw</span> err;
+    }
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose <code>isDirectory</code></p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">module</span>.exports = isDirectory;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

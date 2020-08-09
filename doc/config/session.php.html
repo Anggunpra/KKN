@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>session.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "config\\session.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>session.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Str</span>;
+
+<span class="hljs-keyword">return</span> [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Default Session Driver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This option controls the default session &quot;driver&quot; that will be used on</td>
+</tr>
+<tr>
+<td>requests. By default, we will use the lightweight native driver but</td>
+</tr>
+<tr>
+<td>you may specify any of the other wonderful drivers provided here.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Supported: &quot;file&quot;, &quot;cookie&quot;, &quot;database&quot;, &quot;apc&quot;,</td>
+</tr>
+<tr>
+<td>&quot;memcached&quot;, &quot;redis&quot;, &quot;dynamodb&quot;, &quot;array&quot;</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'driver'</span> =&gt; env(<span class="hljs-string">'SESSION_DRIVER'</span>, <span class="hljs-string">'file'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Session Lifetime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may specify the number of minutes that you wish the session</td>
+</tr>
+<tr>
+<td>to be allowed to remain idle before it expires. If you want them</td>
+</tr>
+<tr>
+<td>to immediately expire on the browser closing, set that option.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'lifetime'</span> =&gt; env(<span class="hljs-string">'SESSION_LIFETIME'</span>, <span class="hljs-number">120</span>),
+
+    <span class="hljs-string">'expire_on_close'</span> =&gt; <span class="hljs-keyword">false</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Session Encryption</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This option allows you to easily specify that all of your session data</td>
+</tr>
+<tr>
+<td>should be encrypted before it is stored. All encryption will be run</td>
+</tr>
+<tr>
+<td>automatically by Laravel and you can use the Session like normal.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'encrypt'</span> =&gt; <span class="hljs-keyword">false</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Session File Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>When using the native session driver, we need a location where session</td>
+</tr>
+<tr>
+<td>files may be stored. A default has been set for you but a different</td>
+</tr>
+<tr>
+<td>location may be specified. This is only needed for file sessions.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'files'</span> =&gt; storage_path(<span class="hljs-string">'framework/sessions'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Session Database Connection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>When using the &quot;database&quot; or &quot;redis&quot; session drivers, you may specify a</td>
+</tr>
+<tr>
+<td>connection that should be used to manage these sessions. This should</td>
+</tr>
+<tr>
+<td>correspond to a connection in your database configuration options.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'connection'</span> =&gt; env(<span class="hljs-string">'SESSION_CONNECTION'</span>, <span class="hljs-keyword">null</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Session Database Table</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>When using the &quot;database&quot; session driver, you may specify the table we</td>
+</tr>
+<tr>
+<td>should use to manage the sessions. Of course, a sensible default is</td>
+</tr>
+<tr>
+<td>provided for you; however, you are free to change this as needed.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'table'</span> =&gt; <span class="hljs-string">'sessions'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Session Cache Store</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>While using one of the framework's cache driven session backends you may</td>
+</tr>
+<tr>
+<td>list a cache store that should be used for these sessions. This value</td>
+</tr>
+<tr>
+<td>must match with one of the application's configured cache &quot;stores&quot;.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Affects: &quot;apc&quot;, &quot;dynamodb&quot;, &quot;memcached&quot;, &quot;redis&quot;</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'store'</span> =&gt; env(<span class="hljs-string">'SESSION_STORE'</span>, <span class="hljs-keyword">null</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Session Sweeping Lottery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Some session drivers must manually sweep their storage location to get</td>
+</tr>
+<tr>
+<td>rid of old sessions from storage. Here are the chances that it will</td>
+</tr>
+<tr>
+<td>happen on a given request. By default, the odds are 2 out of 100.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'lottery'</span> =&gt; [<span class="hljs-number">2</span>, <span class="hljs-number">100</span>],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Session Cookie Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may change the name of the cookie used to identify a session</td>
+</tr>
+<tr>
+<td>instance by ID. The name specified here will get used every time a</td>
+</tr>
+<tr>
+<td>new session cookie is created by the framework for every driver.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'cookie'</span> =&gt; env(
+        <span class="hljs-string">'SESSION_COOKIE'</span>,
+        Str::slug(env(<span class="hljs-string">'APP_NAME'</span>, <span class="hljs-string">'laravel'</span>), <span class="hljs-string">'_'</span>).<span class="hljs-string">'_session'</span>
+    ),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Session Cookie Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>The session cookie path determines the path for which the cookie will</td>
+</tr>
+<tr>
+<td>be regarded as available. Typically, this will be the root path of</td>
+</tr>
+<tr>
+<td>your application but you are free to change this when necessary.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'path'</span> =&gt; <span class="hljs-string">'/'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Session Cookie Domain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may change the domain of the cookie used to identify a session</td>
+</tr>
+<tr>
+<td>in your application. This will determine which domains the cookie is</td>
+</tr>
+<tr>
+<td>available to in your application. A sensible default has been set.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'domain'</span> =&gt; env(<span class="hljs-string">'SESSION_DOMAIN'</span>, <span class="hljs-keyword">null</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>HTTPS Only Cookies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>By setting this option to true, session cookies will only be sent back</td>
+</tr>
+<tr>
+<td>to the server if the browser has a HTTPS connection. This will keep</td>
+</tr>
+<tr>
+<td>the cookie from being sent to you if it can not be done securely.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'secure'</span> =&gt; env(<span class="hljs-string">'SESSION_SECURE_COOKIE'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>HTTP Access Only</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Setting this value to true will prevent JavaScript from accessing the</td>
+</tr>
+<tr>
+<td>value of the cookie and the cookie will only be accessible through</td>
+</tr>
+<tr>
+<td>the HTTP protocol. You are free to modify this option if needed.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'http_only'</span> =&gt; <span class="hljs-keyword">true</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Same-Site Cookies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This option determines how your cookies behave when cross-site requests</td>
+</tr>
+<tr>
+<td>take place, and can be used to mitigate CSRF attacks. By default, we</td>
+</tr>
+<tr>
+<td>will set this value to &quot;lax&quot; since this is a secure default value.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Supported: &quot;lax&quot;, &quot;strict&quot;, &quot;none&quot;, null</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'same_site'</span> =&gt; <span class="hljs-string">'lax'</span>,
+
+];
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

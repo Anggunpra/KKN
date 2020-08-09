@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\limiter\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#limiter">limiter</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#additional-notes">Additional Notes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="limiter">
+  <h1>
+    <a href="#limiter" name="limiter" class="pilcrow"></a>
+limiter
+  </h1>
+</div>
+<p><a href="https://travis-ci.org/jhurliman/node-rate-limiter"><img src="https://travis-ci.org/jhurliman/node-rate-limiter.png" alt="Build Status"></a>
+<a href="https://www.npmjs.com/package/limiter"><img src="https://img.shields.io/npm/dm/limiter.svg?style=flat" alt="NPM Downloads"></a></p>
+<p>Provides a generic rate limiter for node.js. Useful for API clients, web
+crawling, or other tasks that need to be throttled. Two classes are exposed,
+RateLimiter and TokenBucket. TokenBucket provides a lower level interface to
+rate limiting with a configurable burst rate and drip rate. RateLimiter sits
+on top of the token bucket and adds a restriction on the maximum number of
+tokens that can be removed each interval to comply with common API
+restrictions like &quot;150 requests per hour maximum&quot;.</p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<p>Use NPM to install:</p>
+<pre><code>npm install limiter
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>A simple example allowing 150 requests per hour:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> RateLimiter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'limiter'</span>).RateLimiter;
+<span class="hljs-comment">// Allow 150 requests per hour (the Twitter search limit). Also understands</span>
+<span class="hljs-comment">// 'second', 'minute', 'day', or a number of milliseconds</span>
+<span class="hljs-keyword">var</span> limiter = <span class="hljs-keyword">new</span> RateLimiter(<span class="hljs-number">150</span>, <span class="hljs-string">'hour'</span>);
+
+<span class="hljs-comment">// Throttle requests</span>
+limiter.removeTokens(<span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, remainingRequests</span>) </span>{
+  <span class="hljs-comment">// err will only be set if we request more than the maximum number of</span>
+  <span class="hljs-comment">// requests we set in the constructor</span>
+  
+  <span class="hljs-comment">// remainingRequests tells us how many additional requests could be sent</span>
+  <span class="hljs-comment">// right this moment</span>
+  
+  callMyRequestSendingFunction(...);
+});
+</code></pre>
+<p>Another example allowing one message to be sent every 250ms:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> RateLimiter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'limiter'</span>).RateLimiter;
+<span class="hljs-keyword">var</span> limiter = <span class="hljs-keyword">new</span> RateLimiter(<span class="hljs-number">1</span>, <span class="hljs-number">250</span>);
+
+limiter.removeTokens(<span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  callMyMessageSendingFunction(...);
+});
+</code></pre>
+<p>The default behaviour is to wait for the duration of the rate limiting
+that’s currently in effect before the callback is fired, but if you
+pass in <code>true</code> as the third parameter, the callback will be fired
+immediately with remainingRequests set to -1:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> RateLimiter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'limiter'</span>).RateLimiter;
+<span class="hljs-keyword">var</span> limiter = <span class="hljs-keyword">new</span> RateLimiter(<span class="hljs-number">150</span>, <span class="hljs-string">'hour'</span>, <span class="hljs-literal">true</span>);  <span class="hljs-comment">// fire CB immediately</span>
+
+<span class="hljs-comment">// Immediately send 429 header to client when rate limiting is in effect</span>
+limiter.removeTokens(<span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, remainingRequests</span>) </span>{
+  <span class="hljs-keyword">if</span> (remainingRequests &lt; <span class="hljs-number">1</span>) {
+    response.writeHead(<span class="hljs-number">429</span>, {<span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'text/plain;charset=UTF-8'</span>});
+    response.end(<span class="hljs-string">'429 Too Many Requests - your IP is being rate limited'</span>);
+  } <span class="hljs-keyword">else</span> {
+    callMyMessageSendingFunction(...);
+  }
+});
+</code></pre>
+<p>A synchronous method, tryRemoveTokens(), is available in both RateLimiter and TokenBucket. This will return immediately with a boolean value indicating if the token removal was successful.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> RateLimiter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'limiter'</span>).RateLimiter;
+<span class="hljs-keyword">var</span> limiter = <span class="hljs-keyword">new</span> RateLimiter(<span class="hljs-number">10</span>, <span class="hljs-string">'second'</span>);
+
+<span class="hljs-keyword">if</span> (limiter.tryRemoveTokens(<span class="hljs-number">5</span>))
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Tokens removed'</span>);
+<span class="hljs-keyword">else</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'No tokens removed'</span>);
+</code></pre>
+<p>To get the number of remaining tokens <strong>outside</strong> the <code>removeTokens</code>-callback
+simply use the <code>getTokensRemaining</code>-method.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> RateLimiter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'limiter'</span>).RateLimiter;
+<span class="hljs-keyword">var</span> limiter = <span class="hljs-keyword">new</span> RateLimiter(<span class="hljs-number">1</span>, <span class="hljs-number">250</span>);
+
+<span class="hljs-comment">// returns 1 since we did not remove a token and our number of tokens per interval is 1</span>
+limiter.getTokensRemaining();
+</code></pre>
+<p>Using the token bucket directly to throttle at the byte level:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> BURST_RATE = <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">150</span>; <span class="hljs-comment">// 150KB/sec burst rate</span>
+<span class="hljs-keyword">var</span> FILL_RATE = <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">50</span>; <span class="hljs-comment">// 50KB/sec sustained rate</span>
+<span class="hljs-keyword">var</span> TokenBucket = <span class="hljs-built_in">require</span>(<span class="hljs-string">'limiter'</span>).TokenBucket;
+<span class="hljs-comment">// We could also pass a parent token bucket in as the last parameter to</span>
+<span class="hljs-comment">// create a hierarchical token bucket</span>
+<span class="hljs-keyword">var</span> bucket = <span class="hljs-keyword">new</span> TokenBucket(BURST_RATE, FILL_RATE, <span class="hljs-string">'second'</span>, <span class="hljs-literal">null</span>);
+
+bucket.removeTokens(myData.byteLength, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  sendMyData(myData);
+});
+</code></pre>
+<div class="pilwrap" id="additional-notes">
+  <h2>
+    <a href="#additional-notes" name="additional-notes" class="pilcrow"></a>
+Additional Notes
+  </h2>
+</div>
+<p>Both the token bucket and rate limiter should be used with a message queue or
+some way of preventing multiple simultaneous calls to removeTokens().
+Otherwise, earlier messages may get held up for long periods of time if more
+recent messages are continually draining the token bucket. This can lead to
+out of order messages or the appearance of &quot;lost&quot; messages under heavy load.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>(The MIT License)</p>
+<p>Copyright (c) 2013 John Hurliman. &lt;jhurliman@jhurliman.org&gt;</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+</div>
+  </div>
+</body>
+</html>

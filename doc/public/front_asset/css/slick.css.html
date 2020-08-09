@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>slick.css</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\front_asset\\css\\slick.css";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>slick.css</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="css"><span class="hljs-comment">/* Slider */</span>
+<span class="hljs-selector-class">.slick-slider</span>
+{
+    <span class="hljs-attribute">position</span>: relative;
+
+    <span class="hljs-attribute">display</span>: block;
+    <span class="hljs-attribute">box-sizing</span>: border-box;
+
+    <span class="hljs-attribute">-webkit-user-select</span>: none;
+       <span class="hljs-attribute">-moz-user-select</span>: none;
+        <span class="hljs-attribute">-ms-user-select</span>: none;
+            <span class="hljs-attribute">user-select</span>: none;
+
+    <span class="hljs-attribute">-webkit-touch-callout</span>: none;
+    <span class="hljs-attribute">-khtml-user-select</span>: none;
+    <span class="hljs-attribute">-ms-touch-action</span>: pan-y;
+        <span class="hljs-attribute">touch-action</span>: pan-y;
+    <span class="hljs-attribute">-webkit-tap-highlight-color</span>: transparent;
+}
+
+<span class="hljs-selector-class">.slick-list</span>
+{
+    <span class="hljs-attribute">position</span>: relative;
+
+    <span class="hljs-attribute">display</span>: block;
+    <span class="hljs-attribute">overflow</span>: hidden;
+
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.slick-list</span><span class="hljs-selector-pseudo">:focus</span>
+{
+    <span class="hljs-attribute">outline</span>: none;
+}
+<span class="hljs-selector-class">.slick-list</span><span class="hljs-selector-class">.dragging</span>
+{
+    <span class="hljs-attribute">cursor</span>: pointer;
+    <span class="hljs-attribute">cursor</span>: hand;
+}
+
+<span class="hljs-selector-class">.slick-slider</span> <span class="hljs-selector-class">.slick-track</span>,
+<span class="hljs-selector-class">.slick-slider</span> <span class="hljs-selector-class">.slick-list</span>
+{
+    <span class="hljs-attribute">-webkit-transform</span>: <span class="hljs-built_in">translate3d</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+       <span class="hljs-attribute">-moz-transform</span>: <span class="hljs-built_in">translate3d</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+        <span class="hljs-attribute">-ms-transform</span>: <span class="hljs-built_in">translate3d</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+         <span class="hljs-attribute">-o-transform</span>: <span class="hljs-built_in">translate3d</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translate3d</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+}
+
+<span class="hljs-selector-class">.slick-track</span>
+{
+    <span class="hljs-attribute">position</span>: relative;
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+
+    <span class="hljs-attribute">display</span>: block;
+    <span class="hljs-attribute">margin-left</span>: auto;
+    <span class="hljs-attribute">margin-right</span>: auto;
+}
+<span class="hljs-selector-class">.slick-track</span><span class="hljs-selector-pseudo">:before</span>,
+<span class="hljs-selector-class">.slick-track</span><span class="hljs-selector-pseudo">:after</span>
+{
+    <span class="hljs-attribute">display</span>: table;
+
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
+}
+<span class="hljs-selector-class">.slick-track</span><span class="hljs-selector-pseudo">:after</span>
+{
+    <span class="hljs-attribute">clear</span>: both;
+}
+<span class="hljs-selector-class">.slick-loading</span> <span class="hljs-selector-class">.slick-track</span>
+{
+    <span class="hljs-attribute">visibility</span>: hidden;
+}
+
+<span class="hljs-selector-class">.slick-slide</span>
+{
+    <span class="hljs-attribute">display</span>: none;
+    <span class="hljs-attribute">float</span>: left;
+
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">min-height</span>: <span class="hljs-number">1px</span>;
+}
+<span class="hljs-selector-attr">[dir=<span class="hljs-string">'rtl'</span>]</span> <span class="hljs-selector-class">.slick-slide</span>
+{
+    <span class="hljs-attribute">float</span>: right;
+}
+<span class="hljs-selector-class">.slick-slide</span> <span class="hljs-selector-tag">img</span>
+{
+    <span class="hljs-attribute">display</span>: block;
+}
+<span class="hljs-selector-class">.slick-slide</span><span class="hljs-selector-class">.slick-loading</span> <span class="hljs-selector-tag">img</span>
+{
+    <span class="hljs-attribute">display</span>: none;
+}
+<span class="hljs-selector-class">.slick-slide</span><span class="hljs-selector-class">.dragging</span> <span class="hljs-selector-tag">img</span>
+{
+    <span class="hljs-attribute">pointer-events</span>: none;
+}
+<span class="hljs-selector-class">.slick-initialized</span> <span class="hljs-selector-class">.slick-slide</span>
+{
+    <span class="hljs-attribute">display</span>: block; 
+}
+<span class="hljs-selector-class">.slick-loading</span> <span class="hljs-selector-class">.slick-slide</span>
+{
+    <span class="hljs-attribute">visibility</span>: hidden;
+}
+<span class="hljs-selector-class">.slick-vertical</span> <span class="hljs-selector-class">.slick-slide</span>
+{
+    <span class="hljs-attribute">display</span>: block;
+
+    <span class="hljs-attribute">height</span>: auto;
+
+    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid transparent;
+}
+<span class="hljs-selector-class">.slick-arrow</span><span class="hljs-selector-class">.slick-hidden</span> {
+    <span class="hljs-attribute">display</span>: none;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

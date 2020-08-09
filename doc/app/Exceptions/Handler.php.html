@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Handler.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "app\\Exceptions\\Handler.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>Handler.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Exceptions</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Foundation</span>\<span class="hljs-title">Exceptions</span>\<span class="hljs-title">Handler</span> <span class="hljs-title">as</span> <span class="hljs-title">ExceptionHandler</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Throwable</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Handler</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ExceptionHandler</span>
+</span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>A list of the exception types that are not reported.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">protected</span> $dontReport = [
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    ];
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>A list of the inputs that are never flashed for validation exceptions.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">protected</span> $dontFlash = [
+        <span class="hljs-string">'password'</span>,
+        <span class="hljs-string">'password_confirmation'</span>,
+    ];
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Report or log an exception.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">\Throwable</span>
+<span>$exception
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>void
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">report</span><span class="hljs-params">(Throwable $exception)</span>
+    </span>{
+        <span class="hljs-keyword">parent</span>::report($exception);
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Render an exception into an HTTP response.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">\Illuminate\Http\Request</span>
+<span>$request
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">\Throwable</span>
+<span>$exception
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Symfony\Component\HttpFoundation\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">($request, Throwable $exception)</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">parent</span>::render($request, $exception);
+    }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es6-iterator\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">"use strict"</span>;
+
+<span class="hljs-keyword">var</span> clear    = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/array/#/clear"</span>)
+  , assign   = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/object/assign"</span>)
+  , callable = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/object/valid-callable"</span>)
+  , value    = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/object/valid-value"</span>)
+  , d        = <span class="hljs-built_in">require</span>(<span class="hljs-string">"d"</span>)
+  , autoBind = <span class="hljs-built_in">require</span>(<span class="hljs-string">"d/auto-bind"</span>)
+  , <span class="hljs-built_in">Symbol</span>   = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es6-symbol"</span>);
+
+<span class="hljs-keyword">var</span> defineProperty = <span class="hljs-built_in">Object</span>.defineProperty, defineProperties = <span class="hljs-built_in">Object</span>.defineProperties, Iterator;
+
+<span class="hljs-built_in">module</span>.exports = Iterator = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">list, context</span>) </span>{
+	<span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> Iterator)) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Constructor requires 'new'"</span>);
+	defineProperties(<span class="hljs-keyword">this</span>, {
+		<span class="hljs-attr">__list__</span>: d(<span class="hljs-string">"w"</span>, value(list)),
+		<span class="hljs-attr">__context__</span>: d(<span class="hljs-string">"w"</span>, context),
+		<span class="hljs-attr">__nextIndex__</span>: d(<span class="hljs-string">"w"</span>, <span class="hljs-number">0</span>)
+	});
+	<span class="hljs-keyword">if</span> (!context) <span class="hljs-keyword">return</span>;
+	callable(context.on);
+	context.on(<span class="hljs-string">"_add"</span>, <span class="hljs-keyword">this</span>._onAdd);
+	context.on(<span class="hljs-string">"_delete"</span>, <span class="hljs-keyword">this</span>._onDelete);
+	context.on(<span class="hljs-string">"_clear"</span>, <span class="hljs-keyword">this</span>._onClear);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Internal %IteratorPrototype% doesn't expose its constructor</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">delete</span> Iterator.prototype.constructor;
+
+defineProperties(
+	Iterator.prototype,
+	assign(
+		{
+			<span class="hljs-attr">_next</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">var</span> i;
+				<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.__list__) <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+				<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.__redo__) {
+					i = <span class="hljs-keyword">this</span>.__redo__.shift();
+					<span class="hljs-keyword">if</span> (i !== <span class="hljs-literal">undefined</span>) <span class="hljs-keyword">return</span> i;
+				}
+				<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.__nextIndex__ &lt; <span class="hljs-keyword">this</span>.__list__.length) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.__nextIndex__++;
+				<span class="hljs-keyword">this</span>._unBind();
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+			}),
+			<span class="hljs-attr">next</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._createResult(<span class="hljs-keyword">this</span>._next());
+			}),
+			<span class="hljs-attr">_createResult</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i</span>) </span>{
+				<span class="hljs-keyword">if</span> (i === <span class="hljs-literal">undefined</span>) <span class="hljs-keyword">return</span> { <span class="hljs-attr">done</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">value</span>: <span class="hljs-literal">undefined</span> };
+				<span class="hljs-keyword">return</span> { <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: <span class="hljs-keyword">this</span>._resolve(i) };
+			}),
+			<span class="hljs-attr">_resolve</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i</span>) </span>{
+				<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.__list__[i];
+			}),
+			<span class="hljs-attr">_unBind</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">this</span>.__list__ = <span class="hljs-literal">null</span>;
+				<span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>.__redo__;
+				<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.__context__) <span class="hljs-keyword">return</span>;
+				<span class="hljs-keyword">this</span>.__context__.off(<span class="hljs-string">"_add"</span>, <span class="hljs-keyword">this</span>._onAdd);
+				<span class="hljs-keyword">this</span>.__context__.off(<span class="hljs-string">"_delete"</span>, <span class="hljs-keyword">this</span>._onDelete);
+				<span class="hljs-keyword">this</span>.__context__.off(<span class="hljs-string">"_clear"</span>, <span class="hljs-keyword">this</span>._onClear);
+				<span class="hljs-keyword">this</span>.__context__ = <span class="hljs-literal">null</span>;
+			}),
+			<span class="hljs-attr">toString</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">return</span> <span class="hljs-string">"[object "</span> + (<span class="hljs-keyword">this</span>[<span class="hljs-built_in">Symbol</span>.toStringTag] || <span class="hljs-string">"Object"</span>) + <span class="hljs-string">"]"</span>;
+			})
+		},
+		autoBind({
+			<span class="hljs-attr">_onAdd</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">index</span>) </span>{
+				<span class="hljs-keyword">if</span> (index &gt;= <span class="hljs-keyword">this</span>.__nextIndex__) <span class="hljs-keyword">return</span>;
+				++<span class="hljs-keyword">this</span>.__nextIndex__;
+				<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.__redo__) {
+					defineProperty(<span class="hljs-keyword">this</span>, <span class="hljs-string">"__redo__"</span>, d(<span class="hljs-string">"c"</span>, [index]));
+					<span class="hljs-keyword">return</span>;
+				}
+				<span class="hljs-keyword">this</span>.__redo__.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">redo, i</span>) </span>{
+					<span class="hljs-keyword">if</span> (redo &gt;= index) <span class="hljs-keyword">this</span>.__redo__[i] = ++redo;
+				}, <span class="hljs-keyword">this</span>);
+				<span class="hljs-keyword">this</span>.__redo__.push(index);
+			}),
+			<span class="hljs-attr">_onDelete</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">index</span>) </span>{
+				<span class="hljs-keyword">var</span> i;
+				<span class="hljs-keyword">if</span> (index &gt;= <span class="hljs-keyword">this</span>.__nextIndex__) <span class="hljs-keyword">return</span>;
+				--<span class="hljs-keyword">this</span>.__nextIndex__;
+				<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.__redo__) <span class="hljs-keyword">return</span>;
+				i = <span class="hljs-keyword">this</span>.__redo__.indexOf(index);
+				<span class="hljs-keyword">if</span> (i !== <span class="hljs-number">-1</span>) <span class="hljs-keyword">this</span>.__redo__.splice(i, <span class="hljs-number">1</span>);
+				<span class="hljs-keyword">this</span>.__redo__.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">redo, j</span>) </span>{
+					<span class="hljs-keyword">if</span> (redo &gt; index) <span class="hljs-keyword">this</span>.__redo__[j] = --redo;
+				}, <span class="hljs-keyword">this</span>);
+			}),
+			<span class="hljs-attr">_onClear</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.__redo__) clear.call(<span class="hljs-keyword">this</span>.__redo__);
+				<span class="hljs-keyword">this</span>.__nextIndex__ = <span class="hljs-number">0</span>;
+			})
+		})
+	)
+);
+
+defineProperty(
+	Iterator.prototype,
+	<span class="hljs-built_in">Symbol</span>.iterator,
+	d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+	})
+);
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

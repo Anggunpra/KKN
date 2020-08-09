@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-util\\package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"gulp-util"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Utility functions for gulp plugins"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"3.0.8"</span>,
+  <span class="hljs-attr">"repository"</span>: <span class="hljs-string">"gulpjs/gulp-util"</span>,
+  <span class="hljs-attr">"author"</span>: <span class="hljs-string">"Fractal &lt;contact@wearefractal.com&gt; (http://wearefractal.com/)"</span>,
+  <span class="hljs-attr">"files"</span>: [
+    <span class="hljs-string">"index.js"</span>,
+    <span class="hljs-string">"lib"</span>
+  ],
+  <span class="hljs-attr">"dependencies"</span>: {
+    <span class="hljs-attr">"array-differ"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"array-uniq"</span>: <span class="hljs-string">"^1.0.2"</span>,
+    <span class="hljs-attr">"beeper"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"chalk"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"dateformat"</span>: <span class="hljs-string">"^2.0.0"</span>,
+    <span class="hljs-attr">"fancy-log"</span>: <span class="hljs-string">"^1.1.0"</span>,
+    <span class="hljs-attr">"gulplog"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"has-gulplog"</span>: <span class="hljs-string">"^0.1.0"</span>,
+    <span class="hljs-attr">"lodash._reescape"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"lodash._reevaluate"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"lodash._reinterpolate"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"lodash.template"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"minimist"</span>: <span class="hljs-string">"^1.1.0"</span>,
+    <span class="hljs-attr">"multipipe"</span>: <span class="hljs-string">"^0.1.2"</span>,
+    <span class="hljs-attr">"object-assign"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"replace-ext"</span>: <span class="hljs-string">"0.0.1"</span>,
+    <span class="hljs-attr">"through2"</span>: <span class="hljs-string">"^2.0.0"</span>,
+    <span class="hljs-attr">"vinyl"</span>: <span class="hljs-string">"^0.5.0"</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"buffer-equal"</span>: <span class="hljs-string">"^0.0.1"</span>,
+    <span class="hljs-attr">"coveralls"</span>: <span class="hljs-string">"^2.11.2"</span>,
+    <span class="hljs-attr">"event-stream"</span>: <span class="hljs-string">"^3.1.7"</span>,
+    <span class="hljs-attr">"istanbul"</span>: <span class="hljs-string">"^0.3.5"</span>,
+    <span class="hljs-attr">"istanbul-coveralls"</span>: <span class="hljs-string">"^1.0.1"</span>,
+    <span class="hljs-attr">"jshint"</span>: <span class="hljs-string">"^2.5.11"</span>,
+    <span class="hljs-attr">"lodash.templatesettings"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"mocha"</span>: <span class="hljs-string">"^2.0.1"</span>,
+    <span class="hljs-attr">"rimraf"</span>: <span class="hljs-string">"^2.2.8"</span>,
+    <span class="hljs-attr">"should"</span>: <span class="hljs-string">"^7.0.1"</span>
+  },
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"jshint *.js lib/*.js test/*.js &amp;&amp; mocha"</span>,
+    <span class="hljs-attr">"coveralls"</span>: <span class="hljs-string">"istanbul cover _mocha --report lcovonly &amp;&amp; istanbul-coveralls"</span>
+  },
+  <span class="hljs-attr">"engines"</span>: {
+    <span class="hljs-attr">"node"</span>: <span class="hljs-string">"&gt;=0.10"</span>
+  },
+  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"MIT"</span>
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

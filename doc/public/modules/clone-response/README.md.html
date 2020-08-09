@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\clone-response\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#clone-response">clone-response</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#cloneresponse-response">cloneResponse(response)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#response">response</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="clone-response">
+  <h1>
+    <a href="#clone-response" name="clone-response" class="pilcrow"></a>
+clone-response
+  </h1>
+</div>
+<blockquote>
+<p>Clone a Node.js HTTP response stream</p>
+</blockquote>
+<p><a href="https://travis-ci.org/lukechilds/clone-response"><img src="https://travis-ci.org/lukechilds/clone-response.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/github/lukechilds/clone-response?branch=master"><img src="https://coveralls.io/repos/github/lukechilds/clone-response/badge.svg?branch=master" alt="Coverage Status"></a>
+<a href="https://www.npmjs.com/package/clone-response"><img src="https://img.shields.io/npm/dm/clone-response.svg" alt="npm"></a>
+<a href="https://www.npmjs.com/package/clone-response"><img src="https://img.shields.io/npm/v/clone-response.svg" alt="npm"></a></p>
+<p>Returns a new stream and copies over all properties and methods from the original response giving you a complete duplicate.</p>
+<p>This is useful in situations where you need to consume the response stream but also want to pass an unconsumed stream somewhere else to be consumed later.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code class="shell">npm install --save clone-response
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
+<span class="hljs-keyword">const</span> cloneResponse = <span class="hljs-built_in">require</span>(<span class="hljs-string">'clone-response'</span>);
+
+http.get(<span class="hljs-string">'http://example.com'</span>, response =&gt; {
+  <span class="hljs-keyword">const</span> clonedResponse = cloneResponse(response);
+  response.pipe(process.stdout);
+
+  setImmediate(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-comment">// The response stream has already been consumed by the time this executes,</span>
+    <span class="hljs-comment">// however the cloned response stream is still available.</span>
+    doSomethingWithResponse(clonedResponse);
+  });
+});
+</code></pre>
+<p>Please bear in mind that the process of cloning a stream consumes it. However, you can consume a stream multiple times in the same tick, therefore allowing you to create multiple clones. e.g:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> clone1 = cloneResponse(response);
+<span class="hljs-keyword">const</span> clone2 = cloneResponse(response);
+<span class="hljs-comment">// response can still be consumed in this tick but cannot be consumed if passed</span>
+<span class="hljs-comment">// into any async callbacks. clone1 and clone2 can be passed around and be</span>
+<span class="hljs-comment">// consumed in the future.</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="cloneresponse-response">
+  <h3>
+    <a href="#cloneresponse-response" name="cloneresponse-response" class="pilcrow"></a>
+cloneResponse(response)
+  </h3>
+</div>
+<p>Returns a clone of the passed in response.</p>
+<div class="pilwrap" id="response">
+  <h4>
+    <a href="#response" name="response" class="pilcrow"></a>
+response
+  </h4>
+</div>
+<p>Type: <code>stream</code></p>
+<p>A <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">Node.js HTTP response stream</a> to clone.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © Luke Childs</p>
+</div>
+  </div>
+</body>
+</html>

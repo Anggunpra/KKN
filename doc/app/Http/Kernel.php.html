@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kernel.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "app\\Http\\Kernel.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>Kernel.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Foundation</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Kernel</span> <span class="hljs-title">as</span> <span class="hljs-title">HttpKernel</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Kernel</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpKernel</span>
+</span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The application's global HTTP middleware stack.</p>
+<p>These middleware are run during every request to your application.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">protected</span> $middleware = [
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>\App\Http\Middleware\TrustHosts::class,</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        \App\Http\Middleware\TrustProxies::class,
+        \Fruitcake\Cors\HandleCors::class,
+        \App\Http\Middleware\CheckForMaintenanceMode::class,
+        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+        \App\Http\Middleware\TrimStrings::class,
+        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+    ];
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The application's route middleware groups.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">protected</span> $middlewareGroups = [
+        <span class="hljs-string">'web'</span> =&gt; [
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>\Illuminate\Session\Middleware\AuthenticateSession::class,</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \App\Http\Middleware\VerifyCsrfToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
+
+        <span class="hljs-string">'api'</span> =&gt; [
+            <span class="hljs-string">'throttle:60,1'</span>,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
+    ];
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The application's route middleware.</p>
+<p>These middleware may be assigned to groups or used individually.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">protected</span> $routeMiddleware = [
+        <span class="hljs-string">'auth'</span> =&gt; \App\Http\Middleware\Authenticate::class,
+        <span class="hljs-string">'auth.basic'</span> =&gt; \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        <span class="hljs-string">'bindings'</span> =&gt; \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        <span class="hljs-string">'cache.headers'</span> =&gt; \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        <span class="hljs-string">'can'</span> =&gt; \Illuminate\Auth\Middleware\Authorize::class,
+        <span class="hljs-string">'guest'</span> =&gt; \App\Http\Middleware\RedirectIfAuthenticated::class,
+        <span class="hljs-string">'password.confirm'</span> =&gt; \Illuminate\Auth\Middleware\RequirePassword::class,
+        <span class="hljs-string">'signed'</span> =&gt; \Illuminate\Routing\Middleware\ValidateSignature::class,
+        <span class="hljs-string">'throttle'</span> =&gt; \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        <span class="hljs-string">'verified'</span> =&gt; \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        <span class="hljs-string">'role'</span> =&gt; \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        <span class="hljs-string">'permission'</span> =&gt; \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        <span class="hljs-string">'role_or_permission'</span> =&gt; \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
+    ];
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

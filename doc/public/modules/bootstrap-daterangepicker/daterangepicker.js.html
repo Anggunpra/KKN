@@ -1,0 +1,2495 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>daterangepicker.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bootstrap-daterangepicker\\daterangepicker.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>daterangepicker.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+Following the UMD template https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">root, factory</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">'function'</span> &amp;&amp; define.amd) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>AMD. Make globaly available as well</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        define([<span class="hljs-string">'moment'</span>, <span class="hljs-string">'jquery'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">moment, jquery</span>) </span>{
+            <span class="hljs-keyword">if</span> (!jquery.fn) jquery.fn = {}; <span class="hljs-comment">// webpack server rendering</span>
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> moment !== <span class="hljs-string">'function'</span> &amp;&amp; moment.default) moment = moment.default
+            <span class="hljs-keyword">return</span> factory(moment, jquery);
+        });
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span> === <span class="hljs-string">'object'</span> &amp;&amp; <span class="hljs-built_in">module</span>.exports) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>Node / Browserify
+isomorphic issue</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">var</span> jQuery = (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span> != <span class="hljs-string">'undefined'</span>) ? <span class="hljs-built_in">window</span>.jQuery : <span class="hljs-literal">undefined</span>;
+        <span class="hljs-keyword">if</span> (!jQuery) {
+            jQuery = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jquery'</span>);
+            <span class="hljs-keyword">if</span> (!jQuery.fn) jQuery.fn = {};
+        }
+        <span class="hljs-keyword">var</span> moment = (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span> != <span class="hljs-string">'undefined'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span>.moment != <span class="hljs-string">'undefined'</span>) ? <span class="hljs-built_in">window</span>.moment : <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
+        <span class="hljs-built_in">module</span>.exports = factory(moment, jQuery);
+    } <span class="hljs-keyword">else</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Browser globals</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        root.daterangepicker = factory(root.moment, root.jQuery);
+    }
+}(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">moment, $</span>) </span>{
+    <span class="hljs-keyword">var</span> DateRangePicker = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">element, options, cb</span>) </span>{
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>default settings for options</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">this</span>.parentEl = <span class="hljs-string">'body'</span>;
+        <span class="hljs-keyword">this</span>.element = $(element);
+        <span class="hljs-keyword">this</span>.startDate = moment().startOf(<span class="hljs-string">'day'</span>);
+        <span class="hljs-keyword">this</span>.endDate = moment().endOf(<span class="hljs-string">'day'</span>);
+        <span class="hljs-keyword">this</span>.minDate = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.maxDate = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.maxSpan = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.autoApply = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.singleDatePicker = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.showDropdowns = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.minYear = moment().subtract(<span class="hljs-number">100</span>, <span class="hljs-string">'year'</span>).format(<span class="hljs-string">'YYYY'</span>);
+        <span class="hljs-keyword">this</span>.maxYear = moment().add(<span class="hljs-number">100</span>, <span class="hljs-string">'year'</span>).format(<span class="hljs-string">'YYYY'</span>);
+        <span class="hljs-keyword">this</span>.showWeekNumbers = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.showISOWeekNumbers = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.showCustomRangeLabel = <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">this</span>.timePicker = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.timePicker24Hour = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.timePickerIncrement = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">this</span>.timePickerSeconds = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.linkedCalendars = <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">this</span>.autoUpdateInput = <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">this</span>.alwaysShowCalendars = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.ranges = {};
+
+        <span class="hljs-keyword">this</span>.opens = <span class="hljs-string">'right'</span>;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.element.hasClass(<span class="hljs-string">'pull-right'</span>))
+            <span class="hljs-keyword">this</span>.opens = <span class="hljs-string">'left'</span>;
+
+        <span class="hljs-keyword">this</span>.drops = <span class="hljs-string">'down'</span>;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.element.hasClass(<span class="hljs-string">'dropup'</span>))
+            <span class="hljs-keyword">this</span>.drops = <span class="hljs-string">'up'</span>;
+
+        <span class="hljs-keyword">this</span>.buttonClasses = <span class="hljs-string">'btn btn-sm'</span>;
+        <span class="hljs-keyword">this</span>.applyButtonClasses = <span class="hljs-string">'btn-primary'</span>;
+        <span class="hljs-keyword">this</span>.cancelButtonClasses = <span class="hljs-string">'btn-default'</span>;
+
+        <span class="hljs-keyword">this</span>.locale = {
+            <span class="hljs-attr">direction</span>: <span class="hljs-string">'ltr'</span>,
+            <span class="hljs-attr">format</span>: moment.localeData().longDateFormat(<span class="hljs-string">'L'</span>),
+            <span class="hljs-attr">separator</span>: <span class="hljs-string">' - '</span>,
+            <span class="hljs-attr">applyLabel</span>: <span class="hljs-string">'Apply'</span>,
+            <span class="hljs-attr">cancelLabel</span>: <span class="hljs-string">'Cancel'</span>,
+            <span class="hljs-attr">weekLabel</span>: <span class="hljs-string">'W'</span>,
+            <span class="hljs-attr">customRangeLabel</span>: <span class="hljs-string">'Custom Range'</span>,
+            <span class="hljs-attr">daysOfWeek</span>: moment.weekdaysMin(),
+            <span class="hljs-attr">monthNames</span>: moment.monthsShort(),
+            <span class="hljs-attr">firstDay</span>: moment.localeData().firstDayOfWeek()
+        };
+
+        <span class="hljs-keyword">this</span>.callback = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>some state information</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">this</span>.isShowing = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.leftCalendar = {};
+        <span class="hljs-keyword">this</span>.rightCalendar = {};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>custom options from user</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options !== <span class="hljs-string">'object'</span> || options === <span class="hljs-literal">null</span>)
+            options = {};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>allow setting options with data attributes
+data-api options will be overwritten with custom javascript options</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        options = $.extend(<span class="hljs-keyword">this</span>.element.data(), options);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>html template for the picker UI</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.template !== <span class="hljs-string">'string'</span> &amp;&amp; !(options.template <span class="hljs-keyword">instanceof</span> $))
+            options.template =
+            <span class="hljs-string">'&lt;div class="daterangepicker"&gt;'</span> +
+                <span class="hljs-string">'&lt;div class="ranges"&gt;&lt;/div&gt;'</span> +
+                <span class="hljs-string">'&lt;div class="drp-calendar left"&gt;'</span> +
+                    <span class="hljs-string">'&lt;div class="calendar-table"&gt;&lt;/div&gt;'</span> +
+                    <span class="hljs-string">'&lt;div class="calendar-time"&gt;&lt;/div&gt;'</span> +
+                <span class="hljs-string">'&lt;/div&gt;'</span> +
+                <span class="hljs-string">'&lt;div class="drp-calendar right"&gt;'</span> +
+                    <span class="hljs-string">'&lt;div class="calendar-table"&gt;&lt;/div&gt;'</span> +
+                    <span class="hljs-string">'&lt;div class="calendar-time"&gt;&lt;/div&gt;'</span> +
+                <span class="hljs-string">'&lt;/div&gt;'</span> +
+                <span class="hljs-string">'&lt;div class="drp-buttons"&gt;'</span> +
+                    <span class="hljs-string">'&lt;span class="drp-selected"&gt;&lt;/span&gt;'</span> +
+                    <span class="hljs-string">'&lt;button class="cancelBtn" type="button"&gt;&lt;/button&gt;'</span> +
+                    <span class="hljs-string">'&lt;button class="applyBtn" disabled="disabled" type="button"&gt;&lt;/button&gt; '</span> +
+                <span class="hljs-string">'&lt;/div&gt;'</span> +
+            <span class="hljs-string">'&lt;/div&gt;'</span>;
+
+        <span class="hljs-keyword">this</span>.parentEl = (options.parentEl &amp;&amp; $(options.parentEl).length) ? $(options.parentEl) : $(<span class="hljs-keyword">this</span>.parentEl);
+        <span class="hljs-keyword">this</span>.container = $(options.template).appendTo(<span class="hljs-keyword">this</span>.parentEl);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>handle all the possible options overriding defaults</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.locale === <span class="hljs-string">'object'</span>) {
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.locale.direction === <span class="hljs-string">'string'</span>)
+                <span class="hljs-keyword">this</span>.locale.direction = options.locale.direction;
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.locale.format === <span class="hljs-string">'string'</span>)
+                <span class="hljs-keyword">this</span>.locale.format = options.locale.format;
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.locale.separator === <span class="hljs-string">'string'</span>)
+                <span class="hljs-keyword">this</span>.locale.separator = options.locale.separator;
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.locale.daysOfWeek === <span class="hljs-string">'object'</span>)
+                <span class="hljs-keyword">this</span>.locale.daysOfWeek = options.locale.daysOfWeek.slice();
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.locale.monthNames === <span class="hljs-string">'object'</span>)
+              <span class="hljs-keyword">this</span>.locale.monthNames = options.locale.monthNames.slice();
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.locale.firstDay === <span class="hljs-string">'number'</span>)
+              <span class="hljs-keyword">this</span>.locale.firstDay = options.locale.firstDay;
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.locale.applyLabel === <span class="hljs-string">'string'</span>)
+              <span class="hljs-keyword">this</span>.locale.applyLabel = options.locale.applyLabel;
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.locale.cancelLabel === <span class="hljs-string">'string'</span>)
+              <span class="hljs-keyword">this</span>.locale.cancelLabel = options.locale.cancelLabel;
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.locale.weekLabel === <span class="hljs-string">'string'</span>)
+              <span class="hljs-keyword">this</span>.locale.weekLabel = options.locale.weekLabel;
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.locale.customRangeLabel === <span class="hljs-string">'string'</span>){
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>Support unicode chars in the custom range name.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                <span class="hljs-keyword">var</span> elem = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'textarea'</span>);
+                elem.innerHTML = options.locale.customRangeLabel;
+                <span class="hljs-keyword">var</span> rangeHtml = elem.value;
+                <span class="hljs-keyword">this</span>.locale.customRangeLabel = rangeHtml;
+            }
+        }
+        <span class="hljs-keyword">this</span>.container.addClass(<span class="hljs-keyword">this</span>.locale.direction);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.startDate === <span class="hljs-string">'string'</span>)
+            <span class="hljs-keyword">this</span>.startDate = moment(options.startDate, <span class="hljs-keyword">this</span>.locale.format);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.endDate === <span class="hljs-string">'string'</span>)
+            <span class="hljs-keyword">this</span>.endDate = moment(options.endDate, <span class="hljs-keyword">this</span>.locale.format);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.minDate === <span class="hljs-string">'string'</span>)
+            <span class="hljs-keyword">this</span>.minDate = moment(options.minDate, <span class="hljs-keyword">this</span>.locale.format);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.maxDate === <span class="hljs-string">'string'</span>)
+            <span class="hljs-keyword">this</span>.maxDate = moment(options.maxDate, <span class="hljs-keyword">this</span>.locale.format);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.startDate === <span class="hljs-string">'object'</span>)
+            <span class="hljs-keyword">this</span>.startDate = moment(options.startDate);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.endDate === <span class="hljs-string">'object'</span>)
+            <span class="hljs-keyword">this</span>.endDate = moment(options.endDate);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.minDate === <span class="hljs-string">'object'</span>)
+            <span class="hljs-keyword">this</span>.minDate = moment(options.minDate);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.maxDate === <span class="hljs-string">'object'</span>)
+            <span class="hljs-keyword">this</span>.maxDate = moment(options.maxDate);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>sanity check for bad options</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.minDate &amp;&amp; <span class="hljs-keyword">this</span>.startDate.isBefore(<span class="hljs-keyword">this</span>.minDate))
+            <span class="hljs-keyword">this</span>.startDate = <span class="hljs-keyword">this</span>.minDate.clone();
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>sanity check for bad options</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.maxDate &amp;&amp; <span class="hljs-keyword">this</span>.endDate.isAfter(<span class="hljs-keyword">this</span>.maxDate))
+            <span class="hljs-keyword">this</span>.endDate = <span class="hljs-keyword">this</span>.maxDate.clone();
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.applyButtonClasses === <span class="hljs-string">'string'</span>)
+            <span class="hljs-keyword">this</span>.applyButtonClasses = options.applyButtonClasses;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.applyClass === <span class="hljs-string">'string'</span>) <span class="hljs-comment">//backwards compat</span>
+            <span class="hljs-keyword">this</span>.applyButtonClasses = options.applyClass;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.cancelButtonClasses === <span class="hljs-string">'string'</span>)
+            <span class="hljs-keyword">this</span>.cancelButtonClasses = options.cancelButtonClasses;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.cancelClass === <span class="hljs-string">'string'</span>) <span class="hljs-comment">//backwards compat</span>
+            <span class="hljs-keyword">this</span>.cancelButtonClasses = options.cancelClass;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.maxSpan === <span class="hljs-string">'object'</span>)
+            <span class="hljs-keyword">this</span>.maxSpan = options.maxSpan;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.dateLimit === <span class="hljs-string">'object'</span>) <span class="hljs-comment">//backwards compat</span>
+            <span class="hljs-keyword">this</span>.maxSpan = options.dateLimit;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.opens === <span class="hljs-string">'string'</span>)
+            <span class="hljs-keyword">this</span>.opens = options.opens;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.drops === <span class="hljs-string">'string'</span>)
+            <span class="hljs-keyword">this</span>.drops = options.drops;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.showWeekNumbers === <span class="hljs-string">'boolean'</span>)
+            <span class="hljs-keyword">this</span>.showWeekNumbers = options.showWeekNumbers;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.showISOWeekNumbers === <span class="hljs-string">'boolean'</span>)
+            <span class="hljs-keyword">this</span>.showISOWeekNumbers = options.showISOWeekNumbers;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.buttonClasses === <span class="hljs-string">'string'</span>)
+            <span class="hljs-keyword">this</span>.buttonClasses = options.buttonClasses;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.buttonClasses === <span class="hljs-string">'object'</span>)
+            <span class="hljs-keyword">this</span>.buttonClasses = options.buttonClasses.join(<span class="hljs-string">' '</span>);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.showDropdowns === <span class="hljs-string">'boolean'</span>)
+            <span class="hljs-keyword">this</span>.showDropdowns = options.showDropdowns;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.minYear === <span class="hljs-string">'number'</span>)
+            <span class="hljs-keyword">this</span>.minYear = options.minYear;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.maxYear === <span class="hljs-string">'number'</span>)
+            <span class="hljs-keyword">this</span>.maxYear = options.maxYear;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.showCustomRangeLabel === <span class="hljs-string">'boolean'</span>)
+            <span class="hljs-keyword">this</span>.showCustomRangeLabel = options.showCustomRangeLabel;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.singleDatePicker === <span class="hljs-string">'boolean'</span>) {
+            <span class="hljs-keyword">this</span>.singleDatePicker = options.singleDatePicker;
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.singleDatePicker)
+                <span class="hljs-keyword">this</span>.endDate = <span class="hljs-keyword">this</span>.startDate.clone();
+        }
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.timePicker === <span class="hljs-string">'boolean'</span>)
+            <span class="hljs-keyword">this</span>.timePicker = options.timePicker;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.timePickerSeconds === <span class="hljs-string">'boolean'</span>)
+            <span class="hljs-keyword">this</span>.timePickerSeconds = options.timePickerSeconds;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.timePickerIncrement === <span class="hljs-string">'number'</span>)
+            <span class="hljs-keyword">this</span>.timePickerIncrement = options.timePickerIncrement;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.timePicker24Hour === <span class="hljs-string">'boolean'</span>)
+            <span class="hljs-keyword">this</span>.timePicker24Hour = options.timePicker24Hour;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.autoApply === <span class="hljs-string">'boolean'</span>)
+            <span class="hljs-keyword">this</span>.autoApply = options.autoApply;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.autoUpdateInput === <span class="hljs-string">'boolean'</span>)
+            <span class="hljs-keyword">this</span>.autoUpdateInput = options.autoUpdateInput;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.linkedCalendars === <span class="hljs-string">'boolean'</span>)
+            <span class="hljs-keyword">this</span>.linkedCalendars = options.linkedCalendars;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.isInvalidDate === <span class="hljs-string">'function'</span>)
+            <span class="hljs-keyword">this</span>.isInvalidDate = options.isInvalidDate;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.isCustomDate === <span class="hljs-string">'function'</span>)
+            <span class="hljs-keyword">this</span>.isCustomDate = options.isCustomDate;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.alwaysShowCalendars === <span class="hljs-string">'boolean'</span>)
+            <span class="hljs-keyword">this</span>.alwaysShowCalendars = options.alwaysShowCalendars;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>update day names order to firstDay</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.locale.firstDay != <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">var</span> iterator = <span class="hljs-keyword">this</span>.locale.firstDay;
+            <span class="hljs-keyword">while</span> (iterator &gt; <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">this</span>.locale.daysOfWeek.push(<span class="hljs-keyword">this</span>.locale.daysOfWeek.shift());
+                iterator--;
+            }
+        }
+
+        <span class="hljs-keyword">var</span> start, end, range;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>if no start/end dates set, check if an input element contains initial values</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.startDate === <span class="hljs-string">'undefined'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> options.endDate === <span class="hljs-string">'undefined'</span>) {
+            <span class="hljs-keyword">if</span> ($(<span class="hljs-keyword">this</span>.element).is(<span class="hljs-string">':text'</span>)) {
+                <span class="hljs-keyword">var</span> val = $(<span class="hljs-keyword">this</span>.element).val(),
+                    split = val.split(<span class="hljs-keyword">this</span>.locale.separator);
+
+                start = end = <span class="hljs-literal">null</span>;
+
+                <span class="hljs-keyword">if</span> (split.length == <span class="hljs-number">2</span>) {
+                    start = moment(split[<span class="hljs-number">0</span>], <span class="hljs-keyword">this</span>.locale.format);
+                    end = moment(split[<span class="hljs-number">1</span>], <span class="hljs-keyword">this</span>.locale.format);
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.singleDatePicker &amp;&amp; val !== <span class="hljs-string">""</span>) {
+                    start = moment(val, <span class="hljs-keyword">this</span>.locale.format);
+                    end = moment(val, <span class="hljs-keyword">this</span>.locale.format);
+                }
+                <span class="hljs-keyword">if</span> (start !== <span class="hljs-literal">null</span> &amp;&amp; end !== <span class="hljs-literal">null</span>) {
+                    <span class="hljs-keyword">this</span>.setStartDate(start);
+                    <span class="hljs-keyword">this</span>.setEndDate(end);
+                }
+            }
+        }
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.ranges === <span class="hljs-string">'object'</span>) {
+            <span class="hljs-keyword">for</span> (range <span class="hljs-keyword">in</span> options.ranges) {
+
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.ranges[range][<span class="hljs-number">0</span>] === <span class="hljs-string">'string'</span>)
+                    start = moment(options.ranges[range][<span class="hljs-number">0</span>], <span class="hljs-keyword">this</span>.locale.format);
+                <span class="hljs-keyword">else</span>
+                    start = moment(options.ranges[range][<span class="hljs-number">0</span>]);
+
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.ranges[range][<span class="hljs-number">1</span>] === <span class="hljs-string">'string'</span>)
+                    end = moment(options.ranges[range][<span class="hljs-number">1</span>], <span class="hljs-keyword">this</span>.locale.format);
+                <span class="hljs-keyword">else</span>
+                    end = moment(options.ranges[range][<span class="hljs-number">1</span>]);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>If the start or end date exceed those allowed by the minDate or maxSpan
+options, shorten the range to the allowable period.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.minDate &amp;&amp; start.isBefore(<span class="hljs-keyword">this</span>.minDate))
+                    start = <span class="hljs-keyword">this</span>.minDate.clone();
+
+                <span class="hljs-keyword">var</span> maxDate = <span class="hljs-keyword">this</span>.maxDate;
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.maxSpan &amp;&amp; maxDate &amp;&amp; start.clone().add(<span class="hljs-keyword">this</span>.maxSpan).isAfter(maxDate))
+                    maxDate = start.clone().add(<span class="hljs-keyword">this</span>.maxSpan);
+                <span class="hljs-keyword">if</span> (maxDate &amp;&amp; end.isAfter(maxDate))
+                    end = maxDate.clone();
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<p>If the end of the range is before the minimum or the start of the range is
+after the maximum, don't display this range option at all.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                <span class="hljs-keyword">if</span> ((<span class="hljs-keyword">this</span>.minDate &amp;&amp; end.isBefore(<span class="hljs-keyword">this</span>.minDate, <span class="hljs-keyword">this</span>.timepicker ? <span class="hljs-string">'minute'</span> : <span class="hljs-string">'day'</span>))
+                  || (maxDate &amp;&amp; start.isAfter(maxDate, <span class="hljs-keyword">this</span>.timepicker ? <span class="hljs-string">'minute'</span> : <span class="hljs-string">'day'</span>)))
+                    <span class="hljs-keyword">continue</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>Support unicode chars in the range names.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                <span class="hljs-keyword">var</span> elem = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'textarea'</span>);
+                elem.innerHTML = range;
+                <span class="hljs-keyword">var</span> rangeHtml = elem.value;
+
+                <span class="hljs-keyword">this</span>.ranges[rangeHtml] = [start, end];
+            }
+
+            <span class="hljs-keyword">var</span> list = <span class="hljs-string">'&lt;ul&gt;'</span>;
+            <span class="hljs-keyword">for</span> (range <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span>.ranges) {
+                list += <span class="hljs-string">'&lt;li data-range-key="'</span> + range + <span class="hljs-string">'"&gt;'</span> + range + <span class="hljs-string">'&lt;/li&gt;'</span>;
+            }
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.showCustomRangeLabel) {
+                list += <span class="hljs-string">'&lt;li data-range-key="'</span> + <span class="hljs-keyword">this</span>.locale.customRangeLabel + <span class="hljs-string">'"&gt;'</span> + <span class="hljs-keyword">this</span>.locale.customRangeLabel + <span class="hljs-string">'&lt;/li&gt;'</span>;
+            }
+            list += <span class="hljs-string">'&lt;/ul&gt;'</span>;
+            <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.ranges'</span>).prepend(list);
+        }
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> cb === <span class="hljs-string">'function'</span>) {
+            <span class="hljs-keyword">this</span>.callback = cb;
+        }
+
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker) {
+            <span class="hljs-keyword">this</span>.startDate = <span class="hljs-keyword">this</span>.startDate.startOf(<span class="hljs-string">'day'</span>);
+            <span class="hljs-keyword">this</span>.endDate = <span class="hljs-keyword">this</span>.endDate.endOf(<span class="hljs-string">'day'</span>);
+            <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.calendar-time'</span>).hide();
+        }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>can't be used together for now</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.timePicker &amp;&amp; <span class="hljs-keyword">this</span>.autoApply)
+            <span class="hljs-keyword">this</span>.autoApply = <span class="hljs-literal">false</span>;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.autoApply) {
+            <span class="hljs-keyword">this</span>.container.addClass(<span class="hljs-string">'auto-apply'</span>);
+        }
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.ranges === <span class="hljs-string">'object'</span>)
+            <span class="hljs-keyword">this</span>.container.addClass(<span class="hljs-string">'show-ranges'</span>);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.singleDatePicker) {
+            <span class="hljs-keyword">this</span>.container.addClass(<span class="hljs-string">'single'</span>);
+            <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.drp-calendar.left'</span>).addClass(<span class="hljs-string">'single'</span>);
+            <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.drp-calendar.left'</span>).show();
+            <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.drp-calendar.right'</span>).hide();
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker) {
+                <span class="hljs-keyword">this</span>.container.addClass(<span class="hljs-string">'auto-apply'</span>);
+            }
+        }
+
+        <span class="hljs-keyword">if</span> ((<span class="hljs-keyword">typeof</span> options.ranges === <span class="hljs-string">'undefined'</span> &amp;&amp; !<span class="hljs-keyword">this</span>.singleDatePicker) || <span class="hljs-keyword">this</span>.alwaysShowCalendars) {
+            <span class="hljs-keyword">this</span>.container.addClass(<span class="hljs-string">'show-calendar'</span>);
+        }
+
+        <span class="hljs-keyword">this</span>.container.addClass(<span class="hljs-string">'opens'</span> + <span class="hljs-keyword">this</span>.opens);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
+</div>
+<p>apply CSS classes and labels to buttons</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.applyBtn, .cancelBtn'</span>).addClass(<span class="hljs-keyword">this</span>.buttonClasses);
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.applyButtonClasses.length)
+            <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.applyBtn'</span>).addClass(<span class="hljs-keyword">this</span>.applyButtonClasses);
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.cancelButtonClasses.length)
+            <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.cancelBtn'</span>).addClass(<span class="hljs-keyword">this</span>.cancelButtonClasses);
+        <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.applyBtn'</span>).html(<span class="hljs-keyword">this</span>.locale.applyLabel);
+        <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.cancelBtn'</span>).html(<span class="hljs-keyword">this</span>.locale.cancelLabel);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
+</div>
+<p>event listeners</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+        <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.drp-calendar'</span>)
+            .on(<span class="hljs-string">'click.daterangepicker'</span>, <span class="hljs-string">'.prev'</span>, $.proxy(<span class="hljs-keyword">this</span>.clickPrev, <span class="hljs-keyword">this</span>))
+            .on(<span class="hljs-string">'click.daterangepicker'</span>, <span class="hljs-string">'.next'</span>, $.proxy(<span class="hljs-keyword">this</span>.clickNext, <span class="hljs-keyword">this</span>))
+            .on(<span class="hljs-string">'mousedown.daterangepicker'</span>, <span class="hljs-string">'td.available'</span>, $.proxy(<span class="hljs-keyword">this</span>.clickDate, <span class="hljs-keyword">this</span>))
+            .on(<span class="hljs-string">'mouseenter.daterangepicker'</span>, <span class="hljs-string">'td.available'</span>, $.proxy(<span class="hljs-keyword">this</span>.hoverDate, <span class="hljs-keyword">this</span>))
+            .on(<span class="hljs-string">'change.daterangepicker'</span>, <span class="hljs-string">'select.yearselect'</span>, $.proxy(<span class="hljs-keyword">this</span>.monthOrYearChanged, <span class="hljs-keyword">this</span>))
+            .on(<span class="hljs-string">'change.daterangepicker'</span>, <span class="hljs-string">'select.monthselect'</span>, $.proxy(<span class="hljs-keyword">this</span>.monthOrYearChanged, <span class="hljs-keyword">this</span>))
+            .on(<span class="hljs-string">'change.daterangepicker'</span>, <span class="hljs-string">'select.hourselect,select.minuteselect,select.secondselect,select.ampmselect'</span>, $.proxy(<span class="hljs-keyword">this</span>.timeChanged, <span class="hljs-keyword">this</span>))
+
+        <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.ranges'</span>)
+            .on(<span class="hljs-string">'click.daterangepicker'</span>, <span class="hljs-string">'li'</span>, $.proxy(<span class="hljs-keyword">this</span>.clickRange, <span class="hljs-keyword">this</span>))
+
+        <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.drp-buttons'</span>)
+            .on(<span class="hljs-string">'click.daterangepicker'</span>, <span class="hljs-string">'button.applyBtn'</span>, $.proxy(<span class="hljs-keyword">this</span>.clickApply, <span class="hljs-keyword">this</span>))
+            .on(<span class="hljs-string">'click.daterangepicker'</span>, <span class="hljs-string">'button.cancelBtn'</span>, $.proxy(<span class="hljs-keyword">this</span>.clickCancel, <span class="hljs-keyword">this</span>))
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.element.is(<span class="hljs-string">'input'</span>) || <span class="hljs-keyword">this</span>.element.is(<span class="hljs-string">'button'</span>)) {
+            <span class="hljs-keyword">this</span>.element.on({
+                <span class="hljs-string">'click.daterangepicker'</span>: $.proxy(<span class="hljs-keyword">this</span>.show, <span class="hljs-keyword">this</span>),
+                <span class="hljs-string">'focus.daterangepicker'</span>: $.proxy(<span class="hljs-keyword">this</span>.show, <span class="hljs-keyword">this</span>),
+                <span class="hljs-string">'keyup.daterangepicker'</span>: $.proxy(<span class="hljs-keyword">this</span>.elementChanged, <span class="hljs-keyword">this</span>),
+                <span class="hljs-string">'keydown.daterangepicker'</span>: $.proxy(<span class="hljs-keyword">this</span>.keydown, <span class="hljs-keyword">this</span>) <span class="hljs-comment">//IE 11 compatibility</span>
+            });
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">this</span>.element.on(<span class="hljs-string">'click.daterangepicker'</span>, $.proxy(<span class="hljs-keyword">this</span>.toggle, <span class="hljs-keyword">this</span>));
+            <span class="hljs-keyword">this</span>.element.on(<span class="hljs-string">'keydown.daterangepicker'</span>, $.proxy(<span class="hljs-keyword">this</span>.toggle, <span class="hljs-keyword">this</span>));
+        }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
+</div>
+<p>if attached to a text input, set the initial value</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+        <span class="hljs-keyword">this</span>.updateElement();
+
+    };
+
+    DateRangePicker.prototype = {
+
+        <span class="hljs-attr">constructor</span>: DateRangePicker,
+
+        <span class="hljs-attr">setStartDate</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">startDate</span>) </span>{
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> startDate === <span class="hljs-string">'string'</span>)
+                <span class="hljs-keyword">this</span>.startDate = moment(startDate, <span class="hljs-keyword">this</span>.locale.format);
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> startDate === <span class="hljs-string">'object'</span>)
+                <span class="hljs-keyword">this</span>.startDate = moment(startDate);
+
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker)
+                <span class="hljs-keyword">this</span>.startDate = <span class="hljs-keyword">this</span>.startDate.startOf(<span class="hljs-string">'day'</span>);
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.timePicker &amp;&amp; <span class="hljs-keyword">this</span>.timePickerIncrement)
+                <span class="hljs-keyword">this</span>.startDate.minute(<span class="hljs-built_in">Math</span>.round(<span class="hljs-keyword">this</span>.startDate.minute() / <span class="hljs-keyword">this</span>.timePickerIncrement) * <span class="hljs-keyword">this</span>.timePickerIncrement);
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.minDate &amp;&amp; <span class="hljs-keyword">this</span>.startDate.isBefore(<span class="hljs-keyword">this</span>.minDate)) {
+                <span class="hljs-keyword">this</span>.startDate = <span class="hljs-keyword">this</span>.minDate.clone();
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.timePicker &amp;&amp; <span class="hljs-keyword">this</span>.timePickerIncrement)
+                    <span class="hljs-keyword">this</span>.startDate.minute(<span class="hljs-built_in">Math</span>.round(<span class="hljs-keyword">this</span>.startDate.minute() / <span class="hljs-keyword">this</span>.timePickerIncrement) * <span class="hljs-keyword">this</span>.timePickerIncrement);
+            }
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.maxDate &amp;&amp; <span class="hljs-keyword">this</span>.startDate.isAfter(<span class="hljs-keyword">this</span>.maxDate)) {
+                <span class="hljs-keyword">this</span>.startDate = <span class="hljs-keyword">this</span>.maxDate.clone();
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.timePicker &amp;&amp; <span class="hljs-keyword">this</span>.timePickerIncrement)
+                    <span class="hljs-keyword">this</span>.startDate.minute(<span class="hljs-built_in">Math</span>.floor(<span class="hljs-keyword">this</span>.startDate.minute() / <span class="hljs-keyword">this</span>.timePickerIncrement) * <span class="hljs-keyword">this</span>.timePickerIncrement);
+            }
+
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.isShowing)
+                <span class="hljs-keyword">this</span>.updateElement();
+
+            <span class="hljs-keyword">this</span>.updateMonthsInView();
+        },
+
+        <span class="hljs-attr">setEndDate</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">endDate</span>) </span>{
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> endDate === <span class="hljs-string">'string'</span>)
+                <span class="hljs-keyword">this</span>.endDate = moment(endDate, <span class="hljs-keyword">this</span>.locale.format);
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> endDate === <span class="hljs-string">'object'</span>)
+                <span class="hljs-keyword">this</span>.endDate = moment(endDate);
+
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker)
+                <span class="hljs-keyword">this</span>.endDate = <span class="hljs-keyword">this</span>.endDate.endOf(<span class="hljs-string">'day'</span>);
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.timePicker &amp;&amp; <span class="hljs-keyword">this</span>.timePickerIncrement)
+                <span class="hljs-keyword">this</span>.endDate.minute(<span class="hljs-built_in">Math</span>.round(<span class="hljs-keyword">this</span>.endDate.minute() / <span class="hljs-keyword">this</span>.timePickerIncrement) * <span class="hljs-keyword">this</span>.timePickerIncrement);
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.endDate.isBefore(<span class="hljs-keyword">this</span>.startDate))
+                <span class="hljs-keyword">this</span>.endDate = <span class="hljs-keyword">this</span>.startDate.clone();
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.maxDate &amp;&amp; <span class="hljs-keyword">this</span>.endDate.isAfter(<span class="hljs-keyword">this</span>.maxDate))
+                <span class="hljs-keyword">this</span>.endDate = <span class="hljs-keyword">this</span>.maxDate.clone();
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.maxSpan &amp;&amp; <span class="hljs-keyword">this</span>.startDate.clone().add(<span class="hljs-keyword">this</span>.maxSpan).isBefore(<span class="hljs-keyword">this</span>.endDate))
+                <span class="hljs-keyword">this</span>.endDate = <span class="hljs-keyword">this</span>.startDate.clone().add(<span class="hljs-keyword">this</span>.maxSpan);
+
+            <span class="hljs-keyword">this</span>.previousRightTime = <span class="hljs-keyword">this</span>.endDate.clone();
+
+            <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.drp-selected'</span>).html(<span class="hljs-keyword">this</span>.startDate.format(<span class="hljs-keyword">this</span>.locale.format) + <span class="hljs-keyword">this</span>.locale.separator + <span class="hljs-keyword">this</span>.endDate.format(<span class="hljs-keyword">this</span>.locale.format));
+
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.isShowing)
+                <span class="hljs-keyword">this</span>.updateElement();
+
+            <span class="hljs-keyword">this</span>.updateMonthsInView();
+        },
+
+        <span class="hljs-attr">isInvalidDate</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        },
+
+        <span class="hljs-attr">isCustomDate</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        },
+
+        <span class="hljs-attr">updateView</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.timePicker) {
+                <span class="hljs-keyword">this</span>.renderTimePicker(<span class="hljs-string">'left'</span>);
+                <span class="hljs-keyword">this</span>.renderTimePicker(<span class="hljs-string">'right'</span>);
+                <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.endDate) {
+                    <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.right .calendar-time select'</span>).attr(<span class="hljs-string">'disabled'</span>, <span class="hljs-string">'disabled'</span>).addClass(<span class="hljs-string">'disabled'</span>);
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.right .calendar-time select'</span>).removeAttr(<span class="hljs-string">'disabled'</span>).removeClass(<span class="hljs-string">'disabled'</span>);
+                }
+            }
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.endDate)
+                <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.drp-selected'</span>).html(<span class="hljs-keyword">this</span>.startDate.format(<span class="hljs-keyword">this</span>.locale.format) + <span class="hljs-keyword">this</span>.locale.separator + <span class="hljs-keyword">this</span>.endDate.format(<span class="hljs-keyword">this</span>.locale.format));
+            <span class="hljs-keyword">this</span>.updateMonthsInView();
+            <span class="hljs-keyword">this</span>.updateCalendars();
+            <span class="hljs-keyword">this</span>.updateFormInputs();
+        },
+
+        <span class="hljs-attr">updateMonthsInView</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.endDate) {
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
+</div>
+<p>if both dates are visible already, do nothing</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.singleDatePicker &amp;&amp; <span class="hljs-keyword">this</span>.leftCalendar.month &amp;&amp; <span class="hljs-keyword">this</span>.rightCalendar.month &amp;&amp;
+                    (<span class="hljs-keyword">this</span>.startDate.format(<span class="hljs-string">'YYYY-MM'</span>) == <span class="hljs-keyword">this</span>.leftCalendar.month.format(<span class="hljs-string">'YYYY-MM'</span>) || <span class="hljs-keyword">this</span>.startDate.format(<span class="hljs-string">'YYYY-MM'</span>) == <span class="hljs-keyword">this</span>.rightCalendar.month.format(<span class="hljs-string">'YYYY-MM'</span>))
+                    &amp;&amp;
+                    (<span class="hljs-keyword">this</span>.endDate.format(<span class="hljs-string">'YYYY-MM'</span>) == <span class="hljs-keyword">this</span>.leftCalendar.month.format(<span class="hljs-string">'YYYY-MM'</span>) || <span class="hljs-keyword">this</span>.endDate.format(<span class="hljs-string">'YYYY-MM'</span>) == <span class="hljs-keyword">this</span>.rightCalendar.month.format(<span class="hljs-string">'YYYY-MM'</span>))
+                    ) {
+                    <span class="hljs-keyword">return</span>;
+                }
+
+                <span class="hljs-keyword">this</span>.leftCalendar.month = <span class="hljs-keyword">this</span>.startDate.clone().date(<span class="hljs-number">2</span>);
+                <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.linkedCalendars &amp;&amp; (<span class="hljs-keyword">this</span>.endDate.month() != <span class="hljs-keyword">this</span>.startDate.month() || <span class="hljs-keyword">this</span>.endDate.year() != <span class="hljs-keyword">this</span>.startDate.year())) {
+                    <span class="hljs-keyword">this</span>.rightCalendar.month = <span class="hljs-keyword">this</span>.endDate.clone().date(<span class="hljs-number">2</span>);
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">this</span>.rightCalendar.month = <span class="hljs-keyword">this</span>.startDate.clone().date(<span class="hljs-number">2</span>).add(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>);
+                }
+
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.leftCalendar.month.format(<span class="hljs-string">'YYYY-MM'</span>) != <span class="hljs-keyword">this</span>.startDate.format(<span class="hljs-string">'YYYY-MM'</span>) &amp;&amp; <span class="hljs-keyword">this</span>.rightCalendar.month.format(<span class="hljs-string">'YYYY-MM'</span>) != <span class="hljs-keyword">this</span>.startDate.format(<span class="hljs-string">'YYYY-MM'</span>)) {
+                    <span class="hljs-keyword">this</span>.leftCalendar.month = <span class="hljs-keyword">this</span>.startDate.clone().date(<span class="hljs-number">2</span>);
+                    <span class="hljs-keyword">this</span>.rightCalendar.month = <span class="hljs-keyword">this</span>.startDate.clone().date(<span class="hljs-number">2</span>).add(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>);
+                }
+            }
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.maxDate &amp;&amp; <span class="hljs-keyword">this</span>.linkedCalendars &amp;&amp; !<span class="hljs-keyword">this</span>.singleDatePicker &amp;&amp; <span class="hljs-keyword">this</span>.rightCalendar.month &gt; <span class="hljs-keyword">this</span>.maxDate) {
+              <span class="hljs-keyword">this</span>.rightCalendar.month = <span class="hljs-keyword">this</span>.maxDate.clone().date(<span class="hljs-number">2</span>);
+              <span class="hljs-keyword">this</span>.leftCalendar.month = <span class="hljs-keyword">this</span>.maxDate.clone().date(<span class="hljs-number">2</span>).subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>);
+            }
+        },
+
+        <span class="hljs-attr">updateCalendars</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.timePicker) {
+                <span class="hljs-keyword">var</span> hour, minute, second;
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.endDate) {
+                    hour = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.left .hourselect'</span>).val(), <span class="hljs-number">10</span>);
+                    minute = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.left .minuteselect'</span>).val(), <span class="hljs-number">10</span>);
+                    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(minute)) {
+                        minute = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.left .minuteselect option:last'</span>).val(), <span class="hljs-number">10</span>);
+                    }
+                    second = <span class="hljs-keyword">this</span>.timePickerSeconds ? <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.left .secondselect'</span>).val(), <span class="hljs-number">10</span>) : <span class="hljs-number">0</span>;
+                    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker24Hour) {
+                        <span class="hljs-keyword">var</span> ampm = <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.left .ampmselect'</span>).val();
+                        <span class="hljs-keyword">if</span> (ampm === <span class="hljs-string">'PM'</span> &amp;&amp; hour &lt; <span class="hljs-number">12</span>)
+                            hour += <span class="hljs-number">12</span>;
+                        <span class="hljs-keyword">if</span> (ampm === <span class="hljs-string">'AM'</span> &amp;&amp; hour === <span class="hljs-number">12</span>)
+                            hour = <span class="hljs-number">0</span>;
+                    }
+                } <span class="hljs-keyword">else</span> {
+                    hour = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.right .hourselect'</span>).val(), <span class="hljs-number">10</span>);
+                    minute = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.right .minuteselect'</span>).val(), <span class="hljs-number">10</span>);
+                    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(minute)) {
+                        minute = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.right .minuteselect option:last'</span>).val(), <span class="hljs-number">10</span>);
+                    }
+                    second = <span class="hljs-keyword">this</span>.timePickerSeconds ? <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.right .secondselect'</span>).val(), <span class="hljs-number">10</span>) : <span class="hljs-number">0</span>;
+                    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker24Hour) {
+                        <span class="hljs-keyword">var</span> ampm = <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.right .ampmselect'</span>).val();
+                        <span class="hljs-keyword">if</span> (ampm === <span class="hljs-string">'PM'</span> &amp;&amp; hour &lt; <span class="hljs-number">12</span>)
+                            hour += <span class="hljs-number">12</span>;
+                        <span class="hljs-keyword">if</span> (ampm === <span class="hljs-string">'AM'</span> &amp;&amp; hour === <span class="hljs-number">12</span>)
+                            hour = <span class="hljs-number">0</span>;
+                    }
+                }
+                <span class="hljs-keyword">this</span>.leftCalendar.month.hour(hour).minute(minute).second(second);
+                <span class="hljs-keyword">this</span>.rightCalendar.month.hour(hour).minute(minute).second(second);
+            }
+
+            <span class="hljs-keyword">this</span>.renderCalendar(<span class="hljs-string">'left'</span>);
+            <span class="hljs-keyword">this</span>.renderCalendar(<span class="hljs-string">'right'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
+</div>
+<p>highlight any predefined range matching the current start and end dates</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.ranges li'</span>).removeClass(<span class="hljs-string">'active'</span>);
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.endDate == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span>;
+
+            <span class="hljs-keyword">this</span>.calculateChosenLabel();
+        },
+
+        <span class="hljs-attr">renderCalendar</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">side</span>) </span>{
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
+</div>
+<p>Build the matrix of dates that will populate the calendar</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+            <span class="hljs-keyword">var</span> calendar = side == <span class="hljs-string">'left'</span> ? <span class="hljs-keyword">this</span>.leftCalendar : <span class="hljs-keyword">this</span>.rightCalendar;
+            <span class="hljs-keyword">var</span> month = calendar.month.month();
+            <span class="hljs-keyword">var</span> year = calendar.month.year();
+            <span class="hljs-keyword">var</span> hour = calendar.month.hour();
+            <span class="hljs-keyword">var</span> minute = calendar.month.minute();
+            <span class="hljs-keyword">var</span> second = calendar.month.second();
+            <span class="hljs-keyword">var</span> daysInMonth = moment([year, month]).daysInMonth();
+            <span class="hljs-keyword">var</span> firstDay = moment([year, month, <span class="hljs-number">1</span>]);
+            <span class="hljs-keyword">var</span> lastDay = moment([year, month, daysInMonth]);
+            <span class="hljs-keyword">var</span> lastMonth = moment(firstDay).subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>).month();
+            <span class="hljs-keyword">var</span> lastYear = moment(firstDay).subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>).year();
+            <span class="hljs-keyword">var</span> daysInLastMonth = moment([lastYear, lastMonth]).daysInMonth();
+            <span class="hljs-keyword">var</span> dayOfWeek = firstDay.day();
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
+</div>
+<p>initialize a 6 rows x 7 columns array for the calendar</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">var</span> calendar = [];
+            calendar.firstDay = firstDay;
+            calendar.lastDay = lastDay;
+
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">6</span>; i++) {
+                calendar[i] = [];
+            }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
+</div>
+<p>populate the calendar with date objects</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">var</span> startDay = daysInLastMonth - dayOfWeek + <span class="hljs-keyword">this</span>.locale.firstDay + <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">if</span> (startDay &gt; daysInLastMonth)
+                startDay -= <span class="hljs-number">7</span>;
+
+            <span class="hljs-keyword">if</span> (dayOfWeek == <span class="hljs-keyword">this</span>.locale.firstDay)
+                startDay = daysInLastMonth - <span class="hljs-number">6</span>;
+
+            <span class="hljs-keyword">var</span> curDate = moment([lastYear, lastMonth, startDay, <span class="hljs-number">12</span>, minute, second]);
+
+            <span class="hljs-keyword">var</span> col, row;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, col = <span class="hljs-number">0</span>, row = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">42</span>; i++, col++, curDate = moment(curDate).add(<span class="hljs-number">24</span>, <span class="hljs-string">'hour'</span>)) {
+                <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">0</span> &amp;&amp; col % <span class="hljs-number">7</span> === <span class="hljs-number">0</span>) {
+                    col = <span class="hljs-number">0</span>;
+                    row++;
+                }
+                calendar[row][col] = curDate.clone().hour(hour).minute(minute).second(second);
+                curDate.hour(<span class="hljs-number">12</span>);
+
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.minDate &amp;&amp; calendar[row][col].format(<span class="hljs-string">'YYYY-MM-DD'</span>) == <span class="hljs-keyword">this</span>.minDate.format(<span class="hljs-string">'YYYY-MM-DD'</span>) &amp;&amp; calendar[row][col].isBefore(<span class="hljs-keyword">this</span>.minDate) &amp;&amp; side == <span class="hljs-string">'left'</span>) {
+                    calendar[row][col] = <span class="hljs-keyword">this</span>.minDate.clone();
+                }
+
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.maxDate &amp;&amp; calendar[row][col].format(<span class="hljs-string">'YYYY-MM-DD'</span>) == <span class="hljs-keyword">this</span>.maxDate.format(<span class="hljs-string">'YYYY-MM-DD'</span>) &amp;&amp; calendar[row][col].isAfter(<span class="hljs-keyword">this</span>.maxDate) &amp;&amp; side == <span class="hljs-string">'right'</span>) {
+                    calendar[row][col] = <span class="hljs-keyword">this</span>.maxDate.clone();
+                }
+
+            }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
+</div>
+<p>make the calendar object available to hoverDate/clickDate</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span> (side == <span class="hljs-string">'left'</span>) {
+                <span class="hljs-keyword">this</span>.leftCalendar.calendar = calendar;
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.rightCalendar.calendar = calendar;
+            }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
+</div>
+<p>Display the calendar</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+            <span class="hljs-keyword">var</span> minDate = side == <span class="hljs-string">'left'</span> ? <span class="hljs-keyword">this</span>.minDate : <span class="hljs-keyword">this</span>.startDate;
+            <span class="hljs-keyword">var</span> maxDate = <span class="hljs-keyword">this</span>.maxDate;
+            <span class="hljs-keyword">var</span> selected = side == <span class="hljs-string">'left'</span> ? <span class="hljs-keyword">this</span>.startDate : <span class="hljs-keyword">this</span>.endDate;
+            <span class="hljs-keyword">var</span> arrow = <span class="hljs-keyword">this</span>.locale.direction == <span class="hljs-string">'ltr'</span> ? {<span class="hljs-attr">left</span>: <span class="hljs-string">'chevron-left'</span>, <span class="hljs-attr">right</span>: <span class="hljs-string">'chevron-right'</span>} : {<span class="hljs-attr">left</span>: <span class="hljs-string">'chevron-right'</span>, <span class="hljs-attr">right</span>: <span class="hljs-string">'chevron-left'</span>};
+
+            <span class="hljs-keyword">var</span> html = <span class="hljs-string">'&lt;table class="table-condensed"&gt;'</span>;
+            html += <span class="hljs-string">'&lt;thead&gt;'</span>;
+            html += <span class="hljs-string">'&lt;tr&gt;'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30"></a>
+</div>
+<p>add empty cell for week number</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.showWeekNumbers || <span class="hljs-keyword">this</span>.showISOWeekNumbers)
+                html += <span class="hljs-string">'&lt;th&gt;&lt;/th&gt;'</span>;
+
+            <span class="hljs-keyword">if</span> ((!minDate || minDate.isBefore(calendar.firstDay)) &amp;&amp; (!<span class="hljs-keyword">this</span>.linkedCalendars || side == <span class="hljs-string">'left'</span>)) {
+                html += <span class="hljs-string">'&lt;th class="prev available"&gt;&lt;span&gt;&lt;/span&gt;&lt;/th&gt;'</span>;
+            } <span class="hljs-keyword">else</span> {
+                html += <span class="hljs-string">'&lt;th&gt;&lt;/th&gt;'</span>;
+            }
+
+            <span class="hljs-keyword">var</span> dateHtml = <span class="hljs-keyword">this</span>.locale.monthNames[calendar[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>].month()] + calendar[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>].format(<span class="hljs-string">" YYYY"</span>);
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.showDropdowns) {
+                <span class="hljs-keyword">var</span> currentMonth = calendar[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>].month();
+                <span class="hljs-keyword">var</span> currentYear = calendar[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>].year();
+                <span class="hljs-keyword">var</span> maxYear = (maxDate &amp;&amp; maxDate.year()) || (<span class="hljs-keyword">this</span>.maxYear);
+                <span class="hljs-keyword">var</span> minYear = (minDate &amp;&amp; minDate.year()) || (<span class="hljs-keyword">this</span>.minYear);
+                <span class="hljs-keyword">var</span> inMinYear = currentYear == minYear;
+                <span class="hljs-keyword">var</span> inMaxYear = currentYear == maxYear;
+
+                <span class="hljs-keyword">var</span> monthHtml = <span class="hljs-string">'&lt;select class="monthselect"&gt;'</span>;
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> m = <span class="hljs-number">0</span>; m &lt; <span class="hljs-number">12</span>; m++) {
+                    <span class="hljs-keyword">if</span> ((!inMinYear || (minDate &amp;&amp; m &gt;= minDate.month())) &amp;&amp; (!inMaxYear || (maxDate &amp;&amp; m &lt;= maxDate.month()))) {
+                        monthHtml += <span class="hljs-string">"&lt;option value='"</span> + m + <span class="hljs-string">"'"</span> +
+                            (m === currentMonth ? <span class="hljs-string">" selected='selected'"</span> : <span class="hljs-string">""</span>) +
+                            <span class="hljs-string">"&gt;"</span> + <span class="hljs-keyword">this</span>.locale.monthNames[m] + <span class="hljs-string">"&lt;/option&gt;"</span>;
+                    } <span class="hljs-keyword">else</span> {
+                        monthHtml += <span class="hljs-string">"&lt;option value='"</span> + m + <span class="hljs-string">"'"</span> +
+                            (m === currentMonth ? <span class="hljs-string">" selected='selected'"</span> : <span class="hljs-string">""</span>) +
+                            <span class="hljs-string">" disabled='disabled'&gt;"</span> + <span class="hljs-keyword">this</span>.locale.monthNames[m] + <span class="hljs-string">"&lt;/option&gt;"</span>;
+                    }
+                }
+                monthHtml += <span class="hljs-string">"&lt;/select&gt;"</span>;
+
+                <span class="hljs-keyword">var</span> yearHtml = <span class="hljs-string">'&lt;select class="yearselect"&gt;'</span>;
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> y = minYear; y &lt;= maxYear; y++) {
+                    yearHtml += <span class="hljs-string">'&lt;option value="'</span> + y + <span class="hljs-string">'"'</span> +
+                        (y === currentYear ? <span class="hljs-string">' selected="selected"'</span> : <span class="hljs-string">''</span>) +
+                        <span class="hljs-string">'&gt;'</span> + y + <span class="hljs-string">'&lt;/option&gt;'</span>;
+                }
+                yearHtml += <span class="hljs-string">'&lt;/select&gt;'</span>;
+
+                dateHtml = monthHtml + yearHtml;
+            }
+
+            html += <span class="hljs-string">'&lt;th colspan="5" class="month"&gt;'</span> + dateHtml + <span class="hljs-string">'&lt;/th&gt;'</span>;
+            <span class="hljs-keyword">if</span> ((!maxDate || maxDate.isAfter(calendar.lastDay)) &amp;&amp; (!<span class="hljs-keyword">this</span>.linkedCalendars || side == <span class="hljs-string">'right'</span> || <span class="hljs-keyword">this</span>.singleDatePicker)) {
+                html += <span class="hljs-string">'&lt;th class="next available"&gt;&lt;span&gt;&lt;/span&gt;&lt;/th&gt;'</span>;
+            } <span class="hljs-keyword">else</span> {
+                html += <span class="hljs-string">'&lt;th&gt;&lt;/th&gt;'</span>;
+            }
+
+            html += <span class="hljs-string">'&lt;/tr&gt;'</span>;
+            html += <span class="hljs-string">'&lt;tr&gt;'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
+</div>
+<p>add week number label</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.showWeekNumbers || <span class="hljs-keyword">this</span>.showISOWeekNumbers)
+                html += <span class="hljs-string">'&lt;th class="week"&gt;'</span> + <span class="hljs-keyword">this</span>.locale.weekLabel + <span class="hljs-string">'&lt;/th&gt;'</span>;
+
+            $.each(<span class="hljs-keyword">this</span>.locale.daysOfWeek, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, dayOfWeek</span>) </span>{
+                html += <span class="hljs-string">'&lt;th&gt;'</span> + dayOfWeek + <span class="hljs-string">'&lt;/th&gt;'</span>;
+            });
+
+            html += <span class="hljs-string">'&lt;/tr&gt;'</span>;
+            html += <span class="hljs-string">'&lt;/thead&gt;'</span>;
+            html += <span class="hljs-string">'&lt;tbody&gt;'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
+</div>
+<p>adjust maxDate to reflect the maxSpan setting in order to
+grey out end dates beyond the maxSpan</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.endDate == <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-keyword">this</span>.maxSpan) {
+                <span class="hljs-keyword">var</span> maxLimit = <span class="hljs-keyword">this</span>.startDate.clone().add(<span class="hljs-keyword">this</span>.maxSpan).endOf(<span class="hljs-string">'day'</span>);
+                <span class="hljs-keyword">if</span> (!maxDate || maxLimit.isBefore(maxDate)) {
+                    maxDate = maxLimit;
+                }
+            }
+
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> row = <span class="hljs-number">0</span>; row &lt; <span class="hljs-number">6</span>; row++) {
+                html += <span class="hljs-string">'&lt;tr&gt;'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
+</div>
+<p>add week number</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.showWeekNumbers)
+                    html += <span class="hljs-string">'&lt;td class="week"&gt;'</span> + calendar[row][<span class="hljs-number">0</span>].week() + <span class="hljs-string">'&lt;/td&gt;'</span>;
+                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.showISOWeekNumbers)
+                    html += <span class="hljs-string">'&lt;td class="week"&gt;'</span> + calendar[row][<span class="hljs-number">0</span>].isoWeek() + <span class="hljs-string">'&lt;/td&gt;'</span>;
+
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> col = <span class="hljs-number">0</span>; col &lt; <span class="hljs-number">7</span>; col++) {
+
+                    <span class="hljs-keyword">var</span> classes = [];
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
+</div>
+<p>highlight today's date</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span> (calendar[row][col].isSame(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">"day"</span>))
+                        classes.push(<span class="hljs-string">'today'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35"></a>
+</div>
+<p>highlight weekends</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span> (calendar[row][col].isoWeekday() &gt; <span class="hljs-number">5</span>)
+                        classes.push(<span class="hljs-string">'weekend'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36"></a>
+</div>
+<p>grey out the dates in other months displayed at beginning and end of this calendar</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span> (calendar[row][col].month() != calendar[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>].month())
+                        classes.push(<span class="hljs-string">'off'</span>, <span class="hljs-string">'ends'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37"></a>
+</div>
+<p>don't allow selection of dates before the minimum date</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.minDate &amp;&amp; calendar[row][col].isBefore(<span class="hljs-keyword">this</span>.minDate, <span class="hljs-string">'day'</span>))
+                        classes.push(<span class="hljs-string">'off'</span>, <span class="hljs-string">'disabled'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38"></a>
+</div>
+<p>don't allow selection of dates after the maximum date</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span> (maxDate &amp;&amp; calendar[row][col].isAfter(maxDate, <span class="hljs-string">'day'</span>))
+                        classes.push(<span class="hljs-string">'off'</span>, <span class="hljs-string">'disabled'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-39" id="section-39"></a>
+</div>
+<p>don't allow selection of date if a custom function decides it's invalid</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isInvalidDate(calendar[row][col]))
+                        classes.push(<span class="hljs-string">'off'</span>, <span class="hljs-string">'disabled'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-40" id="section-40"></a>
+</div>
+<p>highlight the currently selected start date</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span> (calendar[row][col].format(<span class="hljs-string">'YYYY-MM-DD'</span>) == <span class="hljs-keyword">this</span>.startDate.format(<span class="hljs-string">'YYYY-MM-DD'</span>))
+                        classes.push(<span class="hljs-string">'active'</span>, <span class="hljs-string">'start-date'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-41" id="section-41"></a>
+</div>
+<p>highlight the currently selected end date</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.endDate != <span class="hljs-literal">null</span> &amp;&amp; calendar[row][col].format(<span class="hljs-string">'YYYY-MM-DD'</span>) == <span class="hljs-keyword">this</span>.endDate.format(<span class="hljs-string">'YYYY-MM-DD'</span>))
+                        classes.push(<span class="hljs-string">'active'</span>, <span class="hljs-string">'end-date'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-42" id="section-42"></a>
+</div>
+<p>highlight dates in-between the selected dates</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.endDate != <span class="hljs-literal">null</span> &amp;&amp; calendar[row][col] &gt; <span class="hljs-keyword">this</span>.startDate &amp;&amp; calendar[row][col] &lt; <span class="hljs-keyword">this</span>.endDate)
+                        classes.push(<span class="hljs-string">'in-range'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43"></a>
+</div>
+<p>apply custom classes for this date</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">var</span> isCustom = <span class="hljs-keyword">this</span>.isCustomDate(calendar[row][col]);
+                    <span class="hljs-keyword">if</span> (isCustom !== <span class="hljs-literal">false</span>) {
+                        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> isCustom === <span class="hljs-string">'string'</span>)
+                            classes.push(isCustom);
+                        <span class="hljs-keyword">else</span>
+                            <span class="hljs-built_in">Array</span>.prototype.push.apply(classes, isCustom);
+                    }
+
+                    <span class="hljs-keyword">var</span> cname = <span class="hljs-string">''</span>, disabled = <span class="hljs-literal">false</span>;
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; classes.length; i++) {
+                        cname += classes[i] + <span class="hljs-string">' '</span>;
+                        <span class="hljs-keyword">if</span> (classes[i] == <span class="hljs-string">'disabled'</span>)
+                            disabled = <span class="hljs-literal">true</span>;
+                    }
+                    <span class="hljs-keyword">if</span> (!disabled)
+                        cname += <span class="hljs-string">'available'</span>;
+
+                    html += <span class="hljs-string">'&lt;td class="'</span> + cname.replace(<span class="hljs-regexp">/^\s+|\s+$/g</span>, <span class="hljs-string">''</span>) + <span class="hljs-string">'" data-title="'</span> + <span class="hljs-string">'r'</span> + row + <span class="hljs-string">'c'</span> + col + <span class="hljs-string">'"&gt;'</span> + calendar[row][col].date() + <span class="hljs-string">'&lt;/td&gt;'</span>;
+
+                }
+                html += <span class="hljs-string">'&lt;/tr&gt;'</span>;
+            }
+
+            html += <span class="hljs-string">'&lt;/tbody&gt;'</span>;
+            html += <span class="hljs-string">'&lt;/table&gt;'</span>;
+
+            <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.drp-calendar.'</span> + side + <span class="hljs-string">' .calendar-table'</span>).html(html);
+
+        },
+
+        <span class="hljs-attr">renderTimePicker</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">side</span>) </span>{
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44"></a>
+</div>
+<p>Don't bother updating the time picker if it's currently disabled
+because an end date hasn't been clicked yet</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span> (side == <span class="hljs-string">'right'</span> &amp;&amp; !<span class="hljs-keyword">this</span>.endDate) <span class="hljs-keyword">return</span>;
+
+            <span class="hljs-keyword">var</span> html, selected, minDate, maxDate = <span class="hljs-keyword">this</span>.maxDate;
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.maxSpan &amp;&amp; (!<span class="hljs-keyword">this</span>.maxDate || <span class="hljs-keyword">this</span>.startDate.clone().add(<span class="hljs-keyword">this</span>.maxSpan).isBefore(<span class="hljs-keyword">this</span>.maxDate)))
+                maxDate = <span class="hljs-keyword">this</span>.startDate.clone().add(<span class="hljs-keyword">this</span>.maxSpan);
+
+            <span class="hljs-keyword">if</span> (side == <span class="hljs-string">'left'</span>) {
+                selected = <span class="hljs-keyword">this</span>.startDate.clone();
+                minDate = <span class="hljs-keyword">this</span>.minDate;
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (side == <span class="hljs-string">'right'</span>) {
+                selected = <span class="hljs-keyword">this</span>.endDate.clone();
+                minDate = <span class="hljs-keyword">this</span>.startDate;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45"></a>
+</div>
+<p>Preserve the time already selected</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                <span class="hljs-keyword">var</span> timeSelector = <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.drp-calendar.right .calendar-time'</span>);
+                <span class="hljs-keyword">if</span> (timeSelector.html() != <span class="hljs-string">''</span>) {
+
+                    selected.hour(!<span class="hljs-built_in">isNaN</span>(selected.hour()) ? selected.hour() : timeSelector.find(<span class="hljs-string">'.hourselect option:selected'</span>).val());
+                    selected.minute(!<span class="hljs-built_in">isNaN</span>(selected.minute()) ? selected.minute() : timeSelector.find(<span class="hljs-string">'.minuteselect option:selected'</span>).val());
+                    selected.second(!<span class="hljs-built_in">isNaN</span>(selected.second()) ? selected.second() : timeSelector.find(<span class="hljs-string">'.secondselect option:selected'</span>).val());
+
+                    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker24Hour) {
+                        <span class="hljs-keyword">var</span> ampm = timeSelector.find(<span class="hljs-string">'.ampmselect option:selected'</span>).val();
+                        <span class="hljs-keyword">if</span> (ampm === <span class="hljs-string">'PM'</span> &amp;&amp; selected.hour() &lt; <span class="hljs-number">12</span>)
+                            selected.hour(selected.hour() + <span class="hljs-number">12</span>);
+                        <span class="hljs-keyword">if</span> (ampm === <span class="hljs-string">'AM'</span> &amp;&amp; selected.hour() === <span class="hljs-number">12</span>)
+                            selected.hour(<span class="hljs-number">0</span>);
+                    }
+
+                }
+
+                <span class="hljs-keyword">if</span> (selected.isBefore(<span class="hljs-keyword">this</span>.startDate))
+                    selected = <span class="hljs-keyword">this</span>.startDate.clone();
+
+                <span class="hljs-keyword">if</span> (maxDate &amp;&amp; selected.isAfter(maxDate))
+                    selected = maxDate.clone();
+
+            }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-46" id="section-46"></a>
+</div>
+<p>hours</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+            html = <span class="hljs-string">'&lt;select class="hourselect"&gt;'</span>;
+
+            <span class="hljs-keyword">var</span> start = <span class="hljs-keyword">this</span>.timePicker24Hour ? <span class="hljs-number">0</span> : <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">var</span> end = <span class="hljs-keyword">this</span>.timePicker24Hour ? <span class="hljs-number">23</span> : <span class="hljs-number">12</span>;
+
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = start; i &lt;= end; i++) {
+                <span class="hljs-keyword">var</span> i_in_24 = i;
+                <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker24Hour)
+                    i_in_24 = selected.hour() &gt;= <span class="hljs-number">12</span> ? (i == <span class="hljs-number">12</span> ? <span class="hljs-number">12</span> : i + <span class="hljs-number">12</span>) : (i == <span class="hljs-number">12</span> ? <span class="hljs-number">0</span> : i);
+
+                <span class="hljs-keyword">var</span> time = selected.clone().hour(i_in_24);
+                <span class="hljs-keyword">var</span> disabled = <span class="hljs-literal">false</span>;
+                <span class="hljs-keyword">if</span> (minDate &amp;&amp; time.minute(<span class="hljs-number">59</span>).isBefore(minDate))
+                    disabled = <span class="hljs-literal">true</span>;
+                <span class="hljs-keyword">if</span> (maxDate &amp;&amp; time.minute(<span class="hljs-number">0</span>).isAfter(maxDate))
+                    disabled = <span class="hljs-literal">true</span>;
+
+                <span class="hljs-keyword">if</span> (i_in_24 == selected.hour() &amp;&amp; !disabled) {
+                    html += <span class="hljs-string">'&lt;option value="'</span> + i + <span class="hljs-string">'" selected="selected"&gt;'</span> + i + <span class="hljs-string">'&lt;/option&gt;'</span>;
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (disabled) {
+                    html += <span class="hljs-string">'&lt;option value="'</span> + i + <span class="hljs-string">'" disabled="disabled" class="disabled"&gt;'</span> + i + <span class="hljs-string">'&lt;/option&gt;'</span>;
+                } <span class="hljs-keyword">else</span> {
+                    html += <span class="hljs-string">'&lt;option value="'</span> + i + <span class="hljs-string">'"&gt;'</span> + i + <span class="hljs-string">'&lt;/option&gt;'</span>;
+                }
+            }
+
+            html += <span class="hljs-string">'&lt;/select&gt; '</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-47" id="section-47"></a>
+</div>
+<p>minutes</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+            html += <span class="hljs-string">': &lt;select class="minuteselect"&gt;'</span>;
+
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">60</span>; i += <span class="hljs-keyword">this</span>.timePickerIncrement) {
+                <span class="hljs-keyword">var</span> padded = i &lt; <span class="hljs-number">10</span> ? <span class="hljs-string">'0'</span> + i : i;
+                <span class="hljs-keyword">var</span> time = selected.clone().minute(i);
+
+                <span class="hljs-keyword">var</span> disabled = <span class="hljs-literal">false</span>;
+                <span class="hljs-keyword">if</span> (minDate &amp;&amp; time.second(<span class="hljs-number">59</span>).isBefore(minDate))
+                    disabled = <span class="hljs-literal">true</span>;
+                <span class="hljs-keyword">if</span> (maxDate &amp;&amp; time.second(<span class="hljs-number">0</span>).isAfter(maxDate))
+                    disabled = <span class="hljs-literal">true</span>;
+
+                <span class="hljs-keyword">if</span> (selected.minute() == i &amp;&amp; !disabled) {
+                    html += <span class="hljs-string">'&lt;option value="'</span> + i + <span class="hljs-string">'" selected="selected"&gt;'</span> + padded + <span class="hljs-string">'&lt;/option&gt;'</span>;
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (disabled) {
+                    html += <span class="hljs-string">'&lt;option value="'</span> + i + <span class="hljs-string">'" disabled="disabled" class="disabled"&gt;'</span> + padded + <span class="hljs-string">'&lt;/option&gt;'</span>;
+                } <span class="hljs-keyword">else</span> {
+                    html += <span class="hljs-string">'&lt;option value="'</span> + i + <span class="hljs-string">'"&gt;'</span> + padded + <span class="hljs-string">'&lt;/option&gt;'</span>;
+                }
+            }
+
+            html += <span class="hljs-string">'&lt;/select&gt; '</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-48" id="section-48"></a>
+</div>
+<p>seconds</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.timePickerSeconds) {
+                html += <span class="hljs-string">': &lt;select class="secondselect"&gt;'</span>;
+
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">60</span>; i++) {
+                    <span class="hljs-keyword">var</span> padded = i &lt; <span class="hljs-number">10</span> ? <span class="hljs-string">'0'</span> + i : i;
+                    <span class="hljs-keyword">var</span> time = selected.clone().second(i);
+
+                    <span class="hljs-keyword">var</span> disabled = <span class="hljs-literal">false</span>;
+                    <span class="hljs-keyword">if</span> (minDate &amp;&amp; time.isBefore(minDate))
+                        disabled = <span class="hljs-literal">true</span>;
+                    <span class="hljs-keyword">if</span> (maxDate &amp;&amp; time.isAfter(maxDate))
+                        disabled = <span class="hljs-literal">true</span>;
+
+                    <span class="hljs-keyword">if</span> (selected.second() == i &amp;&amp; !disabled) {
+                        html += <span class="hljs-string">'&lt;option value="'</span> + i + <span class="hljs-string">'" selected="selected"&gt;'</span> + padded + <span class="hljs-string">'&lt;/option&gt;'</span>;
+                    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (disabled) {
+                        html += <span class="hljs-string">'&lt;option value="'</span> + i + <span class="hljs-string">'" disabled="disabled" class="disabled"&gt;'</span> + padded + <span class="hljs-string">'&lt;/option&gt;'</span>;
+                    } <span class="hljs-keyword">else</span> {
+                        html += <span class="hljs-string">'&lt;option value="'</span> + i + <span class="hljs-string">'"&gt;'</span> + padded + <span class="hljs-string">'&lt;/option&gt;'</span>;
+                    }
+                }
+
+                html += <span class="hljs-string">'&lt;/select&gt; '</span>;
+            }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-49" id="section-49"></a>
+</div>
+<p>AM/PM</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker24Hour) {
+                html += <span class="hljs-string">'&lt;select class="ampmselect"&gt;'</span>;
+
+                <span class="hljs-keyword">var</span> am_html = <span class="hljs-string">''</span>;
+                <span class="hljs-keyword">var</span> pm_html = <span class="hljs-string">''</span>;
+
+                <span class="hljs-keyword">if</span> (minDate &amp;&amp; selected.clone().hour(<span class="hljs-number">12</span>).minute(<span class="hljs-number">0</span>).second(<span class="hljs-number">0</span>).isBefore(minDate))
+                    am_html = <span class="hljs-string">' disabled="disabled" class="disabled"'</span>;
+
+                <span class="hljs-keyword">if</span> (maxDate &amp;&amp; selected.clone().hour(<span class="hljs-number">0</span>).minute(<span class="hljs-number">0</span>).second(<span class="hljs-number">0</span>).isAfter(maxDate))
+                    pm_html = <span class="hljs-string">' disabled="disabled" class="disabled"'</span>;
+
+                <span class="hljs-keyword">if</span> (selected.hour() &gt;= <span class="hljs-number">12</span>) {
+                    html += <span class="hljs-string">'&lt;option value="AM"'</span> + am_html + <span class="hljs-string">'&gt;AM&lt;/option&gt;&lt;option value="PM" selected="selected"'</span> + pm_html + <span class="hljs-string">'&gt;PM&lt;/option&gt;'</span>;
+                } <span class="hljs-keyword">else</span> {
+                    html += <span class="hljs-string">'&lt;option value="AM" selected="selected"'</span> + am_html + <span class="hljs-string">'&gt;AM&lt;/option&gt;&lt;option value="PM"'</span> + pm_html + <span class="hljs-string">'&gt;PM&lt;/option&gt;'</span>;
+                }
+
+                html += <span class="hljs-string">'&lt;/select&gt;'</span>;
+            }
+
+            <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.drp-calendar.'</span> + side + <span class="hljs-string">' .calendar-time'</span>).html(html);
+
+        },
+
+        <span class="hljs-attr">updateFormInputs</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.singleDatePicker || (<span class="hljs-keyword">this</span>.endDate &amp;&amp; (<span class="hljs-keyword">this</span>.startDate.isBefore(<span class="hljs-keyword">this</span>.endDate) || <span class="hljs-keyword">this</span>.startDate.isSame(<span class="hljs-keyword">this</span>.endDate)))) {
+                <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'button.applyBtn'</span>).removeAttr(<span class="hljs-string">'disabled'</span>);
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'button.applyBtn'</span>).attr(<span class="hljs-string">'disabled'</span>, <span class="hljs-string">'disabled'</span>);
+            }
+
+        },
+
+        <span class="hljs-attr">move</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">var</span> parentOffset = { <span class="hljs-attr">top</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">left</span>: <span class="hljs-number">0</span> },
+                containerTop;
+            <span class="hljs-keyword">var</span> parentRightEdge = $(<span class="hljs-built_in">window</span>).width();
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.parentEl.is(<span class="hljs-string">'body'</span>)) {
+                parentOffset = {
+                    <span class="hljs-attr">top</span>: <span class="hljs-keyword">this</span>.parentEl.offset().top - <span class="hljs-keyword">this</span>.parentEl.scrollTop(),
+                    <span class="hljs-attr">left</span>: <span class="hljs-keyword">this</span>.parentEl.offset().left - <span class="hljs-keyword">this</span>.parentEl.scrollLeft()
+                };
+                parentRightEdge = <span class="hljs-keyword">this</span>.parentEl[<span class="hljs-number">0</span>].clientWidth + <span class="hljs-keyword">this</span>.parentEl.offset().left;
+            }
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.drops == <span class="hljs-string">'up'</span>)
+                containerTop = <span class="hljs-keyword">this</span>.element.offset().top - <span class="hljs-keyword">this</span>.container.outerHeight() - parentOffset.top;
+            <span class="hljs-keyword">else</span>
+                containerTop = <span class="hljs-keyword">this</span>.element.offset().top + <span class="hljs-keyword">this</span>.element.outerHeight() - parentOffset.top;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-50" id="section-50"></a>
+</div>
+<p>Force the container to it's actual width</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">this</span>.container.css({
+              <span class="hljs-attr">top</span>: <span class="hljs-number">0</span>,
+              <span class="hljs-attr">left</span>: <span class="hljs-number">0</span>,
+              <span class="hljs-attr">right</span>: <span class="hljs-string">'auto'</span>
+            });
+            <span class="hljs-keyword">var</span> containerWidth = <span class="hljs-keyword">this</span>.container.outerWidth();
+
+            <span class="hljs-keyword">this</span>.container[<span class="hljs-keyword">this</span>.drops == <span class="hljs-string">'up'</span> ? <span class="hljs-string">'addClass'</span> : <span class="hljs-string">'removeClass'</span>](<span class="hljs-string">'drop-up'</span>);
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.opens == <span class="hljs-string">'left'</span>) {
+                <span class="hljs-keyword">var</span> containerRight = parentRightEdge - <span class="hljs-keyword">this</span>.element.offset().left - <span class="hljs-keyword">this</span>.element.outerWidth();
+                <span class="hljs-keyword">if</span> (containerWidth + containerRight &gt; $(<span class="hljs-built_in">window</span>).width()) {
+                    <span class="hljs-keyword">this</span>.container.css({
+                        <span class="hljs-attr">top</span>: containerTop,
+                        <span class="hljs-attr">right</span>: <span class="hljs-string">'auto'</span>,
+                        <span class="hljs-attr">left</span>: <span class="hljs-number">9</span>
+                    });
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">this</span>.container.css({
+                        <span class="hljs-attr">top</span>: containerTop,
+                        <span class="hljs-attr">right</span>: containerRight,
+                        <span class="hljs-attr">left</span>: <span class="hljs-string">'auto'</span>
+                    });
+                }
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.opens == <span class="hljs-string">'center'</span>) {
+                <span class="hljs-keyword">var</span> containerLeft = <span class="hljs-keyword">this</span>.element.offset().left - parentOffset.left + <span class="hljs-keyword">this</span>.element.outerWidth() / <span class="hljs-number">2</span>
+                                        - containerWidth / <span class="hljs-number">2</span>;
+                <span class="hljs-keyword">if</span> (containerLeft &lt; <span class="hljs-number">0</span>) {
+                    <span class="hljs-keyword">this</span>.container.css({
+                        <span class="hljs-attr">top</span>: containerTop,
+                        <span class="hljs-attr">right</span>: <span class="hljs-string">'auto'</span>,
+                        <span class="hljs-attr">left</span>: <span class="hljs-number">9</span>
+                    });
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (containerLeft + containerWidth &gt; $(<span class="hljs-built_in">window</span>).width()) {
+                    <span class="hljs-keyword">this</span>.container.css({
+                        <span class="hljs-attr">top</span>: containerTop,
+                        <span class="hljs-attr">left</span>: <span class="hljs-string">'auto'</span>,
+                        <span class="hljs-attr">right</span>: <span class="hljs-number">0</span>
+                    });
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">this</span>.container.css({
+                        <span class="hljs-attr">top</span>: containerTop,
+                        <span class="hljs-attr">left</span>: containerLeft,
+                        <span class="hljs-attr">right</span>: <span class="hljs-string">'auto'</span>
+                    });
+                }
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">var</span> containerLeft = <span class="hljs-keyword">this</span>.element.offset().left - parentOffset.left;
+                <span class="hljs-keyword">if</span> (containerLeft + containerWidth &gt; $(<span class="hljs-built_in">window</span>).width()) {
+                    <span class="hljs-keyword">this</span>.container.css({
+                        <span class="hljs-attr">top</span>: containerTop,
+                        <span class="hljs-attr">left</span>: <span class="hljs-string">'auto'</span>,
+                        <span class="hljs-attr">right</span>: <span class="hljs-number">0</span>
+                    });
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">this</span>.container.css({
+                        <span class="hljs-attr">top</span>: containerTop,
+                        <span class="hljs-attr">left</span>: containerLeft,
+                        <span class="hljs-attr">right</span>: <span class="hljs-string">'auto'</span>
+                    });
+                }
+            }
+        },
+
+        <span class="hljs-attr">show</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isShowing) <span class="hljs-keyword">return</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-51" id="section-51"></a>
+</div>
+<p>Create a click proxy that is private to this instance of datepicker, for unbinding</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">this</span>._outsideClickProxy = $.proxy(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{ <span class="hljs-keyword">this</span>.outsideClick(e); }, <span class="hljs-keyword">this</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-52" id="section-52"></a>
+</div>
+<p>Bind global datepicker mousedown for hiding and</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            $(<span class="hljs-built_in">document</span>)
+              .on(<span class="hljs-string">'mousedown.daterangepicker'</span>, <span class="hljs-keyword">this</span>._outsideClickProxy)
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-53" id="section-53"></a>
+</div>
+<p>also support mobile devices</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">              .on(<span class="hljs-string">'touchend.daterangepicker'</span>, <span class="hljs-keyword">this</span>._outsideClickProxy)
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-54" id="section-54"></a>
+</div>
+<p>also explicitly play nice with Bootstrap dropdowns, which stopPropagation when clicking them</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">              .on(<span class="hljs-string">'click.daterangepicker'</span>, <span class="hljs-string">'[data-toggle=dropdown]'</span>, <span class="hljs-keyword">this</span>._outsideClickProxy)
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-55" id="section-55"></a>
+</div>
+<p>and also close when focus changes to outside the picker (eg. tabbing between controls)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">              .on(<span class="hljs-string">'focusin.daterangepicker'</span>, <span class="hljs-keyword">this</span>._outsideClickProxy);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-56" id="section-56"></a>
+</div>
+<p>Reposition the picker if the window is resized while it's open</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            $(<span class="hljs-built_in">window</span>).on(<span class="hljs-string">'resize.daterangepicker'</span>, $.proxy(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{ <span class="hljs-keyword">this</span>.move(e); }, <span class="hljs-keyword">this</span>));
+
+            <span class="hljs-keyword">this</span>.oldStartDate = <span class="hljs-keyword">this</span>.startDate.clone();
+            <span class="hljs-keyword">this</span>.oldEndDate = <span class="hljs-keyword">this</span>.endDate.clone();
+            <span class="hljs-keyword">this</span>.previousRightTime = <span class="hljs-keyword">this</span>.endDate.clone();
+
+            <span class="hljs-keyword">this</span>.updateView();
+            <span class="hljs-keyword">this</span>.container.show();
+            <span class="hljs-keyword">this</span>.move();
+            <span class="hljs-keyword">this</span>.element.trigger(<span class="hljs-string">'show.daterangepicker'</span>, <span class="hljs-keyword">this</span>);
+            <span class="hljs-keyword">this</span>.isShowing = <span class="hljs-literal">true</span>;
+        },
+
+        <span class="hljs-attr">hide</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.isShowing) <span class="hljs-keyword">return</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-57" id="section-57"></a>
+</div>
+<p>incomplete date selection, revert to last values</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.endDate) {
+                <span class="hljs-keyword">this</span>.startDate = <span class="hljs-keyword">this</span>.oldStartDate.clone();
+                <span class="hljs-keyword">this</span>.endDate = <span class="hljs-keyword">this</span>.oldEndDate.clone();
+            }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-58" id="section-58"></a>
+</div>
+<p>if a new date range was selected, invoke the user callback function</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.startDate.isSame(<span class="hljs-keyword">this</span>.oldStartDate) || !<span class="hljs-keyword">this</span>.endDate.isSame(<span class="hljs-keyword">this</span>.oldEndDate))
+                <span class="hljs-keyword">this</span>.callback(<span class="hljs-keyword">this</span>.startDate.clone(), <span class="hljs-keyword">this</span>.endDate.clone(), <span class="hljs-keyword">this</span>.chosenLabel);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-59" id="section-59"></a>
+</div>
+<p>if picker is attached to a text input, update it</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">this</span>.updateElement();
+
+            $(<span class="hljs-built_in">document</span>).off(<span class="hljs-string">'.daterangepicker'</span>);
+            $(<span class="hljs-built_in">window</span>).off(<span class="hljs-string">'.daterangepicker'</span>);
+            <span class="hljs-keyword">this</span>.container.hide();
+            <span class="hljs-keyword">this</span>.element.trigger(<span class="hljs-string">'hide.daterangepicker'</span>, <span class="hljs-keyword">this</span>);
+            <span class="hljs-keyword">this</span>.isShowing = <span class="hljs-literal">false</span>;
+        },
+
+        <span class="hljs-attr">toggle</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isShowing) {
+                <span class="hljs-keyword">this</span>.hide();
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.show();
+            }
+        },
+
+        <span class="hljs-attr">outsideClick</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+            <span class="hljs-keyword">var</span> target = $(e.target);
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-60" id="section-60"></a>
+</div>
+<p>if the page is clicked anywhere except within the daterangerpicker/button
+itself then call this.hide()</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span> (
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-61" id="section-61"></a>
+</div>
+<p>ie modal dialog fix</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                e.type == <span class="hljs-string">"focusin"</span> ||
+                target.closest(<span class="hljs-keyword">this</span>.element).length ||
+                target.closest(<span class="hljs-keyword">this</span>.container).length ||
+                target.closest(<span class="hljs-string">'.calendar-table'</span>).length
+                ) <span class="hljs-keyword">return</span>;
+            <span class="hljs-keyword">this</span>.hide();
+            <span class="hljs-keyword">this</span>.element.trigger(<span class="hljs-string">'outsideClick.daterangepicker'</span>, <span class="hljs-keyword">this</span>);
+        },
+
+        <span class="hljs-attr">showCalendars</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">this</span>.container.addClass(<span class="hljs-string">'show-calendar'</span>);
+            <span class="hljs-keyword">this</span>.move();
+            <span class="hljs-keyword">this</span>.element.trigger(<span class="hljs-string">'showCalendar.daterangepicker'</span>, <span class="hljs-keyword">this</span>);
+        },
+
+        <span class="hljs-attr">hideCalendars</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">this</span>.container.removeClass(<span class="hljs-string">'show-calendar'</span>);
+            <span class="hljs-keyword">this</span>.element.trigger(<span class="hljs-string">'hideCalendar.daterangepicker'</span>, <span class="hljs-keyword">this</span>);
+        },
+
+        <span class="hljs-attr">clickRange</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+            <span class="hljs-keyword">var</span> label = e.target.getAttribute(<span class="hljs-string">'data-range-key'</span>);
+            <span class="hljs-keyword">this</span>.chosenLabel = label;
+            <span class="hljs-keyword">if</span> (label == <span class="hljs-keyword">this</span>.locale.customRangeLabel) {
+                <span class="hljs-keyword">this</span>.showCalendars();
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">var</span> dates = <span class="hljs-keyword">this</span>.ranges[label];
+                <span class="hljs-keyword">this</span>.startDate = dates[<span class="hljs-number">0</span>];
+                <span class="hljs-keyword">this</span>.endDate = dates[<span class="hljs-number">1</span>];
+
+                <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker) {
+                    <span class="hljs-keyword">this</span>.startDate.startOf(<span class="hljs-string">'day'</span>);
+                    <span class="hljs-keyword">this</span>.endDate.endOf(<span class="hljs-string">'day'</span>);
+                }
+
+                <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.alwaysShowCalendars)
+                    <span class="hljs-keyword">this</span>.hideCalendars();
+                <span class="hljs-keyword">this</span>.clickApply();
+            }
+        },
+
+        <span class="hljs-attr">clickPrev</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+            <span class="hljs-keyword">var</span> cal = $(e.target).parents(<span class="hljs-string">'.drp-calendar'</span>);
+            <span class="hljs-keyword">if</span> (cal.hasClass(<span class="hljs-string">'left'</span>)) {
+                <span class="hljs-keyword">this</span>.leftCalendar.month.subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>);
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.linkedCalendars)
+                    <span class="hljs-keyword">this</span>.rightCalendar.month.subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>);
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.rightCalendar.month.subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>);
+            }
+            <span class="hljs-keyword">this</span>.updateCalendars();
+        },
+
+        <span class="hljs-attr">clickNext</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+            <span class="hljs-keyword">var</span> cal = $(e.target).parents(<span class="hljs-string">'.drp-calendar'</span>);
+            <span class="hljs-keyword">if</span> (cal.hasClass(<span class="hljs-string">'left'</span>)) {
+                <span class="hljs-keyword">this</span>.leftCalendar.month.add(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>);
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.rightCalendar.month.add(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>);
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.linkedCalendars)
+                    <span class="hljs-keyword">this</span>.leftCalendar.month.add(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>);
+            }
+            <span class="hljs-keyword">this</span>.updateCalendars();
+        },
+
+        <span class="hljs-attr">hoverDate</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-62" id="section-62"></a>
+</div>
+<p>ignore dates that can't be selected</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span> (!$(e.target).hasClass(<span class="hljs-string">'available'</span>)) <span class="hljs-keyword">return</span>;
+
+            <span class="hljs-keyword">var</span> title = $(e.target).attr(<span class="hljs-string">'data-title'</span>);
+            <span class="hljs-keyword">var</span> row = title.substr(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+            <span class="hljs-keyword">var</span> col = title.substr(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>);
+            <span class="hljs-keyword">var</span> cal = $(e.target).parents(<span class="hljs-string">'.drp-calendar'</span>);
+            <span class="hljs-keyword">var</span> date = cal.hasClass(<span class="hljs-string">'left'</span>) ? <span class="hljs-keyword">this</span>.leftCalendar.calendar[row][col] : <span class="hljs-keyword">this</span>.rightCalendar.calendar[row][col];
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-63" id="section-63"></a>
+</div>
+<p>highlight the dates between the start date and the date being hovered as a potential end date</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">var</span> leftCalendar = <span class="hljs-keyword">this</span>.leftCalendar;
+            <span class="hljs-keyword">var</span> rightCalendar = <span class="hljs-keyword">this</span>.rightCalendar;
+            <span class="hljs-keyword">var</span> startDate = <span class="hljs-keyword">this</span>.startDate;
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.endDate) {
+                <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.drp-calendar tbody td'</span>).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, el</span>) </span>{
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-64" id="section-64"></a>
+</div>
+<p>skip week numbers, only look at dates</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span> ($(el).hasClass(<span class="hljs-string">'week'</span>)) <span class="hljs-keyword">return</span>;
+
+                    <span class="hljs-keyword">var</span> title = $(el).attr(<span class="hljs-string">'data-title'</span>);
+                    <span class="hljs-keyword">var</span> row = title.substr(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+                    <span class="hljs-keyword">var</span> col = title.substr(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>);
+                    <span class="hljs-keyword">var</span> cal = $(el).parents(<span class="hljs-string">'.drp-calendar'</span>);
+                    <span class="hljs-keyword">var</span> dt = cal.hasClass(<span class="hljs-string">'left'</span>) ? leftCalendar.calendar[row][col] : rightCalendar.calendar[row][col];
+
+                    <span class="hljs-keyword">if</span> ((dt.isAfter(startDate) &amp;&amp; dt.isBefore(date)) || dt.isSame(date, <span class="hljs-string">'day'</span>)) {
+                        $(el).addClass(<span class="hljs-string">'in-range'</span>);
+                    } <span class="hljs-keyword">else</span> {
+                        $(el).removeClass(<span class="hljs-string">'in-range'</span>);
+                    }
+
+                });
+            }
+
+        },
+
+        <span class="hljs-attr">clickDate</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+
+            <span class="hljs-keyword">if</span> (!$(e.target).hasClass(<span class="hljs-string">'available'</span>)) <span class="hljs-keyword">return</span>;
+
+            <span class="hljs-keyword">var</span> title = $(e.target).attr(<span class="hljs-string">'data-title'</span>);
+            <span class="hljs-keyword">var</span> row = title.substr(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+            <span class="hljs-keyword">var</span> col = title.substr(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>);
+            <span class="hljs-keyword">var</span> cal = $(e.target).parents(<span class="hljs-string">'.drp-calendar'</span>);
+            <span class="hljs-keyword">var</span> date = cal.hasClass(<span class="hljs-string">'left'</span>) ? <span class="hljs-keyword">this</span>.leftCalendar.calendar[row][col] : <span class="hljs-keyword">this</span>.rightCalendar.calendar[row][col];
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-65" id="section-65"></a>
+</div>
+<p>this function needs to do a few things:</p>
+<ul>
+<li>alternate between selecting a start and end date for the range,</li>
+<li>if the time picker is enabled, apply the hour/minute/second from the select boxes to the clicked date</li>
+<li>if autoapply is enabled, and an end date was chosen, apply the selection</li>
+<li>if single date picker mode, and time picker isn't enabled, apply the selection immediately</li>
+<li>if one of the inputs above the calendars was focused, cancel that manual input</li>
+</ul>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.endDate || date.isBefore(<span class="hljs-keyword">this</span>.startDate, <span class="hljs-string">'day'</span>)) { <span class="hljs-comment">//picking start</span>
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.timePicker) {
+                    <span class="hljs-keyword">var</span> hour = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.left .hourselect'</span>).val(), <span class="hljs-number">10</span>);
+                    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker24Hour) {
+                        <span class="hljs-keyword">var</span> ampm = <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.left .ampmselect'</span>).val();
+                        <span class="hljs-keyword">if</span> (ampm === <span class="hljs-string">'PM'</span> &amp;&amp; hour &lt; <span class="hljs-number">12</span>)
+                            hour += <span class="hljs-number">12</span>;
+                        <span class="hljs-keyword">if</span> (ampm === <span class="hljs-string">'AM'</span> &amp;&amp; hour === <span class="hljs-number">12</span>)
+                            hour = <span class="hljs-number">0</span>;
+                    }
+                    <span class="hljs-keyword">var</span> minute = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.left .minuteselect'</span>).val(), <span class="hljs-number">10</span>);
+                    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(minute)) {
+                        minute = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.left .minuteselect option:last'</span>).val(), <span class="hljs-number">10</span>);
+                    }
+                    <span class="hljs-keyword">var</span> second = <span class="hljs-keyword">this</span>.timePickerSeconds ? <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.left .secondselect'</span>).val(), <span class="hljs-number">10</span>) : <span class="hljs-number">0</span>;
+                    date = date.clone().hour(hour).minute(minute).second(second);
+                }
+                <span class="hljs-keyword">this</span>.endDate = <span class="hljs-literal">null</span>;
+                <span class="hljs-keyword">this</span>.setStartDate(date.clone());
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.endDate &amp;&amp; date.isBefore(<span class="hljs-keyword">this</span>.startDate)) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-66" id="section-66"></a>
+</div>
+<p>special case: clicking the same date for start/end,
+but the time of the end date is before the start date</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                <span class="hljs-keyword">this</span>.setEndDate(<span class="hljs-keyword">this</span>.startDate.clone());
+            } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// picking end</span>
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.timePicker) {
+                    <span class="hljs-keyword">var</span> hour = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.right .hourselect'</span>).val(), <span class="hljs-number">10</span>);
+                    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker24Hour) {
+                        <span class="hljs-keyword">var</span> ampm = <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.right .ampmselect'</span>).val();
+                        <span class="hljs-keyword">if</span> (ampm === <span class="hljs-string">'PM'</span> &amp;&amp; hour &lt; <span class="hljs-number">12</span>)
+                            hour += <span class="hljs-number">12</span>;
+                        <span class="hljs-keyword">if</span> (ampm === <span class="hljs-string">'AM'</span> &amp;&amp; hour === <span class="hljs-number">12</span>)
+                            hour = <span class="hljs-number">0</span>;
+                    }
+                    <span class="hljs-keyword">var</span> minute = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.right .minuteselect'</span>).val(), <span class="hljs-number">10</span>);
+                    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(minute)) {
+                        minute = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.right .minuteselect option:last'</span>).val(), <span class="hljs-number">10</span>);
+                    }
+                    <span class="hljs-keyword">var</span> second = <span class="hljs-keyword">this</span>.timePickerSeconds ? <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.right .secondselect'</span>).val(), <span class="hljs-number">10</span>) : <span class="hljs-number">0</span>;
+                    date = date.clone().hour(hour).minute(minute).second(second);
+                }
+                <span class="hljs-keyword">this</span>.setEndDate(date.clone());
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.autoApply) {
+                  <span class="hljs-keyword">this</span>.calculateChosenLabel();
+                  <span class="hljs-keyword">this</span>.clickApply();
+                }
+            }
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.singleDatePicker) {
+                <span class="hljs-keyword">this</span>.setEndDate(<span class="hljs-keyword">this</span>.startDate);
+                <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker)
+                    <span class="hljs-keyword">this</span>.clickApply();
+            }
+
+            <span class="hljs-keyword">this</span>.updateView();
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-67" id="section-67"></a>
+</div>
+<p>This is to cancel the blur event handler if the mouse was in one of the inputs</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            e.stopPropagation();
+
+        },
+
+        <span class="hljs-attr">calculateChosenLabel</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">var</span> customRange = <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> range <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span>.ranges) {
+              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.timePicker) {
+                    <span class="hljs-keyword">var</span> format = <span class="hljs-keyword">this</span>.timePickerSeconds ? <span class="hljs-string">"YYYY-MM-DD HH:mm:ss"</span> : <span class="hljs-string">"YYYY-MM-DD HH:mm"</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-68" id="section-68"></a>
+</div>
+<p>ignore times when comparing dates if time picker seconds is not enabled</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.startDate.format(format) == <span class="hljs-keyword">this</span>.ranges[range][<span class="hljs-number">0</span>].format(format) &amp;&amp; <span class="hljs-keyword">this</span>.endDate.format(format) == <span class="hljs-keyword">this</span>.ranges[range][<span class="hljs-number">1</span>].format(format)) {
+                        customRange = <span class="hljs-literal">false</span>;
+                        <span class="hljs-keyword">this</span>.chosenLabel = <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.ranges li:eq('</span> + i + <span class="hljs-string">')'</span>).addClass(<span class="hljs-string">'active'</span>).attr(<span class="hljs-string">'data-range-key'</span>);
+                        <span class="hljs-keyword">break</span>;
+                    }
+                } <span class="hljs-keyword">else</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-69" id="section-69"></a>
+</div>
+<p>ignore times when comparing dates if time picker is not enabled</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.startDate.format(<span class="hljs-string">'YYYY-MM-DD'</span>) == <span class="hljs-keyword">this</span>.ranges[range][<span class="hljs-number">0</span>].format(<span class="hljs-string">'YYYY-MM-DD'</span>) &amp;&amp; <span class="hljs-keyword">this</span>.endDate.format(<span class="hljs-string">'YYYY-MM-DD'</span>) == <span class="hljs-keyword">this</span>.ranges[range][<span class="hljs-number">1</span>].format(<span class="hljs-string">'YYYY-MM-DD'</span>)) {
+                        customRange = <span class="hljs-literal">false</span>;
+                        <span class="hljs-keyword">this</span>.chosenLabel = <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.ranges li:eq('</span> + i + <span class="hljs-string">')'</span>).addClass(<span class="hljs-string">'active'</span>).attr(<span class="hljs-string">'data-range-key'</span>);
+                        <span class="hljs-keyword">break</span>;
+                    }
+                }
+                i++;
+            }
+            <span class="hljs-keyword">if</span> (customRange) {
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.showCustomRangeLabel) {
+                    <span class="hljs-keyword">this</span>.chosenLabel = <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.ranges li:last'</span>).addClass(<span class="hljs-string">'active'</span>).attr(<span class="hljs-string">'data-range-key'</span>);
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">this</span>.chosenLabel = <span class="hljs-literal">null</span>;
+                }
+                <span class="hljs-keyword">this</span>.showCalendars();
+            }
+        },
+
+        <span class="hljs-attr">clickApply</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+            <span class="hljs-keyword">this</span>.hide();
+            <span class="hljs-keyword">this</span>.element.trigger(<span class="hljs-string">'apply.daterangepicker'</span>, <span class="hljs-keyword">this</span>);
+        },
+
+        <span class="hljs-attr">clickCancel</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+            <span class="hljs-keyword">this</span>.startDate = <span class="hljs-keyword">this</span>.oldStartDate;
+            <span class="hljs-keyword">this</span>.endDate = <span class="hljs-keyword">this</span>.oldEndDate;
+            <span class="hljs-keyword">this</span>.hide();
+            <span class="hljs-keyword">this</span>.element.trigger(<span class="hljs-string">'cancel.daterangepicker'</span>, <span class="hljs-keyword">this</span>);
+        },
+
+        <span class="hljs-attr">monthOrYearChanged</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+            <span class="hljs-keyword">var</span> isLeft = $(e.target).closest(<span class="hljs-string">'.drp-calendar'</span>).hasClass(<span class="hljs-string">'left'</span>),
+                leftOrRight = isLeft ? <span class="hljs-string">'left'</span> : <span class="hljs-string">'right'</span>,
+                cal = <span class="hljs-keyword">this</span>.container.find(<span class="hljs-string">'.drp-calendar.'</span>+leftOrRight);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-70" id="section-70"></a>
+</div>
+<p>Month must be Number for new moment versions</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">var</span> month = <span class="hljs-built_in">parseInt</span>(cal.find(<span class="hljs-string">'.monthselect'</span>).val(), <span class="hljs-number">10</span>);
+            <span class="hljs-keyword">var</span> year = cal.find(<span class="hljs-string">'.yearselect'</span>).val();
+
+            <span class="hljs-keyword">if</span> (!isLeft) {
+                <span class="hljs-keyword">if</span> (year &lt; <span class="hljs-keyword">this</span>.startDate.year() || (year == <span class="hljs-keyword">this</span>.startDate.year() &amp;&amp; month &lt; <span class="hljs-keyword">this</span>.startDate.month())) {
+                    month = <span class="hljs-keyword">this</span>.startDate.month();
+                    year = <span class="hljs-keyword">this</span>.startDate.year();
+                }
+            }
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.minDate) {
+                <span class="hljs-keyword">if</span> (year &lt; <span class="hljs-keyword">this</span>.minDate.year() || (year == <span class="hljs-keyword">this</span>.minDate.year() &amp;&amp; month &lt; <span class="hljs-keyword">this</span>.minDate.month())) {
+                    month = <span class="hljs-keyword">this</span>.minDate.month();
+                    year = <span class="hljs-keyword">this</span>.minDate.year();
+                }
+            }
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.maxDate) {
+                <span class="hljs-keyword">if</span> (year &gt; <span class="hljs-keyword">this</span>.maxDate.year() || (year == <span class="hljs-keyword">this</span>.maxDate.year() &amp;&amp; month &gt; <span class="hljs-keyword">this</span>.maxDate.month())) {
+                    month = <span class="hljs-keyword">this</span>.maxDate.month();
+                    year = <span class="hljs-keyword">this</span>.maxDate.year();
+                }
+            }
+
+            <span class="hljs-keyword">if</span> (isLeft) {
+                <span class="hljs-keyword">this</span>.leftCalendar.month.month(month).year(year);
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.linkedCalendars)
+                    <span class="hljs-keyword">this</span>.rightCalendar.month = <span class="hljs-keyword">this</span>.leftCalendar.month.clone().add(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>);
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.rightCalendar.month.month(month).year(year);
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.linkedCalendars)
+                    <span class="hljs-keyword">this</span>.leftCalendar.month = <span class="hljs-keyword">this</span>.rightCalendar.month.clone().subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>);
+            }
+            <span class="hljs-keyword">this</span>.updateCalendars();
+        },
+
+        <span class="hljs-attr">timeChanged</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+
+            <span class="hljs-keyword">var</span> cal = $(e.target).closest(<span class="hljs-string">'.drp-calendar'</span>),
+                isLeft = cal.hasClass(<span class="hljs-string">'left'</span>);
+
+            <span class="hljs-keyword">var</span> hour = <span class="hljs-built_in">parseInt</span>(cal.find(<span class="hljs-string">'.hourselect'</span>).val(), <span class="hljs-number">10</span>);
+            <span class="hljs-keyword">var</span> minute = <span class="hljs-built_in">parseInt</span>(cal.find(<span class="hljs-string">'.minuteselect'</span>).val(), <span class="hljs-number">10</span>);
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(minute)) {
+                minute = <span class="hljs-built_in">parseInt</span>(cal.find(<span class="hljs-string">'.minuteselect option:last'</span>).val(), <span class="hljs-number">10</span>);
+            }
+            <span class="hljs-keyword">var</span> second = <span class="hljs-keyword">this</span>.timePickerSeconds ? <span class="hljs-built_in">parseInt</span>(cal.find(<span class="hljs-string">'.secondselect'</span>).val(), <span class="hljs-number">10</span>) : <span class="hljs-number">0</span>;
+
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.timePicker24Hour) {
+                <span class="hljs-keyword">var</span> ampm = cal.find(<span class="hljs-string">'.ampmselect'</span>).val();
+                <span class="hljs-keyword">if</span> (ampm === <span class="hljs-string">'PM'</span> &amp;&amp; hour &lt; <span class="hljs-number">12</span>)
+                    hour += <span class="hljs-number">12</span>;
+                <span class="hljs-keyword">if</span> (ampm === <span class="hljs-string">'AM'</span> &amp;&amp; hour === <span class="hljs-number">12</span>)
+                    hour = <span class="hljs-number">0</span>;
+            }
+
+            <span class="hljs-keyword">if</span> (isLeft) {
+                <span class="hljs-keyword">var</span> start = <span class="hljs-keyword">this</span>.startDate.clone();
+                start.hour(hour);
+                start.minute(minute);
+                start.second(second);
+                <span class="hljs-keyword">this</span>.setStartDate(start);
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.singleDatePicker) {
+                    <span class="hljs-keyword">this</span>.endDate = <span class="hljs-keyword">this</span>.startDate.clone();
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.endDate &amp;&amp; <span class="hljs-keyword">this</span>.endDate.format(<span class="hljs-string">'YYYY-MM-DD'</span>) == start.format(<span class="hljs-string">'YYYY-MM-DD'</span>) &amp;&amp; <span class="hljs-keyword">this</span>.endDate.isBefore(start)) {
+                    <span class="hljs-keyword">this</span>.setEndDate(start.clone());
+                }
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.endDate) {
+                <span class="hljs-keyword">var</span> end = <span class="hljs-keyword">this</span>.endDate.clone();
+                end.hour(hour);
+                end.minute(minute);
+                end.second(second);
+                <span class="hljs-keyword">this</span>.setEndDate(end);
+            }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-71" id="section-71"></a>
+</div>
+<p>update the calendars so all clickable dates reflect the new time component</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">this</span>.updateCalendars();
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-72" id="section-72"></a>
+</div>
+<p>update the form inputs above the calendars with the new time</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">this</span>.updateFormInputs();
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-73" id="section-73"></a>
+</div>
+<p>re-render the time pickers because changing one selection can affect what's enabled in another</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">this</span>.renderTimePicker(<span class="hljs-string">'left'</span>);
+            <span class="hljs-keyword">this</span>.renderTimePicker(<span class="hljs-string">'right'</span>);
+
+        },
+
+        <span class="hljs-attr">elementChanged</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.element.is(<span class="hljs-string">'input'</span>)) <span class="hljs-keyword">return</span>;
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.element.val().length) <span class="hljs-keyword">return</span>;
+
+            <span class="hljs-keyword">var</span> dateString = <span class="hljs-keyword">this</span>.element.val().split(<span class="hljs-keyword">this</span>.locale.separator),
+                start = <span class="hljs-literal">null</span>,
+                end = <span class="hljs-literal">null</span>;
+
+            <span class="hljs-keyword">if</span> (dateString.length === <span class="hljs-number">2</span>) {
+                start = moment(dateString[<span class="hljs-number">0</span>], <span class="hljs-keyword">this</span>.locale.format);
+                end = moment(dateString[<span class="hljs-number">1</span>], <span class="hljs-keyword">this</span>.locale.format);
+            }
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.singleDatePicker || start === <span class="hljs-literal">null</span> || end === <span class="hljs-literal">null</span>) {
+                start = moment(<span class="hljs-keyword">this</span>.element.val(), <span class="hljs-keyword">this</span>.locale.format);
+                end = start;
+            }
+
+            <span class="hljs-keyword">if</span> (!start.isValid() || !end.isValid()) <span class="hljs-keyword">return</span>;
+
+            <span class="hljs-keyword">this</span>.setStartDate(start);
+            <span class="hljs-keyword">this</span>.setEndDate(end);
+            <span class="hljs-keyword">this</span>.updateView();
+        },
+
+        <span class="hljs-attr">keydown</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-74" id="section-74"></a>
+</div>
+<p>hide on tab or enter</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span> ((e.keyCode === <span class="hljs-number">9</span>) || (e.keyCode === <span class="hljs-number">13</span>)) {
+                <span class="hljs-keyword">this</span>.hide();
+            }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-75" id="section-75"></a>
+</div>
+<p>hide on esc and prevent propagation</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span> (e.keyCode === <span class="hljs-number">27</span>) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                <span class="hljs-keyword">this</span>.hide();
+            }
+        },
+
+        <span class="hljs-attr">updateElement</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.element.is(<span class="hljs-string">'input'</span>) &amp;&amp; <span class="hljs-keyword">this</span>.autoUpdateInput) {
+                <span class="hljs-keyword">var</span> newValue = <span class="hljs-keyword">this</span>.startDate.format(<span class="hljs-keyword">this</span>.locale.format);
+                <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.singleDatePicker) {
+                    newValue += <span class="hljs-keyword">this</span>.locale.separator + <span class="hljs-keyword">this</span>.endDate.format(<span class="hljs-keyword">this</span>.locale.format);
+                }
+                <span class="hljs-keyword">if</span> (newValue !== <span class="hljs-keyword">this</span>.element.val()) {
+                    <span class="hljs-keyword">this</span>.element.val(newValue).trigger(<span class="hljs-string">'change'</span>);
+                }
+            }
+        },
+
+        <span class="hljs-attr">remove</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">this</span>.container.remove();
+            <span class="hljs-keyword">this</span>.element.off(<span class="hljs-string">'.daterangepicker'</span>);
+            <span class="hljs-keyword">this</span>.element.removeData();
+        }
+
+    };
+
+    $.fn.daterangepicker = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options, callback</span>) </span>{
+        <span class="hljs-keyword">var</span> implementOptions = $.extend(<span class="hljs-literal">true</span>, {}, $.fn.daterangepicker.defaultOptions, options);
+        <span class="hljs-keyword">this</span>.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">var</span> el = $(<span class="hljs-keyword">this</span>);
+            <span class="hljs-keyword">if</span> (el.data(<span class="hljs-string">'daterangepicker'</span>))
+                el.data(<span class="hljs-string">'daterangepicker'</span>).remove();
+            el.data(<span class="hljs-string">'daterangepicker'</span>, <span class="hljs-keyword">new</span> DateRangePicker(el, implementOptions, callback));
+        });
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    };
+
+    <span class="hljs-keyword">return</span> DateRangePicker;
+
+}));
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

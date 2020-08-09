@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\mimic-response\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#mimic-response">mimic-response </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#mimicresponse-from-to">mimicResponse(from, to)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#from">from</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#to">to</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related">Related</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="mimic-response">
+  <h1>
+    <a href="#mimic-response" name="mimic-response" class="pilcrow"></a>
+mimic-response <a href="https://travis-ci.org/sindresorhus/mimic-response"><img src="https://travis-ci.org/sindresorhus/mimic-response.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Mimic a <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">Node.js HTTP response stream</a></p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install mimic-response
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> stream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'stream'</span>);
+<span class="hljs-keyword">const</span> mimicResponse = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mimic-response'</span>);
+
+<span class="hljs-keyword">const</span> responseStream = getHttpResponseStream();
+<span class="hljs-keyword">const</span> myStream = <span class="hljs-keyword">new</span> stream.PassThrough();
+
+mimicResponse(responseStream, myStream);
+
+<span class="hljs-built_in">console</span>.log(myStream.statusCode);
+<span class="hljs-comment">//=&gt; 200</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="mimicresponse-from-to">
+  <h3>
+    <a href="#mimicresponse-from-to" name="mimicresponse-from-to" class="pilcrow"></a>
+mimicResponse(from, to)
+  </h3>
+</div>
+<div class="pilwrap" id="from">
+  <h4>
+    <a href="#from" name="from" class="pilcrow"></a>
+from
+  </h4>
+</div>
+<p>Type: <code>Stream</code></p>
+<p><a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">Node.js HTTP response stream.</a></p>
+<div class="pilwrap" id="to">
+  <h4>
+    <a href="#to" name="to" class="pilcrow"></a>
+to
+  </h4>
+</div>
+<p>Type: <code>Stream</code></p>
+<p>Any stream.</p>
+<div class="pilwrap" id="related">
+  <h2>
+    <a href="#related" name="related" class="pilcrow"></a>
+Related
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/sindresorhus/mimic-fn">mimic-fn</a> - Make a function mimic another one</li>
+<li><a href="https://github.com/lukechilds/clone-response">clone-response</a> - Clone a Node.js response stream</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

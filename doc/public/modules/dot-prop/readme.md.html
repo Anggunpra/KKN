@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\dot-prop\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#dot-prop">dot-prop </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#get-obj-path-defaultvalue">get(obj, path, [defaultValue])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#set-obj-path-value">set(obj, path, value)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#has-obj-path">has(obj, path)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#delete-obj-path">delete(obj, path)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#obj">obj</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#path">path</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#value">value</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#defaultvalue">defaultValue</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="dot-prop">
+  <h1>
+    <a href="#dot-prop" name="dot-prop" class="pilcrow"></a>
+dot-prop <a href="https://travis-ci.org/sindresorhus/dot-prop"><img src="https://travis-ci.org/sindresorhus/dot-prop.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Get, set, or delete a property from a nested object using a dot path</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save dot-prop
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> dotProp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dot-prop'</span>);
+
+<span class="hljs-comment">// getter</span>
+dotProp.get({<span class="hljs-attr">foo</span>: {<span class="hljs-attr">bar</span>: <span class="hljs-string">'unicorn'</span>}}, <span class="hljs-string">'foo.bar'</span>);
+<span class="hljs-comment">//=&gt; 'unicorn'</span>
+
+dotProp.get({<span class="hljs-attr">foo</span>: {<span class="hljs-attr">bar</span>: <span class="hljs-string">'a'</span>}}, <span class="hljs-string">'foo.notDefined.deep'</span>);
+<span class="hljs-comment">//=&gt; undefined</span>
+
+dotProp.get({<span class="hljs-attr">foo</span>: {<span class="hljs-attr">bar</span>: <span class="hljs-string">'a'</span>}}, <span class="hljs-string">'foo.notDefined.deep'</span>, <span class="hljs-string">'default value'</span>);
+<span class="hljs-comment">//=&gt; 'default value'</span>
+
+dotProp.get({<span class="hljs-attr">foo</span>: {<span class="hljs-string">'dot.dot'</span>: <span class="hljs-string">'unicorn'</span>}}, <span class="hljs-string">'foo.dot\\.dot'</span>);
+<span class="hljs-comment">//=&gt; 'unicorn'</span>
+
+<span class="hljs-comment">// setter</span>
+<span class="hljs-keyword">const</span> obj = {<span class="hljs-attr">foo</span>: {<span class="hljs-attr">bar</span>: <span class="hljs-string">'a'</span>}};
+dotProp.set(obj, <span class="hljs-string">'foo.bar'</span>, <span class="hljs-string">'b'</span>);
+<span class="hljs-built_in">console</span>.log(obj);
+<span class="hljs-comment">//=&gt; {foo: {bar: 'b'}}</span>
+
+<span class="hljs-keyword">const</span> foo = dotProp.set({}, <span class="hljs-string">'foo.bar'</span>, <span class="hljs-string">'c'</span>);
+<span class="hljs-built_in">console</span>.log(foo);
+<span class="hljs-comment">//=&gt; {foo: {bar: 'c'}}</span>
+
+dotProp.set(obj, <span class="hljs-string">'foo.baz'</span>, <span class="hljs-string">'x'</span>);
+<span class="hljs-built_in">console</span>.log(obj);
+<span class="hljs-comment">//=&gt; {foo: {bar: 'b', baz: 'x'}}</span>
+
+<span class="hljs-comment">// has</span>
+dotProp.has({<span class="hljs-attr">foo</span>: {<span class="hljs-attr">bar</span>: <span class="hljs-string">'unicorn'</span>}}, <span class="hljs-string">'foo.bar'</span>);
+<span class="hljs-comment">//=&gt; true</span>
+
+<span class="hljs-comment">// deleter</span>
+<span class="hljs-keyword">const</span> obj = {<span class="hljs-attr">foo</span>: {<span class="hljs-attr">bar</span>: <span class="hljs-string">'a'</span>}};
+dotProp.delete(obj, <span class="hljs-string">'foo.bar'</span>);
+<span class="hljs-built_in">console</span>.log(obj);
+<span class="hljs-comment">//=&gt; {foo: {}}</span>
+
+obj.foo.bar = {<span class="hljs-attr">x</span>: <span class="hljs-string">'y'</span>, <span class="hljs-attr">y</span>: <span class="hljs-string">'x'</span>};
+dotProp.delete(obj, <span class="hljs-string">'foo.bar.x'</span>);
+<span class="hljs-built_in">console</span>.log(obj);
+<span class="hljs-comment">//=&gt; {foo: {bar: {y: 'x'}}}</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="get-obj-path-defaultvalue">
+  <h3>
+    <a href="#get-obj-path-defaultvalue" name="get-obj-path-defaultvalue" class="pilcrow"></a>
+get(obj, path, [defaultValue])
+  </h3>
+</div>
+<div class="pilwrap" id="set-obj-path-value">
+  <h3>
+    <a href="#set-obj-path-value" name="set-obj-path-value" class="pilcrow"></a>
+set(obj, path, value)
+  </h3>
+</div>
+<p>Returns the object.</p>
+<div class="pilwrap" id="has-obj-path">
+  <h3>
+    <a href="#has-obj-path" name="has-obj-path" class="pilcrow"></a>
+has(obj, path)
+  </h3>
+</div>
+<div class="pilwrap" id="delete-obj-path">
+  <h3>
+    <a href="#delete-obj-path" name="delete-obj-path" class="pilcrow"></a>
+delete(obj, path)
+  </h3>
+</div>
+<div class="pilwrap" id="obj">
+  <h4>
+    <a href="#obj" name="obj" class="pilcrow"></a>
+obj
+  </h4>
+</div>
+<p>Type: <code>Object</code></p>
+<p>Object to get, set, or delete the <code>path</code> value.</p>
+<div class="pilwrap" id="path">
+  <h4>
+    <a href="#path" name="path" class="pilcrow"></a>
+path
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Path of the property in the object, using <code>.</code> to separate each nested key.</p>
+<p>Use <code>\\.</code> if you have a <code>.</code> in the key.</p>
+<div class="pilwrap" id="value">
+  <h4>
+    <a href="#value" name="value" class="pilcrow"></a>
+value
+  </h4>
+</div>
+<p>Type: <code>any</code></p>
+<p>Value to set at <code>path</code>.</p>
+<div class="pilwrap" id="defaultvalue">
+  <h4>
+    <a href="#defaultvalue" name="defaultvalue" class="pilcrow"></a>
+defaultValue
+  </h4>
+</div>
+<p>Type: <code>any</code></p>
+<p>Default value.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\glob-watcher\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> chokidar = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chokidar'</span>);
+<span class="hljs-keyword">var</span> debounce = <span class="hljs-built_in">require</span>(<span class="hljs-string">'just-debounce'</span>);
+<span class="hljs-keyword">var</span> asyncDone = <span class="hljs-built_in">require</span>(<span class="hljs-string">'async-done'</span>);
+<span class="hljs-keyword">var</span> defaults = <span class="hljs-built_in">require</span>(<span class="hljs-string">'object.defaults/immutable'</span>);
+<span class="hljs-keyword">var</span> isNegatedGlob = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-negated-glob'</span>);
+<span class="hljs-keyword">var</span> anymatch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'anymatch'</span>);
+
+<span class="hljs-keyword">var</span> defaultOpts = {
+  <span class="hljs-attr">delay</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">events</span>: [<span class="hljs-string">'add'</span>, <span class="hljs-string">'change'</span>, <span class="hljs-string">'unlink'</span>],
+  <span class="hljs-attr">ignored</span>: [],
+  <span class="hljs-attr">ignoreInitial</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">queue</span>: <span class="hljs-literal">true</span>,
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">listenerCount</span>(<span class="hljs-params">ee, evtName</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> ee.listenerCount === <span class="hljs-string">'function'</span>) {
+    <span class="hljs-keyword">return</span> ee.listenerCount(evtName);
+  }
+
+  <span class="hljs-keyword">return</span> ee.listeners(evtName).length;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasErrorListener</span>(<span class="hljs-params">ee</span>) </span>{
+  <span class="hljs-keyword">return</span> listenerCount(ee, <span class="hljs-string">'error'</span>) !== <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exists</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">return</span> val != <span class="hljs-literal">null</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">watch</span>(<span class="hljs-params">glob, options, cb</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options === <span class="hljs-string">'function'</span>) {
+    cb = options;
+    options = {};
+  }
+
+  <span class="hljs-keyword">var</span> opt = defaults(options, defaultOpts);
+
+  <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(opt.events)) {
+    opt.events = [opt.events];
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(glob)) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>We slice so we don't mutate the passed globs array</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    glob = glob.slice();
+  } <span class="hljs-keyword">else</span> {
+    glob = [glob];
+  }
+
+  <span class="hljs-keyword">var</span> queued = <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">var</span> running = <span class="hljs-literal">false</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>These use sparse arrays to keep track of the index in the
+original globs array</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> positives = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(glob.length);
+  <span class="hljs-keyword">var</span> negatives = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(glob.length);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Reverse the glob here so we don't end up with a positive
+and negative glob in position 0 after a reverse</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  glob.reverse().forEach(sortGlobs);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sortGlobs</span>(<span class="hljs-params">globString, index</span>) </span>{
+    <span class="hljs-keyword">var</span> result = isNegatedGlob(globString);
+    <span class="hljs-keyword">if</span> (result.negated) {
+      negatives[index] = result.pattern;
+    } <span class="hljs-keyword">else</span> {
+      positives[index] = result.pattern;
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shouldBeIgnored</span>(<span class="hljs-params">path</span>) </span>{
+    <span class="hljs-keyword">var</span> positiveMatch = anymatch(positives, path, <span class="hljs-literal">true</span>);
+    <span class="hljs-keyword">var</span> negativeMatch = anymatch(negatives, path, <span class="hljs-literal">true</span>);
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>If negativeMatch is -1, that means it was never negated</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (negativeMatch === <span class="hljs-number">-1</span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>If the negative is &quot;less than&quot; the positive, that means
+it came later in the glob array before we reversed them</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">return</span> negativeMatch &lt; positiveMatch;
+  }
+
+  <span class="hljs-keyword">var</span> toWatch = positives.filter(exists);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>We only do add our custom <code>ignored</code> if there are some negative globs
+TODO: I'm not sure how to test this</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (negatives.some(exists)) {
+    opt.ignored = [].concat(opt.ignored, shouldBeIgnored);
+  }
+  <span class="hljs-keyword">var</span> watcher = chokidar.watch(toWatch, opt);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">runComplete</span>(<span class="hljs-params">err</span>) </span>{
+    running = <span class="hljs-literal">false</span>;
+
+    <span class="hljs-keyword">if</span> (err &amp;&amp; hasErrorListener(watcher)) {
+      watcher.emit(<span class="hljs-string">'error'</span>, err);
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>If we have a run queued, start onChange again</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (queued) {
+      queued = <span class="hljs-literal">false</span>;
+      onChange();
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onChange</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (running) {
+      <span class="hljs-keyword">if</span> (opt.queue) {
+        queued = <span class="hljs-literal">true</span>;
+      }
+      <span class="hljs-keyword">return</span>;
+    }
+
+    running = <span class="hljs-literal">true</span>;
+    asyncDone(cb, runComplete);
+  }
+
+  <span class="hljs-keyword">var</span> fn;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> cb === <span class="hljs-string">'function'</span>) {
+    fn = debounce(onChange, opt.delay);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">watchEvent</span>(<span class="hljs-params">eventName</span>) </span>{
+    watcher.on(eventName, fn);
+  }
+
+  <span class="hljs-keyword">if</span> (fn) {
+    opt.events.forEach(watchEvent);
+  }
+
+  <span class="hljs-keyword">return</span> watcher;
+}
+
+<span class="hljs-built_in">module</span>.exports = watch;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

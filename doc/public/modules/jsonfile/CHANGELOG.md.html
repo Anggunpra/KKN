@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CHANGELOG.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\jsonfile\\CHANGELOG.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#3.0.1-2017-07-05">3.0.1 / 2017-07-05</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.0.0-2017-04-25">3.0.0 / 2017-04-25</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.4.0-2016-09-15">2.4.0 / 2016-09-15</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#changed">Changed</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.3.1-2016-05-13">2.3.1 / 2016-05-13</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.3.0-2016-04-16">2.3.0 / 2016-04-16</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.2.3-2015-10-14">2.2.3 / 2015-10-14</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.2.2-2015-09-16">2.2.2 / 2015-09-16</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.2.1-2015-06-25">2.2.1 / 2015-06-25</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.2.0-2015-06-25">2.2.0 / 2015-06-25</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.1.2-2015-06-22">2.1.2 / 2015-06-22</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.1.1-2015-06-19">2.1.1 / 2015-06-19</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.1.0-2015-06-19">2.1.0 / 2015-06-19</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.0.1-2015-05-24">2.0.1 / 2015-05-24</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.0.0-2014-07-28">2.0.0 / 2014-07-28</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#1.2.0-2014-06-29">1.2.0 / 2014-06-29</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#1.1.1-2013-11-11">1.1.1 / 2013-11-11</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#1.1.0-2013-10-11">1.1.0 / 2013-10-11</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#1.0.1-2013-09-05">1.0.1 / 2013-09-05</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#1.0.0-2013-06-28">1.0.0 / 2013-06-28</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.0.1-2012-09-10">0.0.1 / 2012-09-10</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="3.0.1-2017-07-05">
+  <h2>
+    <a href="#3.0.1-2017-07-05" name="3.0.1-2017-07-05" class="pilcrow"></a>
+3.0.1 / 2017-07-05
+  </h2>
+</div>
+<ul>
+<li>Fixed bug in <code>writeFile</code> when there was a serialization error &amp; no callback was passed. In previous versions, an empty file would be written; now no file is written.</li>
+</ul>
+<div class="pilwrap" id="3.0.0-2017-04-25">
+  <h2>
+    <a href="#3.0.0-2017-04-25" name="3.0.0-2017-04-25" class="pilcrow"></a>
+3.0.0 / 2017-04-25
+  </h2>
+</div>
+<ul>
+<li>Changed behavior of <code>throws</code> option for <code>readFileSync</code>; now does not throw filesystem errors when <code>throws</code> is <code>false</code></li>
+</ul>
+<div class="pilwrap" id="2.4.0-2016-09-15">
+  <h2>
+    <a href="#2.4.0-2016-09-15" name="2.4.0-2016-09-15" class="pilcrow"></a>
+2.4.0 / 2016-09-15
+  </h2>
+</div>
+<div class="pilwrap" id="changed">
+  <h3>
+    <a href="#changed" name="changed" class="pilcrow"></a>
+Changed
+  </h3>
+</div>
+<ul>
+<li>added optional support for <code>graceful-fs</code> [#62]</li>
+</ul>
+<div class="pilwrap" id="2.3.1-2016-05-13">
+  <h2>
+    <a href="#2.3.1-2016-05-13" name="2.3.1-2016-05-13" class="pilcrow"></a>
+2.3.1 / 2016-05-13
+  </h2>
+</div>
+<ul>
+<li>fix to support BOM. <a href="https://github.com/jprichardson/node-jsonfile/issues/45" title="Reading of UTF8-encoded (w/ BOM) files fails">#45</a></li>
+</ul>
+<div class="pilwrap" id="2.3.0-2016-04-16">
+  <h2>
+    <a href="#2.3.0-2016-04-16" name="2.3.0-2016-04-16" class="pilcrow"></a>
+2.3.0 / 2016-04-16
+  </h2>
+</div>
+<ul>
+<li>add <code>throws</code> to <code>readFile()</code>. See <a href="https://github.com/jprichardson/node-jsonfile/pull/39" title="Add `throws` option for readFile (async)">#39</a></li>
+<li>add support for any arbitrary <code>fs</code> module. Useful with <a href="https://www.npmjs.com/package/mock-fs">mock-fs</a></li>
+</ul>
+<div class="pilwrap" id="2.2.3-2015-10-14">
+  <h2>
+    <a href="#2.2.3-2015-10-14" name="2.2.3-2015-10-14" class="pilcrow"></a>
+2.2.3 / 2015-10-14
+  </h2>
+</div>
+<ul>
+<li>include file name in parse error. See: https://github.com/jprichardson/node-jsonfile/pull/34</li>
+</ul>
+<div class="pilwrap" id="2.2.2-2015-09-16">
+  <h2>
+    <a href="#2.2.2-2015-09-16" name="2.2.2-2015-09-16" class="pilcrow"></a>
+2.2.2 / 2015-09-16
+  </h2>
+</div>
+<ul>
+<li>split out tests into separate files</li>
+<li>fixed <code>throws</code> when set to <code>true</code> in <code>readFileSync()</code>. See: https://github.com/jprichardson/node-jsonfile/pull/33</li>
+</ul>
+<div class="pilwrap" id="2.2.1-2015-06-25">
+  <h2>
+    <a href="#2.2.1-2015-06-25" name="2.2.1-2015-06-25" class="pilcrow"></a>
+2.2.1 / 2015-06-25
+  </h2>
+</div>
+<ul>
+<li>fixed regression when passing in string as encoding for options in <code>writeFile()</code> and <code>writeFileSync()</code>. See: https://github.com/jprichardson/node-jsonfile/issues/28</li>
+</ul>
+<div class="pilwrap" id="2.2.0-2015-06-25">
+  <h2>
+    <a href="#2.2.0-2015-06-25" name="2.2.0-2015-06-25" class="pilcrow"></a>
+2.2.0 / 2015-06-25
+  </h2>
+</div>
+<ul>
+<li>added <code>options.spaces</code> to <code>writeFile()</code> and <code>writeFileSync()</code></li>
+</ul>
+<div class="pilwrap" id="2.1.2-2015-06-22">
+  <h2>
+    <a href="#2.1.2-2015-06-22" name="2.1.2-2015-06-22" class="pilcrow"></a>
+2.1.2 / 2015-06-22
+  </h2>
+</div>
+<ul>
+<li>fixed if passed <code>readFileSync(file, 'utf8')</code>. See: https://github.com/jprichardson/node-jsonfile/issues/25</li>
+</ul>
+<div class="pilwrap" id="2.1.1-2015-06-19">
+  <h2>
+    <a href="#2.1.1-2015-06-19" name="2.1.1-2015-06-19" class="pilcrow"></a>
+2.1.1 / 2015-06-19
+  </h2>
+</div>
+<ul>
+<li>fixed regressions if <code>null</code> is passed for options. See: https://github.com/jprichardson/node-jsonfile/issues/24</li>
+</ul>
+<div class="pilwrap" id="2.1.0-2015-06-19">
+  <h2>
+    <a href="#2.1.0-2015-06-19" name="2.1.0-2015-06-19" class="pilcrow"></a>
+2.1.0 / 2015-06-19
+  </h2>
+</div>
+<ul>
+<li>cleanup: JavaScript Standard Style, rename files, dropped terst for assert</li>
+<li>methods now support JSON revivers/replacers</li>
+</ul>
+<div class="pilwrap" id="2.0.1-2015-05-24">
+  <h2>
+    <a href="#2.0.1-2015-05-24" name="2.0.1-2015-05-24" class="pilcrow"></a>
+2.0.1 / 2015-05-24
+  </h2>
+</div>
+<ul>
+<li>update license attribute https://github.com/jprichardson/node-jsonfile/pull/21</li>
+</ul>
+<div class="pilwrap" id="2.0.0-2014-07-28">
+  <h2>
+    <a href="#2.0.0-2014-07-28" name="2.0.0-2014-07-28" class="pilcrow"></a>
+2.0.0 / 2014-07-28
+  </h2>
+</div>
+<ul>
+<li>added <code>\n</code> to end of file on write. <a href="https://github.com/jprichardson/node-jsonfile/pull/14">#14</a></li>
+<li>added <code>options.throws</code> to <code>readFileSync()</code></li>
+<li>dropped support for Node v0.8</li>
+</ul>
+<div class="pilwrap" id="1.2.0-2014-06-29">
+  <h2>
+    <a href="#1.2.0-2014-06-29" name="1.2.0-2014-06-29" class="pilcrow"></a>
+1.2.0 / 2014-06-29
+  </h2>
+</div>
+<ul>
+<li>removed semicolons</li>
+<li>bugfix: passed <code>options</code> to <code>fs.readFile</code> and <code>fs.readFileSync</code>. This technically changes behavior, but
+changes it according to docs. <a href="https://github.com/jprichardson/node-jsonfile/issues/12" title="readFile doesn't accept options">#12</a></li>
+</ul>
+<div class="pilwrap" id="1.1.1-2013-11-11">
+  <h2>
+    <a href="#1.1.1-2013-11-11" name="1.1.1-2013-11-11" class="pilcrow"></a>
+1.1.1 / 2013-11-11
+  </h2>
+</div>
+<ul>
+<li>fixed catching of callback bug (ffissore / #5)</li>
+</ul>
+<div class="pilwrap" id="1.1.0-2013-10-11">
+  <h2>
+    <a href="#1.1.0-2013-10-11" name="1.1.0-2013-10-11" class="pilcrow"></a>
+1.1.0 / 2013-10-11
+  </h2>
+</div>
+<ul>
+<li>added <code>options</code> param to methods, (seanodell / #4)</li>
+</ul>
+<div class="pilwrap" id="1.0.1-2013-09-05">
+  <h2>
+    <a href="#1.0.1-2013-09-05" name="1.0.1-2013-09-05" class="pilcrow"></a>
+1.0.1 / 2013-09-05
+  </h2>
+</div>
+<ul>
+<li>removed <code>homepage</code> field from package.json to remove NPM warning</li>
+</ul>
+<div class="pilwrap" id="1.0.0-2013-06-28">
+  <h2>
+    <a href="#1.0.0-2013-06-28" name="1.0.0-2013-06-28" class="pilcrow"></a>
+1.0.0 / 2013-06-28
+  </h2>
+</div>
+<ul>
+<li>added <code>.npmignore</code>, #1</li>
+<li>changed spacing default from <code>4</code> to <code>2</code> to follow Node conventions</li>
+</ul>
+<div class="pilwrap" id="0.0.1-2012-09-10">
+  <h2>
+    <a href="#0.0.1-2012-09-10" name="0.0.1-2012-09-10" class="pilcrow"></a>
+0.0.1 / 2012-09-10
+  </h2>
+</div>
+<ul>
+<li>Initial release.</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

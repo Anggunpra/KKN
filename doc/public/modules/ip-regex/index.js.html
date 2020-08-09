@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\ip-regex\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> v4 = <span class="hljs-string">'(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])(?:\\.(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])){3}'</span>;
+<span class="hljs-keyword">var</span> v6 = <span class="hljs-string">'(?:(?:[0-9a-fA-F:]){1,4}(?:(?::(?:[0-9a-fA-F]){1,4}|:)){2,7})+'</span>;
+
+<span class="hljs-keyword">var</span> ip = <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+	opts = opts || {};
+	<span class="hljs-keyword">return</span> opts.exact ? <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'(?:^'</span> + v4 + <span class="hljs-string">'$)|(?:^'</span> + v6 + <span class="hljs-string">'$)'</span>) :
+	                    <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'(?:'</span> + v4 + <span class="hljs-string">')|(?:'</span> + v6 + <span class="hljs-string">')'</span>, <span class="hljs-string">'g'</span>);
+};
+
+ip.v4 = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+	opts = opts || {};
+	<span class="hljs-keyword">return</span> opts.exact ? <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^'</span> + v4 + <span class="hljs-string">'$'</span>) : <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(v4, <span class="hljs-string">'g'</span>);
+};
+
+ip.v6 = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+	opts = opts || {};
+	<span class="hljs-keyword">return</span> opts.exact ? <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^'</span> + v6 + <span class="hljs-string">'$'</span>) : <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(v6, <span class="hljs-string">'g'</span>);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

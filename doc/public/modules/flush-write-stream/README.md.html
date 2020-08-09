@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\flush-write-stream\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#flush-write-stream">flush-write-stream</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#var-ws-writer-options-write-flush">var ws = writer([options], write, [flush])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#var-ws-writer.obj-options-write-flush">var ws = writer.obj([options], write, [flush])</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="flush-write-stream">
+  <h1>
+    <a href="#flush-write-stream" name="flush-write-stream" class="pilcrow"></a>
+flush-write-stream
+  </h1>
+</div>
+<p>A write stream constructor that supports a flush function that is called before <code>finish</code> is emitted</p>
+<pre><code>npm install flush-write-stream
+</code></pre>
+<p><a href="http://travis-ci.org/mafintosh/flush-write-stream"><img src="http://img.shields.io/travis/mafintosh/flush-write-stream.svg?style=flat" alt="build status"></a></p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> writer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'flush-write-stream'</span>)
+
+<span class="hljs-keyword">var</span> ws = writer(write, flush)
+
+ws.on(<span class="hljs-string">'finish'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'finished'</span>)
+})
+
+ws.write(<span class="hljs-string">'hello'</span>)
+ws.write(<span class="hljs-string">'world'</span>)
+ws.end()
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">write</span> (<span class="hljs-params">data, enc, cb</span>) </span>{
+  <span class="hljs-comment">// i am your normal ._write method</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'writing'</span>, data.toString())
+  cb()
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">flush</span> (<span class="hljs-params">cb</span>) </span>{
+  <span class="hljs-comment">// i am called before finish is emitted</span>
+  setTimeout(cb, <span class="hljs-number">1000</span>) <span class="hljs-comment">// wait 1 sec</span>
+}
+</code></pre>
+<p>If you run the above it will produce the following output</p>
+<pre><code>writing hello
+writing world
+(nothing happens for 1 sec)
+finished
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="var-ws-writer-options-write-flush">
+  <h4>
+    <a href="#var-ws-writer-options-write-flush" name="var-ws-writer-options-write-flush" class="pilcrow"></a>
+<code>var ws = writer([options], write, [flush])</code>
+  </h4>
+</div>
+<p>Create a new writable stream. Options are forwarded to the stream constructor.</p>
+<div class="pilwrap" id="var-ws-writer.obj-options-write-flush">
+  <h4>
+    <a href="#var-ws-writer.obj-options-write-flush" name="var-ws-writer.obj-options-write-flush" class="pilcrow"></a>
+<code>var ws = writer.obj([options], write, [flush])</code>
+  </h4>
+</div>
+<p>Same as the above except <code>objectMode</code> is set to <code>true</code> per default.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

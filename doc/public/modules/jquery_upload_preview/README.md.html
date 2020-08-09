@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\jquery_upload_preview\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#upload-preview-jquery-plugin">Upload Preview jQuery Plugin</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#what-is-that">What is that?</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#how-it-works">How it works</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#download">Download</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#customization">Customization</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#examples">Examples</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="upload-preview-jquery-plugin">
+  <h1>
+    <a href="#upload-preview-jquery-plugin" name="upload-preview-jquery-plugin" class="pilcrow"></a>
+Upload Preview jQuery Plugin
+  </h1>
+</div>
+<div class="pilwrap" id="what-is-that">
+  <h2>
+    <a href="#what-is-that" name="what-is-that" class="pilcrow"></a>
+What is that?
+  </h2>
+</div>
+<p>This jQuery plugin provides an easy way to preview your uploads before they're actually uploaded to the server. So if you selected an image or audio file from your hard drive, it will generate a live preview of the selected image or audio player for the audio file.</p>
+<hr>
+<div class="pilwrap" id="how-it-works">
+  <h2>
+    <a href="#how-it-works" name="how-it-works" class="pilcrow"></a>
+How it works
+  </h2>
+</div>
+<p>To get access to the not uploaded data, we can use the HTML5 file reader api. This api provides reading local files. This step is pretty important, because we need to this data in order to show it in the browser window. To get more information about the file reader, you can read the <a href="http://www.w3.org/TR/FileAPI/">official documentation</a>.</p>
+<hr>
+<div class="pilwrap" id="download">
+  <h2>
+    <a href="#download" name="download" class="pilcrow"></a>
+Download
+  </h2>
+</div>
+<p>Go to <tt>assets/js/</tt> folder.</p>
+<hr>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<p><strong>1. Copy jQuery &amp; plugin:</strong></p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;http://code.jquery.com/jquery-2.0.3.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;assets/js/jquery.uploadPreview.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p><strong>2. Set up your upload form e.g.:</strong></p>
+<pre><code>&lt;div id=&quot;image-preview&quot;&gt;
+  &lt;label for=&quot;image-upload&quot; id=&quot;image-label&quot;&gt;Choose File&lt;/label&gt;
+  &lt;input type=&quot;file&quot; name=&quot;image&quot; id=&quot;image-upload&quot; /&gt;
+&lt;/div&gt;
+</code></pre>
+<p><strong>3. Load the plugin function as often as you need and fill it with the parameters:</strong></p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+  $.uploadPreview({
+    input_field: &quot;#image-upload&quot;,   // Default: .image-upload
+    preview_box: &quot;#image-preview&quot;,  // Default: .image-preview
+    label_field: &quot;#image-label&quot;,    // Default: .image-label
+    label_default: &quot;Choose File&quot;,   // Default: Choose File
+    label_selected: &quot;Change File&quot;,  // Default: Change File
+    no_label: false,                // Default: false
+    success_callback: null          // Default: null
+  });
+});
+&lt;/script&gt;
+</code></pre>
+<hr>
+<div class="pilwrap" id="customization">
+  <h2>
+    <a href="#customization" name="customization" class="pilcrow"></a>
+Customization
+  </h2>
+</div>
+<p>You're free to customize the CSS and HTML for the input, preview &amp; label fields. Feel free to change it as you wish. There's no need that you put it all together as you can see in step 2. The preview box might be located somewhere else on your page as the input field is.</p>
+<hr>
+<div class="pilwrap" id="examples">
+  <h2>
+    <a href="#examples" name="examples" class="pilcrow"></a>
+Examples
+  </h2>
+</div>
+<p>http://opoloo.github.io/jquery_upload_preview/</p>
+<hr>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p><strong>The MIT License (MIT)</strong></p>
+<p>Copyright (c) 2013 Opoloo GbR</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
+</div>
+  </div>
+</body>
+</html>

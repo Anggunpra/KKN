@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>webpack.config.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\clipboard\\webpack.config.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>webpack.config.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">const</span> pkg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./package.json'</span>);
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">'webpack'</span>);
+<span class="hljs-keyword">const</span> UglifyJSPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'uglifyjs-webpack-plugin'</span>);
+
+<span class="hljs-keyword">const</span> production = process.env.NODE_ENV === <span class="hljs-string">'production'</span> || <span class="hljs-literal">false</span>;
+
+<span class="hljs-keyword">const</span> banner = <span class="hljs-string">`clipboard.js v<span class="hljs-subst">${pkg.version}</span>
+https://zenorocha.github.io/clipboard.js
+
+Licensed MIT © Zeno Rocha`</span>;
+
+<span class="hljs-built_in">module</span>.exports = {
+    <span class="hljs-attr">entry</span>: <span class="hljs-string">'./src/clipboard.js'</span>,
+    <span class="hljs-attr">mode</span>: <span class="hljs-string">'production'</span>,
+    <span class="hljs-attr">output</span>: {
+        <span class="hljs-attr">filename</span>: production ? <span class="hljs-string">'clipboard.min.js'</span> : <span class="hljs-string">'clipboard.js'</span>,
+        <span class="hljs-attr">path</span>: path.resolve(__dirname, <span class="hljs-string">'dist'</span>),
+        <span class="hljs-attr">library</span>: <span class="hljs-string">'ClipboardJS'</span>,
+        <span class="hljs-attr">libraryTarget</span>: <span class="hljs-string">'umd'</span>,
+        <span class="hljs-attr">globalObject</span>: <span class="hljs-string">'this'</span>
+    },
+    <span class="hljs-attr">module</span>: {
+        <span class="hljs-attr">rules</span>: [
+            {<span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.js$/</span>, <span class="hljs-attr">exclude</span>: <span class="hljs-regexp">/node_modules/</span>, <span class="hljs-attr">loader</span>: <span class="hljs-string">'babel-loader'</span>}
+        ]
+    },
+    <span class="hljs-attr">optimization</span>: {
+        <span class="hljs-attr">minimize</span>: production,
+        <span class="hljs-attr">minimizer</span>: [
+            <span class="hljs-keyword">new</span> UglifyJSPlugin({
+                <span class="hljs-attr">parallel</span>: <span class="hljs-built_in">require</span>(<span class="hljs-string">'os'</span>).cpus().length,
+                <span class="hljs-attr">uglifyOptions</span>: {
+                    <span class="hljs-attr">ie8</span>: <span class="hljs-literal">false</span>,
+                    <span class="hljs-attr">keep_fnames</span>: <span class="hljs-literal">false</span>,
+                    <span class="hljs-attr">output</span>: {
+                        <span class="hljs-attr">beautify</span>: <span class="hljs-literal">false</span>,
+                        <span class="hljs-attr">comments</span>: <span class="hljs-function">(<span class="hljs-params">node, {value, type}</span>) =&gt;</span> type == <span class="hljs-string">'comment2'</span> &amp;&amp; value.startsWith(<span class="hljs-string">'!'</span>)
+                    }
+                }
+            })
+        ]
+    },
+    <span class="hljs-attr">plugins</span>: [<span class="hljs-keyword">new</span> webpack.BannerPlugin({ banner })]
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\css-color-names\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#css-color-names">css-color-names</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#how-was-this-list-generated">How was this list generated?</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="css-color-names">
+  <h1>
+    <a href="#css-color-names" name="css-color-names" class="pilcrow"></a>
+css-color-names
+  </h1>
+</div>
+<p>A JSON Object of css color names mapped to their hex value</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> csscolors = <span class="hljs-built_in">require</span>(<span class="hljs-string">'css-color-names'</span>);
+<span class="hljs-built_in">console</span>.dir(csscolors);
+</code></pre>
+<p>yields</p>
+<pre><code class="json">{
+  "aqua": "#00ffff",
+  "aliceblue": "#f0f8ff",
+  "antiquewhite": "#faebd7",
+  "black": "#000000",
+  "blue": "#0000ff",
+  ...
+}
+</code></pre>
+<div class="pilwrap" id="how-was-this-list-generated">
+  <h2>
+    <a href="#how-was-this-list-generated" name="how-was-this-list-generated" class="pilcrow"></a>
+How was this list generated?
+  </h2>
+</div>
+<p>In the Makefile you'll see a line like this:</p>
+<pre><code>./getcolors.sh | ./stringify.js &gt; $(FILE)
+</code></pre>
+<p>The first command scrapes a site for the list,
+and outputs the results separated by newlines.  The
+second command creates the JSON object and outputs
+it to stdout, which then gets redirected into
+<code>css-color-names.json</code></p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<pre><code>npm install css-color-names
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

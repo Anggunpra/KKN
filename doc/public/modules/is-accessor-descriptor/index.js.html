@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\is-accessor-descriptor\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>!
+is-accessor-descriptor <a href="https://github.com/jonschlinkert/is-accessor-descriptor">https://github.com/jonschlinkert/is-accessor-descriptor</a></p>
+</div>
+<div class="body">
+<p>Copyright (c) 2015-2017, Jon Schlinkert.
+Released under the MIT License.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">
+'use strict'</span>;
+
+<span class="hljs-keyword">var</span> typeOf = <span class="hljs-built_in">require</span>(<span class="hljs-string">'kind-of'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>accessor descriptor properties</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> accessor = {
+  <span class="hljs-attr">get</span>: <span class="hljs-string">'function'</span>,
+  <span class="hljs-attr">set</span>: <span class="hljs-string">'function'</span>,
+  <span class="hljs-attr">configurable</span>: <span class="hljs-string">'boolean'</span>,
+  <span class="hljs-attr">enumerable</span>: <span class="hljs-string">'boolean'</span>
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isAccessorDescriptor</span>(<span class="hljs-params">obj, prop</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> prop === <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">var</span> val = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(obj, prop);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> val !== <span class="hljs-string">'undefined'</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (typeOf(obj) !== <span class="hljs-string">'object'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (has(obj, <span class="hljs-string">'value'</span>) || has(obj, <span class="hljs-string">'writable'</span>)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (!has(obj, <span class="hljs-string">'get'</span>) || <span class="hljs-keyword">typeof</span> obj.get !== <span class="hljs-string">'function'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>tldr: it's valid to have &quot;set&quot; be undefined
+&quot;set&quot; might be undefined if <code>Object.getOwnPropertyDescriptor</code>
+was used to get the value, and only <code>get</code> was defined by the user</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (has(obj, <span class="hljs-string">'set'</span>) &amp;&amp; <span class="hljs-keyword">typeof</span> obj[key] !== <span class="hljs-string">'function'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> obj[key] !== <span class="hljs-string">'undefined'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> obj) {
+    <span class="hljs-keyword">if</span> (!accessor.hasOwnProperty(key)) {
+      <span class="hljs-keyword">continue</span>;
+    }
+
+    <span class="hljs-keyword">if</span> (typeOf(obj[key]) === accessor[key]) {
+      <span class="hljs-keyword">continue</span>;
+    }
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> obj[key] !== <span class="hljs-string">'undefined'</span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">has</span>(<span class="hljs-params">obj, key</span>) </span>{
+  <span class="hljs-keyword">return</span> {}.hasOwnProperty.call(obj, key);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose <code>isAccessorDescriptor</code></p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">module</span>.exports = isAccessorDescriptor;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

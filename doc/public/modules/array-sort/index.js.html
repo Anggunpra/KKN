@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\array-sort\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>!
+array-sort <a href="https://github.com/jonschlinkert/array-sort">https://github.com/jonschlinkert/array-sort</a></p>
+</div>
+<div class="body">
+<p>Copyright (c) 2015-2017, Jon Schlinkert.
+Released under the MIT License.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">
+'use strict'</span>;
+
+<span class="hljs-keyword">var</span> defaultCompare = <span class="hljs-built_in">require</span>(<span class="hljs-string">'default-compare'</span>);
+<span class="hljs-keyword">var</span> typeOf = <span class="hljs-built_in">require</span>(<span class="hljs-string">'kind-of'</span>);
+<span class="hljs-keyword">var</span> <span class="hljs-keyword">get</span> = require('<span class="hljs-keyword">get</span>-value');
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Sort an array of objects by one or more properties.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`arr`</span>
+<span class="dox_type">Array</span>
+<span>The Array to sort.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`props`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span class="dox_type">Function</span>
+<span>One or more object paths or comparison functions.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`opts`</span>
+<span class="dox_type">Object</span>
+<span>Pass <code>{ reverse: true }</code> to reverse the sort order.
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Array</span>
+<span>Returns a sorted array.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arraySort</span>(<span class="hljs-params">arr, props, opts</span>) </span>{
+  <span class="hljs-keyword">if</span> (arr == <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">return</span> [];
+  }
+
+  <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(arr)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'array-sort expects an array.'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>.length === <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">return</span> arr.sort();
+  }
+
+  <span class="hljs-keyword">var</span> args = flatten([].slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">1</span>));
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>if the last argument appears to be a plain object,
+it's not a valid <code>compare</code> arg, so it must be options.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (typeOf(args[args.length - <span class="hljs-number">1</span>]) === <span class="hljs-string">'object'</span>) {
+    opts = args.pop();
+  }
+  <span class="hljs-keyword">return</span> arr.sort(sortBy(args, opts));
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Iterate over each comparison property or function until <code>1</code> or <code>-1</code>
+is returned.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`props`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span class="dox_type">Function</span>
+<span>One or more object paths or comparison functions.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`opts`</span>
+<span class="dox_type">Object</span>
+<span>Pass <code>{ reverse: true }</code> to reverse the sort order.
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Array</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sortBy</span>(<span class="hljs-params">props, opts</span>) </span>{
+  opts = opts || {};
+
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compareFn</span>(<span class="hljs-params">a, b</span>) </span>{
+    <span class="hljs-keyword">var</span> len = props.length, i = <span class="hljs-number">-1</span>;
+    <span class="hljs-keyword">var</span> result;
+
+    <span class="hljs-keyword">while</span> (++i &lt; len) {
+      result = compare(props[i], a, b);
+      <span class="hljs-keyword">if</span> (result !== <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">break</span>;
+      }
+    }
+    <span class="hljs-keyword">if</span> (opts.reverse === <span class="hljs-literal">true</span>) {
+      <span class="hljs-keyword">return</span> result * <span class="hljs-number">-1</span>;
+    }
+    <span class="hljs-keyword">return</span> result;
+  };
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Compare <code>a</code> to <code>b</code>. If an object <code>prop</code> is passed, then
+<code>a[prop]</code> is compared to <code>b[prop]</code></p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compare</span>(<span class="hljs-params">prop, a, b</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> prop === <span class="hljs-string">'function'</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>expose <code>compare</code> to custom function</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">return</span> prop(a, b, compare.bind(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>));
+  }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>compare object values</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (prop &amp;&amp; <span class="hljs-keyword">typeof</span> a === <span class="hljs-string">'object'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> b === <span class="hljs-string">'object'</span>) {
+    <span class="hljs-keyword">return</span> compare(<span class="hljs-literal">null</span>, <span class="hljs-keyword">get</span>(a, prop), <span class="hljs-keyword">get</span>(b, prop));
+  }
+  return defaultCompare(a, b);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Flatten the given array.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">flatten</span>(<span class="hljs-params">arr</span>) </span>{
+  <span class="hljs-keyword">return</span> [].concat.apply([], arr);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose <code>arraySort</code></p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">module</span>.exports = arraySort;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\filenamify\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#filenamify">filenamify </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#filenamify-input-options">filenamify(input, [options])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#filenamify.path-input-options">filenamify.path(input, [options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#input">input</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#replacement">replacement</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related">Related</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="filenamify">
+  <h1>
+    <a href="#filenamify" name="filenamify" class="pilcrow"></a>
+filenamify <a href="https://travis-ci.org/sindresorhus/filenamify"><img src="https://travis-ci.org/sindresorhus/filenamify.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Convert a string to a valid safe filename</p>
+</blockquote>
+<p>On Unix-like systems <code>/</code> is reserved and <a href="http://msdn.microsoft.com/en-us/library/aa365247%28VS.85%29#naming_conventions"><code>&lt;&gt;:&quot;/\|?*</code></a> on Windows.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install filenamify
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> filenamify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'filenamify'</span>);
+
+filenamify(<span class="hljs-string">'&lt;foo/bar&gt;'</span>);
+<span class="hljs-comment">//=&gt; 'foo!bar'</span>
+
+filenamify(<span class="hljs-string">'foo:"bar"'</span>, {<span class="hljs-attr">replacement</span>: <span class="hljs-string">'🐴'</span>});
+<span class="hljs-comment">//=&gt; 'foo🐴bar'</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="filenamify-input-options">
+  <h3>
+    <a href="#filenamify-input-options" name="filenamify-input-options" class="pilcrow"></a>
+filenamify(input, [options])
+  </h3>
+</div>
+<p>Accepts a filename and returns a valid filename.</p>
+<div class="pilwrap" id="filenamify.path-input-options">
+  <h3>
+    <a href="#filenamify.path-input-options" name="filenamify.path-input-options" class="pilcrow"></a>
+filenamify.path(input, [options])
+  </h3>
+</div>
+<p>Accepts a path and returns the path with a valid filename.</p>
+<div class="pilwrap" id="input">
+  <h4>
+    <a href="#input" name="input" class="pilcrow"></a>
+input
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<div class="pilwrap" id="replacement">
+  <h5>
+    <a href="#replacement" name="replacement" class="pilcrow"></a>
+replacement
+  </h5>
+</div>
+<p>Type: <code>string</code><br>
+Default: <code>'!'</code></p>
+<p>String to use as replacement for reserved filename characters.</p>
+<p>Cannot contain: <code>&lt;</code> <code>&gt;</code> <code>:</code> <code>&quot;</code> <code>/</code> <code>\</code> <code>|</code> <code>?</code> <code>*</code></p>
+<div class="pilwrap" id="related">
+  <h2>
+    <a href="#related" name="related" class="pilcrow"></a>
+Related
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/sindresorhus/filenamify-url">filenamify-url</a> - Convert a URL to a valid filename</li>
+<li><a href="https://github.com/sindresorhus/valid-filename">valid-filename</a> - Check if a string is a valid filename</li>
+<li><a href="https://github.com/sindresorhus/unused-filename">unused-filename</a> - Get a unused filename by appending a number if it exists</li>
+<li><a href="https://github.com/sindresorhus/slugify">slugify</a> - Slugify a string</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

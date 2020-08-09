@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UsersSeeder.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "database\\seeds\\UsersSeeder.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>UsersSeeder.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Seeder</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Spatie</span>\<span class="hljs-title">Permission</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Role</span>;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UsersSeeder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Seeder</span>
+</span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Run the database seeds.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>void
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span><span class="hljs-params">()</span>
+    </span>{
+        $roles = [
+            [<span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'Masyarakat'</span>],
+            [<span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'Perangkat Desa'</span>],
+        ];
+        <span class="hljs-keyword">foreach</span> ($roles <span class="hljs-keyword">as</span> $role) {
+            Role::create($role);
+        }
+        $users = [
+            [
+                <span class="hljs-string">'nama_lengkap'</span> =&gt; <span class="hljs-string">'Anggun Pratiwi'</span>,
+                <span class="hljs-string">'tanggal_lahir'</span> =&gt; <span class="hljs-string">'1999-05-28'</span>,
+                <span class="hljs-string">'email'</span> =&gt; <span class="hljs-string">'anggunpra207@gmail.com'</span>,
+                <span class="hljs-string">'password'</span> =&gt; bcrypt(<span class="hljs-string">'secret'</span>),
+                <span class="hljs-string">'nomor_telepon'</span> =&gt; <span class="hljs-string">'081357763665'</span>,
+                <span class="hljs-string">'nomor_ktp'</span> =&gt; <span class="hljs-string">'350916888987654'</span>,
+                <span class="hljs-string">'alamat_tinggal'</span> =&gt; <span class="hljs-string">'Desa Karetan, Purwoharjo, Banyuwangi'</span>,
+                <span class="hljs-string">'pekerjaan'</span> =&gt; <span class="hljs-string">'Mahasiswa'</span>,
+            ],
+            [
+                <span class="hljs-string">'nama_lengkap'</span> =&gt; <span class="hljs-string">'Rizky Septiawan'</span>,
+                <span class="hljs-string">'tanggal_lahir'</span> =&gt; <span class="hljs-string">'1998-09-10'</span>,
+                <span class="hljs-string">'email'</span> =&gt; <span class="hljs-string">'rizseptiawan@gmail.com'</span>,
+                <span class="hljs-string">'password'</span> =&gt; bcrypt(<span class="hljs-string">'secret'</span>),
+                <span class="hljs-string">'nomor_telepon'</span> =&gt; <span class="hljs-string">'085800000935'</span>,
+                <span class="hljs-string">'nomor_ktp'</span> =&gt; <span class="hljs-string">'350916888987653'</span>,
+                <span class="hljs-string">'alamat_tinggal'</span> =&gt; <span class="hljs-string">'Villa Tegal Besar D - 47'</span>,
+                <span class="hljs-string">'pekerjaan'</span> =&gt; <span class="hljs-string">'Mahasiswa'</span>,
+            ],
+        ];
+        <span class="hljs-keyword">foreach</span> ($users <span class="hljs-keyword">as</span> $user) {
+            $user = \App\User::create($user);
+            <span class="hljs-keyword">if</span>($user-&gt;nama_lengkap == <span class="hljs-string">'Anggun Pratiwi'</span>){
+                $user-&gt;assignRole(<span class="hljs-string">'Perangkat Desa'</span>);
+            }<span class="hljs-keyword">else</span>{
+                $user-&gt;assignRole(<span class="hljs-string">'Masyarakat'</span>);
+            }
+        }
+    }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.html</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bootstrap-daterangepicker\\index.html";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.html</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Date Range Picker <span class="hljs-symbol">&amp;mdash;</span> JavaScript Date <span class="hljs-symbol">&amp;amp;</span> Time Picker Library<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://code.jquery.com/jquery-3.3.1.slim.min.js"</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">"anonymous"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">"anonymous"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">"anonymous"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/trianglify/0.2.1/trianglify.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"daterangepicker.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"daterangepicker.css"</span> /&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">"anonymous"</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://use.fontawesome.com/releases/v5.0.10/css/all.css"</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">"anonymous"</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"website.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"website.css"</span> /&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"google-site-verification"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"1fP-Eo9i1ozV4MUlqZv2vsLv1r7tvYutUb6i38v0_vg"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navbar navbar-expand-sm navbar-dark bg-dark"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"padding: 0; justify-content: space-between"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navbar-nav"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nav-item"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"padding-left: 0"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nav-link"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color: #eeeeee"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fa fa-calendar"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-symbol">&amp;nbsp;</span> Date Range Picker<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navbar-nav"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nav-item"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nav-link"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://www.improvely.com"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color: #33beff"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fa fa-chart-bar"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-symbol">&amp;nbsp;</span> Improvely<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nav-item"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nav-link"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://www.w3counter.com"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color: #ff9999"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fa fa-chart-pie"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-symbol">&amp;nbsp;</span> W3Counter<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nav-item"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nav-link"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://www.websitegoodies.com"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color: #f49a16"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fa fa-wrench"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-symbol">&amp;nbsp;</span> Website Goodies<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"jumbo"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-md-6 col-sm-12"</span>&gt;</span>
+
+                        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin: 0 0 10px 0"</span>&gt;</span>Date Range Picker<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"font-size: 18px; margin-bottom: 0"</span>&gt;</span>
+                            A JavaScript component for choosing date ranges,
+                            dates and times.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-md-6 col-sm-12"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"text-align: right; padding-right: 0"</span>&gt;</span>
+
+                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-bottom: 10px; margin-right: 15px"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://github.com/dangrossman/daterangepicker"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-light"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fab fa-github-alt"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-symbol">&amp;nbsp;</span> View on GitHub<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+                            <span class="hljs-symbol">&amp;nbsp;</span>
+
+                            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://github.com/dangrossman/daterangepicker/archive/master.zip"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-success"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fas fa-download"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-symbol">&amp;nbsp;</span> Download ZIP<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-right: 0px"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://ghbtns.com/github-btn.html?user=dangrossman&amp;repo=daterangepicker&amp;type=star&amp;count=true&amp;size=large"</span> <span class="hljs-attr">frameborder</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">scrolling</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"160px"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"30px"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span>
+
+                            <span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://ghbtns.com/github-btn.html?user=dangrossman&amp;repo=daterangepicker&amp;type=watch&amp;count=true&amp;size=large&amp;v=2"</span> <span class="hljs-attr">frameborder</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">scrolling</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"160px"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"30px"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span>
+
+                            <span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://ghbtns.com/github-btn.html?user=dangrossman&amp;repo=daterangepicker&amp;type=fork&amp;count=true&amp;size=large"</span> <span class="hljs-attr">frameborder</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">scrolling</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"160px"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"30px"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"padding: 0 30px"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"main"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"leftcol d-none d-lg-block d-xl-block"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"menu"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"list-group"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-bottom: 10px"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"list-group-item"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#usage"</span>&gt;</span>Getting Started<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"list-group-item"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#examples"</span>&gt;</span>Examples<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"list-group-item"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#options"</span>&gt;</span>Options, Methods <span class="hljs-symbol">&amp;amp;</span> Events<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"list-group-item"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#config"</span>&gt;</span>Configuration Generator<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"list-group-item"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#license"</span>&gt;</span>License <span class="hljs-symbol">&amp;amp;</span> Comments<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"width: 300px; min-width: 300px"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">async</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                        <span class="hljs-comment">&lt;!-- DRP Responsive --&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">ins</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"adsbygoogle"</span>
+                             <span class="hljs-attr">style</span>=<span class="hljs-string">"display:block"</span>
+                             <span class="hljs-attr">data-ad-client</span>=<span class="hljs-string">"ca-pub-9095657276960731"</span>
+                             <span class="hljs-attr">data-ad-slot</span>=<span class="hljs-string">"8963174596"</span>
+                             <span class="hljs-attr">data-ad-format</span>=<span class="hljs-string">"auto"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">ins</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+                        (adsbygoogle = <span class="hljs-built_in">window</span>.adsbygoogle || []).push({});
+                        </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"rightcol"</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Originally created for reports at <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://www.improvely.com"</span>&gt;</span>Improvely<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>, the Date Range Picker can be attached to any webpage element to pop up two calendars for selecting dates, times, or predefined ranges like "Last 30 Days".<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"display: block; height: 300px; background: url('drp.png') top right no-repeat; background-size: cover; border: 1px solid #ccc; margin-bottom: 30px"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://awio.iljmp.com/5/drpdemo"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Click for a Live Demo"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"usage"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#usage"</span>&gt;</span>Getting Started<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+                        To get started, include jQuery, Moment.js and Date Range Picker's files in your webpage:
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://gist.github.com/dangrossman/4879503153c6a7a0b3b6ebd64e0383b7.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-bottom: 10px"</span>&gt;</span>
+                        Then attach a date range picker to whatever you want to trigger it:
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-8"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Code:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://gist.github.com/dangrossman/f460cf1243d8ffb08c749730e89c2f3d.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-4"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Produces:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"dates"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control pull-right"</span> /&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+                                $(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                                    $(<span class="hljs-string">'input[name="dates"]'</span>).daterangepicker({ <span class="hljs-attr">startDate</span>: moment(), <span class="hljs-attr">endDate</span>: moment().add(<span class="hljs-number">2</span>, <span class="hljs-string">'day'</span>)});
+                                })
+                            </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+                        You can customize Date Range Picker with options, and get notified when the user chooses new dates by providing a callback function.
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"examples"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#examples"</span>&gt;</span>Examples<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+                    <span class="hljs-comment">&lt;!-- Example 1 --&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">data-toggle</span>=<span class="hljs-string">"nothing"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#example1"</span>&gt;</span>Simple Date Range Picker With a Callback<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"collapsable"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example1"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-8"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Code:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://gist.github.com/dangrossman/e118af4dbadc5177d7494dba9d3295d1.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-4"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Produces:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"daterange"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"1/01/2018 - 01/15/2018"</span> /&gt;</span>
+
+                                <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+                                $(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                                  $(<span class="hljs-string">'input[name="daterange"]'</span>).daterangepicker({
+                                    <span class="hljs-attr">opens</span>: <span class="hljs-string">'left'</span>
+                                  }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">start, end, label</span>) </span>{
+                                    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"A new date selection was made: "</span> + start.format(<span class="hljs-string">'YYYY-MM-DD'</span>) + <span class="hljs-string">' to '</span> + end.format(<span class="hljs-string">'YYYY-MM-DD'</span>));
+                                  });
+                                });
+                                </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                    <span class="hljs-comment">&lt;!-- Example 2 --&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">data-toggle</span>=<span class="hljs-string">"nothing"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#example2"</span>&gt;</span>Date Range Picker With Times<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"collapsable"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example2"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-8"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Code:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://gist.github.com/dangrossman/14db17599e24652db7401ed2448eb91a.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-4"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Produces:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"datetimes"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control pull-right"</span> /&gt;</span>
+
+                                <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+                                $(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                                  $(<span class="hljs-string">'input[name="datetimes"]'</span>).daterangepicker({
+                                    <span class="hljs-attr">timePicker</span>: <span class="hljs-literal">true</span>,
+                                    <span class="hljs-attr">startDate</span>: moment().startOf(<span class="hljs-string">'hour'</span>),
+                                    <span class="hljs-attr">endDate</span>: moment().startOf(<span class="hljs-string">'hour'</span>).add(<span class="hljs-number">32</span>, <span class="hljs-string">'hour'</span>),
+                                    <span class="hljs-attr">locale</span>: {
+                                      <span class="hljs-attr">format</span>: <span class="hljs-string">'M/DD hh:mm A'</span>
+                                    }
+                                  });
+                                });
+                                </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                    <span class="hljs-comment">&lt;!-- Example 3 --&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">data-toggle</span>=<span class="hljs-string">"nothing"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#example3"</span>&gt;</span>Single Date Picker<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"collapsable"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example3"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-8"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Code:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://gist.github.com/dangrossman/98d8f1c304328c191b1ad33ac21354fd.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-4"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Produces:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"birthday"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control pull-right"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"10/24/1984"</span> /&gt;</span>
+
+                                <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+                                $(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                                  $(<span class="hljs-string">'input[name="birthday"]'</span>).daterangepicker({
+                                    <span class="hljs-attr">singleDatePicker</span>: <span class="hljs-literal">true</span>,
+                                    <span class="hljs-attr">showDropdowns</span>: <span class="hljs-literal">true</span>,
+                                    <span class="hljs-attr">minYear</span>: <span class="hljs-number">1901</span>,
+                                    <span class="hljs-attr">maxYear</span>: <span class="hljs-built_in">parseInt</span>(moment().format(<span class="hljs-string">'YYYY'</span>),<span class="hljs-number">10</span>)
+                                  }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">start, end, label</span>) </span>{
+                                    <span class="hljs-keyword">var</span> years = moment().diff(start, <span class="hljs-string">'years'</span>);
+                                    alert(<span class="hljs-string">"You are "</span> + years + <span class="hljs-string">" years old!"</span>);
+                                  });
+                                });
+                                </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                    <span class="hljs-comment">&lt;!-- Example 4 --&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">data-toggle</span>=<span class="hljs-string">"nothing"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#example4"</span>&gt;</span>Predefined Date Ranges<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"collapsable"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example4"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-8"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Code:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://gist.github.com/dangrossman/8c6747b82572bc860364f17258004dbb.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-4"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Produces:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+
+                                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"reportrange"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"pull-right"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%"</span>&gt;</span>
+                                    <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fa fa-calendar"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-symbol">&amp;nbsp;</span>
+                                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fa fa-caret-down"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                                <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
+                                $(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+                                    <span class="hljs-keyword">var</span> start = moment().subtract(<span class="hljs-number">29</span>, <span class="hljs-string">'days'</span>);
+                                    <span class="hljs-keyword">var</span> end = moment();
+
+                                    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cb</span>(<span class="hljs-params">start, end</span>) </span>{
+                                        $(<span class="hljs-string">'#reportrange span'</span>).html(start.format(<span class="hljs-string">'MMMM D, YYYY'</span>) + <span class="hljs-string">' - '</span> + end.format(<span class="hljs-string">'MMMM D, YYYY'</span>));
+                                    }
+
+                                    $(<span class="hljs-string">'#reportrange'</span>).daterangepicker({
+                                        <span class="hljs-attr">startDate</span>: start,
+                                        <span class="hljs-attr">endDate</span>: end,
+                                        <span class="hljs-attr">ranges</span>: {
+                                           <span class="hljs-string">'Today'</span>: [moment(), moment()],
+                                           <span class="hljs-string">'Yesterday'</span>: [moment().subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'days'</span>), moment().subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'days'</span>)],
+                                           <span class="hljs-string">'Last 7 Days'</span>: [moment().subtract(<span class="hljs-number">6</span>, <span class="hljs-string">'days'</span>), moment()],
+                                           <span class="hljs-string">'Last 30 Days'</span>: [moment().subtract(<span class="hljs-number">29</span>, <span class="hljs-string">'days'</span>), moment()],
+                                           <span class="hljs-string">'This Month'</span>: [moment().startOf(<span class="hljs-string">'month'</span>), moment().endOf(<span class="hljs-string">'month'</span>)],
+                                           <span class="hljs-string">'Last Month'</span>: [moment().subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>).startOf(<span class="hljs-string">'month'</span>), moment().subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>).endOf(<span class="hljs-string">'month'</span>)]
+                                        }
+                                    }, cb);
+
+                                    cb(start, end);
+                                    
+                                });
+                                </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                    <span class="hljs-comment">&lt;!-- Example 5 --&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">data-toggle</span>=<span class="hljs-string">"nothing"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#example5"</span>&gt;</span>Input Initially Empty<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"collapsable"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example5"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-8"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Code:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://gist.github.com/dangrossman/d50376f3467f69e7fb5570afd07dc921.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-4"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Produces:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"datefilter"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control pull-right"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span> /&gt;</span>
+                                 
+                                <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
+                                $(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+                                  $(<span class="hljs-string">'input[name="datefilter"]'</span>).daterangepicker({
+                                      <span class="hljs-attr">autoUpdateInput</span>: <span class="hljs-literal">false</span>,
+                                      <span class="hljs-attr">locale</span>: {
+                                          <span class="hljs-attr">cancelLabel</span>: <span class="hljs-string">'Clear'</span>
+                                      }
+                                  });
+
+                                  $(<span class="hljs-string">'input[name="datefilter"]'</span>).on(<span class="hljs-string">'apply.daterangepicker'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ev, picker</span>) </span>{
+                                      $(<span class="hljs-keyword">this</span>).val(picker.startDate.format(<span class="hljs-string">'MM/DD/YYYY'</span>) + <span class="hljs-string">' - '</span> + picker.endDate.format(<span class="hljs-string">'MM/DD/YYYY'</span>));
+                                  });
+
+                                  $(<span class="hljs-string">'input[name="datefilter"]'</span>).on(<span class="hljs-string">'cancel.daterangepicker'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ev, picker</span>) </span>{
+                                      $(<span class="hljs-keyword">this</span>).val(<span class="hljs-string">''</span>);
+                                  });
+
+                                });
+                                </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-top: 30px"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"options"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#options"</span>&gt;</span>Options<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nobullets"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>startDate<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> (Date or string) The beginning date of the initially selected date range. If you provide a string, it must match the date format string set in your <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>locale<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> setting.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>endDate<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (Date or string) The end date of the initially selected date range.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>minDate<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (Date or string) The earliest date a user may select.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>maxDate<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (Date or string) The latest date a user may select.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>maxSpan<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (object) The maximum span between the selected start and end dates. Check off <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>maxSpan<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> in the configuration generator for an example of how to use this. You can provide any object the <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>moment<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> library would let you add to a date.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>showDropdowns<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (true/false) Show year and month select boxes above calendars to jump to a specific month and year.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>minYear<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (number) The minimum year shown in the dropdowns when <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>showDropdowns<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> is set to true.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>maxYear<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (number) The maximum year shown in the dropdowns when <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>showDropdowns<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> is set to true.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>showWeekNumbers<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (true/false) Show localized week numbers at the start of each week on the calendars.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>showISOWeekNumbers<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (true/false) Show ISO week numbers at the start of each week on the calendars.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>timePicker<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (true/false) Adds select boxes to choose times in addition to dates.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>timePickerIncrement<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (number) Increment of the minutes selection list for times (i.e. 30 to allow only selection of times ending in 0 or 30).
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>timePicker24Hour<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (true/false) Use 24-hour instead of 12-hour times, removing the AM/PM selection.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>timePickerSeconds<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (true/false) Show seconds in the timePicker.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>ranges<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (object) Set predefined date ranges the user can select from. Each key is the label for the range, and its value an array with two dates representing the bounds of the range. Click <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>ranges<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> in the configuration generator for examples.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>showCustomRangeLabel<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (true/false) Displays "Custom Range" at
+                            the end of the list of predefined ranges, when the <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>ranges<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> option is used.
+                            This option will be highlighted whenever the current date range selection does not match one of the predefined ranges. Clicking it will display the calendars to select a new range.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>alwaysShowCalendars<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (true/false) Normally, if you use the <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>ranges<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> option to specify pre-defined date ranges, calendars for choosing a custom date range are not shown until the user clicks "Custom Range". When this option is set to true, the calendars for choosing a custom date range are always shown instead.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>opens<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: ('left'/'right'/'center') Whether the picker appears aligned to the left, to the right, or centered under the HTML element it's attached to.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>drops<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: ('down'/'up') Whether the picker appears below (default) or above the HTML element it's attached to.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>buttonClasses<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (string) CSS class names that will be added to both the apply and cancel buttons.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>applyButtonClasses<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (string) CSS class names that will be added only to the apply button.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>cancelButtonClasses<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (string) CSS class names that will be added only to the cancel button.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>locale<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (object) Allows you to provide localized strings for buttons and labels, customize the date format, and change the first day of week for the calendars.
+                            Check off <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>locale<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> in the configuration generator to see how
+                            to customize these options.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>singleDatePicker<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (true/false) Show only a single calendar to choose one date, instead of a range picker with two calendars. The start and end dates provided to your callback will be the same single date chosen.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>autoApply<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (true/false) Hide the apply and cancel buttons, and automatically apply a new date range as soon as two dates are clicked.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>linkedCalendars<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (true/false) When enabled, the two calendars displayed will always be for two sequential months (i.e. January and February), and both will be advanced when clicking the left or right arrows above the calendars. When disabled, the two calendars can be individually advanced and display any month/year.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>isInvalidDate<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (function) A function that is passed each date in the two
+                            calendars before they are displayed, and may return true or false to indicate whether
+                            that date should be available for selection or not.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>isCustomDate<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (function) A function that is passed each date in the two
+                            calendars before they are displayed, and may return a string or array of CSS class names
+                            to apply to that date's calendar cell.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>autoUpdateInput<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (true/false) Indicates whether the date range picker should
+                            automatically update the value of the <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span><span class="hljs-symbol">&amp;lt;</span>input<span class="hljs-symbol">&amp;gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> element it's attached to at initialization and when the selected dates change.
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>parentEl<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: (string) jQuery selector of the parent element that the date range picker will be added to, if not provided this will be 'body'
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-top: 30px"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"methods"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#methods"</span>&gt;</span>Methods<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+                        You can programmatically update the <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>startDate<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> and <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>endDate<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>
+                        in the picker using the <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>setStartDate<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> and <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>setEndDate<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> methods.
+                        You can access the Date Range Picker object and its functions and properties through 
+                        data properties of the element you attached it to.
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://gist.github.com/dangrossman/8ff9b1220c9b5682e8bd.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span>
+                    
+                    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nobullets"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>setStartDate(Date or string)<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: Sets the date range picker's currently selected start date to the provided date
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>setEndDate(Date or string)<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: Sets the date range picker's currently selected end date to the provided date
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin: 0"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>Example usage:<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://gist.github.com/dangrossman/e1a8effbaeacb50a1e31.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-top: 30px"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"events"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#events"</span>&gt;</span>Events<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+                        Several events are triggered on the element you attach the picker to, which you can listen for.
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nobullets"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>show.daterangepicker<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: Triggered when the picker is shown
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>hide.daterangepicker<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: Triggered when the picker is hidden
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>showCalendar.daterangepicker<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: Triggered when the calendar(s) are shown
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>hideCalendar.daterangepicker<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: Triggered when the calendar(s) are hidden
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>apply.daterangepicker<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: Triggered when the apply button is clicked,
+                            or when a predefined range is clicked
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>cancel.daterangepicker<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span>: Triggered when the cancel button is clicked
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+                        Some applications need a "clear" instead of a "cancel" functionality, which can be achieved by changing the button label and watching for the cancel event:
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://gist.github.com/dangrossman/1bea78da703f2896564d.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+                        While passing in a callback to the constructor is the easiest way to listen for changes in the selected date range, you can also do something every time the apply button is clicked even if the selection hasn't changed:
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://gist.github.com/dangrossman/0c6c911fea1459b5fd13.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-top: 30px"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"config"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#config"</span>&gt;</span>Configuration Generator<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"well configurator"</span>&gt;</span>
+                                       
+                      <span class="hljs-tag">&lt;<span class="hljs-name">form</span>&gt;</span>
+                          <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+
+                            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-md-4"</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"parentEl"</span>&gt;</span>parentEl<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"parentEl"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"body"</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"startDate"</span>&gt;</span>startDate<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"startDate"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"07/01/2017"</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"endDate"</span>&gt;</span>endDate<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"endDate"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"07/15/2017"</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"minDate"</span>&gt;</span>minDate<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"minDate"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"MM/DD/YYYY"</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"maxDate"</span>&gt;</span>maxDate<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"maxDate"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"MM/DD/YYYY"</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"opens"</span>&gt;</span>opens<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"opens"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"right"</span> <span class="hljs-attr">selected</span>&gt;</span>right<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"left"</span>&gt;</span>left<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"center"</span>&gt;</span>center<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"drops"</span>&gt;</span>drops<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"drops"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"down"</span> <span class="hljs-attr">selected</span>&gt;</span>down<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"up"</span>&gt;</span>up<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-md-4"</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"showDropdowns"</span>&gt;</span> showDropdowns
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"minYear"</span>&gt;</span>minYear<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"minYear"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"maxYear"</span>&gt;</span>maxYear<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"maxYear"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"showWeekNumbers"</span>&gt;</span> showWeekNumbers
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"showISOWeekNumbers"</span>&gt;</span> showISOWeekNumbers
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"singleDatePicker"</span>&gt;</span> singleDatePicker
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"timePicker"</span>&gt;</span> timePicker
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"timePicker24Hour"</span>&gt;</span> timePicker24Hour
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"timePickerIncrement"</span>&gt;</span>timePickerIncrement (in minutes)<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"timePickerIncrement"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"1"</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"timePickerSeconds"</span>&gt;</span> timePickerSeconds
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"maxSpan"</span>&gt;</span> maxSpan (example value)
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"locale"</span>&gt;</span> locale (example settings)
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoApply"</span>&gt;</span> autoApply
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-md-4"</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"buttonClasses"</span>&gt;</span>buttonClasses<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"buttonClasses"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"btn btn-sm"</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"applyButtonClasses"</span>&gt;</span>applyButtonClasses<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"applyButtonClasses"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"btn-primary"</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"cancelButtonClasses"</span>&gt;</span>cancelButtonClasses<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"cancelButtonClasses"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"btn-default"</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"ranges"</span>&gt;</span> ranges (with example predefined ranges)
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"alwaysShowCalendars"</span>&gt;</span> alwaysShowCalendars
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"showCustomRangeLabel"</span> <span class="hljs-attr">checked</span>=<span class="hljs-string">"checked"</span>&gt;</span> showCustomRangeLabel
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"linkedCalendars"</span> <span class="hljs-attr">checked</span>=<span class="hljs-string">"checked"</span>&gt;</span> linkedCalendars
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+                                  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoUpdateInput"</span> <span class="hljs-attr">checked</span>=<span class="hljs-string">"checked"</span>&gt;</span> autoUpdateInput
+                                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                      <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+
+                      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-4 demo"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"position: relative"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-bottom: 15px"</span>&gt;</span>Your Date Range Picker<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"config-demo"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-8"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-bottom: 15px"</span>&gt;</span>Your Configuration to Copy<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+
+                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"well"</span>&gt;</span>
+                          <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"config-text"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"height: 300px; width: 100%; padding: 10px"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+                    <span class="hljs-comment">&lt;!-- License --&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-top: 30px"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"license"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#license"</span>&gt;</span>License<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>The MIT License (MIT)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Copyright (c) 2012-2018 <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"http://www.dangrossman.info"</span>&gt;</span>Dan Grossman<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+                        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+                        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+                        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-top: 30px"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"config"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#comments"</span>&gt;</span>Comments<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"disqus_thread"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
+                        <span class="hljs-comment">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */</span>
+                        <span class="hljs-keyword">var</span> disqus_url = <span class="hljs-string">'http://www.dangrossman.info/2012/08/20/a-date-range-picker-for-twitter-bootstrap/'</span>;
+                        <span class="hljs-keyword">var</span> disqus_identifier = <span class="hljs-string">'1045 http://www.dangrossman.info/?p=1045'</span>;
+                        <span class="hljs-keyword">var</span> disqus_container_id = <span class="hljs-string">'disqus_thread'</span>;
+                        <span class="hljs-keyword">var</span> disqus_shortname = <span class="hljs-string">'dangrossman'</span>;
+                        <span class="hljs-keyword">var</span> disqus_title = <span class="hljs-string">"A Date Range Picker for Bootstrap"</span>;
+
+                        <span class="hljs-comment">/* * * DON'T EDIT BELOW THIS LINE * * */</span>
+                        (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                            <span class="hljs-keyword">var</span> dsq = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'script'</span>); dsq.type = <span class="hljs-string">'text/javascript'</span>; dsq.async = <span class="hljs-literal">true</span>;
+                            dsq.src = <span class="hljs-string">'https://'</span> + disqus_shortname + <span class="hljs-string">'.disqus.com/embed.js'</span>;
+                            (<span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'head'</span>)[<span class="hljs-number">0</span>] || <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'body'</span>)[<span class="hljs-number">0</span>]).appendChild(dsq);
+                        })();
+                    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">noscript</span>&gt;</span>Please enable JavaScript to view the <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://disqus.com/?ref_noscript"</span>&gt;</span>comments powered by Disqus.<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">noscript</span>&gt;</span>
+
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+        <span class="hljs-comment">&lt;!-- Begin W3Counter Tracking Code --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://www.w3counter.com/tracker.js?id=90840"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- End W3Counter Tracking Code --&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
+        <span class="hljs-keyword">var</span> im_domain = <span class="hljs-string">'awio'</span>;
+        <span class="hljs-keyword">var</span> im_project_id = <span class="hljs-number">48</span>;
+        (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e,t</span>)</span>{<span class="hljs-built_in">window</span>._improvely=[];<span class="hljs-keyword">var</span> n=e.getElementsByTagName(<span class="hljs-string">"script"</span>)[<span class="hljs-number">0</span>];<span class="hljs-keyword">var</span> r=e.createElement(<span class="hljs-string">"script"</span>);r.type=<span class="hljs-string">"text/javascript"</span>;r.src=<span class="hljs-string">"https://"</span>+im_domain+<span class="hljs-string">".iljmp.com/improvely.js"</span>;r.async=<span class="hljs-literal">true</span>;n.parentNode.insertBefore(r,n);<span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> t.init==<span class="hljs-string">"undefined"</span>){t.init=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e,t</span>)</span>{<span class="hljs-built_in">window</span>._improvely.push([<span class="hljs-string">"init"</span>,e,t])};t.goal=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{<span class="hljs-built_in">window</span>._improvely.push([<span class="hljs-string">"goal"</span>,e])};t.conversion=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{<span class="hljs-built_in">window</span>._improvely.push([<span class="hljs-string">"conversion"</span>,e])};t.label=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{<span class="hljs-built_in">window</span>._improvely.push([<span class="hljs-string">"label"</span>,e])}}<span class="hljs-built_in">window</span>.improvely=t;t.init(im_domain,im_project_id)})(<span class="hljs-built_in">document</span>,<span class="hljs-built_in">window</span>.improvely||[])
+        </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"footer"</span>&gt;</span>
+            Copyright <span class="hljs-symbol">&amp;copy;</span> 2012-2019 <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"http://www.dangrossman.info/"</span>&gt;</span>Dan Grossman<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>. 
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

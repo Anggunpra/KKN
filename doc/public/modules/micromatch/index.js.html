@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\micromatch\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Module dependencies</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">var</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
+<span class="hljs-keyword">var</span> braces = <span class="hljs-built_in">require</span>(<span class="hljs-string">'braces'</span>);
+<span class="hljs-keyword">var</span> toRegex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'to-regex'</span>);
+<span class="hljs-keyword">var</span> extend = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extend-shallow'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Local dependencies</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">var</span> compilers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/compilers'</span>);
+<span class="hljs-keyword">var</span> parsers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/parsers'</span>);
+<span class="hljs-keyword">var</span> cache = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/cache'</span>);
+<span class="hljs-keyword">var</span> utils = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/utils'</span>);
+<span class="hljs-keyword">var</span> MAX_LENGTH = <span class="hljs-number">1024</span> * <span class="hljs-number">64</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The main function takes a list of strings and one or more
+glob patterns to use for matching.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm(list, patterns[, options]);
+<p><span class="hljs-built_in">console</span>.log(mm([<span class="hljs-string">'a.js'</span>, <span class="hljs-string">'a.txt'</span>], [<span class="hljs-string">'*.js'</span>]));
+<span class="hljs-comment">//=&gt; [ 'a.js' ]</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`list`</span>
+<span class="dox_type">Array</span>
+<span>A list of strings to match
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`patterns`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>One or more glob patterns to use for matching.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Array</span>
+<span>Returns an array of matches
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">micromatch</span>(<span class="hljs-params">list, patterns, options</span>) </span>{
+  patterns = utils.arrayify(patterns);
+  list = utils.arrayify(list);
+
+  <span class="hljs-keyword">var</span> len = patterns.length;
+  <span class="hljs-keyword">if</span> (list.length === <span class="hljs-number">0</span> || len === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> [];
+  }
+
+  <span class="hljs-keyword">if</span> (len === <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">return</span> micromatch.match(list, patterns[<span class="hljs-number">0</span>], options);
+  }
+
+  <span class="hljs-keyword">var</span> omit = [];
+  <span class="hljs-keyword">var</span> keep = [];
+  <span class="hljs-keyword">var</span> idx = <span class="hljs-number">-1</span>;
+
+  <span class="hljs-keyword">while</span> (++idx &lt; len) {
+    <span class="hljs-keyword">var</span> pattern = patterns[idx];
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> pattern === <span class="hljs-string">'string'</span> &amp;&amp; pattern.charCodeAt(<span class="hljs-number">0</span>) === <span class="hljs-number">33</span> <span class="hljs-comment">/* ! */</span>) {
+      omit.push.apply(omit, micromatch.match(list, pattern.slice(<span class="hljs-number">1</span>), options));
+    } <span class="hljs-keyword">else</span> {
+      keep.push.apply(keep, micromatch.match(list, pattern, options));
+    }
+  }
+
+  <span class="hljs-keyword">var</span> matches = utils.diff(keep, omit);
+  <span class="hljs-keyword">if</span> (!options || options.nodupes !== <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">return</span> utils.unique(matches);
+  }
+
+  <span class="hljs-keyword">return</span> matches;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Similar to the main function, but <code>pattern</code> must be a string.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.match(list, pattern[, options]);
+<p><span class="hljs-built_in">console</span>.log(mm.match([<span class="hljs-string">'a.a'</span>, <span class="hljs-string">'a.aa'</span>, <span class="hljs-string">'a.b'</span>, <span class="hljs-string">'a.c'</span>], <span class="hljs-string">'*.a'</span>));
+<span class="hljs-comment">//=&gt; ['a.a', 'a.aa']</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`list`</span>
+<span class="dox_type">Array</span>
+<span>Array of strings to match
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>Glob pattern to use for matching.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Array</span>
+<span>Returns an array of matches
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.match = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">list, pattern, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(pattern)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected pattern to be a string'</span>);
+  }
+
+  <span class="hljs-keyword">var</span> unixify = utils.unixify(options);
+  <span class="hljs-keyword">var</span> isMatch = memoize(<span class="hljs-string">'match'</span>, pattern, options, micromatch.matcher);
+  <span class="hljs-keyword">var</span> matches = [];
+
+  list = utils.arrayify(list);
+  <span class="hljs-keyword">var</span> len = list.length;
+  <span class="hljs-keyword">var</span> idx = <span class="hljs-number">-1</span>;
+
+  <span class="hljs-keyword">while</span> (++idx &lt; len) {
+    <span class="hljs-keyword">var</span> ele = list[idx];
+    <span class="hljs-keyword">if</span> (ele === pattern || isMatch(ele)) {
+      matches.push(utils.value(ele, unixify, options));
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>if no options were passed, uniquify results and return</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options === <span class="hljs-string">'undefined'</span>) {
+    <span class="hljs-keyword">return</span> utils.unique(matches);
+  }
+
+  <span class="hljs-keyword">if</span> (matches.length === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">if</span> (options.failglob === <span class="hljs-literal">true</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'no matches found for "'</span> + pattern + <span class="hljs-string">'"'</span>);
+    }
+    <span class="hljs-keyword">if</span> (options.nonull === <span class="hljs-literal">true</span> || options.nullglob === <span class="hljs-literal">true</span>) {
+      <span class="hljs-keyword">return</span> [options.unescape ? utils.unescape(pattern) : pattern];
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>if <code>opts.ignore</code> was defined, diff ignored list</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (options.ignore) {
+    matches = micromatch.not(matches, options.ignore, options);
+  }
+
+  <span class="hljs-keyword">return</span> options.nodupes !== <span class="hljs-literal">false</span> ? utils.unique(matches) : matches;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if the specified <code>string</code> matches the given glob <code>pattern</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.isMatch(string, pattern[, options]);
+<p><span class="hljs-built_in">console</span>.log(mm.isMatch(<span class="hljs-string">'a.a'</span>, <span class="hljs-string">'<em>.a'</span>));
+<span class="hljs-comment">//=&gt; true</span>
+<span class="hljs-built_in">console</span>.log(mm.isMatch(<span class="hljs-string">'a.b'</span>, <span class="hljs-string">'</em>.a'</span>));
+<span class="hljs-comment">//=&gt; false</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`string`</span>
+<span class="dox_type">String</span>
+<span>String to match
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>Glob pattern to use for matching.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>Returns true if the string matches the glob pattern.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.isMatch = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">str, pattern, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> str !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected a string: "'</span> + util.inspect(str) + <span class="hljs-string">'"'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (isEmptyString(str) || isEmptyString(pattern)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-keyword">var</span> equals = utils.equalsPattern(options);
+  <span class="hljs-keyword">if</span> (equals(str)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+
+  <span class="hljs-keyword">var</span> isMatch = memoize(<span class="hljs-string">'isMatch'</span>, pattern, options, micromatch.matcher);
+  <span class="hljs-keyword">return</span> isMatch(str);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if some of the strings in the given <code>list</code> match any of the
+given glob <code>patterns</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.some(list, patterns[, options]);
+<p><span class="hljs-built_in">console</span>.log(mm.some([<span class="hljs-string">'foo.js'</span>, <span class="hljs-string">'bar.js'</span>], [<span class="hljs-string">'<em>.js'</span>, <span class="hljs-string">'!foo.js'</span>]));
+<span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(mm.some([<span class="hljs-string">'foo.js'</span>], [<span class="hljs-string">'</em>.js'</span>, <span class="hljs-string">'!foo.js'</span>]));
+<span class="hljs-comment">// false</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`list`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>The string or array of strings to test. Returns as soon as the first match is found.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`patterns`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>One or more glob patterns to use for matching.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>Returns true if any patterns match <code>str</code>
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.some = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">list, patterns, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> list === <span class="hljs-string">'string'</span>) {
+    list = [list];
+  }
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; list.length; i++) {
+    <span class="hljs-keyword">if</span> (micromatch(list[i], patterns, options).length === <span class="hljs-number">1</span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if every string in the given <code>list</code> matches
+any of the given glob <code>patterns</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.every(list, patterns[, options]);
+<p><span class="hljs-built_in">console</span>.log(mm.every(<span class="hljs-string">'foo.js'</span>, [<span class="hljs-string">'foo.js'</span>]));
+<span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(mm.every([<span class="hljs-string">'foo.js'</span>, <span class="hljs-string">'bar.js'</span>], [<span class="hljs-string">'<em>.js'</span>]));
+<span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(mm.every([<span class="hljs-string">'foo.js'</span>, <span class="hljs-string">'bar.js'</span>], [<span class="hljs-string">'</em>.js'</span>, <span class="hljs-string">'!foo.js'</span>]));
+<span class="hljs-comment">// false</span>
+<span class="hljs-built_in">console</span>.log(mm.every([<span class="hljs-string">'foo.js'</span>], [<span class="hljs-string">'*.js'</span>, <span class="hljs-string">'!foo.js'</span>]));
+<span class="hljs-comment">// false</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`list`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>The string or array of strings to test.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`patterns`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>One or more glob patterns to use for matching.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>Returns true if any patterns match <code>str</code>
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.every = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">list, patterns, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> list === <span class="hljs-string">'string'</span>) {
+    list = [list];
+  }
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; list.length; i++) {
+    <span class="hljs-keyword">if</span> (micromatch(list[i], patterns, options).length !== <span class="hljs-number">1</span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if <strong>any</strong> of the given glob <code>patterns</code>
+match the specified <code>string</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.any(string, patterns[, options]);
+<p><span class="hljs-built_in">console</span>.log(mm.any(<span class="hljs-string">'a.a'</span>, [<span class="hljs-string">'b.<em>'</span>, <span class="hljs-string">'</em>.a'</span>]));
+<span class="hljs-comment">//=&gt; true</span>
+<span class="hljs-built_in">console</span>.log(mm.any(<span class="hljs-string">'a.a'</span>, <span class="hljs-string">'b.*'</span>));
+<span class="hljs-comment">//=&gt; false</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`str`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>The string to test.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`patterns`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>One or more glob patterns to use for matching.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>Returns true if any patterns match <code>str</code>
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.any = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">str, patterns, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> str !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected a string: "'</span> + util.inspect(str) + <span class="hljs-string">'"'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (isEmptyString(str) || isEmptyString(patterns)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> patterns === <span class="hljs-string">'string'</span>) {
+    patterns = [patterns];
+  }
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; patterns.length; i++) {
+    <span class="hljs-keyword">if</span> (micromatch.isMatch(str, patterns[i], options)) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if <strong>all</strong> of the given <code>patterns</code> match
+the specified string.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.all(string, patterns[, options]);
+<p><span class="hljs-built_in">console</span>.log(mm.all(<span class="hljs-string">'foo.js'</span>, [<span class="hljs-string">'foo.js'</span>]));
+<span class="hljs-comment">// true</span></p>
+<p><span class="hljs-built_in">console</span>.log(mm.all(<span class="hljs-string">'foo.js'</span>, [<span class="hljs-string">'*.js'</span>, <span class="hljs-string">'!foo.js'</span>]));
+<span class="hljs-comment">// false</span></p>
+<p><span class="hljs-built_in">console</span>.log(mm.all(<span class="hljs-string">'foo.js'</span>, [<span class="hljs-string">'*.js'</span>, <span class="hljs-string">'foo.js'</span>]));
+<span class="hljs-comment">// true</span></p>
+<p><span class="hljs-built_in">console</span>.log(mm.all(<span class="hljs-string">'foo.js'</span>, [<span class="hljs-string">'<em>.js'</span>, <span class="hljs-string">'f</em>'</span>, <span class="hljs-string">'<em>o</em>'</span>, <span class="hljs-string">'*o.js'</span>]));
+<span class="hljs-comment">// true</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`str`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>The string to test.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`patterns`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>One or more glob patterns to use for matching.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>Returns true if any patterns match <code>str</code>
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.all = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">str, patterns, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> str !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected a string: "'</span> + util.inspect(str) + <span class="hljs-string">'"'</span>);
+  }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> patterns === <span class="hljs-string">'string'</span>) {
+    patterns = [patterns];
+  }
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; patterns.length; i++) {
+    <span class="hljs-keyword">if</span> (!micromatch.isMatch(str, patterns[i], options)) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns a list of strings that <em><strong>do not match any</strong></em> of the given <code>patterns</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.not(list, patterns[, options]);
+<p><span class="hljs-built_in">console</span>.log(mm.not([<span class="hljs-string">'a.a'</span>, <span class="hljs-string">'b.b'</span>, <span class="hljs-string">'c.c'</span>], <span class="hljs-string">'*.a'</span>));
+<span class="hljs-comment">//=&gt; ['b.b', 'c.c']</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`list`</span>
+<span class="dox_type">Array</span>
+<span>Array of strings to match.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`patterns`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>One or more glob pattern to use for matching.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Array</span>
+<span>Returns an array of strings that <strong>do not match</strong> the given patterns.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.not = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">list, patterns, options</span>) </span>{
+  <span class="hljs-keyword">var</span> opts = extend({}, options);
+  <span class="hljs-keyword">var</span> ignore = opts.ignore;
+  <span class="hljs-keyword">delete</span> opts.ignore;
+
+  <span class="hljs-keyword">var</span> unixify = utils.unixify(opts);
+  list = utils.arrayify(list).map(unixify);
+
+  <span class="hljs-keyword">var</span> matches = utils.diff(list, micromatch(list, patterns, opts));
+  <span class="hljs-keyword">if</span> (ignore) {
+    matches = utils.diff(matches, micromatch(list, ignore));
+  }
+
+  <span class="hljs-keyword">return</span> opts.nodupes !== <span class="hljs-literal">false</span> ? utils.unique(matches) : matches;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if the given <code>string</code> contains the given pattern. Similar
+to <a href="#isMatch.html">.isMatch</a> but the pattern can match any part of the string.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.contains(string, pattern[, options]);
+<p><span class="hljs-built_in">console</span>.log(mm.contains(<span class="hljs-string">'aa/bb/cc'</span>, <span class="hljs-string">'*b'</span>));
+<span class="hljs-comment">//=&gt; true</span>
+<span class="hljs-built_in">console</span>.log(mm.contains(<span class="hljs-string">'aa/bb/cc'</span>, <span class="hljs-string">'*d'</span>));
+<span class="hljs-comment">//=&gt; false</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`str`</span>
+<span class="dox_type">String</span>
+<span>The string to match.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`patterns`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>Glob pattern to use for matching.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>Returns true if the patter matches any part of <code>str</code>.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.contains = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">str, patterns, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> str !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected a string: "'</span> + util.inspect(str) + <span class="hljs-string">'"'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> patterns === <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">if</span> (isEmptyString(str) || isEmptyString(patterns)) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+
+    <span class="hljs-keyword">var</span> equals = utils.equalsPattern(patterns, options);
+    <span class="hljs-keyword">if</span> (equals(str)) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+    <span class="hljs-keyword">var</span> contains = utils.containsPattern(patterns, options);
+    <span class="hljs-keyword">if</span> (contains(str)) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+  }
+
+  <span class="hljs-keyword">var</span> opts = extend({}, options, {<span class="hljs-attr">contains</span>: <span class="hljs-literal">true</span>});
+  <span class="hljs-keyword">return</span> micromatch.any(str, patterns, opts);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if the given pattern and options should enable
+the <code>matchBase</code> option.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">private</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.matchBase = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (pattern &amp;&amp; pattern.indexOf(<span class="hljs-string">'/'</span>) !== <span class="hljs-number">-1</span> || !options) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">return</span> options.basename === <span class="hljs-literal">true</span> || options.matchBase === <span class="hljs-literal">true</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Filter the keys of the given object with the given <code>glob</code> pattern
+and <code>options</code>. Does not attempt to match nested keys. If you need this feature,
+use [glob-object][] instead.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.matchKeys(object, patterns[, options]);
+<p><span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">aa</span>: <span class="hljs-string">'a'</span>, <span class="hljs-attr">ab</span>: <span class="hljs-string">'b'</span>, <span class="hljs-attr">ac</span>: <span class="hljs-string">'c'</span> };
+<span class="hljs-built_in">console</span>.log(mm.matchKeys(obj, <span class="hljs-string">'*b'</span>));
+<span class="hljs-comment">//=&gt; { ab: 'b' }</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`object`</span>
+<span class="dox_type">Object</span>
+<span>The object with keys to filter.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`patterns`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>One or more glob patterns to use for matching.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+<span>Returns an object with only keys that match the given patterns.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.matchKeys = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj, patterns, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (!utils.isObject(obj)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected the first argument to be an object'</span>);
+  }
+  <span class="hljs-keyword">var</span> keys = micromatch(<span class="hljs-built_in">Object</span>.keys(obj), patterns, options);
+  <span class="hljs-keyword">return</span> utils.pick(obj, keys);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns a memoized matcher function from the given glob <code>pattern</code> and <code>options</code>.
+The returned function takes a string to match as its only argument and returns
+true if the string is a match.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.matcher(pattern[, options]);
+<p><span class="hljs-keyword">var</span> isMatch = mm.matcher(<span class="hljs-string">'*.!(*a)'</span>);
+<span class="hljs-built_in">console</span>.log(isMatch(<span class="hljs-string">'a.a'</span>));
+<span class="hljs-comment">//=&gt; false</span>
+<span class="hljs-built_in">console</span>.log(isMatch(<span class="hljs-string">'a.b'</span>));
+<span class="hljs-comment">//=&gt; true</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>Glob pattern
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed.
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Function</span>
+<span>Returns a matcher function.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.matcher = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">matcher</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(pattern)) {
+    <span class="hljs-keyword">return</span> compose(pattern, options, matcher);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>if pattern is a regex</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (pattern <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">RegExp</span>) {
+    <span class="hljs-keyword">return</span> test(pattern);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>if pattern is invalid</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (!utils.isString(pattern)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected pattern to be an array, string or regex'</span>);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
+</div>
+<p>if pattern is a non-glob string</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (!utils.hasSpecialChars(pattern)) {
+    <span class="hljs-keyword">if</span> (options &amp;&amp; options.nocase === <span class="hljs-literal">true</span>) {
+      pattern = pattern.toLowerCase();
+    }
+    <span class="hljs-keyword">return</span> utils.matchPath(pattern, options);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
+</div>
+<p>if pattern is a glob string</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> re = micromatch.makeRe(pattern, options);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
+</div>
+<p>if <code>options.matchBase</code> or <code>options.basename</code> is defined</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (micromatch.matchBase(pattern, options)) {
+    <span class="hljs-keyword">return</span> utils.matchBasename(re, options);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params">regex</span>) </span>{
+    <span class="hljs-keyword">var</span> equals = utils.equalsPattern(options);
+    <span class="hljs-keyword">var</span> unixify = utils.unixify(options);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">str</span>) </span>{
+      <span class="hljs-keyword">if</span> (equals(str)) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      }
+
+      <span class="hljs-keyword">if</span> (regex.test(unixify(str))) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    };
+  }
+
+  <span class="hljs-keyword">var</span> fn = test(re);
+  <span class="hljs-built_in">Object</span>.defineProperty(fn, <span class="hljs-string">'result'</span>, {
+    <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">value</span>: re.result
+  });
+  <span class="hljs-keyword">return</span> fn;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns an array of matches captured by <code>pattern</code> in <code>string, or</code>null` if the pattern did not match.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.capture(pattern, string[, options]);
+<p><span class="hljs-built_in">console</span>.log(mm.capture(<span class="hljs-string">'test/<em>.js'</span>, <span class="hljs-string">'test/foo.js'</span>));
+<span class="hljs-comment">//=&gt; ['foo']</span>
+<span class="hljs-built_in">console</span>.log(mm.capture(<span class="hljs-string">'test/</em>.js'</span>, <span class="hljs-string">'foo/bar.css'</span>));
+<span class="hljs-comment">//=&gt; null</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>Glob pattern to use for matching.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`string`</span>
+<span class="dox_type">String</span>
+<span>String to match
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>Returns an array of captures if the string matches the glob pattern, otherwise <code>null</code>.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.capture = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, str, options</span>) </span>{
+  <span class="hljs-keyword">var</span> re = micromatch.makeRe(pattern, extend({<span class="hljs-attr">capture</span>: <span class="hljs-literal">true</span>}, options));
+  <span class="hljs-keyword">var</span> unixify = utils.unixify(options);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">match</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">string</span>) </span>{
+      <span class="hljs-keyword">var</span> match = re.exec(unixify(string));
+      <span class="hljs-keyword">if</span> (!match) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+      }
+
+      <span class="hljs-keyword">return</span> match.slice(<span class="hljs-number">1</span>);
+    };
+  }
+
+  <span class="hljs-keyword">var</span> capture = memoize(<span class="hljs-string">'capture'</span>, pattern, options, match);
+  <span class="hljs-keyword">return</span> capture(str);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Create a regular expression from the given glob <code>pattern</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.makeRe(pattern[, options]);
+<p><span class="hljs-built_in">console</span>.log(mm.makeRe(<span class="hljs-string">'<em>.js'</span>));
+<span class="hljs-comment">//=&gt; /^(?:(.[\/])?(?!.)(?=.)[^/]</em>?.js)$/</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>A glob pattern to convert to regex.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>See available <a href="#options.html">options</a> for changing how matches are performed.
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">RegExp</span>
+<span>Returns a regex created from the given pattern.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.makeRe = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> pattern !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected pattern to be a string'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (pattern.length &gt; MAX_LENGTH) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'expected pattern to be less than '</span> + MAX_LENGTH + <span class="hljs-string">' characters'</span>);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeRe</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> result = micromatch.create(pattern, options);
+    <span class="hljs-keyword">var</span> ast_array = [];
+    <span class="hljs-keyword">var</span> output = result.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj</span>) </span>{
+      obj.ast.state = obj.state;
+      ast_array.push(obj.ast);
+      <span class="hljs-keyword">return</span> obj.output;
+    });
+
+    <span class="hljs-keyword">var</span> regex = toRegex(output.join(<span class="hljs-string">'|'</span>), options);
+    <span class="hljs-built_in">Object</span>.defineProperty(regex, <span class="hljs-string">'result'</span>, {
+      <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">value</span>: ast_array
+    });
+    <span class="hljs-keyword">return</span> regex;
+  }
+
+  <span class="hljs-keyword">return</span> memoize(<span class="hljs-string">'makeRe'</span>, pattern, options, makeRe);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expand the given brace <code>pattern</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+<span class="hljs-built_in">console</span>.log(mm.braces(<span class="hljs-string">'foo/{a,b}/bar'</span>));
+<span class="hljs-comment">//=&gt; ['foo/(a|b)/bar']</span>
+<p><span class="hljs-built_in">console</span>.log(mm.braces(<span class="hljs-string">'foo/{a,b}/bar'</span>, {<span class="hljs-attr">expand</span>: <span class="hljs-literal">true</span>}));
+<span class="hljs-comment">//=&gt; ['foo/(a|b)/bar']</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>String with brace pattern to expand.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>Any <a href="#options.html">options</a> to change how expansion is performed. See the [braces][] library for all available options.
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Array</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.braces = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> pattern !== <span class="hljs-string">'string'</span> &amp;&amp; !<span class="hljs-built_in">Array</span>.isArray(pattern)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected pattern to be an array or string'</span>);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">expand</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (options &amp;&amp; options.nobrace === <span class="hljs-literal">true</span> || !<span class="hljs-regexp">/\{.*\}/</span>.test(pattern)) {
+      <span class="hljs-keyword">return</span> utils.arrayify(pattern);
+    }
+    <span class="hljs-keyword">return</span> braces(pattern, options);
+  }
+
+  <span class="hljs-keyword">return</span> memoize(<span class="hljs-string">'braces'</span>, pattern, options, expand);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Proxy to the <a href="#method.html">micromatch.braces</a>, for parity with
+minimatch.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.braceExpand = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">var</span> opts = extend({}, options, {<span class="hljs-attr">expand</span>: <span class="hljs-literal">true</span>});
+  <span class="hljs-keyword">return</span> micromatch.braces(pattern, opts);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Parses the given glob <code>pattern</code> and returns an array of abstract syntax
+trees (ASTs), with the compiled <code>output</code> and optional source <code>map</code> on
+each AST.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.create(pattern[, options]);
+<p><span class="hljs-built_in">console</span>.log(mm.create(<span class="hljs-string">'abc/<em>.js'</span>));
+<span class="hljs-comment">// [{ options: { source: 'string', sourcemap: true },</span>
+<span class="hljs-comment">//   state: {},</span>
+<span class="hljs-comment">//   compilers:</span>
+<span class="hljs-comment">//    { ... },</span>
+<span class="hljs-comment">//   output: '(\.[\\\/])?abc\/(?!\.)(?=.)[^\/]</em>?\.js',</span>
+<span class="hljs-comment">//   ast:</span>
+<span class="hljs-comment">//    { type: 'root',</span>
+<span class="hljs-comment">//      errors: [],</span>
+<span class="hljs-comment">//      nodes:</span>
+<span class="hljs-comment">//       [ ... ],</span>
+<span class="hljs-comment">//      dot: false,</span>
+<span class="hljs-comment">//      input: 'abc/<em>.js' },</span>
+<span class="hljs-comment">//   parsingErrors: [],</span>
+<span class="hljs-comment">//   map:</span>
+<span class="hljs-comment">//    { version: 3,</span>
+<span class="hljs-comment">//      sources: [ 'string' ],</span>
+<span class="hljs-comment">//      names: [],</span>
+<span class="hljs-comment">//      mappings: 'AAAA,GAAG,EAAC,kBAAC,EAAC,EAAE',</span>
+<span class="hljs-comment">//      sourcesContent: [ 'abc/</em>.js' ] },</span>
+<span class="hljs-comment">//   position: { line: 1, column: 28 },</span>
+<span class="hljs-comment">//   content: {},</span>
+<span class="hljs-comment">//   files: {},</span>
+<span class="hljs-comment">//   idx: 6 }]</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>Glob pattern to parse and compile.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+<span>Any <a href="#options.html">options</a> to change how parsing and compiling is performed.
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+<span>Returns an object with the parsed AST, compiled string and optional source map.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.create = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">return</span> memoize(<span class="hljs-string">'create'</span>, pattern, options, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span>(<span class="hljs-params">str, opts</span>) </span>{
+      <span class="hljs-keyword">return</span> micromatch.compile(micromatch.parse(str, opts), opts);
+    }
+
+    pattern = micromatch.braces(pattern, options);
+    <span class="hljs-keyword">var</span> len = pattern.length;
+    <span class="hljs-keyword">var</span> idx = <span class="hljs-number">-1</span>;
+    <span class="hljs-keyword">var</span> res = [];
+
+    <span class="hljs-keyword">while</span> (++idx &lt; len) {
+      res.push(create(pattern[idx], options));
+    }
+    <span class="hljs-keyword">return</span> res;
+  });
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Parse the given <code>str</code> with the given <code>options</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.parse(pattern[, options]);
+<p><span class="hljs-keyword">var</span> ast = mm.parse(<span class="hljs-string">'a/{b,c}/d'</span>);
+<span class="hljs-built_in">console</span>.log(ast);
+<span class="hljs-comment">// { type: 'root',</span>
+<span class="hljs-comment">//   errors: [],</span>
+<span class="hljs-comment">//   input: 'a/{b,c}/d',</span>
+<span class="hljs-comment">//   nodes:</span>
+<span class="hljs-comment">//    [ { type: 'bos', val: '' },</span>
+<span class="hljs-comment">//      { type: 'text', val: 'a/' },</span>
+<span class="hljs-comment">//      { type: 'brace',</span>
+<span class="hljs-comment">//        nodes:</span>
+<span class="hljs-comment">//         [ { type: 'brace.open', val: '{' },</span>
+<span class="hljs-comment">//           { type: 'text', val: 'b,c' },</span>
+<span class="hljs-comment">//           { type: 'brace.close', val: '}' } ] },</span>
+<span class="hljs-comment">//      { type: 'text', val: '/d' },</span>
+<span class="hljs-comment">//      { type: 'eos', val: '' } ] }</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`str`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+<span>Returns an AST
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.parse = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> pattern !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected a string'</span>);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parse</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> snapdragon = utils.instantiate(<span class="hljs-literal">null</span>, options);
+    parsers(snapdragon, options);
+
+    <span class="hljs-keyword">var</span> ast = snapdragon.parse(pattern, options);
+    utils.define(ast, <span class="hljs-string">'snapdragon'</span>, snapdragon);
+    ast.input = pattern;
+    <span class="hljs-keyword">return</span> ast;
+  }
+
+  <span class="hljs-keyword">return</span> memoize(<span class="hljs-string">'parse'</span>, pattern, options, parse);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Compile the given <code>ast</code> or string with the given <code>options</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> mm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'micromatch'</span>);
+mm.compile(ast[, options]);
+<p><span class="hljs-keyword">var</span> ast = mm.parse(<span class="hljs-string">'a/{b,c}/d'</span>);
+<span class="hljs-built_in">console</span>.log(mm.compile(ast));
+<span class="hljs-comment">// { options: { source: 'string' },</span>
+<span class="hljs-comment">//   state: {},</span>
+<span class="hljs-comment">//   compilers:</span>
+<span class="hljs-comment">//    { eos: [Function],</span>
+<span class="hljs-comment">//      noop: [Function],</span>
+<span class="hljs-comment">//      bos: [Function],</span>
+<span class="hljs-comment">//      brace: [Function],</span>
+<span class="hljs-comment">//      'brace.open': [Function],</span>
+<span class="hljs-comment">//      text: [Function],</span>
+<span class="hljs-comment">//      'brace.close': [Function] },</span>
+<span class="hljs-comment">//   output: [ 'a/(b|c)/d' ],</span>
+<span class="hljs-comment">//   ast:</span>
+<span class="hljs-comment">//    { ... },</span>
+<span class="hljs-comment">//   parsingErrors: [] }</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`ast`</span>
+<span class="dox_type">Object</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+<span>Returns an object that has an <code>output</code> property with the compiled string.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.compile = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ast, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> ast === <span class="hljs-string">'string'</span>) {
+    ast = micromatch.parse(ast, options);
+  }
+
+  <span class="hljs-keyword">return</span> memoize(<span class="hljs-string">'compile'</span>, ast.input, options, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> snapdragon = utils.instantiate(ast, options);
+    compilers(snapdragon, options);
+    <span class="hljs-keyword">return</span> snapdragon.compile(ast, options);
+  });
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Clear the regex cache.</p>
+</div>
+<div class="body">
+<pre><code class="js">mm.clearCache();
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.clearCache = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  micromatch.cache.caches = {};
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if the given value is effectively an empty string</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isEmptyString</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">String</span>(val) === <span class="hljs-string">''</span> || <span class="hljs-built_in">String</span>(val) === <span class="hljs-string">'./'</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Compose a matcher function with the given patterns.
+This allows matcher functions to be compiled once and
+called multiple times.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compose</span>(<span class="hljs-params">patterns, options, matcher</span>) </span>{
+  <span class="hljs-keyword">var</span> matchers;
+
+  <span class="hljs-keyword">return</span> memoize(<span class="hljs-string">'compose'</span>, <span class="hljs-built_in">String</span>(patterns), options, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">file</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
+</div>
+<p>delay composition until it's invoked the first time,
+after that it won't be called again</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">if</span> (!matchers) {
+        matchers = [];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; patterns.length; i++) {
+          matchers.push(matcher(patterns[i], options));
+        }
+      }
+
+      <span class="hljs-keyword">var</span> len = matchers.length;
+      <span class="hljs-keyword">while</span> (len--) {
+        <span class="hljs-keyword">if</span> (matchers[len](file) === <span class="hljs-literal">true</span>) {
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        }
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    };
+  });
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Memoize a generated regex or function. A unique key is generated
+from the <code>type</code> (usually method name), the <code>pattern</code>, and
+user-defined options.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">memoize</span>(<span class="hljs-params">type, pattern, options, fn</span>) </span>{
+  <span class="hljs-keyword">var</span> key = utils.createKey(type + <span class="hljs-string">'='</span> + pattern, options);
+
+  <span class="hljs-keyword">if</span> (options &amp;&amp; options.cache === <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">return</span> fn(pattern, options);
+  }
+
+  <span class="hljs-keyword">if</span> (cache.has(type, key)) {
+    <span class="hljs-keyword">return</span> cache.get(type, key);
+  }
+
+  <span class="hljs-keyword">var</span> val = fn(pattern, options);
+  cache.set(type, key, val);
+  <span class="hljs-keyword">return</span> val;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose compiler, parser and cache on <code>micromatch</code></p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+micromatch.compilers = compilers;
+micromatch.parsers = parsers;
+micromatch.caches = cache.caches;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose <code>micromatch</code></p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">Function</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">module</span>.exports = micromatch;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CONTRIBUTING.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\fullcalendar\\CONTRIBUTING.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#reporting-bugs">Reporting Bugs</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#requesting-features">Requesting Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contributing-features">Contributing Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contributing-bugfixes">Contributing Bugfixes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contributing-locales">Contributing Locales</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#other-ways-to-contribute">Other Ways to Contribute</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#getting-set-up">Getting Set Up</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#what-to-edit">What to edit</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#development-workflow">Development Workflow</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#style-guide">Style Guide</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#before-submitting-your-code">Before Submitting your Code</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="reporting-bugs">
+  <h2>
+    <a href="#reporting-bugs" name="reporting-bugs" class="pilcrow"></a>
+Reporting Bugs
+  </h2>
+</div>
+<p>Each bug report MUST have a <a href="http://fullcalendar.io/wiki/Reporting-Bugs/">Codepen/JSFiddle</a> recreation before any work can begin. <a href="http://fullcalendar.io/wiki/Reporting-Bugs/">further instructions »</a></p>
+<div class="pilwrap" id="requesting-features">
+  <h2>
+    <a href="#requesting-features" name="requesting-features" class="pilcrow"></a>
+Requesting Features
+  </h2>
+</div>
+<p>Please search the <a href="https://github.com/fullcalendar/fullcalendar/issues">Issue Tracker</a> to see if your feature has already been requested, and if so, subscribe to it. Otherwise, read these <a href="http://fullcalendar.io/wiki/Requesting-Features/">further instructions »</a></p>
+<div class="pilwrap" id="contributing-features">
+  <h2>
+    <a href="#contributing-features" name="contributing-features" class="pilcrow"></a>
+Contributing Features
+  </h2>
+</div>
+<p>The FullCalendar project welcomes <a href="https://help.github.com/articles/using-pull-requests/">Pull Requests</a> for new features, but because there are so many feature requests (over 100), and because every new feature requires refinement and maintenance, each PR will be prioritized against the project's other demands and might take a while to make it to an official release.</p>
+<p>Furthermore, each new feature should be designed as robustly as possible and be useful beyond the immediate usecase it was initially designed for. Feel free to start a ticket discussing the feature's specs before coding.</p>
+<div class="pilwrap" id="contributing-bugfixes">
+  <h2>
+    <a href="#contributing-bugfixes" name="contributing-bugfixes" class="pilcrow"></a>
+Contributing Bugfixes
+  </h2>
+</div>
+<p>In the description of your <a href="https://help.github.com/articles/using-pull-requests/">Pull Request</a>, please include recreation steps for the bug as well as a [JSFiddle/JSBin] demo. Communicating the buggy behavior is a requirement before a merge can happen.</p>
+<div class="pilwrap" id="contributing-locales">
+  <h2>
+    <a href="#contributing-locales" name="contributing-locales" class="pilcrow"></a>
+Contributing Locales
+  </h2>
+</div>
+<p>Please edit the original files in the <code>locale/</code> directory. DO NOT edit anything in the <code>dist/</code> directory. The build system will responsible for merging FullCalendar's <code>locale/</code> data with the <a href="https://github.com/moment/moment/tree/develop/locale">MomentJS locale data</a>.</p>
+<div class="pilwrap" id="other-ways-to-contribute">
+  <h2>
+    <a href="#other-ways-to-contribute" name="other-ways-to-contribute" class="pilcrow"></a>
+Other Ways to Contribute
+  </h2>
+</div>
+<p><a href="http://fullcalendar.io/wiki/Contributing/">Read about other ways to contribute »</a></p>
+<div class="pilwrap" id="getting-set-up">
+  <h2>
+    <a href="#getting-set-up" name="getting-set-up" class="pilcrow"></a>
+Getting Set Up
+  </h2>
+</div>
+<p>You will need <a href="http://git-scm.com/">Git</a>, <a href="http://nodejs.org/">Node</a>, and NPM installed. For clarification, please view the <a href="https://github.com/jquery/jquery/blob/master/README.md#what-you-need-to-build-your-own-jquery">jQuery readme</a>, which requires a similar setup.</p>
+<p>Also, you will need the <a href="https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md">gulp-cli</a> package installed globally (<code>-g</code>) on your system:</p>
+<pre><code>npm install -g gulp-cli
+</code></pre>
+<p>Then, clone FullCalendar's git repo:</p>
+<pre><code>git clone git://github.com/fullcalendar/fullcalendar.git
+</code></pre>
+<p>Enter the directory and install FullCalendar's dependencies:</p>
+<pre><code>cd fullcalendar
+npm install
+</code></pre>
+<div class="pilwrap" id="what-to-edit">
+  <h2>
+    <a href="#what-to-edit" name="what-to-edit" class="pilcrow"></a>
+What to edit
+  </h2>
+</div>
+<p>When modifying files, please do not edit the generated or minified files in the <code>dist/</code> directory. Please edit the original <code>src/</code> files.</p>
+<div class="pilwrap" id="development-workflow">
+  <h2>
+    <a href="#development-workflow" name="development-workflow" class="pilcrow"></a>
+Development Workflow
+  </h2>
+</div>
+<p>After you make code changes, you'll want to compile the JS/CSS so that it can be previewed from the tests and demos. You can either manually rebuild each time you make a change:</p>
+<pre><code>gulp dev
+</code></pre>
+<p>Or, you can run a script that automatically rebuilds whenever you save a source file:</p>
+<pre><code>gulp watch
+</code></pre>
+<p>When you are finished, run the following command to write the distributable files into the <code>./dist/</code> directory:</p>
+<pre><code>gulp dist
+</code></pre>
+<p>If you want to clean up the generated files, run:</p>
+<pre><code>gulp clean
+</code></pre>
+<div class="pilwrap" id="style-guide">
+  <h2>
+    <a href="#style-guide" name="style-guide" class="pilcrow"></a>
+Style Guide
+  </h2>
+</div>
+<p>Please follow the <a href="http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml">Google JavaScript Style Guide</a> as closely as possible. With the following exceptions:</p>
+<pre><code class="js"><span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) {
+}
+<span class="hljs-keyword">else</span> { <span class="hljs-comment">// please put else, else if, and catch on a separate line</span>
+}
+
+<span class="hljs-comment">// please write one-line array literals with a one-space padding inside</span>
+<span class="hljs-keyword">var</span> a = [ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ];
+
+<span class="hljs-comment">// please write one-line object literals with a one-space padding inside</span>
+<span class="hljs-keyword">var</span> o = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">c</span>: <span class="hljs-number">3</span> };
+</code></pre>
+<p>Other exceptions:</p>
+<ul>
+<li>please ignore anything about Google Closure Compiler or the <code>goog</code> library</li>
+<li>please do not write JSDoc comments</li>
+</ul>
+<p>Notes about whitespace:</p>
+<ul>
+<li><strong>use <em>tabs</em> instead of spaces</strong></li>
+<li>separate functions with <em>2</em> blank lines</li>
+<li>separate logical blocks within functions with <em>1</em> blank line</li>
+</ul>
+<p>Run the command line tool to automatically check your style:</p>
+<pre><code>gulp lint
+</code></pre>
+<div class="pilwrap" id="before-submitting-your-code">
+  <h2>
+    <a href="#before-submitting-your-code" name="before-submitting-your-code" class="pilcrow"></a>
+Before Submitting your Code
+  </h2>
+</div>
+<p>If you have edited code (including <strong>tests</strong> and <strong>translations</strong>) and would like to submit a pull request, please make sure you have done the following:</p>
+<ol>
+<li>
+<p>Conformed to the style guide (successfully run <code>gulp lint</code>)</p>
+</li>
+<li>
+<p>Written automated tests. View the <a href="https://github.com/fullcalendar/fullcalendar/wiki/Automated-Tests">Automated Test Readme</a></p>
+</li>
+</ol>
+</div>
+  </div>
+</body>
+</html>

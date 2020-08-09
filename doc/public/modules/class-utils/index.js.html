@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\class-utils\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
+<span class="hljs-keyword">var</span> union = <span class="hljs-built_in">require</span>(<span class="hljs-string">'arr-union'</span>);
+<span class="hljs-keyword">var</span> define = <span class="hljs-built_in">require</span>(<span class="hljs-string">'define-property'</span>);
+<span class="hljs-keyword">var</span> staticExtend = <span class="hljs-built_in">require</span>(<span class="hljs-string">'static-extend'</span>);
+<span class="hljs-keyword">var</span> isObj = <span class="hljs-built_in">require</span>(<span class="hljs-string">'isobject'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose class utils</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">var</span> cu = <span class="hljs-built_in">module</span>.exports;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose class utils: <code>cu</code></p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.isObject = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">return</span> isObj(val) || <span class="hljs-keyword">typeof</span> val === <span class="hljs-string">'function'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if an array has any of the given elements, or an
+object has any of the give keys.</p>
+</div>
+<div class="body">
+<pre><code class="js">cu.has([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>], <span class="hljs-string">'c'</span>);
+<span class="hljs-comment">//=&gt; true</span>
+<p>cu.has([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>], [<span class="hljs-string">'c'</span>, <span class="hljs-string">'z'</span>]);
+<span class="hljs-comment">//=&gt; true</span></p>
+<p>cu.has({<span class="hljs-attr">a</span>: <span class="hljs-string">'b'</span>, <span class="hljs-attr">c</span>: <span class="hljs-string">'d'</span>}, [<span class="hljs-string">'c'</span>, <span class="hljs-string">'z'</span>]);
+<span class="hljs-comment">//=&gt; true</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`obj`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`val`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.has = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">has</span>(<span class="hljs-params">obj, val</span>) </span>{
+  val = cu.arrayify(val);
+  <span class="hljs-keyword">var</span> len = val.length;
+
+  <span class="hljs-keyword">if</span> (cu.isObject(obj)) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> obj) {
+      <span class="hljs-keyword">if</span> (val.indexOf(key) &gt; <span class="hljs-number">-1</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      }
+    }
+
+    <span class="hljs-keyword">var</span> keys = cu.nativeKeys(obj);
+    <span class="hljs-keyword">return</span> cu.has(keys, val);
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(obj)) {
+    <span class="hljs-keyword">var</span> arr = obj;
+    <span class="hljs-keyword">while</span> (len--) {
+      <span class="hljs-keyword">if</span> (arr.indexOf(val[len]) &gt; <span class="hljs-number">-1</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected an array or object.'</span>);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if an array or object has all of the given values.</p>
+</div>
+<div class="body">
+<pre><code class="js">cu.hasAll([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>], <span class="hljs-string">'c'</span>);
+<span class="hljs-comment">//=&gt; true</span>
+<p>cu.hasAll([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>], [<span class="hljs-string">'c'</span>, <span class="hljs-string">'z'</span>]);
+<span class="hljs-comment">//=&gt; false</span></p>
+<p>cu.hasAll({<span class="hljs-attr">a</span>: <span class="hljs-string">'b'</span>, <span class="hljs-attr">c</span>: <span class="hljs-string">'d'</span>}, [<span class="hljs-string">'c'</span>, <span class="hljs-string">'z'</span>]);
+<span class="hljs-comment">//=&gt; false</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`val`</span>
+<span class="dox_type">Object</span>
+<span class="dox_type">Array</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`values`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.hasAll = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasAll</span>(<span class="hljs-params">val, values</span>) </span>{
+  values = cu.arrayify(values);
+  <span class="hljs-keyword">var</span> len = values.length;
+  <span class="hljs-keyword">while</span> (len--) {
+    <span class="hljs-keyword">if</span> (!cu.has(val, values[len])) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Cast the given value to an array.</p>
+</div>
+<div class="body">
+<pre><code class="js">cu.arrayify(<span class="hljs-string">'foo'</span>);
+<span class="hljs-comment">//=&gt; ['foo']</span>
+<p>cu.arrayify([<span class="hljs-string">'foo'</span>]);
+<span class="hljs-comment">//=&gt; ['foo']</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`val`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Array</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.arrayify = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arrayify</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">return</span> val ? (<span class="hljs-built_in">Array</span>.isArray(val) ? val : [val]) : [];
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Noop</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.noop = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">noop</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns the first argument passed to the function.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.identity = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identity</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">return</span> val;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if a value has a <code>contructor</code></p>
+</div>
+<div class="body">
+<pre><code class="js">cu.hasConstructor({});
+<span class="hljs-comment">//=&gt; true</span>
+<p>cu.hasConstructor(<span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>));
+<span class="hljs-comment">//=&gt; false</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`value`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.hasConstructor = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasConstructor</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">return</span> cu.isObject(val) &amp;&amp; <span class="hljs-keyword">typeof</span> val.constructor !== <span class="hljs-string">'undefined'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Get the native <code>ownPropertyNames</code> from the constructor of the
+given <code>object</code>. An empty array is returned if the object does
+not have a constructor.</p>
+</div>
+<div class="body">
+<pre><code class="js">cu.nativeKeys({<span class="hljs-attr">a</span>: <span class="hljs-string">'b'</span>, <span class="hljs-attr">b</span>: <span class="hljs-string">'c'</span>, <span class="hljs-attr">c</span>: <span class="hljs-string">'d'</span>})
+<span class="hljs-comment">//=&gt; ['a', 'b', 'c']</span>
+<p>cu.nativeKeys(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{})
+<span class="hljs-comment">//=&gt; ['length', 'caller']</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`obj`</span>
+<span class="dox_type">Object</span>
+<span>Object that has a <code>constructor</code>.
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Array</span>
+<span>Array of keys.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.nativeKeys = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nativeKeys</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">if</span> (!cu.hasConstructor(val)) <span class="hljs-keyword">return</span> [];
+  <span class="hljs-keyword">var</span> keys = <span class="hljs-built_in">Object</span>.getOwnPropertyNames(val);
+  <span class="hljs-keyword">if</span> (<span class="hljs-string">'caller'</span> <span class="hljs-keyword">in</span> val) keys.push(<span class="hljs-string">'caller'</span>);
+  <span class="hljs-keyword">return</span> keys;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns property descriptor <code>key</code> if it's an &quot;own&quot; property
+of the given object.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{}
+<span class="hljs-built_in">Object</span>.defineProperty(App.prototype, <span class="hljs-string">'count'</span>, {
+  <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>).length;
+  }
+});
+cu.getDescriptor(App.prototype, <span class="hljs-string">'count'</span>);
+<span class="hljs-comment">// returns:</span>
+<span class="hljs-comment">// {</span>
+<span class="hljs-comment">//   get: [Function],</span>
+<span class="hljs-comment">//   set: undefined,</span>
+<span class="hljs-comment">//   enumerable: false,</span>
+<span class="hljs-comment">//   configurable: false</span>
+<span class="hljs-comment">// }</span>
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`obj`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`key`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+<span>Returns descriptor <code>key</code>
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.getDescriptor = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getDescriptor</span>(<span class="hljs-params">obj, key</span>) </span>{
+  <span class="hljs-keyword">if</span> (!cu.isObject(obj)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected an object.'</span>);
+  }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> key !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected key to be a string.'</span>);
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(obj, key);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Copy a descriptor from one object to another.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{}
+<span class="hljs-built_in">Object</span>.defineProperty(App.prototype, <span class="hljs-string">'count'</span>, {
+  <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>).length;
+  }
+});
+<span class="hljs-keyword">var</span> obj = {};
+cu.copyDescriptor(obj, App.prototype, <span class="hljs-string">'count'</span>);
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`receiver`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`provider`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`name`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.copyDescriptor = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copyDescriptor</span>(<span class="hljs-params">receiver, provider, name</span>) </span>{
+  <span class="hljs-keyword">if</span> (!cu.isObject(receiver)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected receiving object to be an object.'</span>);
+  }
+  <span class="hljs-keyword">if</span> (!cu.isObject(provider)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected providing object to be an object.'</span>);
+  }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> name !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected name to be a string.'</span>);
+  }
+
+  <span class="hljs-keyword">var</span> val = cu.getDescriptor(provider, name);
+  <span class="hljs-keyword">if</span> (val) <span class="hljs-built_in">Object</span>.defineProperty(receiver, name, val);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Copy static properties, prototype properties, and descriptors
+from one object to another.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`receiver`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`provider`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`omit`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>One or more properties to omit
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.copy = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copy</span>(<span class="hljs-params">receiver, provider, omit</span>) </span>{
+  <span class="hljs-keyword">if</span> (!cu.isObject(receiver)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected receiving object to be an object.'</span>);
+  }
+  <span class="hljs-keyword">if</span> (!cu.isObject(provider)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected providing object to be an object.'</span>);
+  }
+  <span class="hljs-keyword">var</span> props = <span class="hljs-built_in">Object</span>.getOwnPropertyNames(provider);
+  <span class="hljs-keyword">var</span> keys = <span class="hljs-built_in">Object</span>.keys(provider);
+  <span class="hljs-keyword">var</span> len = props.length,
+    key;
+  omit = cu.arrayify(omit);
+
+  <span class="hljs-keyword">while</span> (len--) {
+    key = props[len];
+
+    <span class="hljs-keyword">if</span> (cu.has(keys, key)) {
+      define(receiver, key, provider[key]);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!(key <span class="hljs-keyword">in</span> receiver) &amp;&amp; !cu.has(omit, key)) {
+      cu.copyDescriptor(receiver, provider, key);
+    }
+  }
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Inherit the static properties, prototype properties, and descriptors
+from of an object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`receiver`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`provider`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`omit`</span>
+<span class="dox_type">String</span>
+<span class="dox_type">Array</span>
+<span>One or more properties to omit
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.inherit = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">inherit</span>(<span class="hljs-params">receiver, provider, omit</span>) </span>{
+  <span class="hljs-keyword">if</span> (!cu.isObject(receiver)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected receiving object to be an object.'</span>);
+  }
+  <span class="hljs-keyword">if</span> (!cu.isObject(provider)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected providing object to be an object.'</span>);
+  }
+
+  <span class="hljs-keyword">var</span> keys = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> provider) {
+    keys.push(key);
+    receiver[key] = provider[key];
+  }
+
+  keys = keys.concat(cu.arrayify(omit));
+
+  <span class="hljs-keyword">var</span> a = provider.prototype || provider;
+  <span class="hljs-keyword">var</span> b = receiver.prototype || receiver;
+  cu.copy(b, a, keys);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns a function for extending the static properties,
+prototype properties, and descriptors from the <code>Parent</code>
+constructor onto <code>Child</code> constructors.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> extend = cu.extend(Parent);
+Parent.extend(Child);
+<p><span class="hljs-comment">// optional methods</span>
+Parent.extend(Child, {
+<span class="hljs-attr">foo</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{},
+<span class="hljs-attr">bar</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{}
+});
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`Parent`</span>
+<span class="dox_type">Function</span>
+<span>Parent ctor
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`extend`</span>
+<span class="dox_type">Function</span>
+<span>Optional extend function to handle custom extensions. Useful when updating methods that require a specific prototype.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`Child`</span>
+<span class="dox_type">Function</span>
+<span>Child ctor
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`proto`</span>
+<span class="dox_type">Object</span>
+<span>Optionally pass additional prototype properties to inherit.
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.extend = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>keep it lazy, instead of assigning to <code>cu.extend</code></p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">return</span> staticExtend.apply(<span class="hljs-literal">null</span>, <span class="hljs-built_in">arguments</span>);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Bubble up events emitted from static methods on the Parent ctor.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`Parent`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`events`</span>
+<span class="dox_type">Array</span>
+<span>Event names to bubble up
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+cu.bubble = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">Parent, events</span>) </span>{
+  events = events || [];
+  Parent.bubble = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">Child, arr</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(arr)) {
+      events = union([], events, arr);
+    }
+    <span class="hljs-keyword">var</span> len = events.length;
+    <span class="hljs-keyword">var</span> idx = <span class="hljs-number">-1</span>;
+    <span class="hljs-keyword">while</span> (++idx &lt; len) {
+      <span class="hljs-keyword">var</span> name = events[idx];
+      Parent.on(name, Child.emit.bind(Child, name));
+    }
+    cu.bubble(Child, events);
+  };
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

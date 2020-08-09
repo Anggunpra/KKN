@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\ionicons201\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#ionicons">Ionicons</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#getting-started">Getting Started</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#html-example">HTML Example</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#build-instructions">Build Instructions</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="ionicons">
+  <h1>
+    <a href="#ionicons" name="ionicons" class="pilcrow"></a>
+Ionicons
+  </h1>
+</div>
+<p>The premium icon font for <a href="http://ionicframework.com/">Ionic</a>. Designed by <a href="https://twitter.com/benjsperry">@benjsperry</a>.</p>
+<p>Note: All brand icons are trademarks of their respective owners. The use of these trademarks does not indicate endorsement of the trademark holder by Drifty, nor vice versa.</p>
+<p>Visit <a href="http://ionicons.com">ionicons.com</a> and  check out the search feature, which has keywords identifying common icon names and styles. For example, if you search for “arrow” we call up every icon that could possibly be used as an arrow. We’ve also included each icon’s class name for easy copy/pasting when you’re developing!</p>
+<p>We intend for this icon pack to be used with <a href="http://ionicframework.com/">Ionic</a>, but it’s by no means limited to it. Use them wherever you see fit, personal or commercial. They are free to use and licensed under <a href="http://opensource.org/licenses/MIT">MIT</a>.</p>
+<div class="pilwrap" id="getting-started">
+  <h2>
+    <a href="#getting-started" name="getting-started" class="pilcrow"></a>
+Getting Started
+  </h2>
+</div>
+<ol>
+<li>Download and extract the font pack</li>
+<li>Copy the <code>ionicons.css</code> to your project</li>
+<li>Copy the <code>fonts</code> folder to your project</li>
+<li>Ensure the font urls within <code>ionicons.css</code> properly reference the <code>fonts</code> path within your project.</li>
+<li>Include a reference to the <code>ionicons.css</code> file from every webpage you need to use it.</li>
+</ol>
+<p>Or install with <a href="https://github.com/component/component">component</a>:</p>
+<pre><code>$ component install driftyco/ionicons
+</code></pre>
+<p>Or perhaps you're known to use <a href="http://bower.io/">bower</a>?</p>
+<pre><code>$ bower install ionicons
+</code></pre>
+<div class="pilwrap" id="html-example">
+  <h2>
+    <a href="#html-example" name="html-example" class="pilcrow"></a>
+HTML Example
+  </h2>
+</div>
+<p>You can use <a href="http://ionicons.com">ionicons.com</a> to easily find the icon you want to use. Once you've copied the desired icon's CSS classname, simply add the <code>icon</code> and icon's classname, such as <code>ion-home</code> to an HTML element.</p>
+<pre><code>&lt;i class=&quot;icon ion-home&quot;&gt;&lt;/i&gt;
+</code></pre>
+<div class="pilwrap" id="build-instructions">
+  <h2>
+    <a href="#build-instructions" name="build-instructions" class="pilcrow"></a>
+Build Instructions
+  </h2>
+</div>
+<p>This repo already comes with all the files built and ready to go, but can also build the fonts from the source. Requires Python, FontForge and Sass:</p>
+<ol>
+<li>
+<p>Install FontForge, which is the program that creates the font files from the SVG files:</p>
+<p>$ brew install fontforge ttfautohint</p>
+</li>
+<li>
+<p>Install <a href="http://sass-lang.com/">Sass</a></p>
+<p>$ gem install sass</p>
+</li>
+<li>
+<p>Add or subtract files from the <code>src/</code> folder you'd like to be apart of the font files.</p>
+</li>
+<li>
+<p>Modify any settings in the <code>builder/manifest.json</code> file. You can change the name of the font-family and CSS classname prefix.</p>
+</li>
+<li>
+<p>Run the build command:</p>
+<p>python ./builder/generate.py</p>
+</li>
+</ol>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>Ionicons is licensed under the <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+</div>
+  </div>
+</body>
+</html>

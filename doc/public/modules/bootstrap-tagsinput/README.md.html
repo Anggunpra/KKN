@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bootstrap-tagsinput\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#bootstrap-tags-input">Bootstrap Tags Input </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#features">Features</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#objects-as-tags">Objects as tags</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#true-multi-value-support">True multi value support</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#typeahead-support">Typeahead support</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#development">Development</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#history">History</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="bootstrap-tags-input">
+  <h1>
+    <a href="#bootstrap-tags-input" name="bootstrap-tags-input" class="pilcrow"></a>
+Bootstrap Tags Input <a href="https://travis-ci.org/bootstrap-tagsinput/bootstrap-tagsinput"><img src="https://travis-ci.org/bootstrap-tagsinput/bootstrap-tagsinput.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<p>Bootstrap Tags Input is a jQuery plugin providing a Twitter Bootstrap user interface for managing tags.</p>
+<p>Current stable version: <strong>v0.7.1</strong></p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>Examples can be found <a href="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/">here</a>.</p>
+<div class="pilwrap" id="features">
+  <h2>
+    <a href="#features" name="features" class="pilcrow"></a>
+Features
+  </h2>
+</div>
+<ul>
+<li>Objects as tags</li>
+<li>True multi value</li>
+<li>Typeahead</li>
+<li>Designed for Bootstrap 2.3.2 and 3</li>
+</ul>
+<div class="pilwrap" id="objects-as-tags">
+  <h3>
+    <a href="#objects-as-tags" name="objects-as-tags" class="pilcrow"></a>
+Objects as tags
+  </h3>
+</div>
+<p>Not just support for using strings! This means you can use different values
+for a tag's label and value. Each tag also holds a reference to the object
+by which it was created, so by calling <code>tagsinput('items')</code> an
+array of the original items is returned.</p>
+<div class="pilwrap" id="true-multi-value-support">
+  <h3>
+    <a href="#true-multi-value-support" name="true-multi-value-support" class="pilcrow"></a>
+True multi value support
+  </h3>
+</div>
+<p>Other implementations just concatenate the values to a comma separated string.
+This results in <code>val()</code> returning just this string, and when
+submitting the form, only one big, concatenated value is sent in the request.</p>
+<p>Bootstrap Tags Input provides true multivalue support. Just use a
+<code>&lt;select multiple /&gt;</code> as your input element, and
+<code>val()</code> will return an array of the tag values. When submitting the
+form, an array of values will be sent with the request.</p>
+<div class="pilwrap" id="typeahead-support">
+  <h3>
+    <a href="#typeahead-support" name="typeahead-support" class="pilcrow"></a>
+Typeahead support
+  </h3>
+</div>
+<p>Integrates with Twitter Bootstraps' 2.3.2 typeahead, or use custom typeahead when using Bootstrap 3.</p>
+<div class="pilwrap" id="development">
+  <h2>
+    <a href="#development" name="development" class="pilcrow"></a>
+Development
+  </h2>
+</div>
+<p>Install dependencies:</p>
+<pre>
+npm install
+grunt install
+</pre>
+<p>Test:</p>
+<pre>
+grunt test
+</pre>
+<p>Build:</p>
+<pre>
+grunt build
+</pre>
+<p>Current Library Versions:</p>
+<ul>
+<li>Bootstrap: 3.3.5</li>
+<li>jQuery: 2.1.4</li>
+<li>Typeahead: 0.11.1</li>
+</ul>
+<p>Libraries for testing go in the <strong>/lib</strong> directory.</p>
+<div class="pilwrap" id="history">
+  <h2>
+    <a href="#history" name="history" class="pilcrow"></a>
+History
+  </h2>
+</div>
+<ul>
+<li>0.7.1
+<ul>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/419">allowDuplicates not working</a></li>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/386">tag text appears when typeahead input looses focus</a></li>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/pull/427">Remove duplicate method <code>removeAll</code> in manual</a></li>
+</ul>
+</li>
+<li>0.7.0
+<ul>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/426">.tt-menu etc. styles should be included in bootstrap-tagsinput.css by default</a></li>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/422">Comma character carried over to new tag input when used as separator</a></li>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/399">Emails in multi select are being duplicated</a></li>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/369">The 'itemAdded' Event run on Load the Page!</a></li>
+</ul>
+</li>
+<li>0.6.1
+<ul>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/371">Source maps fix</a></li>
+</ul>
+</li>
+<li>0.6.0
+<ul>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/368">Allow form submissions when pressing enter if field is empty. Controlled by option</a></li>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/397">Ability to set different or multiple delimiters</a></li>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/405">No longer triggering itemRemoved when the field is already empty</a></li>
+</ul>
+</li>
+<li>0.5
+<ul>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/pull/298">Added an optional 3rd parameter to the &quot;add&quot; and &quot;remove&quot; methods</a></li>
+</ul>
+</li>
+<li>0.4
+<ul>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/pull/73">Fix typeahead when using Bootstrap 3</a></li>
+</ul>
+</li>
+<li>0.3.13
+<ul>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/5">#5: Trigger events on original input/select</a></li>
+<li>Loads of fixes merged with help of @janvt, @rlidwka and @kuraga: thanks for helping me out!</li>
+</ul>
+</li>
+<li>0.3.9
+<ul>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/48">#48: Type ahead stops when entering second character</a></li>
+</ul>
+</li>
+<li>0.3.8
+<ul>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/pull/43">#43: Add support for placeholder</a></li>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/pull/46">#46: ie 8 compatibility, replace indexOf method</a></li>
+</ul>
+</li>
+<li>0.3.7
+<ul>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/39">#39: flash when duplicate is entered</a></li>
+</ul>
+</li>
+<li>0.3.6
+<ul>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/34">#34: Error in ReloadPage</a></li>
+</ul>
+</li>
+<li>0.3.5
+<ul>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/10">#10: confirmKeys option</a></li>
+</ul>
+</li>
+<li>0.3.4
+<ul>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/pull/24">#24: Add bsTagsInput angular directive &amp; example for bootstrap3 with typeahea...</a></li>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/pull/28">#28: Limit number of tags, enable/disable input</a></li>
+<li><a href="https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/pull/33">#33: Avoid conflict with other selects when checking for value presence</a></li>
+</ul>
+</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>This project is licensed under <a href="https://raw.github.com/bootstrap-tagsinput/bootstrap-tagsinput/master/LICENSE" title="Read more about the MIT license">MIT</a>.</p>
+</div>
+  </div>
+</body>
+</html>

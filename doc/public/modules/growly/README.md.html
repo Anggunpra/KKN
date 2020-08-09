@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\growly\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#growly">Growly</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#example">Example</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#growly.register-appname-appicon-notifications-callback">Growly.register(appname, [appicon], [notifications], [callback])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#growly.notify-text-opts-callback">Growly.notify(text, [opts], [callback])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#growly.sethost-host-port">Growly.setHost(host, port)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="growly">
+  <h1>
+    <a href="#growly" name="growly" class="pilcrow"></a>
+Growly
+  </h1>
+</div>
+<p>Simple zero-dependency Growl notifications using GNTP.</p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<p>Install growly using <code>npm</code>:</p>
+<pre><code>npm install growly
+</code></pre>
+<p>And then require it:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> growly = <span class="hljs-built_in">require</span>(<span class="hljs-string">'growly'</span>);
+</code></pre>
+<p>This module uses the Growl Network Transport Protocol (GNTP) which was implemented in Growl since version 1.3, so you <strong>must have an appropriate version of Growl installed</strong> for Growly to work.</p>
+<div class="pilwrap" id="example">
+  <h2>
+    <a href="#example" name="example" class="pilcrow"></a>
+Example
+  </h2>
+</div>
+<p>Sending a minimal Growl notification:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> growly = <span class="hljs-built_in">require</span>(<span class="hljs-string">'growly'</span>);
+
+growly.notify(<span class="hljs-string">'This is as easy as it gets'</span>, { <span class="hljs-attr">title</span>: <span class="hljs-string">'Hello, World!'</span> });
+</code></pre>
+<p>More examples can be found in the <em>example/</em> directory.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>The growly module exposes only three methods: <code>Growly.register()</code>, <code>Growly.notify()</code>, and <code>Growly.setHost()</code>.</p>
+<div class="pilwrap" id="growly.register-appname-appicon-notifications-callback">
+  <h3>
+    <a href="#growly.register-appname-appicon-notifications-callback" name="growly.register-appname-appicon-notifications-callback" class="pilcrow"></a>
+Growly.register(appname, [appicon], [notifications], [callback])
+  </h3>
+</div>
+<p>Registers a new application with Growl. Registration is completely optional since it will be performed automatically for you with sensible defaults. Useful if you want your application, with its own icon and types of notifications, to show up in Growl's prefence panel.</p>
+<ul>
+<li><code>appname</code> the name of the application (required.)</li>
+<li><code>appicon</code> url, file path, or Buffer instance for an application icon image.</li>
+<li><code>notifications</code> a list of defined notification types with the following properties:
+<ul>
+<li><code>.label</code> name used to identify the type of notification being used (required.)</li>
+<li><code>.dispname</code> name users will see in Growl's preference panel (defaults to <code>.label</code>.)</li>
+<li><code>.enabled</code> whether or not notifications of this type are enabled (defaults to true.)</li>
+</ul>
+</li>
+<li><code>callback</code> called when the registration completes; if registration fails, the first argument will be an Error object.</li>
+</ul>
+<p>An example:</p>
+<pre><code class="javascript">growly.register(<span class="hljs-string">'My Application'</span>, <span class="hljs-string">'path/to/icon.png'</span>, [
+    { <span class="hljs-attr">label</span>: <span class="hljs-string">'success'</span>, <span class="hljs-attr">dispname</span>: <span class="hljs-string">'Success'</span> },
+    { <span class="hljs-attr">label</span>: <span class="hljs-string">'warning'</span>, <span class="hljs-attr">dispname</span>: <span class="hljs-string">'Warning'</span>, <span class="hljs-attr">enabled</span>: <span class="hljs-literal">false</span> }
+], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(err || <span class="hljs-string">'Registration successful!'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="growly.notify-text-opts-callback">
+  <h3>
+    <a href="#growly.notify-text-opts-callback" name="growly.notify-text-opts-callback" class="pilcrow"></a>
+Growly.notify(text, [opts], [callback])
+  </h3>
+</div>
+<p>Sends a Growl notification. If an application wasn't registered beforehand with <code>growly.register()</code>, a default application will automatically be registered beforesending the notification.</p>
+<ul>
+<li><code>text</code> the body of the notification.</li>
+<li><code>opts</code> an object with the following properties:
+<ul>
+<li><code>.title</code> title of the notification.</li>
+<li><code>.icon</code> url, file path, or Buffer instance for the notification's icon.</li>
+<li><code>.sticky</code> whether or not to sticky the notification (defaults to false.)</li>
+<li><code>.label</code> type of notification to use (defaults to the first registered notification type.)</li>
+<li><code>.priority</code> the priority of the notification from lowest (-2) to highest (2).</li>
+<li><code>.coalescingId</code> replace/update the matching previous notification. May be ignored.</li>
+</ul>
+</li>
+<li><code>callback</code> called when the user has closed/clicked the notification. The callback is passed an Error object <code>err</code> as the first argument when the notification fails; otherwise, the second argument <code>action</code> is a string that'll describe which action has been taken by the user (either 'closed' or 'clicked'.)</li>
+</ul>
+<p>An example:</p>
+<pre><code class="javascript"><span class="hljs-comment">/* Assuming an application was registered with a notification type labeled 'warning'. */</span>
+growly.notify(<span class="hljs-string">'Stuffs broken!'</span>, { <span class="hljs-attr">label</span>: <span class="hljs-string">'warning'</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, action</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Action:'</span>, action);
+});
+</code></pre>
+<div class="pilwrap" id="growly.sethost-host-port">
+  <h3>
+    <a href="#growly.sethost-host-port" name="growly.sethost-host-port" class="pilcrow"></a>
+Growly.setHost(host, port)
+  </h3>
+</div>
+<p>Set the host and port that Growl (GNTP) requests will be sent to. Using this method is optional since GNTP defaults to using host 'localhost' and port 23053.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>Copyright (C) 2014 Ibrahim Al-Rajhi <a href="mailto:abrahamalrajhi@gmail.com.html">abrahamalrajhi@gmail.com</a></p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+</div>
+  </div>
+</body>
+</html>

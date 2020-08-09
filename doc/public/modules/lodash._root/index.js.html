@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\lodash._root\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>lodash 3.0.1 (Custom Build) <a href="https://lodash.com/">https://lodash.com/</a>
+Build: <code>lodash modularize exports=&quot;npm&quot; -o ./</code>
+Copyright 2012-2016 The Dojo Foundation <a href="http://dojofoundation.org/">http://dojofoundation.org/</a>
+Based on Underscore.js 1.8.3 <a href="http://underscorejs.org/LICENSE">http://underscorejs.org/LICENSE</a>
+Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters &amp; Editors
+Available under MIT license <a href="https://lodash.com/license">https://lodash.com/license</a></p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-comment">/** Used to determine if values are of the language type `Object`. */</span>
+<span class="hljs-keyword">var</span> objectTypes = {
+  <span class="hljs-string">'function'</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-string">'object'</span>: <span class="hljs-literal">true</span>
+};
+
+<span class="hljs-comment">/** Detect free variable `exports`. */</span>
+<span class="hljs-keyword">var</span> freeExports = (objectTypes[<span class="hljs-keyword">typeof</span> exports] &amp;&amp; exports &amp;&amp; !exports.nodeType)
+  ? exports
+  : <span class="hljs-literal">undefined</span>;
+
+<span class="hljs-comment">/** Detect free variable `module`. */</span>
+<span class="hljs-keyword">var</span> freeModule = (objectTypes[<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span>] &amp;&amp; <span class="hljs-built_in">module</span> &amp;&amp; !<span class="hljs-built_in">module</span>.nodeType)
+  ? <span class="hljs-built_in">module</span>
+  : <span class="hljs-literal">undefined</span>;
+
+<span class="hljs-comment">/** Detect free variable `global` from Node.js. */</span>
+<span class="hljs-keyword">var</span> freeGlobal = checkGlobal(freeExports &amp;&amp; freeModule &amp;&amp; <span class="hljs-keyword">typeof</span> global == <span class="hljs-string">'object'</span> &amp;&amp; global);
+
+<span class="hljs-comment">/** Detect free variable `self`. */</span>
+<span class="hljs-keyword">var</span> freeSelf = checkGlobal(objectTypes[<span class="hljs-keyword">typeof</span> self] &amp;&amp; self);
+
+<span class="hljs-comment">/** Detect free variable `window`. */</span>
+<span class="hljs-keyword">var</span> freeWindow = checkGlobal(objectTypes[<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span>] &amp;&amp; <span class="hljs-built_in">window</span>);
+
+<span class="hljs-comment">/** Detect `this` as the global object. */</span>
+<span class="hljs-keyword">var</span> thisGlobal = checkGlobal(objectTypes[<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span>] &amp;&amp; <span class="hljs-keyword">this</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Used as a reference to the global object.</p>
+</div>
+<div class="body">
+<p>The <code>this</code> value is used if it's the global object to avoid Greasemonkey's
+restricted <code>window</code> object, otherwise the <code>window</code> object is used.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> root = freeGlobal ||
+  ((freeWindow !== (thisGlobal &amp;&amp; thisGlobal.window)) &amp;&amp; freeWindow) ||
+    freeSelf || thisGlobal || <span class="hljs-built_in">Function</span>(<span class="hljs-string">'return this'</span>)();
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a global object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkGlobal</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> (value &amp;&amp; value.Object === <span class="hljs-built_in">Object</span>) ? value : <span class="hljs-literal">null</span>;
+}
+
+<span class="hljs-built_in">module</span>.exports = root;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

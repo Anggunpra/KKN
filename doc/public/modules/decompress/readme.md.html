@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\decompress\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#decompress">decompress </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#decompress-input-output-options">decompress(input, [output], [options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#input">input</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#output">output</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#filter">filter</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#map">map</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#plugins">plugins</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#strip">strip</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="decompress">
+  <h1>
+    <a href="#decompress" name="decompress" class="pilcrow"></a>
+decompress <a href="https://travis-ci.org/kevva/decompress"><img src="https://travis-ci.org/kevva/decompress.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Extracting archives made easy</p>
+</blockquote>
+<p><em>See <a href="https://github.com/kevva/decompress-cli">decompress-cli</a> for the command-line version.</em></p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save decompress
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> decompress = <span class="hljs-built_in">require</span>(<span class="hljs-string">'decompress'</span>);
+
+decompress(<span class="hljs-string">'unicorn.zip'</span>, <span class="hljs-string">'dist'</span>).then(<span class="hljs-function"><span class="hljs-params">files</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done!'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="decompress-input-output-options">
+  <h3>
+    <a href="#decompress-input-output-options" name="decompress-input-output-options" class="pilcrow"></a>
+decompress(input, [output], [options])
+  </h3>
+</div>
+<p>Returns a Promise for an array of files in the following format:</p>
+<pre><code class="js">{
+	<span class="hljs-attr">data</span>: Buffer,
+	<span class="hljs-attr">mode</span>: <span class="hljs-built_in">Number</span>,
+	<span class="hljs-attr">mtime</span>: <span class="hljs-built_in">String</span>,
+	<span class="hljs-attr">path</span>: <span class="hljs-built_in">String</span>,
+	<span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>
+}
+</code></pre>
+<div class="pilwrap" id="input">
+  <h4>
+    <a href="#input" name="input" class="pilcrow"></a>
+input
+  </h4>
+</div>
+<p>Type: <code>string</code> <code>Buffer</code></p>
+<p>File to decompress.</p>
+<div class="pilwrap" id="output">
+  <h4>
+    <a href="#output" name="output" class="pilcrow"></a>
+output
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Output directory.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<div class="pilwrap" id="filter">
+  <h5>
+    <a href="#filter" name="filter" class="pilcrow"></a>
+filter
+  </h5>
+</div>
+<p>Type: <code>Function</code></p>
+<p>Filter out files before extracting. E.g:</p>
+<pre><code class="js">decompress(<span class="hljs-string">'unicorn.zip'</span>, <span class="hljs-string">'dist'</span>, {
+	<span class="hljs-attr">filter</span>: <span class="hljs-function"><span class="hljs-params">file</span> =&gt;</span> path.extname(file.path) !== <span class="hljs-string">'.exe'</span>
+}).then(<span class="hljs-function"><span class="hljs-params">files</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done!'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="map">
+  <h5>
+    <a href="#map" name="map" class="pilcrow"></a>
+map
+  </h5>
+</div>
+<p>Type: <code>Function</code></p>
+<p>Map files before extracting: E.g:</p>
+<pre><code class="js">decompress(<span class="hljs-string">'unicorn.zip'</span>, <span class="hljs-string">'dist'</span>, {
+	<span class="hljs-attr">map</span>: <span class="hljs-function"><span class="hljs-params">file</span> =&gt;</span> {
+		file.path = <span class="hljs-string">`unicorn-<span class="hljs-subst">${file.path}</span>`</span>;
+		<span class="hljs-keyword">return</span> file;
+	}
+}).then(<span class="hljs-function"><span class="hljs-params">files</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done!'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="plugins">
+  <h5>
+    <a href="#plugins" name="plugins" class="pilcrow"></a>
+plugins
+  </h5>
+</div>
+<p>Type: <code>Array</code><br>
+Default: <code>[decompressTar(), decompressTarbz2(), decompressTargz(), decompressUnzip()]</code></p>
+<p>Array of <a href="https://www.npmjs.com/browse/keyword/decompressplugin">plugins</a> to use.</p>
+<div class="pilwrap" id="strip">
+  <h5>
+    <a href="#strip" name="strip" class="pilcrow"></a>
+strip
+  </h5>
+</div>
+<p>Type: <code>number</code><br>
+Default: <code>0</code></p>
+<p>Remove leading directory components from extracted files.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/kevva">Kevin Mårtensson</a></p>
+</div>
+  </div>
+</body>
+</html>

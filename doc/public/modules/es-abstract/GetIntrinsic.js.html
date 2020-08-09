@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GetIntrinsic.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es-abstract\\GetIntrinsic.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>GetIntrinsic.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>globals
+Atomics,
+SharedArrayBuffer,</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">var</span> <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// eslint-disable-line no-shadow-restricted-names</span>
+
+<span class="hljs-keyword">var</span> ThrowTypeError = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor
+	? (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(<span class="hljs-built_in">arguments</span>, <span class="hljs-string">'callee'</span>).get; }())
+	: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(); };
+
+<span class="hljs-keyword">var</span> hasSymbols = <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Symbol</span> === <span class="hljs-string">'function'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Symbol</span>.iterator === <span class="hljs-string">'symbol'</span>;
+
+<span class="hljs-keyword">var</span> getProto = <span class="hljs-built_in">Object</span>.getPrototypeOf || <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) </span>{ <span class="hljs-keyword">return</span> x.__proto__; }; <span class="hljs-comment">// eslint-disable-line no-proto</span>
+
+<span class="hljs-keyword">var</span> generator; <span class="hljs-comment">// = function * () {};</span>
+<span class="hljs-keyword">var</span> generatorFunction = generator ? getProto(generator) : <span class="hljs-literal">undefined</span>;
+<span class="hljs-keyword">var</span> asyncFn; <span class="hljs-comment">// async function() {};</span>
+<span class="hljs-keyword">var</span> asyncFunction = asyncFn ? asyncFn.constructor : <span class="hljs-literal">undefined</span>;
+<span class="hljs-keyword">var</span> asyncGen; <span class="hljs-comment">// async function * () {};</span>
+<span class="hljs-keyword">var</span> asyncGenFunction = asyncGen ? getProto(asyncGen) : <span class="hljs-literal">undefined</span>;
+<span class="hljs-keyword">var</span> asyncGenIterator = asyncGen ? asyncGen() : <span class="hljs-literal">undefined</span>;
+
+<span class="hljs-keyword">var</span> TypedArray = <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Uint8Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : getProto(<span class="hljs-built_in">Uint8Array</span>);
+
+<span class="hljs-keyword">var</span> INTRINSICS = {
+	<span class="hljs-string">'$ %Array%'</span>: <span class="hljs-built_in">Array</span>,
+	<span class="hljs-string">'$ %ArrayBuffer%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">ArrayBuffer</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">ArrayBuffer</span>,
+	<span class="hljs-string">'$ %ArrayBufferPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">ArrayBuffer</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">ArrayBuffer</span>.prototype,
+	<span class="hljs-string">'$ %ArrayIteratorPrototype%'</span>: hasSymbols ? getProto([][<span class="hljs-built_in">Symbol</span>.iterator]()) : <span class="hljs-literal">undefined</span>,
+	<span class="hljs-string">'$ %ArrayPrototype%'</span>: <span class="hljs-built_in">Array</span>.prototype,
+	<span class="hljs-string">'$ %ArrayProto_entries%'</span>: <span class="hljs-built_in">Array</span>.prototype.entries,
+	<span class="hljs-string">'$ %ArrayProto_forEach%'</span>: <span class="hljs-built_in">Array</span>.prototype.forEach,
+	<span class="hljs-string">'$ %ArrayProto_keys%'</span>: <span class="hljs-built_in">Array</span>.prototype.keys,
+	<span class="hljs-string">'$ %ArrayProto_values%'</span>: <span class="hljs-built_in">Array</span>.prototype.values,
+	<span class="hljs-string">'$ %AsyncFromSyncIteratorPrototype%'</span>: <span class="hljs-literal">undefined</span>,
+	<span class="hljs-string">'$ %AsyncFunction%'</span>: asyncFunction,
+	<span class="hljs-string">'$ %AsyncFunctionPrototype%'</span>: asyncFunction ? asyncFunction.prototype : <span class="hljs-literal">undefined</span>,
+	<span class="hljs-string">'$ %AsyncGenerator%'</span>: asyncGen ? getProto(asyncGenIterator) : <span class="hljs-literal">undefined</span>,
+	<span class="hljs-string">'$ %AsyncGeneratorFunction%'</span>: asyncGenFunction,
+	<span class="hljs-string">'$ %AsyncGeneratorPrototype%'</span>: asyncGenFunction ? asyncGenFunction.prototype : <span class="hljs-literal">undefined</span>,
+	<span class="hljs-string">'$ %AsyncIteratorPrototype%'</span>: asyncGenIterator &amp;&amp; hasSymbols &amp;&amp; <span class="hljs-built_in">Symbol</span>.asyncIterator ? asyncGenIterator[<span class="hljs-built_in">Symbol</span>.asyncIterator]() : <span class="hljs-literal">undefined</span>,
+	<span class="hljs-string">'$ %Atomics%'</span>: <span class="hljs-keyword">typeof</span> Atomics === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : Atomics,
+	<span class="hljs-string">'$ %Boolean%'</span>: <span class="hljs-built_in">Boolean</span>,
+	<span class="hljs-string">'$ %BooleanPrototype%'</span>: <span class="hljs-built_in">Boolean</span>.prototype,
+	<span class="hljs-string">'$ %DataView%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">DataView</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">DataView</span>,
+	<span class="hljs-string">'$ %DataViewPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">DataView</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">DataView</span>.prototype,
+	<span class="hljs-string">'$ %Date%'</span>: <span class="hljs-built_in">Date</span>,
+	<span class="hljs-string">'$ %DatePrototype%'</span>: <span class="hljs-built_in">Date</span>.prototype,
+	<span class="hljs-string">'$ %decodeURI%'</span>: <span class="hljs-built_in">decodeURI</span>,
+	<span class="hljs-string">'$ %decodeURIComponent%'</span>: <span class="hljs-built_in">decodeURIComponent</span>,
+	<span class="hljs-string">'$ %encodeURI%'</span>: <span class="hljs-built_in">encodeURI</span>,
+	<span class="hljs-string">'$ %encodeURIComponent%'</span>: <span class="hljs-built_in">encodeURIComponent</span>,
+	<span class="hljs-string">'$ %Error%'</span>: <span class="hljs-built_in">Error</span>,
+	<span class="hljs-string">'$ %ErrorPrototype%'</span>: <span class="hljs-built_in">Error</span>.prototype,
+	<span class="hljs-string">'$ %eval%'</span>: <span class="hljs-built_in">eval</span>, <span class="hljs-comment">// eslint-disable-line no-eval</span>
+	<span class="hljs-string">'$ %EvalError%'</span>: <span class="hljs-built_in">EvalError</span>,
+	<span class="hljs-string">'$ %EvalErrorPrototype%'</span>: <span class="hljs-built_in">EvalError</span>.prototype,
+	<span class="hljs-string">'$ %Float32Array%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Float32Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Float32Array</span>,
+	<span class="hljs-string">'$ %Float32ArrayPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Float32Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Float32Array</span>.prototype,
+	<span class="hljs-string">'$ %Float64Array%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Float64Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Float64Array</span>,
+	<span class="hljs-string">'$ %Float64ArrayPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Float64Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Float64Array</span>.prototype,
+	<span class="hljs-string">'$ %Function%'</span>: <span class="hljs-built_in">Function</span>,
+	<span class="hljs-string">'$ %FunctionPrototype%'</span>: <span class="hljs-built_in">Function</span>.prototype,
+	<span class="hljs-string">'$ %Generator%'</span>: generator ? getProto(generator()) : <span class="hljs-literal">undefined</span>,
+	<span class="hljs-string">'$ %GeneratorFunction%'</span>: generatorFunction,
+	<span class="hljs-string">'$ %GeneratorPrototype%'</span>: generatorFunction ? generatorFunction.prototype : <span class="hljs-literal">undefined</span>,
+	<span class="hljs-string">'$ %Int8Array%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Int8Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Int8Array</span>,
+	<span class="hljs-string">'$ %Int8ArrayPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Int8Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Int8Array</span>.prototype,
+	<span class="hljs-string">'$ %Int16Array%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Int16Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Int16Array</span>,
+	<span class="hljs-string">'$ %Int16ArrayPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Int16Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Int8Array</span>.prototype,
+	<span class="hljs-string">'$ %Int32Array%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Int32Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Int32Array</span>,
+	<span class="hljs-string">'$ %Int32ArrayPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Int32Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Int32Array</span>.prototype,
+	<span class="hljs-string">'$ %isFinite%'</span>: <span class="hljs-built_in">isFinite</span>,
+	<span class="hljs-string">'$ %isNaN%'</span>: <span class="hljs-built_in">isNaN</span>,
+	<span class="hljs-string">'$ %IteratorPrototype%'</span>: hasSymbols ? getProto(getProto([][<span class="hljs-built_in">Symbol</span>.iterator]())) : <span class="hljs-literal">undefined</span>,
+	<span class="hljs-string">'$ %JSON%'</span>: <span class="hljs-built_in">JSON</span>,
+	<span class="hljs-string">'$ %JSONParse%'</span>: <span class="hljs-built_in">JSON</span>.parse,
+	<span class="hljs-string">'$ %Map%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Map</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Map</span>,
+	<span class="hljs-string">'$ %MapIteratorPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Map</span> === <span class="hljs-string">'undefined'</span> || !hasSymbols ? <span class="hljs-literal">undefined</span> : getProto(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>()[<span class="hljs-built_in">Symbol</span>.iterator]()),
+	<span class="hljs-string">'$ %MapPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Map</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Map</span>.prototype,
+	<span class="hljs-string">'$ %Math%'</span>: <span class="hljs-built_in">Math</span>,
+	<span class="hljs-string">'$ %Number%'</span>: <span class="hljs-built_in">Number</span>,
+	<span class="hljs-string">'$ %NumberPrototype%'</span>: <span class="hljs-built_in">Number</span>.prototype,
+	<span class="hljs-string">'$ %Object%'</span>: <span class="hljs-built_in">Object</span>,
+	<span class="hljs-string">'$ %ObjectPrototype%'</span>: <span class="hljs-built_in">Object</span>.prototype,
+	<span class="hljs-string">'$ %ObjProto_toString%'</span>: <span class="hljs-built_in">Object</span>.prototype.toString,
+	<span class="hljs-string">'$ %ObjProto_valueOf%'</span>: <span class="hljs-built_in">Object</span>.prototype.valueOf,
+	<span class="hljs-string">'$ %parseFloat%'</span>: <span class="hljs-built_in">parseFloat</span>,
+	<span class="hljs-string">'$ %parseInt%'</span>: <span class="hljs-built_in">parseInt</span>,
+	<span class="hljs-string">'$ %Promise%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Promise</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Promise</span>,
+	<span class="hljs-string">'$ %PromisePrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Promise</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Promise</span>.prototype,
+	<span class="hljs-string">'$ %PromiseProto_then%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Promise</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Promise</span>.prototype.then,
+	<span class="hljs-string">'$ %Promise_all%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Promise</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Promise</span>.all,
+	<span class="hljs-string">'$ %Promise_reject%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Promise</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Promise</span>.reject,
+	<span class="hljs-string">'$ %Promise_resolve%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Promise</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Promise</span>.resolve,
+	<span class="hljs-string">'$ %Proxy%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Proxy</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Proxy</span>,
+	<span class="hljs-string">'$ %RangeError%'</span>: <span class="hljs-built_in">RangeError</span>,
+	<span class="hljs-string">'$ %RangeErrorPrototype%'</span>: <span class="hljs-built_in">RangeError</span>.prototype,
+	<span class="hljs-string">'$ %ReferenceError%'</span>: <span class="hljs-built_in">ReferenceError</span>,
+	<span class="hljs-string">'$ %ReferenceErrorPrototype%'</span>: <span class="hljs-built_in">ReferenceError</span>.prototype,
+	<span class="hljs-string">'$ %Reflect%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Reflect</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Reflect</span>,
+	<span class="hljs-string">'$ %RegExp%'</span>: <span class="hljs-built_in">RegExp</span>,
+	<span class="hljs-string">'$ %RegExpPrototype%'</span>: <span class="hljs-built_in">RegExp</span>.prototype,
+	<span class="hljs-string">'$ %Set%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Set</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Set</span>,
+	<span class="hljs-string">'$ %SetIteratorPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Set</span> === <span class="hljs-string">'undefined'</span> || !hasSymbols ? <span class="hljs-literal">undefined</span> : getProto(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>()[<span class="hljs-built_in">Symbol</span>.iterator]()),
+	<span class="hljs-string">'$ %SetPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Set</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Set</span>.prototype,
+	<span class="hljs-string">'$ %SharedArrayBuffer%'</span>: <span class="hljs-keyword">typeof</span> SharedArrayBuffer === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : SharedArrayBuffer,
+	<span class="hljs-string">'$ %SharedArrayBufferPrototype%'</span>: <span class="hljs-keyword">typeof</span> SharedArrayBuffer === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : SharedArrayBuffer.prototype,
+	<span class="hljs-string">'$ %String%'</span>: <span class="hljs-built_in">String</span>,
+	<span class="hljs-string">'$ %StringIteratorPrototype%'</span>: hasSymbols ? getProto(<span class="hljs-string">''</span>[<span class="hljs-built_in">Symbol</span>.iterator]()) : <span class="hljs-literal">undefined</span>,
+	<span class="hljs-string">'$ %StringPrototype%'</span>: <span class="hljs-built_in">String</span>.prototype,
+	<span class="hljs-string">'$ %Symbol%'</span>: hasSymbols ? <span class="hljs-built_in">Symbol</span> : <span class="hljs-literal">undefined</span>,
+	<span class="hljs-string">'$ %SymbolPrototype%'</span>: hasSymbols ? <span class="hljs-built_in">Symbol</span>.prototype : <span class="hljs-literal">undefined</span>,
+	<span class="hljs-string">'$ %SyntaxError%'</span>: <span class="hljs-built_in">SyntaxError</span>,
+	<span class="hljs-string">'$ %SyntaxErrorPrototype%'</span>: <span class="hljs-built_in">SyntaxError</span>.prototype,
+	<span class="hljs-string">'$ %ThrowTypeError%'</span>: ThrowTypeError,
+	<span class="hljs-string">'$ %TypedArray%'</span>: TypedArray,
+	<span class="hljs-string">'$ %TypedArrayPrototype%'</span>: TypedArray ? TypedArray.prototype : <span class="hljs-literal">undefined</span>,
+	<span class="hljs-string">'$ %TypeError%'</span>: <span class="hljs-built_in">TypeError</span>,
+	<span class="hljs-string">'$ %TypeErrorPrototype%'</span>: <span class="hljs-built_in">TypeError</span>.prototype,
+	<span class="hljs-string">'$ %Uint8Array%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Uint8Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Uint8Array</span>,
+	<span class="hljs-string">'$ %Uint8ArrayPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Uint8Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Uint8Array</span>.prototype,
+	<span class="hljs-string">'$ %Uint8ClampedArray%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Uint8ClampedArray</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Uint8ClampedArray</span>,
+	<span class="hljs-string">'$ %Uint8ClampedArrayPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Uint8ClampedArray</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Uint8ClampedArray</span>.prototype,
+	<span class="hljs-string">'$ %Uint16Array%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Uint16Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Uint16Array</span>,
+	<span class="hljs-string">'$ %Uint16ArrayPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Uint16Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Uint16Array</span>.prototype,
+	<span class="hljs-string">'$ %Uint32Array%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Uint32Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Uint32Array</span>,
+	<span class="hljs-string">'$ %Uint32ArrayPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Uint32Array</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">Uint32Array</span>.prototype,
+	<span class="hljs-string">'$ %URIError%'</span>: <span class="hljs-built_in">URIError</span>,
+	<span class="hljs-string">'$ %URIErrorPrototype%'</span>: <span class="hljs-built_in">URIError</span>.prototype,
+	<span class="hljs-string">'$ %WeakMap%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">WeakMap</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">WeakMap</span>,
+	<span class="hljs-string">'$ %WeakMapPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">WeakMap</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">WeakMap</span>.prototype,
+	<span class="hljs-string">'$ %WeakSet%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">WeakSet</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">WeakSet</span>,
+	<span class="hljs-string">'$ %WeakSetPrototype%'</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">WeakSet</span> === <span class="hljs-string">'undefined'</span> ? <span class="hljs-literal">undefined</span> : <span class="hljs-built_in">WeakSet</span>.prototype
+};
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">GetIntrinsic</span>(<span class="hljs-params">name, allowMissing</span>) </span>{
+	<span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">1</span> &amp;&amp; <span class="hljs-keyword">typeof</span> allowMissing !== <span class="hljs-string">'boolean'</span>) {
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'"allowMissing" argument must be a boolean'</span>);
+	}
+
+	<span class="hljs-keyword">var</span> key = <span class="hljs-string">'$ '</span> + name;
+	<span class="hljs-keyword">if</span> (!(key <span class="hljs-keyword">in</span> INTRINSICS)) {
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">'intrinsic '</span> + name + <span class="hljs-string">' does not exist!'</span>);
+	}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>istanbul ignore if // hopefully this is impossible to test :-)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> INTRINSICS[key] === <span class="hljs-string">'undefined'</span> &amp;&amp; !allowMissing) {
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'intrinsic '</span> + name + <span class="hljs-string">' exists, but is not available. Please file an issue!'</span>);
+	}
+	<span class="hljs-keyword">return</span> INTRINSICS[key];
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

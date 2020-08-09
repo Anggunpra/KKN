@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\duplexify\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#duplexify">duplexify</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#http-request-example">HTTP request example</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related">Related</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="duplexify">
+  <h1>
+    <a href="#duplexify" name="duplexify" class="pilcrow"></a>
+duplexify
+  </h1>
+</div>
+<p>Turn a writeable and readable stream into a single streams2 duplex stream.</p>
+<p>Similar to <a href="https://github.com/deoxxa/duplexer2">duplexer2</a> except it supports both streams2 and streams1 as input
+and it allows you to set the readable and writable part asynchronously using <code>setReadable(stream)</code> and <code>setWritable(stream)</code></p>
+<pre><code>npm install duplexify
+</code></pre>
+<p><a href="http://travis-ci.org/mafintosh/duplexify"><img src="http://img.shields.io/travis/mafintosh/duplexify.svg?style=flat" alt="build status"></a></p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>Use <code>duplexify(writable, readable, streamOptions)</code> (or <code>duplexify.obj(writable, readable)</code> to create an object stream)</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> duplexify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'duplexify'</span>)
+
+<span class="hljs-comment">// turn writableStream and readableStream into a single duplex stream</span>
+<span class="hljs-keyword">var</span> dup = duplexify(writableStream, readableStream)
+
+dup.write(<span class="hljs-string">'hello world'</span>) <span class="hljs-comment">// will write to writableStream</span>
+dup.on(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+  <span class="hljs-comment">// will read from readableStream</span>
+})
+</code></pre>
+<p>You can also set the readable and writable parts asynchronously</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> dup = duplexify()
+
+dup.write(<span class="hljs-string">'hello world'</span>) <span class="hljs-comment">// write will buffer until the writable</span>
+                         <span class="hljs-comment">// part has been set</span>
+
+<span class="hljs-comment">// wait a bit ...</span>
+dup.setReadable(readableStream)
+
+<span class="hljs-comment">// maybe wait some more?</span>
+dup.setWritable(writableStream)
+</code></pre>
+<p>If you call <code>setReadable</code> or <code>setWritable</code> multiple times it will unregister the previous readable/writable stream.
+To disable the readable or writable part call <code>setReadable</code> or <code>setWritable</code> with <code>null</code>.</p>
+<p>If the readable or writable streams emits an error or close it will destroy both streams and bubble up the event.
+You can also explicitly destroy the streams by calling <code>dup.destroy()</code>. The <code>destroy</code> method optionally takes an
+error object as argument, in which case the error is emitted as part of the <code>error</code> event.</p>
+<pre><code class="js">dup.on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'readable or writable emitted an error - close will follow'</span>)
+})
+
+dup.on(<span class="hljs-string">'close'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'the duplex stream is destroyed'</span>)
+})
+
+dup.destroy() <span class="hljs-comment">// calls destroy on the readable and writable part (if present)</span>
+</code></pre>
+<div class="pilwrap" id="http-request-example">
+  <h2>
+    <a href="#http-request-example" name="http-request-example" class="pilcrow"></a>
+HTTP request example
+  </h2>
+</div>
+<p>Turn a node core http request into a duplex stream is as easy as</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> duplexify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'duplexify'</span>)
+<span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>)
+
+<span class="hljs-keyword">var</span> request = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">opts</span>) </span>{
+  <span class="hljs-keyword">var</span> req = http.request(opts)
+  <span class="hljs-keyword">var</span> dup = duplexify(req)
+  req.on(<span class="hljs-string">'response'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    dup.setReadable(res)
+  })
+  <span class="hljs-keyword">return</span> dup
+}
+
+<span class="hljs-keyword">var</span> req = request({
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+  <span class="hljs-attr">host</span>: <span class="hljs-string">'www.google.com'</span>,
+  <span class="hljs-attr">port</span>: <span class="hljs-number">80</span>
+})
+
+req.end()
+req.pipe(process.stdout)
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+<div class="pilwrap" id="related">
+  <h2>
+    <a href="#related" name="related" class="pilcrow"></a>
+Related
+  </h2>
+</div>
+<p><code>duplexify</code> is part of the <a href="https://github.com/maxogden/mississippi">mississippi stream utility collection</a> which includes more useful stream modules similar to this one.</p>
+</div>
+  </div>
+</body>
+</html>

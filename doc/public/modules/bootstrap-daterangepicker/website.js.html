@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>website.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bootstrap-daterangepicker\\website.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>website.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+    $(<span class="hljs-string">'#config-text'</span>).keyup(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-built_in">eval</span>($(<span class="hljs-keyword">this</span>).val());
+    });
+    
+    $(<span class="hljs-string">'.configurator input, .configurator select'</span>).change(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      updateConfig();
+    });
+
+    $(<span class="hljs-string">'.demo i'</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      $(<span class="hljs-keyword">this</span>).parent().find(<span class="hljs-string">'input'</span>).click();
+    });
+
+    $(<span class="hljs-string">'#startDate'</span>).daterangepicker({
+      <span class="hljs-attr">singleDatePicker</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">startDate</span>: moment().subtract(<span class="hljs-number">6</span>, <span class="hljs-string">'days'</span>)
+    });
+
+    $(<span class="hljs-string">'#endDate'</span>).daterangepicker({
+      <span class="hljs-attr">singleDatePicker</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">startDate</span>: moment()
+    });
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>updateConfig();</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateConfig</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> options = {};
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#singleDatePicker'</span>).is(<span class="hljs-string">':checked'</span>))
+        options.singleDatePicker = <span class="hljs-literal">true</span>;
+      
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#showDropdowns'</span>).is(<span class="hljs-string">':checked'</span>))
+        options.showDropdowns = <span class="hljs-literal">true</span>;
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#minYear'</span>).val().length &amp;&amp; $(<span class="hljs-string">'#minYear'</span>).val() != <span class="hljs-number">1</span>)
+        options.minYear = <span class="hljs-built_in">parseInt</span>($(<span class="hljs-string">'#minYear'</span>).val(), <span class="hljs-number">10</span>);
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#maxYear'</span>).val().length &amp;&amp; $(<span class="hljs-string">'#maxYear'</span>).val() != <span class="hljs-number">1</span>)
+        options.maxYear = <span class="hljs-built_in">parseInt</span>($(<span class="hljs-string">'#maxYear'</span>).val(), <span class="hljs-number">10</span>);
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#showWeekNumbers'</span>).is(<span class="hljs-string">':checked'</span>))
+        options.showWeekNumbers = <span class="hljs-literal">true</span>;
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#showISOWeekNumbers'</span>).is(<span class="hljs-string">':checked'</span>))
+        options.showISOWeekNumbers = <span class="hljs-literal">true</span>;
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#timePicker'</span>).is(<span class="hljs-string">':checked'</span>))
+        options.timePicker = <span class="hljs-literal">true</span>;
+      
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#timePicker24Hour'</span>).is(<span class="hljs-string">':checked'</span>))
+        options.timePicker24Hour = <span class="hljs-literal">true</span>;
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#timePickerIncrement'</span>).val().length &amp;&amp; $(<span class="hljs-string">'#timePickerIncrement'</span>).val() != <span class="hljs-number">1</span>)
+        options.timePickerIncrement = <span class="hljs-built_in">parseInt</span>($(<span class="hljs-string">'#timePickerIncrement'</span>).val(), <span class="hljs-number">10</span>);
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#timePickerSeconds'</span>).is(<span class="hljs-string">':checked'</span>))
+        options.timePickerSeconds = <span class="hljs-literal">true</span>;
+      
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#autoApply'</span>).is(<span class="hljs-string">':checked'</span>))
+        options.autoApply = <span class="hljs-literal">true</span>;
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#maxSpan'</span>).is(<span class="hljs-string">':checked'</span>))
+        options.maxSpan = { <span class="hljs-attr">days</span>: <span class="hljs-number">7</span> };
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#ranges'</span>).is(<span class="hljs-string">':checked'</span>)) {
+        options.ranges = {
+          <span class="hljs-string">'Today'</span>: [moment(), moment()],
+          <span class="hljs-string">'Yesterday'</span>: [moment().subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'days'</span>), moment().subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'days'</span>)],
+          <span class="hljs-string">'Last 7 Days'</span>: [moment().subtract(<span class="hljs-number">6</span>, <span class="hljs-string">'days'</span>), moment()],
+          <span class="hljs-string">'Last 30 Days'</span>: [moment().subtract(<span class="hljs-number">29</span>, <span class="hljs-string">'days'</span>), moment()],
+          <span class="hljs-string">'This Month'</span>: [moment().startOf(<span class="hljs-string">'month'</span>), moment().endOf(<span class="hljs-string">'month'</span>)],
+          <span class="hljs-string">'Last Month'</span>: [moment().subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>).startOf(<span class="hljs-string">'month'</span>), moment().subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'month'</span>).endOf(<span class="hljs-string">'month'</span>)]
+        };
+      }
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#locale'</span>).is(<span class="hljs-string">':checked'</span>)) {
+        options.locale = {
+          <span class="hljs-attr">format</span>: <span class="hljs-string">'MM/DD/YYYY'</span>,
+          <span class="hljs-attr">separator</span>: <span class="hljs-string">' - '</span>,
+          <span class="hljs-attr">applyLabel</span>: <span class="hljs-string">'Apply'</span>,
+          <span class="hljs-attr">cancelLabel</span>: <span class="hljs-string">'Cancel'</span>,
+          <span class="hljs-attr">fromLabel</span>: <span class="hljs-string">'From'</span>,
+          <span class="hljs-attr">toLabel</span>: <span class="hljs-string">'To'</span>,
+          <span class="hljs-attr">customRangeLabel</span>: <span class="hljs-string">'Custom'</span>,
+          <span class="hljs-attr">weekLabel</span>: <span class="hljs-string">'W'</span>,
+          <span class="hljs-attr">daysOfWeek</span>: [<span class="hljs-string">'Su'</span>, <span class="hljs-string">'Mo'</span>, <span class="hljs-string">'Tu'</span>, <span class="hljs-string">'We'</span>, <span class="hljs-string">'Th'</span>, <span class="hljs-string">'Fr'</span>,<span class="hljs-string">'Sa'</span>],
+          <span class="hljs-attr">monthNames</span>: [<span class="hljs-string">'January'</span>, <span class="hljs-string">'February'</span>, <span class="hljs-string">'March'</span>, <span class="hljs-string">'April'</span>, <span class="hljs-string">'May'</span>, <span class="hljs-string">'June'</span>, <span class="hljs-string">'July'</span>, <span class="hljs-string">'August'</span>, <span class="hljs-string">'September'</span>, <span class="hljs-string">'October'</span>, <span class="hljs-string">'November'</span>, <span class="hljs-string">'December'</span>],
+          <span class="hljs-attr">firstDay</span>: <span class="hljs-number">1</span>
+        };
+      }
+
+      <span class="hljs-keyword">if</span> (!$(<span class="hljs-string">'#linkedCalendars'</span>).is(<span class="hljs-string">':checked'</span>))
+        options.linkedCalendars = <span class="hljs-literal">false</span>;
+
+      <span class="hljs-keyword">if</span> (!$(<span class="hljs-string">'#autoUpdateInput'</span>).is(<span class="hljs-string">':checked'</span>))
+        options.autoUpdateInput = <span class="hljs-literal">false</span>;
+
+      <span class="hljs-keyword">if</span> (!$(<span class="hljs-string">'#showCustomRangeLabel'</span>).is(<span class="hljs-string">':checked'</span>))
+        options.showCustomRangeLabel = <span class="hljs-literal">false</span>;
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#alwaysShowCalendars'</span>).is(<span class="hljs-string">':checked'</span>))
+        options.alwaysShowCalendars = <span class="hljs-literal">true</span>;
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#parentEl'</span>).val().length)
+        options.parentEl = $(<span class="hljs-string">'#parentEl'</span>).val();
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#startDate'</span>).val().length) 
+        options.startDate = $(<span class="hljs-string">'#startDate'</span>).val();
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#endDate'</span>).val().length)
+        options.endDate = $(<span class="hljs-string">'#endDate'</span>).val();
+      
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#minDate'</span>).val().length)
+        options.minDate = $(<span class="hljs-string">'#minDate'</span>).val();
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#maxDate'</span>).val().length)
+        options.maxDate = $(<span class="hljs-string">'#maxDate'</span>).val();
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#opens'</span>).val().length &amp;&amp; $(<span class="hljs-string">'#opens'</span>).val() != <span class="hljs-string">'right'</span>)
+        options.opens = $(<span class="hljs-string">'#opens'</span>).val();
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#drops'</span>).val().length &amp;&amp; $(<span class="hljs-string">'#drops'</span>).val() != <span class="hljs-string">'down'</span>)
+        options.drops = $(<span class="hljs-string">'#drops'</span>).val();
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#buttonClasses'</span>).val().length &amp;&amp; $(<span class="hljs-string">'#buttonClasses'</span>).val() != <span class="hljs-string">'btn btn-sm'</span>)
+        options.buttonClasses = $(<span class="hljs-string">'#buttonClasses'</span>).val();
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#applyButtonClasses'</span>).val().length &amp;&amp; $(<span class="hljs-string">'#applyButtonClasses'</span>).val() != <span class="hljs-string">'btn-primary'</span>)
+        options.applyButtonClasses = $(<span class="hljs-string">'#applyButtonClasses'</span>).val();
+
+      <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'#cancelButtonClasses'</span>).val().length &amp;&amp; $(<span class="hljs-string">'#cancelButtonClasses'</span>).val() != <span class="hljs-string">'btn-default'</span>)
+        options.cancelClass = $(<span class="hljs-string">'#cancelButtonClasses'</span>).val();
+
+      $(<span class="hljs-string">'#config-demo'</span>).daterangepicker(options, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">start, end, label</span>) </span>{ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'New date range selected: '</span> + start.format(<span class="hljs-string">'YYYY-MM-DD'</span>) + <span class="hljs-string">' to '</span> + end.format(<span class="hljs-string">'YYYY-MM-DD'</span>) + <span class="hljs-string">' (predefined range: '</span> + label + <span class="hljs-string">')'</span>); });
+      
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.ranges !== <span class="hljs-string">'undefined'</span>) {
+        options.ranges = {};
+      }
+
+      <span class="hljs-keyword">var</span> option_text = <span class="hljs-built_in">JSON</span>.stringify(options, <span class="hljs-literal">null</span>, <span class="hljs-string">'    '</span>);
+
+      <span class="hljs-keyword">var</span> replacement = <span class="hljs-string">"ranges: {\n"</span>
+          + <span class="hljs-string">"        'Today': [moment(), moment()],\n"</span>
+          + <span class="hljs-string">"        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],\n"</span>
+          + <span class="hljs-string">"        'Last 7 Days': [moment().subtract(6, 'days'), moment()],\n"</span>
+          + <span class="hljs-string">"        'Last 30 Days': [moment().subtract(29, 'days'), moment()],\n"</span>
+          + <span class="hljs-string">"        'This Month': [moment().startOf('month'), moment().endOf('month')],\n"</span>
+          + <span class="hljs-string">"        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]\n"</span>
+          + <span class="hljs-string">"    }"</span>;
+      option_text = option_text.replace(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'"ranges"\: \{\}'</span>, <span class="hljs-string">'g'</span>), replacement);
+
+      $(<span class="hljs-string">'#config-text'</span>).val(<span class="hljs-string">"$('#demo').daterangepicker("</span> + option_text + <span class="hljs-string">", function(start, end, label) {\n  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');\n});"</span>);
+
+    }
+
+    $(<span class="hljs-built_in">window</span>).scroll(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+        <span class="hljs-keyword">var</span> scroll = $(<span class="hljs-built_in">window</span>).scrollTop();
+        <span class="hljs-keyword">if</span> (scroll &gt; <span class="hljs-number">180</span>) {
+          $(<span class="hljs-string">'.leftcol'</span>).css(<span class="hljs-string">'position'</span>, <span class="hljs-string">'fixed'</span>);
+          $(<span class="hljs-string">'.leftcol'</span>).css(<span class="hljs-string">'top'</span>, <span class="hljs-string">'10px'</span>);
+        } <span class="hljs-keyword">else</span> {
+          $(<span class="hljs-string">'.leftcol'</span>).css(<span class="hljs-string">'position'</span>, <span class="hljs-string">'absolute'</span>);
+          $(<span class="hljs-string">'.leftcol'</span>).css(<span class="hljs-string">'top'</span>, <span class="hljs-string">'180px'</span>);
+        }
+    });
+
+    <span class="hljs-keyword">var</span> bg = <span class="hljs-keyword">new</span> Trianglify({
+      <span class="hljs-attr">x_colors</span>: [<span class="hljs-string">"#e1f3fd"</span>, <span class="hljs-string">"#eeeeee"</span>, <span class="hljs-string">"#407dbf"</span>],
+      <span class="hljs-attr">y_colors</span>: <span class="hljs-string">'match_x'</span>,
+      <span class="hljs-attr">width</span>: <span class="hljs-built_in">document</span>.body.clientWidth,
+      <span class="hljs-attr">height</span>: <span class="hljs-number">150</span>,
+      <span class="hljs-attr">stroke_width</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-attr">cell_size</span>: <span class="hljs-number">20</span>
+    });
+
+    $(<span class="hljs-string">'#jumbo'</span>).css(<span class="hljs-string">'background-image'</span>, <span class="hljs-string">'url('</span> + bg.png() + <span class="hljs-string">')'</span>);
+
+});
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

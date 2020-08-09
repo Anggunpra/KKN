@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es6-symbol\\package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+	<span class="hljs-attr">"name"</span>: <span class="hljs-string">"es6-symbol"</span>,
+	<span class="hljs-attr">"version"</span>: <span class="hljs-string">"3.1.2"</span>,
+	<span class="hljs-attr">"description"</span>: <span class="hljs-string">"ECMAScript 6 Symbol polyfill"</span>,
+	<span class="hljs-attr">"author"</span>: <span class="hljs-string">"Mariusz Nowak &lt;medyk@medikoo.com&gt; (http://www.medikoo.com/)"</span>,
+	<span class="hljs-attr">"keywords"</span>: [
+		<span class="hljs-string">"symbol"</span>,
+		<span class="hljs-string">"private"</span>,
+		<span class="hljs-string">"property"</span>,
+		<span class="hljs-string">"es6"</span>,
+		<span class="hljs-string">"ecmascript"</span>,
+		<span class="hljs-string">"harmony"</span>,
+		<span class="hljs-string">"ponyfill"</span>,
+		<span class="hljs-string">"polyfill"</span>
+	],
+	<span class="hljs-attr">"repository"</span>: {
+		<span class="hljs-attr">"type"</span>: <span class="hljs-string">"git"</span>,
+		<span class="hljs-attr">"url"</span>: <span class="hljs-string">"git://github.com/medikoo/es6-symbol.git"</span>
+	},
+	<span class="hljs-attr">"dependencies"</span>: {
+		<span class="hljs-attr">"d"</span>: <span class="hljs-string">"^1.0.1"</span>,
+		<span class="hljs-attr">"es5-ext"</span>: <span class="hljs-string">"^0.10.51"</span>
+	},
+	<span class="hljs-attr">"devDependencies"</span>: {
+		<span class="hljs-attr">"eslint"</span>: <span class="hljs-string">"^6.3.0"</span>,
+		<span class="hljs-attr">"eslint-config-medikoo"</span>: <span class="hljs-string">"^2.5.1"</span>,
+		<span class="hljs-attr">"git-list-updated"</span>: <span class="hljs-string">"^1.2.1"</span>,
+		<span class="hljs-attr">"husky"</span>: <span class="hljs-string">"^3.0.5"</span>,
+		<span class="hljs-attr">"lint-staged"</span>: <span class="hljs-string">"^9.2.5"</span>,
+		<span class="hljs-attr">"prettier-elastic"</span>: <span class="hljs-string">"^1.18.2"</span>,
+		<span class="hljs-attr">"tad"</span>: <span class="hljs-string">"^3.0.1"</span>
+	},
+	<span class="hljs-attr">"eslintConfig"</span>: {
+		<span class="hljs-attr">"extends"</span>: <span class="hljs-string">"medikoo/es5"</span>,
+		<span class="hljs-attr">"root"</span>: <span class="hljs-literal">true</span>,
+		<span class="hljs-attr">"rules"</span>: {
+			<span class="hljs-attr">"new-cap"</span>: [
+				<span class="hljs-string">"error"</span>,
+				{
+					<span class="hljs-attr">"capIsNewExceptions"</span>: [
+						<span class="hljs-string">"NativeSymbol"</span>,
+						<span class="hljs-string">"SymbolPolyfill"</span>
+					]
+				}
+			]
+		},
+		<span class="hljs-attr">"overrides"</span>: [
+			{
+				<span class="hljs-attr">"files"</span>: [
+					<span class="hljs-string">"polyfill.js"</span>
+				],
+				<span class="hljs-attr">"rules"</span>: {
+					<span class="hljs-attr">"func-names"</span>: <span class="hljs-string">"off"</span>
+				}
+			},
+			{
+				<span class="hljs-attr">"files"</span>: [
+					<span class="hljs-string">"test/*.js"</span>
+				],
+				<span class="hljs-attr">"globals"</span>: {
+					<span class="hljs-attr">"Symbol"</span>: <span class="hljs-literal">true</span>
+				}
+			}
+		]
+	},
+	<span class="hljs-attr">"prettier"</span>: {
+		<span class="hljs-attr">"printWidth"</span>: <span class="hljs-number">100</span>,
+		<span class="hljs-attr">"tabWidth"</span>: <span class="hljs-number">4</span>,
+		<span class="hljs-attr">"overrides"</span>: [
+			{
+				<span class="hljs-attr">"files"</span>: [
+					<span class="hljs-string">"*.md"</span>
+				],
+				<span class="hljs-attr">"options"</span>: {
+					<span class="hljs-attr">"tabWidth"</span>: <span class="hljs-number">2</span>
+				}
+			}
+		]
+	},
+	<span class="hljs-attr">"husky"</span>: {
+		<span class="hljs-attr">"hooks"</span>: {
+			<span class="hljs-attr">"pre-commit"</span>: <span class="hljs-string">"lint-staged"</span>
+		}
+	},
+	<span class="hljs-attr">"lint-staged"</span>: {
+		<span class="hljs-attr">"*.js"</span>: [
+			<span class="hljs-string">"eslint"</span>
+		],
+		<span class="hljs-attr">"*.{css,html,js,json,md,yaml,yml}"</span>: [
+			<span class="hljs-string">"prettier -c"</span>
+		]
+	},
+	<span class="hljs-attr">"scripts"</span>: {
+		<span class="hljs-attr">"lint"</span>: <span class="hljs-string">"eslint --ignore-path=.gitignore ."</span>,
+		<span class="hljs-attr">"lint:updated"</span>: <span class="hljs-string">"pipe-git-updated --ext=js -- eslint --ignore-pattern '!*'"</span>,
+		<span class="hljs-attr">"prettier-check"</span>: <span class="hljs-string">"prettier -c --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\""</span>,
+		<span class="hljs-attr">"prettier-check:updated"</span>: <span class="hljs-string">"pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier -c"</span>,
+		<span class="hljs-attr">"prettify"</span>: <span class="hljs-string">"prettier --write --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\""</span>,
+		<span class="hljs-attr">"prettify:updated"</span>: <span class="hljs-string">"pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier --write"</span>,
+		<span class="hljs-attr">"test"</span>: <span class="hljs-string">"tad"</span>
+	},
+	<span class="hljs-attr">"license"</span>: <span class="hljs-string">"ISC"</span>
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

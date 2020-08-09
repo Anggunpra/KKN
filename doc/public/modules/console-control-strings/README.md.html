@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\console-control-strings\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#console-control-strings">Console Control Strings</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#why-another">Why Another?</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#functions">Functions</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.up-num-1">var code = consoleControl.up(num = 1)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.down-num-1">var code = consoleControl.down(num = 1)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.forward-num-1">var code = consoleControl.forward(num = 1)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.back-num-1">var code = consoleControl.back(num = 1)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.nextline-num-1">var code = consoleControl.nextLine(num = 1)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.previousline-num-1">var code = consoleControl.previousLine(num = 1)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.erasedata">var code = consoleControl.eraseData()</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.eraseline">var code = consoleControl.eraseLine()</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.goto-x-y">var code = consoleControl.goto(x, y)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.gotosol">var code = consoleControl.gotoSOL()</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.beep">var code = consoleControl.beep()</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.hidecursor">var code = consoleControl.hideCursor()</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.showcursor">var code = consoleControl.showCursor()</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.color-colors">var code = consoleControl.color(colors = [])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#var-code-consolecontrol.color-color1-color2...colorn">var code = consoleControl.color(color1, color2, …, colorn)</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="console-control-strings">
+  <h1>
+    <a href="#console-control-strings" name="console-control-strings" class="pilcrow"></a>
+Console Control Strings
+  </h1>
+</div>
+<p>A library of cross-platform tested terminal/console command strings for
+doing things like color and cursor positioning.  This is a subset of both
+ansi and vt100.  All control codes included work on both Windows &amp; Unix-like
+OSes, except where noted.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> consoleControl = <span class="hljs-built_in">require</span>(<span class="hljs-string">'console-control-strings'</span>)
+
+<span class="hljs-built_in">console</span>.log(consoleControl.color(<span class="hljs-string">'blue'</span>,<span class="hljs-string">'bgRed'</span>, <span class="hljs-string">'bold'</span>) + <span class="hljs-string">'hi there'</span> + consoleControl.color(<span class="hljs-string">'reset'</span>))
+process.stdout.write(consoleControl.goto(<span class="hljs-number">75</span>, <span class="hljs-number">10</span>))
+</code></pre>
+<div class="pilwrap" id="why-another">
+  <h2>
+    <a href="#why-another" name="why-another" class="pilcrow"></a>
+Why Another?
+  </h2>
+</div>
+<p>There are tons of libraries similar to this one.  I wanted one that was:</p>
+<ol>
+<li>Very clear about compatibility goals.</li>
+<li>Could emit, for instance, a start color code without an end one.</li>
+<li>Returned strings w/o writing to streams.</li>
+<li>Was not weighed down with other unrelated baggage.</li>
+</ol>
+<div class="pilwrap" id="functions">
+  <h2>
+    <a href="#functions" name="functions" class="pilcrow"></a>
+Functions
+  </h2>
+</div>
+<div class="pilwrap" id="var-code-consolecontrol.up-num-1">
+  <h3>
+    <a href="#var-code-consolecontrol.up-num-1" name="var-code-consolecontrol.up-num-1" class="pilcrow"></a>
+var code = consoleControl.up(<em>num = 1</em>)
+  </h3>
+</div>
+<p>Returns the escape sequence to move <em>num</em> lines up.</p>
+<div class="pilwrap" id="var-code-consolecontrol.down-num-1">
+  <h3>
+    <a href="#var-code-consolecontrol.down-num-1" name="var-code-consolecontrol.down-num-1" class="pilcrow"></a>
+var code = consoleControl.down(<em>num = 1</em>)
+  </h3>
+</div>
+<p>Returns the escape sequence to move <em>num</em> lines down.</p>
+<div class="pilwrap" id="var-code-consolecontrol.forward-num-1">
+  <h3>
+    <a href="#var-code-consolecontrol.forward-num-1" name="var-code-consolecontrol.forward-num-1" class="pilcrow"></a>
+var code = consoleControl.forward(<em>num = 1</em>)
+  </h3>
+</div>
+<p>Returns the escape sequence to move <em>num</em> lines righ.</p>
+<div class="pilwrap" id="var-code-consolecontrol.back-num-1">
+  <h3>
+    <a href="#var-code-consolecontrol.back-num-1" name="var-code-consolecontrol.back-num-1" class="pilcrow"></a>
+var code = consoleControl.back(<em>num = 1</em>)
+  </h3>
+</div>
+<p>Returns the escape sequence to move <em>num</em> lines left.</p>
+<div class="pilwrap" id="var-code-consolecontrol.nextline-num-1">
+  <h3>
+    <a href="#var-code-consolecontrol.nextline-num-1" name="var-code-consolecontrol.nextline-num-1" class="pilcrow"></a>
+var code = consoleControl.nextLine(<em>num = 1</em>)
+  </h3>
+</div>
+<p>Returns the escape sequence to move <em>num</em> lines down and to the beginning of
+the line.</p>
+<div class="pilwrap" id="var-code-consolecontrol.previousline-num-1">
+  <h3>
+    <a href="#var-code-consolecontrol.previousline-num-1" name="var-code-consolecontrol.previousline-num-1" class="pilcrow"></a>
+var code = consoleControl.previousLine(<em>num = 1</em>)
+  </h3>
+</div>
+<p>Returns the escape sequence to move <em>num</em> lines up and to the beginning of
+the line.</p>
+<div class="pilwrap" id="var-code-consolecontrol.erasedata">
+  <h3>
+    <a href="#var-code-consolecontrol.erasedata" name="var-code-consolecontrol.erasedata" class="pilcrow"></a>
+var code = consoleControl.eraseData()
+  </h3>
+</div>
+<p>Returns the escape sequence to erase everything from the current cursor
+position to the bottom right of the screen.  This is line based, so it
+erases the remainder of the current line and all following lines.</p>
+<div class="pilwrap" id="var-code-consolecontrol.eraseline">
+  <h3>
+    <a href="#var-code-consolecontrol.eraseline" name="var-code-consolecontrol.eraseline" class="pilcrow"></a>
+var code = consoleControl.eraseLine()
+  </h3>
+</div>
+<p>Returns the escape sequence to erase to the end of the current line.</p>
+<div class="pilwrap" id="var-code-consolecontrol.goto-x-y">
+  <h3>
+    <a href="#var-code-consolecontrol.goto-x-y" name="var-code-consolecontrol.goto-x-y" class="pilcrow"></a>
+var code = consoleControl.goto(<em>x</em>, <em>y</em>)
+  </h3>
+</div>
+<p>Returns the escape sequence to move the cursor to the designated position.
+Note that the origin is <em>1, 1</em> not <em>0, 0</em>.</p>
+<div class="pilwrap" id="var-code-consolecontrol.gotosol">
+  <h3>
+    <a href="#var-code-consolecontrol.gotosol" name="var-code-consolecontrol.gotosol" class="pilcrow"></a>
+var code = consoleControl.gotoSOL()
+  </h3>
+</div>
+<p>Returns the escape sequence to move the cursor to the beginning of the
+current line. (That is, it returns a carriage return, <code>\r</code>.)</p>
+<div class="pilwrap" id="var-code-consolecontrol.beep">
+  <h3>
+    <a href="#var-code-consolecontrol.beep" name="var-code-consolecontrol.beep" class="pilcrow"></a>
+var code = consoleControl.beep()
+  </h3>
+</div>
+<p>Returns the escape sequence to cause the termianl to beep.  (That is, it
+returns unicode character <code>\x0007</code>, a Control-G.)</p>
+<div class="pilwrap" id="var-code-consolecontrol.hidecursor">
+  <h3>
+    <a href="#var-code-consolecontrol.hidecursor" name="var-code-consolecontrol.hidecursor" class="pilcrow"></a>
+var code = consoleControl.hideCursor()
+  </h3>
+</div>
+<p>Returns the escape sequence to hide the cursor.</p>
+<div class="pilwrap" id="var-code-consolecontrol.showcursor">
+  <h3>
+    <a href="#var-code-consolecontrol.showcursor" name="var-code-consolecontrol.showcursor" class="pilcrow"></a>
+var code = consoleControl.showCursor()
+  </h3>
+</div>
+<p>Returns the escape sequence to show the cursor.</p>
+<div class="pilwrap" id="var-code-consolecontrol.color-colors">
+  <h3>
+    <a href="#var-code-consolecontrol.color-colors" name="var-code-consolecontrol.color-colors" class="pilcrow"></a>
+var code = consoleControl.color(<em>colors = []</em>)
+  </h3>
+</div>
+<div class="pilwrap" id="var-code-consolecontrol.color-color1-color2...colorn">
+  <h3>
+    <a href="#var-code-consolecontrol.color-color1-color2...colorn" name="var-code-consolecontrol.color-color1-color2...colorn" class="pilcrow"></a>
+var code = consoleControl.color(<em>color1</em>, <em>color2</em>, <em>…</em>, <em>colorn</em>)
+  </h3>
+</div>
+<p>Returns the escape sequence to set the current terminal display attributes
+(mostly colors).  Arguments can either be a list of attributes or an array
+of attributes.  The difference between passing in an array or list of colors
+and calling <code>.color</code> separately for each one, is that in the former case a
+single escape sequence will be produced where as in the latter each change
+will have its own distinct escape sequence.  Each attribute can be one of:</p>
+<ul>
+<li>Reset:
+<ul>
+<li><strong>reset</strong> – Reset all attributes to the terminal default.</li>
+</ul>
+</li>
+<li>Styles:
+<ul>
+<li><strong>bold</strong> – Display text as bold.  In some terminals this means using a
+bold font, in others this means changing the color.  In some it means
+both.</li>
+<li><strong>italic</strong> – Display text as italic. This is not available in most Windows terminals.</li>
+<li><strong>underline</strong> – Underline text. This is not available in most Windows Terminals.</li>
+<li><strong>inverse</strong> – Invert the foreground and background colors.</li>
+<li><strong>stopBold</strong> – Do not display text as bold.</li>
+<li><strong>stopItalic</strong> – Do not display text as italic.</li>
+<li><strong>stopUnderline</strong> – Do not underline text.</li>
+<li><strong>stopInverse</strong> – Do not invert foreground and background.</li>
+</ul>
+</li>
+<li>Colors:
+<ul>
+<li><strong>white</strong></li>
+<li><strong>black</strong></li>
+<li><strong>blue</strong></li>
+<li><strong>cyan</strong></li>
+<li><strong>green</strong></li>
+<li><strong>magenta</strong></li>
+<li><strong>red</strong></li>
+<li><strong>yellow</strong></li>
+<li><strong>grey</strong> / <strong>brightBlack</strong></li>
+<li><strong>brightRed</strong></li>
+<li><strong>brightGreen</strong></li>
+<li><strong>brightYellow</strong></li>
+<li><strong>brightBlue</strong></li>
+<li><strong>brightMagenta</strong></li>
+<li><strong>brightCyan</strong></li>
+<li><strong>brightWhite</strong></li>
+</ul>
+</li>
+<li>Background Colors:
+<ul>
+<li><strong>bgWhite</strong></li>
+<li><strong>bgBlack</strong></li>
+<li><strong>bgBlue</strong></li>
+<li><strong>bgCyan</strong></li>
+<li><strong>bgGreen</strong></li>
+<li><strong>bgMagenta</strong></li>
+<li><strong>bgRed</strong></li>
+<li><strong>bgYellow</strong></li>
+<li><strong>bgGrey</strong> / <strong>bgBrightBlack</strong></li>
+<li><strong>bgBrightRed</strong></li>
+<li><strong>bgBrightGreen</strong></li>
+<li><strong>bgBrightYellow</strong></li>
+<li><strong>bgBrightBlue</strong></li>
+<li><strong>bgBrightMagenta</strong></li>
+<li><strong>bgBrightCyan</strong></li>
+<li><strong>bgBrightWhite</strong></li>
+</ul>
+</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

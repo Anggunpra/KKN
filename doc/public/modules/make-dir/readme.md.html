@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\make-dir\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#make-dir">make-dir   </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#advantages-over-mkdirp">Advantages over mkdirp</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#makedir-path-options">makeDir(path, [options])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#makedir.sync-path-options">makeDir.sync(path, [options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#path">path</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#mode">mode</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#fs">fs</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related">Related</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="make-dir">
+  <h1>
+    <a href="#make-dir" name="make-dir" class="pilcrow"></a>
+make-dir <a href="https://travis-ci.org/sindresorhus/make-dir"><img src="https://travis-ci.org/sindresorhus/make-dir.svg?branch=master" alt="Build Status: macOS &amp; Linux"></a> <a href="https://ci.appveyor.com/project/sindresorhus/make-dir/branch/master"><img src="https://ci.appveyor.com/api/projects/status/e0vtt8y600w91gcs/branch/master?svg=true" alt="Build status: Windows"></a> <a href="https://codecov.io/gh/sindresorhus/make-dir"><img src="https://codecov.io/gh/sindresorhus/make-dir/branch/master/graph/badge.svg" alt="codecov"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Make a directory and its parents if needed - Think <code>mkdir -p</code></p>
+</blockquote>
+<div class="pilwrap" id="advantages-over-mkdirp">
+  <h2>
+    <a href="#advantages-over-mkdirp" name="advantages-over-mkdirp" class="pilcrow"></a>
+Advantages over <a href="https://github.com/substack/node-mkdirp"><code>mkdirp</code></a>
+  </h2>
+</div>
+<ul>
+<li>Promise API <em>(Async/await ready!)</em></li>
+<li>Fixes many <code>mkdirp</code> issues: <a href="https://github.com/substack/node-mkdirp/pull/96">#96</a> <a href="https://github.com/substack/node-mkdirp/issues/70">#70</a> <a href="https://github.com/substack/node-mkdirp/issues/66">#66</a></li>
+<li>100% test coverage</li>
+<li>CI-tested on macOS, Linux, and Windows</li>
+<li>Actively maintained</li>
+<li>Doesn't bundle a CLI</li>
+</ul>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install make-dir
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code>$ pwd
+/Users/sindresorhus/fun
+$ tree
+.
+</code></pre>
+<pre><code class="js"><span class="hljs-keyword">const</span> makeDir = <span class="hljs-built_in">require</span>(<span class="hljs-string">'make-dir'</span>);
+
+makeDir(<span class="hljs-string">'unicorn/rainbow/cake'</span>).then(<span class="hljs-function"><span class="hljs-params">path</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log(path);
+	<span class="hljs-comment">//=&gt; '/Users/sindresorhus/fun/unicorn/rainbow/cake'</span>
+});
+</code></pre>
+<pre><code>$ tree
+.
+└── unicorn
+    └── rainbow
+        └── cake
+</code></pre>
+<p>Multiple directories:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> makeDir = <span class="hljs-built_in">require</span>(<span class="hljs-string">'make-dir'</span>);
+
+<span class="hljs-built_in">Promise</span>.all([
+	makeDir(<span class="hljs-string">'unicorn/rainbow'</span>)
+	makeDir(<span class="hljs-string">'foo/bar'</span>)
+]).then(<span class="hljs-function"><span class="hljs-params">paths</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log(paths);
+	<span class="hljs-comment">/*
+	[
+		'/Users/sindresorhus/fun/unicorn/rainbow',
+		'/Users/sindresorhus/fun/foo/bar'
+	]
+	*/</span>
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="makedir-path-options">
+  <h3>
+    <a href="#makedir-path-options" name="makedir-path-options" class="pilcrow"></a>
+makeDir(path, [options])
+  </h3>
+</div>
+<p>Returns a <code>Promise</code> for the path to the created directory.</p>
+<div class="pilwrap" id="makedir.sync-path-options">
+  <h3>
+    <a href="#makedir.sync-path-options" name="makedir.sync-path-options" class="pilcrow"></a>
+makeDir.sync(path, [options])
+  </h3>
+</div>
+<p>Returns the path to the created directory.</p>
+<div class="pilwrap" id="path">
+  <h4>
+    <a href="#path" name="path" class="pilcrow"></a>
+path
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Directory to create.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>Object</code></p>
+<div class="pilwrap" id="mode">
+  <h5>
+    <a href="#mode" name="mode" class="pilcrow"></a>
+mode
+  </h5>
+</div>
+<p>Type: <code>integer</code><br>
+Default: <code>0o777 &amp; (~process.umask())</code></p>
+<p>Directory <a href="https://x-team.com/blog/file-system-permissions-umask-node-js/">permissions</a>.</p>
+<div class="pilwrap" id="fs">
+  <h5>
+    <a href="#fs" name="fs" class="pilcrow"></a>
+fs
+  </h5>
+</div>
+<p>Type: <code>Object</code><br>
+Default: <code>require('fs')</code></p>
+<p>Use a custom <code>fs</code> implementation. For example <a href="https://github.com/isaacs/node-graceful-fs"><code>graceful-fs</code></a>.</p>
+<div class="pilwrap" id="related">
+  <h2>
+    <a href="#related" name="related" class="pilcrow"></a>
+Related
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/sindresorhus/make-dir-cli">make-dir-cli</a> - CLI for this module</li>
+<li><a href="https://github.com/sindresorhus/del">del</a> - Delete files and directories</li>
+<li><a href="https://github.com/sindresorhus/globby">globby</a> - User-friendly glob matching</li>
+<li><a href="https://github.com/sindresorhus/cpy">cpy</a> - Copy files</li>
+<li><a href="https://github.com/sindresorhus/cpy-cli">cpy-cli</a> - Copy files on the command-line</li>
+<li><a href="https://github.com/sindresorhus/move-file">move-file</a> - Move a file</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

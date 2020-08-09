@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\a-sync-waterfall\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<p>MIT license (by Elan Shanker).</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">globals</span>) </span>{
+  <span class="hljs-string">'use strict'</span>;
+
+  <span class="hljs-keyword">var</span> executeSync = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>);
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> args[<span class="hljs-number">0</span>] === <span class="hljs-string">'function'</span>){
+      args[<span class="hljs-number">0</span>].apply(<span class="hljs-literal">null</span>, args.splice(<span class="hljs-number">1</span>));
+    }
+  };
+
+  <span class="hljs-keyword">var</span> executeAsync = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>)</span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> setImmediate === <span class="hljs-string">'function'</span>) {
+      setImmediate(fn);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> process !== <span class="hljs-string">'undefined'</span> &amp;&amp; process.nextTick) {
+      process.nextTick(fn);
+    } <span class="hljs-keyword">else</span> {
+      setTimeout(fn, <span class="hljs-number">0</span>);
+    }
+  };
+
+  <span class="hljs-keyword">var</span> makeIterator = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">tasks</span>) </span>{
+    <span class="hljs-keyword">var</span> makeCallback = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">index</span>) </span>{
+      <span class="hljs-keyword">var</span> fn = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">if</span> (tasks.length) {
+          tasks[index].apply(<span class="hljs-literal">null</span>, <span class="hljs-built_in">arguments</span>);
+        }
+        <span class="hljs-keyword">return</span> fn.next();
+      };
+      fn.next = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> (index &lt; tasks.length - <span class="hljs-number">1</span>) ? makeCallback(index + <span class="hljs-number">1</span>): <span class="hljs-literal">null</span>;
+      };
+      <span class="hljs-keyword">return</span> fn;
+    };
+    <span class="hljs-keyword">return</span> makeCallback(<span class="hljs-number">0</span>);
+  };
+  
+  <span class="hljs-keyword">var</span> _isArray = <span class="hljs-built_in">Array</span>.isArray || <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">maybeArray</span>)</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.prototype.toString.call(maybeArray) === <span class="hljs-string">'[object Array]'</span>;
+  };
+
+  <span class="hljs-keyword">var</span> waterfall = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">tasks, callback, forceAsync</span>) </span>{
+    <span class="hljs-keyword">var</span> nextTick = forceAsync ? executeAsync : executeSync;
+    callback = callback || <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
+    <span class="hljs-keyword">if</span> (!_isArray(tasks)) {
+      <span class="hljs-keyword">var</span> err = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'First argument to waterfall must be an array of functions'</span>);
+      <span class="hljs-keyword">return</span> callback(err);
+    }
+    <span class="hljs-keyword">if</span> (!tasks.length) {
+      <span class="hljs-keyword">return</span> callback();
+    }
+    <span class="hljs-keyword">var</span> wrapIterator = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">iterator</span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+        <span class="hljs-keyword">if</span> (err) {
+          callback.apply(<span class="hljs-literal">null</span>, <span class="hljs-built_in">arguments</span>);
+          callback = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
+        } <span class="hljs-keyword">else</span> {
+          <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">1</span>);
+          <span class="hljs-keyword">var</span> next = iterator.next();
+          <span class="hljs-keyword">if</span> (next) {
+            args.push(wrapIterator(next));
+          } <span class="hljs-keyword">else</span> {
+            args.push(callback);
+          }
+          nextTick(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            iterator.apply(<span class="hljs-literal">null</span>, args);
+          });
+        }
+      };
+    };
+    wrapIterator(makeIterator(tasks))();
+  };
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define !== <span class="hljs-string">'undefined'</span> &amp;&amp; define.amd) {
+    define([], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> waterfall;
+    }); <span class="hljs-comment">// RequireJS</span>
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span> !== <span class="hljs-string">'undefined'</span> &amp;&amp; <span class="hljs-built_in">module</span>.exports) {
+    <span class="hljs-built_in">module</span>.exports = waterfall; <span class="hljs-comment">// CommonJS</span>
+  } <span class="hljs-keyword">else</span> {
+    globals.waterfall = waterfall; <span class="hljs-comment">// &lt;script&gt;</span>
+  }
+})(<span class="hljs-keyword">this</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

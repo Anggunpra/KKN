@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\copy-props\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> eachProps = <span class="hljs-built_in">require</span>(<span class="hljs-string">'each-props'</span>);
+<span class="hljs-keyword">var</span> isPlainObject = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-plain-object'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">src, dst, fromto, converter, reverse</span>) </span>{
+
+  <span class="hljs-keyword">if</span> (!isObject(src)) {
+    src = {};
+  }
+
+  <span class="hljs-keyword">if</span> (!isObject(dst)) {
+    dst = {};
+  }
+
+  <span class="hljs-keyword">if</span> (isPlainObject(fromto)) {
+    fromto = onlyValueIsString(fromto);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(fromto)) {
+    fromto = arrayToObject(fromto);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> fromto === <span class="hljs-string">'boolean'</span>) {
+    reverse = fromto;
+    converter = noop;
+    fromto = <span class="hljs-literal">null</span>;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> fromto === <span class="hljs-string">'function'</span>) {
+    reverse = converter;
+    converter = fromto;
+    fromto = <span class="hljs-literal">null</span>;
+  } <span class="hljs-keyword">else</span> {
+    fromto = <span class="hljs-literal">null</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> converter !== <span class="hljs-string">'function'</span>) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> converter === <span class="hljs-string">'boolean'</span>) {
+      reverse = converter;
+      converter = noop;
+    } <span class="hljs-keyword">else</span> {
+      converter = noop;
+    }
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> reverse !== <span class="hljs-string">'boolean'</span>) {
+    reverse = <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (reverse) {
+    <span class="hljs-keyword">var</span> tmp = src;
+    src = dst;
+    dst = tmp;
+
+    <span class="hljs-keyword">if</span> (fromto) {
+      fromto = invert(fromto);
+    }
+  }
+
+  <span class="hljs-keyword">var</span> opts = {
+    <span class="hljs-attr">dest</span>: dst,
+    <span class="hljs-attr">fromto</span>: fromto,
+    <span class="hljs-attr">convert</span>: converter,
+  };
+
+  <span class="hljs-keyword">if</span> (fromto) {
+    eachProps(src, copyWithFromto, opts);
+    setParentEmptyObject(dst, fromto);
+  } <span class="hljs-keyword">else</span> {
+    eachProps(src, copyWithoutFromto, opts);
+  }
+
+  <span class="hljs-keyword">return</span> dst;
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copyWithFromto</span>(<span class="hljs-params">value, keyChain, nodeInfo</span>) </span>{
+  <span class="hljs-keyword">if</span> (isPlainObject(value)) {
+    <span class="hljs-keyword">return</span>;
+  }
+
+  <span class="hljs-keyword">var</span> dstKeyChains = nodeInfo.fromto[keyChain];
+  <span class="hljs-keyword">if</span> (!dstKeyChains) {
+    <span class="hljs-keyword">return</span>;
+  }
+  <span class="hljs-keyword">delete</span> nodeInfo.fromto[keyChain];
+
+  <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(dstKeyChains)) {
+    dstKeyChains = [dstKeyChains];
+  }
+
+  <span class="hljs-keyword">var</span> srcInfo = {
+    <span class="hljs-attr">keyChain</span>: keyChain,
+    <span class="hljs-attr">value</span>: value,
+    <span class="hljs-attr">key</span>: nodeInfo.name,
+    <span class="hljs-attr">depth</span>: nodeInfo.depth,
+    <span class="hljs-attr">parent</span>: nodeInfo.parent,
+  };
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, n = dstKeyChains.length; i &lt; n; i++) {
+    setDeep(nodeInfo.dest, dstKeyChains[i], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">parent, key, depth</span>) </span>{
+      <span class="hljs-keyword">var</span> dstInfo = {
+        <span class="hljs-attr">keyChain</span>: dstKeyChains[i],
+        <span class="hljs-attr">value</span>: parent[key],
+        <span class="hljs-attr">key</span>: key,
+        <span class="hljs-attr">depth</span>: depth,
+        <span class="hljs-attr">parent</span>: parent,
+      };
+
+      <span class="hljs-keyword">return</span> nodeInfo.convert(srcInfo, dstInfo);
+    });
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copyWithoutFromto</span>(<span class="hljs-params">value, keyChain, nodeInfo</span>) </span>{
+  <span class="hljs-keyword">if</span> (isPlainObject(value)) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> k <span class="hljs-keyword">in</span> value) {
+      <span class="hljs-keyword">return</span>;
+    }
+    setDeep(nodeInfo.dest, keyChain, newObject);
+    <span class="hljs-keyword">return</span>;
+  }
+
+  <span class="hljs-keyword">var</span> srcInfo = {
+    <span class="hljs-attr">keyChain</span>: keyChain,
+    <span class="hljs-attr">value</span>: value,
+    <span class="hljs-attr">key</span>: nodeInfo.name,
+    <span class="hljs-attr">depth</span>: nodeInfo.depth,
+    <span class="hljs-attr">parent</span>: nodeInfo.parent,
+  };
+
+  setDeep(nodeInfo.dest, keyChain, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">parent, key, depth</span>) </span>{
+    <span class="hljs-keyword">var</span> dstInfo = {
+      <span class="hljs-attr">keyChain</span>: keyChain,
+      <span class="hljs-attr">value</span>: parent[key],
+      <span class="hljs-attr">key</span>: key,
+      <span class="hljs-attr">depth</span>: depth,
+      <span class="hljs-attr">parent</span>: parent,
+    };
+
+    <span class="hljs-keyword">return</span> nodeInfo.convert(srcInfo, dstInfo);
+  });
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">newObject</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> {};
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">noop</span>(<span class="hljs-params">srcInfo</span>) </span>{
+  <span class="hljs-keyword">return</span> srcInfo.value;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onlyValueIsString</span>(<span class="hljs-params">obj</span>) </span>{
+  <span class="hljs-keyword">var</span> newObj = {};
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> obj) {
+    <span class="hljs-keyword">var</span> val = obj[key];
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> val === <span class="hljs-string">'string'</span>) {
+      newObj[key] = val;
+    }
+  }
+  <span class="hljs-keyword">return</span> newObj;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arrayToObject</span>(<span class="hljs-params">arr</span>) </span>{
+  <span class="hljs-keyword">var</span> obj = {};
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, n = arr.length; i &lt; n; i++) {
+    <span class="hljs-keyword">var</span> elm = arr[i];
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> elm === <span class="hljs-string">'string'</span>) {
+      obj[elm] = elm;
+    }
+  }
+  <span class="hljs-keyword">return</span> obj;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">invert</span>(<span class="hljs-params">fromto</span>) </span>{
+  <span class="hljs-keyword">var</span> inv = {};
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> fromto) {
+    <span class="hljs-keyword">var</span> val = fromto[key];
+    <span class="hljs-keyword">if</span> (!inv[val]) {
+      inv[val] = [];
+    }
+    inv[val].push(key);
+  }
+  <span class="hljs-keyword">return</span> inv;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setDeep</span>(<span class="hljs-params">obj, keyChain, valueCreator</span>) </span>{
+  _setDeep(obj, keyChain.split(<span class="hljs-string">'.'</span>), <span class="hljs-number">1</span>, valueCreator);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_setDeep</span>(<span class="hljs-params">obj, keyElems, depth, valueCreator</span>) </span>{
+  <span class="hljs-keyword">var</span> key = keyElems.shift();
+  <span class="hljs-keyword">if</span> (!keyElems.length) {
+    <span class="hljs-keyword">var</span> value = valueCreator(obj, key, depth);
+    <span class="hljs-keyword">if</span> (value === <span class="hljs-literal">undefined</span>) {
+      <span class="hljs-keyword">return</span>;
+    }
+    <span class="hljs-keyword">if</span> (isPlainObject(value)) { <span class="hljs-comment">// value is always an empty object.</span>
+      <span class="hljs-keyword">if</span> (isPlainObject(obj[key])) {
+        <span class="hljs-keyword">return</span>;
+      }
+    }
+    obj[key] = value;
+    <span class="hljs-keyword">return</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (!isPlainObject(obj[key])) {
+    obj[key] = {};
+  }
+  _setDeep(obj[key], keyElems, depth + <span class="hljs-number">1</span>, valueCreator);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setParentEmptyObject</span>(<span class="hljs-params">obj, fromto</span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> srcKeyChain <span class="hljs-keyword">in</span> fromto) {
+    <span class="hljs-keyword">var</span> dstKeyChains = fromto[srcKeyChain];
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(dstKeyChains)) {
+      dstKeyChains = [dstKeyChains];
+    }
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, n = dstKeyChains.length; i &lt; n; i++) {
+      setDeep(obj, dstKeyChains[i], newUndefined);
+    }
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">newUndefined</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">v</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.prototype.toString.call(v) === <span class="hljs-string">'[object Object]'</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

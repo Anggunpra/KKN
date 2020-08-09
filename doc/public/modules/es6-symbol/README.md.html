@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es6-symbol\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#es6-symbol">es6-symbol</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#ecmascript-6-symbol-polyfill">ECMAScript 6 Symbol polyfill</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#limitations">Limitations</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#npm">NPM</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#browser">Browser</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#tests">Tests</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#security-contact-information">Security contact information</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p><a href="https://semaphoreci.com/medikoo-org/es6-symbol"><img src="https://semaphoreci.com/api/v1/medikoo-org/es6-symbol/branches/master/shields_badge.svg" alt="Build status"></a>
+<a href="https://ci.appveyor.com/project/medikoo/es6-symbol"><img src="https://ci.appveyor.com/api/projects/status/1s743lt3el278anj?svg=true" alt="Windows status"></a>
+<img src="https://img.shields.io/badge/transpilation-free-brightgreen.svg" alt="Transpilation status">
+<a href="https://www.npmjs.com/package/es6-symbol"><img src="https://img.shields.io/npm/v/es6-symbol.svg" alt="npm version"></a></p>
+<div class="pilwrap" id="es6-symbol">
+  <h1>
+    <a href="#es6-symbol" name="es6-symbol" class="pilcrow"></a>
+es6-symbol
+  </h1>
+</div>
+<div class="pilwrap" id="ecmascript-6-symbol-polyfill">
+  <h2>
+    <a href="#ecmascript-6-symbol-polyfill" name="ecmascript-6-symbol-polyfill" class="pilcrow"></a>
+ECMAScript 6 Symbol polyfill
+  </h2>
+</div>
+<p>For more information about symbols see following links</p>
+<ul>
+<li><a href="http://www.2ality.com/2014/12/es6-symbols.html">Symbols in ECMAScript 6 by Axel Rauschmayer</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol">MDN Documentation</a></li>
+<li><a href="https://tc39.github.io/ecma262/#sec-symbol-objects">Specification</a></li>
+</ul>
+<div class="pilwrap" id="limitations">
+  <h3>
+    <a href="#limitations" name="limitations" class="pilcrow"></a>
+Limitations
+  </h3>
+</div>
+<p>Underneath it uses real string property names which can easily be retrieved, however accidental collision with other property names is unlikely.</p>
+<div class="pilwrap" id="usage">
+  <h3>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h3>
+</div>
+<p>If you'd like to use native version when it exists and fallback to <a href="https://ponyfill.com">ponyfill</a> if it doesn't, use <em>es6-symbol</em> as following:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> <span class="hljs-built_in">Symbol</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es6-symbol"</span>);
+</code></pre>
+<p>If you want to make sure your environment implements <code>Symbol</code> globally, do:</p>
+<pre><code class="javascript"><span class="hljs-built_in">require</span>(<span class="hljs-string">"es6-symbol/implement"</span>);
+</code></pre>
+<p>If you strictly want to use polyfill even if native <code>Symbol</code> exists (hard to find a good reason for that), do:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> <span class="hljs-built_in">Symbol</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es6-symbol/polyfill"</span>);
+</code></pre>
+<div class="pilwrap" id="api">
+  <h4>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h4>
+</div>
+<p>Best is to refer to <a href="https://tc39.github.io/ecma262/#sec-symbol-objects">specification</a>. Still if you want quick look, follow examples:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> <span class="hljs-built_in">Symbol</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es6-symbol"</span>);
+
+<span class="hljs-keyword">var</span> symbol = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">"My custom symbol"</span>);
+<span class="hljs-keyword">var</span> x = {};
+
+x[symbol] = <span class="hljs-string">"foo"</span>;
+<span class="hljs-built_in">console</span>.log(x[symbol]);
+(<span class="hljs-string">"foo"</span>);
+
+<span class="hljs-comment">// Detect iterable:</span>
+<span class="hljs-keyword">var</span> iterator, result;
+<span class="hljs-keyword">if</span> (possiblyIterable[<span class="hljs-built_in">Symbol</span>.iterator]) {
+  iterator = possiblyIterable[<span class="hljs-built_in">Symbol</span>.iterator]();
+  result = iterator.next();
+  <span class="hljs-keyword">while</span> (!result.done) {
+    <span class="hljs-built_in">console</span>.log(result.value);
+    result = iterator.next();
+  }
+}
+</code></pre>
+<div class="pilwrap" id="installation">
+  <h3>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h3>
+</div>
+<div class="pilwrap" id="npm">
+  <h4>
+    <a href="#npm" name="npm" class="pilcrow"></a>
+NPM
+  </h4>
+</div>
+<p>In your project path:</p>
+<pre><code>$ npm install es6-symbol
+</code></pre>
+<div class="pilwrap" id="browser">
+  <h5>
+    <a href="#browser" name="browser" class="pilcrow"></a>
+Browser
+  </h5>
+</div>
+<p>To port it to Browser or any other (non CJS) environment, use your favorite CJS bundler. No favorite yet? Try: <a href="http://browserify.org/">Browserify</a>, <a href="https://github.com/medikoo/modules-webmake">Webmake</a> or <a href="http://webpack.github.io/">Webpack</a></p>
+<div class="pilwrap" id="tests">
+  <h2>
+    <a href="#tests" name="tests" class="pilcrow"></a>
+Tests
+  </h2>
+</div>
+<pre><code>$ npm test
+</code></pre>
+<div class="pilwrap" id="security-contact-information">
+  <h2>
+    <a href="#security-contact-information" name="security-contact-information" class="pilcrow"></a>
+Security contact information
+  </h2>
+</div>
+<p>To report a security vulnerability, please use the <a href="https://tidelift.com/security">Tidelift security contact</a>. Tidelift will coordinate the fix and disclosure.</p>
+<hr>
+<div align="center">
+	<b>
+		<a href="https://tidelift.com/subscription/pkg/npm-es6-symbol?utm_source=npm-es6-symbol&utm_medium=referral&utm_campaign=readme">Get professional support for d with a Tidelift subscription</a>
+	</b>
+	<br>
+	<sub>
+		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
+	</sub>
+</div>
+</div>
+  </div>
+</body>
+</html>

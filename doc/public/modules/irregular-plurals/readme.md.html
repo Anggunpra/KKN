@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\irregular-plurals\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#irregular-plurals">irregular-plurals </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related">Related</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="irregular-plurals">
+  <h1>
+    <a href="#irregular-plurals" name="irregular-plurals" class="pilcrow"></a>
+irregular-plurals <a href="https://travis-ci.org/sindresorhus/irregular-plurals"><img src="https://travis-ci.org/sindresorhus/irregular-plurals.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Map of nouns to their irregular plural form</p>
+</blockquote>
+<blockquote>
+<p>An irregular plural in this library is defined as a noun that cannot be made plural by applying these rules:</p>
+<ul>
+<li>If the noun ends in an &quot;s&quot;, &quot;x&quot;, &quot;z&quot;, &quot;ch&quot; or &quot;sh&quot;, add &quot;es&quot;</li>
+<li>If the noun ends in a &quot;y&quot; and is preceded by a consonant, drop the &quot;y&quot; and add &quot;ies&quot;</li>
+<li>If the noun ends in a &quot;y&quot; and is preceded by a vowel, add &quot;s&quot;</li>
+</ul>
+</blockquote>
+<p>The list is just a <a href="irregular-plurals.json.html">JSON file</a> and can be used wherever.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install irregular-plurals
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> irregularPlurals = <span class="hljs-built_in">require</span>(<span class="hljs-string">'irregular-plurals'</span>);
+
+<span class="hljs-built_in">console</span>.log(irregularPlurals[<span class="hljs-string">'cactus'</span>]);
+<span class="hljs-comment">//=&gt; 'cacti'</span>
+
+<span class="hljs-built_in">console</span>.log(irregularPlurals);
+<span class="hljs-comment">/*
+{
+	addendum: 'addenda',
+	alga: 'algae',
+	…
+}
+*/</span>
+</code></pre>
+<div class="pilwrap" id="related">
+  <h2>
+    <a href="#related" name="related" class="pilcrow"></a>
+Related
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/sindresorhus/plur">plur</a> - Pluralize a word</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

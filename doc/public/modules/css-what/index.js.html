@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\css-what\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">"use strict"</span>;
+
+<span class="hljs-built_in">module</span>.exports = parse;
+
+<span class="hljs-keyword">var</span> re_name = <span class="hljs-regexp">/^(?:\\.|[\w\-\u00b0-\uFFFF])+/</span>,
+    re_escape = <span class="hljs-regexp">/\\([\da-f]{1,6}\s?|(\s)|.)/ig</span>,
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>modified version of https://github.com/jquery/sizzle/blob/master/src/sizzle.js#L87</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    re_attr = <span class="hljs-regexp">/^\s*((?:\\.|[\w\u00b0-\uFFFF\-])+)\s*(?:(\S?)=\s*(?:(['"])([^]*?)\3|(#?(?:\\.|[\w\u00b0-\uFFFF\-])*)|)|)\s*(i)?\]/</span>;
+
+<span class="hljs-keyword">var</span> actionTypes = {
+	<span class="hljs-attr">__proto__</span>: <span class="hljs-literal">null</span>,
+	<span class="hljs-string">"undefined"</span>: <span class="hljs-string">"exists"</span>,
+	<span class="hljs-string">""</span>:  <span class="hljs-string">"equals"</span>,
+	<span class="hljs-string">"~"</span>: <span class="hljs-string">"element"</span>,
+	<span class="hljs-string">"^"</span>: <span class="hljs-string">"start"</span>,
+	<span class="hljs-string">"$"</span>: <span class="hljs-string">"end"</span>,
+	<span class="hljs-string">"*"</span>: <span class="hljs-string">"any"</span>,
+	<span class="hljs-string">"!"</span>: <span class="hljs-string">"not"</span>,
+	<span class="hljs-string">"|"</span>: <span class="hljs-string">"hyphen"</span>
+};
+
+<span class="hljs-keyword">var</span> simpleSelectors = {
+	<span class="hljs-attr">__proto__</span>: <span class="hljs-literal">null</span>,
+	<span class="hljs-string">"&gt;"</span>: <span class="hljs-string">"child"</span>,
+	<span class="hljs-string">"&lt;"</span>: <span class="hljs-string">"parent"</span>,
+	<span class="hljs-string">"~"</span>: <span class="hljs-string">"sibling"</span>,
+	<span class="hljs-string">"+"</span>: <span class="hljs-string">"adjacent"</span>
+};
+
+<span class="hljs-keyword">var</span> attribSelectors = {
+	<span class="hljs-attr">__proto__</span>: <span class="hljs-literal">null</span>,
+	<span class="hljs-string">"#"</span>: [<span class="hljs-string">"id"</span>, <span class="hljs-string">"equals"</span>],
+	<span class="hljs-string">"."</span>: [<span class="hljs-string">"class"</span>, <span class="hljs-string">"element"</span>]
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>pseudos, whose data-property is parsed as well</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> unpackPseudos = {
+	<span class="hljs-attr">__proto__</span>: <span class="hljs-literal">null</span>,
+	<span class="hljs-string">"has"</span>: <span class="hljs-literal">true</span>,
+	<span class="hljs-string">"not"</span>: <span class="hljs-literal">true</span>,
+	<span class="hljs-string">"matches"</span>: <span class="hljs-literal">true</span>
+};
+
+<span class="hljs-keyword">var</span> stripQuotesFromPseudos = {
+	<span class="hljs-attr">__proto__</span>: <span class="hljs-literal">null</span>,
+	<span class="hljs-string">"contains"</span>: <span class="hljs-literal">true</span>,
+	<span class="hljs-string">"icontains"</span>: <span class="hljs-literal">true</span>
+};
+
+<span class="hljs-keyword">var</span> quotes = {
+	<span class="hljs-attr">__proto__</span>: <span class="hljs-literal">null</span>,
+	<span class="hljs-string">"\""</span>: <span class="hljs-literal">true</span>,
+	<span class="hljs-string">"'"</span>: <span class="hljs-literal">true</span>
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>unescape function taken from https://github.com/jquery/sizzle/blob/master/src/sizzle.js#L139</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">funescape</span>(<span class="hljs-params"> _, escaped, escapedWhitespace </span>) </span>{
+	<span class="hljs-keyword">var</span> high = <span class="hljs-string">"0x"</span> + escaped - <span class="hljs-number">0x10000</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>NaN means non-codepoint
+Support: Firefox
+Workaround erroneous numeric interpretation of +&quot;0x&quot;</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-keyword">return</span> high !== high || escapedWhitespace ?
+		escaped :
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>BMP codepoint</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		high &lt; <span class="hljs-number">0</span> ?
+			<span class="hljs-built_in">String</span>.fromCharCode( high + <span class="hljs-number">0x10000</span> ) :
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>Supplemental Plane codepoint (surrogate pair)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			<span class="hljs-built_in">String</span>.fromCharCode( high &gt;&gt; <span class="hljs-number">10</span> | <span class="hljs-number">0xD800</span>, high &amp; <span class="hljs-number">0x3FF</span> | <span class="hljs-number">0xDC00</span> );
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unescapeCSS</span>(<span class="hljs-params">str</span>)</span>{
+	<span class="hljs-keyword">return</span> str.replace(re_escape, funescape);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isWhitespace</span>(<span class="hljs-params">c</span>)</span>{
+	<span class="hljs-keyword">return</span> c === <span class="hljs-string">" "</span> || c === <span class="hljs-string">"\n"</span> || c === <span class="hljs-string">"\t"</span> || c === <span class="hljs-string">"\f"</span> || c === <span class="hljs-string">"\r"</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parse</span>(<span class="hljs-params">selector, options</span>)</span>{
+	<span class="hljs-keyword">var</span> subselects = [];
+
+	selector = parseSelector(subselects, selector + <span class="hljs-string">""</span>, options);
+
+	<span class="hljs-keyword">if</span>(selector !== <span class="hljs-string">""</span>){
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">"Unmatched selector: "</span> + selector);
+	}
+
+	<span class="hljs-keyword">return</span> subselects;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parseSelector</span>(<span class="hljs-params">subselects, selector, options</span>)</span>{
+	<span class="hljs-keyword">var</span> tokens = [],
+		sawWS = <span class="hljs-literal">false</span>,
+		data, firstChar, name, quot;
+
+	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getName</span>(<span class="hljs-params"></span>)</span>{
+		<span class="hljs-keyword">var</span> sub = selector.match(re_name)[<span class="hljs-number">0</span>];
+		selector = selector.substr(sub.length);
+		<span class="hljs-keyword">return</span> unescapeCSS(sub);
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stripWhitespace</span>(<span class="hljs-params">start</span>)</span>{
+		<span class="hljs-keyword">while</span>(isWhitespace(selector.charAt(start))) start++;
+		selector = selector.substr(start);
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isEscaped</span>(<span class="hljs-params">pos</span>) </span>{
+		<span class="hljs-keyword">var</span> slashCount = <span class="hljs-number">0</span>;
+
+		<span class="hljs-keyword">while</span> (selector.charAt(--pos) === <span class="hljs-string">"\\"</span>) slashCount++;
+		<span class="hljs-keyword">return</span> (slashCount &amp; <span class="hljs-number">1</span>) === <span class="hljs-number">1</span>;
+	}
+
+	stripWhitespace(<span class="hljs-number">0</span>);
+
+	<span class="hljs-keyword">while</span>(selector !== <span class="hljs-string">""</span>){
+		firstChar = selector.charAt(<span class="hljs-number">0</span>);
+
+		<span class="hljs-keyword">if</span>(isWhitespace(firstChar)){
+			sawWS = <span class="hljs-literal">true</span>;
+			stripWhitespace(<span class="hljs-number">1</span>);
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(firstChar <span class="hljs-keyword">in</span> simpleSelectors){
+			tokens.push({<span class="hljs-attr">type</span>: simpleSelectors[firstChar]});
+			sawWS = <span class="hljs-literal">false</span>;
+
+			stripWhitespace(<span class="hljs-number">1</span>);
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(firstChar === <span class="hljs-string">","</span>){
+			<span class="hljs-keyword">if</span>(tokens.length === <span class="hljs-number">0</span>){
+				<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">"empty sub-selector"</span>);
+			}
+			subselects.push(tokens);
+			tokens = [];
+			sawWS = <span class="hljs-literal">false</span>;
+			stripWhitespace(<span class="hljs-number">1</span>);
+		} <span class="hljs-keyword">else</span> {
+			<span class="hljs-keyword">if</span>(sawWS){
+				<span class="hljs-keyword">if</span>(tokens.length &gt; <span class="hljs-number">0</span>){
+					tokens.push({<span class="hljs-attr">type</span>: <span class="hljs-string">"descendant"</span>});
+				}
+				sawWS = <span class="hljs-literal">false</span>;
+			}
+
+			<span class="hljs-keyword">if</span>(firstChar === <span class="hljs-string">"*"</span>){
+				selector = selector.substr(<span class="hljs-number">1</span>);
+				tokens.push({<span class="hljs-attr">type</span>: <span class="hljs-string">"universal"</span>});
+			} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(firstChar <span class="hljs-keyword">in</span> attribSelectors){
+				selector = selector.substr(<span class="hljs-number">1</span>);
+				tokens.push({
+					<span class="hljs-attr">type</span>: <span class="hljs-string">"attribute"</span>,
+					<span class="hljs-attr">name</span>: attribSelectors[firstChar][<span class="hljs-number">0</span>],
+					<span class="hljs-attr">action</span>: attribSelectors[firstChar][<span class="hljs-number">1</span>],
+					<span class="hljs-attr">value</span>: getName(),
+					<span class="hljs-attr">ignoreCase</span>: <span class="hljs-literal">false</span>
+				});
+			} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(firstChar === <span class="hljs-string">"["</span>){
+				selector = selector.substr(<span class="hljs-number">1</span>);
+				data = selector.match(re_attr);
+				<span class="hljs-keyword">if</span>(!data){
+					<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">"Malformed attribute selector: "</span> + selector);
+				}
+				selector = selector.substr(data[<span class="hljs-number">0</span>].length);
+				name = unescapeCSS(data[<span class="hljs-number">1</span>]);
+
+				<span class="hljs-keyword">if</span>(
+					!options || (
+						<span class="hljs-string">"lowerCaseAttributeNames"</span> <span class="hljs-keyword">in</span> options ?
+							options.lowerCaseAttributeNames :
+							!options.xmlMode
+					)
+				){
+					name = name.toLowerCase();
+				}
+
+				tokens.push({
+					<span class="hljs-attr">type</span>: <span class="hljs-string">"attribute"</span>,
+					<span class="hljs-attr">name</span>: name,
+					<span class="hljs-attr">action</span>: actionTypes[data[<span class="hljs-number">2</span>]],
+					<span class="hljs-attr">value</span>: unescapeCSS(data[<span class="hljs-number">4</span>] || data[<span class="hljs-number">5</span>] || <span class="hljs-string">""</span>),
+					<span class="hljs-attr">ignoreCase</span>: !!data[<span class="hljs-number">6</span>]
+				});
+
+			} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(firstChar === <span class="hljs-string">":"</span>){
+				<span class="hljs-keyword">if</span>(selector.charAt(<span class="hljs-number">1</span>) === <span class="hljs-string">":"</span>){
+					selector = selector.substr(<span class="hljs-number">2</span>);
+					tokens.push({<span class="hljs-attr">type</span>: <span class="hljs-string">"pseudo-element"</span>, <span class="hljs-attr">name</span>: getName().toLowerCase()});
+					<span class="hljs-keyword">continue</span>;
+				}
+
+				selector = selector.substr(<span class="hljs-number">1</span>);
+
+				name = getName().toLowerCase();
+				data = <span class="hljs-literal">null</span>;
+
+				<span class="hljs-keyword">if</span>(selector.charAt(<span class="hljs-number">0</span>) === <span class="hljs-string">"("</span>){
+					<span class="hljs-keyword">if</span>(name <span class="hljs-keyword">in</span> unpackPseudos){
+						quot = selector.charAt(<span class="hljs-number">1</span>);
+						<span class="hljs-keyword">var</span> quoted = quot <span class="hljs-keyword">in</span> quotes;
+
+						selector = selector.substr(quoted + <span class="hljs-number">1</span>);
+
+						data = [];
+						selector = parseSelector(data, selector, options);
+
+						<span class="hljs-keyword">if</span>(quoted){
+							<span class="hljs-keyword">if</span>(selector.charAt(<span class="hljs-number">0</span>) !== quot){
+								<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">"unmatched quotes in :"</span> + name);
+							} <span class="hljs-keyword">else</span> {
+								selector = selector.substr(<span class="hljs-number">1</span>);
+							}
+						}
+
+						<span class="hljs-keyword">if</span>(selector.charAt(<span class="hljs-number">0</span>) !== <span class="hljs-string">")"</span>){
+							<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">"missing closing parenthesis in :"</span> + name + <span class="hljs-string">" "</span> + selector);
+						}
+
+						selector = selector.substr(<span class="hljs-number">1</span>);
+					} <span class="hljs-keyword">else</span> {
+						<span class="hljs-keyword">var</span> pos = <span class="hljs-number">1</span>, counter = <span class="hljs-number">1</span>;
+
+						<span class="hljs-keyword">for</span>(; counter &gt; <span class="hljs-number">0</span> &amp;&amp; pos &lt; selector.length; pos++){
+							<span class="hljs-keyword">if</span>(selector.charAt(pos) === <span class="hljs-string">"("</span> &amp;&amp; !isEscaped(pos)) counter++;
+							<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(selector.charAt(pos) === <span class="hljs-string">")"</span> &amp;&amp; !isEscaped(pos)) counter--;
+						}
+
+						<span class="hljs-keyword">if</span>(counter){
+							<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">"parenthesis not matched"</span>);
+						}
+
+						data = selector.substr(<span class="hljs-number">1</span>, pos - <span class="hljs-number">2</span>);
+						selector = selector.substr(pos);
+
+						<span class="hljs-keyword">if</span>(name <span class="hljs-keyword">in</span> stripQuotesFromPseudos){
+							quot = data.charAt(<span class="hljs-number">0</span>);
+
+							<span class="hljs-keyword">if</span>(quot === data.slice(<span class="hljs-number">-1</span>) &amp;&amp; quot <span class="hljs-keyword">in</span> quotes){
+								data = data.slice(<span class="hljs-number">1</span>, <span class="hljs-number">-1</span>);
+							}
+
+							data = unescapeCSS(data);
+						}
+					}
+				}
+
+				tokens.push({<span class="hljs-attr">type</span>: <span class="hljs-string">"pseudo"</span>, <span class="hljs-attr">name</span>: name, <span class="hljs-attr">data</span>: data});
+			} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(re_name.test(selector)){
+				name = getName();
+
+				<span class="hljs-keyword">if</span>(!options || (<span class="hljs-string">"lowerCaseTags"</span> <span class="hljs-keyword">in</span> options ? options.lowerCaseTags : !options.xmlMode)){
+					name = name.toLowerCase();
+				}
+
+				tokens.push({<span class="hljs-attr">type</span>: <span class="hljs-string">"tag"</span>, <span class="hljs-attr">name</span>: name});
+			} <span class="hljs-keyword">else</span> {
+				<span class="hljs-keyword">if</span>(tokens.length &amp;&amp; tokens[tokens.length - <span class="hljs-number">1</span>].type === <span class="hljs-string">"descendant"</span>){
+					tokens.pop();
+				}
+				addToken(subselects, tokens);
+				<span class="hljs-keyword">return</span> selector;
+			}
+		}
+	}
+
+	addToken(subselects, tokens);
+
+	<span class="hljs-keyword">return</span> selector;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addToken</span>(<span class="hljs-params">subselects, tokens</span>)</span>{
+	<span class="hljs-keyword">if</span>(subselects.length &gt; <span class="hljs-number">0</span> &amp;&amp; tokens.length === <span class="hljs-number">0</span>){
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">"empty sub-selector"</span>);
+	}
+
+	subselects.push(tokens);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

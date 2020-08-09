@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CHANGELOG.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp\\CHANGELOG.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gulp-changelog">gulp changelog</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#4.0.0">4.0.0</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#task-system-changes">Task system changes</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#cli-changes">CLI changes</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#vinylvinyl-fs-changes">vinyl/vinyl-fs changes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.9.1">3.9.1</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.9.0">3.9.0</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.8.11">3.8.11</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.8.10">3.8.10</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.8.9">3.8.9</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.8.8">3.8.8</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.8.7">3.8.7</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.8.6">3.8.6</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.8.5">3.8.5</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.8.4">3.8.4</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.8.3">3.8.3</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.8.2">3.8.2</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.8.1">3.8.1</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.8.0">3.8.0</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.7.0">3.7.0</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.5.5">3.5.5</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.5.2">3.5.2</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.5">3.5</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.4">3.4</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.3.4">3.3.4</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.3.3">3.3.3</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.3.0">3.3.0</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.2.4">3.2.4</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.2.3">3.2.3</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.2">3.2</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.1.3">3.1.3</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.1">3.1</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#3.0">3.0</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.7">2.7</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#2.4-2.6">2.4 - 2.6</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#1.2-2.4-111213">1.2-2.4 (11/12/13)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#1.2-102813">1.2 (10/28/13)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#1.1-102113">1.1 (10/21/13)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#1.0-92613">1.0 (9/26/13)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.2-8613">0.2 (8/6/13)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.1-71813">0.1 (7/18/13)</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="gulp-changelog">
+  <h1>
+    <a href="#gulp-changelog" name="gulp-changelog" class="pilcrow"></a>
+gulp changelog
+  </h1>
+</div>
+<div class="pilwrap" id="4.0.0">
+  <h2>
+    <a href="#4.0.0" name="4.0.0" class="pilcrow"></a>
+4.0.0
+  </h2>
+</div>
+<div class="pilwrap" id="task-system-changes">
+  <h3>
+    <a href="#task-system-changes" name="task-system-changes" class="pilcrow"></a>
+Task system changes
+  </h3>
+</div>
+<ul>
+<li>replaced 3.x task system (orchestrator) with new task system (bach)
+<ul>
+<li>removed gulp.reset</li>
+<li>removed 3 argument syntax for <code>gulp.task</code></li>
+<li><code>gulp.task</code> should only be used when you will call the task with the CLI</li>
+<li>added <code>gulp.series</code> and <code>gulp.parallel</code> methods for composing tasks. Everything must use these now.</li>
+<li>added single argument syntax for <code>gulp.task</code> which allows a named function to be used as the name of the task and task function.</li>
+<li>added <code>gulp.tree</code> method for retrieving the task tree. Pass <code>{ deep: true }</code> for an <code>archy</code> compatible node list.</li>
+<li>added <code>gulp.registry</code> for setting custom registries.</li>
+</ul>
+</li>
+</ul>
+<div class="pilwrap" id="cli-changes">
+  <h3>
+    <a href="#cli-changes" name="cli-changes" class="pilcrow"></a>
+CLI changes
+  </h3>
+</div>
+<ul>
+<li>split CLI out into a module if you want to save bandwidth/disk space. you can install the gulp CLI using either <code>npm install gulp -g</code> or <code>npm install gulp-cli -g</code>, where gulp-cli is the smaller one (no module code included)</li>
+<li>add <code>--tasks-json</code> flag to CLI to dump the whole tree out for other tools to consume</li>
+<li>added <code>--verify</code> flag to check the dependencies in package.json against the plugin blacklist.</li>
+</ul>
+<div class="pilwrap" id="vinylvinyl-fs-changes">
+  <h3>
+    <a href="#vinylvinyl-fs-changes" name="vinylvinyl-fs-changes" class="pilcrow"></a>
+vinyl/vinyl-fs changes
+  </h3>
+</div>
+<ul>
+<li>added <code>gulp.symlink</code> which functions exactly like <code>gulp.dest</code>, but symlinks instead.</li>
+<li>added <code>dirMode</code> param to <code>gulp.dest</code> and <code>gulp.symlink</code> which allows better control over the mode of the destination folder that is created.</li>
+<li>globs passed to <code>gulp.src</code> will be evaluated in order, which means this is possible <code>gulp.src(['*.js', '!b*.js', 'bad.js'])</code> (exclude every JS file that starts with a b except bad.js)</li>
+<li>performance for gulp.src has improved massively
+<ul>
+<li><code>gulp.src(['**/*', '!b.js'])</code> will no longer eat CPU since negations happen during walking now</li>
+</ul>
+</li>
+<li>added <code>since</code> option to <code>gulp.src</code> which lets you only match files that have been modified since a certain date (for incremental builds)</li>
+<li>fixed <code>gulp.src</code> not following symlinks</li>
+<li>added <code>overwrite</code> option to <code>gulp.dest</code> which allows you to enable or disable overwriting of existing files</li>
+</ul>
+<div class="pilwrap" id="3.9.1">
+  <h2>
+    <a href="#3.9.1" name="3.9.1" class="pilcrow"></a>
+3.9.1
+  </h2>
+</div>
+<ul>
+<li>update interpret to 1.0.0 (support for babel-register)</li>
+<li>fix to include manpages in published tarball</li>
+<li>documentation/recipe updates</li>
+</ul>
+<div class="pilwrap" id="3.9.0">
+  <h2>
+    <a href="#3.9.0" name="3.9.0" class="pilcrow"></a>
+3.9.0
+  </h2>
+</div>
+<ul>
+<li>add babel support</li>
+<li>add transpiler fallback support</li>
+<li>add support for some renamed transpilers: livescript, etc</li>
+<li>add JSCS</li>
+<li>update dependencies (liftoff, interpret)</li>
+<li>documentation tweaks</li>
+</ul>
+<div class="pilwrap" id="3.8.11">
+  <h2>
+    <a href="#3.8.11" name="3.8.11" class="pilcrow"></a>
+3.8.11
+  </h2>
+</div>
+<ul>
+<li>fix node 0.12/iojs problems</li>
+<li>add node 0.12 and iojs to travis</li>
+<li>update dependencies (liftoff, v8flags)</li>
+<li>documentation tweaks</li>
+</ul>
+<div class="pilwrap" id="3.8.10">
+  <h2>
+    <a href="#3.8.10" name="3.8.10" class="pilcrow"></a>
+3.8.10
+  </h2>
+</div>
+<ul>
+<li>add link to spanish docs</li>
+<li>update dependencies (archy, semver, mocha, etc)</li>
+<li>documentation tweaks</li>
+</ul>
+<div class="pilwrap" id="3.8.9">
+  <h2>
+    <a href="#3.8.9" name="3.8.9" class="pilcrow"></a>
+3.8.9
+  </h2>
+</div>
+<ul>
+<li>fix local version undefined output</li>
+<li>add completion for fish shell</li>
+<li>fix powershell completion line splitting</li>
+<li>add support for arbitrary node flags (oops, should have been a minor bump)</li>
+<li>add v8flags dependency</li>
+<li>update dependencies (liftoff)</li>
+<li>documentation tweaks</li>
+</ul>
+<div class="pilwrap" id="3.8.8">
+  <h2>
+    <a href="#3.8.8" name="3.8.8" class="pilcrow"></a>
+3.8.8
+  </h2>
+</div>
+<ul>
+<li>update dependencies (minimist, tildify)</li>
+<li>documentation tweaks</li>
+</ul>
+<div class="pilwrap" id="3.8.7">
+  <h2>
+    <a href="#3.8.7" name="3.8.7" class="pilcrow"></a>
+3.8.7
+  </h2>
+</div>
+<ul>
+<li>handle errors a bit better</li>
+<li>update dependencies (gulp-util, semver, etc)</li>
+<li>documentation tweaks</li>
+</ul>
+<div class="pilwrap" id="3.8.6">
+  <h2>
+    <a href="#3.8.6" name="3.8.6" class="pilcrow"></a>
+3.8.6
+  </h2>
+</div>
+<ul>
+<li>remove executable flag from LICENSE</li>
+<li>update dependencies (chalk, minimist, liftoff, etc)</li>
+<li>documentation tweaks</li>
+</ul>
+<div class="pilwrap" id="3.8.5">
+  <h2>
+    <a href="#3.8.5" name="3.8.5" class="pilcrow"></a>
+3.8.5
+  </h2>
+</div>
+<ul>
+<li>simplify --silent and --tasks-simple</li>
+<li>fix bug in autocomplete where errors would come out</li>
+</ul>
+<div class="pilwrap" id="3.8.4">
+  <h2>
+    <a href="#3.8.4" name="3.8.4" class="pilcrow"></a>
+3.8.4
+  </h2>
+</div>
+<ul>
+<li>CLI will use exit code 1 on exit when any task fails during the lifetime of the process</li>
+</ul>
+<div class="pilwrap" id="3.8.3">
+  <h2>
+    <a href="#3.8.3" name="3.8.3" class="pilcrow"></a>
+3.8.3
+  </h2>
+</div>
+<ul>
+<li>Tweak error formatting to work better with PluginErrors and strings</li>
+</ul>
+<div class="pilwrap" id="3.8.2">
+  <h2>
+    <a href="#3.8.2" name="3.8.2" class="pilcrow"></a>
+3.8.2
+  </h2>
+</div>
+<ul>
+<li>add manpage generation</li>
+</ul>
+<div class="pilwrap" id="3.8.1">
+  <h2>
+    <a href="#3.8.1" name="3.8.1" class="pilcrow"></a>
+3.8.1
+  </h2>
+</div>
+<ul>
+<li>the CLI now adds process.env.INIT_CWD which is the original cwd it was launched from</li>
+</ul>
+<div class="pilwrap" id="3.8.0">
+  <h2>
+    <a href="#3.8.0" name="3.8.0" class="pilcrow"></a>
+3.8.0
+  </h2>
+</div>
+<ul>
+<li>update vinyl-fs
+<ul>
+<li>gulp.src is now a writable passthrough, this means you can use it to add files to your pipeline at any point</li>
+<li>gulp.dest can now take a function to determine the folder</li>
+</ul>
+</li>
+</ul>
+<p>This is now possible!</p>
+<pre><code class="js">gulp.src(<span class="hljs-string">'lib/*.js'</span>)
+  .pipe(uglify())
+  .pipe(gulp.src(<span class="hljs-string">'styles/*.css'</span>))
+  .pipe(gulp.dest(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">file</span>)</span>{
+    <span class="hljs-comment">// I don't know, you can do something cool here</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'build/whatever'</span>;
+  }));
+</code></pre>
+<div class="pilwrap" id="3.7.0">
+  <h2>
+    <a href="#3.7.0" name="3.7.0" class="pilcrow"></a>
+3.7.0
+  </h2>
+</div>
+<ul>
+<li>update vinyl-fs to remove BOM from UTF8 files</li>
+<li>add --tasks-simple flag for plaintext task listings</li>
+<li>updated autocomplete scripts to be simpler and use new --tasks-simple flag</li>
+<li>added support for transpilers via liftoff 0.11 and interpret
+<ul>
+<li>just npm install your compiler (coffee-script for example) and it will work out of the box</li>
+</ul>
+</li>
+</ul>
+<div class="pilwrap" id="3.5.5">
+  <h2>
+    <a href="#3.5.5" name="3.5.5" class="pilcrow"></a>
+3.5.5
+  </h2>
+</div>
+<ul>
+<li>update deps</li>
+<li>gulp.dest now support mode option, uses source file mode by default (file.stat.mode)</li>
+<li>use chalk for colors in bin</li>
+<li>update gulp.env deprecation msg to be more helpful</li>
+</ul>
+<div class="pilwrap" id="3.5.2">
+  <h2>
+    <a href="#3.5.2" name="3.5.2" class="pilcrow"></a>
+3.5.2
+  </h2>
+</div>
+<ul>
+<li>add -V for version on CLI (unix standard)</li>
+<li>-v is deprecated, use -V</li>
+<li>add -T as an alias for --tasks</li>
+<li>documentation</li>
+</ul>
+<div class="pilwrap" id="3.5">
+  <h2>
+    <a href="#3.5" name="3.5" class="pilcrow"></a>
+3.5
+  </h2>
+</div>
+<ul>
+<li>added <code>gulp.watch(globs, tasksArray)</code> sugar</li>
+<li>remove gulp.taskQueue</li>
+<li>deprecate gulp.run</li>
+<li>deprecate gulp.env</li>
+<li>add engineStrict to prevent people with node &lt; 0.9 from installing</li>
+</ul>
+<div class="pilwrap" id="3.4">
+  <h2>
+    <a href="#3.4" name="3.4" class="pilcrow"></a>
+3.4
+  </h2>
+</div>
+<ul>
+<li>added <code>--tasks</code> that prints out the tree of tasks + deps</li>
+<li>global cli + local install mismatch is no longer fatal</li>
+<li>remove tests for fs stuff</li>
+<li>switch core src, dest, and watch to vinyl-fs</li>
+<li>internal cleaning</li>
+</ul>
+<div class="pilwrap" id="3.3.4">
+  <h2>
+    <a href="#3.3.4" name="3.3.4" class="pilcrow"></a>
+3.3.4
+  </h2>
+</div>
+<ul>
+<li><code>--base</code> is now <code>--cwd</code></li>
+</ul>
+<div class="pilwrap" id="3.3.3">
+  <h2>
+    <a href="#3.3.3" name="3.3.3" class="pilcrow"></a>
+3.3.3
+  </h2>
+</div>
+<ul>
+<li>support for <code>--base</code> CLI arg to change where the search for gulpfile/<code>--require</code>s starts</li>
+<li>support for <code>--gulpfile</code> CLI arg to point to a gulpfile specifically</li>
+</ul>
+<div class="pilwrap" id="3.3.0">
+  <h2>
+    <a href="#3.3.0" name="3.3.0" class="pilcrow"></a>
+3.3.0
+  </h2>
+</div>
+<ul>
+<li>file.contents streams are no longer paused coming out of src</li>
+<li>dest now passes files through before they are empty to fix passing to multiple dests</li>
+</ul>
+<div class="pilwrap" id="3.2.4">
+  <h2>
+    <a href="#3.2.4" name="3.2.4" class="pilcrow"></a>
+3.2.4
+  </h2>
+</div>
+<ul>
+<li>Bug fix - we didn't have any CLI tests</li>
+</ul>
+<div class="pilwrap" id="3.2.3">
+  <h2>
+    <a href="#3.2.3" name="3.2.3" class="pilcrow"></a>
+3.2.3
+  </h2>
+</div>
+<ul>
+<li>Update dependencies for bug fixes</li>
+<li>autocomplete stuff in the completion folder</li>
+</ul>
+<div class="pilwrap" id="3.2">
+  <h2>
+    <a href="#3.2" name="3.2" class="pilcrow"></a>
+3.2
+  </h2>
+</div>
+<ul>
+<li>File object is now <a href="https://github.com/wearefractal/vinyl">vinyl</a></li>
+<li>.watch() is now <a href="https://github.com/wearefractal/glob-watcher">glob-watcher</a></li>
+<li>Fix CLI -v when no gulpfile found</li>
+<li>gulp-util updated</li>
+<li>Logging moved to CLI bin file
+<ul>
+<li>Will cause double logging if you update global CLI to 3.2 but not local</li>
+<li>Will cause no logging if you update local to 3.1 but not global CLI</li>
+</ul>
+</li>
+<li>Drop support for &lt; 0.9</li>
+</ul>
+<div class="pilwrap" id="3.1.3">
+  <h2>
+    <a href="#3.1.3" name="3.1.3" class="pilcrow"></a>
+3.1.3
+  </h2>
+</div>
+<ul>
+<li>Move isStream and isBuffer to gulp-util</li>
+</ul>
+<div class="pilwrap" id="3.1">
+  <h2>
+    <a href="#3.1" name="3.1" class="pilcrow"></a>
+3.1
+  </h2>
+</div>
+<ul>
+<li>Move file class to gulp-util</li>
+</ul>
+<div class="pilwrap" id="3.0">
+  <h2>
+    <a href="#3.0" name="3.0" class="pilcrow"></a>
+3.0
+  </h2>
+</div>
+<ul>
+<li>Ability to pass multiple globs and glob negations to glob-stream</li>
+<li>Breaking change to the way glob-stream works</li>
+<li>File object is now a class</li>
+<li>file.shortened changed to file.relative</li>
+<li>file.cwd added</li>
+<li>Break out getStats to avoid nesting</li>
+<li>Major code reorganization</li>
+</ul>
+<div class="pilwrap" id="2.7">
+  <h2>
+    <a href="#2.7" name="2.7" class="pilcrow"></a>
+2.7
+  </h2>
+</div>
+<ul>
+<li>Breaking change to the way options are passed to glob-stream</li>
+<li>Introduce new File object to ease pain of computing shortened names (now a getter)</li>
+</ul>
+<div class="pilwrap" id="2.4-2.6">
+  <h2>
+    <a href="#2.4-2.6" name="2.4-2.6" class="pilcrow"></a>
+2.4 - 2.6
+  </h2>
+</div>
+<ul>
+<li>Moved stuff to gulp-util</li>
+<li>Quit exposing createGlobStream (just use the glob-stream module)</li>
+<li>More logging</li>
+<li>Prettier time durations</li>
+<li>Tons of documentation changes</li>
+<li>gulp.trigger(tasks...) as a through stream</li>
+</ul>
+<div class="pilwrap" id="1.2-2.4-111213">
+  <h2>
+    <a href="#1.2-2.4-111213" name="1.2-2.4-111213" class="pilcrow"></a>
+1.2-2.4 (11/12/13)
+  </h2>
+</div>
+<ul>
+<li>src buffer=false fixed for 0.8 and 0.9 (remember to .resume() on these versions before consuming)</li>
+<li>CLI completely rewritten
+<ul>
+<li>Colorful logging</li>
+<li>Uses local version of gulp to run tasks</li>
+<li>Uses findup to locate gulpfile (so you can run it anywhere in your project)</li>
+<li>chdir to gulpfile directory before loading it</li>
+<li>Correct exit codes on errors</li>
+</ul>
+</li>
+<li>silent flag added to gulp to disable logging</li>
+<li>Fixes to task orchestration (3rd party)</li>
+<li>Better support for globbed directories (thanks @robrich)</li>
+</ul>
+<div class="pilwrap" id="1.2-102813">
+  <h2>
+    <a href="#1.2-102813" name="1.2-102813" class="pilcrow"></a>
+1.2 (10/28/13)
+  </h2>
+</div>
+<ul>
+<li>Can specify buffer=false on src streams to make file.content a stream</li>
+<li>Can specify read=false on src streams to disable file.content</li>
+</ul>
+<div class="pilwrap" id="1.1-102113">
+  <h2>
+    <a href="#1.1-102113" name="1.1-102113" class="pilcrow"></a>
+1.1 (10/21/13)
+  </h2>
+</div>
+<ul>
+<li>Can specify run callback</li>
+<li>Can specify task dependencies</li>
+<li>Tasks can accept callback or return promise</li>
+<li><code>gulp.verbose</code> exposes run-time internals</li>
+</ul>
+<div class="pilwrap" id="1.0-92613">
+  <h2>
+    <a href="#1.0-92613" name="1.0-92613" class="pilcrow"></a>
+1.0 (9/26/13)
+  </h2>
+</div>
+<ul>
+<li>Specify dependency versions</li>
+<li>Updated docs</li>
+</ul>
+<div class="pilwrap" id="0.2-8613">
+  <h2>
+    <a href="#0.2-8613" name="0.2-8613" class="pilcrow"></a>
+0.2 (8/6/13)
+  </h2>
+</div>
+<ul>
+<li>Rename .files() to .src() and .folder() to .dest()</li>
+</ul>
+<div class="pilwrap" id="0.1-71813">
+  <h2>
+    <a href="#0.1-71813" name="0.1-71813" class="pilcrow"></a>
+0.1 (7/18/13)
+  </h2>
+</div>
+<ul>
+<li>Initial Release</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,2748 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>es2015.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es-abstract\\es2015.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>es2015.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> has = <span class="hljs-built_in">require</span>(<span class="hljs-string">'has'</span>);
+<span class="hljs-keyword">var</span> toPrimitive = <span class="hljs-built_in">require</span>(<span class="hljs-string">'es-to-primitive/es6'</span>);
+<span class="hljs-keyword">var</span> keys = <span class="hljs-built_in">require</span>(<span class="hljs-string">'object-keys'</span>);
+<span class="hljs-keyword">var</span> inspect = <span class="hljs-built_in">require</span>(<span class="hljs-string">'object-inspect'</span>);
+
+<span class="hljs-keyword">var</span> GetIntrinsic = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./GetIntrinsic'</span>);
+
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">TypeError</span> = GetIntrinsic(<span class="hljs-string">'%TypeError%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">RangeError</span> = GetIntrinsic(<span class="hljs-string">'%RangeError%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">SyntaxError</span> = GetIntrinsic(<span class="hljs-string">'%SyntaxError%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">Array</span> = GetIntrinsic(<span class="hljs-string">'%Array%'</span>);
+<span class="hljs-keyword">var</span> $ArrayPrototype = $<span class="hljs-built_in">Array</span>.prototype;
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">String</span> = GetIntrinsic(<span class="hljs-string">'%String%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">Object</span> = GetIntrinsic(<span class="hljs-string">'%Object%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">Number</span> = GetIntrinsic(<span class="hljs-string">'%Number%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">Symbol</span> = GetIntrinsic(<span class="hljs-string">'%Symbol%'</span>, <span class="hljs-literal">true</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">RegExp</span> = GetIntrinsic(<span class="hljs-string">'%RegExp%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">Promise</span> = GetIntrinsic(<span class="hljs-string">'%Promise%'</span>, <span class="hljs-literal">true</span>);
+<span class="hljs-keyword">var</span> $preventExtensions = $<span class="hljs-built_in">Object</span>.preventExtensions;
+
+<span class="hljs-keyword">var</span> hasSymbols = <span class="hljs-built_in">require</span>(<span class="hljs-string">'has-symbols'</span>)();
+
+<span class="hljs-keyword">var</span> assertRecord = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/assertRecord'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">isNaN</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/isNaN'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">isFinite</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/isFinite'</span>);
+<span class="hljs-keyword">var</span> MAX_ARRAY_LENGTH = <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">32</span>) - <span class="hljs-number">1</span>;
+<span class="hljs-keyword">var</span> MAX_SAFE_INTEGER = $<span class="hljs-built_in">Number</span>.MAX_SAFE_INTEGER || <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">53</span>) - <span class="hljs-number">1</span>;
+
+<span class="hljs-keyword">var</span> assign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/assign'</span>);
+<span class="hljs-keyword">var</span> sign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/sign'</span>);
+<span class="hljs-keyword">var</span> mod = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/mod'</span>);
+<span class="hljs-keyword">var</span> isPrimitive = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/isPrimitive'</span>);
+<span class="hljs-keyword">var</span> forEach = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/forEach'</span>);
+<span class="hljs-keyword">var</span> every = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/every'</span>);
+<span class="hljs-keyword">var</span> isSamePropertyDescriptor = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/isSamePropertyDescriptor'</span>);
+<span class="hljs-keyword">var</span> isPropertyDescriptor = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/isPropertyDescriptor'</span>);
+<span class="hljs-keyword">var</span> parseInteger = <span class="hljs-built_in">parseInt</span>;
+<span class="hljs-keyword">var</span> callBind = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/callBind'</span>);
+<span class="hljs-keyword">var</span> $PromiseThen = $<span class="hljs-built_in">Promise</span> ? callBind(GetIntrinsic(<span class="hljs-string">'%PromiseProto_then%'</span>)) : <span class="hljs-literal">null</span>;
+<span class="hljs-keyword">var</span> arraySlice = callBind($<span class="hljs-built_in">Array</span>.prototype.slice);
+<span class="hljs-keyword">var</span> strSlice = callBind($<span class="hljs-built_in">String</span>.prototype.slice);
+<span class="hljs-keyword">var</span> isBinary = callBind($<span class="hljs-built_in">RegExp</span>.prototype.test, /^<span class="hljs-number">0</span>b[<span class="hljs-number">01</span>]+$/i);
+<span class="hljs-keyword">var</span> isOctal = callBind($<span class="hljs-built_in">RegExp</span>.prototype.test, /^<span class="hljs-number">0</span>o[<span class="hljs-number">0</span><span class="hljs-number">-7</span>]+$/i);
+<span class="hljs-keyword">var</span> isDigit = callBind($<span class="hljs-built_in">RegExp</span>.prototype.test, /^[<span class="hljs-number">0</span><span class="hljs-number">-9</span>]$/);
+<span class="hljs-keyword">var</span> regexExec = callBind($<span class="hljs-built_in">RegExp</span>.prototype.exec);
+<span class="hljs-keyword">var</span> nonWS = [<span class="hljs-string">'\u0085'</span>, <span class="hljs-string">'\u200b'</span>, <span class="hljs-string">'\ufffe'</span>].join(<span class="hljs-string">''</span>);
+<span class="hljs-keyword">var</span> nonWSregex = <span class="hljs-keyword">new</span> $<span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'['</span> + nonWS + <span class="hljs-string">']'</span>, <span class="hljs-string">'g'</span>);
+<span class="hljs-keyword">var</span> hasNonWS = callBind($<span class="hljs-built_in">RegExp</span>.prototype.test, nonWSregex);
+<span class="hljs-keyword">var</span> invalidHexLiteral = <span class="hljs-regexp">/^[-+]0x[0-9a-f]+$/i</span>;
+<span class="hljs-keyword">var</span> isInvalidHexLiteral = callBind($<span class="hljs-built_in">RegExp</span>.prototype.test, invalidHexLiteral);
+<span class="hljs-keyword">var</span> $charCodeAt = callBind($<span class="hljs-built_in">String</span>.prototype.charCodeAt);
+<span class="hljs-keyword">var</span> $isEnumerable = callBind($<span class="hljs-built_in">Object</span>.prototype.propertyIsEnumerable);
+
+<span class="hljs-keyword">var</span> toStr = callBind($<span class="hljs-built_in">Object</span>.prototype.toString);
+
+<span class="hljs-keyword">var</span> $NumberValueOf = callBind(GetIntrinsic(<span class="hljs-string">'%NumberPrototype%'</span>).valueOf);
+<span class="hljs-keyword">var</span> $BooleanValueOf = callBind(GetIntrinsic(<span class="hljs-string">'%BooleanPrototype%'</span>).valueOf);
+<span class="hljs-keyword">var</span> $StringValueOf = callBind(GetIntrinsic(<span class="hljs-string">'%StringPrototype%'</span>).valueOf);
+<span class="hljs-keyword">var</span> $DateValueOf = callBind(GetIntrinsic(<span class="hljs-string">'%DatePrototype%'</span>).valueOf);
+<span class="hljs-keyword">var</span> $SymbolToString = hasSymbols &amp;&amp; callBind(GetIntrinsic(<span class="hljs-string">'%SymbolPrototype%'</span>).toString);
+
+<span class="hljs-keyword">var</span> $floor = <span class="hljs-built_in">Math</span>.floor;
+<span class="hljs-keyword">var</span> $abs = <span class="hljs-built_in">Math</span>.abs;
+
+<span class="hljs-keyword">var</span> $ObjectCreate = $<span class="hljs-built_in">Object</span>.create;
+<span class="hljs-keyword">var</span> $gOPD = $<span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor;
+<span class="hljs-keyword">var</span> $gOPN = $<span class="hljs-built_in">Object</span>.getOwnPropertyNames;
+<span class="hljs-keyword">var</span> $gOPS = $<span class="hljs-built_in">Object</span>.getOwnPropertySymbols;
+<span class="hljs-keyword">var</span> $isExtensible = $<span class="hljs-built_in">Object</span>.isExtensible;
+<span class="hljs-keyword">var</span> $defineProperty = $<span class="hljs-built_in">Object</span>.defineProperty;
+<span class="hljs-keyword">var</span> $setProto = <span class="hljs-built_in">Object</span>.setPrototypeOf || (
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>eslint-disable-next-line no-proto, no-negated-condition</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	[].__proto__ !== <span class="hljs-built_in">Array</span>.prototype
+		? <span class="hljs-literal">null</span>
+		: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">O, proto</span>) </span>{
+			O.__proto__ = proto; <span class="hljs-comment">// eslint-disable-line no-proto</span>
+			<span class="hljs-keyword">return</span> O;
+		}
+);
+
+<span class="hljs-keyword">var</span> DefineOwnProperty = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DefineOwnProperty</span>(<span class="hljs-params">ES, O, P, desc</span>) </span>{
+	<span class="hljs-keyword">if</span> (!$defineProperty) {
+		<span class="hljs-keyword">if</span> (!ES.IsDataDescriptor(desc)) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>ES3 does not support getters/setters</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">if</span> (!desc[<span class="hljs-string">'[[Configurable]]'</span>] || !desc[<span class="hljs-string">'[[Writable]]'</span>]) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>fallback for ES3</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">if</span> (P <span class="hljs-keyword">in</span> O &amp;&amp; $isEnumerable(O, P) !== !!desc[<span class="hljs-string">'[[Enumerable]]'</span>]) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>a non-enumerable existing property</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>property does not exist at all, or exists but is enumerable</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">var</span> V = desc[<span class="hljs-string">'[[Value]]'</span>];
+		O[P] = V; <span class="hljs-comment">// will use [[Define]]</span>
+		<span class="hljs-keyword">return</span> ES.SameValue(O[P], V);
+	}
+	$defineProperty(O, P, ES.FromPropertyDescriptor(desc));
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>whitespace from: https://es5.github.io/#x15.5.4.20
+implementation from https://github.com/es-shims/es5-shim/blob/v3.4.0/es5-shim.js#L1304-L1324</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> ws = [
+	<span class="hljs-string">'\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003'</span>,
+	<span class="hljs-string">'\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028'</span>,
+	<span class="hljs-string">'\u2029\uFEFF'</span>
+].join(<span class="hljs-string">''</span>);
+<span class="hljs-keyword">var</span> trimRegex = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'(^['</span> + ws + <span class="hljs-string">']+)|(['</span> + ws + <span class="hljs-string">']+$)'</span>, <span class="hljs-string">'g'</span>);
+<span class="hljs-keyword">var</span> $replace = callBind($<span class="hljs-built_in">String</span>.prototype.replace);
+<span class="hljs-keyword">var</span> trim = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+	<span class="hljs-keyword">return</span> $replace(value, trimRegex, <span class="hljs-string">''</span>);
+};
+
+<span class="hljs-keyword">var</span> ES5 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./es5'</span>);
+
+<span class="hljs-keyword">var</span> hasRegExpMatcher = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-regex'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-abstract-operations</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> ES6 = assign(assign({}, ES5), {
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-call-f-v-args</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	Call: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Call</span>(<span class="hljs-params">F, V</span>) </span>{
+		<span class="hljs-keyword">var</span> args = <span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">2</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">2</span>] : [];
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsCallable(F)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(inspect(F) + <span class="hljs-string">' is not a function'</span>);
+		}
+		<span class="hljs-keyword">return</span> F.apply(V, args);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-toprimitive</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ToPrimitive: toPrimitive,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-toboolean
+ToBoolean: ES5.ToBoolean,</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-tonumber</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ToNumber: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToNumber</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">var</span> value = isPrimitive(argument) ? argument : toPrimitive(argument, $<span class="hljs-built_in">Number</span>);
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'symbol'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Cannot convert a Symbol value to a number'</span>);
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'string'</span>) {
+			<span class="hljs-keyword">if</span> (isBinary(value)) {
+				<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ToNumber(parseInteger(strSlice(value, <span class="hljs-number">2</span>), <span class="hljs-number">2</span>));
+			} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isOctal(value)) {
+				<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ToNumber(parseInteger(strSlice(value, <span class="hljs-number">2</span>), <span class="hljs-number">8</span>));
+			} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (hasNonWS(value) || isInvalidHexLiteral(value)) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">NaN</span>;
+			} <span class="hljs-keyword">else</span> {
+				<span class="hljs-keyword">var</span> trimmed = trim(value);
+				<span class="hljs-keyword">if</span> (trimmed !== value) {
+					<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ToNumber(trimmed);
+				}
+			}
+		}
+		<span class="hljs-keyword">return</span> $<span class="hljs-built_in">Number</span>(value);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tointeger
+ToInteger: ES5.ToNumber,</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-toint32
+ToInt32: ES5.ToInt32,</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-touint32
+ToUint32: ES5.ToUint32,</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-toint16</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ToInt16: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToInt16</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">var</span> int16bit = <span class="hljs-keyword">this</span>.ToUint16(argument);
+		<span class="hljs-keyword">return</span> int16bit &gt;= <span class="hljs-number">0x8000</span> ? int16bit - <span class="hljs-number">0x10000</span> : int16bit;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-touint16
+ToUint16: ES5.ToUint16,</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-toint8</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ToInt8: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToInt8</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">var</span> int8bit = <span class="hljs-keyword">this</span>.ToUint8(argument);
+		<span class="hljs-keyword">return</span> int8bit &gt;= <span class="hljs-number">0x80</span> ? int8bit - <span class="hljs-number">0x100</span> : int8bit;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-touint8</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ToUint8: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToUint8</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">var</span> number = <span class="hljs-keyword">this</span>.ToNumber(argument);
+		<span class="hljs-keyword">if</span> ($<span class="hljs-built_in">isNaN</span>(number) || number === <span class="hljs-number">0</span> || !$<span class="hljs-built_in">isFinite</span>(number)) { <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; }
+		<span class="hljs-keyword">var</span> posInt = sign(number) * $floor($abs(number));
+		<span class="hljs-keyword">return</span> mod(posInt, <span class="hljs-number">0x100</span>);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-touint8clamp</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ToUint8Clamp: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToUint8Clamp</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">var</span> number = <span class="hljs-keyword">this</span>.ToNumber(argument);
+		<span class="hljs-keyword">if</span> ($<span class="hljs-built_in">isNaN</span>(number) || number &lt;= <span class="hljs-number">0</span>) { <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; }
+		<span class="hljs-keyword">if</span> (number &gt;= <span class="hljs-number">0xFF</span>) { <span class="hljs-keyword">return</span> <span class="hljs-number">0xFF</span>; }
+		<span class="hljs-keyword">var</span> f = $floor(argument);
+		<span class="hljs-keyword">if</span> (f + <span class="hljs-number">0.5</span> &lt; number) { <span class="hljs-keyword">return</span> f + <span class="hljs-number">1</span>; }
+		<span class="hljs-keyword">if</span> (number &lt; f + <span class="hljs-number">0.5</span>) { <span class="hljs-keyword">return</span> f; }
+		<span class="hljs-keyword">if</span> (f % <span class="hljs-number">2</span> !== <span class="hljs-number">0</span>) { <span class="hljs-keyword">return</span> f + <span class="hljs-number">1</span>; }
+		<span class="hljs-keyword">return</span> f;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tostring</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ToString: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToString</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> argument === <span class="hljs-string">'symbol'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Cannot convert a Symbol value to a string'</span>);
+		}
+		<span class="hljs-keyword">return</span> $<span class="hljs-built_in">String</span>(argument);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-toobject</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ToObject: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToObject</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">this</span>.RequireObjectCoercible(value);
+		<span class="hljs-keyword">return</span> $<span class="hljs-built_in">Object</span>(value);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-topropertykey</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ToPropertyKey: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToPropertyKey</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">var</span> key = <span class="hljs-keyword">this</span>.ToPrimitive(argument, $<span class="hljs-built_in">String</span>);
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> key === <span class="hljs-string">'symbol'</span> ? key : <span class="hljs-keyword">this</span>.ToString(key);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ToLength: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToLength</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">var</span> len = <span class="hljs-keyword">this</span>.ToInteger(argument);
+		<span class="hljs-keyword">if</span> (len &lt;= <span class="hljs-number">0</span>) { <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; } <span class="hljs-comment">// includes converting -0 to +0</span>
+		<span class="hljs-keyword">if</span> (len &gt; MAX_SAFE_INTEGER) { <span class="hljs-keyword">return</span> MAX_SAFE_INTEGER; }
+		<span class="hljs-keyword">return</span> len;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-canonicalnumericindexstring</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	CanonicalNumericIndexString: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CanonicalNumericIndexString</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">if</span> (toStr(argument) !== <span class="hljs-string">'[object String]'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'must be a string'</span>);
+		}
+		<span class="hljs-keyword">if</span> (argument === <span class="hljs-string">'-0'</span>) { <span class="hljs-keyword">return</span> <span class="hljs-number">-0</span>; }
+		<span class="hljs-keyword">var</span> n = <span class="hljs-keyword">this</span>.ToNumber(argument);
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.SameValue(<span class="hljs-keyword">this</span>.ToString(n), argument)) { <span class="hljs-keyword">return</span> n; }
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-requireobjectcoercible</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	RequireObjectCoercible: ES5.CheckObjectCoercible,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-isarray</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IsArray: $<span class="hljs-built_in">Array</span>.isArray || <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IsArray</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">return</span> toStr(argument) === <span class="hljs-string">'[object Array]'</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-iscallable
+IsCallable: ES5.IsCallable,</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-isconstructor</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IsConstructor: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IsConstructor</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> argument === <span class="hljs-string">'function'</span> &amp;&amp; !!argument.prototype; <span class="hljs-comment">// unfortunately there's no way to truly check this without try/catch `new argument`</span>
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-isextensible-o</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IsExtensible: $preventExtensions
+		? <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IsExtensible</span>(<span class="hljs-params">obj</span>) </span>{
+			<span class="hljs-keyword">if</span> (isPrimitive(obj)) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+			}
+			<span class="hljs-keyword">return</span> $isExtensible(obj);
+		}
+		: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isExtensible</span>(<span class="hljs-params">obj</span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; }, <span class="hljs-comment">// eslint-disable-line no-unused-vars</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-isinteger</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IsInteger: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IsInteger</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> argument !== <span class="hljs-string">'number'</span> || $<span class="hljs-built_in">isNaN</span>(argument) || !$<span class="hljs-built_in">isFinite</span>(argument)) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">var</span> abs = $abs(argument);
+		<span class="hljs-keyword">return</span> $floor(abs) === abs;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-ispropertykey</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IsPropertyKey: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IsPropertyKey</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> argument === <span class="hljs-string">'string'</span> || <span class="hljs-keyword">typeof</span> argument === <span class="hljs-string">'symbol'</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-isregexp</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IsRegExp: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IsRegExp</span>(<span class="hljs-params">argument</span>) </span>{
+		<span class="hljs-keyword">if</span> (!argument || <span class="hljs-keyword">typeof</span> argument !== <span class="hljs-string">'object'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">if</span> (hasSymbols) {
+			<span class="hljs-keyword">var</span> isRegExp = argument[$<span class="hljs-built_in">Symbol</span>.match];
+			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> isRegExp !== <span class="hljs-string">'undefined'</span>) {
+				<span class="hljs-keyword">return</span> ES5.ToBoolean(isRegExp);
+			}
+		}
+		<span class="hljs-keyword">return</span> hasRegExpMatcher(argument);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevalue
+SameValue: ES5.SameValue,</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35"></a>
+</div>
+<p>https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	SameValueZero: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SameValueZero</span>(<span class="hljs-params">x, y</span>) </span>{
+		<span class="hljs-keyword">return</span> (x === y) || ($<span class="hljs-built_in">isNaN</span>(x) &amp;&amp; $<span class="hljs-built_in">isNaN</span>(y));
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>7.3.2 GetV (V, P)</p>
+<ol>
+<li>Assert: IsPropertyKey(P) is true.</li>
+<li>Let O be ToObject(V).</li>
+<li>ReturnIfAbrupt(O).</li>
+<li>Return O.[[Get]](P, V).</li>
+</ol>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	GetV: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">GetV</span>(<span class="hljs-params">V, P</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37"></a>
+</div>
+<p>7.3.2.1</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: IsPropertyKey(P) is not true'</span>);
+		}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38"></a>
+</div>
+<p>7.3.2.2-3</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">var</span> O = <span class="hljs-keyword">this</span>.ToObject(V);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-39" id="section-39"></a>
+</div>
+<p>7.3.2.4</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">return</span> O[P];
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-40" id="section-40"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>7.3.9 - https://ecma-international.org/ecma-262/6.0/#sec-getmethod</p>
+<ol>
+<li>Assert: IsPropertyKey(P) is true.</li>
+<li>Let func be GetV(O, P).</li>
+<li>ReturnIfAbrupt(func).</li>
+<li>If func is either undefined or null, return undefined.</li>
+<li>If IsCallable(func) is false, throw a TypeError exception.</li>
+<li>Return func.</li>
+</ol>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	GetMethod: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">GetMethod</span>(<span class="hljs-params">O, P</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-41" id="section-41"></a>
+</div>
+<p>7.3.9.1</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: IsPropertyKey(P) is not true'</span>);
+		}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-42" id="section-42"></a>
+</div>
+<p>7.3.9.2</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">var</span> func = <span class="hljs-keyword">this</span>.GetV(O, P);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43"></a>
+</div>
+<p>7.3.9.4</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">if</span> (func == <span class="hljs-literal">null</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+		}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44"></a>
+</div>
+<p>7.3.9.5</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsCallable(func)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(P + <span class="hljs-string">'is not a function'</span>);
+		}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45"></a>
+</div>
+<p>7.3.9.6</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">return</span> func;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-46" id="section-46"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>7.3.1 Get (O, P) - https://ecma-international.org/ecma-262/6.0/#sec-get-o-p</p>
+<ol>
+<li>Assert: Type(O) is Object.</li>
+<li>Assert: IsPropertyKey(P) is true.</li>
+<li>Return O.[[Get]](P, O).</li>
+</ol>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	Get: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Get</span>(<span class="hljs-params">O, P</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-47" id="section-47"></a>
+</div>
+<p>7.3.1.1</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(O) is not Object'</span>);
+		}
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-48" id="section-48"></a>
+</div>
+<p>7.3.1.2</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: IsPropertyKey(P) is not true, got '</span> + inspect(P));
+		}
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-49" id="section-49"></a>
+</div>
+<p>7.3.1.3</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">return</span> O[P];
+	},
+
+	<span class="hljs-attr">Type</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Type</span>(<span class="hljs-params">x</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">'symbol'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-string">'Symbol'</span>;
+		}
+		<span class="hljs-keyword">return</span> ES5.Type(x);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-50" id="section-50"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-speciesconstructor</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	SpeciesConstructor: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SpeciesConstructor</span>(<span class="hljs-params">O, defaultConstructor</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(O) is not Object'</span>);
+		}
+		<span class="hljs-keyword">var</span> C = O.constructor;
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> C === <span class="hljs-string">'undefined'</span>) {
+			<span class="hljs-keyword">return</span> defaultConstructor;
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(C) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'O.constructor is not an Object'</span>);
+		}
+		<span class="hljs-keyword">var</span> S = hasSymbols &amp;&amp; $<span class="hljs-built_in">Symbol</span>.species ? C[$<span class="hljs-built_in">Symbol</span>.species] : <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">if</span> (S == <span class="hljs-literal">null</span>) {
+			<span class="hljs-keyword">return</span> defaultConstructor;
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsConstructor(S)) {
+			<span class="hljs-keyword">return</span> S;
+		}
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'no constructor found'</span>);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-51" id="section-51"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-frompropertydescriptor</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	FromPropertyDescriptor: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FromPropertyDescriptor</span>(<span class="hljs-params">Desc</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> Desc === <span class="hljs-string">'undefined'</span>) {
+			<span class="hljs-keyword">return</span> Desc;
+		}
+
+		assertRecord(<span class="hljs-keyword">this</span>, <span class="hljs-string">'Property Descriptor'</span>, <span class="hljs-string">'Desc'</span>, Desc);
+
+		<span class="hljs-keyword">var</span> obj = {};
+		<span class="hljs-keyword">if</span> (<span class="hljs-string">'[[Value]]'</span> <span class="hljs-keyword">in</span> Desc) {
+			obj.value = Desc[<span class="hljs-string">'[[Value]]'</span>];
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-string">'[[Writable]]'</span> <span class="hljs-keyword">in</span> Desc) {
+			obj.writable = Desc[<span class="hljs-string">'[[Writable]]'</span>];
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-string">'[[Get]]'</span> <span class="hljs-keyword">in</span> Desc) {
+			obj.get = Desc[<span class="hljs-string">'[[Get]]'</span>];
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-string">'[[Set]]'</span> <span class="hljs-keyword">in</span> Desc) {
+			obj.set = Desc[<span class="hljs-string">'[[Set]]'</span>];
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-string">'[[Enumerable]]'</span> <span class="hljs-keyword">in</span> Desc) {
+			obj.enumerable = Desc[<span class="hljs-string">'[[Enumerable]]'</span>];
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-string">'[[Configurable]]'</span> <span class="hljs-keyword">in</span> Desc) {
+			obj.configurable = Desc[<span class="hljs-string">'[[Configurable]]'</span>];
+		}
+		<span class="hljs-keyword">return</span> obj;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-52" id="section-52"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-completepropertydescriptor</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	CompletePropertyDescriptor: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CompletePropertyDescriptor</span>(<span class="hljs-params">Desc</span>) </span>{
+		assertRecord(<span class="hljs-keyword">this</span>, <span class="hljs-string">'Property Descriptor'</span>, <span class="hljs-string">'Desc'</span>, Desc);
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsGenericDescriptor(Desc) || <span class="hljs-keyword">this</span>.IsDataDescriptor(Desc)) {
+			<span class="hljs-keyword">if</span> (!has(Desc, <span class="hljs-string">'[[Value]]'</span>)) {
+				Desc[<span class="hljs-string">'[[Value]]'</span>] = <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+			}
+			<span class="hljs-keyword">if</span> (!has(Desc, <span class="hljs-string">'[[Writable]]'</span>)) {
+				Desc[<span class="hljs-string">'[[Writable]]'</span>] = <span class="hljs-literal">false</span>;
+			}
+		} <span class="hljs-keyword">else</span> {
+			<span class="hljs-keyword">if</span> (!has(Desc, <span class="hljs-string">'[[Get]]'</span>)) {
+				Desc[<span class="hljs-string">'[[Get]]'</span>] = <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+			}
+			<span class="hljs-keyword">if</span> (!has(Desc, <span class="hljs-string">'[[Set]]'</span>)) {
+				Desc[<span class="hljs-string">'[[Set]]'</span>] = <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+			}
+		}
+		<span class="hljs-keyword">if</span> (!has(Desc, <span class="hljs-string">'[[Enumerable]]'</span>)) {
+			Desc[<span class="hljs-string">'[[Enumerable]]'</span>] = <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">if</span> (!has(Desc, <span class="hljs-string">'[[Configurable]]'</span>)) {
+			Desc[<span class="hljs-string">'[[Configurable]]'</span>] = <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">return</span> Desc;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-53" id="section-53"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-set-o-p-v-throw</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-built_in">Set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Set</span>(<span class="hljs-params">O, P, V, Throw</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'O must be an Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'P must be a Property Key'</span>);
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(Throw) !== <span class="hljs-string">'Boolean'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Throw must be a Boolean'</span>);
+		}
+		<span class="hljs-keyword">if</span> (Throw) {
+			O[P] = V;
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		} <span class="hljs-keyword">else</span> {
+			<span class="hljs-keyword">try</span> {
+				O[P] = V;
+			} <span class="hljs-keyword">catch</span> (e) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+			}
+		}
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-54" id="section-54"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-hasownproperty</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	HasOwnProperty: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">HasOwnProperty</span>(<span class="hljs-params">O, P</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'O must be an Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'P must be a Property Key'</span>);
+		}
+		<span class="hljs-keyword">return</span> has(O, P);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-55" id="section-55"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-hasproperty</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	HasProperty: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">HasProperty</span>(<span class="hljs-params">O, P</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'O must be an Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'P must be a Property Key'</span>);
+		}
+		<span class="hljs-keyword">return</span> P <span class="hljs-keyword">in</span> O;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-56" id="section-56"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-isconcatspreadable</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IsConcatSpreadable: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IsConcatSpreadable</span>(<span class="hljs-params">O</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">if</span> (hasSymbols &amp;&amp; <span class="hljs-keyword">typeof</span> $<span class="hljs-built_in">Symbol</span>.isConcatSpreadable === <span class="hljs-string">'symbol'</span>) {
+			<span class="hljs-keyword">var</span> spreadable = <span class="hljs-keyword">this</span>.Get(O, <span class="hljs-built_in">Symbol</span>.isConcatSpreadable);
+			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> spreadable !== <span class="hljs-string">'undefined'</span>) {
+				<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ToBoolean(spreadable);
+			}
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.IsArray(O);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-57" id="section-57"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-invoke</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	Invoke: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Invoke</span>(<span class="hljs-params">O, P</span>) </span>{
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'P must be a Property Key'</span>);
+		}
+		<span class="hljs-keyword">var</span> argumentsList = arraySlice(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">2</span>);
+		<span class="hljs-keyword">var</span> func = <span class="hljs-keyword">this</span>.GetV(O, P);
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.Call(func, O, argumentsList);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-58" id="section-58"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-getiterator</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	GetIterator: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">GetIterator</span>(<span class="hljs-params">obj, method</span>) </span>{
+		<span class="hljs-keyword">var</span> actualMethod = method;
+		<span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>.length &lt; <span class="hljs-number">2</span>) {
+			<span class="hljs-keyword">if</span> (!hasSymbols) {
+				<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">'GetIterator depends on native Symbol support when `method` is not passed'</span>);
+			}
+			actualMethod = <span class="hljs-keyword">this</span>.GetMethod(obj, $<span class="hljs-built_in">Symbol</span>.iterator);
+		}
+		<span class="hljs-keyword">var</span> iterator = <span class="hljs-keyword">this</span>.Call(actualMethod, obj);
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(iterator) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'iterator must return an object'</span>);
+		}
+
+		<span class="hljs-keyword">return</span> iterator;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-59" id="section-59"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-iteratornext</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IteratorNext: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IteratorNext</span>(<span class="hljs-params">iterator, value</span>) </span>{
+		<span class="hljs-keyword">var</span> result = <span class="hljs-keyword">this</span>.Invoke(iterator, <span class="hljs-string">'next'</span>, <span class="hljs-built_in">arguments</span>.length &lt; <span class="hljs-number">2</span> ? [] : [value]);
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(result) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'iterator next must return an object'</span>);
+		}
+		<span class="hljs-keyword">return</span> result;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-60" id="section-60"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-iteratorcomplete</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IteratorComplete: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IteratorComplete</span>(<span class="hljs-params">iterResult</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(iterResult) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(iterResult) is not Object'</span>);
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ToBoolean(<span class="hljs-keyword">this</span>.Get(iterResult, <span class="hljs-string">'done'</span>));
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-61" id="section-61"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-iteratorvalue</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IteratorValue: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IteratorValue</span>(<span class="hljs-params">iterResult</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(iterResult) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(iterResult) is not Object'</span>);
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.Get(iterResult, <span class="hljs-string">'value'</span>);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-62" id="section-62"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-iteratorstep</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IteratorStep: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IteratorStep</span>(<span class="hljs-params">iterator</span>) </span>{
+		<span class="hljs-keyword">var</span> result = <span class="hljs-keyword">this</span>.IteratorNext(iterator);
+		<span class="hljs-keyword">var</span> done = <span class="hljs-keyword">this</span>.IteratorComplete(result);
+		<span class="hljs-keyword">return</span> done === <span class="hljs-literal">true</span> ? <span class="hljs-literal">false</span> : result;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-63" id="section-63"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-iteratorclose</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IteratorClose: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IteratorClose</span>(<span class="hljs-params">iterator, completion</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(iterator) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(iterator) is not Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsCallable(completion)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: completion is not a thunk for a Completion Record'</span>);
+		}
+		<span class="hljs-keyword">var</span> completionThunk = completion;
+
+		<span class="hljs-keyword">var</span> iteratorReturn = <span class="hljs-keyword">this</span>.GetMethod(iterator, <span class="hljs-string">'return'</span>);
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> iteratorReturn === <span class="hljs-string">'undefined'</span>) {
+			<span class="hljs-keyword">return</span> completionThunk();
+		}
+
+		<span class="hljs-keyword">var</span> completionRecord;
+		<span class="hljs-keyword">try</span> {
+			<span class="hljs-keyword">var</span> innerResult = <span class="hljs-keyword">this</span>.Call(iteratorReturn, iterator, []);
+		} <span class="hljs-keyword">catch</span> (e) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-64" id="section-64"></a>
+</div>
+<p>if we hit here, then &quot;e&quot; is the innerResult completion that needs re-throwing</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-65" id="section-65"></a>
+</div>
+<p>if the completion is of type &quot;throw&quot;, this will throw.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			completionRecord = completionThunk();
+			completionThunk = <span class="hljs-literal">null</span>; <span class="hljs-comment">// ensure it's not called twice.</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-66" id="section-66"></a>
+</div>
+<p>if not, then return the innerResult completion</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			<span class="hljs-keyword">throw</span> e;
+		}
+		completionRecord = completionThunk(); <span class="hljs-comment">// if innerResult worked, then throw if the completion does</span>
+		completionThunk = <span class="hljs-literal">null</span>; <span class="hljs-comment">// ensure it's not called twice.</span>
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(innerResult) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'iterator .return must return an object'</span>);
+		}
+
+		<span class="hljs-keyword">return</span> completionRecord;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-67" id="section-67"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-createiterresultobject</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	CreateIterResultObject: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CreateIterResultObject</span>(<span class="hljs-params">value, done</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(done) !== <span class="hljs-string">'Boolean'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(done) is not Boolean'</span>);
+		}
+		<span class="hljs-keyword">return</span> {
+			<span class="hljs-attr">value</span>: value,
+			<span class="hljs-attr">done</span>: done
+		};
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-68" id="section-68"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-regexpexec</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	RegExpExec: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RegExpExec</span>(<span class="hljs-params">R, S</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(R) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'R must be an Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(S) !== <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'S must be a String'</span>);
+		}
+		<span class="hljs-keyword">var</span> exec = <span class="hljs-keyword">this</span>.Get(R, <span class="hljs-string">'exec'</span>);
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsCallable(exec)) {
+			<span class="hljs-keyword">var</span> result = <span class="hljs-keyword">this</span>.Call(exec, R, [S]);
+			<span class="hljs-keyword">if</span> (result === <span class="hljs-literal">null</span> || <span class="hljs-keyword">this</span>.Type(result) === <span class="hljs-string">'Object'</span>) {
+				<span class="hljs-keyword">return</span> result;
+			}
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'"exec" method must return `null` or an Object'</span>);
+		}
+		<span class="hljs-keyword">return</span> regexExec(R, S);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-69" id="section-69"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-arrayspeciescreate</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ArraySpeciesCreate: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ArraySpeciesCreate</span>(<span class="hljs-params">originalArray, length</span>) </span>{
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsInteger(length) || length &lt; <span class="hljs-number">0</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: length must be an integer &gt;= 0'</span>);
+		}
+		<span class="hljs-keyword">var</span> len = length === <span class="hljs-number">0</span> ? <span class="hljs-number">0</span> : length;
+		<span class="hljs-keyword">var</span> C;
+		<span class="hljs-keyword">var</span> isArray = <span class="hljs-keyword">this</span>.IsArray(originalArray);
+		<span class="hljs-keyword">if</span> (isArray) {
+			C = <span class="hljs-keyword">this</span>.Get(originalArray, <span class="hljs-string">'constructor'</span>);
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-70" id="section-70"></a>
+</div>
+<p>TODO: figure out how to make a cross-realm normal Array, a same-realm Array
+if (this.IsConstructor(C)) {
+	if C is another realm's Array, C = undefined
+	Object.getPrototypeOf(Object.getPrototypeOf(Object.getPrototypeOf(Array))) === null ?
+}</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(C) === <span class="hljs-string">'Object'</span> &amp;&amp; hasSymbols &amp;&amp; $<span class="hljs-built_in">Symbol</span>.species) {
+				C = <span class="hljs-keyword">this</span>.Get(C, $<span class="hljs-built_in">Symbol</span>.species);
+				<span class="hljs-keyword">if</span> (C === <span class="hljs-literal">null</span>) {
+					C = <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+				}
+			}
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> C === <span class="hljs-string">'undefined'</span>) {
+			<span class="hljs-keyword">return</span> $<span class="hljs-built_in">Array</span>(len);
+		}
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsConstructor(C)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'C must be a constructor'</span>);
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> C(len); <span class="hljs-comment">// this.Construct(C, len);</span>
+	},
+
+	<span class="hljs-attr">CreateDataProperty</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CreateDataProperty</span>(<span class="hljs-params">O, P, V</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(O) is not Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: IsPropertyKey(P) is not true'</span>);
+		}
+		<span class="hljs-keyword">var</span> oldDesc = $gOPD(O, P);
+		<span class="hljs-keyword">var</span> extensible = oldDesc || <span class="hljs-keyword">this</span>.IsExtensible(O);
+		<span class="hljs-keyword">var</span> immutable = oldDesc &amp;&amp; (!oldDesc.writable || !oldDesc.configurable);
+		<span class="hljs-keyword">if</span> (immutable || !extensible) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">return</span> DefineOwnProperty(<span class="hljs-keyword">this</span>, O, P, {
+			<span class="hljs-string">'[[Configurable]]'</span>: <span class="hljs-literal">true</span>,
+			<span class="hljs-string">'[[Enumerable]]'</span>: <span class="hljs-literal">true</span>,
+			<span class="hljs-string">'[[Value]]'</span>: V,
+			<span class="hljs-string">'[[Writable]]'</span>: <span class="hljs-literal">true</span>
+		});
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-71" id="section-71"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-createdatapropertyorthrow</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	CreateDataPropertyOrThrow: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CreateDataPropertyOrThrow</span>(<span class="hljs-params">O, P, V</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(O) is not Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: IsPropertyKey(P) is not true'</span>);
+		}
+		<span class="hljs-keyword">var</span> success = <span class="hljs-keyword">this</span>.CreateDataProperty(O, P, V);
+		<span class="hljs-keyword">if</span> (!success) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'unable to create data property'</span>);
+		}
+		<span class="hljs-keyword">return</span> success;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-72" id="section-72"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-objectcreate</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ObjectCreate: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ObjectCreate</span>(<span class="hljs-params">proto, internalSlotsList</span>) </span>{
+		<span class="hljs-keyword">if</span> (proto !== <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-keyword">this</span>.Type(proto) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: proto must be null or an object'</span>);
+		}
+		<span class="hljs-keyword">var</span> slots = <span class="hljs-built_in">arguments</span>.length &lt; <span class="hljs-number">2</span> ? [] : internalSlotsList;
+		<span class="hljs-keyword">if</span> (slots.length &gt; <span class="hljs-number">0</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">'es-abstract does not yet support internal slots'</span>);
+		}
+
+		<span class="hljs-keyword">if</span> (proto === <span class="hljs-literal">null</span> &amp;&amp; !$ObjectCreate) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">'native Object.create support is required to create null objects'</span>);
+		}
+
+		<span class="hljs-keyword">return</span> $ObjectCreate(proto);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-73" id="section-73"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-advancestringindex</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	AdvanceStringIndex: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">AdvanceStringIndex</span>(<span class="hljs-params">S, index, unicode</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(S) !== <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'S must be a String'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsInteger(index) || index &lt; <span class="hljs-number">0</span> || index &gt; MAX_SAFE_INTEGER) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: length must be an integer &gt;= 0 and &lt;= 2**53'</span>);
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(unicode) !== <span class="hljs-string">'Boolean'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: unicode must be a Boolean'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!unicode) {
+			<span class="hljs-keyword">return</span> index + <span class="hljs-number">1</span>;
+		}
+		<span class="hljs-keyword">var</span> length = S.length;
+		<span class="hljs-keyword">if</span> ((index + <span class="hljs-number">1</span>) &gt;= length) {
+			<span class="hljs-keyword">return</span> index + <span class="hljs-number">1</span>;
+		}
+
+		<span class="hljs-keyword">var</span> first = $charCodeAt(S, index);
+		<span class="hljs-keyword">if</span> (first &lt; <span class="hljs-number">0xD800</span> || first &gt; <span class="hljs-number">0xDBFF</span>) {
+			<span class="hljs-keyword">return</span> index + <span class="hljs-number">1</span>;
+		}
+
+		<span class="hljs-keyword">var</span> second = $charCodeAt(S, index + <span class="hljs-number">1</span>);
+		<span class="hljs-keyword">if</span> (second &lt; <span class="hljs-number">0xDC00</span> || second &gt; <span class="hljs-number">0xDFFF</span>) {
+			<span class="hljs-keyword">return</span> index + <span class="hljs-number">1</span>;
+		}
+
+		<span class="hljs-keyword">return</span> index + <span class="hljs-number">2</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-74" id="section-74"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-createmethodproperty</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	CreateMethodProperty: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CreateMethodProperty</span>(<span class="hljs-params">O, P, V</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(O) is not Object'</span>);
+		}
+
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: IsPropertyKey(P) is not true'</span>);
+		}
+
+		<span class="hljs-keyword">var</span> newDesc = {
+			<span class="hljs-string">'[[Configurable]]'</span>: <span class="hljs-literal">true</span>,
+			<span class="hljs-string">'[[Enumerable]]'</span>: <span class="hljs-literal">false</span>,
+			<span class="hljs-string">'[[Value]]'</span>: V,
+			<span class="hljs-string">'[[Writable]]'</span>: <span class="hljs-literal">true</span>
+		};
+		<span class="hljs-keyword">return</span> DefineOwnProperty(<span class="hljs-keyword">this</span>, O, P, newDesc);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-75" id="section-75"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-definepropertyorthrow</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	DefinePropertyOrThrow: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DefinePropertyOrThrow</span>(<span class="hljs-params">O, P, desc</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(O) is not Object'</span>);
+		}
+
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: IsPropertyKey(P) is not true'</span>);
+		}
+
+		<span class="hljs-keyword">var</span> Desc = isPropertyDescriptor(<span class="hljs-keyword">this</span>, desc) ? desc : <span class="hljs-keyword">this</span>.ToPropertyDescriptor(desc);
+		<span class="hljs-keyword">if</span> (!isPropertyDescriptor(<span class="hljs-keyword">this</span>, Desc)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Desc is not a valid Property Descriptor'</span>);
+		}
+
+		<span class="hljs-keyword">return</span> DefineOwnProperty(<span class="hljs-keyword">this</span>, O, P, Desc);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-76" id="section-76"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-deletepropertyorthrow</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	DeletePropertyOrThrow: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DeletePropertyOrThrow</span>(<span class="hljs-params">O, P</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(O) is not Object'</span>);
+		}
+
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: IsPropertyKey(P) is not true'</span>);
+		}
+
+		<span class="hljs-keyword">var</span> success = <span class="hljs-keyword">delete</span> O[P];
+		<span class="hljs-keyword">if</span> (!success) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Attempt to delete property failed.'</span>);
+		}
+		<span class="hljs-keyword">return</span> success;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-77" id="section-77"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-enumerableownnames</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	EnumerableOwnNames: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">EnumerableOwnNames</span>(<span class="hljs-params">O</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(O) is not Object'</span>);
+		}
+
+		<span class="hljs-keyword">return</span> keys(O);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-78" id="section-78"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-properties-of-the-number-prototype-object</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	thisNumberValue: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thisNumberValue</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(value) === <span class="hljs-string">'Number'</span>) {
+			<span class="hljs-keyword">return</span> value;
+		}
+
+		<span class="hljs-keyword">return</span> $NumberValueOf(value);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-79" id="section-79"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-properties-of-the-boolean-prototype-object</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	thisBooleanValue: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thisBooleanValue</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(value) === <span class="hljs-string">'Boolean'</span>) {
+			<span class="hljs-keyword">return</span> value;
+		}
+
+		<span class="hljs-keyword">return</span> $BooleanValueOf(value);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-80" id="section-80"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-properties-of-the-string-prototype-object</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	thisStringValue: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thisStringValue</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(value) === <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">return</span> value;
+		}
+
+		<span class="hljs-keyword">return</span> $StringValueOf(value);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-81" id="section-81"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-properties-of-the-date-prototype-object</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	thisTimeValue: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thisTimeValue</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">return</span> $DateValueOf(value);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-82" id="section-82"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-setintegritylevel</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	SetIntegrityLevel: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SetIntegrityLevel</span>(<span class="hljs-params">O, level</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(O) is not Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (level !== <span class="hljs-string">'sealed'</span> &amp;&amp; level !== <span class="hljs-string">'frozen'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `level` must be `"sealed"` or `"frozen"`'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!$preventExtensions) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">'SetIntegrityLevel requires native `Object.preventExtensions` support'</span>);
+		}
+		<span class="hljs-keyword">var</span> status = $preventExtensions(O);
+		<span class="hljs-keyword">if</span> (!status) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">if</span> (!$gOPN) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">'SetIntegrityLevel requires native `Object.getOwnPropertyNames` support'</span>);
+		}
+		<span class="hljs-keyword">var</span> theKeys = $gOPN(O);
+		<span class="hljs-keyword">var</span> ES = <span class="hljs-keyword">this</span>;
+		<span class="hljs-keyword">if</span> (level === <span class="hljs-string">'sealed'</span>) {
+			forEach(theKeys, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">k</span>) </span>{
+				ES.DefinePropertyOrThrow(O, k, { <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span> });
+			});
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (level === <span class="hljs-string">'frozen'</span>) {
+			forEach(theKeys, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">k</span>) </span>{
+				<span class="hljs-keyword">var</span> currentDesc = $gOPD(O, k);
+				<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> currentDesc !== <span class="hljs-string">'undefined'</span>) {
+					<span class="hljs-keyword">var</span> desc;
+					<span class="hljs-keyword">if</span> (ES.IsAccessorDescriptor(ES.ToPropertyDescriptor(currentDesc))) {
+						desc = { <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span> };
+					} <span class="hljs-keyword">else</span> {
+						desc = { <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span> };
+					}
+					ES.DefinePropertyOrThrow(O, k, desc);
+				}
+			});
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-83" id="section-83"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-testintegritylevel</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	TestIntegrityLevel: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TestIntegrityLevel</span>(<span class="hljs-params">O, level</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(O) is not Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (level !== <span class="hljs-string">'sealed'</span> &amp;&amp; level !== <span class="hljs-string">'frozen'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `level` must be `"sealed"` or `"frozen"`'</span>);
+		}
+		<span class="hljs-keyword">var</span> status = <span class="hljs-keyword">this</span>.IsExtensible(O);
+		<span class="hljs-keyword">if</span> (status) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">var</span> theKeys = $gOPN(O);
+		<span class="hljs-keyword">var</span> ES = <span class="hljs-keyword">this</span>;
+		<span class="hljs-keyword">return</span> theKeys.length === <span class="hljs-number">0</span> || every(theKeys, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">k</span>) </span>{
+			<span class="hljs-keyword">var</span> currentDesc = $gOPD(O, k);
+			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> currentDesc !== <span class="hljs-string">'undefined'</span>) {
+				<span class="hljs-keyword">if</span> (currentDesc.configurable) {
+					<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+				}
+				<span class="hljs-keyword">if</span> (level === <span class="hljs-string">'frozen'</span> &amp;&amp; ES.IsDataDescriptor(ES.ToPropertyDescriptor(currentDesc)) &amp;&amp; currentDesc.writable) {
+					<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+				}
+			}
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		});
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-84" id="section-84"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-ordinaryhasinstance</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	OrdinaryHasInstance: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">OrdinaryHasInstance</span>(<span class="hljs-params">C, O</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsCallable(C) === <span class="hljs-literal">false</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">var</span> P = <span class="hljs-keyword">this</span>.Get(C, <span class="hljs-string">'prototype'</span>);
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(P) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'OrdinaryHasInstance called on an object with an invalid prototype property.'</span>);
+		}
+		<span class="hljs-keyword">return</span> O <span class="hljs-keyword">instanceof</span> C;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-85" id="section-85"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-ordinaryhasproperty</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	OrdinaryHasProperty: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">OrdinaryHasProperty</span>(<span class="hljs-params">O, P</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(O) is not Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: P must be a Property Key'</span>);
+		}
+		<span class="hljs-keyword">return</span> P <span class="hljs-keyword">in</span> O;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-86" id="section-86"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-instanceofoperator</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	InstanceofOperator: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">InstanceofOperator</span>(<span class="hljs-params">O, C</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(O) is not Object'</span>);
+		}
+		<span class="hljs-keyword">var</span> instOfHandler = hasSymbols &amp;&amp; $<span class="hljs-built_in">Symbol</span>.hasInstance ? <span class="hljs-keyword">this</span>.GetMethod(C, $<span class="hljs-built_in">Symbol</span>.hasInstance) : <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> instOfHandler !== <span class="hljs-string">'undefined'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ToBoolean(<span class="hljs-keyword">this</span>.Call(instOfHandler, C, [O]));
+		}
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsCallable(C)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'`C` is not Callable'</span>);
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.OrdinaryHasInstance(C, O);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-87" id="section-87"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-ispromise</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IsPromise: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IsPromise</span>(<span class="hljs-params">x</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(x) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">if</span> (!$<span class="hljs-built_in">Promise</span>) { <span class="hljs-comment">// Promises are not supported</span>
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">try</span> {
+			$PromiseThen(x); <span class="hljs-comment">// throws if not a promise</span>
+		} <span class="hljs-keyword">catch</span> (e) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-88" id="section-88"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-abstract-equality-comparison</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-string">'Abstract Equality Comparison'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">AbstractEqualityComparison</span>(<span class="hljs-params">x, y</span>) </span>{
+		<span class="hljs-keyword">var</span> xType = <span class="hljs-keyword">this</span>.Type(x);
+		<span class="hljs-keyword">var</span> yType = <span class="hljs-keyword">this</span>.Type(y);
+		<span class="hljs-keyword">if</span> (xType === yType) {
+			<span class="hljs-keyword">return</span> x === y; <span class="hljs-comment">// ES6+ specified this shortcut anyways.</span>
+		}
+		<span class="hljs-keyword">if</span> (x == <span class="hljs-literal">null</span> &amp;&amp; y == <span class="hljs-literal">null</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		}
+		<span class="hljs-keyword">if</span> (xType === <span class="hljs-string">'Number'</span> &amp;&amp; yType === <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'Abstract Equality Comparison'</span>](x, <span class="hljs-keyword">this</span>.ToNumber(y));
+		}
+		<span class="hljs-keyword">if</span> (xType === <span class="hljs-string">'String'</span> &amp;&amp; yType === <span class="hljs-string">'Number'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'Abstract Equality Comparison'</span>](<span class="hljs-keyword">this</span>.ToNumber(x), y);
+		}
+		<span class="hljs-keyword">if</span> (xType === <span class="hljs-string">'Boolean'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'Abstract Equality Comparison'</span>](<span class="hljs-keyword">this</span>.ToNumber(x), y);
+		}
+		<span class="hljs-keyword">if</span> (yType === <span class="hljs-string">'Boolean'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'Abstract Equality Comparison'</span>](x, <span class="hljs-keyword">this</span>.ToNumber(y));
+		}
+		<span class="hljs-keyword">if</span> ((xType === <span class="hljs-string">'String'</span> || xType === <span class="hljs-string">'Number'</span> || xType === <span class="hljs-string">'Symbol'</span>) &amp;&amp; yType === <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'Abstract Equality Comparison'</span>](x, <span class="hljs-keyword">this</span>.ToPrimitive(y));
+		}
+		<span class="hljs-keyword">if</span> (xType === <span class="hljs-string">'Object'</span> &amp;&amp; (yType === <span class="hljs-string">'String'</span> || yType === <span class="hljs-string">'Number'</span> || yType === <span class="hljs-string">'Symbol'</span>)) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'Abstract Equality Comparison'</span>](<span class="hljs-keyword">this</span>.ToPrimitive(x), y);
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-89" id="section-89"></a>
+</div>
+<p>eslint-disable-next-line max-lines-per-function, max-statements, id-length, max-params</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ValidateAndApplyPropertyDescriptor: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ValidateAndApplyPropertyDescriptor</span>(<span class="hljs-params">O, P, extensible, Desc, current</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-90" id="section-90"></a>
+</div>
+<p>this uses the ES2017+ logic, since it fixes a number of bugs in the ES2015 logic.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">var</span> oType = <span class="hljs-keyword">this</span>.Type(O);
+		<span class="hljs-keyword">if</span> (oType !== <span class="hljs-string">'Undefined'</span> &amp;&amp; oType !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: O must be undefined or an Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(extensible) !== <span class="hljs-string">'Boolean'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: extensible must be a Boolean'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!isPropertyDescriptor(<span class="hljs-keyword">this</span>, Desc)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Desc must be a Property Descriptor'</span>);
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(current) !== <span class="hljs-string">'Undefined'</span> &amp;&amp; !isPropertyDescriptor(<span class="hljs-keyword">this</span>, current)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: current must be a Property Descriptor, or undefined'</span>);
+		}
+		<span class="hljs-keyword">if</span> (oType !== <span class="hljs-string">'Undefined'</span> &amp;&amp; !<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: if O is not undefined, P must be a Property Key'</span>);
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(current) === <span class="hljs-string">'Undefined'</span>) {
+			<span class="hljs-keyword">if</span> (!extensible) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+			}
+			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsGenericDescriptor(Desc) || <span class="hljs-keyword">this</span>.IsDataDescriptor(Desc)) {
+				<span class="hljs-keyword">if</span> (oType !== <span class="hljs-string">'Undefined'</span>) {
+					DefineOwnProperty(<span class="hljs-keyword">this</span>, O, P, {
+						<span class="hljs-string">'[[Configurable]]'</span>: Desc[<span class="hljs-string">'[[Configurable]]'</span>],
+						<span class="hljs-string">'[[Enumerable]]'</span>: Desc[<span class="hljs-string">'[[Enumerable]]'</span>],
+						<span class="hljs-string">'[[Value]]'</span>: Desc[<span class="hljs-string">'[[Value]]'</span>],
+						<span class="hljs-string">'[[Writable]]'</span>: Desc[<span class="hljs-string">'[[Writable]]'</span>]
+					});
+				}
+			} <span class="hljs-keyword">else</span> {
+				<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsAccessorDescriptor(Desc)) {
+					<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Desc is not an accessor descriptor'</span>);
+				}
+				<span class="hljs-keyword">if</span> (oType !== <span class="hljs-string">'Undefined'</span>) {
+					<span class="hljs-keyword">return</span> DefineOwnProperty(<span class="hljs-keyword">this</span>, O, P, Desc);
+				}
+			}
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsGenericDescriptor(Desc) &amp;&amp; !(<span class="hljs-string">'[[Configurable]]'</span> <span class="hljs-keyword">in</span> Desc) &amp;&amp; !(<span class="hljs-string">'[[Enumerable]]'</span> <span class="hljs-keyword">in</span> Desc)) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		}
+		<span class="hljs-keyword">if</span> (isSamePropertyDescriptor(<span class="hljs-keyword">this</span>, Desc, current)) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">// removed by ES2017, but should still be correct</span>
+		}
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-91" id="section-91"></a>
+</div>
+<p>&quot;if every field in Desc is absent, return true&quot; can't really match the assertion that it's a Property Descriptor</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">if</span> (!current[<span class="hljs-string">'[[Configurable]]'</span>]) {
+			<span class="hljs-keyword">if</span> (Desc[<span class="hljs-string">'[[Configurable]]'</span>]) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+			}
+			<span class="hljs-keyword">if</span> (<span class="hljs-string">'[[Enumerable]]'</span> <span class="hljs-keyword">in</span> Desc &amp;&amp; !Desc[<span class="hljs-string">'[[Enumerable]]'</span>] === !!current[<span class="hljs-string">'[[Enumerable]]'</span>]) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+			}
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsGenericDescriptor(Desc)) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-92" id="section-92"></a>
+</div>
+<p>no further validation is required.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsDataDescriptor(current) !== <span class="hljs-keyword">this</span>.IsDataDescriptor(Desc)) {
+			<span class="hljs-keyword">if</span> (!current[<span class="hljs-string">'[[Configurable]]'</span>]) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+			}
+			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsDataDescriptor(current)) {
+				<span class="hljs-keyword">if</span> (oType !== <span class="hljs-string">'Undefined'</span>) {
+					DefineOwnProperty(<span class="hljs-keyword">this</span>, O, P, {
+						<span class="hljs-string">'[[Configurable]]'</span>: current[<span class="hljs-string">'[[Configurable]]'</span>],
+						<span class="hljs-string">'[[Enumerable]]'</span>: current[<span class="hljs-string">'[[Enumerable]]'</span>],
+						<span class="hljs-string">'[[Get]]'</span>: <span class="hljs-literal">undefined</span>
+					});
+				}
+			} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (oType !== <span class="hljs-string">'Undefined'</span>) {
+				DefineOwnProperty(<span class="hljs-keyword">this</span>, O, P, {
+					<span class="hljs-string">'[[Configurable]]'</span>: current[<span class="hljs-string">'[[Configurable]]'</span>],
+					<span class="hljs-string">'[[Enumerable]]'</span>: current[<span class="hljs-string">'[[Enumerable]]'</span>],
+					<span class="hljs-string">'[[Value]]'</span>: <span class="hljs-literal">undefined</span>
+				});
+			}
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsDataDescriptor(current) &amp;&amp; <span class="hljs-keyword">this</span>.IsDataDescriptor(Desc)) {
+			<span class="hljs-keyword">if</span> (!current[<span class="hljs-string">'[[Configurable]]'</span>] &amp;&amp; !current[<span class="hljs-string">'[[Writable]]'</span>]) {
+				<span class="hljs-keyword">if</span> (<span class="hljs-string">'[[Writable]]'</span> <span class="hljs-keyword">in</span> Desc &amp;&amp; Desc[<span class="hljs-string">'[[Writable]]'</span>]) {
+					<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+				}
+				<span class="hljs-keyword">if</span> (<span class="hljs-string">'[[Value]]'</span> <span class="hljs-keyword">in</span> Desc &amp;&amp; !<span class="hljs-keyword">this</span>.SameValue(Desc[<span class="hljs-string">'[[Value]]'</span>], current[<span class="hljs-string">'[[Value]]'</span>])) {
+					<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+				}
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+			}
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsAccessorDescriptor(current) &amp;&amp; <span class="hljs-keyword">this</span>.IsAccessorDescriptor(Desc)) {
+			<span class="hljs-keyword">if</span> (!current[<span class="hljs-string">'[[Configurable]]'</span>]) {
+				<span class="hljs-keyword">if</span> (<span class="hljs-string">'[[Set]]'</span> <span class="hljs-keyword">in</span> Desc &amp;&amp; !<span class="hljs-keyword">this</span>.SameValue(Desc[<span class="hljs-string">'[[Set]]'</span>], current[<span class="hljs-string">'[[Set]]'</span>])) {
+					<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+				}
+				<span class="hljs-keyword">if</span> (<span class="hljs-string">'[[Get]]'</span> <span class="hljs-keyword">in</span> Desc &amp;&amp; !<span class="hljs-keyword">this</span>.SameValue(Desc[<span class="hljs-string">'[[Get]]'</span>], current[<span class="hljs-string">'[[Get]]'</span>])) {
+					<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+				}
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+			}
+		} <span class="hljs-keyword">else</span> {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: current and Desc are not both data, both accessors, or one accessor and one data.'</span>);
+		}
+		<span class="hljs-keyword">if</span> (oType !== <span class="hljs-string">'Undefined'</span>) {
+			<span class="hljs-keyword">return</span> DefineOwnProperty(<span class="hljs-keyword">this</span>, O, P, Desc);
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-93" id="section-93"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-ordinarydefineownproperty</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	OrdinaryDefineOwnProperty: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">OrdinaryDefineOwnProperty</span>(<span class="hljs-params">O, P, Desc</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: O must be an Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: P must be a Property Key'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!isPropertyDescriptor(<span class="hljs-keyword">this</span>, Desc)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Desc must be a Property Descriptor'</span>);
+		}
+		<span class="hljs-keyword">var</span> desc = $gOPD(O, P);
+		<span class="hljs-keyword">var</span> current = desc &amp;&amp; <span class="hljs-keyword">this</span>.ToPropertyDescriptor(desc);
+		<span class="hljs-keyword">var</span> extensible = <span class="hljs-keyword">this</span>.IsExtensible(O);
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ValidateAndApplyPropertyDescriptor(O, P, extensible, Desc, current);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-94" id="section-94"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-ordinarygetownproperty</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	OrdinaryGetOwnProperty: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">OrdinaryGetOwnProperty</span>(<span class="hljs-params">O, P</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: O must be an Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(P)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: P must be a Property Key'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!has(O, P)) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+		}
+		<span class="hljs-keyword">if</span> (!$gOPD) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-95" id="section-95"></a>
+</div>
+<p>ES3 fallback</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			<span class="hljs-keyword">var</span> arrayLength = <span class="hljs-keyword">this</span>.IsArray(O) &amp;&amp; P === <span class="hljs-string">'length'</span>;
+			<span class="hljs-keyword">var</span> regexLastIndex = <span class="hljs-keyword">this</span>.IsRegExp(O) &amp;&amp; P === <span class="hljs-string">'lastIndex'</span>;
+			<span class="hljs-keyword">return</span> {
+				<span class="hljs-string">'[[Configurable]]'</span>: !(arrayLength || regexLastIndex),
+				<span class="hljs-string">'[[Enumerable]]'</span>: $isEnumerable(O, P),
+				<span class="hljs-string">'[[Value]]'</span>: O[P],
+				<span class="hljs-string">'[[Writable]]'</span>: <span class="hljs-literal">true</span>
+			};
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ToPropertyDescriptor($gOPD(O, P));
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-96" id="section-96"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-arraycreate</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ArrayCreate: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ArrayCreate</span>(<span class="hljs-params">length</span>) </span>{
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsInteger(length) || length &lt; <span class="hljs-number">0</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `length` must be an integer Number &gt;= 0'</span>);
+		}
+		<span class="hljs-keyword">if</span> (length &gt; MAX_ARRAY_LENGTH) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">RangeError</span>(<span class="hljs-string">'length is greater than (2**32 - 1)'</span>);
+		}
+		<span class="hljs-keyword">var</span> proto = <span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">1</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] : $ArrayPrototype;
+		<span class="hljs-keyword">var</span> A = []; <span class="hljs-comment">// steps 5 - 7, and 9</span>
+		<span class="hljs-keyword">if</span> (proto !== $ArrayPrototype) { <span class="hljs-comment">// step 8</span>
+			<span class="hljs-keyword">if</span> (!$setProto) {
+				<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">'ArrayCreate: a `proto` argument that is not `Array.prototype` is not supported in an environment that does not support setting the [[Prototype]]'</span>);
+			}
+			$setProto(A, proto);
+		}
+		<span class="hljs-keyword">if</span> (length !== <span class="hljs-number">0</span>) { <span class="hljs-comment">// bypasses the need for step 2</span>
+			A.length = length;
+		}
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-97" id="section-97"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>step 10, the above as a shortcut for the below
+this.OrdinaryDefineOwnProperty(A, 'length', {
+'[[Configurable]]': false,
+'[[Enumerable]]': false,
+'[[Value]]': length,
+'[[Writable]]': true
+});</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">return</span> A;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-98" id="section-98"></a>
+</div>
+<p>eslint-disable-next-line max-statements, max-lines-per-function</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ArraySetLength: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ArraySetLength</span>(<span class="hljs-params">A, Desc</span>) </span>{
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsArray(A)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: A must be an Array'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!isPropertyDescriptor(<span class="hljs-keyword">this</span>, Desc)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Desc must be a Property Descriptor'</span>);
+		}
+		<span class="hljs-keyword">if</span> (!(<span class="hljs-string">'[[Value]]'</span> <span class="hljs-keyword">in</span> Desc)) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.OrdinaryDefineOwnProperty(A, <span class="hljs-string">'length'</span>, Desc);
+		}
+		<span class="hljs-keyword">var</span> newLenDesc = assign({}, Desc);
+		<span class="hljs-keyword">var</span> newLen = <span class="hljs-keyword">this</span>.ToUint32(Desc[<span class="hljs-string">'[[Value]]'</span>]);
+		<span class="hljs-keyword">var</span> numberLen = <span class="hljs-keyword">this</span>.ToNumber(Desc[<span class="hljs-string">'[[Value]]'</span>]);
+		<span class="hljs-keyword">if</span> (newLen !== numberLen) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">RangeError</span>(<span class="hljs-string">'Invalid array length'</span>);
+		}
+		newLenDesc[<span class="hljs-string">'[[Value]]'</span>] = newLen;
+		<span class="hljs-keyword">var</span> oldLenDesc = <span class="hljs-keyword">this</span>.OrdinaryGetOwnProperty(A, <span class="hljs-string">'length'</span>);
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsDataDescriptor(oldLenDesc)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: an array had a non-data descriptor on `length`'</span>);
+		}
+		<span class="hljs-keyword">var</span> oldLen = oldLenDesc[<span class="hljs-string">'[[Value]]'</span>];
+		<span class="hljs-keyword">if</span> (newLen &gt;= oldLen) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.OrdinaryDefineOwnProperty(A, <span class="hljs-string">'length'</span>, newLenDesc);
+		}
+		<span class="hljs-keyword">if</span> (!oldLenDesc[<span class="hljs-string">'[[Writable]]'</span>]) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">var</span> newWritable;
+		<span class="hljs-keyword">if</span> (!(<span class="hljs-string">'[[Writable]]'</span> <span class="hljs-keyword">in</span> newLenDesc) || newLenDesc[<span class="hljs-string">'[[Writable]]'</span>]) {
+			newWritable = <span class="hljs-literal">true</span>;
+		} <span class="hljs-keyword">else</span> {
+			newWritable = <span class="hljs-literal">false</span>;
+			newLenDesc[<span class="hljs-string">'[[Writable]]'</span>] = <span class="hljs-literal">true</span>;
+		}
+		<span class="hljs-keyword">var</span> succeeded = <span class="hljs-keyword">this</span>.OrdinaryDefineOwnProperty(A, <span class="hljs-string">'length'</span>, newLenDesc);
+		<span class="hljs-keyword">if</span> (!succeeded) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">while</span> (newLen &lt; oldLen) {
+			oldLen -= <span class="hljs-number">1</span>;
+			<span class="hljs-keyword">var</span> deleteSucceeded = <span class="hljs-keyword">delete</span> A[<span class="hljs-keyword">this</span>.ToString(oldLen)];
+			<span class="hljs-keyword">if</span> (!deleteSucceeded) {
+				newLenDesc[<span class="hljs-string">'[[Value]]'</span>] = oldLen + <span class="hljs-number">1</span>;
+				<span class="hljs-keyword">if</span> (!newWritable) {
+					newLenDesc[<span class="hljs-string">'[[Writable]]'</span>] = <span class="hljs-literal">false</span>;
+					<span class="hljs-keyword">this</span>.OrdinaryDefineOwnProperty(A, <span class="hljs-string">'length'</span>, newLenDesc);
+					<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+				}
+			}
+		}
+		<span class="hljs-keyword">if</span> (!newWritable) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.OrdinaryDefineOwnProperty(A, <span class="hljs-string">'length'</span>, { <span class="hljs-string">'[[Writable]]'</span>: <span class="hljs-literal">false</span> });
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-99" id="section-99"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-createhtml</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	CreateHTML: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CreateHTML</span>(<span class="hljs-params">string, tag, attribute, value</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(tag) !== <span class="hljs-string">'String'</span> || <span class="hljs-keyword">this</span>.Type(attribute) !== <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `tag` and `attribute` must be strings'</span>);
+		}
+		<span class="hljs-keyword">var</span> str = <span class="hljs-keyword">this</span>.RequireObjectCoercible(string);
+		<span class="hljs-keyword">var</span> S = <span class="hljs-keyword">this</span>.ToString(str);
+		<span class="hljs-keyword">var</span> p1 = <span class="hljs-string">'&lt;'</span> + tag;
+		<span class="hljs-keyword">if</span> (attribute !== <span class="hljs-string">''</span>) {
+			<span class="hljs-keyword">var</span> V = <span class="hljs-keyword">this</span>.ToString(value);
+			<span class="hljs-keyword">var</span> escapedV = $replace(V, /\x22/g, <span class="hljs-string">'&amp;quot;'</span>);
+			p1 += <span class="hljs-string">'\x20'</span> + attribute + <span class="hljs-string">'\x3D\x22'</span> + escapedV + <span class="hljs-string">'\x22'</span>;
+		}
+		<span class="hljs-keyword">return</span> p1 + <span class="hljs-string">'&gt;'</span> + S + <span class="hljs-string">'&lt;/'</span> + tag + <span class="hljs-string">'&gt;'</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-100" id="section-100"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-getownpropertykeys</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	GetOwnPropertyKeys: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">GetOwnPropertyKeys</span>(<span class="hljs-params">O, Type</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(O) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: Type(O) is not Object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (Type === <span class="hljs-string">'Symbol'</span>) {
+			<span class="hljs-keyword">return</span> hasSymbols &amp;&amp; $gOPS ? $gOPS(O) : [];
+		}
+		<span class="hljs-keyword">if</span> (Type === <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">if</span> (!$gOPN) {
+				<span class="hljs-keyword">return</span> keys(O);
+			}
+			<span class="hljs-keyword">return</span> $gOPN(O);
+		}
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `Type` must be `"String"` or `"Symbol"`'</span>);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-101" id="section-101"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-symboldescriptivestring</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	SymbolDescriptiveString: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SymbolDescriptiveString</span>(<span class="hljs-params">sym</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(sym) !== <span class="hljs-string">'Symbol'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `sym` must be a Symbol'</span>);
+		}
+		<span class="hljs-keyword">return</span> $SymbolToString(sym);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-102" id="section-102"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/6.0/#sec-getsubstitution
+eslint-disable-next-line max-statements, max-params, max-lines-per-function</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	GetSubstitution: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">GetSubstitution</span>(<span class="hljs-params">matched, str, position, captures, replacement</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(matched) !== <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `matched` must be a String'</span>);
+		}
+		<span class="hljs-keyword">var</span> matchLength = matched.length;
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(str) !== <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `str` must be a String'</span>);
+		}
+		<span class="hljs-keyword">var</span> stringLength = str.length;
+
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsInteger(position) || position &lt; <span class="hljs-number">0</span> || position &gt; stringLength) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `position` must be a nonnegative integer, and less than or equal to the length of `string`, got '</span> + inspect(position));
+		}
+
+		<span class="hljs-keyword">var</span> ES = <span class="hljs-keyword">this</span>;
+		<span class="hljs-keyword">var</span> isStringOrHole = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">capture, index, arr</span>) </span>{ <span class="hljs-keyword">return</span> ES.Type(capture) === <span class="hljs-string">'String'</span> || !(index <span class="hljs-keyword">in</span> arr); };
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsArray(captures) || !every(captures, isStringOrHole)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `captures` must be a List of Strings, got '</span> + inspect(captures));
+		}
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(replacement) !== <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `replacement` must be a String'</span>);
+		}
+
+		<span class="hljs-keyword">var</span> tailPos = position + matchLength;
+		<span class="hljs-keyword">var</span> m = captures.length;
+
+		<span class="hljs-keyword">var</span> result = <span class="hljs-string">''</span>;
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; replacement.length; i += <span class="hljs-number">1</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-103" id="section-103"></a>
+</div>
+<p>if this is a $, and it's not the end of the replacement</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			<span class="hljs-keyword">var</span> current = replacement[i];
+			<span class="hljs-keyword">var</span> isLast = (i + <span class="hljs-number">1</span>) &gt;= replacement.length;
+			<span class="hljs-keyword">var</span> nextIsLast = (i + <span class="hljs-number">2</span>) &gt;= replacement.length;
+			<span class="hljs-keyword">if</span> (current === <span class="hljs-string">'$'</span> &amp;&amp; !isLast) {
+				<span class="hljs-keyword">var</span> next = replacement[i + <span class="hljs-number">1</span>];
+				<span class="hljs-keyword">if</span> (next === <span class="hljs-string">'$'</span>) {
+					result += <span class="hljs-string">'$'</span>;
+					i += <span class="hljs-number">1</span>;
+				} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (next === <span class="hljs-string">'&amp;'</span>) {
+					result += matched;
+					i += <span class="hljs-number">1</span>;
+				} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (next === <span class="hljs-string">'`'</span>) {
+					result += position === <span class="hljs-number">0</span> ? <span class="hljs-string">''</span> : strSlice(str, <span class="hljs-number">0</span>, position - <span class="hljs-number">1</span>);
+					i += <span class="hljs-number">1</span>;
+				} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (next === <span class="hljs-string">"'"</span>) {
+					result += tailPos &gt;= stringLength ? <span class="hljs-string">''</span> : strSlice(str, tailPos);
+					i += <span class="hljs-number">1</span>;
+				} <span class="hljs-keyword">else</span> {
+					<span class="hljs-keyword">var</span> nextNext = nextIsLast ? <span class="hljs-literal">null</span> : replacement[i + <span class="hljs-number">2</span>];
+					<span class="hljs-keyword">if</span> (isDigit(next) &amp;&amp; next !== <span class="hljs-string">'0'</span> &amp;&amp; (nextIsLast || !isDigit(nextNext))) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-104" id="section-104"></a>
+</div>
+<p>$1 through $9, and not followed by a digit</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">						<span class="hljs-keyword">var</span> n = parseInteger(next, <span class="hljs-number">10</span>);
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-105" id="section-105"></a>
+</div>
+<p>if (n &gt; m, impl-defined)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">						result += (n &lt;= m &amp;&amp; <span class="hljs-keyword">this</span>.Type(captures[n - <span class="hljs-number">1</span>]) === <span class="hljs-string">'Undefined'</span>) ? <span class="hljs-string">''</span> : captures[n - <span class="hljs-number">1</span>];
+						i += <span class="hljs-number">1</span>;
+					} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isDigit(next) &amp;&amp; (nextIsLast || isDigit(nextNext))) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-106" id="section-106"></a>
+</div>
+<p>$00 through $99</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">						<span class="hljs-keyword">var</span> nn = next + nextNext;
+						<span class="hljs-keyword">var</span> nnI = parseInteger(nn, <span class="hljs-number">10</span>) - <span class="hljs-number">1</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-107" id="section-107"></a>
+</div>
+<p>if nn === '00' or nn &gt; m, impl-defined</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">						result += (nn &lt;= m &amp;&amp; <span class="hljs-keyword">this</span>.Type(captures[nnI]) === <span class="hljs-string">'Undefined'</span>) ? <span class="hljs-string">''</span> : captures[nnI];
+						i += <span class="hljs-number">2</span>;
+					} <span class="hljs-keyword">else</span> {
+						result += <span class="hljs-string">'$'</span>;
+					}
+				}
+			} <span class="hljs-keyword">else</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-108" id="section-108"></a>
+</div>
+<p>the final $, or else not a $</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">				result += replacement[i];
+			}
+		}
+		<span class="hljs-keyword">return</span> result;
+	}
+});
+
+<span class="hljs-keyword">delete</span> ES6.CheckObjectCoercible; <span class="hljs-comment">// renamed in ES6 to RequireObjectCoercible</span>
+
+<span class="hljs-built_in">module</span>.exports = ES6;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

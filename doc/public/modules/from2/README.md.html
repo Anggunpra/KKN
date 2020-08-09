@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\from2\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#from2">from2 </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#stream-from2-opts-read">stream = from2([opts], read)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#stream-from2.obj-opts-read">stream = from2.obj([opts], read)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#createstream-from2.ctor-opts-read">createStream = from2.ctor([opts], read)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#see-also">See Also</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="from2">
+  <h1>
+    <a href="#from2" name="from2" class="pilcrow"></a>
+from2 <a href="https://flattr.com/submit/auto?user_id=hughskennedy&amp;url=http://github.com/hughsk/from2&amp;title=from2&amp;description=hughsk/from2%20on%20GitHub&amp;language=en_GB&amp;tags=flattr,github,javascript&amp;category=software"><img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this!"></a><a href="http://github.com/hughsk/stability-badges"><img src="http://hughsk.github.io/stability-badges/dist/experimental.svg" alt="experimental"></a>
+  </h1>
+</div>
+<p><code>from2</code> is a high-level module for creating readable streams that properly handle backpressure.</p>
+<p>Convience wrapper for
+<a href="http://github.com/isaacs/readable-stream">readable-stream</a>'s <code>ReadableStream</code>
+base class, with an API lifted from
+<a href="http://github.com/dominictarr/from">from</a> and
+<a href="http://github.com/rvagg/through2">through2</a>.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p><a href="https://nodei.co/npm/from2"><img src="https://nodei.co/npm/from2.png?mini=true" alt="from2"></a></p>
+<div class="pilwrap" id="stream-from2-opts-read">
+  <h3>
+    <a href="#stream-from2-opts-read" name="stream-from2-opts-read" class="pilcrow"></a>
+<code>stream = from2([opts], read)</code>
+  </h3>
+</div>
+<p>Where <code>opts</code> are the options to pass on to the <code>ReadableStream</code> constructor,
+and <code>read(size, next)</code> is called when data is requested from the stream.</p>
+<ul>
+<li><code>size</code> is the recommended amount of data (in bytes) to retrieve.</li>
+<li><code>next(err)</code> should be called when you're ready to emit more data.</li>
+</ul>
+<p>For example, here's a readable stream that emits the contents of a given
+string:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> <span class="hljs-keyword">from</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'from2'</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fromString</span>(<span class="hljs-params">string</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">from</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">size, next</span>) </span>{
+    <span class="hljs-comment">// if there's no more content</span>
+    <span class="hljs-comment">// left in the string, close the stream.</span>
+    <span class="hljs-keyword">if</span> (string.length &lt;= <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> next(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>)
+
+    <span class="hljs-comment">// Pull in a new chunk of text,</span>
+    <span class="hljs-comment">// removing it from the string.</span>
+    <span class="hljs-keyword">var</span> chunk = string.slice(<span class="hljs-number">0</span>, size)
+    string = string.slice(size)
+
+    <span class="hljs-comment">// Emit "chunk" from the stream.</span>
+    next(<span class="hljs-literal">null</span>, chunk)
+  })
+}
+
+<span class="hljs-comment">// pipe "hello world" out</span>
+<span class="hljs-comment">// to stdout.</span>
+fromString(<span class="hljs-string">'hello world'</span>).pipe(process.stdout)
+</code></pre>
+<div class="pilwrap" id="stream-from2.obj-opts-read">
+  <h3>
+    <a href="#stream-from2.obj-opts-read" name="stream-from2.obj-opts-read" class="pilcrow"></a>
+<code>stream = from2.obj([opts], read)</code>
+  </h3>
+</div>
+<p>Shorthand for <code>from2({ objectMode: true }, read)</code>.</p>
+<div class="pilwrap" id="createstream-from2.ctor-opts-read">
+  <h3>
+    <a href="#createstream-from2.ctor-opts-read" name="createstream-from2.ctor-opts-read" class="pilcrow"></a>
+<code>createStream = from2.ctor([opts], read)</code>
+  </h3>
+</div>
+<p>If you're creating similar streams in quick succession you can improve
+performance by generating a stream <strong>constructor</strong> that you can reuse instead
+of creating one-off streams on each call.</p>
+<p>Takes the same options as <code>from2</code>, instead returning a constructor which you
+can use to create new streams.</p>
+<div class="pilwrap" id="see-also">
+  <h3>
+    <a href="#see-also" name="see-also" class="pilcrow"></a>
+See Also
+  </h3>
+</div>
+<ul>
+<li><a href="https://github.com/binocarlos/from2-array">from2-array</a> - Create a from2 stream based on an array of source values.</li>
+<li><a href="https://github.com/yoshuawuyts/from2-string">from2-string</a> - Create a stream from a string. Sugary wrapper around from2.</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT. See <a href="http://github.com/hughsk/from2/blob/master/LICENSE.md">LICENSE.md</a> for details.</p>
+</div>
+  </div>
+</body>
+</html>

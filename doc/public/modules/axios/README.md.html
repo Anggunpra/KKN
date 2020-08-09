@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\axios\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#axios">axios</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#features">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#browser-support">Browser Support</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installing">Installing</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#example">Example</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#axios-api">axios API</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axios-config">axios(config)</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axios-url-config">axios(url[, config])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#request-method-aliases">Request method aliases</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axios.request-config">axios.request(config)</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axios.get-url-config">axios.get(url[, config])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axios.delete-url-config">axios.delete(url[, config])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axios.head-url-config">axios.head(url[, config])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axios.options-url-config">axios.options(url[, config])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axios.post-url-data-config">axios.post(url[, data[, config]])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axios.put-url-data-config">axios.put(url[, data[, config]])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axios.patch-url-data-config">axios.patch(url[, data[, config]])</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#note">NOTE</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#concurrency">Concurrency</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axios.all-iterable">axios.all(iterable)</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axios.spread-callback">axios.spread(callback)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#creating-an-instance">Creating an instance</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axios.create-config">axios.create([config])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#instance-methods">Instance methods</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axiosrequest-config">axios#request(config)</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axiosget-url-config">axios#get(url[, config])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axiosdelete-url-config">axios#delete(url[, config])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axioshead-url-config">axios#head(url[, config])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axiosoptions-url-config">axios#options(url[, config])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axiospost-url-data-config">axios#post(url[, data[, config]])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axiosput-url-data-config">axios#put(url[, data[, config]])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axiospatch-url-data-config">axios#patch(url[, data[, config]])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#axiosgeturi-config">axios#getUri([config])</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#request-config">Request Config</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#response-schema">Response Schema</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#config-defaults">Config Defaults</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#global-axios-defaults">Global axios defaults</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#custom-instance-defaults">Custom instance defaults</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#config-order-of-precedence">Config order of precedence</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#interceptors">Interceptors</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#handling-errors">Handling Errors</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#cancellation">Cancellation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#using-applicationx-www-form-urlencoded-format">Using application/x-www-form-urlencoded format</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#browser">Browser</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#node.js">Node.js</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#note-1">NOTE</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#semver">Semver</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#promises">Promises</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#typescript">TypeScript</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#resources">Resources</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#credits">Credits</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="axios">
+  <h1>
+    <a href="#axios" name="axios" class="pilcrow"></a>
+axios
+  </h1>
+</div>
+<p><a href="https://www.npmjs.org/package/axios"><img src="https://img.shields.io/npm/v/axios.svg?style=flat-square" alt="npm version"></a>
+<a href="https://travis-ci.org/axios/axios"><img src="https://img.shields.io/travis/axios/axios.svg?style=flat-square" alt="build status"></a>
+<a href="https://coveralls.io/r/mzabriskie/axios"><img src="https://img.shields.io/coveralls/mzabriskie/axios.svg?style=flat-square" alt="code coverage"></a>
+<a href="https://packagephobia.now.sh/result?p=axios"><img src="https://packagephobia.now.sh/badge?p=axios" alt="install size"></a>
+<a href="http://npm-stat.com/charts.html?package=axios"><img src="https://img.shields.io/npm/dm/axios.svg?style=flat-square" alt="npm downloads"></a>
+<a href="https://gitter.im/mzabriskie/axios"><img src="https://img.shields.io/gitter/room/mzabriskie/axios.svg?style=flat-square" alt="gitter chat"></a>
+<a href="https://www.codetriage.com/axios/axios"><img src="https://www.codetriage.com/axios/axios/badges/users.svg" alt="code helpers"></a></p>
+<p>Promise based HTTP client for the browser and node.js</p>
+<div class="pilwrap" id="features">
+  <h2>
+    <a href="#features" name="features" class="pilcrow"></a>
+Features
+  </h2>
+</div>
+<ul>
+<li>Make <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequests</a> from the browser</li>
+<li>Make <a href="http://nodejs.org/api/http.html">http</a> requests from node.js</li>
+<li>Supports the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a> API</li>
+<li>Intercept request and response</li>
+<li>Transform request and response data</li>
+<li>Cancel requests</li>
+<li>Automatic transforms for JSON data</li>
+<li>Client side support for protecting against <a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery">XSRF</a></li>
+</ul>
+<div class="pilwrap" id="browser-support">
+  <h2>
+    <a href="#browser-support" name="browser-support" class="pilcrow"></a>
+Browser Support
+  </h2>
+</div>
+<table>
+<thead>
+<tr>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest ✔</td>
+<td>Latest ✔</td>
+<td>Latest ✔</td>
+<td>Latest ✔</td>
+<td>Latest ✔</td>
+<td>11 ✔</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://saucelabs.com/u/axios"><img src="https://saucelabs.com/open_sauce/build_matrix/axios.svg" alt="Browser Matrix"></a></p>
+<div class="pilwrap" id="installing">
+  <h2>
+    <a href="#installing" name="installing" class="pilcrow"></a>
+Installing
+  </h2>
+</div>
+<p>Using npm:</p>
+<pre><code class="bash">$ npm install axios
+</code></pre>
+<p>Using bower:</p>
+<pre><code class="bash">$ bower install axios
+</code></pre>
+<p>Using yarn:</p>
+<pre><code class="bash">$ yarn add axios
+</code></pre>
+<p>Using cdn:</p>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/axios/dist/axios.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<div class="pilwrap" id="example">
+  <h2>
+    <a href="#example" name="example" class="pilcrow"></a>
+Example
+  </h2>
+</div>
+<p>Performing a <code>GET</code> request</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+
+<span class="hljs-comment">// Make a request for a user with a given ID</span>
+axios.get(<span class="hljs-string">'/user?ID=12345'</span>)
+  .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+    <span class="hljs-comment">// handle success</span>
+    <span class="hljs-built_in">console</span>.log(response);
+  })
+  .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-comment">// handle error</span>
+    <span class="hljs-built_in">console</span>.log(error);
+  })
+  .finally(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// always executed</span>
+  });
+
+<span class="hljs-comment">// Optionally the request above could also be done as</span>
+axios.get(<span class="hljs-string">'/user'</span>, {
+    <span class="hljs-attr">params</span>: {
+      <span class="hljs-attr">ID</span>: <span class="hljs-number">12345</span>
+    }
+  })
+  .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(response);
+  })
+  .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(error);
+  })
+  .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// always executed</span>
+  });  
+
+<span class="hljs-comment">// Want to use async/await? Add the `async` keyword to your outer function/method.</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUser</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">'/user?ID=12345'</span>);
+    <span class="hljs-built_in">console</span>.log(response);
+  } <span class="hljs-keyword">catch</span> (error) {
+    <span class="hljs-built_in">console</span>.error(error);
+  }
+}
+</code></pre>
+<blockquote>
+<p><strong>NOTE:</strong> <code>async/await</code> is part of ECMAScript 2017 and is not supported in Internet
+Explorer and older browsers, so use with caution.</p>
+</blockquote>
+<p>Performing a <code>POST</code> request</p>
+<pre><code class="js">axios.post(<span class="hljs-string">'/user'</span>, {
+    <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Fred'</span>,
+    <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Flintstone'</span>
+  })
+  .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(response);
+  })
+  .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(error);
+  });
+</code></pre>
+<p>Performing multiple concurrent requests</p>
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUserAccount</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> axios.get(<span class="hljs-string">'/user/12345'</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUserPermissions</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> axios.get(<span class="hljs-string">'/user/12345/permissions'</span>);
+}
+
+axios.all([getUserAccount(), getUserPermissions()])
+  .then(axios.spread(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acct, perms</span>) </span>{
+    <span class="hljs-comment">// Both requests are now complete</span>
+  }));
+</code></pre>
+<div class="pilwrap" id="axios-api">
+  <h2>
+    <a href="#axios-api" name="axios-api" class="pilcrow"></a>
+axios API
+  </h2>
+</div>
+<p>Requests can be made by passing the relevant config to <code>axios</code>.</p>
+<div class="pilwrap" id="axios-config">
+  <h5>
+    <a href="#axios-config" name="axios-config" class="pilcrow"></a>
+axios(config)
+  </h5>
+</div>
+<pre><code class="js"><span class="hljs-comment">// Send a POST request</span>
+axios({
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'/user/12345'</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Fred'</span>,
+    <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Flintstone'</span>
+  }
+});
+</code></pre>
+<pre><code class="js"><span class="hljs-comment">// GET request for remote image</span>
+axios({
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>,
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'http://bit.ly/2mTM3nY'</span>,
+  <span class="hljs-attr">responseType</span>: <span class="hljs-string">'stream'</span>
+})
+  .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+    response.data.pipe(fs.createWriteStream(<span class="hljs-string">'ada_lovelace.jpg'</span>))
+  });
+</code></pre>
+<div class="pilwrap" id="axios-url-config">
+  <h5>
+    <a href="#axios-url-config" name="axios-url-config" class="pilcrow"></a>
+axios(url[, config])
+  </h5>
+</div>
+<pre><code class="js"><span class="hljs-comment">// Send a GET request (default method)</span>
+axios(<span class="hljs-string">'/user/12345'</span>);
+</code></pre>
+<div class="pilwrap" id="request-method-aliases">
+  <h3>
+    <a href="#request-method-aliases" name="request-method-aliases" class="pilcrow"></a>
+Request method aliases
+  </h3>
+</div>
+<p>For convenience aliases have been provided for all supported request methods.</p>
+<div class="pilwrap" id="axios.request-config">
+  <h5>
+    <a href="#axios.request-config" name="axios.request-config" class="pilcrow"></a>
+axios.request(config)
+  </h5>
+</div>
+<div class="pilwrap" id="axios.get-url-config">
+  <h5>
+    <a href="#axios.get-url-config" name="axios.get-url-config" class="pilcrow"></a>
+axios.get(url[, config])
+  </h5>
+</div>
+<div class="pilwrap" id="axios.delete-url-config">
+  <h5>
+    <a href="#axios.delete-url-config" name="axios.delete-url-config" class="pilcrow"></a>
+axios.delete(url[, config])
+  </h5>
+</div>
+<div class="pilwrap" id="axios.head-url-config">
+  <h5>
+    <a href="#axios.head-url-config" name="axios.head-url-config" class="pilcrow"></a>
+axios.head(url[, config])
+  </h5>
+</div>
+<div class="pilwrap" id="axios.options-url-config">
+  <h5>
+    <a href="#axios.options-url-config" name="axios.options-url-config" class="pilcrow"></a>
+axios.options(url[, config])
+  </h5>
+</div>
+<div class="pilwrap" id="axios.post-url-data-config">
+  <h5>
+    <a href="#axios.post-url-data-config" name="axios.post-url-data-config" class="pilcrow"></a>
+axios.post(url[, data[, config]])
+  </h5>
+</div>
+<div class="pilwrap" id="axios.put-url-data-config">
+  <h5>
+    <a href="#axios.put-url-data-config" name="axios.put-url-data-config" class="pilcrow"></a>
+axios.put(url[, data[, config]])
+  </h5>
+</div>
+<div class="pilwrap" id="axios.patch-url-data-config">
+  <h5>
+    <a href="#axios.patch-url-data-config" name="axios.patch-url-data-config" class="pilcrow"></a>
+axios.patch(url[, data[, config]])
+  </h5>
+</div>
+<div class="pilwrap" id="note">
+  <h6>
+    <a href="#note" name="note" class="pilcrow"></a>
+NOTE
+  </h6>
+</div>
+<p>When using the alias methods <code>url</code>, <code>method</code>, and <code>data</code> properties don't need to be specified in config.</p>
+<div class="pilwrap" id="concurrency">
+  <h3>
+    <a href="#concurrency" name="concurrency" class="pilcrow"></a>
+Concurrency
+  </h3>
+</div>
+<p>Helper functions for dealing with concurrent requests.</p>
+<div class="pilwrap" id="axios.all-iterable">
+  <h5>
+    <a href="#axios.all-iterable" name="axios.all-iterable" class="pilcrow"></a>
+axios.all(iterable)
+  </h5>
+</div>
+<div class="pilwrap" id="axios.spread-callback">
+  <h5>
+    <a href="#axios.spread-callback" name="axios.spread-callback" class="pilcrow"></a>
+axios.spread(callback)
+  </h5>
+</div>
+<div class="pilwrap" id="creating-an-instance">
+  <h3>
+    <a href="#creating-an-instance" name="creating-an-instance" class="pilcrow"></a>
+Creating an instance
+  </h3>
+</div>
+<p>You can create a new instance of axios with a custom config.</p>
+<div class="pilwrap" id="axios.create-config">
+  <h5>
+    <a href="#axios.create-config" name="axios.create-config" class="pilcrow"></a>
+axios.create([config])
+  </h5>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> instance = axios.create({
+  <span class="hljs-attr">baseURL</span>: <span class="hljs-string">'https://some-domain.com/api/'</span>,
+  <span class="hljs-attr">timeout</span>: <span class="hljs-number">1000</span>,
+  <span class="hljs-attr">headers</span>: {<span class="hljs-string">'X-Custom-Header'</span>: <span class="hljs-string">'foobar'</span>}
+});
+</code></pre>
+<div class="pilwrap" id="instance-methods">
+  <h3>
+    <a href="#instance-methods" name="instance-methods" class="pilcrow"></a>
+Instance methods
+  </h3>
+</div>
+<p>The available instance methods are listed below. The specified config will be merged with the instance config.</p>
+<div class="pilwrap" id="axiosrequest-config">
+  <h5>
+    <a href="#axiosrequest-config" name="axiosrequest-config" class="pilcrow"></a>
+axios#request(config)
+  </h5>
+</div>
+<div class="pilwrap" id="axiosget-url-config">
+  <h5>
+    <a href="#axiosget-url-config" name="axiosget-url-config" class="pilcrow"></a>
+axios#get(url[, config])
+  </h5>
+</div>
+<div class="pilwrap" id="axiosdelete-url-config">
+  <h5>
+    <a href="#axiosdelete-url-config" name="axiosdelete-url-config" class="pilcrow"></a>
+axios#delete(url[, config])
+  </h5>
+</div>
+<div class="pilwrap" id="axioshead-url-config">
+  <h5>
+    <a href="#axioshead-url-config" name="axioshead-url-config" class="pilcrow"></a>
+axios#head(url[, config])
+  </h5>
+</div>
+<div class="pilwrap" id="axiosoptions-url-config">
+  <h5>
+    <a href="#axiosoptions-url-config" name="axiosoptions-url-config" class="pilcrow"></a>
+axios#options(url[, config])
+  </h5>
+</div>
+<div class="pilwrap" id="axiospost-url-data-config">
+  <h5>
+    <a href="#axiospost-url-data-config" name="axiospost-url-data-config" class="pilcrow"></a>
+axios#post(url[, data[, config]])
+  </h5>
+</div>
+<div class="pilwrap" id="axiosput-url-data-config">
+  <h5>
+    <a href="#axiosput-url-data-config" name="axiosput-url-data-config" class="pilcrow"></a>
+axios#put(url[, data[, config]])
+  </h5>
+</div>
+<div class="pilwrap" id="axiospatch-url-data-config">
+  <h5>
+    <a href="#axiospatch-url-data-config" name="axiospatch-url-data-config" class="pilcrow"></a>
+axios#patch(url[, data[, config]])
+  </h5>
+</div>
+<div class="pilwrap" id="axiosgeturi-config">
+  <h5>
+    <a href="#axiosgeturi-config" name="axiosgeturi-config" class="pilcrow"></a>
+axios#getUri([config])
+  </h5>
+</div>
+<div class="pilwrap" id="request-config">
+  <h2>
+    <a href="#request-config" name="request-config" class="pilcrow"></a>
+Request Config
+  </h2>
+</div>
+<p>These are the available config options for making requests. Only the <code>url</code> is required. Requests will default to <code>GET</code> if <code>method</code> is not specified.</p>
+<pre><code class="js">{
+  <span class="hljs-comment">// `url` is the server URL that will be used for the request</span>
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'/user'</span>,
+
+  <span class="hljs-comment">// `method` is the request method to be used when making the request</span>
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `baseURL` will be prepended to `url` unless `url` is absolute.</span>
+  <span class="hljs-comment">// It can be convenient to set `baseURL` for an instance of axios to pass relative URLs</span>
+  <span class="hljs-comment">// to methods of that instance.</span>
+  <span class="hljs-attr">baseURL</span>: <span class="hljs-string">'https://some-domain.com/api/'</span>,
+
+  <span class="hljs-comment">// `transformRequest` allows changes to the request data before it is sent to the server</span>
+  <span class="hljs-comment">// This is only applicable for request methods 'PUT', 'POST', 'PATCH' and 'DELETE'</span>
+  <span class="hljs-comment">// The last function in the array must return a string or an instance of Buffer, ArrayBuffer,</span>
+  <span class="hljs-comment">// FormData or Stream</span>
+  <span class="hljs-comment">// You may modify the headers object.</span>
+  <span class="hljs-attr">transformRequest</span>: [<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data, headers</span>) </span>{
+    <span class="hljs-comment">// Do whatever you want to transform the data</span>
+
+    <span class="hljs-keyword">return</span> data;
+  }],
+
+  <span class="hljs-comment">// `transformResponse` allows changes to the response data to be made before</span>
+  <span class="hljs-comment">// it is passed to then/catch</span>
+  <span class="hljs-attr">transformResponse</span>: [<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-comment">// Do whatever you want to transform the data</span>
+
+    <span class="hljs-keyword">return</span> data;
+  }],
+
+  <span class="hljs-comment">// `headers` are custom headers to be sent</span>
+  <span class="hljs-attr">headers</span>: {<span class="hljs-string">'X-Requested-With'</span>: <span class="hljs-string">'XMLHttpRequest'</span>},
+
+  <span class="hljs-comment">// `params` are the URL parameters to be sent with the request</span>
+  <span class="hljs-comment">// Must be a plain object or a URLSearchParams object</span>
+  <span class="hljs-attr">params</span>: {
+    <span class="hljs-attr">ID</span>: <span class="hljs-number">12345</span>
+  },
+
+  <span class="hljs-comment">// `paramsSerializer` is an optional function in charge of serializing `params`</span>
+  <span class="hljs-comment">// (e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)</span>
+  <span class="hljs-attr">paramsSerializer</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">params</span>) </span>{
+    <span class="hljs-keyword">return</span> Qs.stringify(params, {<span class="hljs-attr">arrayFormat</span>: <span class="hljs-string">'brackets'</span>})
+  },
+
+  <span class="hljs-comment">// `data` is the data to be sent as the request body</span>
+  <span class="hljs-comment">// Only applicable for request methods 'PUT', 'POST', and 'PATCH'</span>
+  <span class="hljs-comment">// When no `transformRequest` is set, must be of one of the following types:</span>
+  <span class="hljs-comment">// - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams</span>
+  <span class="hljs-comment">// - Browser only: FormData, File, Blob</span>
+  <span class="hljs-comment">// - Node only: Stream, Buffer</span>
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Fred'</span>
+  },
+
+  <span class="hljs-comment">// `timeout` specifies the number of milliseconds before the request times out.</span>
+  <span class="hljs-comment">// If the request takes longer than `timeout`, the request will be aborted.</span>
+  <span class="hljs-attr">timeout</span>: <span class="hljs-number">1000</span>, <span class="hljs-comment">// default is `0` (no timeout)</span>
+
+  <span class="hljs-comment">// `withCredentials` indicates whether or not cross-site Access-Control requests</span>
+  <span class="hljs-comment">// should be made using credentials</span>
+  <span class="hljs-attr">withCredentials</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `adapter` allows custom handling of requests which makes testing easier.</span>
+  <span class="hljs-comment">// Return a promise and supply a valid response (see lib/adapters/README.md).</span>
+  <span class="hljs-attr">adapter</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">config</span>) </span>{
+    <span class="hljs-comment">/* ... */</span>
+  },
+
+  <span class="hljs-comment">// `auth` indicates that HTTP Basic auth should be used, and supplies credentials.</span>
+  <span class="hljs-comment">// This will set an `Authorization` header, overwriting any existing</span>
+  <span class="hljs-comment">// `Authorization` custom headers you have set using `headers`.</span>
+  <span class="hljs-comment">// Please note that only HTTP Basic auth is configurable through this parameter.</span>
+  <span class="hljs-comment">// For Bearer tokens and such, use `Authorization` custom headers instead.</span>
+  <span class="hljs-attr">auth</span>: {
+    <span class="hljs-attr">username</span>: <span class="hljs-string">'janedoe'</span>,
+    <span class="hljs-attr">password</span>: <span class="hljs-string">'s00pers3cret'</span>
+  },
+
+  <span class="hljs-comment">// `responseType` indicates the type of data that the server will respond with</span>
+  <span class="hljs-comment">// options are: 'arraybuffer', 'document', 'json', 'text', 'stream'</span>
+  <span class="hljs-comment">//   browser only: 'blob'</span>
+  <span class="hljs-attr">responseType</span>: <span class="hljs-string">'json'</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `responseEncoding` indicates encoding to use for decoding responses</span>
+  <span class="hljs-comment">// Note: Ignored for `responseType` of 'stream' or client-side requests</span>
+  <span class="hljs-attr">responseEncoding</span>: <span class="hljs-string">'utf8'</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `xsrfCookieName` is the name of the cookie to use as a value for xsrf token</span>
+  <span class="hljs-attr">xsrfCookieName</span>: <span class="hljs-string">'XSRF-TOKEN'</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `xsrfHeaderName` is the name of the http header that carries the xsrf token value</span>
+  <span class="hljs-attr">xsrfHeaderName</span>: <span class="hljs-string">'X-XSRF-TOKEN'</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `onUploadProgress` allows handling of progress events for uploads</span>
+  <span class="hljs-attr">onUploadProgress</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">progressEvent</span>) </span>{
+    <span class="hljs-comment">// Do whatever you want with the native progress event</span>
+  },
+
+  <span class="hljs-comment">// `onDownloadProgress` allows handling of progress events for downloads</span>
+  <span class="hljs-attr">onDownloadProgress</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">progressEvent</span>) </span>{
+    <span class="hljs-comment">// Do whatever you want with the native progress event</span>
+  },
+
+  <span class="hljs-comment">// `maxContentLength` defines the max size of the http response content in bytes allowed</span>
+  <span class="hljs-attr">maxContentLength</span>: <span class="hljs-number">2000</span>,
+
+  <span class="hljs-comment">// `validateStatus` defines whether to resolve or reject the promise for a given</span>
+  <span class="hljs-comment">// HTTP response status code. If `validateStatus` returns `true` (or is set to `null`</span>
+  <span class="hljs-comment">// or `undefined`), the promise will be resolved; otherwise, the promise will be</span>
+  <span class="hljs-comment">// rejected.</span>
+  <span class="hljs-attr">validateStatus</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">status</span>) </span>{
+    <span class="hljs-keyword">return</span> status &gt;= <span class="hljs-number">200</span> &amp;&amp; status &lt; <span class="hljs-number">300</span>; <span class="hljs-comment">// default</span>
+  },
+
+  <span class="hljs-comment">// `maxRedirects` defines the maximum number of redirects to follow in node.js.</span>
+  <span class="hljs-comment">// If set to 0, no redirects will be followed.</span>
+  <span class="hljs-attr">maxRedirects</span>: <span class="hljs-number">5</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `socketPath` defines a UNIX Socket to be used in node.js.</span>
+  <span class="hljs-comment">// e.g. '/var/run/docker.sock' to send requests to the docker daemon.</span>
+  <span class="hljs-comment">// Only either `socketPath` or `proxy` can be specified.</span>
+  <span class="hljs-comment">// If both are specified, `socketPath` is used.</span>
+  <span class="hljs-attr">socketPath</span>: <span class="hljs-literal">null</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `httpAgent` and `httpsAgent` define a custom agent to be used when performing http</span>
+  <span class="hljs-comment">// and https requests, respectively, in node.js. This allows options to be added like</span>
+  <span class="hljs-comment">// `keepAlive` that are not enabled by default.</span>
+  <span class="hljs-attr">httpAgent</span>: <span class="hljs-keyword">new</span> http.Agent({ <span class="hljs-attr">keepAlive</span>: <span class="hljs-literal">true</span> }),
+  <span class="hljs-attr">httpsAgent</span>: <span class="hljs-keyword">new</span> https.Agent({ <span class="hljs-attr">keepAlive</span>: <span class="hljs-literal">true</span> }),
+
+  <span class="hljs-comment">// 'proxy' defines the hostname and port of the proxy server.</span>
+  <span class="hljs-comment">// You can also define your proxy using the conventional `http_proxy` and</span>
+  <span class="hljs-comment">// `https_proxy` environment variables. If you are using environment variables</span>
+  <span class="hljs-comment">// for your proxy configuration, you can also define a `no_proxy` environment</span>
+  <span class="hljs-comment">// variable as a comma-separated list of domains that should not be proxied.</span>
+  <span class="hljs-comment">// Use `false` to disable proxies, ignoring environment variables.</span>
+  <span class="hljs-comment">// `auth` indicates that HTTP Basic auth should be used to connect to the proxy, and</span>
+  <span class="hljs-comment">// supplies credentials.</span>
+  <span class="hljs-comment">// This will set an `Proxy-Authorization` header, overwriting any existing</span>
+  <span class="hljs-comment">// `Proxy-Authorization` custom headers you have set using `headers`.</span>
+  <span class="hljs-attr">proxy</span>: {
+    <span class="hljs-attr">host</span>: <span class="hljs-string">'127.0.0.1'</span>,
+    <span class="hljs-attr">port</span>: <span class="hljs-number">9000</span>,
+    <span class="hljs-attr">auth</span>: {
+      <span class="hljs-attr">username</span>: <span class="hljs-string">'mikeymike'</span>,
+      <span class="hljs-attr">password</span>: <span class="hljs-string">'rapunz3l'</span>
+    }
+  },
+
+  <span class="hljs-comment">// `cancelToken` specifies a cancel token that can be used to cancel the request</span>
+  <span class="hljs-comment">// (see Cancellation section below for details)</span>
+  <span class="hljs-attr">cancelToken</span>: <span class="hljs-keyword">new</span> CancelToken(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">cancel</span>) </span>{
+  })
+}
+</code></pre>
+<div class="pilwrap" id="response-schema">
+  <h2>
+    <a href="#response-schema" name="response-schema" class="pilcrow"></a>
+Response Schema
+  </h2>
+</div>
+<p>The response for a request contains the following information.</p>
+<pre><code class="js">{
+  <span class="hljs-comment">// `data` is the response that was provided by the server</span>
+  <span class="hljs-attr">data</span>: {},
+
+  <span class="hljs-comment">// `status` is the HTTP status code from the server response</span>
+  <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
+
+  <span class="hljs-comment">// `statusText` is the HTTP status message from the server response</span>
+  <span class="hljs-attr">statusText</span>: <span class="hljs-string">'OK'</span>,
+
+  <span class="hljs-comment">// `headers` the headers that the server responded with</span>
+  <span class="hljs-comment">// All header names are lower cased</span>
+  <span class="hljs-attr">headers</span>: {},
+
+  <span class="hljs-comment">// `config` is the config that was provided to `axios` for the request</span>
+  <span class="hljs-attr">config</span>: {},
+
+  <span class="hljs-comment">// `request` is the request that generated this response</span>
+  <span class="hljs-comment">// It is the last ClientRequest instance in node.js (in redirects)</span>
+  <span class="hljs-comment">// and an XMLHttpRequest instance the browser</span>
+  <span class="hljs-attr">request</span>: {}
+}
+</code></pre>
+<p>When using <code>then</code>, you will receive the response as follows:</p>
+<pre><code class="js">axios.get(<span class="hljs-string">'/user/12345'</span>)
+  .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(response.data);
+    <span class="hljs-built_in">console</span>.log(response.status);
+    <span class="hljs-built_in">console</span>.log(response.statusText);
+    <span class="hljs-built_in">console</span>.log(response.headers);
+    <span class="hljs-built_in">console</span>.log(response.config);
+  });
+</code></pre>
+<p>When using <code>catch</code>, or passing a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then">rejection callback</a> as second parameter of <code>then</code>, the response will be available through the <code>error</code> object as explained in the <a href="#handling-errors.html">Handling Errors</a> section.</p>
+<div class="pilwrap" id="config-defaults">
+  <h2>
+    <a href="#config-defaults" name="config-defaults" class="pilcrow"></a>
+Config Defaults
+  </h2>
+</div>
+<p>You can specify config defaults that will be applied to every request.</p>
+<div class="pilwrap" id="global-axios-defaults">
+  <h3>
+    <a href="#global-axios-defaults" name="global-axios-defaults" class="pilcrow"></a>
+Global axios defaults
+  </h3>
+</div>
+<pre><code class="js">axios.defaults.baseURL = <span class="hljs-string">'https://api.example.com'</span>;
+axios.defaults.headers.common[<span class="hljs-string">'Authorization'</span>] = AUTH_TOKEN;
+axios.defaults.headers.post[<span class="hljs-string">'Content-Type'</span>] = <span class="hljs-string">'application/x-www-form-urlencoded'</span>;
+</code></pre>
+<div class="pilwrap" id="custom-instance-defaults">
+  <h3>
+    <a href="#custom-instance-defaults" name="custom-instance-defaults" class="pilcrow"></a>
+Custom instance defaults
+  </h3>
+</div>
+<pre><code class="js"><span class="hljs-comment">// Set config defaults when creating the instance</span>
+<span class="hljs-keyword">const</span> instance = axios.create({
+  <span class="hljs-attr">baseURL</span>: <span class="hljs-string">'https://api.example.com'</span>
+});
+
+<span class="hljs-comment">// Alter defaults after instance has been created</span>
+instance.defaults.headers.common[<span class="hljs-string">'Authorization'</span>] = AUTH_TOKEN;
+</code></pre>
+<div class="pilwrap" id="config-order-of-precedence">
+  <h3>
+    <a href="#config-order-of-precedence" name="config-order-of-precedence" class="pilcrow"></a>
+Config order of precedence
+  </h3>
+</div>
+<p>Config will be merged with an order of precedence. The order is library defaults found in <a href="https://github.com/axios/axios/blob/master/lib/defaults.js#L28">lib/defaults.js</a>, then <code>defaults</code> property of the instance, and finally <code>config</code> argument for the request. The latter will take precedence over the former. Here's an example.</p>
+<pre><code class="js"><span class="hljs-comment">// Create an instance using the config defaults provided by the library</span>
+<span class="hljs-comment">// At this point the timeout config value is `0` as is the default for the library</span>
+<span class="hljs-keyword">const</span> instance = axios.create();
+
+<span class="hljs-comment">// Override timeout default for the library</span>
+<span class="hljs-comment">// Now all requests using this instance will wait 2.5 seconds before timing out</span>
+instance.defaults.timeout = <span class="hljs-number">2500</span>;
+
+<span class="hljs-comment">// Override timeout for this request as it's known to take a long time</span>
+instance.get(<span class="hljs-string">'/longRequest'</span>, {
+  <span class="hljs-attr">timeout</span>: <span class="hljs-number">5000</span>
+});
+</code></pre>
+<div class="pilwrap" id="interceptors">
+  <h2>
+    <a href="#interceptors" name="interceptors" class="pilcrow"></a>
+Interceptors
+  </h2>
+</div>
+<p>You can intercept requests or responses before they are handled by <code>then</code> or <code>catch</code>.</p>
+<pre><code class="js"><span class="hljs-comment">// Add a request interceptor</span>
+axios.interceptors.request.use(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">config</span>) </span>{
+    <span class="hljs-comment">// Do something before request is sent</span>
+    <span class="hljs-keyword">return</span> config;
+  }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-comment">// Do something with request error</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(error);
+  });
+
+<span class="hljs-comment">// Add a response interceptor</span>
+axios.interceptors.response.use(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+    <span class="hljs-comment">// Do something with response data</span>
+    <span class="hljs-keyword">return</span> response;
+  }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-comment">// Do something with response error</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(error);
+  });
+</code></pre>
+<p>If you may need to remove an interceptor later you can.</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> myInterceptor = axios.interceptors.request.use(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<span class="hljs-comment">/*...*/</span>});
+axios.interceptors.request.eject(myInterceptor);
+</code></pre>
+<p>You can add interceptors to a custom instance of axios.</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> instance = axios.create();
+instance.interceptors.request.use(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<span class="hljs-comment">/*...*/</span>});
+</code></pre>
+<div class="pilwrap" id="handling-errors">
+  <h2>
+    <a href="#handling-errors" name="handling-errors" class="pilcrow"></a>
+Handling Errors
+  </h2>
+</div>
+<pre><code class="js">axios.get(<span class="hljs-string">'/user/12345'</span>)
+  .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-keyword">if</span> (error.response) {
+      <span class="hljs-comment">// The request was made and the server responded with a status code</span>
+      <span class="hljs-comment">// that falls out of the range of 2xx</span>
+      <span class="hljs-built_in">console</span>.log(error.response.data);
+      <span class="hljs-built_in">console</span>.log(error.response.status);
+      <span class="hljs-built_in">console</span>.log(error.response.headers);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (error.request) {
+      <span class="hljs-comment">// The request was made but no response was received</span>
+      <span class="hljs-comment">// `error.request` is an instance of XMLHttpRequest in the browser and an instance of</span>
+      <span class="hljs-comment">// http.ClientRequest in node.js</span>
+      <span class="hljs-built_in">console</span>.log(error.request);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-comment">// Something happened in setting up the request that triggered an Error</span>
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error'</span>, error.message);
+    }
+    <span class="hljs-built_in">console</span>.log(error.config);
+  });
+</code></pre>
+<p>You can define a custom HTTP status code error range using the <code>validateStatus</code> config option.</p>
+<pre><code class="js">axios.get(<span class="hljs-string">'/user/12345'</span>, {
+  <span class="hljs-attr">validateStatus</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">status</span>) </span>{
+    <span class="hljs-keyword">return</span> status &lt; <span class="hljs-number">500</span>; <span class="hljs-comment">// Reject only if the status code is greater than or equal to 500</span>
+  }
+})
+</code></pre>
+<div class="pilwrap" id="cancellation">
+  <h2>
+    <a href="#cancellation" name="cancellation" class="pilcrow"></a>
+Cancellation
+  </h2>
+</div>
+<p>You can cancel a request using a <em>cancel token</em>.</p>
+<blockquote>
+<p>The axios cancel token API is based on the withdrawn <a href="https://github.com/tc39/proposal-cancelable-promises">cancelable promises proposal</a>.</p>
+</blockquote>
+<p>You can create a cancel token using the <code>CancelToken.source</code> factory as shown below:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> CancelToken = axios.CancelToken;
+<span class="hljs-keyword">const</span> source = CancelToken.source();
+
+axios.get(<span class="hljs-string">'/user/12345'</span>, {
+  <span class="hljs-attr">cancelToken</span>: source.token
+}).catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">thrown</span>) </span>{
+  <span class="hljs-keyword">if</span> (axios.isCancel(thrown)) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Request canceled'</span>, thrown.message);
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// handle error</span>
+  }
+});
+
+axios.post(<span class="hljs-string">'/user/12345'</span>, {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'new name'</span>
+}, {
+  <span class="hljs-attr">cancelToken</span>: source.token
+})
+
+<span class="hljs-comment">// cancel the request (the message parameter is optional)</span>
+source.cancel(<span class="hljs-string">'Operation canceled by the user.'</span>);
+</code></pre>
+<p>You can also create a cancel token by passing an executor function to the <code>CancelToken</code> constructor:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> CancelToken = axios.CancelToken;
+<span class="hljs-keyword">let</span> cancel;
+
+axios.get(<span class="hljs-string">'/user/12345'</span>, {
+  <span class="hljs-attr">cancelToken</span>: <span class="hljs-keyword">new</span> CancelToken(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">executor</span>(<span class="hljs-params">c</span>) </span>{
+    <span class="hljs-comment">// An executor function receives a cancel function as a parameter</span>
+    cancel = c;
+  })
+});
+
+<span class="hljs-comment">// cancel the request</span>
+cancel();
+</code></pre>
+<blockquote>
+<p>Note: you can cancel several requests with the same cancel token.</p>
+</blockquote>
+<div class="pilwrap" id="using-applicationx-www-form-urlencoded-format">
+  <h2>
+    <a href="#using-applicationx-www-form-urlencoded-format" name="using-applicationx-www-form-urlencoded-format" class="pilcrow"></a>
+Using application/x-www-form-urlencoded format
+  </h2>
+</div>
+<p>By default, axios serializes JavaScript objects to <code>JSON</code>. To send data in the <code>application/x-www-form-urlencoded</code> format instead, you can use one of the following options.</p>
+<div class="pilwrap" id="browser">
+  <h3>
+    <a href="#browser" name="browser" class="pilcrow"></a>
+Browser
+  </h3>
+</div>
+<p>In a browser, you can use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams"><code>URLSearchParams</code></a> API as follows:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> params = <span class="hljs-keyword">new</span> URLSearchParams();
+params.append(<span class="hljs-string">'param1'</span>, <span class="hljs-string">'value1'</span>);
+params.append(<span class="hljs-string">'param2'</span>, <span class="hljs-string">'value2'</span>);
+axios.post(<span class="hljs-string">'/foo'</span>, params);
+</code></pre>
+<blockquote>
+<p>Note that <code>URLSearchParams</code> is not supported by all browsers (see <a href="http://www.caniuse.com/#feat=urlsearchparams">caniuse.com</a>), but there is a <a href="https://github.com/WebReflection/url-search-params">polyfill</a> available (make sure to polyfill the global environment).</p>
+</blockquote>
+<p>Alternatively, you can encode data using the <a href="https://github.com/ljharb/qs"><code>qs</code></a> library:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> qs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'qs'</span>);
+axios.post(<span class="hljs-string">'/foo'</span>, qs.stringify({ <span class="hljs-string">'bar'</span>: <span class="hljs-number">123</span> }));
+</code></pre>
+<p>Or in another way (ES6),</p>
+<pre><code class="js"><span class="hljs-keyword">import</span> qs <span class="hljs-keyword">from</span> <span class="hljs-string">'qs'</span>;
+<span class="hljs-keyword">const</span> data = { <span class="hljs-string">'bar'</span>: <span class="hljs-number">123</span> };
+<span class="hljs-keyword">const</span> options = {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">'application/x-www-form-urlencoded'</span> },
+  <span class="hljs-attr">data</span>: qs.stringify(data),
+  url,
+};
+axios(options);
+</code></pre>
+<div class="pilwrap" id="node.js">
+  <h3>
+    <a href="#node.js" name="node.js" class="pilcrow"></a>
+Node.js
+  </h3>
+</div>
+<p>In node.js, you can use the <a href="https://nodejs.org/api/querystring.html"><code>querystring</code></a> module as follows:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> querystring = <span class="hljs-built_in">require</span>(<span class="hljs-string">'querystring'</span>);
+axios.post(<span class="hljs-string">'http://something.com/'</span>, querystring.stringify({ <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span> }));
+</code></pre>
+<p>You can also use the <a href="https://github.com/ljharb/qs"><code>qs</code></a> library.</p>
+<div class="pilwrap" id="note-1">
+  <h6>
+    <a href="#note-1" name="note-1" class="pilcrow"></a>
+NOTE
+  </h6>
+</div>
+<p>The <code>qs</code> library is preferable if you need to stringify nested objects, as the <code>querystring</code> method has known issues with that use case (https://github.com/nodejs/node-v0.x-archive/issues/1665).</p>
+<div class="pilwrap" id="semver">
+  <h2>
+    <a href="#semver" name="semver" class="pilcrow"></a>
+Semver
+  </h2>
+</div>
+<p>Until axios reaches a <code>1.0</code> release, breaking changes will be released with a new minor version. For example <code>0.5.1</code>, and <code>0.5.4</code> will have the same API, but <code>0.6.0</code> will have breaking changes.</p>
+<div class="pilwrap" id="promises">
+  <h2>
+    <a href="#promises" name="promises" class="pilcrow"></a>
+Promises
+  </h2>
+</div>
+<p>axios depends on a native ES6 Promise implementation to be <a href="http://caniuse.com/promises">supported</a>.
+If your environment doesn't support ES6 Promises, you can <a href="https://github.com/jakearchibald/es6-promise">polyfill</a>.</p>
+<div class="pilwrap" id="typescript">
+  <h2>
+    <a href="#typescript" name="typescript" class="pilcrow"></a>
+TypeScript
+  </h2>
+</div>
+<p>axios includes <a href="http://typescriptlang.org">TypeScript</a> definitions.</p>
+<pre><code class="typescript"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+axios.get(<span class="hljs-string">'/user?ID=12345'</span>);
+</code></pre>
+<div class="pilwrap" id="resources">
+  <h2>
+    <a href="#resources" name="resources" class="pilcrow"></a>
+Resources
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/axios/axios/blob/master/CHANGELOG.md">Changelog</a></li>
+<li><a href="https://github.com/axios/axios/blob/master/UPGRADE_GUIDE.md">Upgrade Guide</a></li>
+<li><a href="https://github.com/axios/axios/blob/master/ECOSYSTEM.md">Ecosystem</a></li>
+<li><a href="https://github.com/axios/axios/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
+<li><a href="https://github.com/axios/axios/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+</ul>
+<div class="pilwrap" id="credits">
+  <h2>
+    <a href="#credits" name="credits" class="pilcrow"></a>
+Credits
+  </h2>
+</div>
+<p>axios is heavily inspired by the <a href="https://docs.angularjs.org/api/ng/service/$http">$http service</a> provided in <a href="https://angularjs.org/">Angular</a>. Ultimately axios is an effort to provide a standalone <code>$http</code>-like service for use outside of Angular.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

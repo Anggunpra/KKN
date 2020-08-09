@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\fd-slicer\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">var</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
+<span class="hljs-keyword">var</span> stream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'stream'</span>);
+<span class="hljs-keyword">var</span> Readable = stream.Readable;
+<span class="hljs-keyword">var</span> Writable = stream.Writable;
+<span class="hljs-keyword">var</span> PassThrough = stream.PassThrough;
+<span class="hljs-keyword">var</span> Pend = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pend'</span>);
+<span class="hljs-keyword">var</span> EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>).EventEmitter;
+
+exports.createFromBuffer = createFromBuffer;
+exports.createFromFd = createFromFd;
+exports.BufferSlicer = BufferSlicer;
+exports.FdSlicer = FdSlicer;
+
+util.inherits(FdSlicer, EventEmitter);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FdSlicer</span>(<span class="hljs-params">fd, options</span>) </span>{
+  options = options || {};
+  EventEmitter.call(<span class="hljs-keyword">this</span>);
+
+  <span class="hljs-keyword">this</span>.fd = fd;
+  <span class="hljs-keyword">this</span>.pend = <span class="hljs-keyword">new</span> Pend();
+  <span class="hljs-keyword">this</span>.pend.max = <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">this</span>.refCount = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>.autoClose = !!options.autoClose;
+}
+
+FdSlicer.prototype.read = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">buffer, offset, length, position, callback</span>) </span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+  self.pend.go(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cb</span>) </span>{
+    fs.read(self.fd, buffer, offset, length, position, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, bytesRead, buffer</span>) </span>{
+      cb();
+      callback(err, bytesRead, buffer);
+    });
+  });
+};
+
+FdSlicer.prototype.write = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">buffer, offset, length, position, callback</span>) </span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+  self.pend.go(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cb</span>) </span>{
+    fs.write(self.fd, buffer, offset, length, position, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, written, buffer</span>) </span>{
+      cb();
+      callback(err, written, buffer);
+    });
+  });
+};
+
+FdSlicer.prototype.createReadStream = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ReadStream(<span class="hljs-keyword">this</span>, options);
+};
+
+FdSlicer.prototype.createWriteStream = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> WriteStream(<span class="hljs-keyword">this</span>, options);
+};
+
+FdSlicer.prototype.ref = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.refCount += <span class="hljs-number">1</span>;
+};
+
+FdSlicer.prototype.unref = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+  self.refCount -= <span class="hljs-number">1</span>;
+
+  <span class="hljs-keyword">if</span> (self.refCount &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span>;
+  <span class="hljs-keyword">if</span> (self.refCount &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"invalid unref"</span>);
+
+  <span class="hljs-keyword">if</span> (self.autoClose) {
+    fs.close(self.fd, onCloseDone);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onCloseDone</span>(<span class="hljs-params">err</span>) </span>{
+    <span class="hljs-keyword">if</span> (err) {
+      self.emit(<span class="hljs-string">'error'</span>, err);
+    } <span class="hljs-keyword">else</span> {
+      self.emit(<span class="hljs-string">'close'</span>);
+    }
+  }
+};
+
+util.inherits(ReadStream, Readable);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ReadStream</span>(<span class="hljs-params">context, options</span>) </span>{
+  options = options || {};
+  Readable.call(<span class="hljs-keyword">this</span>, options);
+
+  <span class="hljs-keyword">this</span>.context = context;
+  <span class="hljs-keyword">this</span>.context.ref();
+
+  <span class="hljs-keyword">this</span>.start = options.start || <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>.endOffset = options.end;
+  <span class="hljs-keyword">this</span>.pos = <span class="hljs-keyword">this</span>.start;
+  <span class="hljs-keyword">this</span>.destroyed = <span class="hljs-literal">false</span>;
+}
+
+ReadStream.prototype._read = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">n</span>) </span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">if</span> (self.destroyed) <span class="hljs-keyword">return</span>;
+
+  <span class="hljs-keyword">var</span> toRead = <span class="hljs-built_in">Math</span>.min(self._readableState.highWaterMark, n);
+  <span class="hljs-keyword">if</span> (self.endOffset != <span class="hljs-literal">null</span>) {
+    toRead = <span class="hljs-built_in">Math</span>.min(toRead, self.endOffset - self.pos);
+  }
+  <span class="hljs-keyword">if</span> (toRead &lt;= <span class="hljs-number">0</span>) {
+    self.destroyed = <span class="hljs-literal">true</span>;
+    self.push(<span class="hljs-literal">null</span>);
+    self.context.unref();
+    <span class="hljs-keyword">return</span>;
+  }
+  self.context.pend.go(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cb</span>) </span>{
+    <span class="hljs-keyword">if</span> (self.destroyed) <span class="hljs-keyword">return</span> cb();
+    <span class="hljs-keyword">var</span> buffer = <span class="hljs-keyword">new</span> Buffer(toRead);
+    fs.read(self.context.fd, buffer, <span class="hljs-number">0</span>, toRead, self.pos, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, bytesRead</span>) </span>{
+      <span class="hljs-keyword">if</span> (err) {
+        self.destroy(err);
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (bytesRead === <span class="hljs-number">0</span>) {
+        self.destroyed = <span class="hljs-literal">true</span>;
+        self.push(<span class="hljs-literal">null</span>);
+        self.context.unref();
+      } <span class="hljs-keyword">else</span> {
+        self.pos += bytesRead;
+        self.push(buffer.slice(<span class="hljs-number">0</span>, bytesRead));
+      }
+      cb();
+    });
+  });
+};
+
+ReadStream.prototype.destroy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.destroyed) <span class="hljs-keyword">return</span>;
+  err = err || <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"stream destroyed"</span>);
+  <span class="hljs-keyword">this</span>.destroyed = <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, err);
+  <span class="hljs-keyword">this</span>.context.unref();
+};
+
+util.inherits(WriteStream, Writable);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">WriteStream</span>(<span class="hljs-params">context, options</span>) </span>{
+  options = options || {};
+  Writable.call(<span class="hljs-keyword">this</span>, options);
+
+  <span class="hljs-keyword">this</span>.context = context;
+  <span class="hljs-keyword">this</span>.context.ref();
+
+  <span class="hljs-keyword">this</span>.start = options.start || <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>.endOffset = (options.end == <span class="hljs-literal">null</span>) ? <span class="hljs-literal">Infinity</span> : +options.end;
+  <span class="hljs-keyword">this</span>.bytesWritten = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>.pos = <span class="hljs-keyword">this</span>.start;
+  <span class="hljs-keyword">this</span>.destroyed = <span class="hljs-literal">false</span>;
+
+  <span class="hljs-keyword">this</span>.on(<span class="hljs-string">'finish'</span>, <span class="hljs-keyword">this</span>.destroy.bind(<span class="hljs-keyword">this</span>));
+}
+
+WriteStream.prototype._write = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">buffer, encoding, callback</span>) </span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">if</span> (self.destroyed) <span class="hljs-keyword">return</span>;
+
+  <span class="hljs-keyword">if</span> (self.pos + buffer.length &gt; self.endOffset) {
+    <span class="hljs-keyword">var</span> err = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"maximum file length exceeded"</span>);
+    err.code = <span class="hljs-string">'ETOOBIG'</span>;
+    self.destroy();
+    callback(err);
+    <span class="hljs-keyword">return</span>;
+  }
+  self.context.pend.go(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cb</span>) </span>{
+    <span class="hljs-keyword">if</span> (self.destroyed) <span class="hljs-keyword">return</span> cb();
+    fs.write(self.context.fd, buffer, <span class="hljs-number">0</span>, buffer.length, self.pos, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, bytes</span>) </span>{
+      <span class="hljs-keyword">if</span> (err) {
+        self.destroy();
+        cb();
+        callback(err);
+      } <span class="hljs-keyword">else</span> {
+        self.bytesWritten += bytes;
+        self.pos += bytes;
+        self.emit(<span class="hljs-string">'progress'</span>);
+        cb();
+        callback();
+      }
+    });
+  });
+};
+
+WriteStream.prototype.destroy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.destroyed) <span class="hljs-keyword">return</span>;
+  <span class="hljs-keyword">this</span>.destroyed = <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">this</span>.context.unref();
+};
+
+util.inherits(BufferSlicer, EventEmitter);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">BufferSlicer</span>(<span class="hljs-params">buffer, options</span>) </span>{
+  EventEmitter.call(<span class="hljs-keyword">this</span>);
+
+  options = options || {};
+  <span class="hljs-keyword">this</span>.refCount = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>.buffer = buffer;
+  <span class="hljs-keyword">this</span>.maxChunkSize = options.maxChunkSize || <span class="hljs-built_in">Number</span>.MAX_SAFE_INTEGER;
+}
+
+BufferSlicer.prototype.read = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">buffer, offset, length, position, callback</span>) </span>{
+  <span class="hljs-keyword">var</span> end = position + length;
+  <span class="hljs-keyword">var</span> delta = end - <span class="hljs-keyword">this</span>.buffer.length;
+  <span class="hljs-keyword">var</span> written = (delta &gt; <span class="hljs-number">0</span>) ? delta : length;
+  <span class="hljs-keyword">this</span>.buffer.copy(buffer, offset, position, end);
+  setImmediate(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    callback(<span class="hljs-literal">null</span>, written);
+  });
+};
+
+BufferSlicer.prototype.write = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">buffer, offset, length, position, callback</span>) </span>{
+  buffer.copy(<span class="hljs-keyword">this</span>.buffer, position, offset, offset + length);
+  setImmediate(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    callback(<span class="hljs-literal">null</span>, length, buffer);
+  });
+};
+
+BufferSlicer.prototype.createReadStream = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  options = options || {};
+  <span class="hljs-keyword">var</span> readStream = <span class="hljs-keyword">new</span> PassThrough(options);
+  readStream.destroyed = <span class="hljs-literal">false</span>;
+  readStream.start = options.start || <span class="hljs-number">0</span>;
+  readStream.endOffset = options.end;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>by the time this function returns, we'll be done.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  readStream.pos = readStream.endOffset || <span class="hljs-keyword">this</span>.buffer.length;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>respect the maxChunkSize option to slice up the chunk into smaller pieces.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> entireSlice = <span class="hljs-keyword">this</span>.buffer.slice(readStream.start, readStream.pos);
+  <span class="hljs-keyword">var</span> offset = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
+    <span class="hljs-keyword">var</span> nextOffset = offset + <span class="hljs-keyword">this</span>.maxChunkSize;
+    <span class="hljs-keyword">if</span> (nextOffset &gt;= entireSlice.length) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>last chunk</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">if</span> (offset &lt; entireSlice.length) {
+        readStream.write(entireSlice.slice(offset, entireSlice.length));
+      }
+      <span class="hljs-keyword">break</span>;
+    }
+    readStream.write(entireSlice.slice(offset, nextOffset));
+    offset = nextOffset;
+  }
+
+  readStream.end();
+  readStream.destroy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    readStream.destroyed = <span class="hljs-literal">true</span>;
+  };
+  <span class="hljs-keyword">return</span> readStream;
+};
+
+BufferSlicer.prototype.createWriteStream = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> bufferSlicer = <span class="hljs-keyword">this</span>;
+  options = options || {};
+  <span class="hljs-keyword">var</span> writeStream = <span class="hljs-keyword">new</span> Writable(options);
+  writeStream.start = options.start || <span class="hljs-number">0</span>;
+  writeStream.endOffset = (options.end == <span class="hljs-literal">null</span>) ? <span class="hljs-keyword">this</span>.buffer.length : +options.end;
+  writeStream.bytesWritten = <span class="hljs-number">0</span>;
+  writeStream.pos = writeStream.start;
+  writeStream.destroyed = <span class="hljs-literal">false</span>;
+  writeStream._write = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">buffer, encoding, callback</span>) </span>{
+    <span class="hljs-keyword">if</span> (writeStream.destroyed) <span class="hljs-keyword">return</span>;
+
+    <span class="hljs-keyword">var</span> end = writeStream.pos + buffer.length;
+    <span class="hljs-keyword">if</span> (end &gt; writeStream.endOffset) {
+      <span class="hljs-keyword">var</span> err = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"maximum file length exceeded"</span>);
+      err.code = <span class="hljs-string">'ETOOBIG'</span>;
+      writeStream.destroyed = <span class="hljs-literal">true</span>;
+      callback(err);
+      <span class="hljs-keyword">return</span>;
+    }
+    buffer.copy(bufferSlicer.buffer, writeStream.pos, <span class="hljs-number">0</span>, buffer.length);
+
+    writeStream.bytesWritten += buffer.length;
+    writeStream.pos = end;
+    writeStream.emit(<span class="hljs-string">'progress'</span>);
+    callback();
+  };
+  writeStream.destroy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    writeStream.destroyed = <span class="hljs-literal">true</span>;
+  };
+  <span class="hljs-keyword">return</span> writeStream;
+};
+
+BufferSlicer.prototype.ref = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.refCount += <span class="hljs-number">1</span>;
+};
+
+BufferSlicer.prototype.unref = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.refCount -= <span class="hljs-number">1</span>;
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.refCount &lt; <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"invalid unref"</span>);
+  }
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createFromBuffer</span>(<span class="hljs-params">buffer, options</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BufferSlicer(buffer, options);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createFromFd</span>(<span class="hljs-params">fd, options</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> FdSlicer(fd, options);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

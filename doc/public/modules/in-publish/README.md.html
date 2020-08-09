@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\in-publish\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#in-publish">in-publish</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="in-publish">
+  <h1>
+    <a href="#in-publish" name="in-publish" class="pilcrow"></a>
+in-publish
+  </h1>
+</div>
+<p>Detect if we were run as a result of <code>npm publish</code>. This is intended to allow you to
+easily have prepublish lifecycle scripts that don't run when you run <code>npm install</code>.</p>
+<pre><code>$ npm install --save in-publish
+in-publish@1.0.0 node_modules/in-publish
+</code></pre>
+<p>Then edit your package.json to have:</p>
+<pre><code class="json">  "scripts": {
+    "prepublish": "in-publish &amp;&amp; thing-I-dont-want-on-dev-install || not-in-publish"
+  }
+</code></pre>
+<p>Now when you run:</p>
+<pre><code>$ npm install
+</code></pre>
+<p>Then <code>thing-I-dont-want-on-dev-install</code> won't be run, but...</p>
+<pre><code>$ npm publish
+</code></pre>
+<p>And <code>thing-I-dont-want-on-dev-install</code> will be run.</p>
+<p>It's worth noting that the <code>prepublish</code> lifecycle is <em>ALSO</em> called when you build a tarball, so:</p>
+<pre><code>$ npm pack
+</code></pre>
+<p>Will call your <code>prepublish</code> lifecycle, but with the examplea above,
+<code>thing-I-dont-want-on-dev-install</code> won't be run.</p>
+<p>If you want this, you can use another helper included here:</p>
+<pre><code class="json">  "scripts": {
+    "prepublish": "not-in-install &amp;&amp; thing-I-dont-want-on-dev-install || in-install"
+  }
+</code></pre>
+<p>The above will run your <code>thing-I-dont-want-on-dev-install</code> on <code>publish</code> and
+on <code>pack</code> but not on <code>install</code>.</p>
+</div>
+  </div>
+</body>
+</html>

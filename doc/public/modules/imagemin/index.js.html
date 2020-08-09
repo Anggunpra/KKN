@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\imagemin\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">const</span> fileType = <span class="hljs-built_in">require</span>(<span class="hljs-string">'file-type'</span>);
+<span class="hljs-keyword">const</span> globby = <span class="hljs-built_in">require</span>(<span class="hljs-string">'globby'</span>);
+<span class="hljs-keyword">const</span> makeDir = <span class="hljs-built_in">require</span>(<span class="hljs-string">'make-dir'</span>);
+<span class="hljs-keyword">const</span> pify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pify'</span>);
+<span class="hljs-keyword">const</span> pPipe = <span class="hljs-built_in">require</span>(<span class="hljs-string">'p-pipe'</span>);
+<span class="hljs-keyword">const</span> replaceExt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'replace-ext'</span>);
+
+<span class="hljs-keyword">const</span> fsP = pify(fs);
+
+<span class="hljs-keyword">const</span> handleFile = <span class="hljs-function">(<span class="hljs-params">input, output, opts</span>) =&gt;</span> fsP.readFile(input).then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+	<span class="hljs-keyword">const</span> dest = output ? path.join(output, path.basename(input)) : <span class="hljs-literal">null</span>;
+
+	<span class="hljs-keyword">if</span> (opts.plugins &amp;&amp; !<span class="hljs-built_in">Array</span>.isArray(opts.plugins)) {
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'The plugins option should be an `Array`'</span>);
+	}
+
+	<span class="hljs-keyword">const</span> pipe = opts.plugins.length &gt; <span class="hljs-number">0</span> ? pPipe(opts.plugins)(data) : <span class="hljs-built_in">Promise</span>.resolve(data);
+
+	<span class="hljs-keyword">return</span> pipe
+		.then(<span class="hljs-function"><span class="hljs-params">buf</span> =&gt;</span> {
+			buf = buf.length &lt; data.length ? buf : data;
+
+			<span class="hljs-keyword">const</span> ret = {
+				<span class="hljs-attr">data</span>: buf,
+				<span class="hljs-attr">path</span>: (fileType(buf) &amp;&amp; fileType(buf).ext === <span class="hljs-string">'webp'</span>) ? replaceExt(dest, <span class="hljs-string">'.webp'</span>) : dest
+			};
+
+			<span class="hljs-keyword">if</span> (!dest) {
+				<span class="hljs-keyword">return</span> ret;
+			}
+
+			<span class="hljs-keyword">return</span> makeDir(path.dirname(ret.path))
+				.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> fsP.writeFile(ret.path, ret.data))
+				.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ret);
+		})
+		.catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+			err.message = <span class="hljs-string">`Error in file: <span class="hljs-subst">${input}</span>\n\n<span class="hljs-subst">${err.message}</span>`</span>;
+			<span class="hljs-keyword">throw</span> err;
+		});
+});
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">input, output, opts</span>) =&gt;</span> {
+	<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(input)) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Expected an array'</span>));
+	}
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> output === <span class="hljs-string">'object'</span>) {
+		opts = output;
+		output = <span class="hljs-literal">null</span>;
+	}
+
+	opts = <span class="hljs-built_in">Object</span>.assign({<span class="hljs-attr">plugins</span>: []}, opts);
+	opts.plugins = opts.use || opts.plugins;
+
+	<span class="hljs-keyword">return</span> globby(input, {<span class="hljs-attr">nodir</span>: <span class="hljs-literal">true</span>}).then(<span class="hljs-function"><span class="hljs-params">paths</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.all(paths.map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> handleFile(x, output, opts))));
+};
+
+<span class="hljs-built_in">module</span>.exports.buffer = <span class="hljs-function">(<span class="hljs-params">input, opts</span>) =&gt;</span> {
+	<span class="hljs-keyword">if</span> (!Buffer.isBuffer(input)) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Expected a buffer'</span>));
+	}
+
+	opts = <span class="hljs-built_in">Object</span>.assign({<span class="hljs-attr">plugins</span>: []}, opts);
+	opts.plugins = opts.use || opts.plugins;
+
+	<span class="hljs-keyword">const</span> pipe = opts.plugins.length &gt; <span class="hljs-number">0</span> ? pPipe(opts.plugins)(input) : <span class="hljs-built_in">Promise</span>.resolve(input);
+
+	<span class="hljs-keyword">return</span> pipe.then(<span class="hljs-function"><span class="hljs-params">buf</span> =&gt;</span> buf.length &lt; input.length ? buf : input);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

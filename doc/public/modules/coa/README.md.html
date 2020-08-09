@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\coa\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#command-option-argument">Command-Option-Argument</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#what-is-it">What is it?</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#other-features">Other features</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#todo">TODO</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#examples">Examples</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api-reference">API reference</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#cmd">Cmd</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.api">Cmd.api</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.name">Cmd.name</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.title">Cmd.title</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.cmd">Cmd.cmd</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.opt">Cmd.opt</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.arg">Cmd.arg</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.act">Cmd.act</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.apply">Cmd.apply</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.comp">Cmd.comp</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.helpful">Cmd.helpful</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.completable">Cmd.completable</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.usage">Cmd.usage</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.run">Cmd.run</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.invoke">Cmd.invoke</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.reject">Cmd.reject</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.end">Cmd.end</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#opt">Opt</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.name">Opt.name</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.title">Opt.title</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.short">Opt.short</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.long">Opt.long</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.flag">Opt.flag</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.arr">Opt.arr</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.req">Opt.req</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.only">Opt.only</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.val">Opt.val</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.def">Opt.def</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.input">Opt.input</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.output">Opt.output</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.act">Opt.act</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.comp">Opt.comp</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.end">Opt.end</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#arg">Arg</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.name">Arg.name</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.title">Arg.title</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.arr">Arg.arr</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.req">Arg.req</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.val">Arg.val</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.def">Arg.def</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.output">Arg.output</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.comp">Arg.comp</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.end">Arg.end</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="command-option-argument">
+  <h1>
+    <a href="#command-option-argument" name="command-option-argument" class="pilcrow"></a>
+Command-Option-Argument
+  </h1>
+</div>
+<p><a href="http://travis-ci.org/veged/coa"><img src="https://secure.travis-ci.org/veged/coa.png" alt="build status"></a></p>
+<div class="pilwrap" id="what-is-it">
+  <h2>
+    <a href="#what-is-it" name="what-is-it" class="pilcrow"></a>
+What is it?
+  </h2>
+</div>
+<p>COA is a parser for command line options that aim to get maximum profit from formalization your program API.
+Once you write definition in terms of commands, options and arguments you automaticaly get:</p>
+<ul>
+<li>Command line help text</li>
+<li>Program API for use COA-based programs as modules</li>
+<li>Shell completion</li>
+</ul>
+<div class="pilwrap" id="other-features">
+  <h3>
+    <a href="#other-features" name="other-features" class="pilcrow"></a>
+Other features
+  </h3>
+</div>
+<ul>
+<li>Rich types for options and arguments, such as arrays, boolean flags and required</li>
+<li>Commands can be async throught using promising (powered by <a href="https://github.com/kriskowal/q">Q</a>)</li>
+<li>Easy submoduling some existing commands to new top-level one</li>
+<li>Combined validation and complex parsing of values</li>
+</ul>
+<div class="pilwrap" id="todo">
+  <h3>
+    <a href="#todo" name="todo" class="pilcrow"></a>
+TODO
+  </h3>
+</div>
+<ul>
+<li>Localization</li>
+<li>Shell-mode</li>
+<li>Configs</li>
+<li>Aliases</li>
+<li>Defaults</li>
+</ul>
+<div class="pilwrap" id="examples">
+  <h2>
+    <a href="#examples" name="examples" class="pilcrow"></a>
+Examples
+  </h2>
+</div>
+<pre><code class="javascript"><span class="hljs-built_in">require</span>(<span class="hljs-string">'coa'</span>).Cmd() <span class="hljs-comment">// main (top level) command declaration</span>
+    .name(process.argv[<span class="hljs-number">1</span>]) <span class="hljs-comment">// set top level command name from program name</span>
+    .title(<span class="hljs-string">'My awesome command line util'</span>) <span class="hljs-comment">// title for use in text messages</span>
+    .helpful() <span class="hljs-comment">// make command "helpful", i.e. options -h --help with usage message</span>
+    .opt() <span class="hljs-comment">// add some option</span>
+        .name(<span class="hljs-string">'version'</span>) <span class="hljs-comment">// name for use in API</span>
+        .title(<span class="hljs-string">'Version'</span>) <span class="hljs-comment">// title for use in text messages</span>
+        .short(<span class="hljs-string">'v'</span>) <span class="hljs-comment">// short key: -v</span>
+        .long(<span class="hljs-string">'version'</span>) <span class="hljs-comment">// long key: --version</span>
+        .flag() <span class="hljs-comment">// for options without value</span>
+        .act(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">opts</span>) </span>{ <span class="hljs-comment">// add action for option</span>
+            <span class="hljs-comment">// return message as result of action</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).readFileSync(__dirname + <span class="hljs-string">'/package.json'</span>))
+                .version;
+        })
+        .end() <span class="hljs-comment">// end option chain and return to main command</span>
+    .cmd().name(<span class="hljs-string">'subcommand'</span>).apply(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./subcommand'</span>).COA).end() <span class="hljs-comment">// load subcommand from module</span>
+    .cmd() <span class="hljs-comment">// inplace subcommand declaration</span>
+        .name(<span class="hljs-string">'othercommand'</span>).title(<span class="hljs-string">'Awesome other subcommand'</span>).helpful()
+        .opt()
+            .name(<span class="hljs-string">'input'</span>).title(<span class="hljs-string">'input file, required'</span>)
+            .short(<span class="hljs-string">'i'</span>).long(<span class="hljs-string">'input'</span>)
+            .val(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{ <span class="hljs-comment">// validator function, also for translate simple values</span>
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).createReadStream(v) })
+            .req() <span class="hljs-comment">// make option required</span>
+            .end() <span class="hljs-comment">// end option chain and return to command</span>
+        .end() <span class="hljs-comment">// end subcommand chain and return to parent command</span>
+    .run(process.argv.slice(<span class="hljs-number">2</span>)); <span class="hljs-comment">// parse and run on process.argv</span>
+</code></pre>
+<pre><code class="javascript"><span class="hljs-comment">// subcommand.js</span>
+exports.COA = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>
+        .title(<span class="hljs-string">'Awesome subcommand'</span>).helpful()
+        .opt()
+            .name(<span class="hljs-string">'output'</span>).title(<span class="hljs-string">'output file'</span>)
+            .short(<span class="hljs-string">'o'</span>).long(<span class="hljs-string">'output'</span>)
+            .output() <span class="hljs-comment">// use default preset for "output" option declaration</span>
+            .end()
+};
+</code></pre>
+<div class="pilwrap" id="api-reference">
+  <h2>
+    <a href="#api-reference" name="api-reference" class="pilcrow"></a>
+API reference
+  </h2>
+</div>
+<div class="pilwrap" id="cmd">
+  <h3>
+    <a href="#cmd" name="cmd" class="pilcrow"></a>
+Cmd
+  </h3>
+</div>
+<p>Command is a top level entity. Commands may have options and arguments.</p>
+<div class="pilwrap" id="cmd.api">
+  <h4>
+    <a href="#cmd.api" name="cmd.api" class="pilcrow"></a>
+Cmd.api
+  </h4>
+</div>
+<p>Returns object containing all its subcommands as methods to use from other programs.<br>
+<strong>@returns</strong> <em>{Object}</em></p>
+<div class="pilwrap" id="cmd.name">
+  <h4>
+    <a href="#cmd.name" name="cmd.name" class="pilcrow"></a>
+Cmd.name
+  </h4>
+</div>
+<p>Set a canonical command identifier to be used anywhere in the API.<br>
+<strong>@param</strong> <em>String</em> <code>_name</code> command name<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="cmd.title">
+  <h4>
+    <a href="#cmd.title" name="cmd.title" class="pilcrow"></a>
+Cmd.title
+  </h4>
+</div>
+<p>Set a long description for command to be used anywhere in text messages.<br>
+<strong>@param</strong> <em>String</em> <code>_title</code> command title<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="cmd.cmd">
+  <h4>
+    <a href="#cmd.cmd" name="cmd.cmd" class="pilcrow"></a>
+Cmd.cmd
+  </h4>
+</div>
+<p>Create new or add existing subcommand for current command.<br>
+<strong>@param</strong> <em>COA.Cmd</em> <code>[cmd]</code> existing command instance<br>
+<strong>@returns</strong> <em>COA.Cmd</em> new or added subcommand instance</p>
+<div class="pilwrap" id="cmd.opt">
+  <h4>
+    <a href="#cmd.opt" name="cmd.opt" class="pilcrow"></a>
+Cmd.opt
+  </h4>
+</div>
+<p>Create option for current command.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>new</code> option instance</p>
+<div class="pilwrap" id="cmd.arg">
+  <h4>
+    <a href="#cmd.arg" name="cmd.arg" class="pilcrow"></a>
+Cmd.arg
+  </h4>
+</div>
+<p>Create argument for current command.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>new</code> argument instance</p>
+<div class="pilwrap" id="cmd.act">
+  <h4>
+    <a href="#cmd.act" name="cmd.act" class="pilcrow"></a>
+Cmd.act
+  </h4>
+</div>
+<p>Add (or set) action for current command.<br>
+<strong>@param</strong> <em>Function</em> <code>act</code> action function,
+invoked in the context of command instance
+and has the parameters:<br>
+- <em>Object</em> <code>opts</code> parsed options<br>
+- <em>Array</em> <code>args</code> parsed arguments<br>
+- <em>Object</em> <code>res</code> actions result accumulator<br>
+It can return rejected promise by Cmd.reject (in case of error)
+or any other value treated as result.<br>
+<strong>@param</strong> <em>{Boolean}</em> [force=false] flag for set action instead add to existings<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="cmd.apply">
+  <h4>
+    <a href="#cmd.apply" name="cmd.apply" class="pilcrow"></a>
+Cmd.apply
+  </h4>
+</div>
+<p>Apply function with arguments in context of command instance.<br>
+<strong>@param</strong> <em>Function</em> <code>fn</code><br>
+<strong>@param</strong> <em>Array</em> <code>args</code><br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="cmd.comp">
+  <h4>
+    <a href="#cmd.comp" name="cmd.comp" class="pilcrow"></a>
+Cmd.comp
+  </h4>
+</div>
+<p>Set custom additional completion for current command.<br>
+<strong>@param</strong> <em>Function</em> <code>fn</code> completion generation function,
+invoked in the context of command instance.
+Accepts parameters:<br>
+- <em>Object</em> <code>opts</code> completion options<br>
+It can return promise or any other value treated as result.<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="cmd.helpful">
+  <h4>
+    <a href="#cmd.helpful" name="cmd.helpful" class="pilcrow"></a>
+Cmd.helpful
+  </h4>
+</div>
+<p>Make command &quot;helpful&quot;, i.e. add -h --help flags for print usage.<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="cmd.completable">
+  <h4>
+    <a href="#cmd.completable" name="cmd.completable" class="pilcrow"></a>
+Cmd.completable
+  </h4>
+</div>
+<p>Adds shell completion to command, adds &quot;completion&quot; subcommand, that makes all the magic.<br>
+Must be called only on root command.<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="cmd.usage">
+  <h4>
+    <a href="#cmd.usage" name="cmd.usage" class="pilcrow"></a>
+Cmd.usage
+  </h4>
+</div>
+<p>Build full usage text for current command instance.<br>
+<strong>@returns</strong> <em>String</em> <code>usage</code> text</p>
+<div class="pilwrap" id="cmd.run">
+  <h4>
+    <a href="#cmd.run" name="cmd.run" class="pilcrow"></a>
+Cmd.run
+  </h4>
+</div>
+<p>Parse arguments from simple format like NodeJS process.argv
+and run ahead current program, i.e. call process.exit when all actions done.<br>
+<strong>@param</strong> <em>Array</em> <code>argv</code><br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="cmd.invoke">
+  <h4>
+    <a href="#cmd.invoke" name="cmd.invoke" class="pilcrow"></a>
+Cmd.invoke
+  </h4>
+</div>
+<p>Invoke specified (or current) command using provided options and arguments.<br>
+<strong>@param</strong> <em>String|Array</em> <code>cmds</code>  subcommand to invoke (optional)<br>
+<strong>@param</strong> <em>Object</em> <code>opts</code>  command options (optional)<br>
+<strong>@param</strong> <em>Object</em> <code>args</code>  command arguments (optional)<br>
+<strong>@returns</strong> <em>Q.Promise</em></p>
+<div class="pilwrap" id="cmd.reject">
+  <h4>
+    <a href="#cmd.reject" name="cmd.reject" class="pilcrow"></a>
+Cmd.reject
+  </h4>
+</div>
+<p>Return reject of actions results promise.<br>
+Use in .act() for return with error.<br>
+<strong>@param</strong> <em>Object</em> <code>reason</code> reject reason<br>
+You can customize toString() method and exitCode property
+of reason object.<br>
+<strong>@returns</strong> <em>Q.promise</em> rejected promise</p>
+<div class="pilwrap" id="cmd.end">
+  <h4>
+    <a href="#cmd.end" name="cmd.end" class="pilcrow"></a>
+Cmd.end
+  </h4>
+</div>
+<p>Finish chain for current subcommand and return parent command instance.<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>parent</code> command</p>
+<div class="pilwrap" id="opt">
+  <h3>
+    <a href="#opt" name="opt" class="pilcrow"></a>
+Opt
+  </h3>
+</div>
+<p>Option is a named entity. Options may have short and long keys for use from command line.<br>
+<strong>@namespace</strong><br>
+<strong>@class</strong> Presents option</p>
+<div class="pilwrap" id="opt.name">
+  <h4>
+    <a href="#opt.name" name="opt.name" class="pilcrow"></a>
+Opt.name
+  </h4>
+</div>
+<p>Set a canonical option identifier to be used anywhere in the API.<br>
+<strong>@param</strong> <em>String</em> <code>_name</code> option name<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.title">
+  <h4>
+    <a href="#opt.title" name="opt.title" class="pilcrow"></a>
+Opt.title
+  </h4>
+</div>
+<p>Set a long description for option to be used anywhere in text messages.<br>
+<strong>@param</strong> <em>String</em> <code>_title</code> option title<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.short">
+  <h4>
+    <a href="#opt.short" name="opt.short" class="pilcrow"></a>
+Opt.short
+  </h4>
+</div>
+<p>Set a short key for option to be used with one hyphen from command line.<br>
+<strong>@param</strong> <em>String</em> <code>_short</code><br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.long">
+  <h4>
+    <a href="#opt.long" name="opt.long" class="pilcrow"></a>
+Opt.long
+  </h4>
+</div>
+<p>Set a short key for option to be used with double hyphens from command line.<br>
+<strong>@param</strong> <em>String</em> <code>_long</code><br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.flag">
+  <h4>
+    <a href="#opt.flag" name="opt.flag" class="pilcrow"></a>
+Opt.flag
+  </h4>
+</div>
+<p>Make an option boolean, i.e. option without value.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.arr">
+  <h4>
+    <a href="#opt.arr" name="opt.arr" class="pilcrow"></a>
+Opt.arr
+  </h4>
+</div>
+<p>Makes an option accepts multiple values.<br>
+Otherwise, the value will be used by the latter passed.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.req">
+  <h4>
+    <a href="#opt.req" name="opt.req" class="pilcrow"></a>
+Opt.req
+  </h4>
+</div>
+<p>Makes an option req.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.only">
+  <h4>
+    <a href="#opt.only" name="opt.only" class="pilcrow"></a>
+Opt.only
+  </h4>
+</div>
+<p>Makes an option to act as a command,
+i.e. program will exit just after option action.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.val">
+  <h4>
+    <a href="#opt.val" name="opt.val" class="pilcrow"></a>
+Opt.val
+  </h4>
+</div>
+<p>Set a validation (or value) function for argument.<br>
+Value from command line passes through before becoming available from API.<br>
+Using for validation and convertion simple types to any values.<br>
+<strong>@param</strong> <em>Function</em> <code>_val</code> validating function,
+invoked in the context of option instance
+and has one parameter with value from command line<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.def">
+  <h4>
+    <a href="#opt.def" name="opt.def" class="pilcrow"></a>
+Opt.def
+  </h4>
+</div>
+<p>Set a default value for option.
+Default value passed through validation function as ordinary value.<br>
+<strong>@param</strong> <em>Object</em> <code>_def</code><br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.input">
+  <h4>
+    <a href="#opt.input" name="opt.input" class="pilcrow"></a>
+Opt.input
+  </h4>
+</div>
+<p>Make option value inputting stream.
+It's add useful validation and shortcut for STDIN.
+<strong>@returns</strong> <em>{COA.Opt}</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.output">
+  <h4>
+    <a href="#opt.output" name="opt.output" class="pilcrow"></a>
+Opt.output
+  </h4>
+</div>
+<p>Make option value outputing stream.<br>
+It's add useful validation and shortcut for STDOUT.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.act">
+  <h4>
+    <a href="#opt.act" name="opt.act" class="pilcrow"></a>
+Opt.act
+  </h4>
+</div>
+<p>Add action for current option command.
+This action is performed if the current option
+is present in parsed options (with any value).<br>
+<strong>@param</strong> <em>Function</em> <code>act</code> action function,
+invoked in the context of command instance
+and has the parameters:<br>
+- <em>Object</em> <code>opts</code> parsed options<br>
+- <em>Array</em> <code>args</code> parsed arguments<br>
+- <em>Object</em> <code>res</code> actions result accumulator<br>
+It can return rejected promise by Cmd.reject (in case of error)
+or any other value treated as result.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.comp">
+  <h4>
+    <a href="#opt.comp" name="opt.comp" class="pilcrow"></a>
+Opt.comp
+  </h4>
+</div>
+<p>Set custom additional completion for current option.<br>
+<strong>@param</strong> <em>Function</em> <code>fn</code> completion generation function,
+invoked in the context of command instance.
+Accepts parameters:<br>
+- <em>Object</em> <code>opts</code> completion options<br>
+It can return promise or any other value treated as result.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="opt.end">
+  <h4>
+    <a href="#opt.end" name="opt.end" class="pilcrow"></a>
+Opt.end
+  </h4>
+</div>
+<p>Finish chain for current option and return parent command instance.<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>parent</code> command</p>
+<div class="pilwrap" id="arg">
+  <h3>
+    <a href="#arg" name="arg" class="pilcrow"></a>
+Arg
+  </h3>
+</div>
+<p>Argument is a unnamed entity.<br>
+From command line arguments passed as list of unnamed values.</p>
+<div class="pilwrap" id="arg.name">
+  <h4>
+    <a href="#arg.name" name="arg.name" class="pilcrow"></a>
+Arg.name
+  </h4>
+</div>
+<p>Set a canonical argument identifier to be used anywhere in text messages.<br>
+<strong>@param</strong> <em>String</em> <code>_name</code> argument name<br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="arg.title">
+  <h4>
+    <a href="#arg.title" name="arg.title" class="pilcrow"></a>
+Arg.title
+  </h4>
+</div>
+<p>Set a long description for argument to be used anywhere in text messages.<br>
+<strong>@param</strong> <em>String</em> <code>_title</code> argument title<br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="arg.arr">
+  <h4>
+    <a href="#arg.arr" name="arg.arr" class="pilcrow"></a>
+Arg.arr
+  </h4>
+</div>
+<p>Makes an argument accepts multiple values.<br>
+Otherwise, the value will be used by the latter passed.<br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="arg.req">
+  <h4>
+    <a href="#arg.req" name="arg.req" class="pilcrow"></a>
+Arg.req
+  </h4>
+</div>
+<p>Makes an argument req.<br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="arg.val">
+  <h4>
+    <a href="#arg.val" name="arg.val" class="pilcrow"></a>
+Arg.val
+  </h4>
+</div>
+<p>Set a validation (or value) function for argument.<br>
+Value from command line passes through before becoming available from API.<br>
+Using for validation and convertion simple types to any values.<br>
+<strong>@param</strong> <em>Function</em> <code>_val</code> validating function,
+invoked in the context of argument instance
+and has one parameter with value from command line<br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="arg.def">
+  <h4>
+    <a href="#arg.def" name="arg.def" class="pilcrow"></a>
+Arg.def
+  </h4>
+</div>
+<p>Set a default value for argument.
+Default value passed through validation function as ordinary value.<br>
+<strong>@param</strong> <em>Object</em> <code>_def</code><br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="arg.output">
+  <h4>
+    <a href="#arg.output" name="arg.output" class="pilcrow"></a>
+Arg.output
+  </h4>
+</div>
+<p>Make argument value outputing stream.<br>
+It's add useful validation and shortcut for STDOUT.<br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="arg.comp">
+  <h4>
+    <a href="#arg.comp" name="arg.comp" class="pilcrow"></a>
+Arg.comp
+  </h4>
+</div>
+<p>Set custom additional completion for current argument.<br>
+<strong>@param</strong> <em>Function</em> <code>fn</code> completion generation function,
+invoked in the context of command instance.
+Accepts parameters:<br>
+- <em>Object</em> <code>opts</code> completion options<br>
+It can return promise or any other value treated as result.<br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> instance (for chainability)</p>
+<div class="pilwrap" id="arg.end">
+  <h4>
+    <a href="#arg.end" name="arg.end" class="pilcrow"></a>
+Arg.end
+  </h4>
+</div>
+<p>Finish chain for current option and return parent command instance.<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>parent</code> command</p>
+</div>
+  </div>
+</body>
+</html>

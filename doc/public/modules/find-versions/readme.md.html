@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\find-versions\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#find-versions">find-versions </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#findversions-input-options">findVersions(input, options)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#input">input</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.loose">options.loose</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#cli">CLI</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="find-versions">
+  <h1>
+    <a href="#find-versions" name="find-versions" class="pilcrow"></a>
+find-versions <a href="https://travis-ci.org/sindresorhus/find-versions"><img src="https://travis-ci.org/sindresorhus/find-versions.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Find semver versions in a string: <code>unicorn 1.0.0</code> → <code>1.0.0</code></p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save find-versions
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> findVersions = <span class="hljs-built_in">require</span>(<span class="hljs-string">'find-versions'</span>);
+
+findVersions(<span class="hljs-string">'unicorn 1.0.0 rainbow v2.3.4+build.1'</span>);
+<span class="hljs-comment">//=&gt; ['1.0.0', '2.3.4+build.1']</span>
+
+findVersions(<span class="hljs-string">'cp (GNU coreutils) 8.22'</span>, {<span class="hljs-attr">loose</span>: <span class="hljs-literal">true</span>});
+<span class="hljs-comment">//=&gt; ['8.22.0']</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="findversions-input-options">
+  <h3>
+    <a href="#findversions-input-options" name="findversions-input-options" class="pilcrow"></a>
+findVersions(input, options)
+  </h3>
+</div>
+<div class="pilwrap" id="input">
+  <h4>
+    <a href="#input" name="input" class="pilcrow"></a>
+input
+  </h4>
+</div>
+<p><em>Required</em><br>
+Type: <code>string</code></p>
+<div class="pilwrap" id="options.loose">
+  <h4>
+    <a href="#options.loose" name="options.loose" class="pilcrow"></a>
+options.loose
+  </h4>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code></p>
+<p>Also match non-semver versions like <code>1.88</code>.<br>
+They're coerced into semver compliant versions.</p>
+<div class="pilwrap" id="cli">
+  <h2>
+    <a href="#cli" name="cli" class="pilcrow"></a>
+CLI
+  </h2>
+</div>
+<pre><code>$ npm install --global find-versions
+</code></pre>
+<pre><code>$ find-versions --help
+
+  Usage
+    $ find-versions &lt;string&gt; [--first] [--loose]
+    $ echo &lt;string&gt; | find-versions
+
+  Example
+    $ find-versions 'unicorns v1.2.3'
+    1.2.3
+
+    $ curl --version | find-versions --first
+    7.30.0
+
+  Options
+    --first  Return the first match
+    --loose  Match non-semver versions like 1.88
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

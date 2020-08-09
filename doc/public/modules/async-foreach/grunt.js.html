@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>grunt.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\async-foreach\\grunt.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>grunt.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/*global config:true, task:true*/</span>
+config.init({
+  <span class="hljs-attr">pkg</span>: <span class="hljs-string">'&lt;json:package.json&gt;'</span>,
+  <span class="hljs-attr">meta</span>: {
+    <span class="hljs-attr">title</span>: <span class="hljs-string">'JavaScript Sync/Async forEach'</span>,
+    <span class="hljs-attr">license</span>: [<span class="hljs-string">'MIT'</span>],
+    <span class="hljs-attr">copyright</span>: <span class="hljs-string">'Copyright (c) 2012 "Cowboy" Ben Alman'</span>,
+    <span class="hljs-attr">banner</span>: <span class="hljs-string">'/* {{meta.title}} - v{{pkg.version}} - {{today "m/d/yyyy"}}\n'</span> +
+            <span class="hljs-string">' * {{pkg.homepage}}\n'</span> +
+            <span class="hljs-string">' * {{{meta.copyright}}}; Licensed {{join meta.license}} */'</span>
+  },
+  <span class="hljs-attr">concat</span>: {
+    <span class="hljs-string">'dist/ba-foreach.js'</span>: [<span class="hljs-string">'&lt;banner&gt;'</span>, <span class="hljs-string">'&lt;file_strip_banner:lib/foreach.js&gt;'</span>]
+  },
+  <span class="hljs-attr">min</span>: {
+    <span class="hljs-string">'dist/ba-foreach.min.js'</span>: [<span class="hljs-string">'&lt;banner&gt;'</span>, <span class="hljs-string">'dist/ba-foreach.js'</span>]
+  },
+  <span class="hljs-attr">test</span>: {
+    <span class="hljs-attr">files</span>: [<span class="hljs-string">'test/**/*.js'</span>]
+  },
+  <span class="hljs-attr">lint</span>: {
+    <span class="hljs-attr">files</span>: [<span class="hljs-string">'grunt.js'</span>, <span class="hljs-string">'lib/**/*.js'</span>, <span class="hljs-string">'test/**/*.js'</span>]
+  },
+  <span class="hljs-attr">watch</span>: {
+    <span class="hljs-attr">files</span>: <span class="hljs-string">'&lt;config:lint.files&gt;'</span>,
+    <span class="hljs-attr">tasks</span>: <span class="hljs-string">'lint:files test:files'</span>
+  },
+  <span class="hljs-attr">jshint</span>: {
+    <span class="hljs-attr">options</span>: {
+      <span class="hljs-attr">curly</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">eqeqeq</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">immed</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">latedef</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">newcap</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">noarg</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">sub</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">undef</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">eqnull</span>: <span class="hljs-literal">true</span>
+    },
+    <span class="hljs-attr">globals</span>: {
+      <span class="hljs-attr">exports</span>: <span class="hljs-literal">true</span>
+    }
+  },
+  <span class="hljs-attr">uglify</span>: {}
+});
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Default task.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">task.registerTask(<span class="hljs-string">'default'</span>, <span class="hljs-string">'lint:files test:files concat min'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

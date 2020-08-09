@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bach\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#bach">bach</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#series-fns...extensions">series(fns..., [extensions])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#parallel-fns...extensions">parallel(fns..., [extensions])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#settleseries-fns...extensions">settleSeries(fns..., [extensions])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#settleparallel-fns...extensions">settleParallel(fns..., [extensions])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#extensions">extensions</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#extensions.create-fn-index">extensions.create(fn, index)</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#extensions.before-storage">extensions.before(storage)</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#extensions.after-result-storage">extensions.after(result, storage)</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#extensions.error-error-storage">extensions.error(error, storage)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p align="center">
+  <a href="http://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+</p>
+<div class="pilwrap" id="bach">
+  <h1>
+    <a href="#bach" name="bach" class="pilcrow"></a>
+bach
+  </h1>
+</div>
+<p><a href="https://www.npmjs.com/package/bach"><img src="http://img.shields.io/npm/v/bach.svg" alt="NPM version"></a> <a href="https://www.npmjs.com/package/bach"><img src="http://img.shields.io/npm/dm/bach.svg" alt="Downloads"></a> <a href="https://travis-ci.org/gulpjs/bach"><img src="http://img.shields.io/travis/gulpjs/bach.svg?label=travis-ci" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/gulpjs/bach"><img src="https://img.shields.io/appveyor/ci/gulpjs/bach.svg?label=appveyor" alt="AppVeyor Build Status"></a> <a href="https://coveralls.io/r/gulpjs/bach"><img src="http://img.shields.io/coveralls/gulpjs/bach.svg" alt="Coveralls Status"></a> <a href="https://gitter.im/gulpjs/gulp"><img src="https://badges.gitter.im/gulpjs/gulp.svg" alt="Gitter chat"></a></p>
+<p>Compose your async functions with elegance.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>With <code>bach</code>, it is very easy to compose async functions to run in series or parallel.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> bach = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bach'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn1</span>(<span class="hljs-params">cb</span>) </span>{
+  cb(<span class="hljs-literal">null</span>, <span class="hljs-number">1</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn2</span>(<span class="hljs-params">cb</span>) </span>{
+  cb(<span class="hljs-literal">null</span>, <span class="hljs-number">2</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn3</span>(<span class="hljs-params">cb</span>) </span>{
+  cb(<span class="hljs-literal">null</span>, <span class="hljs-number">3</span>);
+}
+
+<span class="hljs-keyword">var</span> seriesFn = bach.series(fn1, fn2, fn3);
+<span class="hljs-comment">// fn1, fn2, and fn3 will be run in series</span>
+seriesFn(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, res</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) { <span class="hljs-comment">// in this example, err is undefined</span>
+    <span class="hljs-comment">// handle error</span>
+  }
+  <span class="hljs-comment">// handle results</span>
+  <span class="hljs-comment">// in this example, res is [1, 2, 3]</span>
+});
+
+<span class="hljs-keyword">var</span> parallelFn = bach.parallel(fn1, fn2, fn3);
+<span class="hljs-comment">// fn1, fn2, and fn3 will be run in parallel</span>
+parallelFn(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, res</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) { <span class="hljs-comment">// in this example, err is undefined</span>
+    <span class="hljs-comment">// handle error</span>
+  }
+  <span class="hljs-comment">// handle results</span>
+  <span class="hljs-comment">// in this example, res is [1, 2, 3]</span>
+});
+</code></pre>
+<p>Since the composer functions return a function, you can combine them.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> combinedFn = bach.series(fn1, bach.parallel(fn2, fn3));
+<span class="hljs-comment">// fn1 will be executed before fn2 and fn3 are run in parallel</span>
+combinedFn(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, res</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) { <span class="hljs-comment">// in this example, err is undefined</span>
+    <span class="hljs-comment">// handle error</span>
+  }
+  <span class="hljs-comment">// handle results</span>
+  <span class="hljs-comment">// in this example, res is [1, [2, 3]]</span>
+});
+</code></pre>
+<p>Functions are called with <a href="https://github.com/gulpjs/async-done">async-done</a>, so you can return a stream, promise, observable or child process. See <a href="https://github.com/gulpjs/async-done#completion-and-error-resolution"><code>async-done</code> completion and error resolution</a> for more detail.</p>
+<pre><code class="js"><span class="hljs-comment">// streams</span>
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">streamFn1</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> fs.createReadStream(<span class="hljs-string">'./example'</span>)
+    .pipe(fs.createWriteStream(<span class="hljs-string">'./example'</span>));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">streamFn2</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> fs.createReadStream(<span class="hljs-string">'./example'</span>)
+    .pipe(fs.createWriteStream(<span class="hljs-string">'./example'</span>));
+}
+
+<span class="hljs-keyword">var</span> parallelStreams = bach.parallel(streamFn1, streamFn2);
+parallelStreams(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) { <span class="hljs-comment">// in this example, err is undefined</span>
+    <span class="hljs-comment">// handle error</span>
+  }
+  <span class="hljs-comment">// all streams have emitted an 'end' or 'close' event</span>
+});
+</code></pre>
+<pre><code class="js"><span class="hljs-comment">// promises</span>
+<span class="hljs-keyword">var</span> when = <span class="hljs-built_in">require</span>(<span class="hljs-string">'when'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">promiseFn1</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> when.resolve(<span class="hljs-number">1</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">promiseFn2</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> when.resolve(<span class="hljs-number">2</span>);
+}
+
+<span class="hljs-keyword">var</span> parallelPromises = bach.parallel(promiseFn1, promiseFn2);
+parallelPromises(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, res</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) { <span class="hljs-comment">// in this example, err is undefined</span>
+    <span class="hljs-comment">// handle error</span>
+  }
+  <span class="hljs-comment">// handle results</span>
+  <span class="hljs-comment">// in this example, res is [1, 2]</span>
+});
+</code></pre>
+<p>All errors are caught in a <a href="http://nodejs.org/api/domain.html">domain</a> and passed to the final callback as the first argument.</p>
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">success</span>(<span class="hljs-params">cb</span>) </span>{
+  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    cb(<span class="hljs-literal">null</span>, <span class="hljs-number">1</span>);
+  }, <span class="hljs-number">500</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Thrown Error'</span>);
+}
+
+<span class="hljs-keyword">var</span> errorThrownFn = bach.parallel(error, success);
+errorThrownFn(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, res</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) {
+    <span class="hljs-comment">// handle error</span>
+    <span class="hljs-comment">// in this example, err is an error caught by the domain</span>
+  }
+  <span class="hljs-comment">// handle results</span>
+  <span class="hljs-comment">// in this example, res is [undefined]</span>
+});
+</code></pre>
+<p>When an error happens in a parallel composition, the callback will be called as soon as the error happens.
+If you want to continue on error and wait until all functions have finished before calling the callback, use <code>settleSeries</code> or <code>settleParallel</code>.</p>
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">success</span>(<span class="hljs-params">cb</span>) </span>{
+  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    cb(<span class="hljs-literal">null</span>, <span class="hljs-number">1</span>);
+  }, <span class="hljs-number">500</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params">cb</span>) </span>{
+  cb(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Async Error'</span>));
+}
+
+<span class="hljs-keyword">var</span> parallelSettlingFn = bach.settleParallel(success, error);
+parallelSettlingFn(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, res</span>) </span>{
+  <span class="hljs-comment">// all functions have finished executing</span>
+  <span class="hljs-keyword">if</span> (err) {
+    <span class="hljs-comment">// handle error</span>
+    <span class="hljs-comment">// in this example, err is an error passed to the callback</span>
+  }
+  <span class="hljs-comment">// handle results</span>
+  <span class="hljs-comment">// in this example, res is [1]</span>
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="series-fns...extensions">
+  <h3>
+    <a href="#series-fns...extensions" name="series-fns...extensions" class="pilcrow"></a>
+<code>series(fns..., [extensions])</code>
+  </h3>
+</div>
+<p>Takes a variable amount of functions (<code>fns</code>) to be called in series when the returned function is
+called. Optionally, takes an <a href="#extensions.html">extensions</a> object as the last argument.</p>
+<p>Returns an <code>invoker(cb)</code> function to be called to start the serial execution. The invoker function takes a callback (<code>cb</code>) with the <code>function(error, results)</code> signature.</p>
+<p>If all functions complete successfully, the callback function will be called with all <code>results</code> as the second argument.</p>
+<p>If an error occurs, execution will stop and the error will be passed to the callback function as the first parameter. The error parameter will always be a single error.</p>
+<div class="pilwrap" id="parallel-fns...extensions">
+  <h3>
+    <a href="#parallel-fns...extensions" name="parallel-fns...extensions" class="pilcrow"></a>
+<code>parallel(fns..., [extensions])</code>
+  </h3>
+</div>
+<p>Takes a variable amount of functions (<code>fns</code>) to be called in parallel when the returned function is
+called. Optionally, takes an <a href="#extensions.html">extensions</a> object as the last argument.</p>
+<p>Returns an <code>invoker(cb)</code> function to be called to start the parallel execution. The invoker function takes a callback (<code>cb</code>) with the <code>function(error, results)</code> signature.</p>
+<p>If all functions complete successfully, the callback function will be called with all <code>results</code> as the second argument.</p>
+<p>If an error occurs, the callback function will be called with the error as the first parameter. Any async functions that have not completed, will still complete, but their results will <strong>not</strong> be available. The error parameter will always be a single error.</p>
+<div class="pilwrap" id="settleseries-fns...extensions">
+  <h3>
+    <a href="#settleseries-fns...extensions" name="settleseries-fns...extensions" class="pilcrow"></a>
+<code>settleSeries(fns..., [extensions])</code>
+  </h3>
+</div>
+<p>Takes a variable amount of functions (<code>fns</code>) to be called in series when the returned function is
+called. Optionally, takes an <a href="#extensions.html">extensions</a> object as the last argument.</p>
+<p>Returns an <code>invoker(cb)</code> function to be called to start the serial execution. The invoker function takes a callback (<code>cb</code>) with the <code>function(error, results)</code> signature.</p>
+<p>All functions will always be called and the callback will receive all settled errors and results. If any errors occur, the error parameter will be an array of errors.</p>
+<div class="pilwrap" id="settleparallel-fns...extensions">
+  <h3>
+    <a href="#settleparallel-fns...extensions" name="settleparallel-fns...extensions" class="pilcrow"></a>
+<code>settleParallel(fns..., [extensions])</code>
+  </h3>
+</div>
+<p>Takes a variable amount of functions (<code>fns</code>) to be called in parallel when the returned function is
+called. Optionally, takes an <a href="#extensions.html">extensions</a> object as the last argument.</p>
+<p>Returns an <code>invoker(cb)</code> function to be called to start the parallel execution. The invoker function takes a callback (<code>cb</code>) with the <code>function(error, results)</code> signature.</p>
+<p>All functions will always be called and the callback will receive all settled errors and results. If any errors occur, the error parameter will be an array of errors.</p>
+<div class="pilwrap" id="extensions">
+  <h3>
+    <a href="#extensions" name="extensions" class="pilcrow"></a>
+<code>extensions</code>
+  </h3>
+</div>
+<p>The <code>extensions</code> object is used for specifying functions that give insight into the lifecycle of each function call. The possible extension points are <code>create</code>, <code>before</code>, <code>after</code> and <code>error</code>. If an extension point is not specified, it defaults to a no-op function.</p>
+<div class="pilwrap" id="extensions.create-fn-index">
+  <h5>
+    <a href="#extensions.create-fn-index" name="extensions.create-fn-index" class="pilcrow"></a>
+<code>extensions.create(fn, index)</code>
+  </h5>
+</div>
+<p>Called at the very beginning of each function call with the function (<code>fn</code>) being executed and the <code>index</code> from the array/arguments. If <code>create</code> returns a value (<code>storage</code>), it is passed to the <code>before</code>, <code>after</code> and <code>error</code> extension points.</p>
+<p>If a value is not returned, an empty object is used as <code>storage</code> for each other extension point.</p>
+<p>This is useful for tracking information across an iteration.</p>
+<div class="pilwrap" id="extensions.before-storage">
+  <h5>
+    <a href="#extensions.before-storage" name="extensions.before-storage" class="pilcrow"></a>
+<code>extensions.before(storage)</code>
+  </h5>
+</div>
+<p>Called immediately before each function call with the <code>storage</code> value returned from the <code>create</code> extension point.</p>
+<div class="pilwrap" id="extensions.after-result-storage">
+  <h5>
+    <a href="#extensions.after-result-storage" name="extensions.after-result-storage" class="pilcrow"></a>
+<code>extensions.after(result, storage)</code>
+  </h5>
+</div>
+<p>Called immediately after each function call with the <code>result</code> of the function and the <code>storage</code> value returned from the <code>create</code> extension point.</p>
+<div class="pilwrap" id="extensions.error-error-storage">
+  <h5>
+    <a href="#extensions.error-error-storage" name="extensions.error-error-storage" class="pilcrow"></a>
+<code>extensions.error(error, storage)</code>
+  </h5>
+</div>
+<p>Called immediately after a failed function call with the <code>error</code> of the function and the <code>storage</code> value returned from the <code>create</code> extension point.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

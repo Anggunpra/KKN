@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\is-color-stop\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">const</span> isRGB = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/isRGB'</span>);
+<span class="hljs-keyword">const</span> isRGBA = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/isRGBA'</span>);
+<span class="hljs-keyword">const</span> isHSL = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/isHSL'</span>);
+<span class="hljs-keyword">const</span> isHSLA = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/isHSLA'</span>);
+<span class="hljs-keyword">const</span> isHex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/isHex'</span>);
+<span class="hljs-keyword">const</span> isCSSColorName = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/isCSSColorName'</span>);
+<span class="hljs-keyword">const</span> isTransparent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/isTransparent'</span>);
+<span class="hljs-keyword">const</span> isCSSLengthUnit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/isCSSLengthUnit'</span>);
+<span class="hljs-keyword">const</span> isStop = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/isStop'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isColor</span>(<span class="hljs-params">colorStr</span>) </span>{
+  <span class="hljs-keyword">const</span> color =
+    isRGB(colorStr) ||
+    isRGBA(colorStr) ||
+    isHSL(colorStr) ||
+    isHSLA(colorStr) ||
+    isHex(colorStr) ||
+    isCSSColorName(colorStr) ||
+    isTransparent(colorStr);
+
+  <span class="hljs-keyword">return</span> color;
+}
+
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isColorStop</span>(<span class="hljs-params">color, stop</span>) </span>{
+  <span class="hljs-keyword">return</span> isColor(color) &amp;&amp; isStop(stop);
+};
+<span class="hljs-built_in">module</span>.exports.isColor = isColor;
+<span class="hljs-built_in">module</span>.exports.isRGB = isRGB;
+<span class="hljs-built_in">module</span>.exports.isRGBA = isRGBA;
+<span class="hljs-built_in">module</span>.exports.isHSL = isHSL;
+<span class="hljs-built_in">module</span>.exports.isHSLA = isHSLA;
+<span class="hljs-built_in">module</span>.exports.isHex = isHex;
+<span class="hljs-built_in">module</span>.exports.isCSSColorName = isCSSColorName;
+<span class="hljs-built_in">module</span>.exports.isTransparent = isTransparent;
+<span class="hljs-built_in">module</span>.exports.isCSSLengthUnit = isCSSLengthUnit;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

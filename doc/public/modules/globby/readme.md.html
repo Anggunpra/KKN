@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\globby\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#globby">globby </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#globby-patterns-options">globby(patterns, [options])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#globby.sync-patterns-options">globby.sync(patterns, [options])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#globby.generateglobtasks-patterns-options">globby.generateGlobTasks(patterns, [options])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#globby.hasmagic-patterns-options">globby.hasMagic(patterns, [options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#patterns">patterns</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#globbing-patterns">Globbing patterns</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related">Related</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="globby">
+  <h1>
+    <a href="#globby" name="globby" class="pilcrow"></a>
+globby <a href="https://travis-ci.org/sindresorhus/globby"><img src="https://travis-ci.org/sindresorhus/globby.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Extends <a href="https://github.com/isaacs/node-glob">glob</a> with support for multiple patterns and exposes a Promise API</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save globby
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code>├── unicorn
+├── cake
+└── rainbow
+</code></pre>
+<pre><code class="js"><span class="hljs-keyword">const</span> globby = <span class="hljs-built_in">require</span>(<span class="hljs-string">'globby'</span>);
+
+globby([<span class="hljs-string">'*'</span>, <span class="hljs-string">'!cake'</span>]).then(<span class="hljs-function"><span class="hljs-params">paths</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log(paths);
+	<span class="hljs-comment">//=&gt; ['unicorn', 'rainbow']</span>
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="globby-patterns-options">
+  <h3>
+    <a href="#globby-patterns-options" name="globby-patterns-options" class="pilcrow"></a>
+globby(patterns, [options])
+  </h3>
+</div>
+<p>Returns a Promise for an array of matching paths.</p>
+<div class="pilwrap" id="globby.sync-patterns-options">
+  <h3>
+    <a href="#globby.sync-patterns-options" name="globby.sync-patterns-options" class="pilcrow"></a>
+globby.sync(patterns, [options])
+  </h3>
+</div>
+<p>Returns an array of matching paths.</p>
+<div class="pilwrap" id="globby.generateglobtasks-patterns-options">
+  <h3>
+    <a href="#globby.generateglobtasks-patterns-options" name="globby.generateglobtasks-patterns-options" class="pilcrow"></a>
+globby.generateGlobTasks(patterns, [options])
+  </h3>
+</div>
+<p>Returns an array of objects in the format <code>{ pattern: string, opts: Object }</code>, which can be passed as arguments to <a href="https://github.com/isaacs/node-glob"><code>node-glob</code></a>. This is useful for other globbing-related packages.</p>
+<p>Note that you should avoid running the same tasks multiple times as they contain a file system cache. Instead, run this method each time to ensure file system changes are taken into consideration.</p>
+<div class="pilwrap" id="globby.hasmagic-patterns-options">
+  <h3>
+    <a href="#globby.hasmagic-patterns-options" name="globby.hasmagic-patterns-options" class="pilcrow"></a>
+globby.hasMagic(patterns, [options])
+  </h3>
+</div>
+<p>Returns a <code>boolean</code> of whether there are any special glob characters in the <code>patterns</code>.</p>
+<p>Note that the options affect the results. If <code>noext: true</code> is set, then <code>+(a|b)</code> will not be considered a magic pattern. If the pattern has a brace expansion, like <code>a/{b/c,x/y}</code>, then that is considered magical, unless <code>nobrace: true</code> is set.</p>
+<div class="pilwrap" id="patterns">
+  <h4>
+    <a href="#patterns" name="patterns" class="pilcrow"></a>
+patterns
+  </h4>
+</div>
+<p>Type: <code>string</code> <code>Array</code></p>
+<p>See supported <code>minimatch</code> <a href="https://github.com/isaacs/minimatch#usage">patterns</a>.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>Object</code></p>
+<p>See the <code>node-glob</code> <a href="https://github.com/isaacs/node-glob#options">options</a>.</p>
+<div class="pilwrap" id="globbing-patterns">
+  <h2>
+    <a href="#globbing-patterns" name="globbing-patterns" class="pilcrow"></a>
+Globbing patterns
+  </h2>
+</div>
+<p>Just a quick overview.</p>
+<ul>
+<li><code>*</code> matches any number of characters, but not <code>/</code></li>
+<li><code>?</code> matches a single character, but not <code>/</code></li>
+<li><code>**</code> matches any number of characters, including <code>/</code>, as long as it's the only thing in a path part</li>
+<li><code>{}</code> allows for a comma-separated list of &quot;or&quot; expressions</li>
+<li><code>!</code> at the beginning of a pattern will negate the match</li>
+</ul>
+<p><a href="https://github.com/sindresorhus/multimatch/blob/master/test.js">Various patterns and expected matches.</a></p>
+<div class="pilwrap" id="related">
+  <h2>
+    <a href="#related" name="related" class="pilcrow"></a>
+Related
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/sindresorhus/multimatch">multimatch</a> - Match against a list instead of the filesystem</li>
+<li><a href="https://github.com/wearefractal/glob-stream">glob-stream</a> - Streaming alternative</li>
+<li><a href="https://github.com/sindresorhus/matcher">matcher</a> - Simple wildcard matching</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\merge-stream\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#merge-stream">merge-stream</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#synopsis">Synopsis</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#description">Description</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#mergestream">mergeStream</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#merged.add">merged.add</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#merged.isempty">merged.isEmpty</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="merge-stream">
+  <h1>
+    <a href="#merge-stream" name="merge-stream" class="pilcrow"></a>
+merge-stream
+  </h1>
+</div>
+<p>Merge (interleave) a bunch of streams.</p>
+<p><a href="http://travis-ci.org/grncdr/merge-stream"><img src="https://secure.travis-ci.org/grncdr/merge-stream.svg?branch=master" alt="build status"></a></p>
+<div class="pilwrap" id="synopsis">
+  <h2>
+    <a href="#synopsis" name="synopsis" class="pilcrow"></a>
+Synopsis
+  </h2>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> stream1 = <span class="hljs-keyword">new</span> Stream();
+<span class="hljs-keyword">var</span> stream2 = <span class="hljs-keyword">new</span> Stream();
+
+<span class="hljs-keyword">var</span> merged = mergeStream(stream1, stream2);
+
+<span class="hljs-keyword">var</span> stream3 = <span class="hljs-keyword">new</span> Stream();
+merged.add(stream3);
+merged.isEmpty();
+<span class="hljs-comment">//=&gt; false</span>
+</code></pre>
+<div class="pilwrap" id="description">
+  <h2>
+    <a href="#description" name="description" class="pilcrow"></a>
+Description
+  </h2>
+</div>
+<p>This is adapted from <a href="https://github.com/dominictarr/event-stream">event-stream</a> separated into a new module, using Streams3.</p>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="mergestream">
+  <h3>
+    <a href="#mergestream" name="mergestream" class="pilcrow"></a>
+<code>mergeStream</code>
+  </h3>
+</div>
+<p>Type: <code>function</code></p>
+<p>Merges an arbitrary number of streams. Returns a merged stream.</p>
+<div class="pilwrap" id="merged.add">
+  <h4>
+    <a href="#merged.add" name="merged.add" class="pilcrow"></a>
+<code>merged.add</code>
+  </h4>
+</div>
+<p>A method to dynamically add more sources to the stream. The argument supplied to <code>add</code> can be either a source or an array of sources.</p>
+<div class="pilwrap" id="merged.isempty">
+  <h4>
+    <a href="#merged.isempty" name="merged.isempty" class="pilcrow"></a>
+<code>merged.isEmpty</code>
+  </h4>
+</div>
+<p>A method that tells you if the merged stream is empty.</p>
+<p>When a stream is &quot;empty&quot; (aka. no sources were added), it could not be returned to a gulp task.</p>
+<p>So, we could do something like this:</p>
+<pre><code class="js">stream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'merge-stream'</span>)();
+<span class="hljs-comment">// Something like a loop to add some streams to the merge stream</span>
+<span class="hljs-comment">// stream.add(streamA);</span>
+<span class="hljs-comment">// stream.add(streamB);</span>
+<span class="hljs-keyword">return</span> stream.isEmpty() ? <span class="hljs-literal">null</span> : stream;
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

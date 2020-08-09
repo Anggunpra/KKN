@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\mozjpeg\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#mozjpeg-bin">mozjpeg-bin </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#cli">CLI</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="mozjpeg-bin">
+  <h1>
+    <a href="#mozjpeg-bin" name="mozjpeg-bin" class="pilcrow"></a>
+mozjpeg-bin <a href="http://travis-ci.org/imagemin/mozjpeg-bin"><img src="https://travis-ci.org/imagemin/mozjpeg-bin.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p><a href="https://github.com/mozilla/mozjpeg">mozjpeg</a> is a production-quality JPEG encoder that improves compression while maintaining compatibility with the vast majority of deployed decoders</p>
+</blockquote>
+<p>You probably want <a href="https://github.com/imagemin/imagemin-mozjpeg"><code>imagemin-mozjpeg</code></a> instead.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install mozjpeg
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> {execFile} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'child_process'</span>);
+<span class="hljs-keyword">const</span> mozjpeg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mozjpeg'</span>);
+
+execFile(mozjpeg, [<span class="hljs-string">'-outfile'</span>, <span class="hljs-string">'output.jpg'</span>, <span class="hljs-string">'input.jpg'</span>], err =&gt; {
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Image minified!'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="cli">
+  <h2>
+    <a href="#cli" name="cli" class="pilcrow"></a>
+CLI
+  </h2>
+</div>
+<pre><code>$ npm install --global mozjpeg
+</code></pre>
+<pre><code>$ mozjpeg --help
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/imagemin">Imagemin</a></p>
+</div>
+  </div>
+</body>
+</html>

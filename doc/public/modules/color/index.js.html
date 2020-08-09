@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\color\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> colorString = <span class="hljs-built_in">require</span>(<span class="hljs-string">'color-string'</span>);
+<span class="hljs-keyword">var</span> convert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'color-convert'</span>);
+
+<span class="hljs-keyword">var</span> _slice = [].slice;
+
+<span class="hljs-keyword">var</span> skippedModels = [
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>to be honest, I don't really feel like keyword belongs in color convert, but eh.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-string">'keyword'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>gray conflicts with some method names, and has its own method defined.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-string">'gray'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>shouldn't really be in color-convert either...</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-string">'hex'</span>
+];
+
+<span class="hljs-keyword">var</span> hashedModelKeys = {};
+<span class="hljs-built_in">Object</span>.keys(convert).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">model</span>) </span>{
+	hashedModelKeys[_slice.call(convert[model].labels).sort().join(<span class="hljs-string">''</span>)] = model;
+});
+
+<span class="hljs-keyword">var</span> limiters = {};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Color</span>(<span class="hljs-params">obj, model</span>) </span>{
+	<span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> Color)) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Color(obj, model);
+	}
+
+	<span class="hljs-keyword">if</span> (model &amp;&amp; model <span class="hljs-keyword">in</span> skippedModels) {
+		model = <span class="hljs-literal">null</span>;
+	}
+
+	<span class="hljs-keyword">if</span> (model &amp;&amp; !(model <span class="hljs-keyword">in</span> convert)) {
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Unknown model: '</span> + model);
+	}
+
+	<span class="hljs-keyword">var</span> i;
+	<span class="hljs-keyword">var</span> channels;
+
+	<span class="hljs-keyword">if</span> (obj == <span class="hljs-literal">null</span>) { <span class="hljs-comment">// eslint-disable-line no-eq-null,eqeqeq</span>
+		<span class="hljs-keyword">this</span>.model = <span class="hljs-string">'rgb'</span>;
+		<span class="hljs-keyword">this</span>.color = [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>];
+		<span class="hljs-keyword">this</span>.valpha = <span class="hljs-number">1</span>;
+	} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (obj <span class="hljs-keyword">instanceof</span> Color) {
+		<span class="hljs-keyword">this</span>.model = obj.model;
+		<span class="hljs-keyword">this</span>.color = obj.color.slice();
+		<span class="hljs-keyword">this</span>.valpha = obj.valpha;
+	} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> obj === <span class="hljs-string">'string'</span>) {
+		<span class="hljs-keyword">var</span> result = colorString.get(obj);
+		<span class="hljs-keyword">if</span> (result === <span class="hljs-literal">null</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Unable to parse color from string: '</span> + obj);
+		}
+
+		<span class="hljs-keyword">this</span>.model = result.model;
+		channels = convert[<span class="hljs-keyword">this</span>.model].channels;
+		<span class="hljs-keyword">this</span>.color = result.value.slice(<span class="hljs-number">0</span>, channels);
+		<span class="hljs-keyword">this</span>.valpha = <span class="hljs-keyword">typeof</span> result.value[channels] === <span class="hljs-string">'number'</span> ? result.value[channels] : <span class="hljs-number">1</span>;
+	} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (obj.length) {
+		<span class="hljs-keyword">this</span>.model = model || <span class="hljs-string">'rgb'</span>;
+		channels = convert[<span class="hljs-keyword">this</span>.model].channels;
+		<span class="hljs-keyword">var</span> newArr = _slice.call(obj, <span class="hljs-number">0</span>, channels);
+		<span class="hljs-keyword">this</span>.color = zeroArray(newArr, channels);
+		<span class="hljs-keyword">this</span>.valpha = <span class="hljs-keyword">typeof</span> obj[channels] === <span class="hljs-string">'number'</span> ? obj[channels] : <span class="hljs-number">1</span>;
+	} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> obj === <span class="hljs-string">'number'</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>this is always RGB - can be converted later on.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		obj &amp;= <span class="hljs-number">0xFFFFFF</span>;
+		<span class="hljs-keyword">this</span>.model = <span class="hljs-string">'rgb'</span>;
+		<span class="hljs-keyword">this</span>.color = [
+			(obj &gt;&gt; <span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xFF</span>,
+			(obj &gt;&gt; <span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xFF</span>,
+			obj &amp; <span class="hljs-number">0xFF</span>
+		];
+		<span class="hljs-keyword">this</span>.valpha = <span class="hljs-number">1</span>;
+	} <span class="hljs-keyword">else</span> {
+		<span class="hljs-keyword">this</span>.valpha = <span class="hljs-number">1</span>;
+
+		<span class="hljs-keyword">var</span> keys = <span class="hljs-built_in">Object</span>.keys(obj);
+		<span class="hljs-keyword">if</span> (<span class="hljs-string">'alpha'</span> <span class="hljs-keyword">in</span> obj) {
+			keys.splice(keys.indexOf(<span class="hljs-string">'alpha'</span>), <span class="hljs-number">1</span>);
+			<span class="hljs-keyword">this</span>.valpha = <span class="hljs-keyword">typeof</span> obj.alpha === <span class="hljs-string">'number'</span> ? obj.alpha : <span class="hljs-number">0</span>;
+		}
+
+		<span class="hljs-keyword">var</span> hashedKeys = keys.sort().join(<span class="hljs-string">''</span>);
+		<span class="hljs-keyword">if</span> (!(hashedKeys <span class="hljs-keyword">in</span> hashedModelKeys)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Unable to parse color from object: '</span> + <span class="hljs-built_in">JSON</span>.stringify(obj));
+		}
+
+		<span class="hljs-keyword">this</span>.model = hashedModelKeys[hashedKeys];
+
+		<span class="hljs-keyword">var</span> labels = convert[<span class="hljs-keyword">this</span>.model].labels;
+		<span class="hljs-keyword">var</span> color = [];
+		<span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; labels.length; i++) {
+			color.push(obj[labels[i]]);
+		}
+
+		<span class="hljs-keyword">this</span>.color = zeroArray(color);
+	}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>perform limitations (clamping, etc.)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-keyword">if</span> (limiters[<span class="hljs-keyword">this</span>.model]) {
+		channels = convert[<span class="hljs-keyword">this</span>.model].channels;
+		<span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; channels; i++) {
+			<span class="hljs-keyword">var</span> limit = limiters[<span class="hljs-keyword">this</span>.model][i];
+			<span class="hljs-keyword">if</span> (limit) {
+				<span class="hljs-keyword">this</span>.color[i] = limit(<span class="hljs-keyword">this</span>.color[i]);
+			}
+		}
+	}
+
+	<span class="hljs-keyword">this</span>.valpha = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, <span class="hljs-built_in">Math</span>.min(<span class="hljs-number">1</span>, <span class="hljs-keyword">this</span>.valpha));
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.freeze) {
+		<span class="hljs-built_in">Object</span>.freeze(<span class="hljs-keyword">this</span>);
+	}
+}
+
+Color.prototype = {
+	<span class="hljs-attr">toString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.string();
+	},
+
+	<span class="hljs-attr">toJSON</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-keyword">this</span>.model]();
+	},
+
+	<span class="hljs-attr">string</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">places</span>) </span>{
+		<span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>.model <span class="hljs-keyword">in</span> colorString.to ? <span class="hljs-keyword">this</span> : <span class="hljs-keyword">this</span>.rgb();
+		self = self.round(<span class="hljs-keyword">typeof</span> places === <span class="hljs-string">'number'</span> ? places : <span class="hljs-number">1</span>);
+		<span class="hljs-keyword">var</span> args = self.valpha === <span class="hljs-number">1</span> ? self.color : self.color.concat(<span class="hljs-keyword">this</span>.valpha);
+		<span class="hljs-keyword">return</span> colorString.to[self.model](args);
+	},
+
+	<span class="hljs-attr">percentString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">places</span>) </span>{
+		<span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>.rgb().round(<span class="hljs-keyword">typeof</span> places === <span class="hljs-string">'number'</span> ? places : <span class="hljs-number">1</span>);
+		<span class="hljs-keyword">var</span> args = self.valpha === <span class="hljs-number">1</span> ? self.color : self.color.concat(<span class="hljs-keyword">this</span>.valpha);
+		<span class="hljs-keyword">return</span> colorString.to.rgb.percent(args);
+	},
+
+	<span class="hljs-attr">array</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.valpha === <span class="hljs-number">1</span> ? <span class="hljs-keyword">this</span>.color.slice() : <span class="hljs-keyword">this</span>.color.concat(<span class="hljs-keyword">this</span>.valpha);
+	},
+
+	<span class="hljs-attr">object</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">var</span> result = {};
+		<span class="hljs-keyword">var</span> channels = convert[<span class="hljs-keyword">this</span>.model].channels;
+		<span class="hljs-keyword">var</span> labels = convert[<span class="hljs-keyword">this</span>.model].labels;
+
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; channels; i++) {
+			result[labels[i]] = <span class="hljs-keyword">this</span>.color[i];
+		}
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.valpha !== <span class="hljs-number">1</span>) {
+			result.alpha = <span class="hljs-keyword">this</span>.valpha;
+		}
+
+		<span class="hljs-keyword">return</span> result;
+	},
+
+	<span class="hljs-attr">unitArray</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">var</span> rgb = <span class="hljs-keyword">this</span>.rgb().color;
+		rgb[<span class="hljs-number">0</span>] /= <span class="hljs-number">255</span>;
+		rgb[<span class="hljs-number">1</span>] /= <span class="hljs-number">255</span>;
+		rgb[<span class="hljs-number">2</span>] /= <span class="hljs-number">255</span>;
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.valpha !== <span class="hljs-number">1</span>) {
+			rgb.push(<span class="hljs-keyword">this</span>.valpha);
+		}
+
+		<span class="hljs-keyword">return</span> rgb;
+	},
+
+	<span class="hljs-attr">unitObject</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">var</span> rgb = <span class="hljs-keyword">this</span>.rgb().object();
+		rgb.r /= <span class="hljs-number">255</span>;
+		rgb.g /= <span class="hljs-number">255</span>;
+		rgb.b /= <span class="hljs-number">255</span>;
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.valpha !== <span class="hljs-number">1</span>) {
+			rgb.alpha = <span class="hljs-keyword">this</span>.valpha;
+		}
+
+		<span class="hljs-keyword">return</span> rgb;
+	},
+
+	<span class="hljs-attr">round</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">places</span>) </span>{
+		places = <span class="hljs-built_in">Math</span>.max(places || <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Color(<span class="hljs-keyword">this</span>.color.map(roundToPlace(places)).concat(<span class="hljs-keyword">this</span>.valpha), <span class="hljs-keyword">this</span>.model);
+	},
+
+	<span class="hljs-attr">alpha</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>.length) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Color(<span class="hljs-keyword">this</span>.color.concat(<span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, <span class="hljs-built_in">Math</span>.min(<span class="hljs-number">1</span>, val))), <span class="hljs-keyword">this</span>.model);
+		}
+
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.valpha;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>rgb</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	red: getset(<span class="hljs-string">'rgb'</span>, <span class="hljs-number">0</span>, maxfn(<span class="hljs-number">255</span>)),
+	<span class="hljs-attr">green</span>: getset(<span class="hljs-string">'rgb'</span>, <span class="hljs-number">1</span>, maxfn(<span class="hljs-number">255</span>)),
+	<span class="hljs-attr">blue</span>: getset(<span class="hljs-string">'rgb'</span>, <span class="hljs-number">2</span>, maxfn(<span class="hljs-number">255</span>)),
+
+	<span class="hljs-attr">hue</span>: getset([<span class="hljs-string">'hsl'</span>, <span class="hljs-string">'hsv'</span>, <span class="hljs-string">'hsl'</span>, <span class="hljs-string">'hwb'</span>, <span class="hljs-string">'hcg'</span>], <span class="hljs-number">0</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val</span>) </span>{ <span class="hljs-keyword">return</span> ((val % <span class="hljs-number">360</span>) + <span class="hljs-number">360</span>) % <span class="hljs-number">360</span>; }), <span class="hljs-comment">// eslint-disable-line brace-style</span>
+
+	<span class="hljs-attr">saturationl</span>: getset(<span class="hljs-string">'hsl'</span>, <span class="hljs-number">1</span>, maxfn(<span class="hljs-number">100</span>)),
+	<span class="hljs-attr">lightness</span>: getset(<span class="hljs-string">'hsl'</span>, <span class="hljs-number">2</span>, maxfn(<span class="hljs-number">100</span>)),
+
+	<span class="hljs-attr">saturationv</span>: getset(<span class="hljs-string">'hsv'</span>, <span class="hljs-number">1</span>, maxfn(<span class="hljs-number">100</span>)),
+	<span class="hljs-attr">value</span>: getset(<span class="hljs-string">'hsv'</span>, <span class="hljs-number">2</span>, maxfn(<span class="hljs-number">100</span>)),
+
+	<span class="hljs-attr">chroma</span>: getset(<span class="hljs-string">'hcg'</span>, <span class="hljs-number">1</span>, maxfn(<span class="hljs-number">100</span>)),
+	<span class="hljs-attr">gray</span>: getset(<span class="hljs-string">'hcg'</span>, <span class="hljs-number">2</span>, maxfn(<span class="hljs-number">100</span>)),
+
+	<span class="hljs-attr">white</span>: getset(<span class="hljs-string">'hwb'</span>, <span class="hljs-number">1</span>, maxfn(<span class="hljs-number">100</span>)),
+	<span class="hljs-attr">wblack</span>: getset(<span class="hljs-string">'hwb'</span>, <span class="hljs-number">2</span>, maxfn(<span class="hljs-number">100</span>)),
+
+	<span class="hljs-attr">cyan</span>: getset(<span class="hljs-string">'cmyk'</span>, <span class="hljs-number">0</span>, maxfn(<span class="hljs-number">100</span>)),
+	<span class="hljs-attr">magenta</span>: getset(<span class="hljs-string">'cmyk'</span>, <span class="hljs-number">1</span>, maxfn(<span class="hljs-number">100</span>)),
+	<span class="hljs-attr">yellow</span>: getset(<span class="hljs-string">'cmyk'</span>, <span class="hljs-number">2</span>, maxfn(<span class="hljs-number">100</span>)),
+	<span class="hljs-attr">black</span>: getset(<span class="hljs-string">'cmyk'</span>, <span class="hljs-number">3</span>, maxfn(<span class="hljs-number">100</span>)),
+
+	<span class="hljs-attr">x</span>: getset(<span class="hljs-string">'xyz'</span>, <span class="hljs-number">0</span>, maxfn(<span class="hljs-number">100</span>)),
+	<span class="hljs-attr">y</span>: getset(<span class="hljs-string">'xyz'</span>, <span class="hljs-number">1</span>, maxfn(<span class="hljs-number">100</span>)),
+	<span class="hljs-attr">z</span>: getset(<span class="hljs-string">'xyz'</span>, <span class="hljs-number">2</span>, maxfn(<span class="hljs-number">100</span>)),
+
+	<span class="hljs-attr">l</span>: getset(<span class="hljs-string">'lab'</span>, <span class="hljs-number">0</span>, maxfn(<span class="hljs-number">100</span>)),
+	<span class="hljs-attr">a</span>: getset(<span class="hljs-string">'lab'</span>, <span class="hljs-number">1</span>),
+	<span class="hljs-attr">b</span>: getset(<span class="hljs-string">'lab'</span>, <span class="hljs-number">2</span>),
+
+	<span class="hljs-attr">keyword</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>.length) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Color(val);
+		}
+
+		<span class="hljs-keyword">return</span> convert[<span class="hljs-keyword">this</span>.model].keyword(<span class="hljs-keyword">this</span>.color);
+	},
+
+	<span class="hljs-attr">hex</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>.length) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Color(val);
+		}
+
+		<span class="hljs-keyword">return</span> colorString.to.hex(<span class="hljs-keyword">this</span>.rgb().round().color);
+	},
+
+	<span class="hljs-attr">rgbNumber</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">var</span> rgb = <span class="hljs-keyword">this</span>.rgb().color;
+		<span class="hljs-keyword">return</span> ((rgb[<span class="hljs-number">0</span>] &amp; <span class="hljs-number">0xFF</span>) &lt;&lt; <span class="hljs-number">16</span>) | ((rgb[<span class="hljs-number">1</span>] &amp; <span class="hljs-number">0xFF</span>) &lt;&lt; <span class="hljs-number">8</span>) | (rgb[<span class="hljs-number">2</span>] &amp; <span class="hljs-number">0xFF</span>);
+	},
+
+	<span class="hljs-attr">luminosity</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>http://www.w3.org/TR/WCAG20/#relativeluminancedef</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">var</span> rgb = <span class="hljs-keyword">this</span>.rgb().color;
+
+		<span class="hljs-keyword">var</span> lum = [];
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; rgb.length; i++) {
+			<span class="hljs-keyword">var</span> chan = rgb[i] / <span class="hljs-number">255</span>;
+			lum[i] = (chan &lt;= <span class="hljs-number">0.03928</span>) ? chan / <span class="hljs-number">12.92</span> : <span class="hljs-built_in">Math</span>.pow(((chan + <span class="hljs-number">0.055</span>) / <span class="hljs-number">1.055</span>), <span class="hljs-number">2.4</span>);
+		}
+
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0.2126</span> * lum[<span class="hljs-number">0</span>] + <span class="hljs-number">0.7152</span> * lum[<span class="hljs-number">1</span>] + <span class="hljs-number">0.0722</span> * lum[<span class="hljs-number">2</span>];
+	},
+
+	<span class="hljs-attr">contrast</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">color2</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>http://www.w3.org/TR/WCAG20/#contrast-ratiodef</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">var</span> lum1 = <span class="hljs-keyword">this</span>.luminosity();
+		<span class="hljs-keyword">var</span> lum2 = color2.luminosity();
+
+		<span class="hljs-keyword">if</span> (lum1 &gt; lum2) {
+			<span class="hljs-keyword">return</span> (lum1 + <span class="hljs-number">0.05</span>) / (lum2 + <span class="hljs-number">0.05</span>);
+		}
+
+		<span class="hljs-keyword">return</span> (lum2 + <span class="hljs-number">0.05</span>) / (lum1 + <span class="hljs-number">0.05</span>);
+	},
+
+	<span class="hljs-attr">level</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">color2</span>) </span>{
+		<span class="hljs-keyword">var</span> contrastRatio = <span class="hljs-keyword">this</span>.contrast(color2);
+		<span class="hljs-keyword">if</span> (contrastRatio &gt;= <span class="hljs-number">7.1</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-string">'AAA'</span>;
+		}
+
+		<span class="hljs-keyword">return</span> (contrastRatio &gt;= <span class="hljs-number">4.5</span>) ? <span class="hljs-string">'AA'</span> : <span class="hljs-string">''</span>;
+	},
+
+	<span class="hljs-attr">isDark</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>YIQ equation from http://24ways.org/2010/calculating-color-contrast</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">var</span> rgb = <span class="hljs-keyword">this</span>.rgb().color;
+		<span class="hljs-keyword">var</span> yiq = (rgb[<span class="hljs-number">0</span>] * <span class="hljs-number">299</span> + rgb[<span class="hljs-number">1</span>] * <span class="hljs-number">587</span> + rgb[<span class="hljs-number">2</span>] * <span class="hljs-number">114</span>) / <span class="hljs-number">1000</span>;
+		<span class="hljs-keyword">return</span> yiq &lt; <span class="hljs-number">128</span>;
+	},
+
+	<span class="hljs-attr">isLight</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">return</span> !<span class="hljs-keyword">this</span>.isDark();
+	},
+
+	<span class="hljs-attr">negate</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">var</span> rgb = <span class="hljs-keyword">this</span>.rgb();
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++) {
+			rgb.color[i] = <span class="hljs-number">255</span> - rgb.color[i];
+		}
+		<span class="hljs-keyword">return</span> rgb;
+	},
+
+	<span class="hljs-attr">lighten</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ratio</span>) </span>{
+		<span class="hljs-keyword">var</span> hsl = <span class="hljs-keyword">this</span>.hsl();
+		hsl.color[<span class="hljs-number">2</span>] += hsl.color[<span class="hljs-number">2</span>] * ratio;
+		<span class="hljs-keyword">return</span> hsl;
+	},
+
+	<span class="hljs-attr">darken</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ratio</span>) </span>{
+		<span class="hljs-keyword">var</span> hsl = <span class="hljs-keyword">this</span>.hsl();
+		hsl.color[<span class="hljs-number">2</span>] -= hsl.color[<span class="hljs-number">2</span>] * ratio;
+		<span class="hljs-keyword">return</span> hsl;
+	},
+
+	<span class="hljs-attr">saturate</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ratio</span>) </span>{
+		<span class="hljs-keyword">var</span> hsl = <span class="hljs-keyword">this</span>.hsl();
+		hsl.color[<span class="hljs-number">1</span>] += hsl.color[<span class="hljs-number">1</span>] * ratio;
+		<span class="hljs-keyword">return</span> hsl;
+	},
+
+	<span class="hljs-attr">desaturate</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ratio</span>) </span>{
+		<span class="hljs-keyword">var</span> hsl = <span class="hljs-keyword">this</span>.hsl();
+		hsl.color[<span class="hljs-number">1</span>] -= hsl.color[<span class="hljs-number">1</span>] * ratio;
+		<span class="hljs-keyword">return</span> hsl;
+	},
+
+	<span class="hljs-attr">whiten</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ratio</span>) </span>{
+		<span class="hljs-keyword">var</span> hwb = <span class="hljs-keyword">this</span>.hwb();
+		hwb.color[<span class="hljs-number">1</span>] += hwb.color[<span class="hljs-number">1</span>] * ratio;
+		<span class="hljs-keyword">return</span> hwb;
+	},
+
+	<span class="hljs-attr">blacken</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ratio</span>) </span>{
+		<span class="hljs-keyword">var</span> hwb = <span class="hljs-keyword">this</span>.hwb();
+		hwb.color[<span class="hljs-number">2</span>] += hwb.color[<span class="hljs-number">2</span>] * ratio;
+		<span class="hljs-keyword">return</span> hwb;
+	},
+
+	<span class="hljs-attr">grayscale</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>http://en.wikipedia.org/wiki/Grayscale#Converting_color_to_grayscale</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">var</span> rgb = <span class="hljs-keyword">this</span>.rgb().color;
+		<span class="hljs-keyword">var</span> val = rgb[<span class="hljs-number">0</span>] * <span class="hljs-number">0.3</span> + rgb[<span class="hljs-number">1</span>] * <span class="hljs-number">0.59</span> + rgb[<span class="hljs-number">2</span>] * <span class="hljs-number">0.11</span>;
+		<span class="hljs-keyword">return</span> Color.rgb(val, val, val);
+	},
+
+	<span class="hljs-attr">fade</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ratio</span>) </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.alpha(<span class="hljs-keyword">this</span>.valpha - (<span class="hljs-keyword">this</span>.valpha * ratio));
+	},
+
+	<span class="hljs-attr">opaquer</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ratio</span>) </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.alpha(<span class="hljs-keyword">this</span>.valpha + (<span class="hljs-keyword">this</span>.valpha * ratio));
+	},
+
+	<span class="hljs-attr">rotate</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">degrees</span>) </span>{
+		<span class="hljs-keyword">var</span> hsl = <span class="hljs-keyword">this</span>.hsl();
+		<span class="hljs-keyword">var</span> hue = hsl.color[<span class="hljs-number">0</span>];
+		hue = (hue + degrees) % <span class="hljs-number">360</span>;
+		hue = hue &lt; <span class="hljs-number">0</span> ? <span class="hljs-number">360</span> + hue : hue;
+		hsl.color[<span class="hljs-number">0</span>] = hue;
+		<span class="hljs-keyword">return</span> hsl;
+	},
+
+	<span class="hljs-attr">mix</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">mixinColor, weight</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>ported from sass implementation in C
+https://github.com/sass/libsass/blob/0e6b4a2850092356aa3ece07c6b249f0221caced/functions.cpp#L209</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">if</span> (!mixinColor || !mixinColor.rgb) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Argument to "mix" was not a Color instance, but rather an instance of '</span> + <span class="hljs-keyword">typeof</span> mixinColor);
+		}
+		<span class="hljs-keyword">var</span> color1 = mixinColor.rgb();
+		<span class="hljs-keyword">var</span> color2 = <span class="hljs-keyword">this</span>.rgb();
+		<span class="hljs-keyword">var</span> p = weight === <span class="hljs-literal">undefined</span> ? <span class="hljs-number">0.5</span> : weight;
+
+		<span class="hljs-keyword">var</span> w = <span class="hljs-number">2</span> * p - <span class="hljs-number">1</span>;
+		<span class="hljs-keyword">var</span> a = color1.alpha() - color2.alpha();
+
+		<span class="hljs-keyword">var</span> w1 = (((w * a === <span class="hljs-number">-1</span>) ? w : (w + a) / (<span class="hljs-number">1</span> + w * a)) + <span class="hljs-number">1</span>) / <span class="hljs-number">2.0</span>;
+		<span class="hljs-keyword">var</span> w2 = <span class="hljs-number">1</span> - w1;
+
+		<span class="hljs-keyword">return</span> Color.rgb(
+				w1 * color1.red() + w2 * color2.red(),
+				w1 * color1.green() + w2 * color2.green(),
+				w1 * color1.blue() + w2 * color2.blue(),
+				color1.alpha() * p + color2.alpha() * (<span class="hljs-number">1</span> - p));
+	}
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>model conversion methods and static constructors</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-built_in">Object</span>.keys(convert).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">model</span>) </span>{
+	<span class="hljs-keyword">if</span> (skippedModels.indexOf(model) !== <span class="hljs-number">-1</span>) {
+		<span class="hljs-keyword">return</span>;
+	}
+
+	<span class="hljs-keyword">var</span> channels = convert[model].channels;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>conversion methods</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	Color.prototype[model] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.model === model) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Color(<span class="hljs-keyword">this</span>);
+		}
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>.length) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Color(<span class="hljs-built_in">arguments</span>, model);
+		}
+
+		<span class="hljs-keyword">var</span> newAlpha = <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">arguments</span>[channels] === <span class="hljs-string">'number'</span> ? channels : <span class="hljs-keyword">this</span>.valpha;
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Color(assertArray(convert[<span class="hljs-keyword">this</span>.model][model].raw(<span class="hljs-keyword">this</span>.color)).concat(newAlpha), model);
+	};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>'static' construction methods</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	Color[model] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">color</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> color === <span class="hljs-string">'number'</span>) {
+			color = zeroArray(_slice.call(<span class="hljs-built_in">arguments</span>), channels);
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Color(color, model);
+	};
+});
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">roundTo</span>(<span class="hljs-params">num, places</span>) </span>{
+	<span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(num.toFixed(places));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">roundToPlace</span>(<span class="hljs-params">places</span>) </span>{
+	<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">num</span>) </span>{
+		<span class="hljs-keyword">return</span> roundTo(num, places);
+	};
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getset</span>(<span class="hljs-params">model, channel, modifier</span>) </span>{
+	model = <span class="hljs-built_in">Array</span>.isArray(model) ? model : [model];
+
+	model.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">m</span>) </span>{
+		(limiters[m] || (limiters[m] = []))[channel] = modifier;
+	});
+
+	model = model[<span class="hljs-number">0</span>];
+
+	<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val</span>) </span>{
+		<span class="hljs-keyword">var</span> result;
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>.length) {
+			<span class="hljs-keyword">if</span> (modifier) {
+				val = modifier(val);
+			}
+
+			result = <span class="hljs-keyword">this</span>[model]();
+			result.color[channel] = val;
+			<span class="hljs-keyword">return</span> result;
+		}
+
+		result = <span class="hljs-keyword">this</span>[model]().color[channel];
+		<span class="hljs-keyword">if</span> (modifier) {
+			result = modifier(result);
+		}
+
+		<span class="hljs-keyword">return</span> result;
+	};
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">maxfn</span>(<span class="hljs-params">max</span>) </span>{
+	<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">v</span>) </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, <span class="hljs-built_in">Math</span>.min(max, v));
+	};
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assertArray</span>(<span class="hljs-params">val</span>) </span>{
+	<span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.isArray(val) ? val : [val];
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">zeroArray</span>(<span class="hljs-params">arr, length</span>) </span>{
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> arr[i] !== <span class="hljs-string">'number'</span>) {
+			arr[i] = <span class="hljs-number">0</span>;
+		}
+	}
+
+	<span class="hljs-keyword">return</span> arr;
+}
+
+<span class="hljs-built_in">module</span>.exports = Color;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

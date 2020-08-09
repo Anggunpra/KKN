@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jquery-ui.structure.css</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\jquery-ui-dist\\jquery-ui.structure.css";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#layout-helpers">Layout helpers</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#interaction-cues">Interaction Cues</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#icons">Icons</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#misc-visuals">Misc visuals</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <p>!</p>
+<ul>
+<li>jQuery UI CSS Framework 1.12.1</li>
+<li>http://jqueryui.com</li>
+<li></li>
+<li>Copyright jQuery Foundation and other contributors</li>
+<li>Released under the MIT license.</li>
+<li>http://jquery.org/license</li>
+<li></li>
+<li>http://api.jqueryui.com/category/theming/</li>
+</ul>
+<div class="pilwrap" id="layout-helpers">
+  <h2>
+    <a href="#layout-helpers" name="layout-helpers" class="pilcrow"></a>
+Layout helpers
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="css"><span class="hljs-selector-class">.ui-helper-hidden</span> {
+	<span class="hljs-attribute">display</span>: none;
+}
+<span class="hljs-selector-class">.ui-helper-hidden-accessible</span> {
+	<span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">clip</span>: <span class="hljs-built_in">rect</span>(<span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>);
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">1px</span>;
+	<span class="hljs-attribute">margin</span>: -<span class="hljs-number">1px</span>;
+	<span class="hljs-attribute">overflow</span>: hidden;
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">1px</span>;
+}
+<span class="hljs-selector-class">.ui-helper-reset</span> {
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.3</span>;
+	<span class="hljs-attribute">text-decoration</span>: none;
+	<span class="hljs-attribute">font-size</span>: <span class="hljs-number">100%</span>;
+	<span class="hljs-attribute">list-style</span>: none;
+}
+<span class="hljs-selector-class">.ui-helper-clearfix</span><span class="hljs-selector-pseudo">:before</span>,
+<span class="hljs-selector-class">.ui-helper-clearfix</span><span class="hljs-selector-pseudo">:after</span> {
+	<span class="hljs-attribute">content</span>: <span class="hljs-string">""</span>;
+	<span class="hljs-attribute">display</span>: table;
+	<span class="hljs-attribute">border-collapse</span>: collapse;
+}
+<span class="hljs-selector-class">.ui-helper-clearfix</span><span class="hljs-selector-pseudo">:after</span> {
+	<span class="hljs-attribute">clear</span>: both;
+}
+<span class="hljs-selector-class">.ui-helper-zfix</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">filter</span>:<span class="hljs-built_in">Alpha</span>(Opacity=<span class="hljs-number">0</span>); <span class="hljs-comment">/* support: IE8 */</span>
+}
+
+<span class="hljs-selector-class">.ui-front</span> {
+	<span class="hljs-attribute">z-index</span>: <span class="hljs-number">100</span>;
+}
+
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="interaction-cues">
+  <h2>
+    <a href="#interaction-cues" name="interaction-cues" class="pilcrow"></a>
+Interaction Cues
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="css"><span class="hljs-selector-class">.ui-state-disabled</span> {
+	<span class="hljs-attribute">cursor</span>: default <span class="hljs-meta">!important</span>;
+	<span class="hljs-attribute">pointer-events</span>: none;
+}
+
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="icons">
+  <h2>
+    <a href="#icons" name="icons" class="pilcrow"></a>
+Icons
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="css"><span class="hljs-selector-class">.ui-icon</span> {
+	<span class="hljs-attribute">display</span>: inline-block;
+	<span class="hljs-attribute">vertical-align</span>: middle;
+	<span class="hljs-attribute">margin-top</span>: -.<span class="hljs-number">25em</span>;
+	<span class="hljs-attribute">position</span>: relative;
+	<span class="hljs-attribute">text-indent</span>: -<span class="hljs-number">99999px</span>;
+	<span class="hljs-attribute">overflow</span>: hidden;
+	<span class="hljs-attribute">background-repeat</span>: no-repeat;
+}
+
+<span class="hljs-selector-class">.ui-widget-icon-block</span> {
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">50%</span>;
+	<span class="hljs-attribute">margin-left</span>: -<span class="hljs-number">8px</span>;
+	<span class="hljs-attribute">display</span>: block;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="misc-visuals">
+  <h2>
+    <a href="#misc-visuals" name="misc-visuals" class="pilcrow"></a>
+Misc visuals
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="css">
+<span class="hljs-comment">/* Overlays */</span>
+<span class="hljs-selector-class">.ui-widget-overlay</span> {
+	<span class="hljs-attribute">position</span>: fixed;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+}
+<span class="hljs-selector-class">.ui-accordion</span> <span class="hljs-selector-class">.ui-accordion-header</span> {
+	<span class="hljs-attribute">display</span>: block;
+	<span class="hljs-attribute">cursor</span>: pointer;
+	<span class="hljs-attribute">position</span>: relative;
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">2px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">5em</span> .<span class="hljs-number">5em</span> .<span class="hljs-number">5em</span> .<span class="hljs-number">7em</span>;
+	<span class="hljs-attribute">font-size</span>: <span class="hljs-number">100%</span>;
+}
+<span class="hljs-selector-class">.ui-accordion</span> <span class="hljs-selector-class">.ui-accordion-content</span> {
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">1em</span> <span class="hljs-number">2.2em</span>;
+	<span class="hljs-attribute">border-top</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">overflow</span>: auto;
+}
+<span class="hljs-selector-class">.ui-autocomplete</span> {
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">cursor</span>: default;
+}
+<span class="hljs-selector-class">.ui-menu</span> {
+	<span class="hljs-attribute">list-style</span>: none;
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">display</span>: block;
+	<span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-menu</span> <span class="hljs-selector-class">.ui-menu</span> {
+	<span class="hljs-attribute">position</span>: absolute;
+}
+<span class="hljs-selector-class">.ui-menu</span> <span class="hljs-selector-class">.ui-menu-item</span> {
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">cursor</span>: pointer;
+	<span class="hljs-comment">/* support: IE10, see #8844 */</span>
+	<span class="hljs-attribute">list-style-image</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"</span>);
+}
+<span class="hljs-selector-class">.ui-menu</span> <span class="hljs-selector-class">.ui-menu-item-wrapper</span> {
+	<span class="hljs-attribute">position</span>: relative;
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">3px</span> <span class="hljs-number">1em</span> <span class="hljs-number">3px</span> .<span class="hljs-number">4em</span>;
+}
+<span class="hljs-selector-class">.ui-menu</span> <span class="hljs-selector-class">.ui-menu-divider</span> {
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">5px</span> <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">font-size</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">line-height</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">border-width</span>: <span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-menu</span> <span class="hljs-selector-class">.ui-state-focus</span>,
+<span class="hljs-selector-class">.ui-menu</span> <span class="hljs-selector-class">.ui-state-active</span> {
+	<span class="hljs-attribute">margin</span>: -<span class="hljs-number">1px</span>;
+}
+
+<span class="hljs-comment">/* icon support */</span>
+<span class="hljs-selector-class">.ui-menu-icons</span> {
+	<span class="hljs-attribute">position</span>: relative;
+}
+<span class="hljs-selector-class">.ui-menu-icons</span> <span class="hljs-selector-class">.ui-menu-item-wrapper</span> {
+	<span class="hljs-attribute">padding-left</span>: <span class="hljs-number">2em</span>;
+}
+
+<span class="hljs-comment">/* left-aligned */</span>
+<span class="hljs-selector-class">.ui-menu</span> <span class="hljs-selector-class">.ui-icon</span> {
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">left</span>: .<span class="hljs-number">2em</span>;
+	<span class="hljs-attribute">margin</span>: auto <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-comment">/* right-aligned */</span>
+<span class="hljs-selector-class">.ui-menu</span> <span class="hljs-selector-class">.ui-menu-icon</span> {
+	<span class="hljs-attribute">left</span>: auto;
+	<span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-button</span> {
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">4em</span> <span class="hljs-number">1em</span>;
+	<span class="hljs-attribute">display</span>: inline-block;
+	<span class="hljs-attribute">position</span>: relative;
+	<span class="hljs-attribute">line-height</span>: normal;
+	<span class="hljs-attribute">margin-right</span>: .<span class="hljs-number">1em</span>;
+	<span class="hljs-attribute">cursor</span>: pointer;
+	<span class="hljs-attribute">vertical-align</span>: middle;
+	<span class="hljs-attribute">text-align</span>: center;
+	<span class="hljs-attribute">-webkit-user-select</span>: none;
+	<span class="hljs-attribute">-moz-user-select</span>: none;
+	<span class="hljs-attribute">-ms-user-select</span>: none;
+	<span class="hljs-attribute">user-select</span>: none;
+
+	<span class="hljs-comment">/* Support: IE &lt;= 11 */</span>
+	<span class="hljs-attribute">overflow</span>: visible;
+}
+
+<span class="hljs-selector-class">.ui-button</span>,
+<span class="hljs-selector-class">.ui-button</span><span class="hljs-selector-pseudo">:link</span>,
+<span class="hljs-selector-class">.ui-button</span><span class="hljs-selector-pseudo">:visited</span>,
+<span class="hljs-selector-class">.ui-button</span><span class="hljs-selector-pseudo">:hover</span>,
+<span class="hljs-selector-class">.ui-button</span><span class="hljs-selector-pseudo">:active</span> {
+	<span class="hljs-attribute">text-decoration</span>: none;
+}
+
+<span class="hljs-comment">/* to make room for the icon, a width needs to be set here */</span>
+<span class="hljs-selector-class">.ui-button-icon-only</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">2em</span>;
+	<span class="hljs-attribute">box-sizing</span>: border-box;
+	<span class="hljs-attribute">text-indent</span>: -<span class="hljs-number">9999px</span>;
+	<span class="hljs-attribute">white-space</span>: nowrap;
+}
+
+<span class="hljs-comment">/* no icon support for input elements */</span>
+<span class="hljs-selector-tag">input</span><span class="hljs-selector-class">.ui-button</span><span class="hljs-selector-class">.ui-button-icon-only</span> {
+	<span class="hljs-attribute">text-indent</span>: <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-comment">/* button icon element(s) */</span>
+<span class="hljs-selector-class">.ui-button-icon-only</span> <span class="hljs-selector-class">.ui-icon</span> {
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">50%</span>;
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">50%</span>;
+	<span class="hljs-attribute">margin-top</span>: -<span class="hljs-number">8px</span>;
+	<span class="hljs-attribute">margin-left</span>: -<span class="hljs-number">8px</span>;
+}
+
+<span class="hljs-selector-class">.ui-button</span><span class="hljs-selector-class">.ui-icon-notext</span> <span class="hljs-selector-class">.ui-icon</span> {
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">2.1em</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">2.1em</span>;
+	<span class="hljs-attribute">text-indent</span>: -<span class="hljs-number">9999px</span>;
+	<span class="hljs-attribute">white-space</span>: nowrap;
+
+}
+
+<span class="hljs-selector-tag">input</span><span class="hljs-selector-class">.ui-button</span><span class="hljs-selector-class">.ui-icon-notext</span> <span class="hljs-selector-class">.ui-icon</span> {
+	<span class="hljs-attribute">width</span>: auto;
+	<span class="hljs-attribute">height</span>: auto;
+	<span class="hljs-attribute">text-indent</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">white-space</span>: normal;
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">4em</span> <span class="hljs-number">1em</span>;
+}
+
+<span class="hljs-comment">/* workarounds */</span>
+<span class="hljs-comment">/* Support: Firefox 5 - 40 */</span>
+<span class="hljs-selector-tag">input</span><span class="hljs-selector-class">.ui-button</span><span class="hljs-selector-pseudo">::-moz-focus-inner</span>,
+<span class="hljs-selector-tag">button</span><span class="hljs-selector-class">.ui-button</span><span class="hljs-selector-pseudo">::-moz-focus-inner</span> {
+	<span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-controlgroup</span> {
+	<span class="hljs-attribute">vertical-align</span>: middle;
+	<span class="hljs-attribute">display</span>: inline-block;
+}
+<span class="hljs-selector-class">.ui-controlgroup</span> &gt; <span class="hljs-selector-class">.ui-controlgroup-item</span> {
+	<span class="hljs-attribute">float</span>: left;
+	<span class="hljs-attribute">margin-left</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">margin-right</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-controlgroup</span> &gt; <span class="hljs-selector-class">.ui-controlgroup-item</span><span class="hljs-selector-pseudo">:focus</span>,
+<span class="hljs-selector-class">.ui-controlgroup</span> &gt; <span class="hljs-selector-class">.ui-controlgroup-item</span><span class="hljs-selector-class">.ui-visual-focus</span> {
+	<span class="hljs-attribute">z-index</span>: <span class="hljs-number">9999</span>;
+}
+<span class="hljs-selector-class">.ui-controlgroup-vertical</span> &gt; <span class="hljs-selector-class">.ui-controlgroup-item</span> {
+	<span class="hljs-attribute">display</span>: block;
+	<span class="hljs-attribute">float</span>: none;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+	<span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">text-align</span>: left;
+}
+<span class="hljs-selector-class">.ui-controlgroup-vertical</span> <span class="hljs-selector-class">.ui-controlgroup-item</span> {
+	<span class="hljs-attribute">box-sizing</span>: border-box;
+}
+<span class="hljs-selector-class">.ui-controlgroup</span> <span class="hljs-selector-class">.ui-controlgroup-label</span> {
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">4em</span> <span class="hljs-number">1em</span>;
+}
+<span class="hljs-selector-class">.ui-controlgroup</span> <span class="hljs-selector-class">.ui-controlgroup-label</span> <span class="hljs-selector-tag">span</span> {
+	<span class="hljs-attribute">font-size</span>: <span class="hljs-number">80%</span>;
+}
+<span class="hljs-selector-class">.ui-controlgroup-horizontal</span> <span class="hljs-selector-class">.ui-controlgroup-label</span> + <span class="hljs-selector-class">.ui-controlgroup-item</span> {
+	<span class="hljs-attribute">border-left</span>: none;
+}
+<span class="hljs-selector-class">.ui-controlgroup-vertical</span> <span class="hljs-selector-class">.ui-controlgroup-label</span> + <span class="hljs-selector-class">.ui-controlgroup-item</span> {
+	<span class="hljs-attribute">border-top</span>: none;
+}
+<span class="hljs-selector-class">.ui-controlgroup-horizontal</span> <span class="hljs-selector-class">.ui-controlgroup-label</span><span class="hljs-selector-class">.ui-widget-content</span> {
+	<span class="hljs-attribute">border-right</span>: none;
+}
+<span class="hljs-selector-class">.ui-controlgroup-vertical</span> <span class="hljs-selector-class">.ui-controlgroup-label</span><span class="hljs-selector-class">.ui-widget-content</span> {
+	<span class="hljs-attribute">border-bottom</span>: none;
+}
+
+<span class="hljs-comment">/* Spinner specific style fixes */</span>
+<span class="hljs-selector-class">.ui-controlgroup-vertical</span> <span class="hljs-selector-class">.ui-spinner-input</span> {
+
+	<span class="hljs-comment">/* Support: IE8 only, Android &lt; 4.4 only */</span>
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">75%</span>;
+	<span class="hljs-attribute">width</span>: <span class="hljs-built_in">calc</span>( <span class="hljs-number">100%</span> - <span class="hljs-number">2.4em</span> );
+}
+<span class="hljs-selector-class">.ui-controlgroup-vertical</span> <span class="hljs-selector-class">.ui-spinner</span> <span class="hljs-selector-class">.ui-spinner-up</span> {
+	<span class="hljs-attribute">border-top-style</span>: solid;
+}
+
+<span class="hljs-selector-class">.ui-checkboxradio-label</span> <span class="hljs-selector-class">.ui-icon-background</span> {
+	<span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#ccc</span>;
+	<span class="hljs-attribute">border-radius</span>: .<span class="hljs-number">12em</span>;
+	<span class="hljs-attribute">border</span>: none;
+}
+<span class="hljs-selector-class">.ui-checkboxradio-radio-label</span> <span class="hljs-selector-class">.ui-icon-background</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">16px</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">16px</span>;
+	<span class="hljs-attribute">border-radius</span>: <span class="hljs-number">1em</span>;
+	<span class="hljs-attribute">overflow</span>: visible;
+	<span class="hljs-attribute">border</span>: none;
+}
+<span class="hljs-selector-class">.ui-checkboxradio-radio-label</span><span class="hljs-selector-class">.ui-checkboxradio-checked</span> <span class="hljs-selector-class">.ui-icon</span>,
+<span class="hljs-selector-class">.ui-checkboxradio-radio-label</span><span class="hljs-selector-class">.ui-checkboxradio-checked</span><span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-class">.ui-icon</span> {
+	<span class="hljs-attribute">background-image</span>: none;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">8px</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">8px</span>;
+	<span class="hljs-attribute">border-width</span>: <span class="hljs-number">4px</span>;
+	<span class="hljs-attribute">border-style</span>: solid;
+}
+<span class="hljs-selector-class">.ui-checkboxradio-disabled</span> {
+	<span class="hljs-attribute">pointer-events</span>: none;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">17em</span>;
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">2em</span> .<span class="hljs-number">2em</span> <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">display</span>: none;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-header</span> {
+	<span class="hljs-attribute">position</span>: relative;
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">2em</span> <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-prev</span>,
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-next</span> {
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">2px</span>;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">1.8em</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">1.8em</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-prev-hover</span>,
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-next-hover</span> {
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">1px</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-prev</span> {
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">2px</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-next</span> {
+	<span class="hljs-attribute">right</span>: <span class="hljs-number">2px</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-prev-hover</span> {
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">1px</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-next-hover</span> {
+	<span class="hljs-attribute">right</span>: <span class="hljs-number">1px</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-prev</span> <span class="hljs-selector-tag">span</span>,
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-next</span> <span class="hljs-selector-tag">span</span> {
+	<span class="hljs-attribute">display</span>: block;
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">50%</span>;
+	<span class="hljs-attribute">margin-left</span>: -<span class="hljs-number">8px</span>;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">50%</span>;
+	<span class="hljs-attribute">margin-top</span>: -<span class="hljs-number">8px</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-title</span> {
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">2.3em</span>;
+	<span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.8em</span>;
+	<span class="hljs-attribute">text-align</span>: center;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-title</span> <span class="hljs-selector-tag">select</span> {
+	<span class="hljs-attribute">font-size</span>: <span class="hljs-number">1em</span>;
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">1px</span> <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-tag">select</span><span class="hljs-selector-class">.ui-datepicker-month</span>,
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-tag">select</span><span class="hljs-selector-class">.ui-datepicker-year</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">45%</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-tag">table</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+	<span class="hljs-attribute">font-size</span>: .<span class="hljs-number">9em</span>;
+	<span class="hljs-attribute">border-collapse</span>: collapse;
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> .<span class="hljs-number">4em</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-tag">th</span> {
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">7em</span> .<span class="hljs-number">3em</span>;
+	<span class="hljs-attribute">text-align</span>: center;
+	<span class="hljs-attribute">font-weight</span>: bold;
+	<span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-tag">td</span> {
+	<span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">1px</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-tag">td</span> <span class="hljs-selector-tag">span</span>,
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-tag">td</span> <span class="hljs-selector-tag">a</span> {
+	<span class="hljs-attribute">display</span>: block;
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">2em</span>;
+	<span class="hljs-attribute">text-align</span>: right;
+	<span class="hljs-attribute">text-decoration</span>: none;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-buttonpane</span> {
+	<span class="hljs-attribute">background-image</span>: none;
+	<span class="hljs-attribute">margin</span>: .<span class="hljs-number">7em</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> .<span class="hljs-number">2em</span>;
+	<span class="hljs-attribute">border-left</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">border-right</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-buttonpane</span> <span class="hljs-selector-tag">button</span> {
+	<span class="hljs-attribute">float</span>: right;
+	<span class="hljs-attribute">margin</span>: .<span class="hljs-number">5em</span> .<span class="hljs-number">2em</span> .<span class="hljs-number">4em</span>;
+	<span class="hljs-attribute">cursor</span>: pointer;
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">2em</span> .<span class="hljs-number">6em</span> .<span class="hljs-number">3em</span> .<span class="hljs-number">6em</span>;
+	<span class="hljs-attribute">width</span>: auto;
+	<span class="hljs-attribute">overflow</span>: visible;
+}
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-datepicker-buttonpane</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-class">.ui-datepicker-current</span> {
+	<span class="hljs-attribute">float</span>: left;
+}
+
+<span class="hljs-comment">/* with multiple calendars */</span>
+<span class="hljs-selector-class">.ui-datepicker</span><span class="hljs-selector-class">.ui-datepicker-multi</span> {
+	<span class="hljs-attribute">width</span>: auto;
+}
+<span class="hljs-selector-class">.ui-datepicker-multi</span> <span class="hljs-selector-class">.ui-datepicker-group</span> {
+	<span class="hljs-attribute">float</span>: left;
+}
+<span class="hljs-selector-class">.ui-datepicker-multi</span> <span class="hljs-selector-class">.ui-datepicker-group</span> <span class="hljs-selector-tag">table</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">95%</span>;
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto .<span class="hljs-number">4em</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker-multi-2</span> <span class="hljs-selector-class">.ui-datepicker-group</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">50%</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker-multi-3</span> <span class="hljs-selector-class">.ui-datepicker-group</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">33.3%</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker-multi-4</span> <span class="hljs-selector-class">.ui-datepicker-group</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">25%</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker-multi</span> <span class="hljs-selector-class">.ui-datepicker-group-last</span> <span class="hljs-selector-class">.ui-datepicker-header</span>,
+<span class="hljs-selector-class">.ui-datepicker-multi</span> <span class="hljs-selector-class">.ui-datepicker-group-middle</span> <span class="hljs-selector-class">.ui-datepicker-header</span> {
+	<span class="hljs-attribute">border-left-width</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-datepicker-multi</span> <span class="hljs-selector-class">.ui-datepicker-buttonpane</span> {
+	<span class="hljs-attribute">clear</span>: left;
+}
+<span class="hljs-selector-class">.ui-datepicker-row-break</span> {
+	<span class="hljs-attribute">clear</span>: both;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+	<span class="hljs-attribute">font-size</span>: <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-comment">/* RTL support */</span>
+<span class="hljs-selector-class">.ui-datepicker-rtl</span> {
+	<span class="hljs-attribute">direction</span>: rtl;
+}
+<span class="hljs-selector-class">.ui-datepicker-rtl</span> <span class="hljs-selector-class">.ui-datepicker-prev</span> {
+	<span class="hljs-attribute">right</span>: <span class="hljs-number">2px</span>;
+	<span class="hljs-attribute">left</span>: auto;
+}
+<span class="hljs-selector-class">.ui-datepicker-rtl</span> <span class="hljs-selector-class">.ui-datepicker-next</span> {
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">2px</span>;
+	<span class="hljs-attribute">right</span>: auto;
+}
+<span class="hljs-selector-class">.ui-datepicker-rtl</span> <span class="hljs-selector-class">.ui-datepicker-prev</span><span class="hljs-selector-pseudo">:hover</span> {
+	<span class="hljs-attribute">right</span>: <span class="hljs-number">1px</span>;
+	<span class="hljs-attribute">left</span>: auto;
+}
+<span class="hljs-selector-class">.ui-datepicker-rtl</span> <span class="hljs-selector-class">.ui-datepicker-next</span><span class="hljs-selector-pseudo">:hover</span> {
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">1px</span>;
+	<span class="hljs-attribute">right</span>: auto;
+}
+<span class="hljs-selector-class">.ui-datepicker-rtl</span> <span class="hljs-selector-class">.ui-datepicker-buttonpane</span> {
+	<span class="hljs-attribute">clear</span>: right;
+}
+<span class="hljs-selector-class">.ui-datepicker-rtl</span> <span class="hljs-selector-class">.ui-datepicker-buttonpane</span> <span class="hljs-selector-tag">button</span> {
+	<span class="hljs-attribute">float</span>: left;
+}
+<span class="hljs-selector-class">.ui-datepicker-rtl</span> <span class="hljs-selector-class">.ui-datepicker-buttonpane</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-class">.ui-datepicker-current</span>,
+<span class="hljs-selector-class">.ui-datepicker-rtl</span> <span class="hljs-selector-class">.ui-datepicker-group</span> {
+	<span class="hljs-attribute">float</span>: right;
+}
+<span class="hljs-selector-class">.ui-datepicker-rtl</span> <span class="hljs-selector-class">.ui-datepicker-group-last</span> <span class="hljs-selector-class">.ui-datepicker-header</span>,
+<span class="hljs-selector-class">.ui-datepicker-rtl</span> <span class="hljs-selector-class">.ui-datepicker-group-middle</span> <span class="hljs-selector-class">.ui-datepicker-header</span> {
+	<span class="hljs-attribute">border-right-width</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">border-left-width</span>: <span class="hljs-number">1px</span>;
+}
+
+<span class="hljs-comment">/* Icons */</span>
+<span class="hljs-selector-class">.ui-datepicker</span> <span class="hljs-selector-class">.ui-icon</span> {
+	<span class="hljs-attribute">display</span>: block;
+	<span class="hljs-attribute">text-indent</span>: -<span class="hljs-number">99999px</span>;
+	<span class="hljs-attribute">overflow</span>: hidden;
+	<span class="hljs-attribute">background-repeat</span>: no-repeat;
+	<span class="hljs-attribute">left</span>: .<span class="hljs-number">5em</span>;
+	<span class="hljs-attribute">top</span>: .<span class="hljs-number">3em</span>;
+}
+<span class="hljs-selector-class">.ui-dialog</span> {
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">2em</span>;
+	<span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-dialog-titlebar</span> {
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">4em</span> <span class="hljs-number">1em</span>;
+	<span class="hljs-attribute">position</span>: relative;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-dialog-title</span> {
+	<span class="hljs-attribute">float</span>: left;
+	<span class="hljs-attribute">margin</span>: .<span class="hljs-number">1em</span> <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">white-space</span>: nowrap;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">90%</span>;
+	<span class="hljs-attribute">overflow</span>: hidden;
+	<span class="hljs-attribute">text-overflow</span>: ellipsis;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-dialog-titlebar-close</span> {
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">right</span>: .<span class="hljs-number">3em</span>;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">50%</span>;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">20px</span>;
+	<span class="hljs-attribute">margin</span>: -<span class="hljs-number">10px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">1px</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">20px</span>;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-dialog-content</span> {
+	<span class="hljs-attribute">position</span>: relative;
+	<span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">5em</span> <span class="hljs-number">1em</span>;
+	<span class="hljs-attribute">background</span>: none;
+	<span class="hljs-attribute">overflow</span>: auto;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-dialog-buttonpane</span> {
+	<span class="hljs-attribute">text-align</span>: left;
+	<span class="hljs-attribute">border-width</span>: <span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">background-image</span>: none;
+	<span class="hljs-attribute">margin-top</span>: .<span class="hljs-number">5em</span>;
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">3em</span> <span class="hljs-number">1em</span> .<span class="hljs-number">5em</span> .<span class="hljs-number">4em</span>;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-dialog-buttonpane</span> <span class="hljs-selector-class">.ui-dialog-buttonset</span> {
+	<span class="hljs-attribute">float</span>: right;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-dialog-buttonpane</span> <span class="hljs-selector-tag">button</span> {
+	<span class="hljs-attribute">margin</span>: .<span class="hljs-number">5em</span> .<span class="hljs-number">4em</span> .<span class="hljs-number">5em</span> <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">cursor</span>: pointer;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-resizable-n</span> {
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">2px</span>;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-resizable-e</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">2px</span>;
+	<span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-resizable-s</span> {
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">2px</span>;
+	<span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-resizable-w</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">2px</span>;
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-resizable-se</span>,
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-resizable-sw</span>,
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-resizable-ne</span>,
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-resizable-nw</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">7px</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">7px</span>;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-resizable-se</span> {
+	<span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-resizable-sw</span> {
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-resizable-ne</span> {
+	<span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-dialog</span> <span class="hljs-selector-class">.ui-resizable-nw</span> {
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-draggable</span> <span class="hljs-selector-class">.ui-dialog-titlebar</span> {
+	<span class="hljs-attribute">cursor</span>: move;
+}
+<span class="hljs-selector-class">.ui-draggable-handle</span> {
+	<span class="hljs-attribute">-ms-touch-action</span>: none;
+	<span class="hljs-attribute">touch-action</span>: none;
+}
+<span class="hljs-selector-class">.ui-resizable</span> {
+	<span class="hljs-attribute">position</span>: relative;
+}
+<span class="hljs-selector-class">.ui-resizable-handle</span> {
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.1px</span>;
+	<span class="hljs-attribute">display</span>: block;
+	<span class="hljs-attribute">-ms-touch-action</span>: none;
+	<span class="hljs-attribute">touch-action</span>: none;
+}
+<span class="hljs-selector-class">.ui-resizable-disabled</span> <span class="hljs-selector-class">.ui-resizable-handle</span>,
+<span class="hljs-selector-class">.ui-resizable-autohide</span> <span class="hljs-selector-class">.ui-resizable-handle</span> {
+	<span class="hljs-attribute">display</span>: none;
+}
+<span class="hljs-selector-class">.ui-resizable-n</span> {
+	<span class="hljs-attribute">cursor</span>: n-resize;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">7px</span>;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+	<span class="hljs-attribute">top</span>: -<span class="hljs-number">5px</span>;
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-resizable-s</span> {
+	<span class="hljs-attribute">cursor</span>: s-resize;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">7px</span>;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+	<span class="hljs-attribute">bottom</span>: -<span class="hljs-number">5px</span>;
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-resizable-e</span> {
+	<span class="hljs-attribute">cursor</span>: e-resize;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">7px</span>;
+	<span class="hljs-attribute">right</span>: -<span class="hljs-number">5px</span>;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+}
+<span class="hljs-selector-class">.ui-resizable-w</span> {
+	<span class="hljs-attribute">cursor</span>: w-resize;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">7px</span>;
+	<span class="hljs-attribute">left</span>: -<span class="hljs-number">5px</span>;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+}
+<span class="hljs-selector-class">.ui-resizable-se</span> {
+	<span class="hljs-attribute">cursor</span>: se-resize;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">12px</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">12px</span>;
+	<span class="hljs-attribute">right</span>: <span class="hljs-number">1px</span>;
+	<span class="hljs-attribute">bottom</span>: <span class="hljs-number">1px</span>;
+}
+<span class="hljs-selector-class">.ui-resizable-sw</span> {
+	<span class="hljs-attribute">cursor</span>: sw-resize;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">9px</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">9px</span>;
+	<span class="hljs-attribute">left</span>: -<span class="hljs-number">5px</span>;
+	<span class="hljs-attribute">bottom</span>: -<span class="hljs-number">5px</span>;
+}
+<span class="hljs-selector-class">.ui-resizable-nw</span> {
+	<span class="hljs-attribute">cursor</span>: nw-resize;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">9px</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">9px</span>;
+	<span class="hljs-attribute">left</span>: -<span class="hljs-number">5px</span>;
+	<span class="hljs-attribute">top</span>: -<span class="hljs-number">5px</span>;
+}
+<span class="hljs-selector-class">.ui-resizable-ne</span> {
+	<span class="hljs-attribute">cursor</span>: ne-resize;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">9px</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">9px</span>;
+	<span class="hljs-attribute">right</span>: -<span class="hljs-number">5px</span>;
+	<span class="hljs-attribute">top</span>: -<span class="hljs-number">5px</span>;
+}
+<span class="hljs-selector-class">.ui-progressbar</span> {
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">2em</span>;
+	<span class="hljs-attribute">text-align</span>: left;
+	<span class="hljs-attribute">overflow</span>: hidden;
+}
+<span class="hljs-selector-class">.ui-progressbar</span> <span class="hljs-selector-class">.ui-progressbar-value</span> {
+	<span class="hljs-attribute">margin</span>: -<span class="hljs-number">1px</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+}
+<span class="hljs-selector-class">.ui-progressbar</span> <span class="hljs-selector-class">.ui-progressbar-overlay</span> {
+	<span class="hljs-attribute">background</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">"data:image/gif;base64,R0lGODlhKAAoAIABAAAAAP///yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJAQABACwAAAAAKAAoAAACkYwNqXrdC52DS06a7MFZI+4FHBCKoDeWKXqymPqGqxvJrXZbMx7Ttc+w9XgU2FB3lOyQRWET2IFGiU9m1frDVpxZZc6bfHwv4c1YXP6k1Vdy292Fb6UkuvFtXpvWSzA+HycXJHUXiGYIiMg2R6W459gnWGfHNdjIqDWVqemH2ekpObkpOlppWUqZiqr6edqqWQAAIfkECQEAAQAsAAAAACgAKAAAApSMgZnGfaqcg1E2uuzDmmHUBR8Qil95hiPKqWn3aqtLsS18y7G1SzNeowWBENtQd+T1JktP05nzPTdJZlR6vUxNWWjV+vUWhWNkWFwxl9VpZRedYcflIOLafaa28XdsH/ynlcc1uPVDZxQIR0K25+cICCmoqCe5mGhZOfeYSUh5yJcJyrkZWWpaR8doJ2o4NYq62lAAACH5BAkBAAEALAAAAAAoACgAAAKVDI4Yy22ZnINRNqosw0Bv7i1gyHUkFj7oSaWlu3ovC8GxNso5fluz3qLVhBVeT/Lz7ZTHyxL5dDalQWPVOsQWtRnuwXaFTj9jVVh8pma9JjZ4zYSj5ZOyma7uuolffh+IR5aW97cHuBUXKGKXlKjn+DiHWMcYJah4N0lYCMlJOXipGRr5qdgoSTrqWSq6WFl2ypoaUAAAIfkECQEAAQAsAAAAACgAKAAAApaEb6HLgd/iO7FNWtcFWe+ufODGjRfoiJ2akShbueb0wtI50zm02pbvwfWEMWBQ1zKGlLIhskiEPm9R6vRXxV4ZzWT2yHOGpWMyorblKlNp8HmHEb/lCXjcW7bmtXP8Xt229OVWR1fod2eWqNfHuMjXCPkIGNileOiImVmCOEmoSfn3yXlJWmoHGhqp6ilYuWYpmTqKUgAAIfkECQEAAQAsAAAAACgAKAAAApiEH6kb58biQ3FNWtMFWW3eNVcojuFGfqnZqSebuS06w5V80/X02pKe8zFwP6EFWOT1lDFk8rGERh1TTNOocQ61Hm4Xm2VexUHpzjymViHrFbiELsefVrn6XKfnt2Q9G/+Xdie499XHd2g4h7ioOGhXGJboGAnXSBnoBwKYyfioubZJ2Hn0RuRZaflZOil56Zp6iioKSXpUAAAh+QQJAQABACwAAAAAKAAoAAACkoQRqRvnxuI7kU1a1UU5bd5tnSeOZXhmn5lWK3qNTWvRdQxP8qvaC+/yaYQzXO7BMvaUEmJRd3TsiMAgswmNYrSgZdYrTX6tSHGZO73ezuAw2uxuQ+BbeZfMxsexY35+/Qe4J1inV0g4x3WHuMhIl2jXOKT2Q+VU5fgoSUI52VfZyfkJGkha6jmY+aaYdirq+lQAACH5BAkBAAEALAAAAAAoACgAAAKWBIKpYe0L3YNKToqswUlvznigd4wiR4KhZrKt9Upqip61i9E3vMvxRdHlbEFiEXfk9YARYxOZZD6VQ2pUunBmtRXo1Lf8hMVVcNl8JafV38aM2/Fu5V16Bn63r6xt97j09+MXSFi4BniGFae3hzbH9+hYBzkpuUh5aZmHuanZOZgIuvbGiNeomCnaxxap2upaCZsq+1kAACH5BAkBAAEALAAAAAAoACgAAAKXjI8By5zf4kOxTVrXNVlv1X0d8IGZGKLnNpYtm8Lr9cqVeuOSvfOW79D9aDHizNhDJidFZhNydEahOaDH6nomtJjp1tutKoNWkvA6JqfRVLHU/QUfau9l2x7G54d1fl995xcIGAdXqMfBNadoYrhH+Mg2KBlpVpbluCiXmMnZ2Sh4GBqJ+ckIOqqJ6LmKSllZmsoq6wpQAAAh+QQJAQABACwAAAAAKAAoAAAClYx/oLvoxuJDkU1a1YUZbJ59nSd2ZXhWqbRa2/gF8Gu2DY3iqs7yrq+xBYEkYvFSM8aSSObE+ZgRl1BHFZNr7pRCavZ5BW2142hY3AN/zWtsmf12p9XxxFl2lpLn1rseztfXZjdIWIf2s5dItwjYKBgo9yg5pHgzJXTEeGlZuenpyPmpGQoKOWkYmSpaSnqKileI2FAAACH5BAkBAAEALAAAAAAoACgAAAKVjB+gu+jG4kORTVrVhRlsnn2dJ3ZleFaptFrb+CXmO9OozeL5VfP99HvAWhpiUdcwkpBH3825AwYdU8xTqlLGhtCosArKMpvfa1mMRae9VvWZfeB2XfPkeLmm18lUcBj+p5dnN8jXZ3YIGEhYuOUn45aoCDkp16hl5IjYJvjWKcnoGQpqyPlpOhr3aElaqrq56Bq7VAAAOw=="</span>);
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+	<span class="hljs-attribute">filter</span>: <span class="hljs-built_in">alpha</span>(opacity=<span class="hljs-number">25</span>); <span class="hljs-comment">/* support: IE8 */</span>
+	<span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.25</span>;
+}
+<span class="hljs-selector-class">.ui-progressbar-indeterminate</span> <span class="hljs-selector-class">.ui-progressbar-value</span> {
+	<span class="hljs-attribute">background-image</span>: none;
+}
+<span class="hljs-selector-class">.ui-selectable</span> {
+	<span class="hljs-attribute">-ms-touch-action</span>: none;
+	<span class="hljs-attribute">touch-action</span>: none;
+}
+<span class="hljs-selector-class">.ui-selectable-helper</span> {
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">z-index</span>: <span class="hljs-number">100</span>;
+	<span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> dotted black;
+}
+<span class="hljs-selector-class">.ui-selectmenu-menu</span> {
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">display</span>: none;
+}
+<span class="hljs-selector-class">.ui-selectmenu-menu</span> <span class="hljs-selector-class">.ui-menu</span> {
+	<span class="hljs-attribute">overflow</span>: auto;
+	<span class="hljs-attribute">overflow-x</span>: hidden;
+	<span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">1px</span>;
+}
+<span class="hljs-selector-class">.ui-selectmenu-menu</span> <span class="hljs-selector-class">.ui-menu</span> <span class="hljs-selector-class">.ui-selectmenu-optgroup</span> {
+	<span class="hljs-attribute">font-size</span>: <span class="hljs-number">1em</span>;
+	<span class="hljs-attribute">font-weight</span>: bold;
+	<span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.5</span>;
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">2px</span> <span class="hljs-number">0.4em</span>;
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">0.5em</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">height</span>: auto;
+	<span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-selectmenu-open</span> {
+	<span class="hljs-attribute">display</span>: block;
+}
+<span class="hljs-selector-class">.ui-selectmenu-text</span> {
+	<span class="hljs-attribute">display</span>: block;
+	<span class="hljs-attribute">margin-right</span>: <span class="hljs-number">20px</span>;
+	<span class="hljs-attribute">overflow</span>: hidden;
+	<span class="hljs-attribute">text-overflow</span>: ellipsis;
+}
+<span class="hljs-selector-class">.ui-selectmenu-button</span><span class="hljs-selector-class">.ui-button</span> {
+	<span class="hljs-attribute">text-align</span>: left;
+	<span class="hljs-attribute">white-space</span>: nowrap;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">14em</span>;
+}
+<span class="hljs-selector-class">.ui-selectmenu-icon</span><span class="hljs-selector-class">.ui-icon</span> {
+	<span class="hljs-attribute">float</span>: right;
+	<span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-slider</span> {
+	<span class="hljs-attribute">position</span>: relative;
+	<span class="hljs-attribute">text-align</span>: left;
+}
+<span class="hljs-selector-class">.ui-slider</span> <span class="hljs-selector-class">.ui-slider-handle</span> {
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">z-index</span>: <span class="hljs-number">2</span>;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">1.2em</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">1.2em</span>;
+	<span class="hljs-attribute">cursor</span>: default;
+	<span class="hljs-attribute">-ms-touch-action</span>: none;
+	<span class="hljs-attribute">touch-action</span>: none;
+}
+<span class="hljs-selector-class">.ui-slider</span> <span class="hljs-selector-class">.ui-slider-range</span> {
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
+	<span class="hljs-attribute">font-size</span>: .<span class="hljs-number">7em</span>;
+	<span class="hljs-attribute">display</span>: block;
+	<span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">background-position</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-comment">/* support: IE8 - See #6727 */</span>
+<span class="hljs-selector-class">.ui-slider</span><span class="hljs-selector-class">.ui-state-disabled</span> <span class="hljs-selector-class">.ui-slider-handle</span>,
+<span class="hljs-selector-class">.ui-slider</span><span class="hljs-selector-class">.ui-state-disabled</span> <span class="hljs-selector-class">.ui-slider-range</span> {
+	<span class="hljs-attribute">filter</span>: inherit;
+}
+
+<span class="hljs-selector-class">.ui-slider-horizontal</span> {
+	<span class="hljs-attribute">height</span>: .<span class="hljs-number">8em</span>;
+}
+<span class="hljs-selector-class">.ui-slider-horizontal</span> <span class="hljs-selector-class">.ui-slider-handle</span> {
+	<span class="hljs-attribute">top</span>: -.<span class="hljs-number">3em</span>;
+	<span class="hljs-attribute">margin-left</span>: -.<span class="hljs-number">6em</span>;
+}
+<span class="hljs-selector-class">.ui-slider-horizontal</span> <span class="hljs-selector-class">.ui-slider-range</span> {
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+}
+<span class="hljs-selector-class">.ui-slider-horizontal</span> <span class="hljs-selector-class">.ui-slider-range-min</span> {
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-slider-horizontal</span> <span class="hljs-selector-class">.ui-slider-range-max</span> {
+	<span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-selector-class">.ui-slider-vertical</span> {
+	<span class="hljs-attribute">width</span>: .<span class="hljs-number">8em</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;
+}
+<span class="hljs-selector-class">.ui-slider-vertical</span> <span class="hljs-selector-class">.ui-slider-handle</span> {
+	<span class="hljs-attribute">left</span>: -.<span class="hljs-number">3em</span>;
+	<span class="hljs-attribute">margin-left</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">margin-bottom</span>: -.<span class="hljs-number">6em</span>;
+}
+<span class="hljs-selector-class">.ui-slider-vertical</span> <span class="hljs-selector-class">.ui-slider-range</span> {
+	<span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+}
+<span class="hljs-selector-class">.ui-slider-vertical</span> <span class="hljs-selector-class">.ui-slider-range-min</span> {
+	<span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-slider-vertical</span> <span class="hljs-selector-class">.ui-slider-range-max</span> {
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-sortable-handle</span> {
+	<span class="hljs-attribute">-ms-touch-action</span>: none;
+	<span class="hljs-attribute">touch-action</span>: none;
+}
+<span class="hljs-selector-class">.ui-spinner</span> {
+	<span class="hljs-attribute">position</span>: relative;
+	<span class="hljs-attribute">display</span>: inline-block;
+	<span class="hljs-attribute">overflow</span>: hidden;
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">vertical-align</span>: middle;
+}
+<span class="hljs-selector-class">.ui-spinner-input</span> {
+	<span class="hljs-attribute">border</span>: none;
+	<span class="hljs-attribute">background</span>: none;
+	<span class="hljs-attribute">color</span>: inherit;
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">222em</span> <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">margin</span>: .<span class="hljs-number">2em</span> <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">vertical-align</span>: middle;
+	<span class="hljs-attribute">margin-left</span>: .<span class="hljs-number">4em</span>;
+	<span class="hljs-attribute">margin-right</span>: <span class="hljs-number">2em</span>;
+}
+<span class="hljs-selector-class">.ui-spinner-button</span> {
+	<span class="hljs-attribute">width</span>: <span class="hljs-number">1.6em</span>;
+	<span class="hljs-attribute">height</span>: <span class="hljs-number">50%</span>;
+	<span class="hljs-attribute">font-size</span>: .<span class="hljs-number">5em</span>;
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">text-align</span>: center;
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">cursor</span>: default;
+	<span class="hljs-attribute">display</span>: block;
+	<span class="hljs-attribute">overflow</span>: hidden;
+	<span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-comment">/* more specificity required here to override default borders */</span>
+<span class="hljs-selector-class">.ui-spinner</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.ui-spinner-button</span> {
+	<span class="hljs-attribute">border-top-style</span>: none;
+	<span class="hljs-attribute">border-bottom-style</span>: none;
+	<span class="hljs-attribute">border-right-style</span>: none;
+}
+<span class="hljs-selector-class">.ui-spinner-up</span> {
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-spinner-down</span> {
+	<span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-tabs</span> {
+	<span class="hljs-attribute">position</span>: relative;<span class="hljs-comment">/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */</span>
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">2em</span>;
+}
+<span class="hljs-selector-class">.ui-tabs</span> <span class="hljs-selector-class">.ui-tabs-nav</span> {
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">2em</span> .<span class="hljs-number">2em</span> <span class="hljs-number">0</span>;
+}
+<span class="hljs-selector-class">.ui-tabs</span> <span class="hljs-selector-class">.ui-tabs-nav</span> <span class="hljs-selector-tag">li</span> {
+	<span class="hljs-attribute">list-style</span>: none;
+	<span class="hljs-attribute">float</span>: left;
+	<span class="hljs-attribute">position</span>: relative;
+	<span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">margin</span>: <span class="hljs-number">1px</span> .<span class="hljs-number">2em</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">border-bottom-width</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">white-space</span>: nowrap;
+}
+<span class="hljs-selector-class">.ui-tabs</span> <span class="hljs-selector-class">.ui-tabs-nav</span> <span class="hljs-selector-class">.ui-tabs-anchor</span> {
+	<span class="hljs-attribute">float</span>: left;
+	<span class="hljs-attribute">padding</span>: .<span class="hljs-number">5em</span> <span class="hljs-number">1em</span>;
+	<span class="hljs-attribute">text-decoration</span>: none;
+}
+<span class="hljs-selector-class">.ui-tabs</span> <span class="hljs-selector-class">.ui-tabs-nav</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-class">.ui-tabs-active</span> {
+	<span class="hljs-attribute">margin-bottom</span>: -<span class="hljs-number">1px</span>;
+	<span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">1px</span>;
+}
+<span class="hljs-selector-class">.ui-tabs</span> <span class="hljs-selector-class">.ui-tabs-nav</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-class">.ui-tabs-active</span> <span class="hljs-selector-class">.ui-tabs-anchor</span>,
+<span class="hljs-selector-class">.ui-tabs</span> <span class="hljs-selector-class">.ui-tabs-nav</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-class">.ui-state-disabled</span> <span class="hljs-selector-class">.ui-tabs-anchor</span>,
+<span class="hljs-selector-class">.ui-tabs</span> <span class="hljs-selector-class">.ui-tabs-nav</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-class">.ui-tabs-loading</span> <span class="hljs-selector-class">.ui-tabs-anchor</span> {
+	<span class="hljs-attribute">cursor</span>: text;
+}
+<span class="hljs-selector-class">.ui-tabs-collapsible</span> <span class="hljs-selector-class">.ui-tabs-nav</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-class">.ui-tabs-active</span> <span class="hljs-selector-class">.ui-tabs-anchor</span> {
+	<span class="hljs-attribute">cursor</span>: pointer;
+}
+<span class="hljs-selector-class">.ui-tabs</span> <span class="hljs-selector-class">.ui-tabs-panel</span> {
+	<span class="hljs-attribute">display</span>: block;
+	<span class="hljs-attribute">border-width</span>: <span class="hljs-number">0</span>;
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">1em</span> <span class="hljs-number">1.4em</span>;
+	<span class="hljs-attribute">background</span>: none;
+}
+<span class="hljs-selector-class">.ui-tooltip</span> {
+	<span class="hljs-attribute">padding</span>: <span class="hljs-number">8px</span>;
+	<span class="hljs-attribute">position</span>: absolute;
+	<span class="hljs-attribute">z-index</span>: <span class="hljs-number">9999</span>;
+	<span class="hljs-attribute">max-width</span>: <span class="hljs-number">300px</span>;
+}
+<span class="hljs-selector-tag">body</span> <span class="hljs-selector-class">.ui-tooltip</span> {
+	<span class="hljs-attribute">border-width</span>: <span class="hljs-number">2px</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

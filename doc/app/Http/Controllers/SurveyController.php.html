@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SurveyController.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "app\\Http\\Controllers\\SurveyController.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>SurveyController.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">DataTables</span>\<span class="hljs-title">SurveyDataTable</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Validator</span>;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SurveyController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span><span class="hljs-params">(SurveyDataTable $datatable)</span>
+    </span>{
+        <span class="hljs-keyword">return</span> $datatable-&gt;render(<span class="hljs-string">'survey.index'</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span><span class="hljs-params">()</span>
+    </span>{
+        $periodes = \App\Periode::all();
+        $attributes = \App\Attribute::all();
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'survey.create'</span>, compact(<span class="hljs-string">'attributes'</span>, <span class="hljs-string">'periodes'</span>));
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span><span class="hljs-params">(Request $request)</span>
+    </span>{
+        $input = $request-&gt;all();
+        $dataValidator = [];
+        $dataValidator[<span class="hljs-string">'periode'</span>] = <span class="hljs-string">'required'</span>;
+        <span class="hljs-keyword">foreach</span> (\App\Attribute::all() <span class="hljs-keyword">as</span> $item) {
+            $valid = <span class="hljs-string">''</span>;
+            <span class="hljs-keyword">if</span> ($item-&gt;wajib == <span class="hljs-number">1</span>) {
+                $valid .= <span class="hljs-string">'required|'</span>;
+            }
+            <span class="hljs-keyword">if</span> ($item-&gt;tipe_input == <span class="hljs-string">'Isian Text'</span>) {
+                $valid .= <span class="hljs-string">'string'</span>;
+            } <span class="hljs-keyword">elseif</span> ($item-&gt;tipe_input == <span class="hljs-string">'Angka'</span>) {
+                $valid .= <span class="hljs-string">'numeric|min:1'</span>;
+            } <span class="hljs-keyword">else</span> {
+                $valid .= <span class="hljs-string">'in:'</span>.$item-&gt;nilai;
+            }
+            $dataValidator[$item-&gt;nama_atribut] = $valid;
+        }
+        $validator = Validator::make($input, $dataValidator);
+        <span class="hljs-keyword">if</span> ($validator-&gt;fails()) {
+            <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">'status'</span> =&gt; <span class="hljs-keyword">false</span>, <span class="hljs-string">'message'</span> =&gt; $validator-&gt;errors()-&gt;all()], <span class="hljs-number">400</span>);
+        }
+        $checkPeriode = \App\Survey::wherePeriodeId($request-&gt;periode)-&gt;whereUserId(auth()-&gt;user()-&gt;id)-&gt;get();
+        <span class="hljs-keyword">if</span> (!$checkPeriode-&gt;isEmpty()) {
+            <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">'status'</span> =&gt; <span class="hljs-keyword">false</span>, <span class="hljs-string">'message'</span> =&gt; <span class="hljs-string">'Anda telah menginputkan pada periode ini'</span>], <span class="hljs-number">403</span>);
+        }
+        <span class="hljs-keyword">foreach</span> (\App\Attribute::all() <span class="hljs-keyword">as</span> $item) {
+            $survey = \App\Survey::firstOrCreate([
+                <span class="hljs-string">'periode_id'</span> =&gt; $request-&gt;periode,
+                <span class="hljs-string">'attribute_id'</span> =&gt; $item-&gt;id,
+                <span class="hljs-string">'user_id'</span> =&gt; auth()-&gt;user()-&gt;id,
+                <span class="hljs-string">'attribute_value'</span> =&gt; $request-&gt;{$item-&gt;nama_atribut},
+            ]);
+        }
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">'status'</span> =&gt; <span class="hljs-keyword">true</span>, <span class="hljs-string">'message'</span> =&gt; <span class="hljs-string">'Berhasil menambahkan survey'</span>]);
+    }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

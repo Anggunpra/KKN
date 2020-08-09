@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\lazystream\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#lazy-streams">Lazy Streams</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#why">Why?</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#class-lazystream.readable">Class: lazystream.Readable</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#new-lazystream.readable-fn-options">new lazystream.Readable(fn [, options])</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#class-lazystream.writable">Class: lazystream.Writable</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#new-lazystream.writable-fn-options">new lazystream.Writable(fn [, options])</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#changelog">Changelog</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#v1.0.0">v1.0.0</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#v0.2.0">v0.2.0</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#v0.1.0">v0.1.0</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#credits">Credits</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="lazy-streams">
+  <h1>
+    <a href="#lazy-streams" name="lazy-streams" class="pilcrow"></a>
+Lazy Streams
+  </h1>
+</div>
+<blockquote>
+<p><em>Create streams lazily when they are read from or written to.</em><br>
+<code>lazystream: 1.0.0</code> <a href="https://travis-ci.org/jpommerening/node-lazystream"><img src="https://travis-ci.org/jpommerening/node-lazystream.png?branch=master" alt="Build Status"></a></p>
+</blockquote>
+<div class="pilwrap" id="why">
+  <h2>
+    <a href="#why" name="why" class="pilcrow"></a>
+Why?
+  </h2>
+</div>
+<p>Sometimes you feel the itch to open <em>all the files</em> at once. You want to pass a bunch of streams around, so the consumer does not need to worry where the data comes from.
+From a software design point-of-view this sounds entirely reasonable. Then there is that neat little function <code>fs.createReadStream()</code> that opens a file and gives you a nice <code>fs.ReadStream</code> to pass around, so you use what the mighty creator deities of node bestowed upon you.</p>
+<blockquote>
+<p><code>Error: EMFILE, too many open files</code><br>
+─ <em>node</em></p>
+</blockquote>
+<p>This package provides two classes based on the node's Streams3 API (courtesy of <code>readable-stream</code> to ensure a stable version).</p>
+<div class="pilwrap" id="class-lazystream.readable">
+  <h2>
+    <a href="#class-lazystream.readable" name="class-lazystream.readable" class="pilcrow"></a>
+Class: lazystream.Readable
+  </h2>
+</div>
+<p>A wrapper for readable streams. Extends <a href="http://nodejs.org/api/stream.html#stream_class_stream_passthrough"><code>stream.PassThrough</code></a>.</p>
+<div class="pilwrap" id="new-lazystream.readable-fn-options">
+  <h3>
+    <a href="#new-lazystream.readable-fn-options" name="new-lazystream.readable-fn-options" class="pilcrow"></a>
+new lazystream.Readable(fn [, options])
+  </h3>
+</div>
+<ul>
+<li><code>fn</code> <em>{Function}</em><br>
+The function that the lazy stream will call to obtain the stream to actually read from.</li>
+<li><code>options</code> <em>{Object}</em><br>
+Options for the underlying <code>PassThrough</code> stream, accessible by <code>fn</code>.</li>
+</ul>
+<p>Creates a new readable stream. Once the stream is accessed (for example when you call its <code>read()</code> method, or attach a <code>data</code>-event listener) the <code>fn</code> function is called with the outer <code>lazystream.Readable</code> instance bound to <code>this</code>.</p>
+<p>If you pass an <code>options</code> object to the constuctor, you can access it in your <code>fn</code> function.</p>
+<pre><code class="javascript"><span class="hljs-keyword">new</span> lazystream.Readable(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">return</span> fs.createReadStream(<span class="hljs-string">'/dev/urandom'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="class-lazystream.writable">
+  <h2>
+    <a href="#class-lazystream.writable" name="class-lazystream.writable" class="pilcrow"></a>
+Class: lazystream.Writable
+  </h2>
+</div>
+<p>A wrapper for writable streams. Extends <a href="http://nodejs.org/api/stream.html#stream_class_stream_passthrough"><code>stream.PassThrough</code></a>.</p>
+<div class="pilwrap" id="new-lazystream.writable-fn-options">
+  <h3>
+    <a href="#new-lazystream.writable-fn-options" name="new-lazystream.writable-fn-options" class="pilcrow"></a>
+new lazystream.Writable(fn [, options])
+  </h3>
+</div>
+<ul>
+<li><code>fn</code> <em>{Function}</em><br>
+The function that the lazy stream will call to obtain the stream to actually write to.</li>
+<li><code>options</code> <em>{Object}</em><br>
+Options for the underlying <code>PassThrough</code> stream, accessible by <code>fn</code>.</li>
+</ul>
+<p>Creates a new writable stream. Just like the one above but for writable streams.</p>
+<pre><code class="javascript"><span class="hljs-keyword">new</span> lazystream.Writable(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> fs.createWriteStream(<span class="hljs-string">'/dev/null'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code class="console"><span class="hljs-meta">$</span><span class="bash"> npm install lazystream --save</span>
+lazystream@1.0.0 node_modules/lazystream
+└── readable-stream@2.0.5
+</code></pre>
+<div class="pilwrap" id="changelog">
+  <h2>
+    <a href="#changelog" name="changelog" class="pilcrow"></a>
+Changelog
+  </h2>
+</div>
+<div class="pilwrap" id="v1.0.0">
+  <h3>
+    <a href="#v1.0.0" name="v1.0.0" class="pilcrow"></a>
+v1.0.0
+  </h3>
+</div>
+<ul>
+<li><a href="https://github.com/jpommerening/node-lazystream/pull/2">#2</a>: <a href="https://r.va.gg/2014/06/why-i-dont-use-nodes-core-stream-module.html">unconditionally</a> use <code>readable-stream</code> <em>2.x</em>.</li>
+</ul>
+<div class="pilwrap" id="v0.2.0">
+  <h3>
+    <a href="#v0.2.0" name="v0.2.0" class="pilcrow"></a>
+v0.2.0
+  </h3>
+</div>
+<ul>
+<li><a href="https://github.com/jpommerening/node-lazystream/pull/1">#1</a>: error events are now propagated</li>
+</ul>
+<div class="pilwrap" id="v0.1.0">
+  <h3>
+    <a href="#v0.1.0" name="v0.1.0" class="pilcrow"></a>
+v0.1.0
+  </h3>
+</div>
+<ul>
+<li><em>(this was the first release)</em></li>
+</ul>
+<div class="pilwrap" id="contributing">
+  <h2>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h2>
+</div>
+<p>Fork it, branch it, send me a pull request. We'll work out the rest together.</p>
+<div class="pilwrap" id="credits">
+  <h2>
+    <a href="#credits" name="credits" class="pilcrow"></a>
+Credits
+  </h2>
+</div>
+<p><a href="https://github.com/ctalkington">Chris Talkington</a> and his <a href="https://github.com/ctalkington/node-archiver">node-archiver</a> for providing a use-case.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+<a href="LICENSE-MIT.html">License</a>
+  </h2>
+</div>
+<p>Copyright (c) 2013 J. Pommerening, contributors.</p>
+<p>Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the &quot;Software&quot;), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:</p>
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.</p>
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>gulpfile.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\izitoast\\gulpfile.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>gulpfile.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> gulp        = <span class="hljs-built_in">require</span>( <span class="hljs-string">'gulp'</span> );
+<span class="hljs-keyword">var</span> concat      = <span class="hljs-built_in">require</span>( <span class="hljs-string">'gulp-concat'</span> );
+<span class="hljs-keyword">var</span> stylus      = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-stylus'</span>);
+<span class="hljs-keyword">var</span> size        = <span class="hljs-built_in">require</span>( <span class="hljs-string">'gulp-size'</span> );
+<span class="hljs-keyword">var</span> jshint      = <span class="hljs-built_in">require</span>( <span class="hljs-string">'gulp-jshint'</span> );
+<span class="hljs-keyword">var</span> notify      = <span class="hljs-built_in">require</span>( <span class="hljs-string">'gulp-notify'</span> );
+<span class="hljs-keyword">var</span> uglify      = <span class="hljs-built_in">require</span>( <span class="hljs-string">'gulp-uglify'</span> );
+<span class="hljs-keyword">var</span> csso        = <span class="hljs-built_in">require</span>( <span class="hljs-string">'gulp-csso'</span> );
+
+<span class="hljs-keyword">var</span> catchError = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(err.toString())
+    <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'end'</span>)
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Styl task</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">gulp.task(<span class="hljs-string">'styl'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./src/css/style.styl'</span>)
+        .pipe(stylus())
+        .on(<span class="hljs-string">'error'</span>, catchError)
+        .pipe( concat( <span class="hljs-string">'iziToast.css'</span> ) )
+        .pipe( gulp.dest( <span class="hljs-string">'./dist/css'</span> ) )
+        .pipe( concat( <span class="hljs-string">'iziToast.min.css'</span> ) )
+        .pipe( csso({<span class="hljs-attr">discardComments</span>: <span class="hljs-literal">false</span>}) )
+        .pipe( gulp.dest( <span class="hljs-string">'./dist/css'</span> ) )
+        .pipe( notify( <span class="hljs-string">'Stylus build done successfully!'</span> ) )
+        .pipe( size({ <span class="hljs-attr">showFiles</span>: <span class="hljs-literal">true</span> }) );
+});
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Scripts task</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">gulp.task( <span class="hljs-string">'scripts'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> gulp.src( <span class="hljs-string">'./src/js/iziToast.js'</span> )
+        .pipe( jshint() )
+        .pipe( jshint.reporter(<span class="hljs-string">'default'</span>) )
+        .pipe( concat( <span class="hljs-string">'iziToast.min.js'</span> ) )
+        .pipe( uglify( { <span class="hljs-attr">mangle</span>: <span class="hljs-literal">true</span> } ) )
+        .pipe( gulp.dest( <span class="hljs-string">'./dist/js'</span> ) )
+        .pipe( notify( <span class="hljs-string">'Scripts build done successfully!'</span> ) )
+        .pipe( size({ <span class="hljs-attr">showFiles</span>: <span class="hljs-literal">true</span> }) );
+});
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Watch task</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">gulp.task(<span class="hljs-string">'watch'</span>, [<span class="hljs-string">'styl'</span>,<span class="hljs-string">'scripts'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    gulp.watch(<span class="hljs-string">'./src/css/**/*.styl'</span>, [ <span class="hljs-string">'styl'</span> ])    <span class="hljs-comment">// watch for changes and run the css task</span>
+    gulp.watch(<span class="hljs-string">'./src/js/**/*.js'</span>, [ <span class="hljs-string">'scripts'</span> ])    <span class="hljs-comment">// watch for changes and run the js task</span>
+})
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Default task</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">gulp.task( <span class="hljs-string">'default'</span>, [ <span class="hljs-string">'styl'</span>, <span class="hljs-string">'scripts'</span> ] );
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

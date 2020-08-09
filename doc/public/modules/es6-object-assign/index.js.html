@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es6-object-assign\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Code refactored from Mozilla Developer Network:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">
+'use strict'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assign</span>(<span class="hljs-params">target, firstSource</span>) </span>{
+  <span class="hljs-keyword">if</span> (target === <span class="hljs-literal">undefined</span> || target === <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Cannot convert first argument to object'</span>);
+  }
+
+  <span class="hljs-keyword">var</span> to = <span class="hljs-built_in">Object</span>(target);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-built_in">arguments</span>.length; i++) {
+    <span class="hljs-keyword">var</span> nextSource = <span class="hljs-built_in">arguments</span>[i];
+    <span class="hljs-keyword">if</span> (nextSource === <span class="hljs-literal">undefined</span> || nextSource === <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">continue</span>;
+    }
+
+    <span class="hljs-keyword">var</span> keysArray = <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">Object</span>(nextSource));
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> nextIndex = <span class="hljs-number">0</span>, len = keysArray.length; nextIndex &lt; len; nextIndex++) {
+      <span class="hljs-keyword">var</span> nextKey = keysArray[nextIndex];
+      <span class="hljs-keyword">var</span> desc = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(nextSource, nextKey);
+      <span class="hljs-keyword">if</span> (desc !== <span class="hljs-literal">undefined</span> &amp;&amp; desc.enumerable) {
+        to[nextKey] = nextSource[nextKey];
+      }
+    }
+  }
+  <span class="hljs-keyword">return</span> to;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">polyfill</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Object</span>.assign) {
+    <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">Object</span>, <span class="hljs-string">'assign'</span>, {
+      <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">value</span>: assign
+    });
+  }
+}
+
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">assign</span>: assign,
+  <span class="hljs-attr">polyfill</span>: polyfill
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

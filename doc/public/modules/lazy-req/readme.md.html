@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\lazy-req\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#lazy-req">lazy-req </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="lazy-req">
+  <h1>
+    <a href="#lazy-req" name="lazy-req" class="pilcrow"></a>
+lazy-req <a href="https://travis-ci.org/sindresorhus/lazy-req"><img src="https://travis-ci.org/sindresorhus/lazy-req.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Require modules lazily</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save lazy-req
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-comment">// pass in `require` or a custom require function</span>
+<span class="hljs-keyword">var</span> lazyReq = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lazy-req'</span>)(<span class="hljs-built_in">require</span>);
+<span class="hljs-keyword">var</span> _ = lazyReq(<span class="hljs-string">'lodash'</span>);
+
+<span class="hljs-comment">// where you would normally do</span>
+_.isNumber(<span class="hljs-number">2</span>);
+
+<span class="hljs-comment">// you now instead call it as a function</span>
+_().isNumber(<span class="hljs-number">2</span>);
+
+<span class="hljs-comment">// it's cached on consecutive calls</span>
+_().isString(<span class="hljs-string">'unicorn'</span>);
+
+<span class="hljs-comment">// extract lazy variations of the props you need</span>
+<span class="hljs-keyword">var</span> members = lazyReq(<span class="hljs-string">'lodash'</span>)(<span class="hljs-string">'isNumber'</span>, <span class="hljs-string">'isString'</span>);
+
+<span class="hljs-comment">// useful when using destructuring assignment in ES2015</span>
+<span class="hljs-keyword">const</span> { isNumber, isString } = lazyReq(<span class="hljs-string">'lodash'</span>)(<span class="hljs-string">'isNumber'</span>, <span class="hljs-string">'isString'</span>);
+
+<span class="hljs-comment">// works out of the box for functions and regular properties</span>
+<span class="hljs-keyword">var</span> stuff = lazyReq(<span class="hljs-string">'./math-lib'</span>)(<span class="hljs-string">'sum'</span>, <span class="hljs-string">'PHI'</span>);
+<span class="hljs-built_in">console</span>.log(stuff.sum(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)); <span class="hljs-comment">// =&gt; 3</span>
+<span class="hljs-built_in">console</span>.log(stuff.PHI); <span class="hljs-comment">// =&gt; 1.618033</span>
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

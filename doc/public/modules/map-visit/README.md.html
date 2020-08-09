@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\map-visit\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#map-visit">map-visit     </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#what-does-this-do">What does this do?</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#about">About</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributors">Contributors</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#building-docs">Building docs</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#running-tests">Running tests</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="map-visit">
+  <h1>
+    <a href="#map-visit" name="map-visit" class="pilcrow"></a>
+map-visit <a href="https://www.npmjs.com/package/map-visit"><img src="https://img.shields.io/npm/v/map-visit.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.org/package/map-visit"><img src="https://img.shields.io/npm/dm/map-visit.svg?style=flat" alt="NPM monthly downloads"></a>  <a href="https://npmjs.org/package/map-visit"><img src="https://img.shields.io/npm/dt/map-visit.svg?style=flat" alt="NPM total downloads"></a> <a href="https://travis-ci.org/jonschlinkert/map-visit"><img src="https://img.shields.io/travis/jonschlinkert/map-visit.svg?style=flat&amp;label=Travis" alt="Linux Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Map <code>visit</code> over an array of objects.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://www.npmjs.com/">npm</a>:</p>
+<pre><code class="sh">$ npm install --save map-visit
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> mapVisit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'map-visit'</span>);
+</code></pre>
+<div class="pilwrap" id="what-does-this-do">
+  <h2>
+    <a href="#what-does-this-do" name="what-does-this-do" class="pilcrow"></a>
+What does this do?
+  </h2>
+</div>
+<p><strong>Assign/Merge/Extend vs. Visit</strong></p>
+<p>Let's say you want to add a <code>set</code> method to your application that will:</p>
+<ul>
+<li>set key-value pairs on a <code>data</code> object</li>
+<li>extend objects onto the <code>data</code> object</li>
+<li>extend arrays of objects onto the data object</li>
+</ul>
+<p><strong>Example using <code>extend</code></strong></p>
+<p>Here is one way to accomplish this using Lo-Dash's <code>extend</code> (comparable to <code>Object.assign</code>):</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>);
+
+<span class="hljs-keyword">var</span> obj = {
+  <span class="hljs-attr">data</span>: {},
+  <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key, value</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(key)) {
+      _.extend.apply(_, [obj.data].concat(key));
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> key === <span class="hljs-string">'object'</span>) {
+      _.extend(obj.data, key);
+    } <span class="hljs-keyword">else</span> {
+      obj.data[key] = value;
+    }
+  }
+};
+
+obj.set(<span class="hljs-string">'a'</span>, <span class="hljs-string">'a'</span>);
+obj.set([{<span class="hljs-attr">b</span>: <span class="hljs-string">'b'</span>}, {<span class="hljs-attr">c</span>: <span class="hljs-string">'c'</span>}]);
+obj.set({<span class="hljs-attr">d</span>: {<span class="hljs-attr">e</span>: <span class="hljs-string">'f'</span>}});
+
+<span class="hljs-built_in">console</span>.log(obj.data);
+<span class="hljs-comment">//=&gt; {a: 'a', b: 'b', c: 'c', d: { e: 'f' }}</span>
+</code></pre>
+<p>The above approach works fine for most use cases. However, <strong>if you also want to emit an event</strong> each time a property is added to the <code>data</code> object, or you want more control over what happens as the object is extended, a better approach would be to use <code>visit</code>.</p>
+<p><strong>Example using <code>visit</code></strong></p>
+<p>In this approach:</p>
+<ul>
+<li>when an array is passed to <code>set</code>, the <code>mapVisit</code> library calls the <code>set</code> method on each object in the array.</li>
+<li>when an object is passed, <code>visit</code> calls <code>set</code> on each property in the object.</li>
+</ul>
+<p>As a result, the <code>data</code> event will be emitted every time a property is added to <code>data</code> (events are just an example, you can use this approach to perform any necessary logic every time the method is called).</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> mapVisit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'map-visit'</span>);
+<span class="hljs-keyword">var</span> visit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'object-visit'</span>);
+
+<span class="hljs-keyword">var</span> obj = {
+  <span class="hljs-attr">data</span>: {},
+  <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key, value</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(key)) {
+      mapVisit(obj, <span class="hljs-string">'set'</span>, key);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> key === <span class="hljs-string">'object'</span>) {
+      visit(obj, <span class="hljs-string">'set'</span>, key);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-comment">// simulate an event-emitter</span>
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'emit'</span>, key, value);
+      obj.data[key] = value;
+    }
+  }
+};
+
+obj.set(<span class="hljs-string">'a'</span>, <span class="hljs-string">'a'</span>);
+obj.set([{<span class="hljs-attr">b</span>: <span class="hljs-string">'b'</span>}, {<span class="hljs-attr">c</span>: <span class="hljs-string">'c'</span>}]);
+obj.set({<span class="hljs-attr">d</span>: {<span class="hljs-attr">e</span>: <span class="hljs-string">'f'</span>}});
+obj.set({<span class="hljs-attr">g</span>: <span class="hljs-string">'h'</span>, <span class="hljs-attr">i</span>: <span class="hljs-string">'j'</span>, <span class="hljs-attr">k</span>: <span class="hljs-string">'l'</span>});
+
+<span class="hljs-built_in">console</span>.log(obj.data);
+<span class="hljs-comment">//=&gt; {a: 'a', b: 'b', c: 'c', d: { e: 'f' }, g: 'h', i: 'j', k: 'l'}</span>
+
+<span class="hljs-comment">// events would look something like:</span>
+<span class="hljs-comment">// emit a a</span>
+<span class="hljs-comment">// emit b b</span>
+<span class="hljs-comment">// emit c c</span>
+<span class="hljs-comment">// emit d { e: 'f' }</span>
+<span class="hljs-comment">// emit g h</span>
+<span class="hljs-comment">// emit i j</span>
+<span class="hljs-comment">// emit k l</span>
+</code></pre>
+<div class="pilwrap" id="about">
+  <h2>
+    <a href="#about" name="about" class="pilcrow"></a>
+About
+  </h2>
+</div>
+<div class="pilwrap" id="related-projects">
+  <h3>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h3>
+</div>
+<ul>
+<li><a href="https://www.npmjs.com/package/collection-visit">collection-visit</a>: Visit a method over the items in an object, or map visit over the objects… <a href="https://github.com/jonschlinkert/collection-visit">more</a> | <a href="https://github.com/jonschlinkert/collection-visit" title="Visit a method over the items in an object, or map visit over the objects in an array.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/object-visit">object-visit</a>: Call a specified method on each value in the given object. | <a href="https://github.com/jonschlinkert/object-visit" title="Call a specified method on each value in the given object.">homepage</a></li>
+</ul>
+<div class="pilwrap" id="contributing">
+  <h3>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h3>
+</div>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="../../issues/new.html">please create an issue</a>.</p>
+<div class="pilwrap" id="contributors">
+  <h3>
+    <a href="#contributors" name="contributors" class="pilcrow"></a>
+Contributors
+  </h3>
+</div>
+<table>
+<thead>
+<tr>
+<th><strong>Commits</strong></th>
+<th><strong>Contributor</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>15</td>
+<td><a href="https://github.com/jonschlinkert">jonschlinkert</a></td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="https://github.com/doowb">doowb</a></td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="building-docs">
+  <h3>
+    <a href="#building-docs" name="building-docs" class="pilcrow"></a>
+Building docs
+  </h3>
+</div>
+<p><em>(This project's readme.md is generated by <a href="https://github.com/verbose/verb-generate-readme">verb</a>, please don't edit the readme directly. Any changes to the readme must be made in the <a href=".verb.md.html">.verb.md</a> readme template.)</em></p>
+<p>To generate the readme, run the following command:</p>
+<pre><code class="sh">$ npm install -g verbose/verb<span class="hljs-comment">#dev verb-generate-readme &amp;&amp; verb</span>
+</code></pre>
+<div class="pilwrap" id="running-tests">
+  <h3>
+    <a href="#running-tests" name="running-tests" class="pilcrow"></a>
+Running tests
+  </h3>
+</div>
+<p>Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:</p>
+<pre><code class="sh">$ npm install &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="author">
+  <h3>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h3>
+</div>
+<p><strong>Jon Schlinkert</strong></p>
+<ul>
+<li><a href="https://github.com/jonschlinkert">github/jonschlinkert</a></li>
+<li><a href="https://twitter.com/jonschlinkert">twitter/jonschlinkert</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h3>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h3>
+</div>
+<p>Copyright © 2017, <a href="https://github.com/jonschlinkert">Jon Schlinkert</a>.
+Released under the <a href="LICENSE.html">MIT License</a>.</p>
+<hr>
+<p><em>This file was generated by <a href="https://github.com/verbose/verb-generate-readme">verb-generate-readme</a>, v0.5.0, on April 09, 2017.</em></p>
+</div>
+  </div>
+</body>
+</html>

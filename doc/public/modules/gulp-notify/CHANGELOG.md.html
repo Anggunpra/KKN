@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CHANGELOG.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-notify\\CHANGELOG.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#changelog">Changelog</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v3.0.0">v3.0.0</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#breaking-changes">Breaking Changes</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v2.2.0">v2.2.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v2.1.0">v2.1.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v2.0.1">v2.0.1</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v2.0.0">v2.0.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v1.8.0">v1.8.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v1.7.1">v1.7.1</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v1.7.0">v1.7.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v1.6.0">v1.6.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v1.5.1">v1.5.1</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v1.5.0">v1.5.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v1.4.0">v1.4.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v1.3.1">v1.3.1</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v1.3.0">v1.3.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v1.2.1">v1.2.1</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v1.1.0">v1.1.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v1.0.0-beta">v1.0.0-beta</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v0.6.2">v0.6.2</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v0.6.1">v0.6.1</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#v0.5.0">v0.5.0</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="changelog">
+  <h1>
+    <a href="#changelog" name="changelog" class="pilcrow"></a>
+Changelog
+  </h1>
+</div>
+<div class="pilwrap" id="v3.0.0">
+  <h4>
+    <a href="#v3.0.0" name="v3.0.0" class="pilcrow"></a>
+<code>v3.0.0</code>
+  </h4>
+</div>
+<div class="pilwrap" id="breaking-changes">
+  <h5>
+    <a href="#breaking-changes" name="breaking-changes" class="pilcrow"></a>
+Breaking Changes
+  </h5>
+</div>
+<ol>
+<li>Updates to <code>node-notifier@v5.0.0</code> and the the <a href="https://github.com/mikaelbr/node-notifier/blob/master/CHANGELOG.md#v500">breaking changes from that</a> applies to gulp-notify.</li>
+</ol>
+<div class="pilwrap" id="v2.2.0">
+  <h4>
+    <a href="#v2.2.0" name="v2.2.0" class="pilcrow"></a>
+<code>v2.2.0</code>
+  </h4>
+</div>
+<ol>
+<li>Adds support for changing host, port and appName for Growl.</li>
+<li>Adds support for templating on subtitle and open (for Notification Center).</li>
+<li>Adds support for returning options in function argument style.</li>
+</ol>
+<div class="pilwrap" id="v2.1.0">
+  <h4>
+    <a href="#v2.1.0" name="v2.1.0" class="pilcrow"></a>
+<code>v2.1.0</code>
+  </h4>
+</div>
+<ol>
+<li>Adds <code>click</code> and <code>timeout</code> events to <code>notify</code> object.</li>
+</ol>
+<div class="pilwrap" id="v2.0.1">
+  <h4>
+    <a href="#v2.0.1" name="v2.0.1" class="pilcrow"></a>
+<code>v2.0.1</code>
+  </h4>
+</div>
+<ol>
+<li>Now <code>onError()</code> calls <code>.emit('end')</code> for you on the stream. Making watching and usage easier.</li>
+</ol>
+<div class="pilwrap" id="v2.0.0">
+  <h4>
+    <a href="#v2.0.0" name="v2.0.0" class="pilcrow"></a>
+<code>v2.0.0</code>
+  </h4>
+</div>
+<ol>
+<li>Major bump due to node-notifier (underlying module for doing notifications) have changed it's API and thus this has as well.
+See <a href="https://github.com/mikaelbr/node-notifier/blob/master/CHANGELOG.md#v400">changelog on node-notifier</a>.</li>
+</ol>
+<div class="pilwrap" id="v1.8.0">
+  <h4>
+    <a href="#v1.8.0" name="v1.8.0" class="pilcrow"></a>
+<code>v1.8.0</code>
+  </h4>
+</div>
+<ol>
+<li>Changes notification to continue stream at once (unless when using the stream - i.e. when emitting errors)</li>
+<li>Fixes example gulpfile by returning stream for each task.</li>
+</ol>
+<div class="pilwrap" id="v1.7.1">
+  <h4>
+    <a href="#v1.7.1" name="v1.7.1" class="pilcrow"></a>
+<code>v1.7.1</code>
+  </h4>
+</div>
+<ol>
+<li>Fixes issue with Windows 7 and Growl/Bubble conditional.</li>
+</ol>
+<div class="pilwrap" id="v1.7.0">
+  <h4>
+    <a href="#v1.7.0" name="v1.7.0" class="pilcrow"></a>
+<code>v1.7.0</code>
+  </h4>
+</div>
+<ol>
+<li>Now supports native windows 7 and earlier notifications, through balloons! This means that gulp-notify can be used on any platform without any extra installs.</li>
+</ol>
+<div class="pilwrap" id="v1.6.0">
+  <h4>
+    <a href="#v1.6.0" name="v1.6.0" class="pilcrow"></a>
+<code>v1.6.0</code>
+  </h4>
+</div>
+<ol>
+<li>Now supports native windows notifications!</li>
+</ol>
+<div class="pilwrap" id="v1.5.1">
+  <h4>
+    <a href="#v1.5.1" name="v1.5.1" class="pilcrow"></a>
+<code>v1.5.1</code>
+  </h4>
+</div>
+<ol>
+<li>Changes success icon <a href="https://github.com/mikaelbr/gulp-notify/issues/48">ref #48</a>.</li>
+<li>Changes to show better info notice if no notifier is found <a href="https://github.com/mikaelbr/gulp-notify/issues/49">ref #48</a>.</li>
+<li>Adds ToC to the README.md.</li>
+</ol>
+<div class="pilwrap" id="v1.5.0">
+  <h4>
+    <a href="#v1.5.0" name="v1.5.0" class="pilcrow"></a>
+<code>v1.5.0</code>
+  </h4>
+</div>
+<ol>
+<li>Adds a global way to disable notifier by doing <code>export DISABLE_NOTIFIER=true</code>.</li>
+</ol>
+<div class="pilwrap" id="v1.4.0">
+  <h4>
+    <a href="#v1.4.0" name="v1.4.0" class="pilcrow"></a>
+<code>v1.4.0</code>
+  </h4>
+</div>
+<ol>
+<li>Adds default icons for regular notification and error. Also adds Frog sound on error on Mac.</li>
+</ol>
+<div class="pilwrap" id="v1.3.1">
+  <h4>
+    <a href="#v1.3.1" name="v1.3.1" class="pilcrow"></a>
+<code>v1.3.1</code>
+  </h4>
+</div>
+<ol>
+<li>Updates node-notifier dependency. Adds support for app icon and images for Mac.</li>
+</ol>
+<div class="pilwrap" id="v1.3.0">
+  <h4>
+    <a href="#v1.3.0" name="v1.3.0" class="pilcrow"></a>
+<code>v1.3.0</code>
+  </h4>
+</div>
+<ol>
+<li>Adds default setting for failing silently. Introduces concept emitError flag to still emit errors</li>
+</ol>
+<div class="pilwrap" id="v1.2.1">
+  <h4>
+    <a href="#v1.2.1" name="v1.2.1" class="pilcrow"></a>
+<code>v1.2.1</code>
+  </h4>
+</div>
+<ol>
+<li>The entire options-object is passed to the notifier, allowing pass additional information to notifiers.</li>
+<li>Adds support for showing errors returned from the notifiers and showing these errors in the console.</li>
+</ol>
+<div class="pilwrap" id="v1.1.0">
+  <h4>
+    <a href="#v1.1.0" name="v1.1.0" class="pilcrow"></a>
+<code>v1.1.0</code>
+  </h4>
+</div>
+<ol>
+<li>Bumps dependency for <code>node-notifier</code>. Now supports Growl on Windows!</li>
+</ol>
+<div class="pilwrap" id="v1.0.0-beta">
+  <h4>
+    <a href="#v1.0.0-beta" name="v1.0.0-beta" class="pilcrow"></a>
+<code>v1.0.0-beta</code>
+  </h4>
+</div>
+<ol>
+<li>Major rewrites and restructure in code</li>
+<li>Lock down on API, changes <code>setLogLevel</code> to <code>logLevel</code></li>
+<li>Exposes logLevel and logger on the withReporter object.</li>
+</ol>
+<div class="pilwrap" id="v0.6.2">
+  <h4>
+    <a href="#v0.6.2" name="v0.6.2" class="pilcrow"></a>
+<code>v0.6.2</code>
+  </h4>
+</div>
+<ol>
+<li>Adds another logging level: 0 - none, 1 - error, 2 - all.</li>
+</ol>
+<div class="pilwrap" id="v0.6.1">
+  <h4>
+    <a href="#v0.6.1" name="v0.6.1" class="pilcrow"></a>
+<code>v0.6.1</code>
+  </h4>
+</div>
+<ol>
+<li>Added <code>.onError</code> method on object created by <code>withReporter</code></li>
+<li>Added colored logging on success / error</li>
+</ol>
+<div class="pilwrap" id="v0.5.0">
+  <h4>
+    <a href="#v0.5.0" name="v0.5.0" class="pilcrow"></a>
+<code>v0.5.0</code>
+  </h4>
+</div>
+<ol>
+<li>Added API end point <code>notify.withReporter(Reporter)</code> as syntactic suger for custom reporter</li>
+<li>Updated dependency for node-notfier - now checking if <code>notify-send</code> is installed on the Linux box</li>
+</ol>
+</div>
+  </div>
+</body>
+</html>

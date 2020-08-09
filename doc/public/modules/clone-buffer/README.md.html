@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\clone-buffer\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#clone-buffer">clone-buffer</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#example">Example</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#clonebuffer-buffer">cloneBuffer(buffer)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p align="center">
+  <a href="http://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+</p>
+<div class="pilwrap" id="clone-buffer">
+  <h1>
+    <a href="#clone-buffer" name="clone-buffer" class="pilcrow"></a>
+clone-buffer
+  </h1>
+</div>
+<p><a href="https://npmjs.org/package/clone-buffer"><img src="http://img.shields.io/npm/v/clone-buffer.svg" alt="NPM version"></a> <a href="https://npmjs.org/package/clone-buffer"><img src="http://img.shields.io/npm/dm/clone-buffer.svg" alt="Downloads"></a> <a href="https://travis-ci.org/gulpjs/clone-buffer"><img src="http://img.shields.io/travis/gulpjs/clone-buffer.svg?label=travis-ci" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/gulpjs/clone-buffer"><img src="https://img.shields.io/appveyor/ci/gulpjs/clone-buffer.svg?label=appveyor" alt="AppVeyor Build Status"></a> <a href="https://coveralls.io/r/gulpjs/clone-buffer"><img src="http://img.shields.io/coveralls/gulpjs/clone-buffer/master.svg" alt="Coveralls Status"></a> <a href="https://gitter.im/gulpjs/gulp"><img src="https://badges.gitter.im/gulpjs/gulp.png" alt="Gitter chat"></a></p>
+<p>Easier Buffer cloning in node.</p>
+<div class="pilwrap" id="example">
+  <h2>
+    <a href="#example" name="example" class="pilcrow"></a>
+Example
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> cloneBuffer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'clone-buffer'</span>);
+
+<span class="hljs-keyword">var</span> buffer = <span class="hljs-keyword">new</span> Buffer(<span class="hljs-string">'test'</span>);
+<span class="hljs-keyword">var</span> cloned = cloneBuffer(buffer);
+<span class="hljs-comment">// buffer !== cloned</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="clonebuffer-buffer">
+  <h3>
+    <a href="#clonebuffer-buffer" name="clonebuffer-buffer" class="pilcrow"></a>
+<code>cloneBuffer(buffer)</code>
+  </h3>
+</div>
+<p>Takes a <code>Buffer</code> object and returns a clone.  Throws if a non-<code>Buffer</code> is passed.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

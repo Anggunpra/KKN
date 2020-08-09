@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\caw\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">const</span> url = <span class="hljs-built_in">require</span>(<span class="hljs-string">'url'</span>);
+<span class="hljs-keyword">const</span> getProxy = <span class="hljs-built_in">require</span>(<span class="hljs-string">'get-proxy'</span>);
+<span class="hljs-keyword">const</span> isurl = <span class="hljs-built_in">require</span>(<span class="hljs-string">'isurl'</span>);
+<span class="hljs-keyword">const</span> tunnelAgent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tunnel-agent'</span>);
+<span class="hljs-keyword">const</span> urlToOptions = <span class="hljs-built_in">require</span>(<span class="hljs-string">'url-to-options'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">proxy, opts</span>) =&gt;</span> {
+	proxy = proxy || getProxy();
+	opts = <span class="hljs-built_in">Object</span>.assign({}, opts);
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> proxy === <span class="hljs-string">'object'</span>) {
+		opts = proxy;
+		proxy = getProxy();
+	}
+
+	<span class="hljs-keyword">if</span> (!proxy) {
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+	}
+
+	proxy = isurl.lenient(proxy) ? urlToOptions(proxy) : url.parse(proxy);
+
+	<span class="hljs-keyword">const</span> uriProtocol = opts.protocol === <span class="hljs-string">'https'</span> ? <span class="hljs-string">'https'</span> : <span class="hljs-string">'http'</span>;
+	<span class="hljs-keyword">const</span> proxyProtocol = proxy.protocol === <span class="hljs-string">'https:'</span> ? <span class="hljs-string">'Https'</span> : <span class="hljs-string">'Http'</span>;
+	<span class="hljs-keyword">const</span> port = proxy.port || (proxyProtocol === <span class="hljs-string">'Https'</span> ? <span class="hljs-number">443</span> : <span class="hljs-number">80</span>);
+	<span class="hljs-keyword">const</span> method = <span class="hljs-string">`<span class="hljs-subst">${uriProtocol}</span>Over<span class="hljs-subst">${proxyProtocol}</span>`</span>;
+
+	<span class="hljs-keyword">delete</span> opts.protocol;
+
+	<span class="hljs-keyword">return</span> tunnelAgent[method](<span class="hljs-built_in">Object</span>.assign({
+		<span class="hljs-attr">proxy</span>: {
+			port,
+			<span class="hljs-attr">host</span>: proxy.hostname,
+			<span class="hljs-attr">proxyAuth</span>: proxy.auth
+		}
+	}, opts));
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

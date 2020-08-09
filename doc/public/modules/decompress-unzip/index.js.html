@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\decompress-unzip\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">const</span> fileType = <span class="hljs-built_in">require</span>(<span class="hljs-string">'file-type'</span>);
+<span class="hljs-keyword">const</span> getStream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'get-stream'</span>);
+<span class="hljs-keyword">const</span> pify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pify'</span>);
+<span class="hljs-keyword">const</span> yauzl = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yauzl'</span>);
+
+<span class="hljs-keyword">const</span> getType = <span class="hljs-function">(<span class="hljs-params">entry, mode</span>) =&gt;</span> {
+	<span class="hljs-keyword">const</span> IFMT = <span class="hljs-number">61440</span>;
+	<span class="hljs-keyword">const</span> IFDIR = <span class="hljs-number">16384</span>;
+	<span class="hljs-keyword">const</span> IFLNK = <span class="hljs-number">40960</span>;
+	<span class="hljs-keyword">const</span> madeBy = entry.versionMadeBy &gt;&gt; <span class="hljs-number">8</span>;
+
+	<span class="hljs-keyword">if</span> ((mode &amp; IFMT) === IFLNK) {
+		<span class="hljs-keyword">return</span> <span class="hljs-string">'symlink'</span>;
+	}
+
+	<span class="hljs-keyword">if</span> ((mode &amp; IFMT) === IFDIR || (madeBy === <span class="hljs-number">0</span> &amp;&amp; entry.externalFileAttributes === <span class="hljs-number">16</span>)) {
+		<span class="hljs-keyword">return</span> <span class="hljs-string">'directory'</span>;
+	}
+
+	<span class="hljs-keyword">return</span> <span class="hljs-string">'file'</span>;
+};
+
+<span class="hljs-keyword">const</span> extractEntry = <span class="hljs-function">(<span class="hljs-params">entry, zip</span>) =&gt;</span> {
+	<span class="hljs-keyword">const</span> file = {
+		<span class="hljs-attr">mode</span>: (entry.externalFileAttributes &gt;&gt; <span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xFFFF</span>,
+		<span class="hljs-attr">mtime</span>: entry.getLastModDate(),
+		<span class="hljs-attr">path</span>: entry.fileName
+	};
+
+	file.type = getType(entry, file.mode);
+
+	<span class="hljs-keyword">if</span> (file.mode === <span class="hljs-number">0</span> &amp;&amp; file.type === <span class="hljs-string">'directory'</span>) {
+		file.mode = <span class="hljs-number">493</span>;
+	}
+
+	<span class="hljs-keyword">if</span> (file.mode === <span class="hljs-number">0</span>) {
+		file.mode = <span class="hljs-number">420</span>;
+	}
+
+	<span class="hljs-keyword">return</span> pify(zip.openReadStream.bind(zip))(entry)
+		.then(getStream.buffer)
+		.then(<span class="hljs-function"><span class="hljs-params">buf</span> =&gt;</span> {
+			file.data = buf;
+
+			<span class="hljs-keyword">if</span> (file.type === <span class="hljs-string">'symlink'</span>) {
+				file.linkname = buf.toString();
+			}
+
+			<span class="hljs-keyword">return</span> file;
+		})
+		.catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+			zip.close();
+			<span class="hljs-keyword">throw</span> err;
+		});
+};
+
+<span class="hljs-keyword">const</span> extractFile = <span class="hljs-function"><span class="hljs-params">zip</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+	<span class="hljs-keyword">const</span> files = [];
+
+	zip.readEntry();
+
+	zip.on(<span class="hljs-string">'entry'</span>, entry =&gt; {
+		extractEntry(entry, zip)
+			.catch(reject)
+			.then(<span class="hljs-function"><span class="hljs-params">file</span> =&gt;</span> {
+				files.push(file);
+				zip.readEntry();
+			});
+	});
+
+	zip.on(<span class="hljs-string">'error'</span>, reject);
+	zip.on(<span class="hljs-string">'end'</span>, () =&gt; resolve(files));
+});
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">buf</span> =&gt;</span> {
+	<span class="hljs-keyword">if</span> (!Buffer.isBuffer(buf)) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">`Expected a Buffer, got <span class="hljs-subst">${<span class="hljs-keyword">typeof</span> buf}</span>`</span>));
+	}
+
+	<span class="hljs-keyword">if</span> (!fileType(buf) || fileType(buf).ext !== <span class="hljs-string">'zip'</span>) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve([]);
+	}
+
+	<span class="hljs-keyword">return</span> pify(yauzl.fromBuffer)(buf, {<span class="hljs-attr">lazyEntries</span>: <span class="hljs-literal">true</span>}).then(extractFile);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

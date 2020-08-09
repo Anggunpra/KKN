@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\json-buffer\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<p>TODO: handle reviver/dehydrate function like normal
+and handle indentation, like normal.
+if anyone needs this... please send pull request.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+exports.stringify = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringify</span> (<span class="hljs-params">o</span>) </span>{
+  <span class="hljs-keyword">if</span>(<span class="hljs-string">'undefined'</span> == <span class="hljs-keyword">typeof</span> o) <span class="hljs-keyword">return</span> o
+
+  <span class="hljs-keyword">if</span>(o &amp;&amp; Buffer.isBuffer(o))
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-string">':base64:'</span> + o.toString(<span class="hljs-string">'base64'</span>))
+
+  <span class="hljs-keyword">if</span>(o &amp;&amp; o.toJSON)
+    o =  o.toJSON()
+
+  <span class="hljs-keyword">if</span>(o &amp;&amp; <span class="hljs-string">'object'</span> === <span class="hljs-keyword">typeof</span> o) {
+    <span class="hljs-keyword">var</span> s = <span class="hljs-string">''</span>
+    <span class="hljs-keyword">var</span> array = <span class="hljs-built_in">Array</span>.isArray(o)
+    s = array ? <span class="hljs-string">'['</span> : <span class="hljs-string">'{'</span>
+    <span class="hljs-keyword">var</span> first = <span class="hljs-literal">true</span>
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> k <span class="hljs-keyword">in</span> o) {
+      <span class="hljs-keyword">var</span> ignore = <span class="hljs-string">'function'</span> == <span class="hljs-keyword">typeof</span> o[k] || (!array &amp;&amp; <span class="hljs-string">'undefined'</span> === <span class="hljs-keyword">typeof</span> o[k])
+      <span class="hljs-keyword">if</span>(<span class="hljs-built_in">Object</span>.hasOwnProperty.call(o, k) &amp;&amp; !ignore) {
+        <span class="hljs-keyword">if</span>(!first)
+          s += <span class="hljs-string">','</span>
+        first = <span class="hljs-literal">false</span>
+        <span class="hljs-keyword">if</span> (array) {
+          <span class="hljs-keyword">if</span>(o[k] == <span class="hljs-literal">undefined</span>)
+            s += <span class="hljs-string">'null'</span>
+          <span class="hljs-keyword">else</span>
+            s += stringify(o[k])
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (o[k] !== <span class="hljs-keyword">void</span>(<span class="hljs-number">0</span>)) {
+          s += stringify(k) + <span class="hljs-string">':'</span> + stringify(o[k])
+        }
+      }
+    }
+
+    s += array ? <span class="hljs-string">']'</span> : <span class="hljs-string">'}'</span>
+
+    <span class="hljs-keyword">return</span> s
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">'string'</span> === <span class="hljs-keyword">typeof</span> o) {
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-regexp">/^:/</span>.test(o) ? <span class="hljs-string">':'</span> + o : o)
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">'undefined'</span> === <span class="hljs-keyword">typeof</span> o) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'null'</span>;
+  } <span class="hljs-keyword">else</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(o)
+}
+
+exports.parse = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">s</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(s, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key, value</span>) </span>{
+    <span class="hljs-keyword">if</span>(<span class="hljs-string">'string'</span> === <span class="hljs-keyword">typeof</span> value) {
+      <span class="hljs-keyword">if</span>(<span class="hljs-regexp">/^:base64:/</span>.test(value))
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Buffer(value.substring(<span class="hljs-number">8</span>), <span class="hljs-string">'base64'</span>)
+      <span class="hljs-keyword">else</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^:/</span>.test(value) ? value.substring(<span class="hljs-number">1</span>) : value 
+    }
+    <span class="hljs-keyword">return</span> value
+  })
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-concat\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> through = <span class="hljs-built_in">require</span>(<span class="hljs-string">'through2'</span>);
+<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">var</span> File = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vinyl'</span>);
+<span class="hljs-keyword">var</span> Concat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'concat-with-sourcemaps'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>file can be a vinyl file object or a string
+when a string it will construct a new one</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">file, opt</span>) </span>{
+  <span class="hljs-keyword">if</span> (!file) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'gulp-concat: Missing file option'</span>);
+  }
+  opt = opt || {};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>to preserve existing |undefined| behaviour and to introduce |newLine: &quot;&quot;| for binaries</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opt.newLine !== <span class="hljs-string">'string'</span>) {
+    opt.newLine = <span class="hljs-string">'\n'</span>;
+  }
+
+  <span class="hljs-keyword">var</span> isUsingSourceMaps = <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">var</span> latestFile;
+  <span class="hljs-keyword">var</span> latestMod;
+  <span class="hljs-keyword">var</span> fileName;
+  <span class="hljs-keyword">var</span> concat;
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> file === <span class="hljs-string">'string'</span>) {
+    fileName = file;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> file.path === <span class="hljs-string">'string'</span>) {
+    fileName = path.basename(file.path);
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'gulp-concat: Missing path in file options'</span>);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bufferContents</span>(<span class="hljs-params">file, enc, cb</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>ignore empty files</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (file.isNull()) {
+      cb();
+      <span class="hljs-keyword">return</span>;
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>we don't do streams (yet)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (file.isStream()) {
+      <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'gulp-concat: Streaming not supported'</span>));
+      cb();
+      <span class="hljs-keyword">return</span>;
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>enable sourcemap support for concat
+if a sourcemap initialized file comes in</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (file.sourceMap &amp;&amp; isUsingSourceMaps === <span class="hljs-literal">false</span>) {
+      isUsingSourceMaps = <span class="hljs-literal">true</span>;
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>set latest file if not already set,
+or if the current file was modified more recently.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (!latestMod || file.stat &amp;&amp; file.stat.mtime &gt; latestMod) {
+      latestFile = file;
+      latestMod = file.stat &amp;&amp; file.stat.mtime;
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>construct concat instance</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (!concat) {
+      concat = <span class="hljs-keyword">new</span> Concat(isUsingSourceMaps, fileName, opt.newLine);
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>add file to concat instance</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    concat.add(file.relative, file.contents, file.sourceMap);
+    cb();
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">endStream</span>(<span class="hljs-params">cb</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>no files passed in, no file goes out</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (!latestFile || !concat) {
+      cb();
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">var</span> joinedFile;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>if file opt was a file path
+clone everything from the latest file</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> file === <span class="hljs-string">'string'</span>) {
+      joinedFile = latestFile.clone({<span class="hljs-attr">contents</span>: <span class="hljs-literal">false</span>});
+      joinedFile.path = path.join(latestFile.base, file);
+    } <span class="hljs-keyword">else</span> {
+      joinedFile = <span class="hljs-keyword">new</span> File(file);
+    }
+
+    joinedFile.contents = concat.content;
+
+    <span class="hljs-keyword">if</span> (concat.sourceMapping) {
+      joinedFile.sourceMap = <span class="hljs-built_in">JSON</span>.parse(concat.sourceMap);
+    }
+
+    <span class="hljs-keyword">this</span>.push(joinedFile);
+    cb();
+  }
+
+  <span class="hljs-keyword">return</span> through.obj(bufferContents, endStream);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

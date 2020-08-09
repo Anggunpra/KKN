@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\exec-series\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#exec-series">exec-series</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#execseries-commands-options-callback">execSeries(commands [, options, callback])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#callback-error-stdoutarray-stderrarray">callback(error, stdoutArray, stderrArray)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="exec-series">
+  <h1>
+    <a href="#exec-series" name="exec-series" class="pilcrow"></a>
+exec-series
+  </h1>
+</div>
+<p><a href="https://www.npmjs.com/package/exec-series"><img src="https://img.shields.io/npm/v/exec-series.svg" alt="NPM version"></a>
+<a href="https://travis-ci.org/shinnn/exec-series"><img src="https://travis-ci.org/shinnn/exec-series.svg?branch=master" alt="Build Status"></a>
+<a href="https://ci.appveyor.com/project/ShinnosukeWatanabe/exec-series"><img src="https://ci.appveyor.com/api/projects/status/bi4pflltlq5368ym?svg=true" alt="Build status"></a>
+<a href="https://coveralls.io/r/shinnn/exec-series"><img src="https://img.shields.io/coveralls/shinnn/exec-series.svg" alt="Coverage Status"></a>
+<a href="https://david-dm.org/shinnn/exec-series"><img src="https://david-dm.org/shinnn/exec-series.svg" alt="Dependency Status"></a>
+<a href="https://david-dm.org/shinnn/exec-series#info=devDependencies"><img src="https://david-dm.org/shinnn/exec-series/dev-status.svg" alt="devDependency Status"></a></p>
+<p>A <a href="https://nodejs.org/">Node</a> module to run commands in order</p>
+<pre><code class="javascript"><span class="hljs-keyword">const</span> execSeries = <span class="hljs-built_in">require</span>(<span class="hljs-string">'exec-series'</span>);
+
+execSeries([<span class="hljs-string">'echo "foo"'</span>, <span class="hljs-string">'echo "bar"'</span>], (err, stdouts, stderrs) =&gt; {
+  <span class="hljs-keyword">if</span> (err) {
+    <span class="hljs-keyword">throw</span> err;
+  }
+
+  <span class="hljs-built_in">console</span>.log(stdouts); <span class="hljs-comment">// yields: ['foo\n', 'bar\n']</span>
+  <span class="hljs-built_in">console</span>.log(stderrs); <span class="hljs-comment">// yields: ['', '']</span>
+});
+</code></pre>
+<p>On Linux, you can do almost the same thing with <a href="http://tldp.org/LDP/abs/html/list-cons.html#LISTCONSREF"><code>&amp;&amp;</code></a> operator like below:</p>
+<pre><code class="javascript"><span class="hljs-keyword">const</span> {exec} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'child_process'</span>);
+
+exec(<span class="hljs-string">'echo "foo" &amp;&amp; echo "bar"'</span>, (err, stdout, stderr) =&gt; {
+  <span class="hljs-comment">//...</span>
+});
+</code></pre>
+<p>However, some environments, such as <a href="https://connect.microsoft.com/PowerShell/feedback/details/778798/implement-the-and-operators-that-bash-has">Windows PowerShell</a>, don't support <code>&amp;&amp;</code> operator. This module helps you to <a href="https://gist.github.com/domenic/2790533">create a cross-platform Node program</a>.</p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<p><a href="https://docs.npmjs.com/cli/install">Use npm.</a></p>
+<pre><code>npm install exec-series
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">const</span> execSeries = <span class="hljs-built_in">require</span>(<span class="hljs-string">'exec-series'</span>);
+</code></pre>
+<div class="pilwrap" id="execseries-commands-options-callback">
+  <h3>
+    <a href="#execseries-commands-options-callback" name="execseries-commands-options-callback" class="pilcrow"></a>
+execSeries(<em>commands</em> [, <em>options</em>, <em>callback</em>])
+  </h3>
+</div>
+<p><em>commands</em>: <code>Array</code> of <code>String</code> (the commands to run)<br>
+<em>options</em>: <code>Object</code> (<a href="https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback">child_process.exec</a> options with <code>maxBuffer</code> defaulting to 10 MB)<br>
+<em>callback</em>: <code>Function</code></p>
+<p>It sequentially runs the commands using <a href="https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback">child_process.exec</a>. If the first command has finished successfully, the second command will run, and so on.</p>
+<p>After the last command has finished, it runs the callback function.</p>
+<p>When one of the commands fails, it immediately calls the callback function and the rest of the commands won't be run.</p>
+<div class="pilwrap" id="callback-error-stdoutarray-stderrarray">
+  <h4>
+    <a href="#callback-error-stdoutarray-stderrarray" name="callback-error-stdoutarray-stderrarray" class="pilcrow"></a>
+callback(<em>error</em>, <em>stdoutArray</em>, <em>stderrArray</em>)
+  </h4>
+</div>
+<p><em>error</em>: <code>Error</code> if one of the commands fails, otherwise <code>undefined</code><br>
+<em>stdoutArray</em>: <code>Array</code> of <code>String</code> (stdout of the commands)<br>
+<em>stderrArray</em>: <code>Array</code> of <code>String</code> (stderr of the commands)</p>
+<pre><code class="javascript">execSeries([
+  <span class="hljs-string">'mkdir foo'</span>,
+  <span class="hljs-string">'echo bar'</span>,
+  <span class="hljs-string">'exit 200'</span>,
+  <span class="hljs-string">'mkdir baz'</span>
+], (err, stdouts, stderrs) =&gt; {
+  err.code; <span class="hljs-comment">//=&gt; 200</span>
+  stdouts; <span class="hljs-comment">//=&gt; ['', 'bar\n', '']</span>
+  stderrs; <span class="hljs-comment">//=&gt; ['', '', '']</span>
+  
+  fs.statSync(<span class="hljs-string">'foo'</span>).isDirectory; <span class="hljs-comment">//=&gt; true</span>
+  fs.statSync(<span class="hljs-string">'baz'</span>); <span class="hljs-comment">// throw an error</span>
+});
+</code></pre>
+<p>Callback function is optional.</p>
+<pre><code class="javascript">execSeries([<span class="hljs-string">'mkdir foo'</span>, <span class="hljs-string">'mkdir bar'</span>]);
+
+setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  fs.statSync(<span class="hljs-string">'foo'</span>).isDirectory(); <span class="hljs-comment">//=&gt; true</span>
+  fs.statSync(<span class="hljs-string">'bar'</span>).isDirectory(); <span class="hljs-comment">//=&gt; true</span>
+}, <span class="hljs-number">1000</span>);
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>Copyright (c) 2014 - 2016 <a href="https://github.com/shinnn">Shinnosuke Watanabe</a></p>
+<p>Licensed under <a href="./LICENSE.html">the MIT License</a>.</p>
+</div>
+  </div>
+</body>
+</html>

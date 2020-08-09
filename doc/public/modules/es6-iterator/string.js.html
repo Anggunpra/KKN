@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>string.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es6-iterator\\string.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>string.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<p>Thanks @mathiasbynens
+http://mathiasbynens.be/notes/javascript-unicode#iterating-over-symbols</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">
+"use strict"</span>;
+
+<span class="hljs-keyword">var</span> setPrototypeOf = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/object/set-prototype-of"</span>)
+  , d              = <span class="hljs-built_in">require</span>(<span class="hljs-string">"d"</span>)
+  , <span class="hljs-built_in">Symbol</span>         = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es6-symbol"</span>)
+  , Iterator       = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./"</span>);
+
+<span class="hljs-keyword">var</span> defineProperty = <span class="hljs-built_in">Object</span>.defineProperty, StringIterator;
+
+StringIterator = <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">str</span>) </span>{
+	<span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> StringIterator)) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Constructor requires 'new'"</span>);
+	str = <span class="hljs-built_in">String</span>(str);
+	Iterator.call(<span class="hljs-keyword">this</span>, str);
+	defineProperty(<span class="hljs-keyword">this</span>, <span class="hljs-string">"__length__"</span>, d(<span class="hljs-string">""</span>, str.length));
+};
+<span class="hljs-keyword">if</span> (setPrototypeOf) setPrototypeOf(StringIterator, Iterator);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Internal %ArrayIteratorPrototype% doesn't expose its constructor</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">delete</span> StringIterator.prototype.constructor;
+
+StringIterator.prototype = <span class="hljs-built_in">Object</span>.create(Iterator.prototype, {
+	<span class="hljs-attr">_next</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.__list__) <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.__nextIndex__ &lt; <span class="hljs-keyword">this</span>.__length__) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.__nextIndex__++;
+		<span class="hljs-keyword">this</span>._unBind();
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+	}),
+	<span class="hljs-attr">_resolve</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i</span>) </span>{
+		<span class="hljs-keyword">var</span> char = <span class="hljs-keyword">this</span>.__list__[i], code;
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.__nextIndex__ === <span class="hljs-keyword">this</span>.__length__) <span class="hljs-keyword">return</span> char;
+		code = char.charCodeAt(<span class="hljs-number">0</span>);
+		<span class="hljs-keyword">if</span> (code &gt;= <span class="hljs-number">0xd800</span> &amp;&amp; code &lt;= <span class="hljs-number">0xdbff</span>) <span class="hljs-keyword">return</span> char + <span class="hljs-keyword">this</span>.__list__[<span class="hljs-keyword">this</span>.__nextIndex__++];
+		<span class="hljs-keyword">return</span> char;
+	})
+});
+defineProperty(StringIterator.prototype, <span class="hljs-built_in">Symbol</span>.toStringTag, d(<span class="hljs-string">"c"</span>, <span class="hljs-string">"String Iterator"</span>));
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

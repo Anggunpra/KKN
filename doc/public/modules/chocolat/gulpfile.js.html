@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>gulpfile.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\chocolat\\gulpfile.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>gulpfile.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">const</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">const</span> gutil = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-util'</span>);
+<span class="hljs-keyword">const</span> rename = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-rename'</span>);
+<span class="hljs-keyword">const</span> uglify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-uglify'</span>);
+<span class="hljs-keyword">const</span> bump = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-bump'</span>);
+<span class="hljs-keyword">const</span> mochaPhantomJS = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-mocha-phantomjs'</span>);
+
+gulp.task(<span class="hljs-string">'testing'</span>, () =&gt;
+    gulp.src(<span class="hljs-string">'./test/index.html'</span>)
+    .pipe(mochaPhantomJS())
+);
+
+gulp.task(<span class="hljs-string">'build-js'</span>, () =&gt;
+    gulp.src(<span class="hljs-string">'./src/js/jquery.chocolat.js'</span>)
+    .pipe(gulp.dest(<span class="hljs-string">'./dist/js/'</span>))
+    .pipe(rename(<span class="hljs-string">'jquery.chocolat.min.js'</span>))
+    .pipe(uglify())
+    .pipe(gulp.dest(<span class="hljs-string">'./dist/js/'</span>))
+);
+
+gulp.task(<span class="hljs-string">'build-css'</span>, () =&gt;
+    gulp.src(<span class="hljs-string">'./src/css/chocolat.css'</span>)
+    .pipe(gulp.dest(<span class="hljs-string">'./dist/css/'</span>))
+);
+
+gulp.task(<span class="hljs-string">'build-images'</span>, () =&gt;
+    gulp.src(<span class="hljs-string">'./src/images/*'</span>)
+    .pipe(gulp.dest(<span class="hljs-string">'./dist/images/'</span>))
+);
+
+gulp.task(<span class="hljs-string">'lint'</span>, () =&gt;
+    gulp.src(<span class="hljs-string">'./src/js/jquery.chocolat.js'</span>)
+    .pipe(jshint())
+    .pipe(jshint.reporter(<span class="hljs-string">'default'</span>))
+);
+
+gulp.task(<span class="hljs-string">'bump'</span>, () =&gt;
+    gulp.src([<span class="hljs-string">'./package.json'</span>, <span class="hljs-string">'./bower.json'</span>])
+    .pipe(bump())
+    .pipe(gulp.dest(<span class="hljs-string">'./'</span>))
+);
+
+gulp.task(<span class="hljs-string">'watch-test'</span>,() =&gt; gulp.watch([<span class="hljs-string">'./test/*.js'</span>, <span class="hljs-string">'./src/js/*.js'</span>, <span class="hljs-string">'./src/css/*.css'</span>], [<span class="hljs-string">'test'</span>]));
+
+gulp.task(<span class="hljs-string">'watch-src'</span>,() =&gt; gulp.watch([<span class="hljs-string">'./src/js/*.js'</span>, <span class="hljs-string">'./src/css/*.css'</span>], [<span class="hljs-string">'build-js'</span>, <span class="hljs-string">'build-css'</span>]));
+
+gulp.task(<span class="hljs-string">'test'</span>, [
+    <span class="hljs-string">'build'</span>,
+    <span class="hljs-string">'testing'</span>,
+    <span class="hljs-string">'watch-test'</span>
+]);
+gulp.task(<span class="hljs-string">'build'</span>, [
+    <span class="hljs-string">'build-js'</span>,
+    <span class="hljs-string">'build-css'</span>,
+    <span class="hljs-string">'build-images'</span>
+]);
+gulp.task(<span class="hljs-string">'default'</span>, [
+    <span class="hljs-string">'build'</span>,
+    <span class="hljs-string">'watch-src'</span>
+]);
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

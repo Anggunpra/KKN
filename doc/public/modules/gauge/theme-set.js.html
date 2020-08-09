@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>theme-set.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gauge\\theme-set.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>theme-set.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+<span class="hljs-keyword">var</span> objectAssign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'object-assign'</span>)
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> ThemeSetProto.newThemeSet()
+}
+
+<span class="hljs-keyword">var</span> ThemeSetProto = {}
+
+ThemeSetProto.baseTheme = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./base-theme.js'</span>)
+
+ThemeSetProto.newTheme = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">parent, theme</span>) </span>{
+  <span class="hljs-keyword">if</span> (!theme) {
+    theme = parent
+    parent = <span class="hljs-keyword">this</span>.baseTheme
+  }
+  <span class="hljs-keyword">return</span> objectAssign({}, parent, theme)
+}
+
+ThemeSetProto.getThemeNames = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.themes)
+}
+
+ThemeSetProto.addTheme = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name, parent, theme</span>) </span>{
+  <span class="hljs-keyword">this</span>.themes[name] = <span class="hljs-keyword">this</span>.newTheme(parent, theme)
+}
+
+ThemeSetProto.addToAllThemes = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">theme</span>) </span>{
+  <span class="hljs-keyword">var</span> themes = <span class="hljs-keyword">this</span>.themes
+  <span class="hljs-built_in">Object</span>.keys(themes).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) </span>{
+    objectAssign(themes[name], theme)
+  })
+  objectAssign(<span class="hljs-keyword">this</span>.baseTheme, theme)
+}
+
+ThemeSetProto.getTheme = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) </span>{
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.themes[name]) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">this</span>.newMissingThemeError(name)
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themes[name]
+}
+
+ThemeSetProto.setDefault = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts, name</span>) </span>{
+  <span class="hljs-keyword">if</span> (name == <span class="hljs-literal">null</span>) {
+    name = opts
+    opts = {}
+  }
+  <span class="hljs-keyword">var</span> platform = opts.platform == <span class="hljs-literal">null</span> ? <span class="hljs-string">'fallback'</span> : opts.platform
+  <span class="hljs-keyword">var</span> hasUnicode = !!opts.hasUnicode
+  <span class="hljs-keyword">var</span> hasColor = !!opts.hasColor
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.defaults[platform]) <span class="hljs-keyword">this</span>.defaults[platform] = {<span class="hljs-attr">true</span>: {}, <span class="hljs-attr">false</span>: {}}
+  <span class="hljs-keyword">this</span>.defaults[platform][hasUnicode][hasColor] = name
+}
+
+ThemeSetProto.getDefault = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+  <span class="hljs-keyword">if</span> (!opts) opts = {}
+  <span class="hljs-keyword">var</span> platformName = opts.platform || process.platform
+  <span class="hljs-keyword">var</span> platform = <span class="hljs-keyword">this</span>.defaults[platformName] || <span class="hljs-keyword">this</span>.defaults.fallback
+  <span class="hljs-keyword">var</span> hasUnicode = !!opts.hasUnicode
+  <span class="hljs-keyword">var</span> hasColor = !!opts.hasColor
+  <span class="hljs-keyword">if</span> (!platform) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">this</span>.newMissingDefaultThemeError(platformName, hasUnicode, hasColor)
+  <span class="hljs-keyword">if</span> (!platform[hasUnicode][hasColor]) {
+    <span class="hljs-keyword">if</span> (hasUnicode &amp;&amp; hasColor &amp;&amp; platform[!hasUnicode][hasColor]) {
+      hasUnicode = <span class="hljs-literal">false</span>
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (hasUnicode &amp;&amp; hasColor &amp;&amp; platform[hasUnicode][!hasColor]) {
+      hasColor = <span class="hljs-literal">false</span>
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (hasUnicode &amp;&amp; hasColor &amp;&amp; platform[!hasUnicode][!hasColor]) {
+      hasUnicode = <span class="hljs-literal">false</span>
+      hasColor = <span class="hljs-literal">false</span>
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (hasUnicode &amp;&amp; !hasColor &amp;&amp; platform[!hasUnicode][hasColor]) {
+      hasUnicode = <span class="hljs-literal">false</span>
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!hasUnicode &amp;&amp; hasColor &amp;&amp; platform[hasUnicode][!hasColor]) {
+      hasColor = <span class="hljs-literal">false</span>
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (platform === <span class="hljs-keyword">this</span>.defaults.fallback) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">this</span>.newMissingDefaultThemeError(platformName, hasUnicode, hasColor)
+    }
+  }
+  <span class="hljs-keyword">if</span> (platform[hasUnicode][hasColor]) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.getTheme(platform[hasUnicode][hasColor])
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.getDefault(objectAssign({}, opts, {<span class="hljs-attr">platform</span>: <span class="hljs-string">'fallback'</span>}))
+  }
+}
+
+ThemeSetProto.newMissingThemeError = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">newMissingThemeError</span> (<span class="hljs-params">name</span>) </span>{
+  <span class="hljs-keyword">var</span> err = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Could not find a gauge theme named "'</span> + name + <span class="hljs-string">'"'</span>)
+  <span class="hljs-built_in">Error</span>.captureStackTrace.call(err, newMissingThemeError)
+  err.theme = name
+  err.code = <span class="hljs-string">'EMISSINGTHEME'</span>
+  <span class="hljs-keyword">return</span> err
+}
+
+ThemeSetProto.newMissingDefaultThemeError = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">newMissingDefaultThemeError</span> (<span class="hljs-params">platformName, hasUnicode, hasColor</span>) </span>{
+  <span class="hljs-keyword">var</span> err = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(
+    <span class="hljs-string">'Could not find a gauge theme for your platform/unicode/color use combo:\n'</span> +
+    <span class="hljs-string">'    platform = '</span> + platformName + <span class="hljs-string">'\n'</span> +
+    <span class="hljs-string">'    hasUnicode = '</span> + hasUnicode + <span class="hljs-string">'\n'</span> +
+    <span class="hljs-string">'    hasColor = '</span> + hasColor)
+  <span class="hljs-built_in">Error</span>.captureStackTrace.call(err, newMissingDefaultThemeError)
+  err.platform = platformName
+  err.hasUnicode = hasUnicode
+  err.hasColor = hasColor
+  err.code = <span class="hljs-string">'EMISSINGTHEME'</span>
+  <span class="hljs-keyword">return</span> err
+}
+
+ThemeSetProto.newThemeSet = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> themeset = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts</span>) </span>{
+    <span class="hljs-keyword">return</span> themeset.getDefault(opts)
+  }
+  <span class="hljs-keyword">return</span> objectAssign(themeset, ThemeSetProto, {
+    <span class="hljs-attr">themes</span>: objectAssign({}, <span class="hljs-keyword">this</span>.themes),
+    <span class="hljs-attr">baseTheme</span>: objectAssign({}, <span class="hljs-keyword">this</span>.baseTheme),
+    <span class="hljs-attr">defaults</span>: <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-keyword">this</span>.defaults || {}))
+  })
+}
+
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

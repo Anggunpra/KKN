@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\delegate\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#delegate">delegate</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#setup">Setup</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#node-browserify">Node (Browserify)</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#browser-standalone">Browser (Standalone)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#add-event-delegation">Add event delegation</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#with-the-default-base-document">With the default base (document)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#with-an-element-as-base">With an element as base</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#with-a-selector-of-existing-elements-as-base">With a selector (of existing elements) as base</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#with-an-arrayarray-like-of-elements-as-base">With an array/array-like of elements as base</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#remove-event-delegation">Remove event delegation</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#with-a-single-base-element-default-or-specified">With a single base element (default or specified)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#with-multiple-elements-via-selector-or-array">With multiple elements (via selector or array)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#browser-support">Browser Support</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="delegate">
+  <h1>
+    <a href="#delegate" name="delegate" class="pilcrow"></a>
+delegate
+  </h1>
+</div>
+<p>Lightweight event delegation.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>You can get it on npm.</p>
+<pre><code>npm install delegate --save
+</code></pre>
+<p>If you're not into package management, just <a href="https://github.com/zenorocha/delegate/archive/master.zip">download a ZIP</a> file.</p>
+<div class="pilwrap" id="setup">
+  <h2>
+    <a href="#setup" name="setup" class="pilcrow"></a>
+Setup
+  </h2>
+</div>
+<div class="pilwrap" id="node-browserify">
+  <h6>
+    <a href="#node-browserify" name="node-browserify" class="pilcrow"></a>
+Node (Browserify)
+  </h6>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> delegate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'delegate'</span>);
+</code></pre>
+<div class="pilwrap" id="browser-standalone">
+  <h6>
+    <a href="#browser-standalone" name="browser-standalone" class="pilcrow"></a>
+Browser (Standalone)
+  </h6>
+</div>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dist/delegate.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<div class="pilwrap" id="add-event-delegation">
+  <h3>
+    <a href="#add-event-delegation" name="add-event-delegation" class="pilcrow"></a>
+Add event delegation
+  </h3>
+</div>
+<div class="pilwrap" id="with-the-default-base-document">
+  <h4>
+    <a href="#with-the-default-base-document" name="with-the-default-base-document" class="pilcrow"></a>
+With the default base (<code>document</code>)
+  </h4>
+</div>
+<pre><code class="js">delegate(<span class="hljs-string">'.btn'</span>, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(e.delegateTarget);
+}, <span class="hljs-literal">false</span>);
+</code></pre>
+<div class="pilwrap" id="with-an-element-as-base">
+  <h4>
+    <a href="#with-an-element-as-base" name="with-an-element-as-base" class="pilcrow"></a>
+With an element as base
+  </h4>
+</div>
+<pre><code class="js">delegate(<span class="hljs-built_in">document</span>.body, <span class="hljs-string">'.btn'</span>, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(e.delegateTarget);
+}, <span class="hljs-literal">false</span>);
+</code></pre>
+<div class="pilwrap" id="with-a-selector-of-existing-elements-as-base">
+  <h4>
+    <a href="#with-a-selector-of-existing-elements-as-base" name="with-a-selector-of-existing-elements-as-base" class="pilcrow"></a>
+With a selector (of existing elements) as base
+  </h4>
+</div>
+<pre><code class="js">delegate(<span class="hljs-string">'.container'</span>, <span class="hljs-string">'.btn'</span>, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(e.delegateTarget);
+}, <span class="hljs-literal">false</span>);
+</code></pre>
+<div class="pilwrap" id="with-an-arrayarray-like-of-elements-as-base">
+  <h4>
+    <a href="#with-an-arrayarray-like-of-elements-as-base" name="with-an-arrayarray-like-of-elements-as-base" class="pilcrow"></a>
+With an array/array-like of elements as base
+  </h4>
+</div>
+<pre><code class="js">delegate(<span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'.container'</span>), <span class="hljs-string">'.btn'</span>, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(e.delegateTarget);
+}, <span class="hljs-literal">false</span>);
+</code></pre>
+<div class="pilwrap" id="remove-event-delegation">
+  <h3>
+    <a href="#remove-event-delegation" name="remove-event-delegation" class="pilcrow"></a>
+Remove event delegation
+  </h3>
+</div>
+<div class="pilwrap" id="with-a-single-base-element-default-or-specified">
+  <h4>
+    <a href="#with-a-single-base-element-default-or-specified" name="with-a-single-base-element-default-or-specified" class="pilcrow"></a>
+With a single base element (default or specified)
+  </h4>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> delegation = delegate(<span class="hljs-built_in">document</span>.body, <span class="hljs-string">'.btn'</span>, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(e.delegateTarget);
+}, <span class="hljs-literal">false</span>);
+
+delegation.destroy();
+</code></pre>
+<div class="pilwrap" id="with-multiple-elements-via-selector-or-array">
+  <h4>
+    <a href="#with-multiple-elements-via-selector-or-array" name="with-multiple-elements-via-selector-or-array" class="pilcrow"></a>
+With multiple elements (via selector or array)
+  </h4>
+</div>
+<p>Note: selectors are always treated as multiple elements, even if one or none are matched. <code>delegate()</code> will return an array.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> delegations = delegate(<span class="hljs-string">'.container'</span>, <span class="hljs-string">'.btn'</span>, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(e.delegateTarget);
+}, <span class="hljs-literal">false</span>);
+
+delegations.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">delegation</span>) </span>{
+    delegation.destroy();
+});
+</code></pre>
+<div class="pilwrap" id="browser-support">
+  <h2>
+    <a href="#browser-support" name="browser-support" class="pilcrow"></a>
+Browser Support
+  </h2>
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="https://clipboardjs.com/assets/images/chrome.png" width="48px" height="48px" alt="Chrome logo"></th>
+<th style="text-align:center"><img src="https://clipboardjs.com/assets/images/edge.png" width="48px" height="48px" alt="Edge logo"></th>
+<th style="text-align:center"><img src="https://clipboardjs.com/assets/images/firefox.png" width="48px" height="48px" alt="Firefox logo"></th>
+<th style="text-align:center"><img src="https://clipboardjs.com/assets/images/ie.png" width="48px" height="48px" alt="Internet Explorer logo"></th>
+<th style="text-align:center"><img src="https://clipboardjs.com/assets/images/opera.png" width="48px" height="48px" alt="Opera logo"></th>
+<th style="text-align:center"><img src="https://clipboardjs.com/assets/images/safari.png" width="48px" height="48px" alt="Safari logo"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Latest ✔</td>
+<td style="text-align:center">Latest ✔</td>
+<td style="text-align:center">Latest ✔</td>
+<td style="text-align:center">9+ ✔</td>
+<td style="text-align:center">Latest ✔</td>
+<td style="text-align:center">Latest ✔</td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p><a href="http://zenorocha.mit-license.org/">MIT License</a> © Zeno Rocha</p>
+</div>
+  </div>
+</body>
+</html>

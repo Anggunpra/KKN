@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AtributeController.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "app\\Http\\Controllers\\AtributeController.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>AtributeController.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">DataTables</span>\<span class="hljs-title">AtributeDataTable</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Validator</span>;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AtributeController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Display a listing of the resource.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Http\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span><span class="hljs-params">(AtributeDataTable $datatable)</span>
+    </span>{
+        <span class="hljs-keyword">return</span> $datatable-&gt;render(<span class="hljs-string">'attribute.index'</span>);
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Show the form for creating a new resource.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Http\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'attribute.create'</span>);
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Store a newly created resource in storage.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">\Illuminate\Http\Request</span>
+<span>$request
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Http\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span><span class="hljs-params">(Request $request)</span>
+    </span>{
+        $input = $request-&gt;all();
+        $dataValidator = [
+            <span class="hljs-string">'nama_atribut'</span> =&gt; <span class="hljs-string">'required|string|alpha_dash|unique:attributes,nama_atribut'</span>,
+            <span class="hljs-string">'relasi_atribut'</span> =&gt; <span class="hljs-string">'nullable|string|alpha_dash'</span>,
+            <span class="hljs-string">'tipe_input'</span> =&gt; <span class="hljs-string">'required|in:Isian Text,Angka,Dropdown'</span>,
+            <span class="hljs-string">'wajib'</span> =&gt; <span class="hljs-string">'required|in:0,1'</span>,
+            <span class="hljs-string">'nilai'</span> =&gt; <span class="hljs-string">'required_if:tipe_input,==,Dropdown'</span>,
+        ];
+        $validator = Validator::make($input,$dataValidator);
+        <span class="hljs-keyword">if</span>($validator-&gt;fails()){
+            <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">'status'</span> =&gt; <span class="hljs-keyword">false</span> , <span class="hljs-string">'message'</span> =&gt; $validator-&gt;errors()-&gt;all()], <span class="hljs-number">400</span>);
+        }
+        $attribute = \App\Attribute::firstOrCreate([
+            <span class="hljs-string">'nama_atribut'</span> =&gt; $request-&gt;nama_atribut,
+            <span class="hljs-string">'relasi_atribut'</span> =&gt; $request-&gt;relasi_atribut,
+            <span class="hljs-string">'tipe_input'</span> =&gt; $request-&gt;tipe_input,
+            <span class="hljs-string">'wajib'</span> =&gt; $request-&gt;wajib,
+            <span class="hljs-string">'nilai'</span> =&gt; $request-&gt;nilai,
+        ]);
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">'status'</span> =&gt; <span class="hljs-keyword">true</span>, <span class="hljs-string">'message'</span> =&gt; <span class="hljs-string">'Berhasil Menambahkan Atribut'</span>], <span class="hljs-number">200</span>);
+    }
+
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Show the form for editing the specified resource.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">int</span>
+<span>$id
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Http\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">edit</span><span class="hljs-params">($id)</span>
+    </span>{
+        $attribute = \App\Attribute::findOrFail($id);
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'attribute.edit'</span>,compact(<span class="hljs-string">'attribute'</span>));
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Update the specified resource in storage.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">\Illuminate\Http\Request</span>
+<span>$request
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">int</span>
+<span>$id
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Http\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span><span class="hljs-params">(Request $request, $id)</span>
+    </span>{
+        $attribute = \App\Attribute::findOrFail($id);
+        $input = $request-&gt;all();
+        $dataValidator = [
+            <span class="hljs-string">'relasi_atribut'</span> =&gt; <span class="hljs-string">'nullable|string|alpha_dash'</span>,
+            <span class="hljs-string">'tipe_input'</span> =&gt; <span class="hljs-string">'required|in:Isian Text,Angka,Dropdown'</span>,
+            <span class="hljs-string">'wajib'</span> =&gt; <span class="hljs-string">'required|in:0,1'</span>,
+            <span class="hljs-string">'nilai'</span> =&gt; <span class="hljs-string">'required_if:tipe_input,==,Dropdown'</span>,
+        ];
+        <span class="hljs-keyword">if</span>($attribute-&gt;nama_atribut != $request-&gt;nama_atribut){
+            $dataValidator[<span class="hljs-string">'nama_atribut'</span>] = <span class="hljs-string">'required|string|alpha_dash|unique:attributes,nama_atribut'</span>;
+        }
+        $validator = Validator::make($input,$dataValidator);
+        <span class="hljs-keyword">if</span>($validator-&gt;fails()){
+            <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">'status'</span> =&gt; <span class="hljs-keyword">false</span> , <span class="hljs-string">'message'</span> =&gt; $validator-&gt;errors()-&gt;all()], <span class="hljs-number">400</span>);
+        }
+        $attribute-&gt;update([
+            <span class="hljs-string">'nama_atribut'</span> =&gt; $request-&gt;nama_atribut,
+            <span class="hljs-string">'relasi_atribut'</span> =&gt; $request-&gt;relasi_atribut,
+            <span class="hljs-string">'tipe_input'</span> =&gt; $request-&gt;tipe_input,
+            <span class="hljs-string">'wajib'</span> =&gt; $request-&gt;wajib,
+            <span class="hljs-string">'nilai'</span> =&gt; $request-&gt;nilai,
+        ]);
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">'status'</span> =&gt; <span class="hljs-keyword">true</span>, <span class="hljs-string">'message'</span> =&gt; <span class="hljs-string">'Berhasil Memperbarui Atribut'</span>], <span class="hljs-number">200</span>);
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Remove the specified resource from storage.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">int</span>
+<span>$id
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Http\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">destroy</span><span class="hljs-params">($id)</span>
+    </span>{
+        $attribute = \App\Attribute::findOrFail($id);
+        $attribute-&gt;delete();
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">'status'</span> =&gt; <span class="hljs-keyword">true</span>, <span class="hljs-string">'message'</span> =&gt; <span class="hljs-string">'Berhasil Menghapus Attribut'</span>], <span class="hljs-number">200</span>);
+    }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

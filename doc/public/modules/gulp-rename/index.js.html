@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-rename\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> Stream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'stream'</span>);
+<span class="hljs-keyword">var</span> Path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">gulpRename</span>(<span class="hljs-params">obj, options</span>) </span>{
+
+  options = options || {};
+
+  <span class="hljs-keyword">var</span> stream = <span class="hljs-keyword">new</span> Stream.Transform({<span class="hljs-attr">objectMode</span>: <span class="hljs-literal">true</span>});
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parsePath</span>(<span class="hljs-params">path</span>) </span>{
+    <span class="hljs-keyword">var</span> extname = options.multiExt ? Path.basename(path).slice(Path.basename(path).indexOf(<span class="hljs-string">'.'</span>)) : Path.extname(path);
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">dirname</span>: Path.dirname(path),
+      <span class="hljs-attr">basename</span>: Path.basename(path, extname),
+      <span class="hljs-attr">extname</span>: extname
+    };
+  }
+
+  stream._transform = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">originalFile, unused, callback</span>) </span>{
+
+
+    <span class="hljs-keyword">var</span> file = originalFile.clone({<span class="hljs-attr">contents</span>: <span class="hljs-literal">false</span>});
+    <span class="hljs-keyword">var</span> parsedPath = parsePath(file.relative);
+    <span class="hljs-keyword">var</span> path;
+
+    <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> obj;
+
+    <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'string'</span> &amp;&amp; obj !== <span class="hljs-string">''</span>) {
+
+      path = obj;
+
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'function'</span>) {
+
+      obj(parsedPath, file);
+      path = Path.join(parsedPath.dirname, parsedPath.basename + parsedPath.extname);
+
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'object'</span> &amp;&amp; obj !== <span class="hljs-literal">undefined</span> &amp;&amp; obj !== <span class="hljs-literal">null</span>) {
+
+      <span class="hljs-keyword">var</span> dirname = <span class="hljs-string">'dirname'</span> <span class="hljs-keyword">in</span> obj ? obj.dirname : parsedPath.dirname,
+        prefix = obj.prefix || <span class="hljs-string">''</span>,
+        suffix = obj.suffix || <span class="hljs-string">''</span>,
+        basename = <span class="hljs-string">'basename'</span> <span class="hljs-keyword">in</span> obj ? obj.basename : parsedPath.basename,
+        extname = <span class="hljs-string">'extname'</span> <span class="hljs-keyword">in</span> obj ? obj.extname : parsedPath.extname;
+
+      path = Path.join(dirname, prefix + basename + suffix + extname);
+
+    } <span class="hljs-keyword">else</span> {
+
+      callback(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Unsupported renaming parameter type supplied'</span>), <span class="hljs-literal">undefined</span>);
+      <span class="hljs-keyword">return</span>;
+
+    }
+
+    file.path = Path.join(file.base, path);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Rename sourcemap if present</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (file.sourceMap) {
+      file.sourceMap.file = file.relative;
+    }
+
+    callback(<span class="hljs-literal">null</span>, file);
+  };
+
+  <span class="hljs-keyword">return</span> stream;
+}
+
+<span class="hljs-built_in">module</span>.exports = gulpRename;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

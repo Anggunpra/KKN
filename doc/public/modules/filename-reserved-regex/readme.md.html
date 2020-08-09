@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\filename-reserved-regex\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#filename-reserved-regex">filename-reserved-regex </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#filenamereservedregex">filenameReservedRegex()</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#filenamereservedregex.windowsnames">filenameReservedRegex.windowsNames()</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="filename-reserved-regex">
+  <h1>
+    <a href="#filename-reserved-regex" name="filename-reserved-regex" class="pilcrow"></a>
+filename-reserved-regex <a href="https://travis-ci.org/sindresorhus/filename-reserved-regex"><img src="https://travis-ci.org/sindresorhus/filename-reserved-regex.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Regular expression for matching reserved filename characters</p>
+</blockquote>
+<p>On Unix-like systems <code>/</code> is reserved and <a href="http://msdn.microsoft.com/en-us/library/aa365247%28VS.85%29#naming_conventions"><code>&lt;&gt;:&quot;/\|?*</code></a> as well as non-printable characters <code>\x00-\x1F</code> on Windows.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save filename-reserved-regex
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> filenameReservedRegex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'filename-reserved-regex'</span>);
+
+filenameReservedRegex().test(<span class="hljs-string">'foo/bar'</span>);
+<span class="hljs-comment">//=&gt; true</span>
+
+filenameReservedRegex().test(<span class="hljs-string">'foo-bar'</span>);
+<span class="hljs-comment">//=&gt; false</span>
+
+<span class="hljs-string">'foo/bar'</span>.replace(filenameReservedRegex(), <span class="hljs-string">'!'</span>);
+<span class="hljs-comment">//=&gt; 'foo!bar'</span>
+
+filenameReservedRegex.windowsNames().test(<span class="hljs-string">'aux'</span>);
+<span class="hljs-comment">//=&gt; true</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="filenamereservedregex">
+  <h3>
+    <a href="#filenamereservedregex" name="filenamereservedregex" class="pilcrow"></a>
+filenameReservedRegex()
+  </h3>
+</div>
+<p>Returns a regex that matches all invalid characters.</p>
+<div class="pilwrap" id="filenamereservedregex.windowsnames">
+  <h3>
+    <a href="#filenamereservedregex.windowsnames" name="filenamereservedregex.windowsnames" class="pilcrow"></a>
+filenameReservedRegex.windowsNames()
+  </h3>
+</div>
+<p>Returns a exact-match case-insensitive regex that matches invalid Windows
+filenames. These include <code>CON</code>, <code>PRN</code>, <code>AUX</code>, <code>NUL</code>, <code>COM1</code>, <code>COM2</code>, <code>COM3</code>, <code>COM4</code>, <code>COM5</code>,
+<code>COM6</code>, <code>COM7</code>, <code>COM8</code>, <code>COM9</code>, <code>LPT1</code>, <code>LPT2</code>, <code>LPT3</code>, <code>LPT4</code>, <code>LPT5</code>, <code>LPT6</code>, <code>LPT7</code>, <code>LPT8</code>
+and <code>LPT9</code>.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

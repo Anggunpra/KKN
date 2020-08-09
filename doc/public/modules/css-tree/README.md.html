@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\css-tree\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#csstree">CSSTree</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#features">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#docs">Docs</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#tools">Tools</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#top-level-api">Top level API</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p><img align="right" width="111" height="111"
+     alt="CSSTree logo"
+     src="https://cloud.githubusercontent.com/assets/270491/19243723/6f9136c6-8f21-11e6-82ac-eeeee4c6c452.png"/></p>
+<div class="pilwrap" id="csstree">
+  <h1>
+    <a href="#csstree" name="csstree" class="pilcrow"></a>
+CSSTree
+  </h1>
+</div>
+<p><a href="https://www.npmjs.com/package/css-tree"><img src="https://img.shields.io/npm/v/css-tree.svg" alt="NPM version"></a>
+<a href="https://travis-ci.org/csstree/csstree"><img src="https://travis-ci.org/csstree/csstree.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/github/csstree/csstree?branch=master"><img src="https://coveralls.io/repos/github/csstree/csstree/badge.svg?branch=master" alt="Coverage Status"></a>
+<a href="https://www.npmjs.com/package/css-tree"><img src="https://img.shields.io/npm/dm/css-tree.svg" alt="NPM Downloads"></a>
+<a href="https://twitter.com/csstree"><img src="https://img.shields.io/badge/Twitter-@csstree-blue.svg" alt="Twitter"></a></p>
+<p>CSSTree is a tool set to work with CSS, including <a href="https://github.com/postcss/benchmark">fast</a> detailed parser (string-&gt;AST), walker (AST traversal), generator (AST-&gt;string) and lexer (validation and matching) based on knowledge of spec and browser implementations. The main goal is to be efficient and W3C spec compliant, with focus on CSS analyzing and source-to-source transforming tasks.</p>
+<blockquote>
+<p>NOTE: The project is in alpha stage since some parts need further improvements, AST format and API are subjects to change. However it's stable enough and used by packages like <a href="https://github.com/css/csso">CSSO</a> (CSS minifier) and <a href="https://github.com/svg/svgo">SVGO</a> (SVG optimizer) in production.</p>
+</blockquote>
+<div class="pilwrap" id="features">
+  <h2>
+    <a href="#features" name="features" class="pilcrow"></a>
+Features
+  </h2>
+</div>
+<ul>
+<li>
+<p><strong>Detailed parsing with an adjustable level of detail</strong></p>
+<p>By default CSSTree parses CSS as detailed as possible, i.e. each single logical part is representing with its own AST node (see <a href="docs/ast.md.html">AST format</a> for all possible node types). The parsing detail level can be changed through <a href="docs/parsing.md#parsesource-options.html">parser options</a>, for example, you can disable parsing of selectors or declaration values for component parts.</p>
+</li>
+<li>
+<p><strong>Tolerant to errors by design</strong></p>
+<p>Parser behaves as <a href="https://www.w3.org/TR/css-syntax-3/#error-handling">spec says</a>: &quot;When errors occur in CSS, the parser attempts to recover gracefully, throwing away only the minimum amount of content before returning to parsing as normal&quot;. The only thing the parser departs from the specification is that it doesn't throw away bad content, but wraps it in a special node type (<code>Raw</code>) that allows processing it later.</p>
+</li>
+<li>
+<p><strong>Fast and efficient</strong></p>
+<p>CSSTree is created with focus on performance and effective memory consumption. Therefore it's <a href="https://github.com/postcss/benchmark">one of the fastest CSS parsers</a> at the moment.</p>
+</li>
+<li>
+<p><strong>Syntax validation</strong></p>
+<p>The build-in lexer can test CSS against syntaxes defined by W3C. CSSTree uses <a href="https://github.com/mdn/data/">mdn/data</a> as a basis for lexer's dictionaries and extends it with vendor specific and legacy syntaxes. Lexer can only check the declaration values currently, but this feature will be extended to other parts of the CSS in the future.</p>
+</li>
+</ul>
+<div class="pilwrap" id="docs">
+  <h2>
+    <a href="#docs" name="docs" class="pilcrow"></a>
+Docs
+  </h2>
+</div>
+<ul>
+<li><a href="docs/parsing.md.html">Parsing CSS into AST</a></li>
+<li><a href="docs/ast.md.html">AST format</a></li>
+<li><a href="docs/generate.md.html">Generate CSS from AST</a></li>
+<li><a href="docs/traversal.md.html">AST traversal</a></li>
+<li><a href="docs/utils.md.html">Utils to work with AST</a></li>
+</ul>
+<div class="pilwrap" id="tools">
+  <h2>
+    <a href="#tools" name="tools" class="pilcrow"></a>
+Tools
+  </h2>
+</div>
+<ul>
+<li><a href="https://astexplorer.net/#/gist/244e2fb4da940df52bf0f4b94277db44/e79aff44611020b22cfd9708f3a99ce09b7d67a8">AST Explorer</a> – explore CSSTree AST format with zero setup</li>
+<li><a href="https://csstree.github.io/docs/syntax.html">CSS syntax reference</a></li>
+<li><a href="https://csstree.github.io/docs/validator.html">CSS syntax validator</a></li>
+</ul>
+<div class="pilwrap" id="related-projects">
+  <h2>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/csstree/validator">csstree-validator</a> – NPM package to validate CSS</li>
+<li><a href="https://github.com/csstree/stylelint-validator">stylelint-csstree-validator</a> – plugin for stylelint to validate CSS</li>
+<li><a href="https://github.com/sergejmueller/grunt-csstree-validator">Grunt plugin</a></li>
+<li><a href="https://github.com/csstree/gulp-csstree">Gulp plugin</a></li>
+<li><a href="https://github.com/csstree/SublimeLinter-contrib-csstree">Sublime plugin</a></li>
+<li><a href="https://github.com/csstree/vscode-plugin">VS Code plugin</a></li>
+<li><a href="https://github.com/csstree/atom-plugin">Atom plugin</a></li>
+</ul>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>Install with npm:</p>
+<pre><code>&gt; npm install css-tree
+</code></pre>
+<p>Basic usage:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> csstree = <span class="hljs-built_in">require</span>(<span class="hljs-string">'css-tree'</span>);
+
+<span class="hljs-comment">// parse CSS to AST</span>
+<span class="hljs-keyword">var</span> ast = csstree.parse(<span class="hljs-string">'.example { world: "!" }'</span>);
+
+<span class="hljs-comment">// traverse AST and modify it</span>
+csstree.walk(ast, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">if</span> (node.type === <span class="hljs-string">'ClassSelector'</span> &amp;&amp; node.name === <span class="hljs-string">'example'</span>) {
+        node.name = <span class="hljs-string">'hello'</span>;
+    }
+});
+
+<span class="hljs-comment">// generate CSS from AST</span>
+<span class="hljs-built_in">console</span>.log(csstree.generate(ast));
+<span class="hljs-comment">// .hello{world:"!"}</span>
+</code></pre>
+<p>Syntax matching:</p>
+<pre><code class="js"><span class="hljs-comment">// parse CSS to AST as a declaration value</span>
+<span class="hljs-keyword">var</span> ast = csstree.parse(<span class="hljs-string">'red 1px solid'</span>, { <span class="hljs-attr">context</span>: <span class="hljs-string">'value'</span> });
+
+<span class="hljs-comment">// march to syntax of `border` property</span>
+<span class="hljs-keyword">var</span> matchResult = csstree.lexer.matchProperty(<span class="hljs-string">'border'</span>, ast);
+
+<span class="hljs-comment">// check first value node is a &lt;color&gt;</span>
+<span class="hljs-built_in">console</span>.log(matchResult.isType(ast.children.first(), <span class="hljs-string">'color'</span>));
+<span class="hljs-comment">// true</span>
+
+<span class="hljs-comment">// get a type list matched to a node</span>
+<span class="hljs-built_in">console</span>.log(matchResult.getTrace(ast.children.first()));
+<span class="hljs-comment">// [ { type: 'Property', name: 'border' },</span>
+<span class="hljs-comment">//   { type: 'Type', name: 'color' },</span>
+<span class="hljs-comment">//   { type: 'Type', name: 'named-color' },</span>
+<span class="hljs-comment">//   { type: 'Keyword', name: 'red' } ]</span>
+</code></pre>
+<div class="pilwrap" id="top-level-api">
+  <h2>
+    <a href="#top-level-api" name="top-level-api" class="pilcrow"></a>
+Top level API
+  </h2>
+</div>
+<p><img src="https://cdn.rawgit.com/csstree/csstree/master/docs/api-map.svg" alt="API map"></p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

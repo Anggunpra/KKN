@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\collection-visit\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#collection-visit">collection-visit     </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#about">About</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributors">Contributors</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#building-docs">Building docs</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#running-tests">Running tests</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="collection-visit">
+  <h1>
+    <a href="#collection-visit" name="collection-visit" class="pilcrow"></a>
+collection-visit <a href="https://www.npmjs.com/package/collection-visit"><img src="https://img.shields.io/npm/v/collection-visit.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.org/package/collection-visit"><img src="https://img.shields.io/npm/dm/collection-visit.svg?style=flat" alt="NPM monthly downloads"></a>  <a href="https://npmjs.org/package/collection-visit"><img src="https://img.shields.io/npm/dt/collection-visit.svg?style=flat" alt="NPM total downloads"></a> <a href="https://travis-ci.org/jonschlinkert/collection-visit"><img src="https://img.shields.io/travis/jonschlinkert/collection-visit.svg?style=flat&amp;label=Travis" alt="Linux Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Visit a method over the items in an object, or map visit over the objects in an array.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://www.npmjs.com/">npm</a>:</p>
+<pre><code class="sh">$ npm install --save collection-visit
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> visit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'collection-visit'</span>);
+
+<span class="hljs-keyword">var</span> ctx = {
+  <span class="hljs-attr">data</span>: {},
+  <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key, value</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> key === <span class="hljs-string">'object'</span>) {
+      visit(ctx, <span class="hljs-string">'set'</span>, key);
+    } <span class="hljs-keyword">else</span> {
+      ctx.data[key] = value;
+    }
+  }
+};
+
+ctx.set(<span class="hljs-string">'a'</span>, <span class="hljs-string">'a'</span>);
+ctx.set(<span class="hljs-string">'b'</span>, <span class="hljs-string">'b'</span>);
+ctx.set(<span class="hljs-string">'c'</span>, <span class="hljs-string">'c'</span>);
+ctx.set({<span class="hljs-attr">d</span>: {<span class="hljs-attr">e</span>: <span class="hljs-string">'f'</span>}});
+
+<span class="hljs-built_in">console</span>.log(ctx.data);
+<span class="hljs-comment">//=&gt; {a: 'a', b: 'b', c: 'c', d: { e: 'f' }};</span>
+</code></pre>
+<div class="pilwrap" id="about">
+  <h2>
+    <a href="#about" name="about" class="pilcrow"></a>
+About
+  </h2>
+</div>
+<div class="pilwrap" id="related-projects">
+  <h3>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h3>
+</div>
+<ul>
+<li><a href="https://www.npmjs.com/package/base-methods">base-methods</a>: base-methods is the foundation for creating modular, unit testable and highly pluggable node.js applications, starting… <a href="https://github.com/jonschlinkert/base-methods">more</a> | <a href="https://github.com/jonschlinkert/base-methods" title="base-methods is the foundation for creating modular, unit testable and highly pluggable node.js applications, starting with a handful of common methods, like `set`, `get`, `del` and `use`.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/map-visit">map-visit</a>: Map <code>visit</code> over an array of objects. | <a href="https://github.com/jonschlinkert/map-visit" title="Map `visit` over an array of objects.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/object-visit">object-visit</a>: Call a specified method on each value in the given object. | <a href="https://github.com/jonschlinkert/object-visit" title="Call a specified method on each value in the given object.">homepage</a></li>
+</ul>
+<div class="pilwrap" id="contributing">
+  <h3>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h3>
+</div>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="../../issues/new.html">please create an issue</a>.</p>
+<div class="pilwrap" id="contributors">
+  <h3>
+    <a href="#contributors" name="contributors" class="pilcrow"></a>
+Contributors
+  </h3>
+</div>
+<table>
+<thead>
+<tr>
+<th><strong>Commits</strong></th>
+<th><strong>Contributor</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13</td>
+<td><a href="https://github.com/jonschlinkert">jonschlinkert</a></td>
+</tr>
+<tr>
+<td>9</td>
+<td><a href="https://github.com/doowb">doowb</a></td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="building-docs">
+  <h3>
+    <a href="#building-docs" name="building-docs" class="pilcrow"></a>
+Building docs
+  </h3>
+</div>
+<p><em>(This project's readme.md is generated by <a href="https://github.com/verbose/verb-generate-readme">verb</a>, please don't edit the readme directly. Any changes to the readme must be made in the <a href=".verb.md.html">.verb.md</a> readme template.)</em></p>
+<p>To generate the readme, run the following command:</p>
+<pre><code class="sh">$ npm install -g verbose/verb<span class="hljs-comment">#dev verb-generate-readme &amp;&amp; verb</span>
+</code></pre>
+<div class="pilwrap" id="running-tests">
+  <h3>
+    <a href="#running-tests" name="running-tests" class="pilcrow"></a>
+Running tests
+  </h3>
+</div>
+<p>Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:</p>
+<pre><code class="sh">$ npm install &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="author">
+  <h3>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h3>
+</div>
+<p><strong>Jon Schlinkert</strong></p>
+<ul>
+<li><a href="https://github.com/jonschlinkert">github/jonschlinkert</a></li>
+<li><a href="https://twitter.com/jonschlinkert">twitter/jonschlinkert</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h3>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h3>
+</div>
+<p>Copyright © 2017, <a href="https://github.com/jonschlinkert">Jon Schlinkert</a>.
+Released under the <a href="LICENSE.html">MIT License</a>.</p>
+<hr>
+<p><em>This file was generated by <a href="https://github.com/verbose/verb-generate-readme">verb-generate-readme</a>, v0.5.0, on April 09, 2017.</em></p>
+</div>
+  </div>
+</body>
+</html>

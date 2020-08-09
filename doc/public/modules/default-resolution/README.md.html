@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\default-resolution\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#default-resolution">default-resolution</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#defaultresolution-resolution">defaultResolution([resolution])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#default-resolutions">Default resolutions</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p align="center">
+  <a href="http://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+</p>
+<div class="pilwrap" id="default-resolution">
+  <h1>
+    <a href="#default-resolution" name="default-resolution" class="pilcrow"></a>
+default-resolution
+  </h1>
+</div>
+<p><a href="https://www.npmjs.com/package/default-resolution"><img src="http://img.shields.io/npm/v/default-resolution.svg" alt="NPM version"></a> <a href="https://www.npmjs.com/package/default-resolution"><img src="http://img.shields.io/npm/dm/default-resolution.svg" alt="Downloads"></a> <a href="https://travis-ci.org/gulpjs/default-resolution"><img src="http://img.shields.io/travis/gulpjs/default-resolution.svg?label=travis-ci" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/gulpjs/default-resolution"><img src="https://img.shields.io/appveyor/ci/gulpjs/default-resolution.svg?label=appveyor" alt="AppVeyor Build Status"></a> <a href="https://coveralls.io/r/gulpjs/default-resolution"><img src="http://img.shields.io/coveralls/gulpjs/default-resolution/master.svg" alt="Coveralls Status"></a> <a href="https://gitter.im/gulpjs/gulp"><img src="https://badges.gitter.im/gulpjs/gulp.svg" alt="Gitter chat"></a></p>
+<p>Get the default resolution time based on the current node version, optionally overridable.</p>
+<p>Originally implemented by <a href="https://github.com/dinoboff">@dinoboff</a> in <a href="https://github.com/gulpjs/undertaker/pull/17">gulpjs/undertaker#17</a>.</p>
+<p>Split out for standalone use.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> defaultResolution = <span class="hljs-built_in">require</span>(<span class="hljs-string">'default-resolution'</span>);
+
+defaultResolution();
+<span class="hljs-comment">//-&gt; 1000 (1 second) in node 0.10</span>
+<span class="hljs-comment">//-&gt; 1 (millisecond) in node 0.11+</span>
+
+<span class="hljs-comment">// use a different value</span>
+defaultResolution(<span class="hljs-number">12</span>);
+<span class="hljs-comment">//-&gt; 12 always</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="defaultresolution-resolution">
+  <h3>
+    <a href="#defaultresolution-resolution" name="defaultresolution-resolution" class="pilcrow"></a>
+<code>defaultResolution([resolution])</code>
+  </h3>
+</div>
+<p>Returns the default resolution, based on the node platform. See <a href="#default-resolutions.html">Default resolution table</a> below for resolutions.</p>
+<p>Optionally takes a resolution number to force override any platform resolutions.</p>
+<div class="pilwrap" id="default-resolutions">
+  <h3>
+    <a href="#default-resolutions" name="default-resolutions" class="pilcrow"></a>
+Default resolutions
+  </h3>
+</div>
+<table>
+<thead>
+<tr>
+<th>node version</th>
+<th>resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.10</td>
+<td>1s</td>
+</tr>
+<tr>
+<td>0.11+</td>
+<td>1ms</td>
+</tr>
+</tbody>
+</table>
+<p>More information at https://github.com/gulpjs/undertaker/pull/17#issuecomment-82374512</p>
+<div class="pilwrap" id="license">
+  <h1>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h1>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

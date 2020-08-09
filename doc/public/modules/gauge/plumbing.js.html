@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>plumbing.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gauge\\plumbing.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>plumbing.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+<span class="hljs-keyword">var</span> consoleControl = <span class="hljs-built_in">require</span>(<span class="hljs-string">'console-control-strings'</span>)
+<span class="hljs-keyword">var</span> renderTemplate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./render-template.js'</span>)
+<span class="hljs-keyword">var</span> validate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'aproba'</span>)
+
+<span class="hljs-keyword">var</span> Plumbing = <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">theme, template, width</span>) </span>{
+  <span class="hljs-keyword">if</span> (!width) width = <span class="hljs-number">80</span>
+  validate(<span class="hljs-string">'OAN'</span>, [theme, template, width])
+  <span class="hljs-keyword">this</span>.showing = <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">this</span>.theme = theme
+  <span class="hljs-keyword">this</span>.width = width
+  <span class="hljs-keyword">this</span>.template = template
+}
+Plumbing.prototype = {}
+
+Plumbing.prototype.setTheme = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">theme</span>) </span>{
+  validate(<span class="hljs-string">'O'</span>, [theme])
+  <span class="hljs-keyword">this</span>.theme = theme
+}
+
+Plumbing.prototype.setTemplate = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">template</span>) </span>{
+  validate(<span class="hljs-string">'A'</span>, [template])
+  <span class="hljs-keyword">this</span>.template = template
+}
+
+Plumbing.prototype.setWidth = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">width</span>) </span>{
+  validate(<span class="hljs-string">'N'</span>, [width])
+  <span class="hljs-keyword">this</span>.width = width
+}
+
+Plumbing.prototype.hide = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> consoleControl.gotoSOL() + consoleControl.eraseLine()
+}
+
+Plumbing.prototype.hideCursor = consoleControl.hideCursor
+
+Plumbing.prototype.showCursor = consoleControl.showCursor
+
+Plumbing.prototype.show = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">status</span>) </span>{
+  <span class="hljs-keyword">var</span> values = <span class="hljs-built_in">Object</span>.create(<span class="hljs-keyword">this</span>.theme)
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> status) {
+    values[key] = status[key]
+  }
+
+  <span class="hljs-keyword">return</span> renderTemplate(<span class="hljs-keyword">this</span>.width, <span class="hljs-keyword">this</span>.template, values).trim() +
+         consoleControl.color(<span class="hljs-string">'reset'</span>) +
+         consoleControl.eraseLine() + consoleControl.gotoSOL()
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

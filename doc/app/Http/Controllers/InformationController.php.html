@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>InformationController.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "app\\Http\\Controllers\\InformationController.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>InformationController.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Str</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">DataTables</span>\<span class="hljs-title">InformationDataTable</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Validator</span>;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InformationController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Display a listing of the resource.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Http\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span><span class="hljs-params">(InformationDataTable $datatable)</span>
+    </span>{
+        <span class="hljs-keyword">return</span> $datatable-&gt;render(<span class="hljs-string">'information.index'</span>);
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Show the form for creating a new resource.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Http\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span><span class="hljs-params">()</span>
+    </span>{
+        $categories = \App\Category::all();
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'information.create'</span>,compact(<span class="hljs-string">'categories'</span>));
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Store a newly created resource in storage.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">\Illuminate\Http\Request</span>
+<span>$request
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Http\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span><span class="hljs-params">(Request $request)</span>
+    </span>{
+        $input = $request-&gt;all();
+        $dataValidator = [
+            <span class="hljs-string">'judul'</span> =&gt; <span class="hljs-string">'required|string|min:5'</span>,
+            <span class="hljs-string">'gambar'</span> =&gt; <span class="hljs-string">'nullable|mimes:jpeg,jpg,png|max:5024'</span>,
+            <span class="hljs-string">'deskripsi'</span> =&gt; <span class="hljs-string">'required'</span>,
+            <span class="hljs-string">'kategori'</span> =&gt; <span class="hljs-string">'required|exists:categories,id'</span>,
+        ];
+        $validator = Validator::make($input,$dataValidator);
+        <span class="hljs-keyword">if</span>($validator-&gt;fails()){
+            <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">'status'</span> =&gt; <span class="hljs-keyword">false</span> , <span class="hljs-string">'message'</span> =&gt; $validator-&gt;errors()-&gt;all() ], <span class="hljs-number">400</span>);
+        }
+        $slug = Str::slug(uniqid().<span class="hljs-string">' '</span>.$request-&gt;title);
+        <span class="hljs-keyword">if</span>($request-&gt;hasFile(<span class="hljs-string">'gambar'</span>)) {
+            $uploadBerkas = $request-&gt;file(<span class="hljs-string">'gambar'</span>);
+            $destinationPath = <span class="hljs-string">'uploads/informasi/image/'</span>; <span class="hljs-comment">// upload path</span>
+            $fileName = date(<span class="hljs-string">'YmdHis'</span>). <span class="hljs-string">'-'</span> . Str::random(<span class="hljs-number">25</span>) . <span class="hljs-string">"_image."</span> . $uploadBerkas-&gt;getClientOriginalExtension();
+            $uploadBerkas-&gt;move($destinationPath, $fileName);
+            $fileName = $destinationPath.$fileName;
+        }
+        $dataInformation = [
+            <span class="hljs-string">'judul'</span> =&gt; $request-&gt;judul,
+            <span class="hljs-string">'slug'</span> =&gt; $slug,
+            <span class="hljs-string">'deskripsi'</span> =&gt; $request-&gt;deskripsi,
+            <span class="hljs-string">'category_id'</span> =&gt; $request-&gt;kategori,
+        ];
+        <span class="hljs-keyword">if</span>($request-&gt;hasFile(<span class="hljs-string">'gambar'</span>)){
+            $dataInformation[<span class="hljs-string">'gambar'</span>] = $fileName;
+        }
+        $information = \App\Information::create($dataInformation);
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">'status'</span> =&gt; <span class="hljs-keyword">true</span> , <span class="hljs-string">'message'</span> =&gt; <span class="hljs-string">'Berhasil menambahkan informasi baru'</span> ]);
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Display the specified resource.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">int</span>
+<span>$id
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Http\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span><span class="hljs-params">($id)</span>
+    </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Show the form for editing the specified resource.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">int</span>
+<span>$id
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Http\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">edit</span><span class="hljs-params">($id)</span>
+    </span>{
+        $information = \App\Information::findOrFail($id);
+        $categories = \App\Category::all();
+        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'information.edit'</span>,compact(<span class="hljs-string">'categories'</span>,<span class="hljs-string">'information'</span>));
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Update the specified resource in storage.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">\Illuminate\Http\Request</span>
+<span>$request
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">int</span>
+<span>$id
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Http\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span><span class="hljs-params">(Request $request, $id)</span>
+    </span>{
+        $information = \App\Information::findOrFail($id);
+        $input = $request-&gt;all();
+        $dataValidator = [
+            <span class="hljs-string">'judul'</span> =&gt; <span class="hljs-string">'required|string|min:5'</span>,
+            <span class="hljs-string">'gambar'</span> =&gt; <span class="hljs-string">'nullable|mimes:jpeg,jpg,png|max:5024'</span>,
+            <span class="hljs-string">'deskripsi'</span> =&gt; <span class="hljs-string">'required'</span>,
+            <span class="hljs-string">'kategori'</span> =&gt; <span class="hljs-string">'required|exists:categories,id'</span>,
+        ];
+        $validator = Validator::make($input,$dataValidator);
+        <span class="hljs-keyword">if</span>($validator-&gt;fails()){
+            <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">'status'</span> =&gt; <span class="hljs-keyword">false</span> , <span class="hljs-string">'message'</span> =&gt; $validator-&gt;errors()-&gt;all() ], <span class="hljs-number">400</span>);
+        }
+        <span class="hljs-keyword">if</span>($request-&gt;hasFile(<span class="hljs-string">'gambar'</span>)) {
+            $uploadBerkas = $request-&gt;file(<span class="hljs-string">'gambar'</span>);
+            $destinationPath = <span class="hljs-string">'uploads/informasi/image/'</span>; <span class="hljs-comment">// upload path</span>
+            $fileName = date(<span class="hljs-string">'YmdHis'</span>). <span class="hljs-string">'-'</span> . Str::random(<span class="hljs-number">25</span>) . <span class="hljs-string">"_image."</span> . $uploadBerkas-&gt;getClientOriginalExtension();
+            $uploadBerkas-&gt;move($destinationPath, $fileName);
+            $fileName = $destinationPath.$fileName;
+        }
+        $dataUpdate = [
+            <span class="hljs-string">'judul'</span> =&gt; $request-&gt;judul,
+            <span class="hljs-string">'gambar'</span> =&gt; $request-&gt;hasFile(<span class="hljs-string">'gambar'</span>) ? $fileName : $information-&gt;gambar,
+            <span class="hljs-string">'deskripsi'</span> =&gt; $request-&gt;deskripsi,
+            <span class="hljs-string">'category_id'</span> =&gt; $request-&gt;kategori,
+        ];
+        $information-&gt;update($dataUpdate);
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">'status'</span> =&gt; <span class="hljs-keyword">true</span> , <span class="hljs-string">'message'</span> =&gt; <span class="hljs-string">'Berhasil memperbarui informasi'</span>]);
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Remove the specified resource from storage.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">int</span>
+<span>$id
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Http\Response
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">destroy</span><span class="hljs-params">($id)</span>
+    </span>{
+        $information = \App\Information::findOrFail($id);
+        $information-&gt;delete();
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">'status'</span> =&gt; <span class="hljs-keyword">true</span> , <span class="hljs-string">'message'</span> =&gt; <span class="hljs-string">'Berhasil menghapus infromasi'</span>]);
+    }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

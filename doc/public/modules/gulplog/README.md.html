@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulplog\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gulplog">gulplog</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#logger.debug-msg">logger.debug(msg)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#logger.info-msg">logger.info(msg)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#logger.warn-msg">logger.warn(msg)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#logger.error-msg">logger.error(msg)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p align="center">
+  <a href="http://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+</p>
+<div class="pilwrap" id="gulplog">
+  <h1>
+    <a href="#gulplog" name="gulplog" class="pilcrow"></a>
+gulplog
+  </h1>
+</div>
+<p><a href="https://npmjs.org/package/gulplog"><img src="http://img.shields.io/npm/v/gulplog.svg" alt="NPM version"></a> <a href="https://npmjs.org/package/gulplog"><img src="http://img.shields.io/npm/dm/gulplog.svg" alt="Downloads"></a> <a href="https://travis-ci.org/gulpjs/gulplog"><img src="http://img.shields.io/travis/gulpjs/gulplog.svg" alt="Build Status"></a> <a href="https://gitter.im/gulpjs/gulp"><img src="https://badges.gitter.im/gulpjs/gulp.png" alt="Gitter chat"></a></p>
+<p>Logger for gulp and gulp plugins</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> logger = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulplog'</span>);
+
+<span class="hljs-comment">// logs strings</span>
+logger.debug(<span class="hljs-string">'The MOST verbose!'</span>);
+logger.info(<span class="hljs-string">'Some important info'</span>);
+logger.warn(<span class="hljs-string">'All the warnings to you'</span>);
+logger.error(<span class="hljs-string">'OH NO! SOMETHING HAPPENED!'</span>);
+
+<span class="hljs-comment">// supports util.format!</span>
+logger.info(<span class="hljs-string">'%s style!'</span>, <span class="hljs-string">'printf'</span>);
+
+<span class="hljs-comment">// log anything</span>
+logger.debug({ <span class="hljs-attr">my</span>: <span class="hljs-string">'obj'</span> });
+logger.info([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<p>Logging (and level of logging) is controlled by <a href="https://github.com/gulpjs/gulp-cli"><code>gulp-cli</code></a></p>
+<div class="pilwrap" id="logger.debug-msg">
+  <h4>
+    <a href="#logger.debug-msg" name="logger.debug-msg" class="pilcrow"></a>
+logger.debug(msg)
+  </h4>
+</div>
+<p>Highest log level.  Typically used for debugging purposes.</p>
+<p>If the first argument is a string, all arguments are passed to node's
+<a href="https://nodejs.org/docs/latest/api/util.html#util_util_format_format"><code>util.format()</code></a> before being emitted.</p>
+<div class="pilwrap" id="logger.info-msg">
+  <h4>
+    <a href="#logger.info-msg" name="logger.info-msg" class="pilcrow"></a>
+logger.info(msg)
+  </h4>
+</div>
+<p>Standard log level.  Typically used for user information.</p>
+<p>If the first argument is a string, all arguments are passed to node's
+<a href="https://nodejs.org/docs/latest/api/util.html#util_util_format_format"><code>util.format()</code></a> before being emitted.</p>
+<div class="pilwrap" id="logger.warn-msg">
+  <h4>
+    <a href="#logger.warn-msg" name="logger.warn-msg" class="pilcrow"></a>
+logger.warn(msg)
+  </h4>
+</div>
+<p>Warning log level.  Typically used for warnings.</p>
+<p>If the first argument is a string, all arguments are passed to node's
+<a href="https://nodejs.org/docs/latest/api/util.html#util_util_format_format"><code>util.format()</code></a> before being emitted.</p>
+<div class="pilwrap" id="logger.error-msg">
+  <h4>
+    <a href="#logger.error-msg" name="logger.error-msg" class="pilcrow"></a>
+logger.error(msg)
+  </h4>
+</div>
+<p>Error log level.  Typically used when things went horribly wrong.</p>
+<p>If the first argument is a string, all arguments are passed to node's
+<a href="https://nodejs.org/docs/latest/api/util.html#util_util_format_format"><code>util.format()</code></a> before being emitted.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

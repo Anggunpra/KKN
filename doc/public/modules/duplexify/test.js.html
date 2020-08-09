@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\duplexify\\test.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>test.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> tape = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tape'</span>)
+<span class="hljs-keyword">var</span> through = <span class="hljs-built_in">require</span>(<span class="hljs-string">'through2'</span>)
+<span class="hljs-keyword">var</span> concat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'concat-stream'</span>)
+<span class="hljs-keyword">var</span> net = <span class="hljs-built_in">require</span>(<span class="hljs-string">'net'</span>)
+<span class="hljs-keyword">var</span> duplexify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./'</span>)
+
+<span class="hljs-keyword">var</span> HELLO_WORLD = (Buffer.from &amp;&amp; Buffer.from !== <span class="hljs-built_in">Uint8Array</span>.from)
+ ? Buffer.from(<span class="hljs-string">'hello world'</span>)
+ : <span class="hljs-keyword">new</span> Buffer(<span class="hljs-string">'hello world'</span>)
+
+tape(<span class="hljs-string">'passthrough'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  t.plan(<span class="hljs-number">2</span>)
+
+  <span class="hljs-keyword">var</span> pt = through()
+  <span class="hljs-keyword">var</span> dup = duplexify(pt, pt)
+
+  dup.end(<span class="hljs-string">'hello world'</span>)
+  dup.on(<span class="hljs-string">'finish'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(<span class="hljs-literal">true</span>, <span class="hljs-string">'should finish'</span>)
+  })
+  dup.pipe(concat(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    t.same(data.toString(), <span class="hljs-string">'hello world'</span>, <span class="hljs-string">'same in as out'</span>)
+  }))
+})
+
+tape(<span class="hljs-string">'passthrough + double end'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  t.plan(<span class="hljs-number">2</span>)
+
+  <span class="hljs-keyword">var</span> pt = through()
+  <span class="hljs-keyword">var</span> dup = duplexify(pt, pt)
+
+  dup.end(<span class="hljs-string">'hello world'</span>)
+  dup.end()
+
+  dup.on(<span class="hljs-string">'finish'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(<span class="hljs-literal">true</span>, <span class="hljs-string">'should finish'</span>)
+  })
+  dup.pipe(concat(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    t.same(data.toString(), <span class="hljs-string">'hello world'</span>, <span class="hljs-string">'same in as out'</span>)
+  }))
+})
+
+tape(<span class="hljs-string">'async passthrough + end'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  t.plan(<span class="hljs-number">2</span>)
+
+  <span class="hljs-keyword">var</span> pt = through.obj({<span class="hljs-attr">highWaterMark</span>:<span class="hljs-number">1</span>}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, enc, cb</span>) </span>{
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      cb(<span class="hljs-literal">null</span>, data)
+    }, <span class="hljs-number">100</span>)
+  })
+
+  <span class="hljs-keyword">var</span> dup = duplexify(pt, pt)
+
+  dup.write(<span class="hljs-string">'hello '</span>)
+  dup.write(<span class="hljs-string">'world'</span>)
+  dup.end()
+
+  dup.on(<span class="hljs-string">'finish'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(<span class="hljs-literal">true</span>, <span class="hljs-string">'should finish'</span>)
+  })
+  dup.pipe(concat(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    t.same(data.toString(), <span class="hljs-string">'hello world'</span>, <span class="hljs-string">'same in as out'</span>)
+  }))
+})
+
+tape(<span class="hljs-string">'duplex'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  <span class="hljs-keyword">var</span> readExpected = [<span class="hljs-string">'read-a'</span>, <span class="hljs-string">'read-b'</span>, <span class="hljs-string">'read-c'</span>]
+  <span class="hljs-keyword">var</span> writeExpected = [<span class="hljs-string">'write-a'</span>, <span class="hljs-string">'write-b'</span>, <span class="hljs-string">'write-c'</span>]
+
+  t.plan(readExpected.length+writeExpected.length+<span class="hljs-number">2</span>)
+
+  <span class="hljs-keyword">var</span> readable = through.obj()
+  <span class="hljs-keyword">var</span> writable = through.obj(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, enc, cb</span>) </span>{
+    t.same(data, writeExpected.shift(), <span class="hljs-string">'onwrite should match'</span>)
+    cb()
+  })
+
+  <span class="hljs-keyword">var</span> dup = duplexify.obj(writable, readable)
+
+  readExpected.slice().forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    readable.write(data)
+  })
+  readable.end()
+
+  writeExpected.slice().forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    dup.write(data)
+  })
+  dup.end()
+
+  dup.on(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    t.same(data, readExpected.shift(), <span class="hljs-string">'ondata should match'</span>)
+  })
+  dup.on(<span class="hljs-string">'end'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(<span class="hljs-literal">true</span>, <span class="hljs-string">'should end'</span>)
+  })
+  dup.on(<span class="hljs-string">'finish'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(<span class="hljs-literal">true</span>, <span class="hljs-string">'should finish'</span>)
+  })
+})
+
+tape(<span class="hljs-string">'async'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  <span class="hljs-keyword">var</span> dup = duplexify()
+  <span class="hljs-keyword">var</span> pt = through()
+
+  dup.pipe(concat(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    t.same(data.toString(), <span class="hljs-string">'i was async'</span>, <span class="hljs-string">'same in as out'</span>)
+    t.end()
+  }))
+
+  dup.write(<span class="hljs-string">'i'</span>)
+  dup.write(<span class="hljs-string">' was '</span>)
+  dup.end(<span class="hljs-string">'async'</span>)
+
+  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    dup.setWritable(pt)
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      dup.setReadable(pt)
+    }, <span class="hljs-number">50</span>)
+  }, <span class="hljs-number">50</span>)
+})
+
+tape(<span class="hljs-string">'destroy'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  t.plan(<span class="hljs-number">2</span>)
+
+  <span class="hljs-keyword">var</span> write = through()
+  <span class="hljs-keyword">var</span> read = through()
+  <span class="hljs-keyword">var</span> dup = duplexify(write, read)
+
+  write.destroy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(<span class="hljs-literal">true</span>, <span class="hljs-string">'write destroyed'</span>)
+  }
+
+  dup.on(<span class="hljs-string">'close'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(<span class="hljs-literal">true</span>, <span class="hljs-string">'close emitted'</span>)
+  })
+
+  dup.destroy()
+  dup.destroy() <span class="hljs-comment">// should only work once</span>
+})
+
+tape(<span class="hljs-string">'destroy both'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  t.plan(<span class="hljs-number">3</span>)
+
+  <span class="hljs-keyword">var</span> write = through()
+  <span class="hljs-keyword">var</span> read = through()
+  <span class="hljs-keyword">var</span> dup = duplexify(write, read)
+
+  write.destroy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(<span class="hljs-literal">true</span>, <span class="hljs-string">'write destroyed'</span>)
+  }
+
+  read.destroy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(<span class="hljs-literal">true</span>, <span class="hljs-string">'read destroyed'</span>)
+  }
+
+  dup.on(<span class="hljs-string">'close'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(<span class="hljs-literal">true</span>, <span class="hljs-string">'close emitted'</span>)
+  })
+
+  dup.destroy()
+  dup.destroy() <span class="hljs-comment">// should only work once</span>
+})
+
+tape(<span class="hljs-string">'bubble read errors'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  t.plan(<span class="hljs-number">2</span>)
+
+  <span class="hljs-keyword">var</span> write = through()
+  <span class="hljs-keyword">var</span> read = through()
+  <span class="hljs-keyword">var</span> dup = duplexify(write, read)
+
+  dup.on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+    t.same(err.message, <span class="hljs-string">'read-error'</span>, <span class="hljs-string">'received read error'</span>)
+  })
+  dup.on(<span class="hljs-string">'close'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(<span class="hljs-literal">true</span>, <span class="hljs-string">'close emitted'</span>)
+  })
+
+  read.emit(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'read-error'</span>))
+  write.emit(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'write-error'</span>)) <span class="hljs-comment">// only emit first error</span>
+})
+
+tape(<span class="hljs-string">'bubble write errors'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  t.plan(<span class="hljs-number">2</span>)
+
+  <span class="hljs-keyword">var</span> write = through()
+  <span class="hljs-keyword">var</span> read = through()
+  <span class="hljs-keyword">var</span> dup = duplexify(write, read)
+
+  dup.on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+    t.same(err.message, <span class="hljs-string">'write-error'</span>, <span class="hljs-string">'received write error'</span>)
+  })
+  dup.on(<span class="hljs-string">'close'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(<span class="hljs-literal">true</span>, <span class="hljs-string">'close emitted'</span>)
+  })
+
+  write.emit(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'write-error'</span>))
+  read.emit(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'read-error'</span>)) <span class="hljs-comment">// only emit first error</span>
+})
+
+tape(<span class="hljs-string">'reset writable / readable'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  t.plan(<span class="hljs-number">3</span>)
+
+  <span class="hljs-keyword">var</span> toUpperCase = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, enc, cb</span>) </span>{
+    cb(<span class="hljs-literal">null</span>, data.toString().toUpperCase())
+  }
+
+  <span class="hljs-keyword">var</span> passthrough = through()
+  <span class="hljs-keyword">var</span> upper = through(toUpperCase)
+  <span class="hljs-keyword">var</span> dup = duplexify(passthrough, passthrough)
+
+  dup.once(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    t.same(data.toString(), <span class="hljs-string">'hello'</span>)
+    dup.setWritable(upper)
+    dup.setReadable(upper)
+    dup.once(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+      t.same(data.toString(), <span class="hljs-string">'HELLO'</span>)
+      dup.once(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+        t.same(data.toString(), <span class="hljs-string">'HI'</span>)
+        t.end()
+      })
+    })
+    dup.write(<span class="hljs-string">'hello'</span>)
+    dup.write(<span class="hljs-string">'hi'</span>)
+  })
+  dup.write(<span class="hljs-string">'hello'</span>)
+})
+
+tape(<span class="hljs-string">'cork'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  <span class="hljs-keyword">var</span> passthrough = through()
+  <span class="hljs-keyword">var</span> dup = duplexify(passthrough, passthrough)
+  <span class="hljs-keyword">var</span> ok = <span class="hljs-literal">false</span>
+
+  dup.on(<span class="hljs-string">'prefinish'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    dup.cork()
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      ok = <span class="hljs-literal">true</span>
+      dup.uncork()
+    }, <span class="hljs-number">100</span>)
+  })
+  dup.on(<span class="hljs-string">'finish'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(ok)
+    t.end()
+  })
+  dup.end()
+})
+
+tape(<span class="hljs-string">'prefinish not twice'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  <span class="hljs-keyword">var</span> passthrough = through()
+  <span class="hljs-keyword">var</span> dup = duplexify(passthrough, passthrough)
+  <span class="hljs-keyword">var</span> prefinished = <span class="hljs-literal">false</span>
+
+  dup.on(<span class="hljs-string">'prefinish'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(!prefinished, <span class="hljs-string">'only prefinish once'</span>)
+    prefinished = <span class="hljs-literal">true</span>
+  })
+
+  dup.on(<span class="hljs-string">'finish'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.end()
+  })
+
+  dup.end()
+})
+
+tape(<span class="hljs-string">'close'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  <span class="hljs-keyword">var</span> passthrough = through()
+  <span class="hljs-keyword">var</span> dup = duplexify(passthrough, passthrough)
+
+  passthrough.emit(<span class="hljs-string">'close'</span>)
+  dup.on(<span class="hljs-string">'close'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    t.ok(<span class="hljs-literal">true</span>, <span class="hljs-string">'should forward close'</span>)
+    t.end()
+  })
+})
+
+tape(<span class="hljs-string">'works with node native streams (net)'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  t.plan(<span class="hljs-number">1</span>)
+
+  <span class="hljs-keyword">var</span> server = net.createServer(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">socket</span>) </span>{
+    <span class="hljs-keyword">var</span> dup = duplexify(socket, socket)
+
+    dup.once(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">chunk</span>) </span>{
+      t.same(chunk, HELLO_WORLD)
+      server.close()
+      socket.end()
+      t.end()
+    })
+  })
+
+  server.listen(<span class="hljs-number">0</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> socket = net.connect(server.address().port)
+    <span class="hljs-keyword">var</span> dup = duplexify(socket, socket)
+
+    dup.write(HELLO_WORLD)
+  })
+})
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

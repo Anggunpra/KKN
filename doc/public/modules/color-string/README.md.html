@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\color-string\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#color-string">color-string</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#parsing">Parsing</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#generation">Generation</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="color-string">
+  <h1>
+    <a href="#color-string" name="color-string" class="pilcrow"></a>
+color-string
+  </h1>
+</div>
+<p><a href="https://travis-ci.org/Qix-/color-string"><img src="https://travis-ci.org/Qix-/color-string.svg?branch=master" alt="Build Status"></a></p>
+<blockquote>
+<p>library for parsing and generating CSS color strings.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>With <a href="http://npmjs.org/">npm</a>:</p>
+<pre><code class="console"><span class="hljs-meta">$</span><span class="bash"> npm install color-string</span>
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<div class="pilwrap" id="parsing">
+  <h3>
+    <a href="#parsing" name="parsing" class="pilcrow"></a>
+Parsing
+  </h3>
+</div>
+<pre><code class="js">colorString.get(<span class="hljs-string">'#FFF'</span>)                          <span class="hljs-comment">// {model: 'rgb', value: [255, 255, 255, 1]}</span>
+colorString.get(<span class="hljs-string">'#FFFA'</span>)                         <span class="hljs-comment">// {model: 'rgb', value: [255, 255, 255, 0.67]}</span>
+colorString.get(<span class="hljs-string">'#FFFFFFAA'</span>)                     <span class="hljs-comment">// {model: 'rgb', value: [255, 255, 255, 0.67]}</span>
+colorString.get(<span class="hljs-string">'hsl(360, 100%, 50%)'</span>)           <span class="hljs-comment">// {model: 'hsl', value: [0, 100, 50, 1]}</span>
+colorString.get(<span class="hljs-string">'hwb(60, 3%, 60%)'</span>)              <span class="hljs-comment">// {model: 'hwb', value: [60, 3, 60, 1]}</span>
+
+colorString.get.rgb(<span class="hljs-string">'#FFF'</span>)                      <span class="hljs-comment">// [255, 255, 255, 1]</span>
+colorString.get.rgb(<span class="hljs-string">'blue'</span>)                      <span class="hljs-comment">// [0, 0, 255, 1]</span>
+colorString.get.rgb(<span class="hljs-string">'rgba(200, 60, 60, 0.3)'</span>)    <span class="hljs-comment">// [200, 60, 60, 0.3]</span>
+colorString.get.rgb(<span class="hljs-string">'rgb(200, 200, 200)'</span>)        <span class="hljs-comment">// [200, 200, 200, 1]</span>
+
+colorString.get.hsl(<span class="hljs-string">'hsl(360, 100%, 50%)'</span>)       <span class="hljs-comment">// [0, 100, 50, 1]</span>
+colorString.get.hsl(<span class="hljs-string">'hsla(360, 60%, 50%, 0.4)'</span>)  <span class="hljs-comment">// [0, 60, 50, 0.4]</span>
+
+colorString.get.hwb(<span class="hljs-string">'hwb(60, 3%, 60%)'</span>)          <span class="hljs-comment">// [60, 3, 60, 1]</span>
+colorString.get.hwb(<span class="hljs-string">'hwb(60, 3%, 60%, 0.6)'</span>)     <span class="hljs-comment">// [60, 3, 60, 0.6]</span>
+
+colorString.get.rgb(<span class="hljs-string">'invalid color string'</span>)      <span class="hljs-comment">// null</span>
+</code></pre>
+<div class="pilwrap" id="generation">
+  <h3>
+    <a href="#generation" name="generation" class="pilcrow"></a>
+Generation
+  </h3>
+</div>
+<pre><code class="js">colorString.to.hex([<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>])     <span class="hljs-comment">// "#FFFFFF"</span>
+colorString.to.hex([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.4</span>])    <span class="hljs-comment">// "#0000FF66"</span>
+colorString.to.hex([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>], <span class="hljs-number">0.4</span>)    <span class="hljs-comment">// "#0000FF66"</span>
+colorString.to.rgb([<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>])     <span class="hljs-comment">// "rgb(255, 255, 255)"</span>
+colorString.to.rgb([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.4</span>])    <span class="hljs-comment">// "rgba(0, 0, 255, 0.4)"</span>
+colorString.to.rgb([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>], <span class="hljs-number">0.4</span>)    <span class="hljs-comment">// "rgba(0, 0, 255, 0.4)"</span>
+colorString.to.rgb.percent([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>]) <span class="hljs-comment">// "rgb(0%, 0%, 100%)"</span>
+colorString.to.keyword([<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0</span>])   <span class="hljs-comment">// "yellow"</span>
+colorString.to.hsl([<span class="hljs-number">360</span>, <span class="hljs-number">100</span>, <span class="hljs-number">100</span>])     <span class="hljs-comment">// "hsl(360, 100%, 100%)"</span>
+colorString.to.hwb([<span class="hljs-number">50</span>, <span class="hljs-number">3</span>, <span class="hljs-number">15</span>])         <span class="hljs-comment">// "hwb(50, 3%, 15%)"</span>
+
+<span class="hljs-comment">// all functions also support swizzling</span>
+colorString.to.rgb(<span class="hljs-number">0</span>, [<span class="hljs-number">0</span>, <span class="hljs-number">255</span>], <span class="hljs-number">0.4</span>)    <span class="hljs-comment">// "rgba(0, 0, 255, 0.4)"</span>
+colorString.to.rgb([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">255</span>], <span class="hljs-number">0.4</span>)  <span class="hljs-comment">// "rgba(0, 0, 255, 0.4)"</span>
+colorString.to.rgb([<span class="hljs-number">0</span>], <span class="hljs-number">0</span>, [<span class="hljs-number">255</span>, <span class="hljs-number">0.4</span>])  <span class="hljs-comment">// "rgba(0, 0, 255, 0.4)"</span>
+</code></pre>
+</div>
+  </div>
+</body>
+</html>

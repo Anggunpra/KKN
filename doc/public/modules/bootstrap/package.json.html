@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bootstrap\\package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"bootstrap"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"The most popular front-end framework for developing responsive, mobile first projects on the web."</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"4.3.1"</span>,
+  <span class="hljs-attr">"version_short"</span>: <span class="hljs-string">"4.3"</span>,
+  <span class="hljs-attr">"keywords"</span>: [
+    <span class="hljs-string">"css"</span>,
+    <span class="hljs-string">"sass"</span>,
+    <span class="hljs-string">"mobile-first"</span>,
+    <span class="hljs-string">"responsive"</span>,
+    <span class="hljs-string">"front-end"</span>,
+    <span class="hljs-string">"framework"</span>,
+    <span class="hljs-string">"web"</span>
+  ],
+  <span class="hljs-attr">"homepage"</span>: <span class="hljs-string">"https://getbootstrap.com/"</span>,
+  <span class="hljs-attr">"author"</span>: <span class="hljs-string">"The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)"</span>,
+  <span class="hljs-attr">"contributors"</span>: [
+    <span class="hljs-string">"Twitter, Inc."</span>
+  ],
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"npm-run-all --parallel watch docs-serve"</span>,
+    <span class="hljs-attr">"blc"</span>: <span class="hljs-string">"blc --exclude-external --filter-level 3 --follow --get --ordered --recursive --host-requests 4 --input http://localhost:3000/"</span>,
+    <span class="hljs-attr">"http-server"</span>: <span class="hljs-string">"http-server --silent -p 3000"</span>,
+    <span class="hljs-attr">"bundlesize"</span>: <span class="hljs-string">"bundlesize"</span>,
+    <span class="hljs-attr">"check-broken-links"</span>: <span class="hljs-string">"npm-run-all --parallel --race \"http-server -- _gh_pages/\" blc"</span>,
+    <span class="hljs-attr">"css"</span>: <span class="hljs-string">"npm-run-all css-compile css-prefix css-minify css-copy"</span>,
+    <span class="hljs-attr">"css-copy"</span>: <span class="hljs-string">"cross-env-shell shx mkdir -p site/docs/$npm_package_version_short/dist/ &amp;&amp; cross-env-shell shx cp -r dist/css/ site/docs/$npm_package_version_short/dist/"</span>,
+    <span class="hljs-attr">"css-main"</span>: <span class="hljs-string">"npm-run-all css-lint css-compile-main css-prefix-main css-minify-main css-copy"</span>,
+    <span class="hljs-attr">"css-docs"</span>: <span class="hljs-string">"npm-run-all css-compile-docs css-prefix-docs css-minify-docs"</span>,
+    <span class="hljs-attr">"css-compile"</span>: <span class="hljs-string">"npm-run-all --parallel css-compile-*"</span>,
+    <span class="hljs-attr">"css-compile-main"</span>: <span class="hljs-string">"node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css &amp;&amp; node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css &amp;&amp; node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css &amp;&amp; npm run css-copy"</span>,
+    <span class="hljs-attr">"css-compile-docs"</span>: <span class="hljs-string">"cross-env-shell node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 site/docs/$npm_package_version_short/assets/scss/docs.scss site/docs/$npm_package_version_short/assets/css/docs.min.css"</span>,
+    <span class="hljs-attr">"css-lint"</span>: <span class="hljs-string">"npm-run-all --parallel css-lint-*"</span>,
+    <span class="hljs-attr">"css-lint-main"</span>: <span class="hljs-string">"stylelint \"scss/**/*.scss\" --cache --cache-location .cache/.stylelintcache"</span>,
+    <span class="hljs-attr">"css-lint-docs"</span>: <span class="hljs-string">"stylelint \"site/docs/**/assets/scss/*.scss\" \"site/docs/**/*.css\" --cache --cache-location .cache/.stylelintcache"</span>,
+    <span class="hljs-attr">"css-lint-vars"</span>: <span class="hljs-string">"fusv scss/ site/docs/"</span>,
+    <span class="hljs-attr">"css-minify"</span>: <span class="hljs-string">"npm-run-all --parallel css-minify-*"</span>,
+    <span class="hljs-attr">"css-minify-main"</span>: <span class="hljs-string">"cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css &amp;&amp; cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css &amp;&amp; cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css"</span>,
+    <span class="hljs-attr">"css-minify-docs"</span>: <span class="hljs-string">"cross-env-shell cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources --output site/docs/$npm_package_version_short/assets/css/docs.min.css site/docs/$npm_package_version_short/assets/css/docs.min.css"</span>,
+    <span class="hljs-attr">"css-prefix"</span>: <span class="hljs-string">"npm-run-all --parallel css-prefix-*"</span>,
+    <span class="hljs-attr">"css-prefix-main"</span>: <span class="hljs-string">"postcss --config build/postcss.config.js --replace \"dist/css/*.css\" \"!dist/css/*.min.css\""</span>,
+    <span class="hljs-attr">"css-prefix-docs"</span>: <span class="hljs-string">"postcss --config build/postcss.config.js --replace \"site/docs/**/*.css\" \"site/docs/**/*.css\""</span>,
+    <span class="hljs-attr">"js"</span>: <span class="hljs-string">"npm-run-all js-compile js-minify js-copy"</span>,
+    <span class="hljs-attr">"js-copy"</span>: <span class="hljs-string">"cross-env-shell shx mkdir -p site/docs/$npm_package_version_short/dist/ &amp;&amp; cross-env-shell shx cp -r dist/js/ site/docs/$npm_package_version_short/dist/"</span>,
+    <span class="hljs-attr">"js-main"</span>: <span class="hljs-string">"npm-run-all js-lint js-compile js-minify-main"</span>,
+    <span class="hljs-attr">"js-docs"</span>: <span class="hljs-string">"npm-run-all js-lint-docs js-minify-docs"</span>,
+    <span class="hljs-attr">"js-compile"</span>: <span class="hljs-string">"npm-run-all --parallel js-compile-* --sequential js-copy"</span>,
+    <span class="hljs-attr">"js-compile-standalone"</span>: <span class="hljs-string">"rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap"</span>,
+    <span class="hljs-attr">"js-compile-bundle"</span>: <span class="hljs-string">"rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap"</span>,
+    <span class="hljs-attr">"js-compile-plugins"</span>: <span class="hljs-string">"node build/build-plugins.js"</span>,
+    <span class="hljs-attr">"js-compile-plugins-coverage"</span>: <span class="hljs-string">"cross-env NODE_ENV=test node build/build-plugins.js"</span>,
+    <span class="hljs-attr">"js-lint"</span>: <span class="hljs-string">"npm-run-all --parallel js-lint-*"</span>,
+    <span class="hljs-attr">"js-lint-main"</span>: <span class="hljs-string">"eslint --cache --cache-location .cache/.eslintcache js/src js/tests build/"</span>,
+    <span class="hljs-attr">"js-lint-docs"</span>: <span class="hljs-string">"eslint --cache --cache-location .cache/.eslintcache site/"</span>,
+    <span class="hljs-attr">"js-minify"</span>: <span class="hljs-string">"npm-run-all --parallel js-minify-main js-minify-docs"</span>,
+    <span class="hljs-attr">"js-minify-main"</span>: <span class="hljs-string">"npm-run-all js-minify-standalone js-minify-bundle"</span>,
+    <span class="hljs-attr">"js-minify-standalone"</span>: <span class="hljs-string">"uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map\" --output dist/js/bootstrap.min.js dist/js/bootstrap.js"</span>,
+    <span class="hljs-attr">"js-minify-bundle"</span>: <span class="hljs-string">"uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map\" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js"</span>,
+    <span class="hljs-attr">"js-minify-docs"</span>: <span class="hljs-string">"cross-env-shell uglifyjs --mangle --comments \\\"/^!/\\\" --output site/docs/$npm_package_version_short/assets/js/docs.min.js site/docs/$npm_package_version_short/assets/js/vendor/anchor.min.js site/docs/$npm_package_version_short/assets/js/vendor/clipboard.min.js site/docs/$npm_package_version_short/assets/js/vendor/bs-custom-file-input.min.js \"site/docs/$npm_package_version_short/assets/js/src/*.js\""</span>,
+    <span class="hljs-attr">"js-test"</span>: <span class="hljs-string">"npm-run-all js-test-karma* js-test-integration"</span>,
+    <span class="hljs-attr">"js-test-karma"</span>: <span class="hljs-string">"karma start js/tests/karma.conf.js"</span>,
+    <span class="hljs-attr">"js-test-karma-old"</span>: <span class="hljs-string">"cross-env USE_OLD_JQUERY=true npm run js-test-karma"</span>,
+    <span class="hljs-attr">"js-test-karma-bundle"</span>: <span class="hljs-string">"cross-env BUNDLE=true npm run js-test-karma"</span>,
+    <span class="hljs-attr">"js-test-karma-bundle-old"</span>: <span class="hljs-string">"cross-env BUNDLE=true USE_OLD_JQUERY=true npm run js-test-karma"</span>,
+    <span class="hljs-attr">"js-test-integration"</span>: <span class="hljs-string">"rollup --config js/tests/integration/rollup.bundle.js"</span>,
+    <span class="hljs-attr">"js-test-cloud"</span>: <span class="hljs-string">"cross-env BROWSER=true npm run js-test-karma"</span>,
+    <span class="hljs-attr">"lint"</span>: <span class="hljs-string">"npm-run-all --parallel js-lint css-lint"</span>,
+    <span class="hljs-attr">"coveralls"</span>: <span class="hljs-string">"shx cat js/coverage/lcov.info | coveralls"</span>,
+    <span class="hljs-attr">"docs"</span>: <span class="hljs-string">"npm-run-all css-docs js-docs docs-compile docs-lint"</span>,
+    <span class="hljs-attr">"docs-compile"</span>: <span class="hljs-string">"bundle exec jekyll build"</span>,
+    <span class="hljs-attr">"docs-production"</span>: <span class="hljs-string">"cross-env JEKYLL_ENV=production npm run docs-compile"</span>,
+    <span class="hljs-attr">"docs-lint"</span>: <span class="hljs-string">"node build/vnu-jar.js"</span>,
+    <span class="hljs-attr">"docs-serve"</span>: <span class="hljs-string">"bundle exec jekyll serve"</span>,
+    <span class="hljs-attr">"docs-serve-only"</span>: <span class="hljs-string">"npm run docs-serve -- --skip-initial-build --no-watch"</span>,
+    <span class="hljs-attr">"update-deps"</span>: <span class="hljs-string">"ncu -a -x jquery -x bundlesize &amp;&amp; npm update &amp;&amp; bundle update &amp;&amp; cross-env-shell echo Manually update \\\"site/docs/$npm_package_version_short/assets/js/vendor/\\\""</span>,
+    <span class="hljs-attr">"release"</span>: <span class="hljs-string">"npm run dist &amp;&amp; npm run release-sri &amp;&amp; npm run release-zip &amp;&amp; npm run docs-production"</span>,
+    <span class="hljs-attr">"release-sri"</span>: <span class="hljs-string">"node build/generate-sri.js"</span>,
+    <span class="hljs-attr">"release-version"</span>: <span class="hljs-string">"node build/change-version.js"</span>,
+    <span class="hljs-attr">"release-zip"</span>: <span class="hljs-string">"cross-env-shell \"shx rm -rf bootstrap-$npm_package_version-dist &amp;&amp; shx cp -r dist/ bootstrap-$npm_package_version-dist &amp;&amp; zip -r9 bootstrap-$npm_package_version-dist.zip bootstrap-$npm_package_version-dist &amp;&amp; shx rm -rf bootstrap-$npm_package_version-dist\""</span>,
+    <span class="hljs-attr">"dist"</span>: <span class="hljs-string">"npm-run-all --parallel css js"</span>,
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"npm-run-all lint dist js-test docs-compile docs-lint bundlesize"</span>,
+    <span class="hljs-attr">"watch"</span>: <span class="hljs-string">"npm-run-all --parallel watch-*"</span>,
+    <span class="hljs-attr">"watch-css-main"</span>: <span class="hljs-string">"nodemon --watch scss/ --ext scss --exec \"npm run css-main\""</span>,
+    <span class="hljs-attr">"watch-css-docs"</span>: <span class="hljs-string">"nodemon --watch \"site/docs/**/assets/scss/\" --ext scss --exec \"npm run css-docs\""</span>,
+    <span class="hljs-attr">"watch-js-main"</span>: <span class="hljs-string">"nodemon --watch js/src/ --ext js --exec \"npm run js-compile\""</span>,
+    <span class="hljs-attr">"watch-js-docs"</span>: <span class="hljs-string">"nodemon --watch \"site/docs/**/assets/js/src/\" --ext js --exec \"npm run js-docs\""</span>
+  },
+  <span class="hljs-attr">"style"</span>: <span class="hljs-string">"dist/css/bootstrap.css"</span>,
+  <span class="hljs-attr">"sass"</span>: <span class="hljs-string">"scss/bootstrap.scss"</span>,
+  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"dist/js/bootstrap"</span>,
+  <span class="hljs-attr">"repository"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"git"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"git+https://github.com/twbs/bootstrap.git"</span>
+  },
+  <span class="hljs-attr">"bugs"</span>: {
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/twbs/bootstrap/issues"</span>
+  },
+  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"MIT"</span>,
+  <span class="hljs-attr">"dependencies"</span>: {},
+  <span class="hljs-attr">"peerDependencies"</span>: {
+    <span class="hljs-attr">"jquery"</span>: <span class="hljs-string">"1.9.1 - 3"</span>,
+    <span class="hljs-attr">"popper.js"</span>: <span class="hljs-string">"^1.14.7"</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"@babel/cli"</span>: <span class="hljs-string">"^7.2.3"</span>,
+    <span class="hljs-attr">"@babel/core"</span>: <span class="hljs-string">"^7.2.2"</span>,
+    <span class="hljs-attr">"@babel/plugin-proposal-object-rest-spread"</span>: <span class="hljs-string">"^7.3.2"</span>,
+    <span class="hljs-attr">"@babel/preset-env"</span>: <span class="hljs-string">"^7.3.1"</span>,
+    <span class="hljs-attr">"autoprefixer"</span>: <span class="hljs-string">"^9.4.7"</span>,
+    <span class="hljs-attr">"babel-eslint"</span>: <span class="hljs-string">"^10.0.1"</span>,
+    <span class="hljs-attr">"babel-plugin-istanbul"</span>: <span class="hljs-string">"^5.1.0"</span>,
+    <span class="hljs-attr">"broken-link-checker"</span>: <span class="hljs-string">"^0.7.8"</span>,
+    <span class="hljs-attr">"bundlesize"</span>: <span class="hljs-string">"0.15.3"</span>,
+    <span class="hljs-attr">"clean-css-cli"</span>: <span class="hljs-string">"^4.2.1"</span>,
+    <span class="hljs-attr">"coveralls"</span>: <span class="hljs-string">"^3.0.2"</span>,
+    <span class="hljs-attr">"cross-env"</span>: <span class="hljs-string">"^5.2.0"</span>,
+    <span class="hljs-attr">"eslint"</span>: <span class="hljs-string">"^5.13.0"</span>,
+    <span class="hljs-attr">"find-unused-sass-variables"</span>: <span class="hljs-string">"^0.3.2"</span>,
+    <span class="hljs-attr">"glob"</span>: <span class="hljs-string">"^7.1.3"</span>,
+    <span class="hljs-attr">"hammer-simulator"</span>: <span class="hljs-string">"0.0.1"</span>,
+    <span class="hljs-attr">"http-server"</span>: <span class="hljs-string">"^0.11.1"</span>,
+    <span class="hljs-attr">"ip"</span>: <span class="hljs-string">"^1.1.5"</span>,
+    <span class="hljs-attr">"jquery"</span>: <span class="hljs-string">"^3.3.1"</span>,
+    <span class="hljs-attr">"karma"</span>: <span class="hljs-string">"^3.1.4"</span>,
+    <span class="hljs-attr">"karma-browserstack-launcher"</span>: <span class="hljs-string">"^1.4.0"</span>,
+    <span class="hljs-attr">"karma-chrome-launcher"</span>: <span class="hljs-string">"^2.2.0"</span>,
+    <span class="hljs-attr">"karma-coverage-istanbul-reporter"</span>: <span class="hljs-string">"^2.0.4"</span>,
+    <span class="hljs-attr">"karma-detect-browsers"</span>: <span class="hljs-string">"^2.3.3"</span>,
+    <span class="hljs-attr">"karma-firefox-launcher"</span>: <span class="hljs-string">"^1.1.0"</span>,
+    <span class="hljs-attr">"karma-qunit"</span>: <span class="hljs-string">"^2.1.0"</span>,
+    <span class="hljs-attr">"karma-sinon"</span>: <span class="hljs-string">"^1.0.5"</span>,
+    <span class="hljs-attr">"node-sass"</span>: <span class="hljs-string">"^4.11.0"</span>,
+    <span class="hljs-attr">"nodemon"</span>: <span class="hljs-string">"^1.18.9"</span>,
+    <span class="hljs-attr">"npm-run-all"</span>: <span class="hljs-string">"^4.1.5"</span>,
+    <span class="hljs-attr">"popper.js"</span>: <span class="hljs-string">"^1.14.7"</span>,
+    <span class="hljs-attr">"postcss-cli"</span>: <span class="hljs-string">"^6.1.1"</span>,
+    <span class="hljs-attr">"qunit"</span>: <span class="hljs-string">"^2.9.1"</span>,
+    <span class="hljs-attr">"rollup"</span>: <span class="hljs-string">"^1.1.2"</span>,
+    <span class="hljs-attr">"rollup-plugin-babel"</span>: <span class="hljs-string">"^4.3.2"</span>,
+    <span class="hljs-attr">"rollup-plugin-commonjs"</span>: <span class="hljs-string">"^9.2.0"</span>,
+    <span class="hljs-attr">"rollup-plugin-node-resolve"</span>: <span class="hljs-string">"^4.0.0"</span>,
+    <span class="hljs-attr">"shelljs"</span>: <span class="hljs-string">"^0.8.3"</span>,
+    <span class="hljs-attr">"shx"</span>: <span class="hljs-string">"^0.3.2"</span>,
+    <span class="hljs-attr">"sinon"</span>: <span class="hljs-string">"^7.2.3"</span>,
+    <span class="hljs-attr">"stylelint"</span>: <span class="hljs-string">"^9.10.1"</span>,
+    <span class="hljs-attr">"stylelint-config-twbs-bootstrap"</span>: <span class="hljs-string">"^0.3.0"</span>,
+    <span class="hljs-attr">"uglify-js"</span>: <span class="hljs-string">"^3.4.9"</span>,
+    <span class="hljs-attr">"vnu-jar"</span>: <span class="hljs-string">"18.11.5"</span>
+  },
+  <span class="hljs-attr">"engines"</span>: {
+    <span class="hljs-attr">"node"</span>: <span class="hljs-string">"&gt;=6"</span>
+  },
+  <span class="hljs-attr">"files"</span>: [
+    <span class="hljs-string">"dist/{css,js}/*.{css,js,map}"</span>,
+    <span class="hljs-string">"js/{src,dist}/**/*.{js,map}"</span>,
+    <span class="hljs-string">"scss/**/*.scss"</span>
+  ],
+  <span class="hljs-attr">"bundlesize"</span>: [
+    {
+      <span class="hljs-attr">"path"</span>: <span class="hljs-string">"./dist/css/bootstrap-grid.css"</span>,
+      <span class="hljs-attr">"maxSize"</span>: <span class="hljs-string">"7 kB"</span>
+    },
+    {
+      <span class="hljs-attr">"path"</span>: <span class="hljs-string">"./dist/css/bootstrap-grid.min.css"</span>,
+      <span class="hljs-attr">"maxSize"</span>: <span class="hljs-string">"6 kB"</span>
+    },
+    {
+      <span class="hljs-attr">"path"</span>: <span class="hljs-string">"./dist/css/bootstrap-reboot.css"</span>,
+      <span class="hljs-attr">"maxSize"</span>: <span class="hljs-string">"2 kB"</span>
+    },
+    {
+      <span class="hljs-attr">"path"</span>: <span class="hljs-string">"./dist/css/bootstrap-reboot.min.css"</span>,
+      <span class="hljs-attr">"maxSize"</span>: <span class="hljs-string">"2 kB"</span>
+    },
+    {
+      <span class="hljs-attr">"path"</span>: <span class="hljs-string">"./dist/css/bootstrap.css"</span>,
+      <span class="hljs-attr">"maxSize"</span>: <span class="hljs-string">"25 kB"</span>
+    },
+    {
+      <span class="hljs-attr">"path"</span>: <span class="hljs-string">"./dist/css/bootstrap.min.css"</span>,
+      <span class="hljs-attr">"maxSize"</span>: <span class="hljs-string">"23 kB"</span>
+    },
+    {
+      <span class="hljs-attr">"path"</span>: <span class="hljs-string">"./dist/js/bootstrap.bundle.js"</span>,
+      <span class="hljs-attr">"maxSize"</span>: <span class="hljs-string">"47 kB"</span>
+    },
+    {
+      <span class="hljs-attr">"path"</span>: <span class="hljs-string">"./dist/js/bootstrap.bundle.min.js"</span>,
+      <span class="hljs-attr">"maxSize"</span>: <span class="hljs-string">"22 kB"</span>
+    },
+    {
+      <span class="hljs-attr">"path"</span>: <span class="hljs-string">"./dist/js/bootstrap.js"</span>,
+      <span class="hljs-attr">"maxSize"</span>: <span class="hljs-string">"25 kB"</span>
+    },
+    {
+      <span class="hljs-attr">"path"</span>: <span class="hljs-string">"./dist/js/bootstrap.min.js"</span>,
+      <span class="hljs-attr">"maxSize"</span>: <span class="hljs-string">"15.5 kB"</span>
+    }
+  ],
+  <span class="hljs-attr">"jspm"</span>: {
+    <span class="hljs-attr">"registry"</span>: <span class="hljs-string">"npm"</span>,
+    <span class="hljs-attr">"main"</span>: <span class="hljs-string">"js/bootstrap"</span>,
+    <span class="hljs-attr">"directories"</span>: {
+      <span class="hljs-attr">"lib"</span>: <span class="hljs-string">"dist"</span>
+    },
+    <span class="hljs-attr">"shim"</span>: {
+      <span class="hljs-attr">"js/bootstrap"</span>: {
+        <span class="hljs-attr">"deps"</span>: [
+          <span class="hljs-string">"jquery"</span>,
+          <span class="hljs-string">"popper.js"</span>
+        ],
+        <span class="hljs-attr">"exports"</span>: <span class="hljs-string">"$"</span>
+      }
+    },
+    <span class="hljs-attr">"dependencies"</span>: {},
+    <span class="hljs-attr">"peerDependencies"</span>: {
+      <span class="hljs-attr">"jquery"</span>: <span class="hljs-string">"1.9.1 - 3"</span>,
+      <span class="hljs-attr">"popper.js"</span>: <span class="hljs-string">"^1.14.7"</span>
+    }
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

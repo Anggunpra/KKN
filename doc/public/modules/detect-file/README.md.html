@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\detect-file\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#detect-file">detect-file      </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#detect">detect</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#case-sensitive-file-systems">Case sensitive file systems</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#about">About</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#building-docs">Building docs</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#running-tests">Running tests</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="detect-file">
+  <h1>
+    <a href="#detect-file" name="detect-file" class="pilcrow"></a>
+detect-file <a href="https://www.npmjs.com/package/detect-file"><img src="https://img.shields.io/npm/v/detect-file.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.org/package/detect-file"><img src="https://img.shields.io/npm/dm/detect-file.svg?style=flat" alt="NPM monthly downloads"></a>  <a href="https://npmjs.org/package/detect-file"><img src="https://img.shields.io/npm/dt/detect-file.svg?style=flat" alt="NPM total downloads"></a> <a href="https://travis-ci.org/doowb/detect-file"><img src="https://img.shields.io/travis/doowb/detect-file.svg?style=flat&amp;label=Travis" alt="Linux Build Status"></a> <a href="https://ci.appveyor.com/project/doowb/detect-file"><img src="https://img.shields.io/appveyor/ci/doowb/detect-file.svg?style=flat&amp;label=AppVeyor" alt="Windows Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Detects if a file exists and returns the resolved filepath.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://www.npmjs.com/">npm</a>:</p>
+<pre><code class="sh">$ npm install --save detect-file
+</code></pre>
+<p>Install with <a href="https://yarnpkg.com">yarn</a>:</p>
+<pre><code class="sh">$ yarn add detect-file
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> detect = <span class="hljs-built_in">require</span>(<span class="hljs-string">'detect-file'</span>);
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="detect">
+  <h3>
+    <a href="#detect" name="detect" class="pilcrow"></a>
+<a href="index.js#L33.html">detect</a>
+  </h3>
+</div>
+<p>Detect the given <code>filepath</code> if it exists.</p>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>filepath</code> <strong>{String}</strong>: filepath to detect.</li>
+<li><code>options</code> <strong>{Object}</strong>: Additional options.</li>
+<li><code>options.nocase</code> <strong>{Boolean}</strong>: Set this to <code>true</code> to force case-insensitive filename checks. This is useful on case sensitive file systems.</li>
+<li><code>returns</code> <strong>{String}</strong>: Returns the detected filepath if it exists, otherwise returns <code>null</code>.</li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> res = detect(<span class="hljs-string">'package.json'</span>);
+<span class="hljs-built_in">console</span>.log(res);
+<span class="hljs-comment">//=&gt; "package.json"</span>
+
+<span class="hljs-keyword">var</span> res = detect(<span class="hljs-string">'fake-file.json'</span>);
+<span class="hljs-built_in">console</span>.log(res)
+<span class="hljs-comment">//=&gt; null</span>
+</code></pre>
+<div class="pilwrap" id="case-sensitive-file-systems">
+  <h2>
+    <a href="#case-sensitive-file-systems" name="case-sensitive-file-systems" class="pilcrow"></a>
+Case sensitive file systems
+  </h2>
+</div>
+<p>When using the <code>nocase</code> option, this library will attempt to detect the filepath with the following methods:</p>
+<ol>
+<li>Try to read all files in the <code>filepath</code> using <code>fs.readdirSync</code>. If successful and <code>filepath</code> is a directory, return the <code>filepath</code>.</li>
+<li>Try to read all files in the <code>filepath</code>'s directory using <code>fs.readdirSync</code>. If successful, do case insensitive comparasions of the <code>filepath</code> to the files in <code>filepath</code>'s directory.</li>
+</ol>
+<div class="pilwrap" id="about">
+  <h2>
+    <a href="#about" name="about" class="pilcrow"></a>
+About
+  </h2>
+</div>
+<div class="pilwrap" id="related-projects">
+  <h3>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h3>
+</div>
+<p><a href="https://www.npmjs.com/package/fs-exists-sync">fs-exists-sync</a>: Drop-in replacement for <code>fs.existsSync</code> with zero dependencies. Other libs I found either have crucial differences… <a href="https://github.com/jonschlinkert/fs-exists-sync">more</a> | <a href="https://github.com/jonschlinkert/fs-exists-sync" title="Drop-in replacement for `fs.existsSync` with zero dependencies. Other libs I found either have crucial differences from fs.existsSync, or unnecessary dependencies. See README.md for more info.">homepage</a></p>
+<div class="pilwrap" id="contributing">
+  <h3>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h3>
+</div>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="../../issues/new.html">please create an issue</a>.</p>
+<div class="pilwrap" id="building-docs">
+  <h3>
+    <a href="#building-docs" name="building-docs" class="pilcrow"></a>
+Building docs
+  </h3>
+</div>
+<p><em>(This project's readme.md is generated by <a href="https://github.com/verbose/verb-generate-readme">verb</a>, please don't edit the readme directly. Any changes to the readme must be made in the <a href=".verb.md.html">.verb.md</a> readme template.)</em></p>
+<p>To generate the readme, run the following command:</p>
+<pre><code class="sh">$ npm install -g verbose/verb<span class="hljs-comment">#dev verb-generate-readme &amp;&amp; verb</span>
+</code></pre>
+<div class="pilwrap" id="running-tests">
+  <h3>
+    <a href="#running-tests" name="running-tests" class="pilcrow"></a>
+Running tests
+  </h3>
+</div>
+<p>Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:</p>
+<pre><code class="sh">$ npm install &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="author">
+  <h3>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h3>
+</div>
+<p><strong>Brian Woodward</strong></p>
+<ul>
+<li><a href="https://github.com/doowb">github/doowb</a></li>
+<li><a href="https://twitter.com/doowb">twitter/doowb</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h3>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h3>
+</div>
+<p>Copyright © 2017, <a href="https://github.com/doowb">Brian Woodward</a>.
+Released under the <a href="LICENSE.html">MIT License</a>.</p>
+<hr>
+<p><em>This file was generated by <a href="https://github.com/verbose/verb-generate-readme">verb-generate-readme</a>, v0.6.0, on August 05, 2017.</em></p>
+</div>
+  </div>
+</body>
+</html>

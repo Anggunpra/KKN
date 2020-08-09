@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\arr-map\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#arr-map">arr-map     </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#why-use-this">Why use this?</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#about">About</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#building-docs">Building docs</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#running-tests">Running tests</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="arr-map">
+  <h1>
+    <a href="#arr-map" name="arr-map" class="pilcrow"></a>
+arr-map <a href="https://www.npmjs.com/package/arr-map"><img src="https://img.shields.io/npm/v/arr-map.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.org/package/arr-map"><img src="https://img.shields.io/npm/dm/arr-map.svg?style=flat" alt="NPM monthly downloads"></a>  <a href="https://npmjs.org/package/arr-map"><img src="https://img.shields.io/npm/dt/arr-map.svg?style=flat" alt="NPM total downloads"></a> <a href="https://travis-ci.org/jonschlinkert/arr-map"><img src="https://img.shields.io/travis/jonschlinkert/arr-map.svg?style=flat&amp;label=Travis" alt="Linux Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Faster, node.js focused alternative to JavaScript's native array map.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://www.npmjs.com/">npm</a>:</p>
+<pre><code class="sh">$ npm install --save arr-map
+</code></pre>
+<div class="pilwrap" id="why-use-this">
+  <h2>
+    <a href="#why-use-this" name="why-use-this" class="pilcrow"></a>
+Why use this?
+  </h2>
+</div>
+<p>JavaScript's native <code>Array.map()</code> is slow, and other popular array map libraries are focused on browser compatibility, which makes them bloated or less than idea for non-browser usage. This implementation is focused on node.js usage keeping it light and fast.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> map = <span class="hljs-built_in">require</span>(<span class="hljs-string">'arr-map'</span>);
+
+map([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ele</span>) </span>{
+  <span class="hljs-keyword">return</span> ele + ele;
+});
+<span class="hljs-comment">//=&gt; ['aa', 'bb', 'cc']</span>
+
+map([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ele, i</span>) </span>{
+  <span class="hljs-keyword">return</span> i + ele;
+});
+<span class="hljs-comment">//=&gt; ['0a', '1b', '2c']</span>
+</code></pre>
+<div class="pilwrap" id="about">
+  <h2>
+    <a href="#about" name="about" class="pilcrow"></a>
+About
+  </h2>
+</div>
+<div class="pilwrap" id="related-projects">
+  <h3>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h3>
+</div>
+<ul>
+<li><a href="https://www.npmjs.com/package/arr-diff">arr-diff</a>: Returns an array with only the unique values from the first array, by excluding all… <a href="https://github.com/jonschlinkert/arr-diff">more</a> | <a href="https://github.com/jonschlinkert/arr-diff" title="Returns an array with only the unique values from the first array, by excluding all values from additional arrays using strict equality for comparisons.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/arr-filter">arr-filter</a>: Faster alternative to javascript's native filter method. | <a href="https://github.com/jonschlinkert/arr-filter" title="Faster alternative to javascript's native filter method.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/arr-flatten">arr-flatten</a>: Recursively flatten an array or arrays. This is the fastest implementation of array flatten. | <a href="https://github.com/jonschlinkert/arr-flatten" title="Recursively flatten an array or arrays. This is the fastest implementation of array flatten.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/arr-reduce">arr-reduce</a>: Fast array reduce that also loops over sparse elements. | <a href="https://github.com/jonschlinkert/arr-reduce" title="Fast array reduce that also loops over sparse elements.">homepage</a></li>
+</ul>
+<div class="pilwrap" id="contributing">
+  <h3>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h3>
+</div>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="../../issues/new.html">please create an issue</a>.</p>
+<div class="pilwrap" id="building-docs">
+  <h3>
+    <a href="#building-docs" name="building-docs" class="pilcrow"></a>
+Building docs
+  </h3>
+</div>
+<p><em>(This project's readme.md is generated by <a href="https://github.com/verbose/verb-generate-readme">verb</a>, please don't edit the readme directly. Any changes to the readme must be made in the <a href=".verb.md.html">.verb.md</a> readme template.)</em></p>
+<p>To generate the readme, run the following command:</p>
+<pre><code class="sh">$ npm install -g verbose/verb<span class="hljs-comment">#dev verb-generate-readme &amp;&amp; verb</span>
+</code></pre>
+<div class="pilwrap" id="running-tests">
+  <h3>
+    <a href="#running-tests" name="running-tests" class="pilcrow"></a>
+Running tests
+  </h3>
+</div>
+<p>Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:</p>
+<pre><code class="sh">$ npm install &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="author">
+  <h3>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h3>
+</div>
+<p><strong>Jon Schlinkert</strong></p>
+<ul>
+<li><a href="https://github.com/jonschlinkert">github/jonschlinkert</a></li>
+<li><a href="https://twitter.com/jonschlinkert">twitter/jonschlinkert</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h3>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h3>
+</div>
+<p>Copyright © 2017, <a href="https://github.com/jonschlinkert">Jon Schlinkert</a>.
+Released under the <a href="LICENSE.html">MIT License</a>.</p>
+<hr>
+<p><em>This file was generated by <a href="https://github.com/verbose/verb-generate-readme">verb-generate-readme</a>, v0.4.2, on February 28, 2017.</em></p>
+</div>
+  </div>
+</body>
+</html>

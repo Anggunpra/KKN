@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>database.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "config\\database.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>database.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Str</span>;
+
+<span class="hljs-keyword">return</span> [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Default Database Connection Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may specify which of the database connections below you wish</td>
+</tr>
+<tr>
+<td>to use as your default connection for all database work. Of course</td>
+</tr>
+<tr>
+<td>you may use many connections at once using the Database library.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'default'</span> =&gt; env(<span class="hljs-string">'DB_CONNECTION'</span>, <span class="hljs-string">'mysql'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Database Connections</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here are each of the database connections setup for your application.</td>
+</tr>
+<tr>
+<td>Of course, examples of configuring each database platform that is</td>
+</tr>
+<tr>
+<td>supported by Laravel is shown below to make development simple.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>All database work in Laravel is done through the PHP PDO facilities</td>
+</tr>
+<tr>
+<td>so make sure you have the driver for your particular database of</td>
+</tr>
+<tr>
+<td>choice installed on your machine before you begin development.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'connections'</span> =&gt; [
+
+        <span class="hljs-string">'sqlite'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'sqlite'</span>,
+            <span class="hljs-string">'url'</span> =&gt; env(<span class="hljs-string">'DATABASE_URL'</span>),
+            <span class="hljs-string">'database'</span> =&gt; env(<span class="hljs-string">'DB_DATABASE'</span>, database_path(<span class="hljs-string">'database.sqlite'</span>)),
+            <span class="hljs-string">'prefix'</span> =&gt; <span class="hljs-string">''</span>,
+            <span class="hljs-string">'foreign_key_constraints'</span> =&gt; env(<span class="hljs-string">'DB_FOREIGN_KEYS'</span>, <span class="hljs-keyword">true</span>),
+        ],
+
+        <span class="hljs-string">'mysql'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'mysql'</span>,
+            <span class="hljs-string">'url'</span> =&gt; env(<span class="hljs-string">'DATABASE_URL'</span>),
+            <span class="hljs-string">'host'</span> =&gt; env(<span class="hljs-string">'DB_HOST'</span>, <span class="hljs-string">'127.0.0.1'</span>),
+            <span class="hljs-string">'port'</span> =&gt; env(<span class="hljs-string">'DB_PORT'</span>, <span class="hljs-string">'3306'</span>),
+            <span class="hljs-string">'database'</span> =&gt; env(<span class="hljs-string">'DB_DATABASE'</span>, <span class="hljs-string">'forge'</span>),
+            <span class="hljs-string">'username'</span> =&gt; env(<span class="hljs-string">'DB_USERNAME'</span>, <span class="hljs-string">'forge'</span>),
+            <span class="hljs-string">'password'</span> =&gt; env(<span class="hljs-string">'DB_PASSWORD'</span>, <span class="hljs-string">''</span>),
+            <span class="hljs-string">'unix_socket'</span> =&gt; env(<span class="hljs-string">'DB_SOCKET'</span>, <span class="hljs-string">''</span>),
+            <span class="hljs-string">'charset'</span> =&gt; <span class="hljs-string">'utf8mb4'</span>,
+            <span class="hljs-string">'collation'</span> =&gt; <span class="hljs-string">'utf8mb4_unicode_ci'</span>,
+            <span class="hljs-string">'prefix'</span> =&gt; <span class="hljs-string">''</span>,
+            <span class="hljs-string">'prefix_indexes'</span> =&gt; <span class="hljs-keyword">true</span>,
+            <span class="hljs-string">'strict'</span> =&gt; <span class="hljs-keyword">true</span>,
+            <span class="hljs-string">'engine'</span> =&gt; <span class="hljs-keyword">null</span>,
+            <span class="hljs-string">'options'</span> =&gt; extension_loaded(<span class="hljs-string">'pdo_mysql'</span>) ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA =&gt; env(<span class="hljs-string">'MYSQL_ATTR_SSL_CA'</span>),
+            ]) : [],
+        ],
+
+        <span class="hljs-string">'pgsql'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'pgsql'</span>,
+            <span class="hljs-string">'url'</span> =&gt; env(<span class="hljs-string">'DATABASE_URL'</span>),
+            <span class="hljs-string">'host'</span> =&gt; env(<span class="hljs-string">'DB_HOST'</span>, <span class="hljs-string">'127.0.0.1'</span>),
+            <span class="hljs-string">'port'</span> =&gt; env(<span class="hljs-string">'DB_PORT'</span>, <span class="hljs-string">'5432'</span>),
+            <span class="hljs-string">'database'</span> =&gt; env(<span class="hljs-string">'DB_DATABASE'</span>, <span class="hljs-string">'forge'</span>),
+            <span class="hljs-string">'username'</span> =&gt; env(<span class="hljs-string">'DB_USERNAME'</span>, <span class="hljs-string">'forge'</span>),
+            <span class="hljs-string">'password'</span> =&gt; env(<span class="hljs-string">'DB_PASSWORD'</span>, <span class="hljs-string">''</span>),
+            <span class="hljs-string">'charset'</span> =&gt; <span class="hljs-string">'utf8'</span>,
+            <span class="hljs-string">'prefix'</span> =&gt; <span class="hljs-string">''</span>,
+            <span class="hljs-string">'prefix_indexes'</span> =&gt; <span class="hljs-keyword">true</span>,
+            <span class="hljs-string">'schema'</span> =&gt; <span class="hljs-string">'public'</span>,
+            <span class="hljs-string">'sslmode'</span> =&gt; <span class="hljs-string">'prefer'</span>,
+        ],
+
+        <span class="hljs-string">'sqlsrv'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'sqlsrv'</span>,
+            <span class="hljs-string">'url'</span> =&gt; env(<span class="hljs-string">'DATABASE_URL'</span>),
+            <span class="hljs-string">'host'</span> =&gt; env(<span class="hljs-string">'DB_HOST'</span>, <span class="hljs-string">'localhost'</span>),
+            <span class="hljs-string">'port'</span> =&gt; env(<span class="hljs-string">'DB_PORT'</span>, <span class="hljs-string">'1433'</span>),
+            <span class="hljs-string">'database'</span> =&gt; env(<span class="hljs-string">'DB_DATABASE'</span>, <span class="hljs-string">'forge'</span>),
+            <span class="hljs-string">'username'</span> =&gt; env(<span class="hljs-string">'DB_USERNAME'</span>, <span class="hljs-string">'forge'</span>),
+            <span class="hljs-string">'password'</span> =&gt; env(<span class="hljs-string">'DB_PASSWORD'</span>, <span class="hljs-string">''</span>),
+            <span class="hljs-string">'charset'</span> =&gt; <span class="hljs-string">'utf8'</span>,
+            <span class="hljs-string">'prefix'</span> =&gt; <span class="hljs-string">''</span>,
+            <span class="hljs-string">'prefix_indexes'</span> =&gt; <span class="hljs-keyword">true</span>,
+        ],
+
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Migration Repository Table</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This table keeps track of all the migrations that have already run for</td>
+</tr>
+<tr>
+<td>your application. Using this information, we can determine which of</td>
+</tr>
+<tr>
+<td>the migrations on disk haven't actually been run in the database.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'migrations'</span> =&gt; <span class="hljs-string">'migrations'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Redis Databases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Redis is an open source, fast, and advanced key-value store that also</td>
+</tr>
+<tr>
+<td>provides a richer body of commands than a typical key-value system</td>
+</tr>
+<tr>
+<td>such as APC or Memcached. Laravel makes it easy to dig right in.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'redis'</span> =&gt; [
+
+        <span class="hljs-string">'client'</span> =&gt; env(<span class="hljs-string">'REDIS_CLIENT'</span>, <span class="hljs-string">'phpredis'</span>),
+
+        <span class="hljs-string">'options'</span> =&gt; [
+            <span class="hljs-string">'cluster'</span> =&gt; env(<span class="hljs-string">'REDIS_CLUSTER'</span>, <span class="hljs-string">'redis'</span>),
+            <span class="hljs-string">'prefix'</span> =&gt; env(<span class="hljs-string">'REDIS_PREFIX'</span>, Str::slug(env(<span class="hljs-string">'APP_NAME'</span>, <span class="hljs-string">'laravel'</span>), <span class="hljs-string">'_'</span>).<span class="hljs-string">'_database_'</span>),
+        ],
+
+        <span class="hljs-string">'default'</span> =&gt; [
+            <span class="hljs-string">'url'</span> =&gt; env(<span class="hljs-string">'REDIS_URL'</span>),
+            <span class="hljs-string">'host'</span> =&gt; env(<span class="hljs-string">'REDIS_HOST'</span>, <span class="hljs-string">'127.0.0.1'</span>),
+            <span class="hljs-string">'password'</span> =&gt; env(<span class="hljs-string">'REDIS_PASSWORD'</span>, <span class="hljs-keyword">null</span>),
+            <span class="hljs-string">'port'</span> =&gt; env(<span class="hljs-string">'REDIS_PORT'</span>, <span class="hljs-string">'6379'</span>),
+            <span class="hljs-string">'database'</span> =&gt; env(<span class="hljs-string">'REDIS_DB'</span>, <span class="hljs-string">'0'</span>),
+        ],
+
+        <span class="hljs-string">'cache'</span> =&gt; [
+            <span class="hljs-string">'url'</span> =&gt; env(<span class="hljs-string">'REDIS_URL'</span>),
+            <span class="hljs-string">'host'</span> =&gt; env(<span class="hljs-string">'REDIS_HOST'</span>, <span class="hljs-string">'127.0.0.1'</span>),
+            <span class="hljs-string">'password'</span> =&gt; env(<span class="hljs-string">'REDIS_PASSWORD'</span>, <span class="hljs-keyword">null</span>),
+            <span class="hljs-string">'port'</span> =&gt; env(<span class="hljs-string">'REDIS_PORT'</span>, <span class="hljs-string">'6379'</span>),
+            <span class="hljs-string">'database'</span> =&gt; env(<span class="hljs-string">'REDIS_CACHE_DB'</span>, <span class="hljs-string">'1'</span>),
+        ],
+
+    ],
+
+];
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

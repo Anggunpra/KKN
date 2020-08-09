@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\component-bind\\Readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#bind">bind</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bind-obj-fn">bind(obj, fn)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bind-obj-fn...">bind(obj, fn, ...)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bind-obj-name">bind(obj, name)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="bind">
+  <h1>
+    <a href="#bind" name="bind" class="pilcrow"></a>
+bind
+  </h1>
+</div>
+<p>Function binding utility.</p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<pre><code>$ component install component/bind
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<ul>
+<li><a href="#bindobj-fn.html">bind(obj, fn)</a></li>
+<li><a href="#bindobj-fn-.html">bind(obj, fn, ...)</a></li>
+<li><a href="#bindobj-name.html">bind(obj, name)</a>
+<a name=""></a></li>
+</ul>
+<p><a name="bindobj-fn"></a></p>
+<div class="pilwrap" id="bind-obj-fn">
+  <h3>
+    <a href="#bind-obj-fn" name="bind-obj-fn" class="pilcrow"></a>
+bind(obj, fn)
+  </h3>
+</div>
+<p>should bind the function to the given object.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> tobi = { <span class="hljs-attr">name</span>: <span class="hljs-string">'tobi'</span> };
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">name</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;
+}
+
+<span class="hljs-keyword">var</span> fn = bind(tobi, name);
+fn().should.equal(<span class="hljs-string">'tobi'</span>);
+</code></pre>
+<p><a name="bindobj-fn-"></a></p>
+<div class="pilwrap" id="bind-obj-fn...">
+  <h3>
+    <a href="#bind-obj-fn..." name="bind-obj-fn..." class="pilcrow"></a>
+bind(obj, fn, ...)
+  </h3>
+</div>
+<p>should curry the remaining arguments.</p>
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">a, b</span>) </span>{
+  <span class="hljs-keyword">return</span> a + b;
+}
+
+bind(<span class="hljs-literal">null</span>, add)(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>).should.equal(<span class="hljs-number">3</span>);
+bind(<span class="hljs-literal">null</span>, add, <span class="hljs-number">1</span>)(<span class="hljs-number">2</span>).should.equal(<span class="hljs-number">3</span>);
+bind(<span class="hljs-literal">null</span>, add, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>)().should.equal(<span class="hljs-number">3</span>);
+</code></pre>
+<p><a name="bindobj-name"></a></p>
+<div class="pilwrap" id="bind-obj-name">
+  <h3>
+    <a href="#bind-obj-name" name="bind-obj-name" class="pilcrow"></a>
+bind(obj, name)
+  </h3>
+</div>
+<p>should bind the method of the given name.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> tobi = { <span class="hljs-attr">name</span>: <span class="hljs-string">'tobi'</span> };
+
+tobi.getName = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;
+};
+
+<span class="hljs-keyword">var</span> fn = bind(tobi, <span class="hljs-string">'getName'</span>);
+fn().should.equal(<span class="hljs-string">'tobi'</span>);
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

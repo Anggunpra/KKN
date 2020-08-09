@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>browser.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\arch\\browser.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>browser.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arch</span> (<span class="hljs-params"></span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>User agent strings that indicate a 64-bit OS.
+See: http://stackoverflow.com/a/13709431/292185</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> userAgent = navigator.userAgent
+  <span class="hljs-keyword">if</span> ([
+    <span class="hljs-string">'x86_64'</span>,
+    <span class="hljs-string">'x86-64'</span>,
+    <span class="hljs-string">'Win64'</span>,
+    <span class="hljs-string">'x64;'</span>,
+    <span class="hljs-string">'amd64'</span>,
+    <span class="hljs-string">'AMD64'</span>,
+    <span class="hljs-string">'WOW64'</span>,
+    <span class="hljs-string">'x64_64'</span>
+  ].some(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">str</span>) </span>{
+    <span class="hljs-keyword">return</span> userAgent.indexOf(str) &gt; <span class="hljs-number">-1</span>
+  })) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'x64'</span>
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Platform strings that indicate a 64-bit OS.
+See: http://stackoverflow.com/a/19883965/292185</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> platform = navigator.platform
+  <span class="hljs-keyword">if</span> (platform === <span class="hljs-string">'MacIntel'</span> || platform === <span class="hljs-string">'Linux x86_64'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'x64'</span>
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>CPU class strings that indicate a 64-bit OS.
+See: http://stackoverflow.com/a/6267019/292185</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (navigator.cpuClass === <span class="hljs-string">'x64'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'x64'</span>
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>If none of the above, assume the architecture is 32-bit.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">return</span> <span class="hljs-string">'x86'</span>
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

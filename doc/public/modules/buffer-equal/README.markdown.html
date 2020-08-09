@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.markdown</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\buffer-equal\\README.markdown";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#buffer-equal">buffer-equal</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#example">example</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#methods">methods</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#bufferequal-a-b">bufferEqual(a, b)</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#install">install</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#license">license</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="buffer-equal">
+  <h1>
+    <a href="#buffer-equal" name="buffer-equal" class="pilcrow"></a>
+buffer-equal
+  </h1>
+</div>
+<p>Return whether two buffers are equal.</p>
+<p><a href="http://travis-ci.org/substack/node-buffer-equal"><img src="https://secure.travis-ci.org/substack/node-buffer-equal.png" alt="build status"></a></p>
+<div class="pilwrap" id="example">
+  <h1>
+    <a href="#example" name="example" class="pilcrow"></a>
+example
+  </h1>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> bufferEqual = <span class="hljs-built_in">require</span>(<span class="hljs-string">'buffer-equal'</span>);
+
+<span class="hljs-built_in">console</span>.dir(bufferEqual(
+    <span class="hljs-keyword">new</span> Buffer([<span class="hljs-number">253</span>,<span class="hljs-number">254</span>,<span class="hljs-number">255</span>]),
+    <span class="hljs-keyword">new</span> Buffer([<span class="hljs-number">253</span>,<span class="hljs-number">254</span>,<span class="hljs-number">255</span>])
+));
+<span class="hljs-built_in">console</span>.dir(bufferEqual(
+    <span class="hljs-keyword">new</span> Buffer(<span class="hljs-string">'abc'</span>),
+    <span class="hljs-keyword">new</span> Buffer(<span class="hljs-string">'abcd'</span>)
+));
+<span class="hljs-built_in">console</span>.dir(bufferEqual(
+    <span class="hljs-keyword">new</span> Buffer(<span class="hljs-string">'abc'</span>),
+    <span class="hljs-string">'abc'</span>
+));
+</code></pre>
+<p>output:</p>
+<pre><code>true
+false
+undefined
+</code></pre>
+<div class="pilwrap" id="methods">
+  <h1>
+    <a href="#methods" name="methods" class="pilcrow"></a>
+methods
+  </h1>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> bufferEqual = <span class="hljs-built_in">require</span>(<span class="hljs-string">'buffer-equal'</span>)
+</code></pre>
+<div class="pilwrap" id="bufferequal-a-b">
+  <h2>
+    <a href="#bufferequal-a-b" name="bufferequal-a-b" class="pilcrow"></a>
+bufferEqual(a, b)
+  </h2>
+</div>
+<p>Return whether the two buffers <code>a</code> and <code>b</code> are equal.</p>
+<p>If <code>a</code> or <code>b</code> is not a buffer, return <code>undefined</code>.</p>
+<div class="pilwrap" id="install">
+  <h1>
+    <a href="#install" name="install" class="pilcrow"></a>
+install
+  </h1>
+</div>
+<p>With <a href="http://npmjs.org">npm</a> do:</p>
+<pre><code>npm install buffer-equal
+</code></pre>
+<div class="pilwrap" id="license">
+  <h1>
+    <a href="#license" name="license" class="pilcrow"></a>
+license
+  </h1>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

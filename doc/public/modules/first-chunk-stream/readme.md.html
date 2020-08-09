@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\first-chunk-stream\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#first-chunk-stream">first-chunk-stream </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#firstchunk-options-transform">firstChunk([options], transform)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.minsize">options.minSize</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#transform-chunk-encoding-callback">transform(chunk, encoding, callback)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#firstchunk.ctor">firstChunk.ctor()</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="first-chunk-stream">
+  <h1>
+    <a href="#first-chunk-stream" name="first-chunk-stream" class="pilcrow"></a>
+first-chunk-stream <a href="https://travis-ci.org/sindresorhus/first-chunk-stream"><img src="https://travis-ci.org/sindresorhus/first-chunk-stream.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Transform the first chunk in a stream</p>
+</blockquote>
+<p>Useful if you want to do something to the first chunk.</p>
+<p>You can also set the minimum size of that chunk.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code class="sh">$ npm install --save first-chunk-stream
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">var</span> concat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'concat-stream'</span>);
+<span class="hljs-keyword">var</span> firstChunk = <span class="hljs-built_in">require</span>(<span class="hljs-string">'first-chunk-stream'</span>);
+
+<span class="hljs-comment">// unicorn.txt =&gt; unicorn rainbow</span>
+<span class="hljs-comment">// `highWaterMark: 1` means it will only read 1 byte at the time</span>
+fs.createReadStream(<span class="hljs-string">'unicorn.txt'</span>, {<span class="hljs-attr">highWaterMark</span>: <span class="hljs-number">1</span>})
+	.pipe(firstChunk({<span class="hljs-attr">minSize</span>: <span class="hljs-number">7</span>}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">chunk, enc, cb</span>) </span>{
+		<span class="hljs-keyword">this</span>.push(chunk.toUpperCase());
+		cb();
+	}))
+	.pipe(concat(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
+		<span class="hljs-built_in">console</span>.log(data);
+		<span class="hljs-comment">//=&gt; UNICORN rainbow</span>
+	}));
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="firstchunk-options-transform">
+  <h3>
+    <a href="#firstchunk-options-transform" name="firstchunk-options-transform" class="pilcrow"></a>
+firstChunk([options], transform)
+  </h3>
+</div>
+<div class="pilwrap" id="options.minsize">
+  <h4>
+    <a href="#options.minsize" name="options.minsize" class="pilcrow"></a>
+options.minSize
+  </h4>
+</div>
+<p>Type: <code>number</code></p>
+<p>The minimum size of the first chunk.</p>
+<div class="pilwrap" id="transform-chunk-encoding-callback">
+  <h4>
+    <a href="#transform-chunk-encoding-callback" name="transform-chunk-encoding-callback" class="pilcrow"></a>
+transform(chunk, encoding, callback)
+  </h4>
+</div>
+<p><em>Required</em><br>
+Type: <code>function</code></p>
+<p>The <a href="http://nodejs.org/docs/latest/api/stream.html#stream_transform_transform_chunk_encoding_callback">function</a> that gets the first chunk.</p>
+<div class="pilwrap" id="firstchunk.ctor">
+  <h3>
+    <a href="#firstchunk.ctor" name="firstchunk.ctor" class="pilcrow"></a>
+firstChunk.ctor()
+  </h3>
+</div>
+<p>Instead of returning a <a href="http://nodejs.org/docs/latest/api/stream.html#stream_class_stream_transform_1">stream.Transform</a> instance, <code>firstChunk.ctor()</code> returns a constructor for a custom Transform. This is useful when you want to use the same transform logic in multiple instances.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

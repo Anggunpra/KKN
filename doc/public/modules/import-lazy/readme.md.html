@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\import-lazy\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#import-lazy">import-lazy </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related">Related</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="import-lazy">
+  <h1>
+    <a href="#import-lazy" name="import-lazy" class="pilcrow"></a>
+import-lazy <a href="https://travis-ci.org/sindresorhus/import-lazy"><img src="https://travis-ci.org/sindresorhus/import-lazy.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Import a module lazily</p>
+</blockquote>
+<p>Note: Version 3 is exclusively <code>Proxy</code>-based and requires Node.js 6+. Use <a href="https://github.com/sindresorhus/import-lazy/tree/ed6c2fac31aaf8a7d91a27295756383487f3965d">version 2</a> if you need Node.js &lt;=5 support.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install import-lazy
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-comment">// Pass in `require` or a custom import function</span>
+<span class="hljs-keyword">const</span> importLazy = <span class="hljs-built_in">require</span>(<span class="hljs-string">'import-lazy'</span>)(<span class="hljs-built_in">require</span>);
+<span class="hljs-keyword">const</span> _ = importLazy(<span class="hljs-string">'lodash'</span>);
+
+<span class="hljs-comment">// Instead of referring to its exported properties directly…</span>
+_.isNumber(<span class="hljs-number">2</span>);
+
+<span class="hljs-comment">// …it's cached on consecutive calls</span>
+_.isNumber(<span class="hljs-string">'unicorn'</span>);
+
+<span class="hljs-comment">// It also works using destructuring assignment in ES2015</span>
+<span class="hljs-keyword">const</span> {isNumber, isString} = importLazy(<span class="hljs-string">'lodash'</span>);
+
+<span class="hljs-comment">// Works out of the box for functions and regular properties</span>
+<span class="hljs-keyword">const</span> stuff = importLazy(<span class="hljs-string">'./math-lib'</span>);
+<span class="hljs-built_in">console</span>.log(stuff.sum(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)); <span class="hljs-comment">// =&gt; 3</span>
+<span class="hljs-built_in">console</span>.log(stuff.PHI); <span class="hljs-comment">// =&gt; 1.618033</span>
+</code></pre>
+<div class="pilwrap" id="related">
+  <h2>
+    <a href="#related" name="related" class="pilcrow"></a>
+Related
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/sindresorhus/resolve-from">resolve-from</a> - Resolve the path of a module from a given path</li>
+<li><a href="https://github.com/sindresorhus/import-from">import-from</a> - Import a module from a given path</li>
+<li><a href="https://github.com/sindresorhus/resolve-pkg">resolve-pkg</a> - Resolve the path of a package regardless of it having an entry point</li>
+<li><a href="https://github.com/sindresorhus/lazy-value">lazy-value</a> - Create a lazily evaluated value</li>
+<li><a href="https://github.com/sindresorhus/define-lazy-prop">define-lazy-prop</a> - Define a lazily evaluated property on an object</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\async-done\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#async-done">async-done</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#successful-completion">Successful completion</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#failed-completion">Failed completion</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#asyncdone-fn-callback">asyncDone(fn, callback)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#fn-done">fn([done])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#completion-and-error-resolution">Completion and Error Resolution</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#callback-error-result">callback(error, result)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p align="center">
+  <a href="http://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+</p>
+<div class="pilwrap" id="async-done">
+  <h1>
+    <a href="#async-done" name="async-done" class="pilcrow"></a>
+async-done
+  </h1>
+</div>
+<p><a href="https://www.npmjs.com/package/async-done"><img src="https://img.shields.io/npm/v/async-done.svg" alt="NPM version"></a> <a href="https://www.npmjs.com/package/async-done"><img src="https://img.shields.io/npm/dm/async-done.svg" alt="Downloads"></a> <a href="https://dev.azure.com/gulpjs/gulp/_build/latest?definitionId=6&amp;branchName=master"><img src="https://dev.azure.com/gulpjs/gulp/_apis/build/status/async-done?branchName=master" alt="Azure Pipelines Build Status"></a> <a href="https://travis-ci.org/gulpjs/async-done"><img src="https://img.shields.io/travis/gulpjs/async-done.svg?label=travis-ci" alt="Travis Build Status"></a> <a href="https://ci.appveyor.com/project/gulpjs/async-done"><img src="https://img.shields.io/appveyor/ci/gulpjs/async-done.svg?label=appveyor" alt="AppVeyor Build Status"></a> <a href="https://coveralls.io/r/gulpjs/async-done"><img src="https://img.shields.io/coveralls/gulpjs/async-done/master.svg" alt="Coveralls Status"></a> <a href="https://gitter.im/gulpjs/gulp"><img src="https://badges.gitter.im/gulpjs/gulp.svg" alt="Gitter chat"></a></p>
+<p>Allows libraries to handle various caller provided asynchronous functions uniformly. Maps promises, observables, child processes and streams, and callbacks to callback style.</p>
+<p>As async conventions evolve, it is useful to be able to deal with several different <em>styles</em> of async completion uniformly. With this module you can handle completion using a node-style callback, regardless of a return value that's a promise, observable, child process or stream.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<div class="pilwrap" id="successful-completion">
+  <h3>
+    <a href="#successful-completion" name="successful-completion" class="pilcrow"></a>
+Successful completion
+  </h3>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> asyncDone = <span class="hljs-built_in">require</span>(<span class="hljs-string">'async-done'</span>);
+
+asyncDone(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+  <span class="hljs-comment">// do async things</span>
+  done(<span class="hljs-literal">null</span>, <span class="hljs-number">2</span>);
+}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, result</span>)</span>{
+  <span class="hljs-comment">// `error` will be null on successful execution of the first function.</span>
+  <span class="hljs-comment">// `result` will be the result from the first function.</span>
+});
+</code></pre>
+<div class="pilwrap" id="failed-completion">
+  <h3>
+    <a href="#failed-completion" name="failed-completion" class="pilcrow"></a>
+Failed completion
+  </h3>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> asyncDone = <span class="hljs-built_in">require</span>(<span class="hljs-string">'async-done'</span>);
+
+asyncDone(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+  <span class="hljs-comment">// do async things</span>
+  done(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Some Error Occurred'</span>));
+}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, result</span>)</span>{
+  <span class="hljs-comment">// `error` will be an error from the first function.</span>
+  <span class="hljs-comment">// `result` will be undefined on failed execution of the first function.</span>
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="asyncdone-fn-callback">
+  <h3>
+    <a href="#asyncdone-fn-callback" name="asyncdone-fn-callback" class="pilcrow"></a>
+<code>asyncDone(fn, callback)</code>
+  </h3>
+</div>
+<p>Takes a function to execute (<code>fn</code>) and a function to call on completion (<code>callback</code>).</p>
+<div class="pilwrap" id="fn-done">
+  <h4>
+    <a href="#fn-done" name="fn-done" class="pilcrow"></a>
+<code>fn([done])</code>
+  </h4>
+</div>
+<p>Optionally takes a callback to call when async tasks are complete.</p>
+<div class="pilwrap" id="completion-and-error-resolution">
+  <h4>
+    <a href="#completion-and-error-resolution" name="completion-and-error-resolution" class="pilcrow"></a>
+Completion and Error Resolution
+  </h4>
+</div>
+<ul>
+<li><code>Callback</code> (<code>done</code>) called
+<ul>
+<li>Completion: called with null error</li>
+<li>Error: called with non-null error</li>
+</ul>
+</li>
+<li><code>Stream</code> or <code>EventEmitter</code> returned
+<ul>
+<li>Completion: <a href="https://www.npmjs.com/package/end-of-stream">end-of-stream</a> module</li>
+<li>Error: <a href="http://nodejs.org/api/domain.html">domains</a></li>
+<li><strong>Note:</strong> Only actual streams are supported, not faux-streams; Therefore, modules like <a href="https://github.com/dominictarr/event-stream"><code>event-stream</code></a> are not supported.</li>
+</ul>
+</li>
+<li><code>Child Process</code> returned
+<ul>
+<li>Completion <a href="https://www.npmjs.com/package/end-of-stream">end-of-stream</a> module</li>
+<li>Error: <a href="http://nodejs.org/api/domain.html">domains</a></li>
+</ul>
+</li>
+<li><code>Promise</code> returned
+<ul>
+<li>Completion: <a href="http://promisesaplus.com/#point-26">onFulfilled</a> method called</li>
+<li>Error: <a href="http://promisesaplus.com/#point-30">onRejected</a> method called</li>
+</ul>
+</li>
+<li><code>Observable</code> (e.g. from <a href="http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html">RxJS v5</a> or <a href="http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html">RxJS v4</a>) returned
+<ul>
+<li>Completion: <a href="http://reactivex.io/rxjs/class/es6/MiscJSDoc.js~ObserverDoc.html#instance-method-complete">complete</a> method called</li>
+<li>Error: <a href="http://reactivex.io/rxjs/class/es6/MiscJSDoc.js~ObserverDoc.html#instance-method-error">error</a> method called</li>
+</ul>
+</li>
+</ul>
+<p><strong>Warning:</strong> Sync tasks are <strong>not supported</strong> and your function will never complete if the one of the above strategies is not used to signal completion. However, thrown errors will be caught by the domain.</p>
+<div class="pilwrap" id="callback-error-result">
+  <h4>
+    <a href="#callback-error-result" name="callback-error-result" class="pilcrow"></a>
+<code>callback(error, result)</code>
+  </h4>
+</div>
+<p>If an error doesn't occur in the execution of the <code>fn</code> function, the <code>callback</code> method will receive the results as its second argument. Note: Some streams don't received any results.</p>
+<p>If an error occurred in the execution of the <code>fn</code> function, The <code>callback</code> method will receive an error as its first argument.</p>
+<p>Errors can be caused by:</p>
+<ul>
+<li>A thrown error</li>
+<li>An error passed to a <code>done</code> callback</li>
+<li>An <code>error</code> event emitted on a returned <code>Stream</code>, <code>EventEmitter</code> or <code>Child Process</code></li>
+<li>A rejection of a returned <code>Promise</code> - If the <code>Promise</code> is not rejected with a value, we generate a new <code>Error</code></li>
+<li>The <code>onError</code> handler being called on an <code>Observable</code></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

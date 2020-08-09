@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\jquery\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#jquery">jQuery</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#including-jquery">Including jQuery</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#browser">Browser</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#script-tag">Script tag</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#babel">Babel</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#browserifywebpack">Browserify/Webpack</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#amd-asynchronous-module-definition">AMD (Asynchronous Module Definition)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#node">Node</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="jquery">
+  <h1>
+    <a href="#jquery" name="jquery" class="pilcrow"></a>
+jQuery
+  </h1>
+</div>
+<blockquote>
+<p>jQuery is a fast, small, and feature-rich JavaScript library.</p>
+</blockquote>
+<p>For information on how to get started and how to use jQuery, please see <a href="http://api.jquery.com/">jQuery's documentation</a>.
+For source files and issues, please visit the <a href="https://github.com/jquery/jquery">jQuery repo</a>.</p>
+<p>If upgrading, please see the <a href="https://blog.jquery.com/2019/05/01/jquery-3-4-1-triggering-focus-events-in-ie-and-finding-root-elements-in-ios-10/">blog post for 3.4.1</a>. This includes notable differences from the previous version and a more readable changelog.</p>
+<div class="pilwrap" id="including-jquery">
+  <h2>
+    <a href="#including-jquery" name="including-jquery" class="pilcrow"></a>
+Including jQuery
+  </h2>
+</div>
+<p>Below are some of the most common ways to include jQuery.</p>
+<div class="pilwrap" id="browser">
+  <h3>
+    <a href="#browser" name="browser" class="pilcrow"></a>
+Browser
+  </h3>
+</div>
+<div class="pilwrap" id="script-tag">
+  <h4>
+    <a href="#script-tag" name="script-tag" class="pilcrow"></a>
+Script tag
+  </h4>
+</div>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://code.jquery.com/jquery-3.4.1.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<div class="pilwrap" id="babel">
+  <h4>
+    <a href="#babel" name="babel" class="pilcrow"></a>
+Babel
+  </h4>
+</div>
+<p><a href="http://babeljs.io/">Babel</a> is a next generation JavaScript compiler. One of the features is the ability to use ES6/ES2015 modules now, even though browsers do not yet support this feature natively.</p>
+<pre><code class="js"><span class="hljs-keyword">import</span> $ <span class="hljs-keyword">from</span> <span class="hljs-string">"jquery"</span>;
+</code></pre>
+<div class="pilwrap" id="browserifywebpack">
+  <h4>
+    <a href="#browserifywebpack" name="browserifywebpack" class="pilcrow"></a>
+Browserify/Webpack
+  </h4>
+</div>
+<p>There are several ways to use <a href="http://browserify.org/">Browserify</a> and <a href="https://webpack.github.io/">Webpack</a>. For more information on using these tools, please refer to the corresponding project's documention. In the script, including jQuery will usually look like this...</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> $ = <span class="hljs-built_in">require</span>(<span class="hljs-string">"jquery"</span>);
+</code></pre>
+<div class="pilwrap" id="amd-asynchronous-module-definition">
+  <h4>
+    <a href="#amd-asynchronous-module-definition" name="amd-asynchronous-module-definition" class="pilcrow"></a>
+AMD (Asynchronous Module Definition)
+  </h4>
+</div>
+<p>AMD is a module format built for the browser. For more information, we recommend <a href="http://requirejs.org/docs/whyamd.html">require.js' documentation</a>.</p>
+<pre><code class="js">define([<span class="hljs-string">"jquery"</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$</span>) </span>{
+
+});
+</code></pre>
+<div class="pilwrap" id="node">
+  <h3>
+    <a href="#node" name="node" class="pilcrow"></a>
+Node
+  </h3>
+</div>
+<p>To include jQuery in <a href="nodejs.org.html">Node</a>, first install with npm.</p>
+<pre><code class="sh">npm install jquery
+</code></pre>
+<p>For jQuery to work in Node, a window with a document is required. Since no such window exists natively in Node, one can be mocked by tools such as <a href="https://github.com/tmpvar/jsdom">jsdom</a>. This can be useful for testing purposes.</p>
+<pre><code class="js"><span class="hljs-built_in">require</span>(<span class="hljs-string">"jsdom"</span>).env(<span class="hljs-string">""</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, window</span>) </span>{
+	<span class="hljs-keyword">if</span> (err) {
+		<span class="hljs-built_in">console</span>.error(err);
+		<span class="hljs-keyword">return</span>;
+	}
+
+	<span class="hljs-keyword">var</span> $ = <span class="hljs-built_in">require</span>(<span class="hljs-string">"jquery"</span>)(<span class="hljs-built_in">window</span>);
+});
+</code></pre>
+</div>
+  </div>
+</body>
+</html>

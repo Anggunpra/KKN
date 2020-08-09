@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>cssesc.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\cssesc\\cssesc.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>cssesc.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/*! https://mths.be/cssesc v1.0.1 by @mathias */</span>
+<span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> object = {};
+<span class="hljs-keyword">var</span> hasOwnProperty = object.hasOwnProperty;
+<span class="hljs-keyword">var</span> merge = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">merge</span>(<span class="hljs-params">options, defaults</span>) </span>{
+	<span class="hljs-keyword">if</span> (!options) {
+		<span class="hljs-keyword">return</span> defaults;
+	}
+	<span class="hljs-keyword">var</span> result = {};
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> defaults) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p><code>if (defaults.hasOwnProperty(key) { … }</code> is not needed here, since
+only recognized option names are used.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		result[key] = hasOwnProperty.call(options, key) ? options[key] : defaults[key];
+	}
+	<span class="hljs-keyword">return</span> result;
+};
+
+<span class="hljs-keyword">var</span> regexAnySingleEscape = <span class="hljs-regexp">/[ -,\.\/;-@\[-\^`\{-~]/</span>;
+<span class="hljs-keyword">var</span> regexSingleEscape = <span class="hljs-regexp">/[ -,\.\/;-@\[\]\^`\{-~]/</span>;
+<span class="hljs-keyword">var</span> regexAlwaysEscape = <span class="hljs-regexp">/['"\\]/</span>;
+<span class="hljs-keyword">var</span> regexExcessiveSpaces = <span class="hljs-regexp">/(^|\\+)?(\\[A-F0-9]{1,6})\x20(?![a-fA-F0-9\x20])/g</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>https://mathiasbynens.be/notes/css-escapes#css</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> cssesc = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cssesc</span>(<span class="hljs-params">string, options</span>) </span>{
+	options = merge(options, cssesc.options);
+	<span class="hljs-keyword">if</span> (options.quotes != <span class="hljs-string">'single'</span> &amp;&amp; options.quotes != <span class="hljs-string">'double'</span>) {
+		options.quotes = <span class="hljs-string">'single'</span>;
+	}
+	<span class="hljs-keyword">var</span> quote = options.quotes == <span class="hljs-string">'double'</span> ? <span class="hljs-string">'"'</span> : <span class="hljs-string">'\''</span>;
+	<span class="hljs-keyword">var</span> isIdentifier = options.isIdentifier;
+
+	<span class="hljs-keyword">var</span> firstChar = string.charAt(<span class="hljs-number">0</span>);
+	<span class="hljs-keyword">var</span> output = <span class="hljs-string">''</span>;
+	<span class="hljs-keyword">var</span> counter = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">var</span> length = string.length;
+	<span class="hljs-keyword">while</span> (counter &lt; length) {
+		<span class="hljs-keyword">var</span> character = string.charAt(counter++);
+		<span class="hljs-keyword">var</span> codePoint = character.charCodeAt();
+		<span class="hljs-keyword">var</span> value = <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>If it’s not a printable ASCII character…</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">if</span> (codePoint &lt; <span class="hljs-number">0x20</span> || codePoint &gt; <span class="hljs-number">0x7E</span>) {
+			<span class="hljs-keyword">if</span> (codePoint &gt;= <span class="hljs-number">0xD800</span> &amp;&amp; codePoint &lt;= <span class="hljs-number">0xDBFF</span> &amp;&amp; counter &lt; length) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>It’s a high surrogate, and there is a next character.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">				<span class="hljs-keyword">var</span> extra = string.charCodeAt(counter++);
+				<span class="hljs-keyword">if</span> ((extra &amp; <span class="hljs-number">0xFC00</span>) == <span class="hljs-number">0xDC00</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>next character is low surrogate</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">					codePoint = ((codePoint &amp; <span class="hljs-number">0x3FF</span>) &lt;&lt; <span class="hljs-number">10</span>) + (extra &amp; <span class="hljs-number">0x3FF</span>) + <span class="hljs-number">0x10000</span>;
+				} <span class="hljs-keyword">else</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>It’s an unmatched surrogate; only append this code unit, in case
+the next code unit is the high surrogate of a surrogate pair.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">					counter--;
+				}
+			}
+			value = <span class="hljs-string">'\\'</span> + codePoint.toString(<span class="hljs-number">16</span>).toUpperCase() + <span class="hljs-string">' '</span>;
+		} <span class="hljs-keyword">else</span> {
+			<span class="hljs-keyword">if</span> (options.escapeEverything) {
+				<span class="hljs-keyword">if</span> (regexAnySingleEscape.test(character)) {
+					value = <span class="hljs-string">'\\'</span> + character;
+				} <span class="hljs-keyword">else</span> {
+					value = <span class="hljs-string">'\\'</span> + codePoint.toString(<span class="hljs-number">16</span>).toUpperCase() + <span class="hljs-string">' '</span>;
+				}
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>Note: <code>:</code> could be escaped as <code>\:</code>, but that fails in IE &lt; 8.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-regexp">/[\t\n\f\r\x0B:]/</span>.test(character)) {
+				<span class="hljs-keyword">if</span> (!isIdentifier &amp;&amp; character == <span class="hljs-string">':'</span>) {
+					value = character;
+				} <span class="hljs-keyword">else</span> {
+					value = <span class="hljs-string">'\\'</span> + codePoint.toString(<span class="hljs-number">16</span>).toUpperCase() + <span class="hljs-string">' '</span>;
+				}
+			} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (character == <span class="hljs-string">'\\'</span> || !isIdentifier &amp;&amp; (character == <span class="hljs-string">'"'</span> &amp;&amp; quote == character || character == <span class="hljs-string">'\''</span> &amp;&amp; quote == character) || isIdentifier &amp;&amp; regexSingleEscape.test(character)) {
+				value = <span class="hljs-string">'\\'</span> + character;
+			} <span class="hljs-keyword">else</span> {
+				value = character;
+			}
+		}
+		output += value;
+	}
+
+	<span class="hljs-keyword">if</span> (isIdentifier) {
+		<span class="hljs-keyword">if</span> (<span class="hljs-regexp">/^_/</span>.test(output)) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>Prevent IE6 from ignoring the rule altogether (in case this is for an
+identifier used as a selector)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			output = <span class="hljs-string">'\\_'</span> + output.slice(<span class="hljs-number">1</span>);
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-regexp">/^-[-\d]/</span>.test(output)) {
+			output = <span class="hljs-string">'\\-'</span> + output.slice(<span class="hljs-number">1</span>);
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-regexp">/\d/</span>.test(firstChar)) {
+			output = <span class="hljs-string">'\\3'</span> + firstChar + <span class="hljs-string">' '</span> + output.slice(<span class="hljs-number">1</span>);
+		}
+	}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>Remove spaces after <code>\HEX</code> escapes that are not followed by a hex digit,
+since they’re redundant. Note that this is only possible if the escape
+sequence isn’t preceded by an odd number of backslashes.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	output = output.replace(regexExcessiveSpaces, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$<span class="hljs-number">0</span>, $<span class="hljs-number">1</span>, $<span class="hljs-number">2</span></span>) </span>{
+		<span class="hljs-keyword">if</span> ($<span class="hljs-number">1</span> &amp;&amp; $<span class="hljs-number">1.</span>length % <span class="hljs-number">2</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>It’s not safe to remove the space, so don’t.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			<span class="hljs-keyword">return</span> $<span class="hljs-number">0</span>;
+		}
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>Strip the space.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		<span class="hljs-keyword">return</span> ($<span class="hljs-number">1</span> || <span class="hljs-string">''</span>) + $<span class="hljs-number">2</span>;
+	});
+
+	<span class="hljs-keyword">if</span> (!isIdentifier &amp;&amp; options.wrap) {
+		<span class="hljs-keyword">return</span> quote + output + quote;
+	}
+	<span class="hljs-keyword">return</span> output;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>Expose default options (so they can be overridden globally).</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">cssesc.options = {
+	<span class="hljs-string">'escapeEverything'</span>: <span class="hljs-literal">false</span>,
+	<span class="hljs-string">'isIdentifier'</span>: <span class="hljs-literal">false</span>,
+	<span class="hljs-string">'quotes'</span>: <span class="hljs-string">'single'</span>,
+	<span class="hljs-string">'wrap'</span>: <span class="hljs-literal">false</span>
+};
+
+cssesc.version = <span class="hljs-string">'1.0.1'</span>;
+
+<span class="hljs-built_in">module</span>.exports = cssesc;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

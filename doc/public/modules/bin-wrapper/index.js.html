@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bin-wrapper\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">var</span> lazyReq = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lazy-req'</span>)(<span class="hljs-built_in">require</span>);
+<span class="hljs-keyword">var</span> binCheck = lazyReq(<span class="hljs-string">'bin-check'</span>);
+<span class="hljs-keyword">var</span> binVersionCheck = lazyReq(<span class="hljs-string">'bin-version-check'</span>);
+<span class="hljs-keyword">var</span> Download = lazyReq(<span class="hljs-string">'download'</span>);
+<span class="hljs-keyword">var</span> osFilterObj = lazyReq(<span class="hljs-string">'os-filter-obj'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Initialize a new <code>BinWrapper</code></p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">opts</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">BinWrapper</span>(<span class="hljs-params">opts</span>) </span>{
+	<span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> BinWrapper)) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BinWrapper(opts);
+	}
+
+	<span class="hljs-keyword">this</span>.opts = opts || {};
+	<span class="hljs-keyword">this</span>.opts.strip = <span class="hljs-keyword">this</span>.opts.strip &lt;= <span class="hljs-number">0</span> ? <span class="hljs-number">0</span> : !<span class="hljs-keyword">this</span>.opts.strip ? <span class="hljs-number">1</span> : <span class="hljs-keyword">this</span>.opts.strip;
+}
+
+<span class="hljs-built_in">module</span>.exports = BinWrapper;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Get or set files to download</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">src</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">os</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">arch</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinWrapper.prototype.src = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">src, os, arch</span>) </span>{
+	<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">arguments</span>.length) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._src;
+	}
+
+	<span class="hljs-keyword">this</span>._src = <span class="hljs-keyword">this</span>._src || [];
+	<span class="hljs-keyword">this</span>._src.push({
+		<span class="hljs-attr">url</span>: src,
+		<span class="hljs-attr">os</span>: os,
+		<span class="hljs-attr">arch</span>: arch
+	});
+
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Get or set the destination</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">dest</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinWrapper.prototype.dest = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">dest</span>) </span>{
+	<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">arguments</span>.length) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._dest;
+	}
+
+	<span class="hljs-keyword">this</span>._dest = dest;
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Get or set the binary</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">bin</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinWrapper.prototype.use = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">bin</span>) </span>{
+	<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">arguments</span>.length) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._use;
+	}
+
+	<span class="hljs-keyword">this</span>._use = bin;
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Get or set a semver range to test the binary against</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">range</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinWrapper.prototype.version = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">range</span>) </span>{
+	<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">arguments</span>.length) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._version;
+	}
+
+	<span class="hljs-keyword">this</span>._version = range;
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Get path to the binary</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinWrapper.prototype.path = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+	<span class="hljs-keyword">return</span> path.join(<span class="hljs-keyword">this</span>.dest(), <span class="hljs-keyword">this</span>.use());
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Run</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cmd</span>
+<span class="dox_type">Array</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cb</span>
+<span class="dox_type">Function</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinWrapper.prototype.run = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">cmd, cb</span>) </span>{
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> cmd === <span class="hljs-string">'function'</span> &amp;&amp; !cb) {
+		cb = cmd;
+		cmd = [<span class="hljs-string">'--version'</span>];
+	}
+
+	<span class="hljs-keyword">this</span>.findExisting(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+		<span class="hljs-keyword">if</span> (err) {
+			cb(err);
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.opts.skipCheck) {
+			cb();
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">this</span>.runCheck(cmd, cb);
+	}.bind(<span class="hljs-keyword">this</span>));
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Run binary check</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cmd</span>
+<span class="dox_type">Array</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cb</span>
+<span class="dox_type">Function</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">private</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinWrapper.prototype.runCheck = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">cmd, cb</span>) </span>{
+	binCheck()(<span class="hljs-keyword">this</span>.path(), cmd, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, works</span>) </span>{
+		<span class="hljs-keyword">if</span> (err) {
+			cb(err);
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">if</span> (!works) {
+			cb(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'The `'</span> + <span class="hljs-keyword">this</span>.path() + <span class="hljs-string">'` binary doesn\'t seem to work correctly'</span>));
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.version()) {
+			<span class="hljs-keyword">return</span> binVersionCheck()(<span class="hljs-keyword">this</span>.path(), <span class="hljs-keyword">this</span>.version(), cb);
+		}
+
+		cb();
+	}.bind(<span class="hljs-keyword">this</span>));
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Find existing files</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cb</span>
+<span class="dox_type">Function</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">private</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinWrapper.prototype.findExisting = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">cb</span>) </span>{
+	fs.stat(<span class="hljs-keyword">this</span>.path(), <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+		<span class="hljs-keyword">if</span> (err &amp;&amp; err.code === <span class="hljs-string">'ENOENT'</span>) {
+			<span class="hljs-keyword">this</span>.download(cb);
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">if</span> (err) {
+			cb(err);
+			<span class="hljs-keyword">return</span>;
+		}
+
+		cb();
+	}.bind(<span class="hljs-keyword">this</span>));
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Download files</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cb</span>
+<span class="dox_type">Function</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">private</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+BinWrapper.prototype.download = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">cb</span>) </span>{
+	<span class="hljs-keyword">var</span> files = osFilterObj()(<span class="hljs-keyword">this</span>.src());
+	<span class="hljs-keyword">var</span> download = <span class="hljs-keyword">new</span> Download()({
+		<span class="hljs-attr">extract</span>: <span class="hljs-literal">true</span>,
+		<span class="hljs-attr">mode</span>: <span class="hljs-string">'755'</span>,
+		<span class="hljs-attr">strip</span>: <span class="hljs-keyword">this</span>.opts.strip
+	});
+
+	<span class="hljs-keyword">if</span> (!files.length) {
+		cb(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'No binary found matching your system. It\'s probably not supported.'</span>));
+		<span class="hljs-keyword">return</span>;
+	}
+
+	files.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">file</span>) </span>{
+		download.get(file.url);
+	});
+
+	download
+		.dest(<span class="hljs-keyword">this</span>.dest())
+		.run(cb);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

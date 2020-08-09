@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\chocolat\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#chocolat">Chocolat </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#markup">Markup</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#documentation">Documentation</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#parameters">Parameters</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#syntax">Syntax</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#methods">Methods</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#css-classes">CSS Classes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#open-source-license">Open source license</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#testing">Testing</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#angular-ng-chocolat">Angular (ng-chocolat)</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="chocolat">
+  <h2>
+    <a href="#chocolat" name="chocolat" class="pilcrow"></a>
+Chocolat <a href="https://travis-ci.org/nicolas-t/Chocolat"><img src="https://travis-ci.org/nicolas-t/Chocolat.svg?branch=master" alt="Build Status"></a>
+  </h2>
+</div>
+<hr>
+<p>Chocolat is a responsive lightbox<br>
+What you are looking for is in the <code>/dist/</code> folder.<br>
+<a href="http://chocolat.insipi.de/#demo">Demo page is here</a></p>
+<p><a href="http://chocolat.insipi.de/#demo"><img src="http://full.ouplo.com/10/9/jzbY.jpg" alt="Image of Chocolat"></a></p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<p>You can install chocolat as a node module<br>
+(css from node_modules has to be linked in your html file anyway)</p>
+<pre><code>yarn add chocolat
+</code></pre>
+<p>or</p>
+<pre><code>npm install chocolat
+</code></pre>
+<p>Or the old school way by linking <code>dist/js/jquery.chocolat.js</code> and <code>dist/css/chocolat.css</code> to your html file</p>
+<div class="pilwrap" id="markup">
+  <h2>
+    <a href="#markup" name="markup" class="pilcrow"></a>
+Markup
+  </h2>
+</div>
+<hr>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example1"</span> <span class="hljs-attr">data-chocolat-title</span>=<span class="hljs-string">"Set title"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"chocolat-image"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"img/a.jpg"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"image caption a"</span>&gt;</span>
+        A <span class="hljs-comment">&lt;!-- you can display a thumbnail here : &lt;img src="thumb/a.jpg" /&gt; --&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"chocolat-image"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"img/b.jpg"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"image caption b"</span>&gt;</span>
+        B <span class="hljs-comment">&lt;!-- you can display a thumbnail here : &lt;img src="thumb/b.jpg" /&gt; --&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<pre><code class="js">$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    $(<span class="hljs-string">'#example1'</span>).Chocolat();
+});
+</code></pre>
+<div class="pilwrap" id="documentation">
+  <h2>
+    <a href="#documentation" name="documentation" class="pilcrow"></a>
+Documentation
+  </h2>
+</div>
+<hr>
+<div class="pilwrap" id="parameters">
+  <h3>
+    <a href="#parameters" name="parameters" class="pilcrow"></a>
+Parameters
+  </h3>
+</div>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>container</td>
+<td><code>window</code></td>
+<td>Sets whether viewer will open and fill the whole page (<code>default</code>), or whether it should open in a particular block of the page. For example <code>#container2</code>, in this case the height and width of the block must be defined.values can be : window, selector, jQuery element, or a node</td>
+</tr>
+<tr>
+<td>imageSelector</td>
+<td><code>'.chocolat-image'</code></td>
+<td>Selector to find images in the parent element (on which chocolat is called)</td>
+</tr>
+<tr>
+<td>linkImages</td>
+<td><code>true</code></td>
+<td>Sets whether we can switch from one image to another, within the same call, without closing the viewer (<code>true</code>) , or if the images remain independent (<code>false</code>). <br> Warning: if <code>LinkImage</code>: is <code>false</code> then <code>displayAsALink</code> must be worth <code>false</code> too. <br>Otherwise we can only view the first image in the set.</td>
+</tr>
+<tr>
+<td>setTitle</td>
+<td><code>''</code></td>
+<td>Title of the set. Can also be defined from the html, with the <code>data-chocolat-title</code> attribute</td>
+</tr>
+<tr>
+<td>className</td>
+<td><code>''</code></td>
+<td>Add a custom css class to the parent of the lightbox</td>
+</tr>
+<tr>
+<td>imageSize</td>
+<td>'default'</td>
+<td>Can be <code>'default'</code>, <code>'contain'</code>, <code>'native'</code>, or <code>'cover'</code>. <br><code>default</code> : if the image is bigger than the window it's resized to fit, else if the image is smaller than the window it's not streched, only displayed at native dimensions. <br><code>'contain'</code> : if the image is bigger than the window it's resized to fit, else if the image is smaller than the window it's streched, to fit the window. <br><code>'cover'</code> : the image cover the window, no white space are displayed. More informations &amp; exemple about contain/cover <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Scaling_background_images">here</a>. <br><code>'native'</code> : the image is never streched nor shrinked, always displayed at native dimensions</td>
+</tr>
+<tr>
+<td>fullScreen</td>
+<td><code>false</code></td>
+<td>Allow fullscreen browsing (hides the browser window)</td>
+</tr>
+<tr>
+<td>loop</td>
+<td><code>false</code></td>
+<td>Last image + 1 leads to first image &amp; first image - 1 leads to last image.</td>
+</tr>
+<tr>
+<td>duration</td>
+<td><code>300</code></td>
+<td>Animations duration</td>
+</tr>
+<tr>
+<td>firstImage</td>
+<td><code>0</code></td>
+<td>Index of the image that you want to start the series.</td>
+</tr>
+<tr>
+<td>lastImage</td>
+<td><code>0</code></td>
+<td>Index of the image that you want to end the series.</td>
+</tr>
+<tr>
+<td>separator2</td>
+<td><code>'/'</code></td>
+<td>Text between the number of the image and the number of images in the set, does not matter.</td>
+</tr>
+<tr>
+<td>images</td>
+<td><code>[]</code></td>
+<td>Array of object representing the set images <code>[{src:'img1.jpg'}, {src:'img1.jpg'}, ...]</code> <br> You can also specify image title <code>[{src:'img1.jpg', title: 'title'}, ..]</code></td>
+</tr>
+<tr>
+<td>enableZoom</td>
+<td><code>true</code></td>
+<td>Disable or enable the zooming feature</td>
+</tr>
+<tr>
+<td>setIndex</td>
+<td><code>0</code></td>
+<td>Set index. yes.</td>
+</tr>
+<tr>
+<td>afterInitialize</td>
+<td><code>null</code></td>
+<td>Function (hook) called just after chocolat gets initialized</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>afterMarkup</td>
+<td><code>null</code></td>
+<td>Function (hook) called just after markup is created. <br>You can use it to alter the default markup: to move the caption at the top of the image for example. <br> <code>$('#example').Chocolat({</code><br><code>afterMarkup: function () {</code><br><code>this.elems.description.appendTo(this.elems.top)</code><br><code>}</code><br><code>});</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>afterImageLoad</td>
+<td><code>null</code></td>
+<td>Function (hook) called just after the image is loaded.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>zoomedPaddingX</td>
+<td><code>0</code></td>
+<td>Function returning the horizontal padding to add around the image when it's zoomed. <br> It takes 2 arguments <code>canvasWidth</code> and <code>imgWidth</code> <br> <code>$('#example').Chocolat({</code><br><code>zoomedPaddingX: function (canvasWidth, imgWidth) {</code><br><code>return canvasWidth / 2</code><br><code>}</code><br><code>});</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>zoomedPaddingY</td>
+<td><code>0</code></td>
+<td>Function returning the vertical padding to add around the image when it's zoomed. <br> It takes 2 arguments <code>canvasHeight</code> and <code>imgHeight</code> <br> <code>$('#example').Chocolat({</code><br><code>zoomedPaddingY: function (canvasHeight, imgHeight) {</code><br><code>return canvasHeight / 2</code><br><code>}</code><br><code>});</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="api">
+  <h3>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h3>
+</div>
+<div class="pilwrap" id="syntax">
+  <h6>
+    <a href="#syntax" name="syntax" class="pilcrow"></a>
+Syntax
+  </h6>
+</div>
+<p>Call chocolat like this :</p>
+<pre><code class="js">$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">var</span> instance = $(<span class="hljs-string">'#example1'</span>).Chocolat().data(<span class="hljs-string">'chocolat'</span>);
+});
+</code></pre>
+<p>Then API calls can be made like this (open for exemple):</p>
+<pre><code class="js">instance.api().open();
+</code></pre>
+<div class="pilwrap" id="methods">
+  <h6>
+    <a href="#methods" name="methods" class="pilcrow"></a>
+Methods
+  </h6>
+</div>
+<p><strong>open  :</strong>  <code>param (optionnal) : i</code>
+Open the lightbox on the image whose index is <code>i</code>.
+By default on the first image (i=0).
+Returns a $.Deferred object.</p>
+<p><strong>close  :</strong>
+Close the lightbox.
+Returns a $.Deferred object.</p>
+<p><strong>prev  :</strong>
+Change image backward.
+Returns a $.Deferred object.</p>
+<p><strong>next  :</strong>
+Change image forward.
+Returns a $.Deferred object.</p>
+<p><strong>goto  :</strong>  <code>param : i</code>
+(Alias of open)  go to image whose index is <code>i</code> on an already opened ligthbox.
+Returns a $.Deferred object.</p>
+<p><strong>place  :</strong>
+Center the image in its parent.
+Returns a $.Deferred object.</p>
+<p><strong>destroy  :</strong>
+Destroy the current instance. Remove elements, unbind events, clear data.</p>
+<p><strong>set  :</strong>   <code>params : property, value</code>
+Classic setter</p>
+<p><strong>get  :</strong>   <code>param : property</code>
+Classic getter</p>
+<p><strong>getElem  :</strong>   <code>param : name</code>
+Returns a jQuery object composing the lightbox.
+Ex: for the next arrow  : <code>instance.api().getElem('right')</code></p>
+<p><strong>current  :</strong>
+Returns the index of the current image.</p>
+<div class="pilwrap" id="css-classes">
+  <h3>
+    <a href="#css-classes" name="css-classes" class="pilcrow"></a>
+CSS Classes
+  </h3>
+</div>
+<p><strong>.chocolat-open  :</strong>
+Set to the container when the lightbox is open.</p>
+<p><strong>.chocolat-in-container  :</strong>
+Set to the container when chocolat is open in a block (<code>container != window</code>)</p>
+<p><strong>.chocolat-cover  :</strong>
+Set to the container when chocolat <code>imageSize</code> is set to <code>'cover'</code></p>
+<p><strong>.chocolat-zoomable  :</strong>
+Set to the container when chocolat is zoomable</p>
+<p><strong>.chocolat-zoomed  :</strong>
+Set to the container when chocolat is zoomed</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<hr>
+<div class="pilwrap" id="open-source-license">
+  <h3>
+    <a href="#open-source-license" name="open-source-license" class="pilcrow"></a>
+Open source license
+  </h3>
+</div>
+<p>If you are creating an open source application under a license compatible with the GNU GPL license v3, you may use this project under the terms of the GPLv3.</p>
+<div class="pilwrap" id="contributing">
+  <h2>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h2>
+</div>
+<hr>
+<p>Feel free to contribute by forking then making a pull request.
+Edit files in the <code>/src/</code> folder, run <code>gulp</code> to copy/minify into the <code>/dist/</code> folder and to watch for changes.</p>
+<div class="pilwrap" id="testing">
+  <h2>
+    <a href="#testing" name="testing" class="pilcrow"></a>
+Testing
+  </h2>
+</div>
+<p>To test, run <code>gulp test</code>, if you don't have all packages installed then run <code>npm install</code>
+Tests are written in <code>test/src/test.chocolat.coffee</code></p>
+<div class="pilwrap" id="angular-ng-chocolat">
+  <h2>
+    <a href="#angular-ng-chocolat" name="angular-ng-chocolat" class="pilcrow"></a>
+Angular (ng-chocolat)
+  </h2>
+</div>
+<p>An angular directive of Chocolat.js exists thanks to @beuted:
+https://github.com/beuted/ng-chocolat</p>
+</div>
+  </div>
+</body>
+</html>

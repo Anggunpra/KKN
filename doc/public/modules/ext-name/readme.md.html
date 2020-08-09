@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\ext-name\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#ext-name">ext-name </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#extname-filename">extName(filename)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#filename">filename</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#extname.mime-mimetype">extName.mime(mimetype)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#mimetype">mimetype</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related">Related</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="ext-name">
+  <h1>
+    <a href="#ext-name" name="ext-name" class="pilcrow"></a>
+ext-name <a href="https://travis-ci.org/kevva/ext-name"><img src="https://travis-ci.org/kevva/ext-name.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Get the file extension and MIME type from a file</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save ext-name
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> extName = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ext-name'</span>);
+
+<span class="hljs-built_in">console</span>.log(extName(<span class="hljs-string">'foobar.tar'</span>));
+<span class="hljs-comment">//=&gt; [{ext: 'tar', mime: 'application/x-tar'}]</span>
+
+<span class="hljs-built_in">console</span>.log(extName.mime(<span class="hljs-string">'application/x-tar'</span>));
+<span class="hljs-comment">//=&gt; [{ext: 'tar', mime: 'application/x-tar'}]</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="extname-filename">
+  <h3>
+    <a href="#extname-filename" name="extname-filename" class="pilcrow"></a>
+extName(filename)
+  </h3>
+</div>
+<p>Returns an <code>Array</code> with objects with the file extension and MIME type.</p>
+<div class="pilwrap" id="filename">
+  <h4>
+    <a href="#filename" name="filename" class="pilcrow"></a>
+filename
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Get the extension and MIME type from a filename.</p>
+<div class="pilwrap" id="extname.mime-mimetype">
+  <h3>
+    <a href="#extname.mime-mimetype" name="extname.mime-mimetype" class="pilcrow"></a>
+extName.mime(mimetype)
+  </h3>
+</div>
+<p>Returns an <code>Array</code> with objects with the file extension and MIME type.</p>
+<div class="pilwrap" id="mimetype">
+  <h4>
+    <a href="#mimetype" name="mimetype" class="pilcrow"></a>
+mimetype
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Get the extension and MIME type from a MIME type.</p>
+<div class="pilwrap" id="related">
+  <h2>
+    <a href="#related" name="related" class="pilcrow"></a>
+Related
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/kevva/ext-name-cli">ext-name-cli</a> - CLI for this module</li>
+<li><a href="https://github.com/sindresorhus/file-type">file-type</a> - Detect the file type of a Buffer/Uint8Array</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/kevva">Kevin Mårtensson</a></p>
+</div>
+  </div>
+</body>
+</html>

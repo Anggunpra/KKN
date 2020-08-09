@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-notify\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gulp-notify">gulp-notify   </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#information">Information</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#table-of-contents">Table of Contents</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#requirements">Requirements</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#notestip">Notes/tip</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#notify-string">notify(String)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#notify-function">notify(Function)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#notify-options">notify(options)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.onlast">options.onLast</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.emiterror">options.emitError</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.message">options.message</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#as-function">as function</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.title">options.title</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#as-function-1">as function</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.templateoptions">options.templateOptions</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.notifier">options.notifier</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#notify.on-event-function-notificationoptions-events">notify.on(event, function (notificationOptions)) - Events</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#notify.withreporter-function">notify.withReporter(Function)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#notify.onerror">notify.onError()</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#notify.loglevel-level">notify.logLevel(level)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#disable-gulp-notify">Disable gulp-notify</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#examples">Examples</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#as-jshint-reporter">As jshint reporter</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="gulp-notify">
+  <h1>
+    <a href="#gulp-notify" name="gulp-notify" class="pilcrow"></a>
+gulp-notify <a href="https://npmjs.org/package/gulp-notify"><img src="http://img.shields.io/npm/v/gulp-notify.svg?style=flat" alt="NPM version"></a> <a href="http://travis-ci.org/mikaelbr/gulp-notify"><img src="http://img.shields.io/travis/mikaelbr/gulp-notify.svg?style=flat" alt="Build Status"></a> <a href="https://gemnasium.com/mikaelbr/gulp-notify"><img src="http://img.shields.io/gemnasium/mikaelbr/gulp-notify.svg?style=flat" alt="Dependency Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>notification plugin for <a href="https://github.com/gulpjs/gulp">gulp</a></p>
+</blockquote>
+<div class="pilwrap" id="information">
+  <h2>
+    <a href="#information" name="information" class="pilcrow"></a>
+Information
+  </h2>
+</div>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>gulp-notify</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Description</td>
+<td>Send messages to Mac Notification Center, Linux notifications (using <code>notify-send</code>) or Windows &gt;= 8 (using native toaster) or Growl as fallback, using the <a href="https://github.com/mikaelbr/node-notifier">node-notifier</a> module. Can also <a href="#notifywithreporterfunction.html">specify custom notifier</a>.</td>
+</tr>
+<tr>
+<td>Node Version</td>
+<td>&gt;= 0.8</td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="table-of-contents">
+  <h2>
+    <a href="#table-of-contents" name="table-of-contents" class="pilcrow"></a>
+Table of Contents
+  </h2>
+</div>
+<!-- toc -->
+<ul>
+<li><a href="#information.html">Information</a></li>
+<li><a href="#requirements.html">Requirements</a></li>
+<li><a href="#usage.html">Usage</a></li>
+<li><a href="#notestip.html">Notes/tip</a></li>
+<li><a href="#api.html">API</a>
+<ul>
+<li><a href="#notifystring.html">notify(String)</a></li>
+<li><a href="#notifyfunction.html">notify(Function)</a></li>
+<li><a href="#notifyoptions.html">notify(options)</a>
+<ul>
+<li><a href="#optionsonlast.html">options.onLast</a></li>
+<li><a href="#optionsemiterror.html">options.emitError</a></li>
+<li><a href="#optionsmessage.html">options.message</a></li>
+<li><a href="#optionstitle.html">options.title</a></li>
+<li><a href="#optionstemplateoptions.html">options.templateOptions</a></li>
+<li><a href="#optionsnotifier.html">options.notifier</a></li>
+</ul>
+</li>
+<li><a href="#notifywithreporterfunction.html">notify.withReporter(Function)</a></li>
+<li><a href="#notifyonerror.html">notify.onError()</a></li>
+<li><a href="#notifyloglevellevel.html">notify.logLevel(level)</a></li>
+</ul>
+</li>
+<li><a href="#disable-gulp-notify.html">Disable <code>gulp-notify</code></a></li>
+<li><a href="#examples.html">Examples</a>
+<ul>
+<li><a href="#as-jshint-reporter.html">As jshint reporter</a></li>
+</ul>
+</li>
+<li><a href="#license.html">License</a></li>
+</ul>
+<!-- toc stop -->
+<div class="pilwrap" id="requirements">
+  <h2>
+    <a href="#requirements" name="requirements" class="pilcrow"></a>
+Requirements
+  </h2>
+</div>
+<ul>
+<li><strong>Mac OS X</strong>: No external installation needed (if Mac OS X 10.8 or higher).</li>
+<li><strong>Linux</strong>: <code>notify-send</code>/<code>notify-osd</code> should be installed (On Ubuntu this is installed per default)</li>
+<li><strong>Windows</strong>: Uses native toaster (if Windows 8 or higher).</li>
+<li><strong>Fallback: Growl</strong>: Growl (for Mac, Windows or similar) should be installed.</li>
+</ul>
+<p>See <a href="https://github.com/mikaelbr/node-notifier">node-notifier</a> for details.</p>
+<p><strong>Windows 10 Note:</strong> You might have to activate banner notification for the toast to show.</p>
+<p>From <a href="https://github.com/mikaelbr/gulp-notify/issues/90#issuecomment-129333034">#90 (comment)</a></p>
+<blockquote>
+<p>You can make it work by going to System &gt; Notifications &amp; Actions. The 'toast' app needs to have Banners enabled. (You can activate banners by clicking on the 'toast' app and setting the 'Show notification banners' to On)</p>
+</blockquote>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>First, install <code>gulp-notify</code> as a development dependency:</p>
+<pre><code class="shell">npm install --save-dev gulp-notify
+</code></pre>
+<p>Then, add it to your <code>gulpfile.js</code>:</p>
+<pre><code class="javascript">
+<span class="hljs-keyword">var</span> notify = <span class="hljs-built_in">require</span>(<span class="hljs-string">"gulp-notify"</span>);
+gulp.src(<span class="hljs-string">"./src/test.ext"</span>)
+  .pipe(notify(<span class="hljs-string">"Hello Gulp!"</span>));
+</code></pre>
+<p>Or with template</p>
+<pre><code class="javascript">
+<span class="hljs-keyword">var</span> notify = <span class="hljs-built_in">require</span>(<span class="hljs-string">"gulp-notify"</span>);
+gulp.src(<span class="hljs-string">"./src/test.ext"</span>)
+  .pipe(notify(<span class="hljs-string">"Found file: &lt;%= file.relative %&gt;!"</span>));
+</code></pre>
+<p>See <a href="examples/gulpfile.js.html">examples</a> for more or the <a href="#api.html">API</a> section for various inputs.</p>
+<div class="pilwrap" id="notestip">
+  <h2>
+    <a href="#notestip" name="notestip" class="pilcrow"></a>
+Notes/tip
+  </h2>
+</div>
+<p><code>gulp-notify</code> passes on the <code>vinyl files</code> even on error. So if you are
+using <a href="https://github.com/floatdrop/gulp-plumber"><code>gulp-plumber</code></a> the run
+will not break if the notifier returns an error.</p>
+<p>If you want to notify on errors <a href="https://github.com/floatdrop/gulp-plumber"><code>gulp-plumber</code></a>
+can be used to not break the run and force you to have to restart gulp.</p>
+<p>You can use <a href="#notifyonerror.html">notify.onError()</a> as the errorHandler for gulp-plumber like this:</p>
+<pre><code class="javascript">gulp.src(<span class="hljs-string">"../test/fixtures/*"</span>)
+      .pipe(plumber({<span class="hljs-attr">errorHandler</span>: notify.onError(<span class="hljs-string">"Error: &lt;%= error.message %&gt;"</span>)}))
+      .pipe(through(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">"error"</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"Something happend: Error message!"</span>))
+      }));
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="notify-string">
+  <h3>
+    <a href="#notify-string" name="notify-string" class="pilcrow"></a>
+notify(String)
+  </h3>
+</div>
+<p>A message to notify per data on stream.
+The string can be a lodash template as
+it is passed through <a href="https://github.com/gulpjs/gulp-util#templatestring-data">gulp-util.template</a>.</p>
+<div class="pilwrap" id="notify-function">
+  <h3>
+    <a href="#notify-function" name="notify-function" class="pilcrow"></a>
+notify(Function)
+  </h3>
+</div>
+<p>Type: <code>function(VinylFile)</code></p>
+<p>Vinyl File from gulp stream passed in as argument.</p>
+<p>The result of the function can be a string used as the message or an options object (see below).
+If the returned value is a string, it can be a lodash template as
+it is passed through <a href="https://github.com/gulpjs/gulp-util#templatestring-data">gulp-util.template</a>.</p>
+<p>If <code>false</code> is returned from the function the notification won't run.</p>
+<div class="pilwrap" id="notify-options">
+  <h3>
+    <a href="#notify-options" name="notify-options" class="pilcrow"></a>
+notify(options)
+  </h3>
+</div>
+<p>*Options are passed onto the reporter, so on Windows, you can define
+Growl host, on Mac you can pass in contentImage, and so on.</p>
+<p>See <a href="https://github.com/mikaelbr/node-notifier">node-notifier</a>
+for all options*</p>
+<p>Default notification values:</p>
+<ul>
+<li>Gulp logo on regular notification</li>
+<li>Inverted Gulp logo on error</li>
+<li>Frog sound on error on Mac.</li>
+</ul>
+<p>See also the <a href="examples/gulpfile.js.html">advanced example</a>.</p>
+<div class="pilwrap" id="options.onlast">
+  <h4>
+    <a href="#options.onlast" name="options.onlast" class="pilcrow"></a>
+options.onLast
+  </h4>
+</div>
+<p>Type: <code>Boolean</code>
+Default: <code>false</code></p>
+<p>If the notification should only happen on the last file
+of the stream. Per default a notification is triggered
+on each file.</p>
+<div class="pilwrap" id="options.emiterror">
+  <h4>
+    <a href="#options.emiterror" name="options.emiterror" class="pilcrow"></a>
+options.emitError
+  </h4>
+</div>
+<p>Type: <code>Boolean</code>
+Default: <code>false</code></p>
+<p>If the returned stream should emit an error or not.
+If <code>emitError</code> is true, you have to handle <code>.on('error')</code>
+manually in case the notifier (gulp-notify) fails. If
+the default <code>false</code> is set, the error will not be emitted
+but simply printed to the console.</p>
+<p>This means you can run the notifier on a CI system without
+opting it out but simply letting it fail gracefully.</p>
+<div class="pilwrap" id="options.message">
+  <h4>
+    <a href="#options.message" name="options.message" class="pilcrow"></a>
+options.message
+  </h4>
+</div>
+<p>Type: <code>String</code>
+Default: File path in stream</p>
+<p>The message you wish to attach to file. The string can be a
+lodash template as it is passed through <a href="https://github.com/gulpjs/gulp-util#templatestring-data">gulp-util.template</a>.</p>
+<p>Example: <code>Created &lt;%= file.relative %&gt;</code>.</p>
+<div class="pilwrap" id="as-function">
+  <h5>
+    <a href="#as-function" name="as-function" class="pilcrow"></a>
+as function
+  </h5>
+</div>
+<p>Type: <code>Function(vinylFile)</code></p>
+<p>See <code>notify(Function)</code>.</p>
+<div class="pilwrap" id="options.title">
+  <h4>
+    <a href="#options.title" name="options.title" class="pilcrow"></a>
+options.title
+  </h4>
+</div>
+<p>Type: <code>String</code>
+Default: &quot;Gulp Notification&quot;</p>
+<p>The title of the notification. The string can be a
+lodash template as it is passed through <a href="https://github.com/gulpjs/gulp-util#templatestring-data">gulp-util.template</a>.</p>
+<p>Example: <code>Created &lt;%= file.relative %&gt;</code>.</p>
+<div class="pilwrap" id="as-function-1">
+  <h5>
+    <a href="#as-function-1" name="as-function-1" class="pilcrow"></a>
+as function
+  </h5>
+</div>
+<p>Type: <code>Function(vinylFile)</code></p>
+<p>See <code>notify(Function)</code>.</p>
+<div class="pilwrap" id="options.templateoptions">
+  <h4>
+    <a href="#options.templateoptions" name="options.templateoptions" class="pilcrow"></a>
+options.templateOptions
+  </h4>
+</div>
+<p>Type: <code>Object</code>
+Default: {}</p>
+<p>Object passed to the <code>lodash</code> template, for additional properties passed to the template.</p>
+<p>Examples:</p>
+<pre><code class="javascript">gulp.src(<span class="hljs-string">"../test/fixtures/*"</span>)
+    .pipe(notify({
+      <span class="hljs-attr">message</span>: <span class="hljs-string">"Generated file: &lt;%= file.relative %&gt; @ &lt;%= options.date %&gt;"</span>,
+      <span class="hljs-attr">templateOptions</span>: {
+        <span class="hljs-attr">date</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+      }
+    }))
+</code></pre>
+<div class="pilwrap" id="options.notifier">
+  <h4>
+    <a href="#options.notifier" name="options.notifier" class="pilcrow"></a>
+options.notifier
+  </h4>
+</div>
+<p>Type: <code>Function(options, callback)</code>
+Default: node-notifier module</p>
+<p>Swap out the notifier by passing in an function.
+The function expects two arguments: options and callback.</p>
+<p>The callback must be called when the notification is finished. Options
+will contain both title and message.</p>
+<p><em>See <code>notify.withReporter</code> for syntactic sugar.</em></p>
+<div class="pilwrap" id="notify.on-event-function-notificationoptions-events">
+  <h3>
+    <a href="#notify.on-event-function-notificationoptions-events" name="notify.on-event-function-notificationoptions-events" class="pilcrow"></a>
+notify.on(event, function (notificationOptions)) - Events
+  </h3>
+</div>
+<p><strong>If the <code>wait</code> option is set to <code>true</code></strong>, the notifier will trigger
+events <code>click</code> or <code>timeout</code>, whether the user clicks the notification or it
+times out. You listen to these events on the main notify object, not the
+produces stream.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> notify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-notify'</span>);
+
+notify.on(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'I clicked something!'</span>, options);
+});
+
+notify.on(<span class="hljs-string">'timeout'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'The notification timed out'</span>, options);
+});
+
+gulp.task(<span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">"some/glob/**"</span>)
+    .pipe(notify({ <span class="hljs-attr">message</span>: <span class="hljs-string">'Click or wait'</span>, <span class="hljs-attr">wait</span>: <span class="hljs-literal">true</span> }));
+});
+</code></pre>
+<div class="pilwrap" id="notify.withreporter-function">
+  <h3>
+    <a href="#notify.withreporter-function" name="notify.withreporter-function" class="pilcrow"></a>
+notify.withReporter(Function)
+  </h3>
+</div>
+<p>Type: <code>Reporter</code></p>
+<p>Wraps <code>options.notifier</code> to return a new notify-function only using
+the passed in reporter.</p>
+<p>Example:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> custom = notify.withReporter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">options, callback</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Title:"</span>, options.title);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Message:"</span>, options.message);
+  callback();
+});
+
+gulp.src(<span class="hljs-string">"../test/fixtures/1.txt"</span>)
+    .pipe(custom(<span class="hljs-string">"This is a message."</span>));
+
+</code></pre>
+<p>This will be the same as</p>
+<pre><code class="javascript">
+gulp.src(<span class="hljs-string">"../test/fixtures/1.txt"</span>)
+    .pipe(notify({
+      <span class="hljs-attr">message</span>: <span class="hljs-string">"This is a message."</span>
+      <span class="hljs-attr">notifier</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">options, callback</span>) </span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Title:"</span>, options.title);
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Message:"</span>, options.message);
+        callback();
+      }
+    }));
+</code></pre>
+<p>But much, much prettier.</p>
+<div class="pilwrap" id="notify.onerror">
+  <h3>
+    <a href="#notify.onerror" name="notify.onerror" class="pilcrow"></a>
+notify.onError()
+  </h3>
+</div>
+<p>The exact same API as using <code>notify()</code>, but where a <code>vinyl File</code>
+is passed, the error object is passed instead.</p>
+<p>Example:</p>
+<pre><code class="javascript">gulp.src(<span class="hljs-string">"../test/fixtures/*"</span>)
+      .pipe(through(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">"error"</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"Something happend: Error message!"</span>))
+      }))
+      .on(<span class="hljs-string">"error"</span>, notify.onError(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"Message to the notifier: "</span> + error.message;
+      }));
+</code></pre>
+<p>Or simply:</p>
+<pre><code class="javascript">gulp.src(<span class="hljs-string">"../test/fixtures/*"</span>)
+      .pipe(through(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">"error"</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"Something happend: Error message!"</span>))
+      }))
+      .on(<span class="hljs-string">"error"</span>, notify.onError(<span class="hljs-string">"Error: &lt;%= error.message %&gt;"</span>));
+</code></pre>
+<pre><code class="javascript">gulp.src(<span class="hljs-string">"../test/fixtures/*"</span>)
+      .pipe(through(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">"error"</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"Something happend: Error message!"</span>))
+      }))
+      .on(<span class="hljs-string">"error"</span>, notify.onError({
+        <span class="hljs-attr">message</span>: <span class="hljs-string">"Error: &lt;%= error.message %&gt;"</span>,
+        <span class="hljs-attr">title</span>: <span class="hljs-string">"Error running something"</span>
+      }));
+</code></pre>
+<p>The <code>onError()</code> end point does support <code>lodash.template</code>.</p>
+<p><strong><code>onError()</code> will automatically end the stream for you. Making it easer for watching.</strong></p>
+<div class="pilwrap" id="notify.loglevel-level">
+  <h3>
+    <a href="#notify.loglevel-level" name="notify.loglevel-level" class="pilcrow"></a>
+notify.logLevel(level)
+  </h3>
+</div>
+<p>Type: <code>Integer</code>
+Default: <code>2</code></p>
+<p>Set if logger should be used or not. If log level is set to 0,
+no logging will be used. If no new log level is passed, the
+current log level is returned.</p>
+<ul>
+<li><code>0</code>: No logging</li>
+<li><code>1</code>: Log on error</li>
+<li><code>2</code>: Log both on error and regular notification.</li>
+</ul>
+<p>If logging is set to <code>&gt; 0</code>, the title and
+message passed to <code>gulp-notify</code> will be logged like so:</p>
+<pre><code class="sh">➜  gulp-notify git:(master) ✗ gulp --gulpfile examples/gulpfile.js one
+[gulp] Using file /Users/example/gulp-notify/examples/gulpfile.js
+[gulp] Working directory changed to /Users/example/repos/gulp-notify/examples
+[gulp] Running <span class="hljs-string">'one'</span>...
+[gulp] Finished <span class="hljs-string">'one'</span> <span class="hljs-keyword">in</span> 4.08 ms
+[gulp] gulp-notify: [Gulp notification] /Users/example/gulp-notify/<span class="hljs-built_in">test</span>/fixtures/1.txt
+</code></pre>
+<div class="pilwrap" id="disable-gulp-notify">
+  <h2>
+    <a href="#disable-gulp-notify" name="disable-gulp-notify" class="pilcrow"></a>
+Disable <code>gulp-notify</code>
+  </h2>
+</div>
+<p>If you are running on a system that handles notifications poorly or you simply
+do not wish to use <code>gulp-notify</code> but your project does? You can disable <code>gulp-notify</code>
+by using enviroment variable <code>DISABLE_NOTIFIER</code>.</p>
+<pre><code>export DISABLE_NOTIFIER=true;
+</code></pre>
+<p>This will disable all methods; <code>notify()</code>, <code>notify.onError</code> and <code>notify.withReporter</code>.</p>
+<div class="pilwrap" id="examples">
+  <h2>
+    <a href="#examples" name="examples" class="pilcrow"></a>
+Examples
+  </h2>
+</div>
+<p>To see all examples run from root:</p>
+<pre><code class="shell"><span class="hljs-meta">$</span><span class="bash"> gulp --gulpfile examples/gulpfile.js --tasks</span>
+[gulp] Using file /Users/example/gulp-notify/examples/gulpfile.js
+[gulp] Working directory changed to /Users/example/gulp-notify/examples
+[gulp] Tasks for /Users/example/gulp-notify/examples/gulpfile.js
+[gulp] ├── multiple
+[gulp] ├── one
+[gulp] ├── message
+[gulp] ├── customReporter
+[gulp] ├── template
+[gulp] ├── templateadv
+[gulp] ├── function
+[gulp] ├── onlast
+[gulp] ├── advanceMac
+[gulp] ├── error
+[gulp] ├── forceGrowl
+[gulp] └── customError
+</code></pre>
+<p>To run an example:</p>
+<pre><code class="shell"><span class="hljs-meta">$</span><span class="bash"> gulp --gulpfile examples/gulpfile.js multiple</span>
+[gulp] Using file /Users/example/gulp-notify/examples/gulpfile.js
+[gulp] Working directory changed to /Users/example/gulp-notify/examples
+[gulp] Running 'multiple'...
+[gulp] Finished 'multiple' in 3.75 ms
+</code></pre>
+<div class="pilwrap" id="as-jshint-reporter">
+  <h3>
+    <a href="#as-jshint-reporter" name="as-jshint-reporter" class="pilcrow"></a>
+As jshint reporter
+  </h3>
+</div>
+<p><code>gulp-notify</code> can easily be used as jshint reporter.
+As jshint exposes the result on the vinyl file we can
+use them in a function like so:</p>
+<pre><code class="javascript">gulp.task(<span class="hljs-string">'lint'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  gulp.src(<span class="hljs-string">'/src/**/*.js'</span>)
+    .pipe(jshint())
+    <span class="hljs-comment">// Use gulp-notify as jshint reporter</span>
+    .pipe(notify(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">file</span>) </span>{
+      <span class="hljs-keyword">if</span> (file.jshint.success) {
+        <span class="hljs-comment">// Don't show something if success</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      }
+
+      <span class="hljs-keyword">var</span> errors = file.jshint.results.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
+        <span class="hljs-keyword">if</span> (data.error) {
+          <span class="hljs-keyword">return</span> <span class="hljs-string">"("</span> + data.error.line + <span class="hljs-string">':'</span> + data.error.character + <span class="hljs-string">') '</span> + data.error.reason;
+        }
+      }).join(<span class="hljs-string">"\n"</span>);
+      <span class="hljs-keyword">return</span> file.relative + <span class="hljs-string">" ("</span> + file.jshint.results.length + <span class="hljs-string">" errors)\n"</span> + errors;
+    }));
+});
+</code></pre>
+<p>If you use a function for message in <code>gulp-notify</code>, the message won't be shown.
+This is true for both direct use of function and <code>{ message: function () {}}</code>.</p>
+<p><a href="https://npmjs.org/package/gulp-notify"><img src="http://img.shields.io/npm/dm/gulp-notify.svg?style=flat" alt="NPM downloads"></a></p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p><a href="http://en.wikipedia.org/wiki/MIT_License">MIT License</a></p>
+</div>
+  </div>
+</body>
+</html>

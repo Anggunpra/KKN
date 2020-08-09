@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bin-build\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#bin-build">bin-build </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#new-binbuild-options">new BinBuild(options)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.strip">options.strip</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.src-str">.src(str)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#str">str</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.cmd-str">.cmd(str)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#str-1">str</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.run-callback">.run(callback)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#callback-err">callback(err)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="bin-build">
+  <h1>
+    <a href="#bin-build" name="bin-build" class="pilcrow"></a>
+bin-build <a href="https://travis-ci.org/kevva/bin-build"><img src="https://travis-ci.org/kevva/bin-build.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Easily build binaries</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save bin-build
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> BinBuild = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bin-build'</span>);
+
+<span class="hljs-keyword">var</span> build = <span class="hljs-keyword">new</span> BinBuild()
+    .src(<span class="hljs-string">'http://www.lcdf.org/gifsicle/gifsicle-1.80.tar.gz'</span>)
+    .cmd(<span class="hljs-string">'./configure --disable-gifview --disable-gifdiff'</span>)
+    .cmd(<span class="hljs-string">'make install'</span>);
+
+build.run(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'gifsicle built successfully'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="new-binbuild-options">
+  <h3>
+    <a href="#new-binbuild-options" name="new-binbuild-options" class="pilcrow"></a>
+new BinBuild(options)
+  </h3>
+</div>
+<p>Creates a new <code>BinBuild</code> instance.</p>
+<div class="pilwrap" id="options.strip">
+  <h4>
+    <a href="#options.strip" name="options.strip" class="pilcrow"></a>
+options.strip
+  </h4>
+</div>
+<p>Type: <code>number</code></p>
+<p>Strip a number of leading paths from file names on extraction.</p>
+<div class="pilwrap" id=".src-str">
+  <h3>
+    <a href="#.src-str" name=".src-str" class="pilcrow"></a>
+.src(str)
+  </h3>
+</div>
+<div class="pilwrap" id="str">
+  <h4>
+    <a href="#str" name="str" class="pilcrow"></a>
+str
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Accepts a URL to a archive containing the source code, a path to an archive or a
+path to a directory containing the source code.</p>
+<div class="pilwrap" id=".cmd-str">
+  <h3>
+    <a href="#.cmd-str" name=".cmd-str" class="pilcrow"></a>
+.cmd(str)
+  </h3>
+</div>
+<div class="pilwrap" id="str-1">
+  <h4>
+    <a href="#str-1" name="str-1" class="pilcrow"></a>
+str
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Add a command to run when building.</p>
+<div class="pilwrap" id=".run-callback">
+  <h3>
+    <a href="#.run-callback" name=".run-callback" class="pilcrow"></a>
+.run(callback)
+  </h3>
+</div>
+<div class="pilwrap" id="callback-err">
+  <h4>
+    <a href="#callback-err" name="callback-err" class="pilcrow"></a>
+callback(err)
+  </h4>
+</div>
+<p>Type: <code>function</code></p>
+<p>Runs the build and returns an error if something has gone wrong</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/kevva">Kevin Mårtensson</a></p>
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>broadcasting.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "config\\broadcasting.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>broadcasting.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">return</span> [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Default Broadcaster</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This option controls the default broadcaster that will be used by the</td>
+</tr>
+<tr>
+<td>framework when an event needs to be broadcast. You may set this to</td>
+</tr>
+<tr>
+<td>any of the connections defined in the &quot;connections&quot; array below.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Supported: &quot;pusher&quot;, &quot;redis&quot;, &quot;log&quot;, &quot;null&quot;</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'default'</span> =&gt; env(<span class="hljs-string">'BROADCAST_DRIVER'</span>, <span class="hljs-string">'null'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Broadcast Connections</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may define all of the broadcast connections that will be used</td>
+</tr>
+<tr>
+<td>to broadcast events to other systems or over websockets. Samples of</td>
+</tr>
+<tr>
+<td>each available type of connection are provided inside this array.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'connections'</span> =&gt; [
+
+        <span class="hljs-string">'pusher'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'pusher'</span>,
+            <span class="hljs-string">'key'</span> =&gt; env(<span class="hljs-string">'PUSHER_APP_KEY'</span>),
+            <span class="hljs-string">'secret'</span> =&gt; env(<span class="hljs-string">'PUSHER_APP_SECRET'</span>),
+            <span class="hljs-string">'app_id'</span> =&gt; env(<span class="hljs-string">'PUSHER_APP_ID'</span>),
+            <span class="hljs-string">'options'</span> =&gt; [
+                <span class="hljs-string">'cluster'</span> =&gt; env(<span class="hljs-string">'PUSHER_APP_CLUSTER'</span>),
+                <span class="hljs-string">'useTLS'</span> =&gt; <span class="hljs-keyword">true</span>,
+            ],
+        ],
+
+        <span class="hljs-string">'redis'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'redis'</span>,
+            <span class="hljs-string">'connection'</span> =&gt; <span class="hljs-string">'default'</span>,
+        ],
+
+        <span class="hljs-string">'log'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'log'</span>,
+        ],
+
+        <span class="hljs-string">'null'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'null'</span>,
+        ],
+
+    ],
+
+];
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

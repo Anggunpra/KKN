@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>qq.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\coa\\qq.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>qq.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">const</span> run = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./test/util'</span>).run;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>run(cmd =&gt; cmd.arg().name('qwe').end().arg().name('zxc').end().act(function(opts, args) { console.log({opts, args}); }), ['qwe', 'zxc']) // cmd and args
+.then(res =&gt; {
+// code
+// stdout
+// stderr
+console.log(res);
+});</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+run(<span class="hljs-function"><span class="hljs-params">cmd</span> =&gt;</span> cmd.opt().name(<span class="hljs-string">'version'</span>).short(<span class="hljs-string">'v'</span>).only().flag().act(<span class="hljs-function">(<span class="hljs-params">opts</span>) =&gt;</span> { <span class="hljs-keyword">return</span> <span class="hljs-string">'aasd'</span>; }), [<span class="hljs-string">'-v'</span>]) <span class="hljs-comment">// cmd and args</span>
+    .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>code
+stdout
+stderr</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-built_in">console</span>.log(res);
+    });
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

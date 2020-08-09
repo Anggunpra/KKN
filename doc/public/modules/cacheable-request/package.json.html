@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\cacheable-request\\package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"cacheable-request"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"2.1.4"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Wrap native HTTP requests with RFC compliant cache support"</span>,
+  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"src/index.js"</span>,
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"xo &amp;&amp; nyc ava"</span>,
+    <span class="hljs-attr">"coverage"</span>: <span class="hljs-string">"nyc report --reporter=text-lcov | coveralls"</span>
+  },
+  <span class="hljs-attr">"xo"</span>: {
+    <span class="hljs-attr">"extends"</span>: <span class="hljs-string">"xo-lukechilds"</span>
+  },
+  <span class="hljs-attr">"repository"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"git"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"git+https://github.com/lukechilds/cacheable-request.git"</span>
+  },
+  <span class="hljs-attr">"keywords"</span>: [
+    <span class="hljs-string">"HTTP"</span>,
+    <span class="hljs-string">"HTTPS"</span>,
+    <span class="hljs-string">"cache"</span>,
+    <span class="hljs-string">"caching"</span>,
+    <span class="hljs-string">"layer"</span>,
+    <span class="hljs-string">"cacheable"</span>,
+    <span class="hljs-string">"RFC 7234"</span>,
+    <span class="hljs-string">"RFC"</span>,
+    <span class="hljs-string">"7234"</span>,
+    <span class="hljs-string">"compliant"</span>
+  ],
+  <span class="hljs-attr">"author"</span>: <span class="hljs-string">"Luke Childs &lt;lukechilds123@gmail.com&gt; (http://lukechilds.co.uk)"</span>,
+  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"MIT"</span>,
+  <span class="hljs-attr">"bugs"</span>: {
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/lukechilds/cacheable-request/issues"</span>
+  },
+  <span class="hljs-attr">"homepage"</span>: <span class="hljs-string">"https://github.com/lukechilds/cacheable-request"</span>,
+  <span class="hljs-attr">"dependencies"</span>: {
+    <span class="hljs-attr">"clone-response"</span>: <span class="hljs-string">"1.0.2"</span>,
+    <span class="hljs-attr">"get-stream"</span>: <span class="hljs-string">"3.0.0"</span>,
+    <span class="hljs-attr">"http-cache-semantics"</span>: <span class="hljs-string">"3.8.1"</span>,
+    <span class="hljs-attr">"keyv"</span>: <span class="hljs-string">"3.0.0"</span>,
+    <span class="hljs-attr">"lowercase-keys"</span>: <span class="hljs-string">"1.0.0"</span>,
+    <span class="hljs-attr">"normalize-url"</span>: <span class="hljs-string">"2.0.1"</span>,
+    <span class="hljs-attr">"responselike"</span>: <span class="hljs-string">"1.0.2"</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"@keyv/sqlite"</span>: <span class="hljs-string">"^1.2.6"</span>,
+    <span class="hljs-attr">"ava"</span>: <span class="hljs-string">"^0.24.0"</span>,
+    <span class="hljs-attr">"coveralls"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"create-test-server"</span>: <span class="hljs-string">"^2.0.0"</span>,
+    <span class="hljs-attr">"delay"</span>: <span class="hljs-string">"^2.0.0"</span>,
+    <span class="hljs-attr">"eslint-config-xo-lukechilds"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"nyc"</span>: <span class="hljs-string">"^11.0.2"</span>,
+    <span class="hljs-attr">"pify"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"sqlite3"</span>: <span class="hljs-string">"^3.1.9"</span>,
+    <span class="hljs-attr">"this"</span>: <span class="hljs-string">"^1.0.2"</span>,
+    <span class="hljs-attr">"xo"</span>: <span class="hljs-string">"^0.19.0"</span>
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\fragment-cache\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>!
+fragment-cache <a href="https://github.com/jonschlinkert/fragment-cache">https://github.com/jonschlinkert/fragment-cache</a></p>
+</div>
+<div class="body">
+<p>Copyright (c) 2016-2017, Jon Schlinkert.
+Released under the MIT License.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">
+'use strict'</span>;
+
+<span class="hljs-keyword">var</span> MapCache = <span class="hljs-built_in">require</span>(<span class="hljs-string">'map-cache'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Create a new <code>FragmentCache</code> with an optional object to use for <code>caches</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> fragment = <span class="hljs-keyword">new</span> FragmentCache();
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`cacheName`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+<span>Returns the [map-cache][] instance.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FragmentCache</span>(<span class="hljs-params">caches</span>) </span>{
+  <span class="hljs-keyword">this</span>.caches = caches || {};
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Prototype</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+FragmentCache.prototype = {
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Get cache <code>name</code> from the <code>fragment.caches</code> object. Creates a new
+<code>MapCache</code> if it doesn't already exist.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> cache = fragment.cache(<span class="hljs-string">'files'</span>);
+<span class="hljs-built_in">console</span>.log(fragment.caches.hasOwnProperty(<span class="hljs-string">'files'</span>));
+<span class="hljs-comment">//=&gt; true</span>
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`cacheName`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+<span>Returns the [map-cache][] instance.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+  <span class="hljs-attr">cache</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cacheName</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.caches[cacheName] || (<span class="hljs-keyword">this</span>.caches[cacheName] = <span class="hljs-keyword">new</span> MapCache());
+  },
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Set a value for property <code>key</code> on cache <code>name</code></p>
+</div>
+<div class="body">
+<pre><code class="js">fragment.set(<span class="hljs-string">'files'</span>, <span class="hljs-string">'somefile.js'</span>, <span class="hljs-keyword">new</span> File({<span class="hljs-attr">path</span>: <span class="hljs-string">'somefile.js'</span>}));
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`name`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`key`</span>
+<span class="dox_type">String</span>
+<span>Property name to set
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`val`</span>
+<span class="dox_type">any</span>
+<span>The value of <code>key</code>
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+<span>The cache instance for chaining
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+  <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cacheName, key, val</span>) </span>{
+    <span class="hljs-keyword">var</span> cache = <span class="hljs-keyword">this</span>.cache(cacheName);
+    cache.set(key, val);
+    <span class="hljs-keyword">return</span> cache;
+  },
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if a non-undefined value is set for <code>key</code> on fragment cache <code>name</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> cache = fragment.cache(<span class="hljs-string">'files'</span>);
+cache.set(<span class="hljs-string">'somefile.js'</span>);
+<p><span class="hljs-built_in">console</span>.log(cache.has(<span class="hljs-string">'somefile.js'</span>));
+<span class="hljs-comment">//=&gt; true</span></p>
+<p><span class="hljs-built_in">console</span>.log(cache.has(<span class="hljs-string">'some-other-file.js'</span>));
+<span class="hljs-comment">//=&gt; false</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`name`</span>
+<span class="dox_type">String</span>
+<span>Cache name
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`key`</span>
+<span class="dox_type">String</span>
+<span>Optionally specify a property to check for on cache <code>name</code>
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+  <span class="hljs-attr">has</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cacheName, key</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span>.get(cacheName, key) !== <span class="hljs-string">'undefined'</span>;
+  },
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Get <code>name</code>, or if specified, the value of <code>key</code>. Invokes the <a href=".html">cache</a> method,
+so that cache <code>name</code> will be created it doesn't already exist. If <code>key</code> is not passed,
+the entire cache (<code>name</code>) is returned.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> Vinyl = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vinyl'</span>);
+<span class="hljs-keyword">var</span> cache = fragment.cache(<span class="hljs-string">'files'</span>);
+cache.set(<span class="hljs-string">'somefile.js'</span>, <span class="hljs-keyword">new</span> Vinyl({<span class="hljs-attr">path</span>: <span class="hljs-string">'somefile.js'</span>}));
+<span class="hljs-built_in">console</span>.log(cache.get(<span class="hljs-string">'somefile.js'</span>));
+<span class="hljs-comment">//=&gt; &lt;File "somefile.js"&gt;</span>
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`name`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+<span>Returns cache <code>name</code>, or the value of <code>key</code> if specified
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+  <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, key</span>) </span>{
+    <span class="hljs-keyword">var</span> cache = <span class="hljs-keyword">this</span>.cache(name);
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> key === <span class="hljs-string">'string'</span>) {
+      <span class="hljs-keyword">return</span> cache.get(key);
+    }
+    <span class="hljs-keyword">return</span> cache;
+  }
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose <code>FragmentCache</code></p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+exports = <span class="hljs-built_in">module</span>.exports = FragmentCache;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

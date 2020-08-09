@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-postcss\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> Stream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'stream'</span>)
+<span class="hljs-keyword">var</span> postcss = <span class="hljs-built_in">require</span>(<span class="hljs-string">'postcss'</span>)
+<span class="hljs-keyword">var</span> applySourceMap = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vinyl-sourcemaps-apply'</span>)
+<span class="hljs-keyword">var</span> fancyLog = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fancy-log'</span>)
+<span class="hljs-keyword">var</span> PluginError = <span class="hljs-built_in">require</span>(<span class="hljs-string">'plugin-error'</span>)
+<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
+
+
+<span class="hljs-built_in">module</span>.exports = withConfigLoader(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">loadConfig</span>) </span>{
+
+  <span class="hljs-keyword">var</span> stream = <span class="hljs-keyword">new</span> Stream.Transform({ <span class="hljs-attr">objectMode</span>: <span class="hljs-literal">true</span> })
+
+  stream._transform = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">file, encoding, cb</span>) </span>{
+
+    <span class="hljs-keyword">if</span> (file.isNull()) {
+      <span class="hljs-keyword">return</span> cb(<span class="hljs-literal">null</span>, file)
+    }
+
+    <span class="hljs-keyword">if</span> (file.isStream()) {
+      <span class="hljs-keyword">return</span> handleError(<span class="hljs-string">'Streams are not supported!'</span>)
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Protect <code>from</code> and <code>map</code> if using gulp-sourcemaps</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">var</span> isProtected = file.sourceMap
+      ? { <span class="hljs-attr">from</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">map</span>: <span class="hljs-literal">true</span> }
+      : {}
+
+    <span class="hljs-keyword">var</span> options = {
+      <span class="hljs-attr">from</span>: file.path,
+      <span class="hljs-attr">to</span>: file.path,
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>Generate a separate source map for gulp-sourcemaps</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      map: file.sourceMap ? { <span class="hljs-attr">annotation</span>: <span class="hljs-literal">false</span> } : <span class="hljs-literal">false</span>
+    }
+
+    loadConfig(file)
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">config</span>) </span>{
+        <span class="hljs-keyword">var</span> configOpts = config.options || {}
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Extend the default options if not protected</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> opt <span class="hljs-keyword">in</span> configOpts) {
+          <span class="hljs-keyword">if</span> (configOpts.hasOwnProperty(opt) &amp;&amp; !isProtected[opt]) {
+            options[opt] = configOpts[opt]
+          } <span class="hljs-keyword">else</span> {
+            fancyLog.info(
+              <span class="hljs-string">'gulp-postcss:'</span>,
+              file.relative + <span class="hljs-string">'\nCannot override '</span> + opt +
+              <span class="hljs-string">' option, because it is required by gulp-sourcemaps'</span>
+            )
+          }
+        }
+        <span class="hljs-keyword">return</span> postcss(config.plugins || [])
+          .process(file.contents, options)
+      })
+      .then(handleResult, handleError)
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleResult</span> (<span class="hljs-params">result</span>) </span>{
+      <span class="hljs-keyword">var</span> map
+      <span class="hljs-keyword">var</span> warnings = result.warnings().join(<span class="hljs-string">'\n'</span>)
+
+      file.contents = <span class="hljs-keyword">new</span> Buffer(result.css)
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>Apply source map to the chain</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">if</span> (file.sourceMap) {
+        map = result.map.toJSON()
+        map.file = file.relative
+        map.sources = [].map.call(map.sources, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">source</span>) </span>{
+          <span class="hljs-keyword">return</span> path.join(path.dirname(file.relative), source)
+        })
+        applySourceMap(file, map)
+      }
+
+      <span class="hljs-keyword">if</span> (warnings) {
+        fancyLog.info(<span class="hljs-string">'gulp-postcss:'</span>, file.relative + <span class="hljs-string">'\n'</span> + warnings)
+      }
+
+      setImmediate(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        cb(<span class="hljs-literal">null</span>, file)
+      })
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleError</span> (<span class="hljs-params">error</span>) </span>{
+      <span class="hljs-keyword">var</span> errorOptions = { <span class="hljs-attr">fileName</span>: file.path, <span class="hljs-attr">showStack</span>: <span class="hljs-literal">true</span> }
+      <span class="hljs-keyword">if</span> (error.name === <span class="hljs-string">'CssSyntaxError'</span>) {
+        errorOptions.error = error
+        errorOptions.fileName = error.file || file.path
+        errorOptions.lineNumber = error.line
+        errorOptions.showProperties = <span class="hljs-literal">false</span>
+        errorOptions.showStack = <span class="hljs-literal">false</span>
+        error = error.message + <span class="hljs-string">'\n\n'</span> + error.showSourceCode() + <span class="hljs-string">'\n'</span>
+      }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>Prevent stream’s unhandled exception from
+being suppressed by Promise</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      setImmediate(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        cb(<span class="hljs-keyword">new</span> PluginError(<span class="hljs-string">'gulp-postcss'</span>, error, errorOptions))
+      })
+    }
+
+  }
+
+  <span class="hljs-keyword">return</span> stream
+})
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withConfigLoader</span>(<span class="hljs-params">cb</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">plugins, options</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(plugins)) {
+      <span class="hljs-keyword">return</span> cb(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve({
+          <span class="hljs-attr">plugins</span>: plugins,
+          <span class="hljs-attr">options</span>: options
+        })
+      })
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> plugins === <span class="hljs-string">'function'</span>) {
+      <span class="hljs-keyword">return</span> cb(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">file</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(plugins(file))
+      })
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">var</span> postcssLoadConfig = <span class="hljs-built_in">require</span>(<span class="hljs-string">'postcss-load-config'</span>)
+      <span class="hljs-keyword">var</span> contextOptions = plugins || {}
+      <span class="hljs-keyword">return</span> cb(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">file</span>) </span>{
+        <span class="hljs-keyword">var</span> configPath
+        <span class="hljs-keyword">if</span> (contextOptions.config) {
+          <span class="hljs-keyword">if</span> (path.isAbsolute(contextOptions.config)) {
+            configPath = contextOptions.config
+          } <span class="hljs-keyword">else</span> {
+            configPath = path.join(file.base, contextOptions.config)
+          }
+        } <span class="hljs-keyword">else</span> {
+          configPath = file.dirname
+        }
+        <span class="hljs-keyword">return</span> postcssLoadConfig(
+          {
+            <span class="hljs-attr">file</span>: file,
+            <span class="hljs-attr">options</span>: contextOptions
+          },
+          configPath
+        )
+      })
+    }
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

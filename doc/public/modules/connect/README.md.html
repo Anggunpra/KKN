@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\connect\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#connect">Connect</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#getting-started">Getting Started</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#install-connect">Install Connect</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#create-an-app">Create an app</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#use-middleware">Use middleware</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#mount-middleware">Mount middleware</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#error-middleware">Error middleware</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#create-a-server-from-the-app">Create a server from the app</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#middleware">Middleware</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#app-req-res-next">app(req, res[, next])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#app.handle-req-res-out">app.handle(req, res[, out])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#app.listen...">app.listen([...])</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#app.use-fn">app.use(fn)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#app.use-route-fn">app.use(route, fn)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#running-tests">Running Tests</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#people">People</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node-compatibility">Node Compatibility</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="connect">
+  <h1>
+    <a href="#connect" name="connect" class="pilcrow"></a>
+Connect
+  </h1>
+</div>
+<p><a href="https://npmjs.org/package/connect"><img src="https://img.shields.io/npm/v/connect.svg" alt="NPM Version"></a>
+<a href="https://npmjs.org/package/connect"><img src="https://img.shields.io/npm/dm/connect.svg" alt="NPM Downloads"></a>
+<a href="https://travis-ci.org/senchalabs/connect"><img src="https://img.shields.io/travis/senchalabs/connect/master.svg" alt="Build Status"></a>
+<a href="https://coveralls.io/r/senchalabs/connect"><img src="https://img.shields.io/coveralls/senchalabs/connect/master.svg" alt="Test Coverage"></a></p>
+<p>Connect is an extensible HTTP server framework for <a href="http://nodejs.org">node</a> using &quot;plugins&quot; known as <em>middleware</em>.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> connect = <span class="hljs-built_in">require</span>(<span class="hljs-string">'connect'</span>);
+<span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
+
+<span class="hljs-keyword">var</span> app = connect();
+
+<span class="hljs-comment">// gzip/deflate outgoing responses</span>
+<span class="hljs-keyword">var</span> compression = <span class="hljs-built_in">require</span>(<span class="hljs-string">'compression'</span>);
+app.use(compression());
+
+<span class="hljs-comment">// store session state in browser cookie</span>
+<span class="hljs-keyword">var</span> cookieSession = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cookie-session'</span>);
+app.use(cookieSession({
+    <span class="hljs-attr">keys</span>: [<span class="hljs-string">'secret1'</span>, <span class="hljs-string">'secret2'</span>]
+}));
+
+<span class="hljs-comment">// parse urlencoded request bodies into req.body</span>
+<span class="hljs-keyword">var</span> bodyParser = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
+app.use(bodyParser.urlencoded({<span class="hljs-attr">extended</span>: <span class="hljs-literal">false</span>}));
+
+<span class="hljs-comment">// respond to all requests</span>
+app.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>)</span>{
+  res.end(<span class="hljs-string">'Hello from Connect!\n'</span>);
+});
+
+<span class="hljs-comment">//create node.js http server and listen on port</span>
+http.createServer(app).listen(<span class="hljs-number">3000</span>);
+</code></pre>
+<div class="pilwrap" id="getting-started">
+  <h2>
+    <a href="#getting-started" name="getting-started" class="pilcrow"></a>
+Getting Started
+  </h2>
+</div>
+<p>Connect is a simple framework to glue together various &quot;middleware&quot; to handle requests.</p>
+<div class="pilwrap" id="install-connect">
+  <h3>
+    <a href="#install-connect" name="install-connect" class="pilcrow"></a>
+Install Connect
+  </h3>
+</div>
+<pre><code class="sh">$ npm install connect
+</code></pre>
+<div class="pilwrap" id="create-an-app">
+  <h3>
+    <a href="#create-an-app" name="create-an-app" class="pilcrow"></a>
+Create an app
+  </h3>
+</div>
+<p>The main component is a Connect &quot;app&quot;. This will store all the middleware
+added and is, itself, a function.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> app = connect();
+</code></pre>
+<div class="pilwrap" id="use-middleware">
+  <h3>
+    <a href="#use-middleware" name="use-middleware" class="pilcrow"></a>
+Use middleware
+  </h3>
+</div>
+<p>The core of Connect is &quot;using&quot; middleware. Middleware are added as a &quot;stack&quot;
+where incoming requests will execute each middleware one-by-one until a middleware
+does not call <code>next()</code> within it.</p>
+<pre><code class="js">app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">middleware1</span>(<span class="hljs-params">req, res, next</span>) </span>{
+  <span class="hljs-comment">// middleware 1</span>
+  next();
+});
+app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">middleware2</span>(<span class="hljs-params">req, res, next</span>) </span>{
+  <span class="hljs-comment">// middleware 2</span>
+  next();
+});
+</code></pre>
+<div class="pilwrap" id="mount-middleware">
+  <h3>
+    <a href="#mount-middleware" name="mount-middleware" class="pilcrow"></a>
+Mount middleware
+  </h3>
+</div>
+<p>The <code>.use()</code> method also takes an optional path string that is matched against
+the beginning of the incoming request URL. This allows for basic routing.</p>
+<pre><code class="js">app.use(<span class="hljs-string">'/foo'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fooMiddleware</span>(<span class="hljs-params">req, res, next</span>) </span>{
+  <span class="hljs-comment">// req.url starts with "/foo"</span>
+  next();
+});
+app.use(<span class="hljs-string">'/bar'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">barMiddleware</span>(<span class="hljs-params">req, res, next</span>) </span>{
+  <span class="hljs-comment">// req.url starts with "/bar"</span>
+  next();
+});
+</code></pre>
+<div class="pilwrap" id="error-middleware">
+  <h3>
+    <a href="#error-middleware" name="error-middleware" class="pilcrow"></a>
+Error middleware
+  </h3>
+</div>
+<p>There are special cases of &quot;error-handling&quot; middleware. There are middleware
+where the function takes exactly 4 arguments. When a middleware passes an error
+to <code>next</code>, the app will proceed to look for the error middleware that was declared
+after that middleware and invoke it, skipping any error middleware above that
+middleware and any non-error middleware below.</p>
+<pre><code class="js"><span class="hljs-comment">// regular middleware</span>
+app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
+  <span class="hljs-comment">// i had an error</span>
+  next(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'boom!'</span>));
+});
+
+<span class="hljs-comment">// error middleware for errors that occurred in middleware</span>
+<span class="hljs-comment">// declared before this</span>
+app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onerror</span>(<span class="hljs-params">err, req, res, next</span>) </span>{
+  <span class="hljs-comment">// an error occurred!</span>
+});
+</code></pre>
+<div class="pilwrap" id="create-a-server-from-the-app">
+  <h3>
+    <a href="#create-a-server-from-the-app" name="create-a-server-from-the-app" class="pilcrow"></a>
+Create a server from the app
+  </h3>
+</div>
+<p>The last step is to actually use the Connect app in a server. The <code>.listen()</code> method
+is a convenience to start a HTTP server (and is identical to the <code>http.Server</code>'s <code>listen</code>
+method in the version of Node.js you are running).</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> server = app.listen(port);
+</code></pre>
+<p>The app itself is really just a function with three arguments, so it can also be handed
+to <code>.createServer()</code> in Node.js.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> server = http.createServer(app);
+</code></pre>
+<div class="pilwrap" id="middleware">
+  <h2>
+    <a href="#middleware" name="middleware" class="pilcrow"></a>
+Middleware
+  </h2>
+</div>
+<p>These middleware and libraries are officially supported by the Connect/Express team:</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/body-parser">body-parser</a> - previous <code>bodyParser</code>, <code>json</code>, and <code>urlencoded</code>. You may also be interested in:
+<ul>
+<li><a href="https://www.npmjs.com/package/body">body</a></li>
+<li><a href="https://www.npmjs.com/package/co-body">co-body</a></li>
+<li><a href="https://www.npmjs.com/package/raw-body">raw-body</a></li>
+</ul>
+</li>
+<li><a href="https://www.npmjs.com/package/compression">compression</a> - previously <code>compress</code></li>
+<li><a href="https://www.npmjs.com/package/connect-timeout">connect-timeout</a> - previously <code>timeout</code></li>
+<li><a href="https://www.npmjs.com/package/cookie-parser">cookie-parser</a> - previously <code>cookieParser</code></li>
+<li><a href="https://www.npmjs.com/package/cookie-session">cookie-session</a> - previously <code>cookieSession</code></li>
+<li><a href="https://www.npmjs.com/package/csurf">csurf</a> - previously <code>csrf</code></li>
+<li><a href="https://www.npmjs.com/package/errorhandler">errorhandler</a> - previously <code>error-handler</code></li>
+<li><a href="https://www.npmjs.com/package/express-session">express-session</a> - previously <code>session</code></li>
+<li><a href="https://www.npmjs.com/package/method-override">method-override</a> - previously <code>method-override</code></li>
+<li><a href="https://www.npmjs.com/package/morgan">morgan</a> - previously <code>logger</code></li>
+<li><a href="https://www.npmjs.com/package/response-time">response-time</a> - previously <code>response-time</code></li>
+<li><a href="https://www.npmjs.com/package/serve-favicon">serve-favicon</a> - previously <code>favicon</code></li>
+<li><a href="https://www.npmjs.com/package/serve-index">serve-index</a> - previously <code>directory</code></li>
+<li><a href="https://www.npmjs.com/package/serve-static">serve-static</a> - previously <code>static</code></li>
+<li><a href="https://www.npmjs.com/package/vhost">vhost</a> - previously <code>vhost</code></li>
+</ul>
+<p>Most of these are exact ports of their Connect 2.x equivalents. The primary exception is <code>cookie-session</code>.</p>
+<p>Some middleware previously included with Connect are no longer supported by the Connect/Express team, are replaced by an alternative module, or should be superseded by a better module. Use one of these alternatives instead:</p>
+<ul>
+<li><code>cookieParser</code>
+<ul>
+<li><a href="https://www.npmjs.com/package/cookies">cookies</a> and <a href="https://www.npmjs.com/package/keygrip">keygrip</a></li>
+</ul>
+</li>
+<li><code>limit</code>
+<ul>
+<li><a href="https://www.npmjs.com/package/raw-body">raw-body</a></li>
+</ul>
+</li>
+<li><code>multipart</code>
+<ul>
+<li><a href="https://www.npmjs.com/package/connect-multiparty">connect-multiparty</a></li>
+<li><a href="https://www.npmjs.com/package/connect-busboy">connect-busboy</a></li>
+</ul>
+</li>
+<li><code>query</code>
+<ul>
+<li><a href="https://www.npmjs.com/package/qs">qs</a></li>
+</ul>
+</li>
+<li><code>staticCache</code>
+<ul>
+<li><a href="https://www.npmjs.com/package/st">st</a></li>
+<li><a href="https://www.npmjs.com/package/connect-static">connect-static</a></li>
+</ul>
+</li>
+</ul>
+<p>Checkout <a href="https://github.com/Raynos/http-framework/wiki/Modules">http-framework</a> for many other compatible middleware!</p>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<p>The Connect API is very minimalist, enough to create an app and add a chain
+of middleware.</p>
+<p>When the <code>connect</code> module is required, a function is returned that will construct
+a new app when called.</p>
+<pre><code class="js"><span class="hljs-comment">// require module</span>
+<span class="hljs-keyword">var</span> connect = <span class="hljs-built_in">require</span>(<span class="hljs-string">'connect'</span>)
+
+<span class="hljs-comment">// create app</span>
+<span class="hljs-keyword">var</span> app = connect()
+</code></pre>
+<div class="pilwrap" id="app-req-res-next">
+  <h3>
+    <a href="#app-req-res-next" name="app-req-res-next" class="pilcrow"></a>
+app(req, res[, next])
+  </h3>
+</div>
+<p>The <code>app</code> itself is a function. This is just an alias to <code>app.handle</code>.</p>
+<div class="pilwrap" id="app.handle-req-res-out">
+  <h3>
+    <a href="#app.handle-req-res-out" name="app.handle-req-res-out" class="pilcrow"></a>
+app.handle(req, res[, out])
+  </h3>
+</div>
+<p>Calling the function will run the middleware stack against the given Node.js
+http request (<code>req</code>) and response (<code>res</code>) objects. An optional function <code>out</code>
+can be provided that will be called if the request (or error) was not handled
+by the middleware stack.</p>
+<div class="pilwrap" id="app.listen...">
+  <h3>
+    <a href="#app.listen..." name="app.listen..." class="pilcrow"></a>
+app.listen([...])
+  </h3>
+</div>
+<p>Start the app listening for requests. This method will internally create a Node.js
+HTTP server and call <code>.listen()</code> on it.</p>
+<p>This is an alias to the <code>server.listen()</code> method in the version of Node.js running,
+so consult the Node.js documentation for all the different variations. The most
+common signature is <a href="https://nodejs.org/dist/latest-v6.x/docs/api/http.html#http_server_listen_port_hostname_backlog_callback"><code>app.listen(port)</code></a>.</p>
+<div class="pilwrap" id="app.use-fn">
+  <h3>
+    <a href="#app.use-fn" name="app.use-fn" class="pilcrow"></a>
+app.use(fn)
+  </h3>
+</div>
+<p>Use a function on the app, where the function represents a middleware. The function
+will be invoked for every request in the order that <code>app.use</code> is called. The function
+is called with three arguments:</p>
+<pre><code class="js">app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
+  <span class="hljs-comment">// req is the Node.js http request object</span>
+  <span class="hljs-comment">// res is the Node.js http response object</span>
+  <span class="hljs-comment">// next is a function to call to invoke the next middleware</span>
+})
+</code></pre>
+<p>In addition to a plan function, the <code>fn</code> argument can also be a Node.js HTTP server
+instance or another Connect app instance.</p>
+<div class="pilwrap" id="app.use-route-fn">
+  <h3>
+    <a href="#app.use-route-fn" name="app.use-route-fn" class="pilcrow"></a>
+app.use(route, fn)
+  </h3>
+</div>
+<p>Use a function on the app, where the function represents a middleware. The function
+will be invoked for every request in which the URL (<code>req.url</code> property) starts with
+the given <code>route</code> string in the order that <code>app.use</code> is called. The function is
+called with three arguments:</p>
+<pre><code class="js">app.use(<span class="hljs-string">'/foo'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
+  <span class="hljs-comment">// req is the Node.js http request object</span>
+  <span class="hljs-comment">// res is the Node.js http response object</span>
+  <span class="hljs-comment">// next is a function to call to invoke the next middleware</span>
+})
+</code></pre>
+<p>In addition to a plan function, the <code>fn</code> argument can also be a Node.js HTTP server
+instance or another Connect app instance.</p>
+<p>The <code>route</code> is always terminated at a path separator (<code>/</code>) or a dot (<code>.</code>) character.
+This means the given routes <code>/foo/</code> and <code>/foo</code> are the same and both will match requests
+with the URLs <code>/foo</code>, <code>/foo/</code>, <code>/foo/bar</code>, and <code>/foo.bar</code>, but not match a request with
+the URL <code>/foobar</code>.</p>
+<p>The <code>route</code> is matched in a case-insensitive manor.</p>
+<p>In order to make middleware easier to write to be agnostic of the <code>route</code>, when the
+<code>fn</code> is invoked, the <code>req.url</code> will be altered to remove the <code>route</code> part (and the
+original will be available as <code>req.originalUrl</code>). For example, if <code>fn</code> is used at the
+route <code>/foo</code>, the request for <code>/foo/bar</code> will invoke <code>fn</code> with <code>req.url === '/bar'</code>
+and <code>req.originalUrl === '/foo/bar'</code>.</p>
+<div class="pilwrap" id="running-tests">
+  <h2>
+    <a href="#running-tests" name="running-tests" class="pilcrow"></a>
+Running Tests
+  </h2>
+</div>
+<pre><code class="bash">npm install
+npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="people">
+  <h2>
+    <a href="#people" name="people" class="pilcrow"></a>
+People
+  </h2>
+</div>
+<p>The Connect project would not be the same without all the people involved.</p>
+<p>The original author of Connect is <a href="https://github.com/tj">TJ Holowaychuk</a></p>
+<p>The current lead maintainer is <a href="https://github.com/dougwilson">Douglas Christopher Wilson</a></p>
+<p><a href="https://github.com/senchalabs/connect/graphs/contributors">List of all contributors</a></p>
+<div class="pilwrap" id="node-compatibility">
+  <h2>
+    <a href="#node-compatibility" name="node-compatibility" class="pilcrow"></a>
+Node Compatibility
+  </h2>
+</div>
+<ul>
+<li>Connect <code>&lt; 1.x</code> - node <code>0.2</code></li>
+<li>Connect <code>1.x</code> - node <code>0.4</code></li>
+<li>Connect <code>&lt; 2.8</code> - node <code>0.6</code></li>
+<li>Connect <code>&gt;= 2.8 &lt; 3</code> - node <code>0.8</code></li>
+<li>Connect <code>&gt;= 3</code> - node <code>0.10</code>, <code>0.12</code>, <code>4.x</code>, <code>5.x</code>, <code>6.x</code>, <code>7.x</code>, <code>8.x</code>; io.js <code>1.x</code>, <code>2.x</code>, <code>3.x</code></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p><a href="LICENSE.html">MIT</a></p>
+</div>
+  </div>
+</body>
+</html>

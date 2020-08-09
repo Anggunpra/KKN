@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>_rotated-flipped.scss</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\assets\\scss\\_rotated-flipped.scss";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#rotated-and-flipped-icons">Rotated &amp;amp; Flipped Icons</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#hook-for-ie8-9">Hook for IE8-9</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="rotated-and-flipped-icons">
+  <h2>
+    <a href="#rotated-and-flipped-icons" name="rotated-and-flipped-icons" class="pilcrow"></a>
+Rotated &amp; Flipped Icons
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="scss">
+.#{<span class="hljs-variable">$fa-css-prefix</span>}-rotate-90  { <span class="hljs-keyword">@include</span> fa-icon-rotate(<span class="hljs-number">90deg</span>, <span class="hljs-number">1</span>);  }
+.#{<span class="hljs-variable">$fa-css-prefix</span>}-rotate-180 { <span class="hljs-keyword">@include</span> fa-icon-rotate(<span class="hljs-number">180deg</span>, <span class="hljs-number">2</span>); }
+.#{<span class="hljs-variable">$fa-css-prefix</span>}-rotate-270 { <span class="hljs-keyword">@include</span> fa-icon-rotate(<span class="hljs-number">270deg</span>, <span class="hljs-number">3</span>); }
+
+.#{<span class="hljs-variable">$fa-css-prefix</span>}-flip-horizontal { <span class="hljs-keyword">@include</span> fa-icon-flip(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>); }
+.#{<span class="hljs-variable">$fa-css-prefix</span>}-flip-vertical   { <span class="hljs-keyword">@include</span> fa-icon-flip(<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">2</span>); }
+.#{<span class="hljs-variable">$fa-css-prefix</span>}-flip-both, .#{<span class="hljs-variable">$fa-css-prefix</span>}-flip-horizontal.#{<span class="hljs-variable">$fa-css-prefix</span>}-flip-vertical { <span class="hljs-keyword">@include</span> fa-icon-flip(-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">2</span>); }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="hook-for-ie8-9">
+  <h2>
+    <a href="#hook-for-ie8-9" name="hook-for-ie8-9" class="pilcrow"></a>
+Hook for IE8-9
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="scss">
+<span class="hljs-selector-pseudo">:root</span> {
+  .#{<span class="hljs-variable">$fa-css-prefix</span>}-rotate-90,
+  .#{<span class="hljs-variable">$fa-css-prefix</span>}-rotate-180,
+  .#{<span class="hljs-variable">$fa-css-prefix</span>}-rotate-270,
+  .#{<span class="hljs-variable">$fa-css-prefix</span>}-flip-horizontal,
+  .#{<span class="hljs-variable">$fa-css-prefix</span>}-flip-vertical,
+  .#{<span class="hljs-variable">$fa-css-prefix</span>}-flip-both {
+    <span class="hljs-attribute">filter</span>: none;
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

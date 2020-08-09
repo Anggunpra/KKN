@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\got\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#">
+	
+	
+	
+	
+	
+</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#got-url-options-callback">got(url, [options], [callback])</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#url">url</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#body">body</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#encoding">encoding</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#json">json</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#query">query</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#timeout">timeout</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#retries">retries</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#followredirect">followRedirect</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#callback-error-data-response">callback(error, data, response)</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#error">error</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#response">response</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#.on-request-request">.on(&#39;request&#39;, request)</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#.on-response-response">.on(&#39;response&#39;, response)</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#.on-redirect-response-nextoptions">.on(&#39;redirect&#39;, response, nextOptions)</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#.on-error-error-body-response">.on(&#39;error&#39;, error, body, response)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#got.get-url-options-callback">got.get(url, [options], [callback])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#got.post-url-options-callback">got.post(url, [options], [callback])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#got.put-url-options-callback">got.put(url, [options], [callback])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#got.patch-url-options-callback">got.patch(url, [options], [callback])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#got.head-url-options-callback">got.head(url, [options], [callback])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#got.delete-url-options-callback">got.delete(url, [options], [callback])</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#errors">Errors</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#got.requesterror">got.RequestError</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#got.readerror">got.ReadError</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#got.parseerror">got.ParseError</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#got.httperror">got.HTTPError</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#got.maxredirectserror">got.MaxRedirectsError</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#proxies">Proxies</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#cookies">Cookies</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#form-data">Form data</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#oauth">OAuth</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#unix-domain-sockets">Unix Domain Sockets</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#tip">Tip</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node.js-0.10.x">Node.js 0.10.x</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related">Related</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#created-by">Created by</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="">
+  <h1 align="center">
+    <a href="#" name="" class="pilcrow"></a>
+
+	<br>
+	<img width="360" src="https://rawgit.com/sindresorhus/got/master/media/logo.svg" alt="got">
+	<br>
+	<br>
+	<br>
+
+  </h1>
+</div>
+<blockquote>
+<p>Simplified HTTP/HTTPS requests</p>
+</blockquote>
+<p><a href="https://travis-ci.org/sindresorhus/got"><img src="https://travis-ci.org/sindresorhus/got.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/sindresorhus/got?branch=master"><img src="https://coveralls.io/repos/sindresorhus/got/badge.svg?service=github&amp;branch=master" alt="Coverage Status"></a> <a href="https://npmjs.com/got"><img src="https://img.shields.io/npm/dm/got.svg?style=flat" alt="Downloads"></a></p>
+<p>A nicer interface to the built-in <a href="http://nodejs.org/api/http.html"><code>http</code></a> module.</p>
+<p>It supports following redirects, promises, streams, retries, automagically handling gzip/deflate and some convenience options.</p>
+<p>Created because <a href="https://github.com/mikeal/request"><code>request</code></a> is bloated <em>(several megabytes!)</em>.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save got
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> got = <span class="hljs-built_in">require</span>(<span class="hljs-string">'got'</span>);
+
+<span class="hljs-comment">// Callback mode</span>
+got(<span class="hljs-string">'todomvc.com'</span>, (error, body, response) =&gt; {
+	<span class="hljs-built_in">console</span>.log(body);
+	<span class="hljs-comment">//=&gt; '&lt;!doctype html&gt; ...'</span>
+});
+
+<span class="hljs-comment">// Promise mode</span>
+got(<span class="hljs-string">'todomvc.com'</span>)
+	.then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+		<span class="hljs-built_in">console</span>.log(response.body);
+		<span class="hljs-comment">//=&gt; '&lt;!doctype html&gt; ...'</span>
+	})
+	.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+		<span class="hljs-built_in">console</span>.log(error.response.body);
+		<span class="hljs-comment">//=&gt; 'Internal server error ...'</span>
+	});
+
+<span class="hljs-comment">// Stream mode</span>
+got.stream(<span class="hljs-string">'todomvc.com'</span>).pipe(fs.createWriteStream(<span class="hljs-string">'index.html'</span>));
+
+<span class="hljs-comment">// For POST, PUT and PATCH methods got.stream returns a WritableStream</span>
+fs.createReadStream(<span class="hljs-string">'index.html'</span>).pipe(got.stream.post(<span class="hljs-string">'todomvc.com'</span>));
+</code></pre>
+<div class="pilwrap" id="api">
+  <h3>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h3>
+</div>
+<p>It's a <code>GET</code> request by default, but can be changed in <code>options</code>.</p>
+<div class="pilwrap" id="got-url-options-callback">
+  <h4>
+    <a href="#got-url-options-callback" name="got-url-options-callback" class="pilcrow"></a>
+got(url, [options], [callback])
+  </h4>
+</div>
+<p>Returns a Promise for a <code>response</code> object with a <code>body</code> property, a <code>url</code> property with the request URL or the final URL after redirects, and a <code>requestUrl</code> property with the original request URL.</p>
+<p>Otherwise calls callback with <code>response</code> object (same as in previous case).</p>
+<div class="pilwrap" id="url">
+  <h5>
+    <a href="#url" name="url" class="pilcrow"></a>
+url
+  </h5>
+</div>
+<p>Type: <code>string</code>, <code>object</code></p>
+<p>The URL to request or a <a href="https://nodejs.org/api/http.html#http_http_request_options_callback"><code>http.request</code> options</a> object.</p>
+<p>Properties from <code>options</code> will override properties in the parsed <code>url</code>.</p>
+<div class="pilwrap" id="options">
+  <h5>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h5>
+</div>
+<p>Type: <code>object</code></p>
+<p>Any of the <a href="http://nodejs.org/api/http.html#http_http_request_options_callback"><code>http.request</code></a> options.</p>
+<div class="pilwrap" id="body">
+  <h6>
+    <a href="#body" name="body" class="pilcrow"></a>
+body
+  </h6>
+</div>
+<p>Type: <code>string</code>, <code>buffer</code>, <code>readableStream</code>, <code>object</code></p>
+<p><em>This is mutually exclusive with stream mode.</em></p>
+<p>Body that will be sent with a <code>POST</code> request.</p>
+<p>If present in <code>options</code> and <code>options.method</code> is not set, <code>options.method</code> will be set to <code>POST</code>.</p>
+<p>If <code>content-length</code> or <code>transfer-encoding</code> is not set in <code>options.headers</code> and <code>body</code> is a string or buffer, <code>content-length</code> will be set to the body length.</p>
+<p>If <code>body</code> is a plain object, it will be stringified with <a href="https://nodejs.org/api/querystring.html#querystring_querystring_stringify_obj_sep_eq_options"><code>querystring.stringify</code></a> and sent as <code>application/x-www-form-urlencoded</code>.</p>
+<div class="pilwrap" id="encoding">
+  <h6>
+    <a href="#encoding" name="encoding" class="pilcrow"></a>
+encoding
+  </h6>
+</div>
+<p>Type: <code>string</code>, <code>null</code><br>
+Default: <code>'utf8'</code></p>
+<p>Encoding to be used on <code>setEncoding</code> of the response data. If <code>null</code>, the body is returned as a Buffer.</p>
+<div class="pilwrap" id="json">
+  <h6>
+    <a href="#json" name="json" class="pilcrow"></a>
+json
+  </h6>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code></p>
+<p><em>This is mutually exclusive with stream mode.</em></p>
+<p>Parse response body with <code>JSON.parse</code> and set <code>accept</code> header to <code>application/json</code>.</p>
+<div class="pilwrap" id="query">
+  <h6>
+    <a href="#query" name="query" class="pilcrow"></a>
+query
+  </h6>
+</div>
+<p>Type: <code>string</code>, <code>object</code></p>
+<p>Query string object that will be added to the request URL. This will override the query string in <code>url</code>.</p>
+<div class="pilwrap" id="timeout">
+  <h6>
+    <a href="#timeout" name="timeout" class="pilcrow"></a>
+timeout
+  </h6>
+</div>
+<p>Type: <code>number</code></p>
+<p>Milliseconds after which the request will be aborted and an error event with <code>ETIMEDOUT</code> code will be emitted.</p>
+<div class="pilwrap" id="retries">
+  <h6>
+    <a href="#retries" name="retries" class="pilcrow"></a>
+retries
+  </h6>
+</div>
+<p>Type: <code>number</code>, <code>function</code><br>
+Default: <code>5</code></p>
+<p>Number of request retries when network errors happens. Delays between retries counts with function <code>1000 * Math.pow(2, retry) + Math.random() * 100</code>, where <code>retry</code> is attempt number (starts from 0).</p>
+<p>Option accepts <code>function</code> with <code>retry</code> and <code>error</code> arguments. Function must return delay in milliseconds (<code>0</code> return value cancels retry).</p>
+<p><strong>Note:</strong> if <code>retries</code> is <code>number</code>, <code>ENOTFOUND</code> and <code>ENETUNREACH</code> error will not be retried (see full list in <a href="https://github.com/floatdrop/is-retry-allowed/blob/master/index.js#L12"><code>is-retry-allowed</code></a> module).</p>
+<div class="pilwrap" id="followredirect">
+  <h6>
+    <a href="#followredirect" name="followredirect" class="pilcrow"></a>
+followRedirect
+  </h6>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>true</code></p>
+<p>Defines if redirect responses should be followed automatically.</p>
+<div class="pilwrap" id="callback-error-data-response">
+  <h5>
+    <a href="#callback-error-data-response" name="callback-error-data-response" class="pilcrow"></a>
+callback(error, data, response)
+  </h5>
+</div>
+<p>Function to be called when error or data are received. If omitted, a promise will be returned.</p>
+<div class="pilwrap" id="error">
+  <h6>
+    <a href="#error" name="error" class="pilcrow"></a>
+error
+  </h6>
+</div>
+<p><code>Error</code> object with HTTP status code as <code>statusCode</code> property.</p>
+<p>The data you requested.</p>
+<div class="pilwrap" id="response">
+  <h6>
+    <a href="#response" name="response" class="pilcrow"></a>
+response
+  </h6>
+</div>
+<p>The <a href="http://nodejs.org/api/http.html#http_http_incomingmessage">response object</a>.</p>
+<p>When in stream mode, you can listen for events:</p>
+<div class="pilwrap" id=".on-request-request">
+  <h5>
+    <a href="#.on-request-request" name=".on-request-request" class="pilcrow"></a>
+.on('request', request)
+  </h5>
+</div>
+<p><code>request</code> event to get the request object of the request.</p>
+<p><strong>Tip</strong>: You can use <code>request</code> event to abort request:</p>
+<pre><code class="js">got.stream(<span class="hljs-string">'github.com'</span>)
+	.on(<span class="hljs-string">'request'</span>, req =&gt; setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> req.abort(), <span class="hljs-number">50</span>));
+</code></pre>
+<div class="pilwrap" id=".on-response-response">
+  <h5>
+    <a href="#.on-response-response" name=".on-response-response" class="pilcrow"></a>
+.on('response', response)
+  </h5>
+</div>
+<p><code>response</code> event to get the response object of the final request.</p>
+<div class="pilwrap" id=".on-redirect-response-nextoptions">
+  <h5>
+    <a href="#.on-redirect-response-nextoptions" name=".on-redirect-response-nextoptions" class="pilcrow"></a>
+.on('redirect', response, nextOptions)
+  </h5>
+</div>
+<p><code>redirect</code> event to get the response object of a redirect. The second argument is options for the next request to the redirect location.</p>
+<div class="pilwrap" id=".on-error-error-body-response">
+  <h5>
+    <a href="#.on-error-error-body-response" name=".on-error-error-body-response" class="pilcrow"></a>
+.on('error', error, body, response)
+  </h5>
+</div>
+<p><code>error</code> event emitted in case of protocol error (like <code>ENOTFOUND</code> etc.) or status error (4xx or 5xx). The second argument is the body of the server response in case of status error. The third argument is response object.</p>
+<div class="pilwrap" id="got.get-url-options-callback">
+  <h4>
+    <a href="#got.get-url-options-callback" name="got.get-url-options-callback" class="pilcrow"></a>
+got.get(url, [options], [callback])
+  </h4>
+</div>
+<div class="pilwrap" id="got.post-url-options-callback">
+  <h4>
+    <a href="#got.post-url-options-callback" name="got.post-url-options-callback" class="pilcrow"></a>
+got.post(url, [options], [callback])
+  </h4>
+</div>
+<div class="pilwrap" id="got.put-url-options-callback">
+  <h4>
+    <a href="#got.put-url-options-callback" name="got.put-url-options-callback" class="pilcrow"></a>
+got.put(url, [options], [callback])
+  </h4>
+</div>
+<div class="pilwrap" id="got.patch-url-options-callback">
+  <h4>
+    <a href="#got.patch-url-options-callback" name="got.patch-url-options-callback" class="pilcrow"></a>
+got.patch(url, [options], [callback])
+  </h4>
+</div>
+<div class="pilwrap" id="got.head-url-options-callback">
+  <h4>
+    <a href="#got.head-url-options-callback" name="got.head-url-options-callback" class="pilcrow"></a>
+got.head(url, [options], [callback])
+  </h4>
+</div>
+<div class="pilwrap" id="got.delete-url-options-callback">
+  <h4>
+    <a href="#got.delete-url-options-callback" name="got.delete-url-options-callback" class="pilcrow"></a>
+got.delete(url, [options], [callback])
+  </h4>
+</div>
+<p>Sets <code>options.method</code> to the method name and makes a request.</p>
+<div class="pilwrap" id="errors">
+  <h2>
+    <a href="#errors" name="errors" class="pilcrow"></a>
+Errors
+  </h2>
+</div>
+<p>Each error contains (if available) <code>statusCode</code>, <code>statusMessage</code>, <code>host</code>, <code>hostname</code>, <code>method</code> and <code>path</code> properties to make debugging easier.</p>
+<p>In Promise mode, the <code>response</code> is attached to the error.</p>
+<div class="pilwrap" id="got.requesterror">
+  <h4>
+    <a href="#got.requesterror" name="got.requesterror" class="pilcrow"></a>
+got.RequestError
+  </h4>
+</div>
+<p>When a request fails. Contains a <code>code</code> property with error class code, like <code>ECONNREFUSED</code>.</p>
+<div class="pilwrap" id="got.readerror">
+  <h4>
+    <a href="#got.readerror" name="got.readerror" class="pilcrow"></a>
+got.ReadError
+  </h4>
+</div>
+<p>When reading from response stream fails.</p>
+<div class="pilwrap" id="got.parseerror">
+  <h4>
+    <a href="#got.parseerror" name="got.parseerror" class="pilcrow"></a>
+got.ParseError
+  </h4>
+</div>
+<p>When <code>json</code> option is enabled and <code>JSON.parse</code> fails.</p>
+<div class="pilwrap" id="got.httperror">
+  <h4>
+    <a href="#got.httperror" name="got.httperror" class="pilcrow"></a>
+got.HTTPError
+  </h4>
+</div>
+<p>When server response code is not 2xx. Contains <code>statusCode</code> and <code>statusMessage</code>.</p>
+<div class="pilwrap" id="got.maxredirectserror">
+  <h4>
+    <a href="#got.maxredirectserror" name="got.maxredirectserror" class="pilcrow"></a>
+got.MaxRedirectsError
+  </h4>
+</div>
+<p>When server redirects you more than 10 times.</p>
+<div class="pilwrap" id="proxies">
+  <h2>
+    <a href="#proxies" name="proxies" class="pilcrow"></a>
+Proxies
+  </h2>
+</div>
+<p>You can use the <a href="https://github.com/koichik/node-tunnel"><code>tunnel</code></a> module with the <code>agent</code> option to work with proxies:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> got = <span class="hljs-built_in">require</span>(<span class="hljs-string">'got'</span>);
+<span class="hljs-keyword">const</span> tunnel = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tunnel'</span>);
+
+got(<span class="hljs-string">'todomvc.com'</span>, {
+	<span class="hljs-attr">agent</span>: tunnel.httpOverHttp({
+		<span class="hljs-attr">proxy</span>: {
+			<span class="hljs-attr">host</span>: <span class="hljs-string">'localhost'</span>
+		}
+	})
+}, () =&gt; {});
+</code></pre>
+<div class="pilwrap" id="cookies">
+  <h2>
+    <a href="#cookies" name="cookies" class="pilcrow"></a>
+Cookies
+  </h2>
+</div>
+<p>You can use the <a href="https://github.com/jshttp/cookie"><code>cookie</code></a> module to include cookies in a request:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> got = <span class="hljs-built_in">require</span>(<span class="hljs-string">'got'</span>);
+<span class="hljs-keyword">const</span> cookie = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cookie'</span>);
+
+got(<span class="hljs-string">'google.com'</span>, {
+	<span class="hljs-attr">headers</span>: {
+		<span class="hljs-attr">cookie</span>: cookie.serialize(<span class="hljs-string">'foo'</span>, <span class="hljs-string">'bar'</span>)
+	}
+});
+</code></pre>
+<div class="pilwrap" id="form-data">
+  <h2>
+    <a href="#form-data" name="form-data" class="pilcrow"></a>
+Form data
+  </h2>
+</div>
+<p>You can use the <a href="https://github.com/form-data/form-data"><code>form-data</code></a> module to create POST request with form data:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> got = <span class="hljs-built_in">require</span>(<span class="hljs-string">'got'</span>);
+<span class="hljs-keyword">const</span> FormData = <span class="hljs-built_in">require</span>(<span class="hljs-string">'form-data'</span>);
+<span class="hljs-keyword">const</span> form = <span class="hljs-keyword">new</span> FormData();
+
+form.append(<span class="hljs-string">'my_file'</span>, fs.createReadStream(<span class="hljs-string">'/foo/bar.jpg'</span>));
+
+got.post(<span class="hljs-string">'google.com'</span>, {
+	<span class="hljs-attr">body</span>: form
+});
+</code></pre>
+<div class="pilwrap" id="oauth">
+  <h2>
+    <a href="#oauth" name="oauth" class="pilcrow"></a>
+OAuth
+  </h2>
+</div>
+<p>You can use the <a href="https://github.com/ddo/oauth-1.0a"><code>oauth-1.0a</code></a> module to create a signed OAuth request:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> got = <span class="hljs-built_in">require</span>(<span class="hljs-string">'got'</span>);
+<span class="hljs-keyword">const</span> OAuth = <span class="hljs-built_in">require</span>(<span class="hljs-string">'oauth-1.0a'</span>);
+
+<span class="hljs-keyword">const</span> oauth = OAuth({
+	<span class="hljs-attr">consumer</span>: {
+		<span class="hljs-attr">public</span>: process.env.CONSUMER_KEY,
+		<span class="hljs-attr">secret</span>: process.env.CONSUMER_SECRET
+	},
+	<span class="hljs-attr">signature_method</span>: <span class="hljs-string">'HMAC-SHA1'</span>
+});
+
+<span class="hljs-keyword">const</span> token = {
+	<span class="hljs-attr">public</span>: process.env.ACCESS_TOKEN,
+	<span class="hljs-attr">secret</span>: process.env.ACCESS_TOKEN_SECRET
+};
+
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://api.twitter.com/1.1/statuses/home_timeline.json'</span>;
+
+got(url, {
+	<span class="hljs-attr">headers</span>: oauth.toHeader(oauth.authorize({url, <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>}, token)),
+	<span class="hljs-attr">json</span>: <span class="hljs-literal">true</span>
+});
+</code></pre>
+<div class="pilwrap" id="unix-domain-sockets">
+  <h2>
+    <a href="#unix-domain-sockets" name="unix-domain-sockets" class="pilcrow"></a>
+Unix Domain Sockets
+  </h2>
+</div>
+<p>Requests can also be sent via <a href="http://serverfault.com/questions/124517/whats-the-difference-between-unix-socket-and-tcp-ip-socket">unix domain sockets</a>. Use the following URL scheme: <code>PROTOCOL://unix:SOCKET:PATH</code>.</p>
+<ul>
+<li><code>PROTOCOL</code> - <code>http</code> or <code>https</code> <em>(optional)</em></li>
+<li><code>SOCKET</code> - absolute path to a unix domain socket, e.g. <code>/var/run/docker.sock</code></li>
+<li><code>PATH</code> - request path, e.g. <code>/v2/keys</code></li>
+</ul>
+<pre><code class="js">got(<span class="hljs-string">'http://unix:/var/run/docker.sock:/containers/json'</span>);
+
+<span class="hljs-comment">// or without protocol (http by default)</span>
+got(<span class="hljs-string">'unix:/var/run/docker.sock:/containers/json'</span>);
+</code></pre>
+<div class="pilwrap" id="tip">
+  <h2>
+    <a href="#tip" name="tip" class="pilcrow"></a>
+Tip
+  </h2>
+</div>
+<p>It's a good idea to set the <code>'user-agent'</code> header so the provider can more easily see how their resource is used. By default, it's the URL to this repo.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> got = <span class="hljs-built_in">require</span>(<span class="hljs-string">'got'</span>);
+<span class="hljs-keyword">var</span> pkg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./package.json'</span>);
+
+got(<span class="hljs-string">'todomvc.com'</span>, {
+	<span class="hljs-attr">headers</span>: {
+		<span class="hljs-string">'user-agent'</span>: <span class="hljs-string">'my-module/'</span> + pkg.version + <span class="hljs-string">' (https://github.com/username/my-module)'</span>
+	}
+}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{});
+</code></pre>
+<div class="pilwrap" id="node.js-0.10.x">
+  <h2>
+    <a href="#node.js-0.10.x" name="node.js-0.10.x" class="pilcrow"></a>
+Node.js 0.10.x
+  </h2>
+</div>
+<p>It is a known issue with old good Node 0.10.x <a href="https://nodejs.org/docs/v0.10.39/api/http.html#http_class_http_agent"><code>http.Agent</code></a> and <code>agent.maxSockets</code>, which is set to <code>5</code>. This can cause low performance and in rare cases deadlocks. To avoid this you can set it manually:</p>
+<pre><code class="js"><span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>).globalAgent.maxSockets = <span class="hljs-literal">Infinity</span>;
+<span class="hljs-built_in">require</span>(<span class="hljs-string">'https'</span>).globalAgent.maxSockets = <span class="hljs-literal">Infinity</span>;
+</code></pre>
+<p>This should only ever be done if you have Node version 0.10.x and at the top-level app layer.</p>
+<div class="pilwrap" id="related">
+  <h2>
+    <a href="#related" name="related" class="pilcrow"></a>
+Related
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/sindresorhus/gh-got">gh-got</a> - Convenience wrapper for interacting with the GitHub API</li>
+<li><a href="https://github.com/samverschueren/travis-got">travis-got</a> - Convenience wrapper for interacting with the Travis API</li>
+</ul>
+<div class="pilwrap" id="created-by">
+  <h2>
+    <a href="#created-by" name="created-by" class="pilcrow"></a>
+Created by
+  </h2>
+</div>
+<table>
+<thead>
+<tr>
+<th><a href="http://sindresorhus.com"><img src="https://avatars.githubusercontent.com/u/170270?v=3&amp;s=100" alt="Sindre Sorhus"></a></th>
+<th><a href="https://github.com/floatdrop"><img src="https://avatars.githubusercontent.com/u/365089?v=3&amp;s=100" alt="Vsevolod Strukchinsky"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://sindresorhus.com">Sindre Sorhus</a></td>
+<td><a href="https://github.com/floatdrop">Vsevolod Strukchinsky</a></td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

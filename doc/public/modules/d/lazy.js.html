@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>lazy.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\d\\lazy.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>lazy.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">"use strict"</span>;
+
+<span class="hljs-keyword">var</span> isPlainFunction = <span class="hljs-built_in">require</span>(<span class="hljs-string">"type/plain-function/is"</span>)
+  , ensureValue     = <span class="hljs-built_in">require</span>(<span class="hljs-string">"type/value/ensure"</span>)
+  , isValue         = <span class="hljs-built_in">require</span>(<span class="hljs-string">"type/value/is"</span>)
+  , map             = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/object/map"</span>)
+  , contains        = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/string/#/contains"</span>);
+
+<span class="hljs-keyword">var</span> call = <span class="hljs-built_in">Function</span>.prototype.call
+  , defineProperty = <span class="hljs-built_in">Object</span>.defineProperty
+  , getOwnPropertyDescriptor = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor
+  , getPrototypeOf = <span class="hljs-built_in">Object</span>.getPrototypeOf
+  , hasOwnProperty = <span class="hljs-built_in">Object</span>.prototype.hasOwnProperty
+  , cacheDesc = { <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: <span class="hljs-literal">null</span> }
+  , define;
+
+define = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name, options</span>) </span>{
+	<span class="hljs-keyword">var</span> value, dgs, cacheName, desc, writable = <span class="hljs-literal">false</span>, resolvable, flat;
+	options = <span class="hljs-built_in">Object</span>(ensureValue(options));
+	cacheName = options.cacheName;
+	flat = options.flat;
+	<span class="hljs-keyword">if</span> (!isValue(cacheName)) cacheName = name;
+	<span class="hljs-keyword">delete</span> options.cacheName;
+	value = options.value;
+	resolvable = isPlainFunction(value);
+	<span class="hljs-keyword">delete</span> options.value;
+	dgs = { <span class="hljs-attr">configurable</span>: <span class="hljs-built_in">Boolean</span>(options.configurable), <span class="hljs-attr">enumerable</span>: <span class="hljs-built_in">Boolean</span>(options.enumerable) };
+	<span class="hljs-keyword">if</span> (name !== cacheName) {
+		dgs.get = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+			<span class="hljs-keyword">if</span> (hasOwnProperty.call(<span class="hljs-keyword">this</span>, cacheName)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[cacheName];
+			cacheDesc.value = resolvable ? call.call(value, <span class="hljs-keyword">this</span>, options) : value;
+			cacheDesc.writable = writable;
+			defineProperty(<span class="hljs-keyword">this</span>, cacheName, cacheDesc);
+			cacheDesc.value = <span class="hljs-literal">null</span>;
+			<span class="hljs-keyword">if</span> (desc) defineProperty(<span class="hljs-keyword">this</span>, name, desc);
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[cacheName];
+		};
+	} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!flat) {
+		dgs.get = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">self</span>(<span class="hljs-params"></span>) </span>{
+			<span class="hljs-keyword">var</span> ownDesc;
+			<span class="hljs-keyword">if</span> (hasOwnProperty.call(<span class="hljs-keyword">this</span>, name)) {
+				ownDesc = getOwnPropertyDescriptor(<span class="hljs-keyword">this</span>, name);
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>It happens in Safari, that getter is still called after property
+was defined with a value, following workarounds that
+While in IE11 it may happen that here ownDesc is undefined (go figure)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">				<span class="hljs-keyword">if</span> (ownDesc) {
+					<span class="hljs-keyword">if</span> (ownDesc.hasOwnProperty(<span class="hljs-string">"value"</span>)) <span class="hljs-keyword">return</span> ownDesc.value;
+					<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> ownDesc.get === <span class="hljs-string">"function"</span> &amp;&amp; ownDesc.get !== self) {
+						<span class="hljs-keyword">return</span> ownDesc.get.call(<span class="hljs-keyword">this</span>);
+					}
+					<span class="hljs-keyword">return</span> value;
+				}
+			}
+			desc.value = resolvable ? call.call(value, <span class="hljs-keyword">this</span>, options) : value;
+			defineProperty(<span class="hljs-keyword">this</span>, name, desc);
+			desc.value = <span class="hljs-literal">null</span>;
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[name];
+		};
+	} <span class="hljs-keyword">else</span> {
+		dgs.get = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">self</span>(<span class="hljs-params"></span>) </span>{
+			<span class="hljs-keyword">var</span> base = <span class="hljs-keyword">this</span>, ownDesc;
+			<span class="hljs-keyword">if</span> (hasOwnProperty.call(<span class="hljs-keyword">this</span>, name)) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>It happens in Safari, that getter is still called after property
+was defined with a value, following workarounds that</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">				ownDesc = getOwnPropertyDescriptor(<span class="hljs-keyword">this</span>, name);
+				<span class="hljs-keyword">if</span> (ownDesc.hasOwnProperty(<span class="hljs-string">"value"</span>)) <span class="hljs-keyword">return</span> ownDesc.value;
+				<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> ownDesc.get === <span class="hljs-string">"function"</span> &amp;&amp; ownDesc.get !== self) {
+					<span class="hljs-keyword">return</span> ownDesc.get.call(<span class="hljs-keyword">this</span>);
+				}
+			}
+			<span class="hljs-keyword">while</span> (!hasOwnProperty.call(base, name)) base = getPrototypeOf(base);
+			desc.value = resolvable ? call.call(value, base, options) : value;
+			defineProperty(base, name, desc);
+			desc.value = <span class="hljs-literal">null</span>;
+			<span class="hljs-keyword">return</span> base[name];
+		};
+	}
+	dgs.set = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">if</span> (hasOwnProperty.call(<span class="hljs-keyword">this</span>, name)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Cannot assign to lazy defined '"</span> + name + <span class="hljs-string">"' property of "</span> + <span class="hljs-keyword">this</span>);
+		}
+		dgs.get.call(<span class="hljs-keyword">this</span>);
+		<span class="hljs-keyword">this</span>[cacheName] = value;
+	};
+	<span class="hljs-keyword">if</span> (options.desc) {
+		desc = {
+			<span class="hljs-attr">configurable</span>: contains.call(options.desc, <span class="hljs-string">"c"</span>),
+			<span class="hljs-attr">enumerable</span>: contains.call(options.desc, <span class="hljs-string">"e"</span>)
+		};
+		<span class="hljs-keyword">if</span> (cacheName === name) {
+			desc.writable = contains.call(options.desc, <span class="hljs-string">"w"</span>);
+			desc.value = <span class="hljs-literal">null</span>;
+		} <span class="hljs-keyword">else</span> {
+			writable = contains.call(options.desc, <span class="hljs-string">"w"</span>);
+			desc.get = dgs.get;
+			desc.set = dgs.set;
+		}
+		<span class="hljs-keyword">delete</span> options.desc;
+	} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (cacheName === name) {
+		desc = {
+			<span class="hljs-attr">configurable</span>: <span class="hljs-built_in">Boolean</span>(options.configurable),
+			<span class="hljs-attr">enumerable</span>: <span class="hljs-built_in">Boolean</span>(options.enumerable),
+			<span class="hljs-attr">writable</span>: <span class="hljs-built_in">Boolean</span>(options.writable),
+			<span class="hljs-attr">value</span>: <span class="hljs-literal">null</span>
+		};
+	}
+	<span class="hljs-keyword">delete</span> options.configurable;
+	<span class="hljs-keyword">delete</span> options.enumerable;
+	<span class="hljs-keyword">delete</span> options.writable;
+	<span class="hljs-keyword">return</span> dgs;
+};
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">props</span>) </span>{
+	<span class="hljs-keyword">return</span> map(props, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">desc, name</span>) </span>{ <span class="hljs-keyword">return</span> define(name, desc); });
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

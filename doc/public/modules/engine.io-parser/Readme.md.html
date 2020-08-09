@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\engine.io-parser\\Readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#engine.io-parser">engine.io-parser</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#how-to-use">How to use</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#standalone">Standalone</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#with-browserify">With browserify</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#features">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#node">Node</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#browser">Browser</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#tests">Tests</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#support">Support</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#development">Development</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="engine.io-parser">
+  <h1>
+    <a href="#engine.io-parser" name="engine.io-parser" class="pilcrow"></a>
+engine.io-parser
+  </h1>
+</div>
+<p><a href="http://travis-ci.org/socketio/engine.io-parser"><img src="https://secure.travis-ci.org/socketio/engine.io-parser.svg" alt="Build Status"></a>
+<a href="http://badge.fury.io/js/engine.io-parser"><img src="https://badge.fury.io/js/engine.io-parser.svg" alt="NPM version"></a></p>
+<p>This is the JavaScript parser for the engine.io protocol encoding,
+shared by both
+<a href="https://github.com/socketio/engine.io-client">engine.io-client</a> and
+<a href="https://github.com/socketio/engine.io">engine.io</a>.</p>
+<div class="pilwrap" id="how-to-use">
+  <h2>
+    <a href="#how-to-use" name="how-to-use" class="pilcrow"></a>
+How to use
+  </h2>
+</div>
+<div class="pilwrap" id="standalone">
+  <h3>
+    <a href="#standalone" name="standalone" class="pilcrow"></a>
+Standalone
+  </h3>
+</div>
+<p>The parser can encode/decode packets, payloads, and payloads as binary
+with the following methods: <code>encodePacket</code>, <code>decodePacket</code>, <code>encodePayload</code>,
+<code>decodePayload</code>, <code>encodePayloadAsBinary</code>, <code>decodePayloadAsBinary</code>.</p>
+<p>The browser-side parser also includes <code>encodePayloadAsArrayBuffer</code> and <code>encodePayloadAsBlob</code>.</p>
+<p>Example:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> parser = <span class="hljs-built_in">require</span>(<span class="hljs-string">'engine.io-parser'</span>);
+
+<span class="hljs-keyword">var</span> data = <span class="hljs-keyword">new</span> Buffer(<span class="hljs-number">5</span>);
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; data.length; i++) { data[i] = i; }
+
+parser.encodePacket({ <span class="hljs-attr">type</span>: <span class="hljs-string">'message'</span>, <span class="hljs-attr">data</span>: data }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">encoded</span>) </span>{
+  <span class="hljs-keyword">var</span> decodedData = parser.decodePacket(encoded); <span class="hljs-comment">// { type: 'message', data: data }</span>
+});
+</code></pre>
+<div class="pilwrap" id="with-browserify">
+  <h3>
+    <a href="#with-browserify" name="with-browserify" class="pilcrow"></a>
+With browserify
+  </h3>
+</div>
+<p>Engine.IO Parser is a commonjs module, which means you can include it by using
+<code>require</code> on the browser and package using <a href="http://browserify.org/">browserify</a>:</p>
+<ol>
+<li>
+<p>install the parser package</p>
+<pre><code class="shell">npm install engine.io-parser
+</code></pre>
+</li>
+<li>
+<p>write your app code</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> parser = <span class="hljs-built_in">require</span>(<span class="hljs-string">'engine.io-parser'</span>);
+
+<span class="hljs-keyword">var</span> testBuffer = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Int8Array</span>(<span class="hljs-number">10</span>);
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; testBuffer.length; i++) testBuffer[i] = i;
+
+<span class="hljs-keyword">var</span> packets = [{ <span class="hljs-attr">type</span>: <span class="hljs-string">'message'</span>, <span class="hljs-attr">data</span>: testBuffer.buffer }, { <span class="hljs-attr">type</span>: <span class="hljs-string">'message'</span>, <span class="hljs-attr">data</span>: <span class="hljs-string">'hello'</span> }];
+
+parser.encodePayload(packets, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">encoded</span>) </span>{
+  parser.decodePayload(encoded,
+    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">packet, index, total</span>) </span>{
+      <span class="hljs-keyword">var</span> isLast = index + <span class="hljs-number">1</span> == total;
+      <span class="hljs-keyword">if</span> (!isLast) {
+        <span class="hljs-keyword">var</span> buffer = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Int8Array</span>(packet.data); <span class="hljs-comment">// testBuffer</span>
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">var</span> message = packet.data; <span class="hljs-comment">// 'hello'</span>
+      }
+    });
+});
+</code></pre>
+</li>
+<li>
+<p>build your app bundle</p>
+<pre><code class="bash">$ browserify app.js &gt; bundle.js
+</code></pre>
+</li>
+<li>
+<p>include on your page</p>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/path/to/bundle.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+</li>
+</ol>
+<div class="pilwrap" id="features">
+  <h2>
+    <a href="#features" name="features" class="pilcrow"></a>
+Features
+  </h2>
+</div>
+<ul>
+<li>Runs on browser and node.js seamlessly</li>
+<li>Runs inside HTML5 WebWorker</li>
+<li>Can encode and decode packets
+<ul>
+<li>Encodes from/to ArrayBuffer or Blob when in browser, and Buffer or ArrayBuffer in Node</li>
+</ul>
+</li>
+</ul>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<p>Note: <code>cb(type)</code> means the type is a callback function that contains a parameter of type <code>type</code> when called.</p>
+<div class="pilwrap" id="node">
+  <h3>
+    <a href="#node" name="node" class="pilcrow"></a>
+Node
+  </h3>
+</div>
+<ul>
+<li>
+<p><code>encodePacket</code></p>
+<ul>
+<li>Encodes a packet.</li>
+<li><strong>Parameters</strong>
+<ul>
+<li><code>Object</code>: the packet to encode, has <code>type</code> and <code>data</code>.
+<ul>
+<li><code>data</code>: can be a <code>String</code>, <code>Number</code>, <code>Buffer</code>, <code>ArrayBuffer</code></li>
+</ul>
+</li>
+<li><code>Boolean</code>: optional, binary support</li>
+<li><code>Function</code>: callback, returns the encoded packet (<code>cb(String)</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>decodePacket</code></p>
+<ul>
+<li>Decodes a packet. Data also available as an ArrayBuffer if requested.</li>
+<li>Returns data as <code>String</code> or (<code>Blob</code> on browser, <code>ArrayBuffer</code> on Node)</li>
+<li><strong>Parameters</strong>
+<ul>
+<li><code>String</code> | <code>ArrayBuffer</code>: the packet to decode, has <code>type</code> and <code>data</code></li>
+<li><code>String</code>: optional, the binary type</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>encodeBase64Packet</code></p>
+<ul>
+<li>Encodes a packet with binary data in a base64 string (<code>String</code>)</li>
+<li><strong>Parameters</strong>
+<ul>
+<li><code>Object</code>: the packet to encode, has <code>type</code> and <code>data</code></li>
+<li><code>Function</code>: callback, returns the base64 encoded message (<code>cb(String)</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>decodeBase64Packet</code></p>
+<ul>
+<li>Decodes a packet encoded in a base64 string.</li>
+<li><strong>Parameters</strong>
+<ul>
+<li><code>String</code>: the base64 encoded message</li>
+<li><code>String</code>: optional, the binary type</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>encodePayload</code></p>
+<ul>
+<li>Encodes multiple messages (payload).</li>
+<li>If any contents are binary, they will be encoded as base64 strings. Base64
+encoded strings are marked with a b before the length specifier</li>
+<li><strong>Parameters</strong>
+<ul>
+<li><code>Array</code>: an array of packets</li>
+<li><code>Boolean</code>: optional, binary support</li>
+<li><code>Function</code>: callback, returns the encoded payload (<code>cb(String)</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>decodePayload</code></p>
+<ul>
+<li>Decodes data when a payload is maybe expected. Possible binary contents are
+decoded from their base64 representation.</li>
+<li><strong>Parameters</strong>
+<ul>
+<li><code>String</code>: the payload</li>
+<li><code>String</code>: optional, the binary type</li>
+<li><code>Function</code>: callback, returns (cb(<code>Object</code>: packet, <code>Number</code>:packet index, <code>Number</code>:packet total))</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>encodePayloadAsBinary</code></p>
+<ul>
+<li>Encodes multiple messages (payload) as binary.</li>
+<li><strong>Parameters</strong>
+<ul>
+<li><code>Array</code>: an array of packets</li>
+<li><code>Function</code>: callback, returns the encoded payload (<code>cb(Buffer)</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>decodePayloadAsBinary</code></p>
+<ul>
+<li>Decodes data when a payload is maybe expected. Strings are decoded by
+interpreting each byte as a key code for entries marked to start with 0. See
+description of encodePayloadAsBinary.</li>
+<li><strong>Parameters</strong>
+<ul>
+<li><code>Buffer</code>: the buffer</li>
+<li><code>String</code>: optional, the binary type</li>
+<li><code>Function</code>: callback, returns the decoded packet (<code>cb(Object)</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="pilwrap" id="browser">
+  <h3>
+    <a href="#browser" name="browser" class="pilcrow"></a>
+Browser
+  </h3>
+</div>
+<ul>
+<li><code>encodePayloadAsArrayBuffer</code>
+<ul>
+<li>Encodes multiple messages (payload) as binary.</li>
+<li><strong>Parameters</strong>
+<ul>
+<li><code>Array</code>: an array of packets</li>
+<li><code>Function</code>: callback, returns the encoded payload (<code>cb(ArrayBuffer)</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>encodePayloadAsBlob</code>
+<ul>
+<li>Encodes multiple messages (payload) as blob.</li>
+<li><strong>Parameters</strong>
+<ul>
+<li><code>Array</code>: an array of packets</li>
+<li><code>Function</code>: callback, returns the encoded payload (<code>cb(Blob)</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="pilwrap" id="tests">
+  <h2>
+    <a href="#tests" name="tests" class="pilcrow"></a>
+Tests
+  </h2>
+</div>
+<p>Standalone tests can be run with <code>make test</code> which will run both node.js and browser tests.</p>
+<p>Browser tests are run using <a href="https://github.com/defunctzombie/zuul">zuul</a>.
+(You must have zuul setup with a saucelabs account.)</p>
+<p>You can run the tests locally using the following command:</p>
+<pre><code>./node_modules/.bin/zuul --local 8080 -- test/index.js
+</code></pre>
+<div class="pilwrap" id="support">
+  <h2>
+    <a href="#support" name="support" class="pilcrow"></a>
+Support
+  </h2>
+</div>
+<p>The support channels for <code>engine.io-parser</code> are the same as <code>socket.io</code>:</p>
+<ul>
+<li>irc.freenode.net <strong>#socket.io</strong></li>
+<li><a href="http://groups.google.com/group/socket_io">Google Groups</a></li>
+<li><a href="http://socket.io">Website</a></li>
+</ul>
+<div class="pilwrap" id="development">
+  <h2>
+    <a href="#development" name="development" class="pilcrow"></a>
+Development
+  </h2>
+</div>
+<p>To contribute patches, run tests or benchmarks, make sure to clone the
+repository:</p>
+<pre><code class="bash">git <span class="hljs-built_in">clone</span> git://github.com/LearnBoost/engine.io-parser.git
+</code></pre>
+<p>Then:</p>
+<pre><code class="bash"><span class="hljs-built_in">cd</span> engine.io-parser
+npm install
+</code></pre>
+<p>See the <code>Tests</code> section above for how to run tests before submitting any patches.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

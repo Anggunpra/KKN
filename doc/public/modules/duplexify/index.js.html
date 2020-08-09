@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\duplexify\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> stream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'readable-stream'</span>)
+<span class="hljs-keyword">var</span> eos = <span class="hljs-built_in">require</span>(<span class="hljs-string">'end-of-stream'</span>)
+<span class="hljs-keyword">var</span> inherits = <span class="hljs-built_in">require</span>(<span class="hljs-string">'inherits'</span>)
+<span class="hljs-keyword">var</span> shift = <span class="hljs-built_in">require</span>(<span class="hljs-string">'stream-shift'</span>)
+
+<span class="hljs-keyword">var</span> SIGNAL_FLUSH = (Buffer.from &amp;&amp; Buffer.from !== <span class="hljs-built_in">Uint8Array</span>.from)
+  ? Buffer.from([<span class="hljs-number">0</span>])
+  : <span class="hljs-keyword">new</span> Buffer([<span class="hljs-number">0</span>])
+
+<span class="hljs-keyword">var</span> onuncork = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">self, fn</span>) </span>{
+  <span class="hljs-keyword">if</span> (self._corked) self.once(<span class="hljs-string">'uncork'</span>, fn)
+  <span class="hljs-keyword">else</span> fn()
+}
+
+<span class="hljs-keyword">var</span> autoDestroy = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">self, err</span>) </span>{
+  <span class="hljs-keyword">if</span> (self._autoDestroy) self.destroy(err)
+}
+
+<span class="hljs-keyword">var</span> destroyer = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">self, end</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+    <span class="hljs-keyword">if</span> (err) autoDestroy(self, err.message === <span class="hljs-string">'premature close'</span> ? <span class="hljs-literal">null</span> : err)
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (end &amp;&amp; !self._ended) self.end()
+  }
+}
+
+<span class="hljs-keyword">var</span> end = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ws, fn</span>) </span>{
+  <span class="hljs-keyword">if</span> (!ws) <span class="hljs-keyword">return</span> fn()
+  <span class="hljs-keyword">if</span> (ws._writableState &amp;&amp; ws._writableState.finished) <span class="hljs-keyword">return</span> fn()
+  <span class="hljs-keyword">if</span> (ws._writableState) <span class="hljs-keyword">return</span> ws.end(fn)
+  ws.end()
+  fn()
+}
+
+<span class="hljs-keyword">var</span> toStreams2 = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">rs</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> (stream.Readable)({<span class="hljs-attr">objectMode</span>:<span class="hljs-literal">true</span>, <span class="hljs-attr">highWaterMark</span>:<span class="hljs-number">16</span>}).wrap(rs)
+}
+
+<span class="hljs-keyword">var</span> Duplexify = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">writable, readable, opts</span>) </span>{
+  <span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> Duplexify)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Duplexify(writable, readable, opts)
+  stream.Duplex.call(<span class="hljs-keyword">this</span>, opts)
+
+  <span class="hljs-keyword">this</span>._writable = <span class="hljs-literal">null</span>
+  <span class="hljs-keyword">this</span>._readable = <span class="hljs-literal">null</span>
+  <span class="hljs-keyword">this</span>._readable2 = <span class="hljs-literal">null</span>
+
+  <span class="hljs-keyword">this</span>._autoDestroy = !opts || opts.autoDestroy !== <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">this</span>._forwardDestroy = !opts || opts.destroy !== <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">this</span>._forwardEnd = !opts || opts.end !== <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">this</span>._corked = <span class="hljs-number">1</span> <span class="hljs-comment">// start corked</span>
+  <span class="hljs-keyword">this</span>._ondrain = <span class="hljs-literal">null</span>
+  <span class="hljs-keyword">this</span>._drained = <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">this</span>._forwarding = <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">this</span>._unwrite = <span class="hljs-literal">null</span>
+  <span class="hljs-keyword">this</span>._unread = <span class="hljs-literal">null</span>
+  <span class="hljs-keyword">this</span>._ended = <span class="hljs-literal">false</span>
+
+  <span class="hljs-keyword">this</span>.destroyed = <span class="hljs-literal">false</span>
+
+  <span class="hljs-keyword">if</span> (writable) <span class="hljs-keyword">this</span>.setWritable(writable)
+  <span class="hljs-keyword">if</span> (readable) <span class="hljs-keyword">this</span>.setReadable(readable)
+}
+
+inherits(Duplexify, stream.Duplex)
+
+Duplexify.obj = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">writable, readable, opts</span>) </span>{
+  <span class="hljs-keyword">if</span> (!opts) opts = {}
+  opts.objectMode = <span class="hljs-literal">true</span>
+  opts.highWaterMark = <span class="hljs-number">16</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Duplexify(writable, readable, opts)
+}
+
+Duplexify.prototype.cork = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (++<span class="hljs-keyword">this</span>._corked === <span class="hljs-number">1</span>) <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'cork'</span>)
+}
+
+Duplexify.prototype.uncork = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._corked &amp;&amp; --<span class="hljs-keyword">this</span>._corked === <span class="hljs-number">0</span>) <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'uncork'</span>)
+}
+
+Duplexify.prototype.setWritable = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">writable</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._unwrite) <span class="hljs-keyword">this</span>._unwrite()
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.destroyed) {
+    <span class="hljs-keyword">if</span> (writable &amp;&amp; writable.destroy) writable.destroy()
+    <span class="hljs-keyword">return</span>
+  }
+
+  <span class="hljs-keyword">if</span> (writable === <span class="hljs-literal">null</span> || writable === <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">this</span>.end()
+    <span class="hljs-keyword">return</span>
+  }
+
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>
+  <span class="hljs-keyword">var</span> unend = eos(writable, {<span class="hljs-attr">writable</span>:<span class="hljs-literal">true</span>, <span class="hljs-attr">readable</span>:<span class="hljs-literal">false</span>}, destroyer(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">this</span>._forwardEnd))
+
+  <span class="hljs-keyword">var</span> ondrain = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> ondrain = self._ondrain
+    self._ondrain = <span class="hljs-literal">null</span>
+    <span class="hljs-keyword">if</span> (ondrain) ondrain()
+  }
+
+  <span class="hljs-keyword">var</span> clear = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    self._writable.removeListener(<span class="hljs-string">'drain'</span>, ondrain)
+    unend()
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._unwrite) process.nextTick(ondrain) <span class="hljs-comment">// force a drain on stream reset to avoid livelocks</span>
+
+  <span class="hljs-keyword">this</span>._writable = writable
+  <span class="hljs-keyword">this</span>._writable.on(<span class="hljs-string">'drain'</span>, ondrain)
+  <span class="hljs-keyword">this</span>._unwrite = clear
+
+  <span class="hljs-keyword">this</span>.uncork() <span class="hljs-comment">// always uncork setWritable</span>
+}
+
+Duplexify.prototype.setReadable = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">readable</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._unread) <span class="hljs-keyword">this</span>._unread()
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.destroyed) {
+    <span class="hljs-keyword">if</span> (readable &amp;&amp; readable.destroy) readable.destroy()
+    <span class="hljs-keyword">return</span>
+  }
+
+  <span class="hljs-keyword">if</span> (readable === <span class="hljs-literal">null</span> || readable === <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">this</span>.push(<span class="hljs-literal">null</span>)
+    <span class="hljs-keyword">this</span>.resume()
+    <span class="hljs-keyword">return</span>
+  }
+
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>
+  <span class="hljs-keyword">var</span> unend = eos(readable, {<span class="hljs-attr">writable</span>:<span class="hljs-literal">false</span>, <span class="hljs-attr">readable</span>:<span class="hljs-literal">true</span>}, destroyer(<span class="hljs-keyword">this</span>))
+
+  <span class="hljs-keyword">var</span> onreadable = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    self._forward()
+  }
+
+  <span class="hljs-keyword">var</span> onend = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    self.push(<span class="hljs-literal">null</span>)
+  }
+
+  <span class="hljs-keyword">var</span> clear = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    self._readable2.removeListener(<span class="hljs-string">'readable'</span>, onreadable)
+    self._readable2.removeListener(<span class="hljs-string">'end'</span>, onend)
+    unend()
+  }
+
+  <span class="hljs-keyword">this</span>._drained = <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">this</span>._readable = readable
+  <span class="hljs-keyword">this</span>._readable2 = readable._readableState ? readable : toStreams2(readable)
+  <span class="hljs-keyword">this</span>._readable2.on(<span class="hljs-string">'readable'</span>, onreadable)
+  <span class="hljs-keyword">this</span>._readable2.on(<span class="hljs-string">'end'</span>, onend)
+  <span class="hljs-keyword">this</span>._unread = clear
+
+  <span class="hljs-keyword">this</span>._forward()
+}
+
+Duplexify.prototype._read = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>._drained = <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">this</span>._forward()
+}
+
+Duplexify.prototype._forward = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._forwarding || !<span class="hljs-keyword">this</span>._readable2 || !<span class="hljs-keyword">this</span>._drained) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">this</span>._forwarding = <span class="hljs-literal">true</span>
+
+  <span class="hljs-keyword">var</span> data
+
+  <span class="hljs-keyword">while</span> (<span class="hljs-keyword">this</span>._drained &amp;&amp; (data = shift(<span class="hljs-keyword">this</span>._readable2)) !== <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.destroyed) <span class="hljs-keyword">continue</span>
+    <span class="hljs-keyword">this</span>._drained = <span class="hljs-keyword">this</span>.push(data)
+  }
+
+  <span class="hljs-keyword">this</span>._forwarding = <span class="hljs-literal">false</span>
+}
+
+Duplexify.prototype.destroy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.destroyed) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">this</span>.destroyed = <span class="hljs-literal">true</span>
+
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>
+  process.nextTick(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    self._destroy(err)
+  })
+}
+
+Duplexify.prototype._destroy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) {
+    <span class="hljs-keyword">var</span> ondrain = <span class="hljs-keyword">this</span>._ondrain
+    <span class="hljs-keyword">this</span>._ondrain = <span class="hljs-literal">null</span>
+    <span class="hljs-keyword">if</span> (ondrain) ondrain(err)
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, err)
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._forwardDestroy) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._readable &amp;&amp; <span class="hljs-keyword">this</span>._readable.destroy) <span class="hljs-keyword">this</span>._readable.destroy()
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._writable &amp;&amp; <span class="hljs-keyword">this</span>._writable.destroy) <span class="hljs-keyword">this</span>._writable.destroy()
+  }
+
+  <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'close'</span>)
+}
+
+Duplexify.prototype._write = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, enc, cb</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.destroyed) <span class="hljs-keyword">return</span> cb()
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._corked) <span class="hljs-keyword">return</span> onuncork(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">this</span>._write.bind(<span class="hljs-keyword">this</span>, data, enc, cb))
+  <span class="hljs-keyword">if</span> (data === SIGNAL_FLUSH) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._finish(cb)
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._writable) <span class="hljs-keyword">return</span> cb()
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._writable.write(data) === <span class="hljs-literal">false</span>) <span class="hljs-keyword">this</span>._ondrain = cb
+  <span class="hljs-keyword">else</span> cb()
+}
+
+Duplexify.prototype._finish = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cb</span>) </span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>
+  <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'preend'</span>)
+  onuncork(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    end(self._forwardEnd &amp;&amp; self._writable, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>haxx to not emit prefinish twice</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">if</span> (self._writableState.prefinished === <span class="hljs-literal">false</span>) self._writableState.prefinished = <span class="hljs-literal">true</span>
+      self.emit(<span class="hljs-string">'prefinish'</span>)
+      onuncork(self, cb)
+    })
+  })
+}
+
+Duplexify.prototype.end = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, enc, cb</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> data === <span class="hljs-string">'function'</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.end(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, data)
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> enc === <span class="hljs-string">'function'</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.end(data, <span class="hljs-literal">null</span>, enc)
+  <span class="hljs-keyword">this</span>._ended = <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">if</span> (data) <span class="hljs-keyword">this</span>.write(data)
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._writableState.ending) <span class="hljs-keyword">this</span>.write(SIGNAL_FLUSH)
+  <span class="hljs-keyword">return</span> stream.Writable.prototype.end.call(<span class="hljs-keyword">this</span>, cb)
+}
+
+<span class="hljs-built_in">module</span>.exports = Duplexify
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

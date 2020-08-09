@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-imagemin\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">const</span> gutil = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-util'</span>);
+<span class="hljs-keyword">const</span> through = <span class="hljs-built_in">require</span>(<span class="hljs-string">'through2-concurrent'</span>);
+<span class="hljs-keyword">const</span> prettyBytes = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pretty-bytes'</span>);
+<span class="hljs-keyword">const</span> chalk = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chalk'</span>);
+<span class="hljs-keyword">const</span> imagemin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin'</span>);
+<span class="hljs-keyword">const</span> plur = <span class="hljs-built_in">require</span>(<span class="hljs-string">'plur'</span>);
+
+<span class="hljs-keyword">const</span> PLUGIN_NAME = <span class="hljs-string">'gulp-imagemin'</span>;
+<span class="hljs-keyword">const</span> defaultPlugins = [<span class="hljs-string">'gifsicle'</span>, <span class="hljs-string">'jpegtran'</span>, <span class="hljs-string">'optipng'</span>, <span class="hljs-string">'svgo'</span>];
+
+<span class="hljs-keyword">const</span> loadPlugin = <span class="hljs-function">(<span class="hljs-params">plugin, args</span>) =&gt;</span> {
+	<span class="hljs-keyword">try</span> {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">`imagemin-<span class="hljs-subst">${plugin}</span>`</span>).apply(<span class="hljs-literal">null</span>, args);
+	} <span class="hljs-keyword">catch</span> (err) {
+		gutil.log(<span class="hljs-string">`<span class="hljs-subst">${PLUGIN_NAME}</span>: Couldn't load default plugin "<span class="hljs-subst">${plugin}</span>"`</span>);
+	}
+};
+
+<span class="hljs-keyword">const</span> exposePlugin = <span class="hljs-function"><span class="hljs-params">plugin</span> =&gt;</span>
+	<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">const</span> args = [].slice.call(<span class="hljs-built_in">arguments</span>);
+		<span class="hljs-keyword">return</span> loadPlugin(plugin, args);
+	};
+
+<span class="hljs-keyword">const</span> getDefaultPlugins = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+	defaultPlugins.reduce(<span class="hljs-function">(<span class="hljs-params">plugins, plugin</span>) =&gt;</span> {
+		<span class="hljs-keyword">const</span> instance = loadPlugin(plugin);
+
+		<span class="hljs-keyword">if</span> (!instance) {
+			<span class="hljs-keyword">return</span> plugins;
+		}
+
+		<span class="hljs-keyword">return</span> plugins.concat(instance);
+	}, []);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">plugins, opts</span>) =&gt;</span> {
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> plugins === <span class="hljs-string">'object'</span> &amp;&amp; !<span class="hljs-built_in">Array</span>.isArray(plugins)) {
+		opts = plugins;
+		plugins = <span class="hljs-literal">null</span>;
+	}
+
+	opts = <span class="hljs-built_in">Object</span>.assign({
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>TODO: remove this when gulp get's a real logger with levels</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">		verbose: process.argv.indexOf(<span class="hljs-string">'--verbose'</span>) !== <span class="hljs-number">-1</span>
+	}, opts);
+
+	<span class="hljs-keyword">const</span> validExts = [<span class="hljs-string">'.jpg'</span>, <span class="hljs-string">'.jpeg'</span>, <span class="hljs-string">'.png'</span>, <span class="hljs-string">'.gif'</span>, <span class="hljs-string">'.svg'</span>];
+
+	<span class="hljs-keyword">let</span> totalBytes = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">let</span> totalSavedBytes = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">let</span> totalFiles = <span class="hljs-number">0</span>;
+
+	<span class="hljs-keyword">return</span> through.obj({
+		<span class="hljs-attr">maxConcurrency</span>: <span class="hljs-number">8</span>
+	}, (file, enc, cb) =&gt; {
+		<span class="hljs-keyword">if</span> (file.isNull()) {
+			cb(<span class="hljs-literal">null</span>, file);
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">if</span> (file.isStream()) {
+			cb(<span class="hljs-keyword">new</span> gutil.PluginError(PLUGIN_NAME, <span class="hljs-string">'Streaming not supported'</span>));
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">if</span> (validExts.indexOf(path.extname(file.path).toLowerCase()) === <span class="hljs-number">-1</span>) {
+			<span class="hljs-keyword">if</span> (opts.verbose) {
+				gutil.log(<span class="hljs-string">`<span class="hljs-subst">${PLUGIN_NAME}</span>: Skipping unsupported image <span class="hljs-subst">${chalk.blue(file.relative)}</span>`</span>);
+			}
+
+			cb(<span class="hljs-literal">null</span>, file);
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">const</span> use = plugins || getDefaultPlugins();
+
+		imagemin.buffer(file.contents, {use})
+			.then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+				<span class="hljs-keyword">const</span> originalSize = file.contents.length;
+				<span class="hljs-keyword">const</span> optimizedSize = data.length;
+				<span class="hljs-keyword">const</span> saved = originalSize - optimizedSize;
+				<span class="hljs-keyword">const</span> percent = originalSize &gt; <span class="hljs-number">0</span> ? (saved / originalSize) * <span class="hljs-number">100</span> : <span class="hljs-number">0</span>;
+				<span class="hljs-keyword">const</span> savedMsg = <span class="hljs-string">`saved <span class="hljs-subst">${prettyBytes(saved)}</span> - <span class="hljs-subst">${percent.toFixed(<span class="hljs-number">1</span>).replace(<span class="hljs-regexp">/\.0$/</span>, <span class="hljs-string">''</span>)}</span>%`</span>;
+				<span class="hljs-keyword">const</span> msg = saved &gt; <span class="hljs-number">0</span> ? savedMsg : <span class="hljs-string">'already optimized'</span>;
+
+				<span class="hljs-keyword">if</span> (saved &gt; <span class="hljs-number">0</span>) {
+					totalBytes += originalSize;
+					totalSavedBytes += saved;
+					totalFiles++;
+				}
+
+				<span class="hljs-keyword">if</span> (opts.verbose) {
+					gutil.log(PLUGIN_NAME + <span class="hljs-string">':'</span>, chalk.green(<span class="hljs-string">'✔ '</span>) + file.relative + chalk.gray(<span class="hljs-string">` (<span class="hljs-subst">${msg}</span>)`</span>));
+				}
+
+				file.contents = data;
+				cb(<span class="hljs-literal">null</span>, file);
+			})
+			.catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>TODO: remove this setImmediate when gulp 4 is targeted</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">				setImmediate(cb, <span class="hljs-keyword">new</span> gutil.PluginError(PLUGIN_NAME, err, {<span class="hljs-attr">fileName</span>: file.path}));
+			});
+	}, cb =&gt; {
+		<span class="hljs-keyword">const</span> percent = totalBytes &gt; <span class="hljs-number">0</span> ? (totalSavedBytes / totalBytes) * <span class="hljs-number">100</span> : <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">let</span> msg = <span class="hljs-string">`Minified <span class="hljs-subst">${totalFiles}</span> <span class="hljs-subst">${plur(<span class="hljs-string">'image'</span>, totalFiles)}</span>`</span>;
+
+		<span class="hljs-keyword">if</span> (totalFiles &gt; <span class="hljs-number">0</span>) {
+			msg += chalk.gray(<span class="hljs-string">` (saved <span class="hljs-subst">${prettyBytes(totalSavedBytes)}</span> - <span class="hljs-subst">${percent.toFixed(<span class="hljs-number">1</span>).replace(<span class="hljs-regexp">/\.0$/</span>, <span class="hljs-string">''</span>)}</span>%)`</span>);
+		}
+
+		gutil.log(PLUGIN_NAME + <span class="hljs-string">':'</span>, msg);
+		cb();
+	});
+};
+
+<span class="hljs-built_in">module</span>.exports.gifsicle = exposePlugin(<span class="hljs-string">'gifsicle'</span>);
+<span class="hljs-built_in">module</span>.exports.jpegtran = exposePlugin(<span class="hljs-string">'jpegtran'</span>);
+<span class="hljs-built_in">module</span>.exports.optipng = exposePlugin(<span class="hljs-string">'optipng'</span>);
+<span class="hljs-built_in">module</span>.exports.svgo = exposePlugin(<span class="hljs-string">'svgo'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

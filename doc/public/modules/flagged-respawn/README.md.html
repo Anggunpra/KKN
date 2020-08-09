@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\flagged-respawn\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#flagged-respawn">flagged-respawn</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#what-is-it">What is it?</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#sample-usage">Sample Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#flaggedrespawn-flags-argv-forcedflags-callback-void">flaggedRespawn(flags, argv, [ forcedFlags, ] callback) : Void</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#forbid-respawning">Forbid respawning</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#parameter">Parameter:</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p align="center">
+  <a href="http://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+</p>
+<div class="pilwrap" id="flagged-respawn">
+  <h1>
+    <a href="#flagged-respawn" name="flagged-respawn" class="pilcrow"></a>
+flagged-respawn
+  </h1>
+</div>
+<p><a href="https://www.npmjs.com/package/flagged-respawn"><img src="http://img.shields.io/npm/v/flagged-respawn.svg" alt="NPM version"></a> <a href="https://www.npmjs.com/package/flagged-respawn"><img src="http://img.shields.io/npm/dm/flagged-respawn.svg" alt="Downloads"></a> <a href="https://travis-ci.org/gulpjs/flagged-respawn"><img src="http://img.shields.io/travis/gulpjs/flagged-respawn.svg?label=travis-ci" alt="Travis Build Status"></a> <a href="https://ci.appveyor.com/project/gulpjs/flagged-respawn"><img src="https://img.shields.io/appveyor/ci/gulpjs/flagged-respawn.svg?label=appveyor" alt="AppVeyor Build Status"></a> <a href="https://coveralls.io/r/gulpjs/flagged-respawn"><img src="http://img.shields.io/coveralls/gulpjs/flagged-respawn/master.svg" alt="Coveralls Status"></a> <a href="https://gitter.im/gulpjs/gulp"><img src="https://badges.gitter.im/gulpjs/gulp.svg" alt="Gitter chat"></a></p>
+<p>A tool for respawning node binaries when special flags are present.</p>
+<div class="pilwrap" id="what-is-it">
+  <h2>
+    <a href="#what-is-it" name="what-is-it" class="pilcrow"></a>
+What is it?
+  </h2>
+</div>
+<p>Say you wrote a command line tool that runs arbitrary javascript (e.g. task runner, test framework, etc). For the sake of discussion, let's pretend it's a testing harness you've named <code>testify</code>.</p>
+<p>Everything is going splendidly until one day you decide to test some code that relies on a feature behind a v8 flag in node (<code>--harmony</code>, for example).  Without much thought, you run <code>testify --harmony spec tests.js</code>.</p>
+<p>It doesn't work. After digging around for a bit, you realize this produces a <a href="http://nodejs.org/docs/latest/api/process.html#process_process_argv"><code>process.argv</code></a> of:</p>
+<p><code>['node', '/usr/local/bin/test', '--harmony', 'spec', 'tests.js']</code></p>
+<p>Crap. The <code>--harmony</code> flag is in the wrong place! It should be applied to the <strong>node</strong> command, not our binary. What we actually wanted was this:</p>
+<p><code>['node', '--harmony', '/usr/local/bin/test', 'spec', 'tests.js']</code></p>
+<p>Flagged-respawn fixes this problem and handles all the edge cases respawning creates, such as:</p>
+<ul>
+<li>Providing a method to determine if a respawn is needed.</li>
+<li>Piping stderr/stdout from the child into the parent.</li>
+<li>Making the parent process exit with the same code as the child.</li>
+<li>If the child is killed, making the parent exit with the same signal.</li>
+</ul>
+<p>To see it in action, clone this repository and run <code>npm install</code> / <code>npm run respawn</code> / <code>npm run nospawn</code>.</p>
+<div class="pilwrap" id="sample-usage">
+  <h2>
+    <a href="#sample-usage" name="sample-usage" class="pilcrow"></a>
+Sample Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-meta">#!/usr/bin/env node</span>
+
+<span class="hljs-keyword">const</span> flaggedRespawn = <span class="hljs-built_in">require</span>(<span class="hljs-string">'flagged-respawn'</span>);
+
+<span class="hljs-comment">// get a list of all possible v8 flags for the running version of node</span>
+<span class="hljs-keyword">const</span> v8flags = <span class="hljs-built_in">require</span>(<span class="hljs-string">'v8flags'</span>).fetch();
+
+flaggedRespawn(v8flags, process.argv, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ready, child</span>) </span>{
+  <span class="hljs-keyword">if</span> (ready) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Running!'</span>);
+    <span class="hljs-comment">// your cli code here</span>
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Special flags found, respawning.'</span>);
+  }
+  <span class="hljs-keyword">if</span> (process.pid !== child.pid) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Respawned to PID:'</span>, child.pid);
+  }
+});
+
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="flaggedrespawn-flags-argv-forcedflags-callback-void">
+  <h3>
+    <a href="#flaggedrespawn-flags-argv-forcedflags-callback-void" name="flaggedrespawn-flags-argv-forcedflags-callback-void" class="pilcrow"></a>
+<u>flaggedRespawn(flags, argv, [ forcedFlags, ] callback) : Void</u>
+  </h3>
+</div>
+<p>Respawns the script itself when <em>argv</em> has special flag contained in <em>flags</em> and/or <em>forcedFlags</em> is not empty. Because members of <em>flags</em> and <em>forcedFlags</em> are passed to <code>node</code> command, each of them needs to be a node flag or a V8 flag.</p>
+<div class="pilwrap" id="forbid-respawning">
+  <h4>
+    <a href="#forbid-respawning" name="forbid-respawning" class="pilcrow"></a>
+Forbid respawning
+  </h4>
+</div>
+<p>If <code>--no-respawning</code> flag is given in <em>argv</em>, this function does not respawned even if <em>argv</em> contains members of flags or <em>forcedFlags</em> is not empty. (This flag is also used internally to prevent from respawning more than once).</p>
+<div class="pilwrap" id="parameter">
+  <h4>
+    <a href="#parameter" name="parameter" class="pilcrow"></a>
+Parameter:
+  </h4>
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><em>flags</em></td>
+<td style="text-align:center">Array</td>
+<td style="text-align:left">An array of node flags and V8 flags which are available when present in <em>argv</em>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><em>argv</em></td>
+<td style="text-align:center">Array</td>
+<td style="text-align:left">Command line arguments to respawn.</td>
+</tr>
+<tr>
+<td style="text-align:left"><em>forcedFlags</em></td>
+<td style="text-align:center">Array or String</td>
+<td style="text-align:left">An array of node flags or a string of a single flag and V8 flags for respawning forcely.</td>
+</tr>
+<tr>
+<td style="text-align:left"><em>callback</em></td>
+<td style="text-align:center">function</td>
+<td style="text-align:left">A called function when not respawning or after respawned.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong><u><i>callback</i>(ready, proc, argv) : Void</u></strong></p>
+<p><em>callback</em> function is called both when respawned or not, and it can be distinguished by callback's argument: <em>ready</em>. (<em>ready</em> indicates whether a process spawned its child process (false) or not (true), but it does not indicate whether a process is a spawned child process or not. <em>ready</em> for a spawned child process is true.)</p>
+<p><em>argv</em> is an array of command line arguments which is respawned (when <em>ready</em> is false) or is passed current process except flags within <em>flags</em> and <code>--no-respawning</code> (when <em>ready</em> is true).</p>
+<p><strong>Parameter:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>ready</em></td>
+<td style="text-align:left">boolean</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>proc</em></td>
+<td style="text-align:left">object</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>argv</em></td>
+<td style="text-align:left">Array</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

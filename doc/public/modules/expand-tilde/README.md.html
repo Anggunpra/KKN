@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\expand-tilde\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#expand-tilde">expand-tilde   </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#run-tests">Run tests</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#about">About</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#building-docs">Building docs</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#running-tests">Running tests</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="expand-tilde">
+  <h1>
+    <a href="#expand-tilde" name="expand-tilde" class="pilcrow"></a>
+expand-tilde <a href="https://www.npmjs.com/package/expand-tilde"><img src="https://img.shields.io/npm/v/expand-tilde.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.org/package/expand-tilde"><img src="https://img.shields.io/npm/dm/expand-tilde.svg?style=flat" alt="NPM downloads"></a> <a href="https://travis-ci.org/jonschlinkert/expand-tilde"><img src="https://img.shields.io/travis/jonschlinkert/expand-tilde.svg?style=flat&amp;label=Travis" alt="Linux Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Bash-like tilde expansion for node.js. Expands a leading tilde in a file path to the user home directory, or <code>~+</code> to the cwd.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://www.npmjs.com/">npm</a>:</p>
+<pre><code class="sh">$ npm install --save expand-tilde
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>See the <a href="https://www.gnu.org/software/bash/manual/html_node/Tilde-Expansion.html">Bash documentation for Tilde Expansion</a>.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> expandTilde = <span class="hljs-built_in">require</span>(<span class="hljs-string">'expand-tilde'</span>);
+
+expandTilde(<span class="hljs-string">'~'</span>)
+<span class="hljs-comment">//=&gt; '/Users/jonschlinkert'</span>
+
+expandTilde(<span class="hljs-string">'~+'</span>)
+<span class="hljs-comment">//=&gt; process.cwd()</span>
+</code></pre>
+<div class="pilwrap" id="run-tests">
+  <h2>
+    <a href="#run-tests" name="run-tests" class="pilcrow"></a>
+Run tests
+  </h2>
+</div>
+<p>Install dev dependencies:</p>
+<pre><code class="bash">npm i -d &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="about">
+  <h2>
+    <a href="#about" name="about" class="pilcrow"></a>
+About
+  </h2>
+</div>
+<div class="pilwrap" id="related-projects">
+  <h3>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h3>
+</div>
+<ul>
+<li><a href="https://www.npmjs.com/package/braces">braces</a>: Fast, comprehensive, bash-like brace expansion implemented in JavaScript. Complete support for the Bash 4.3 braces… <a href="https://github.com/jonschlinkert/braces">more</a> | <a href="https://github.com/jonschlinkert/braces" title="Fast, comprehensive, bash-like brace expansion implemented in JavaScript. Complete support for the Bash 4.3 braces specification, without sacrificing speed.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/expand-brackets">expand-brackets</a>: Expand POSIX bracket expressions (character classes) in glob patterns. | <a href="https://github.com/jonschlinkert/expand-brackets" title="Expand POSIX bracket expressions (character classes) in glob patterns.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/is-glob">is-glob</a>: Returns <code>true</code> if the given string looks like a glob pattern or an extglob pattern… <a href="https://github.com/jonschlinkert/is-glob">more</a> | <a href="https://github.com/jonschlinkert/is-glob" title="Returns `true` if the given string looks like a glob pattern or an extglob pattern. This makes it easy to create code that only uses external modules like node-glob when necessary, resulting in much faster code execution and initialization time, and a bet">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/micromatch">micromatch</a>: Glob matching for javascript/node.js. A drop-in replacement and faster alternative to minimatch and multimatch. | <a href="https://github.com/jonschlinkert/micromatch" title="Glob matching for javascript/node.js. A drop-in replacement and faster alternative to minimatch and multimatch.">homepage</a></li>
+</ul>
+<div class="pilwrap" id="contributing">
+  <h3>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h3>
+</div>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="../../issues/new.html">please create an issue</a>.</p>
+<div class="pilwrap" id="building-docs">
+  <h3>
+    <a href="#building-docs" name="building-docs" class="pilcrow"></a>
+Building docs
+  </h3>
+</div>
+<p><em>(This document was generated by <a href="https://github.com/verbose/verb-generate-readme">verb-generate-readme</a> (a <a href="https://github.com/verbose/verb">verb</a> generator), please don't edit the readme directly. Any changes to the readme must be made in <a href=".verb.md.html">.verb.md</a>.)</em></p>
+<p>To generate the readme and API documentation with <a href="https://github.com/verbose/verb">verb</a>:</p>
+<pre><code class="sh">$ npm install -g verb verb-generate-readme &amp;&amp; verb
+</code></pre>
+<div class="pilwrap" id="running-tests">
+  <h3>
+    <a href="#running-tests" name="running-tests" class="pilcrow"></a>
+Running tests
+  </h3>
+</div>
+<p>Install dev dependencies:</p>
+<pre><code class="sh">$ npm install -d &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="author">
+  <h3>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h3>
+</div>
+<p><strong>Jon Schlinkert</strong></p>
+<ul>
+<li><a href="https://github.com/jonschlinkert">github/jonschlinkert</a></li>
+<li><a href="http://twitter.com/jonschlinkert">twitter/jonschlinkert</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h3>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h3>
+</div>
+<p>Copyright © 2016, <a href="https://github.com/jonschlinkert">Jon Schlinkert</a>.
+Released under the <a href="LICENSE.html">MIT license</a>.</p>
+<hr>
+<p><em>This file was generated by <a href="https://github.com/verbose/verb-generate-readme">verb-generate-readme</a>, v0.2.0, on December 08, 2016.</em></p>
+</div>
+  </div>
+</body>
+</html>

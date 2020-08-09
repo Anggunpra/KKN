@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HomeController.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "app\\Http\\Controllers\\HomeController.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>HomeController.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">DB</span>;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HomeController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Create a new controller instance.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>void
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">$this</span>-&gt;middleware(<span class="hljs-string">'auth'</span>);
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Show the application dashboard.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Contracts\Support\Renderable
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span><span class="hljs-params">()</span>
+    </span>{
+        $data = [];
+        $attributes = \App\Attribute::all();
+        $periodes = \App\Periode::all();
+        <span class="hljs-keyword">foreach</span> ($attributes <span class="hljs-keyword">as</span> $item) {
+            $dataGrafik = [];
+            <span class="hljs-keyword">if</span>($item-&gt;tipe_input == <span class="hljs-string">'Dropdown'</span>){
+                $attributeNames = explode(<span class="hljs-string">'_'</span>,$item-&gt;nama_atribut);
+                $attributeName = <span class="hljs-string">''</span>;
+                <span class="hljs-keyword">foreach</span> ($attributeNames <span class="hljs-keyword">as</span> $attribute) {
+                    $attributeName .= $attribute . <span class="hljs-string">' '</span>;
+                }
+                $dataGrafik[<span class="hljs-string">'nama_grafik'</span>] = <span class="hljs-string">'Grafik masyarakat dengan pertanyaan '</span>.$attributeName ;
+                $dataGrafik[<span class="hljs-string">'id_grafik'</span>] = $item-&gt;nama_atribut ;
+                $dataGrafik[<span class="hljs-string">'label'</span>] = $item-&gt;surveys()-&gt;groupBy(<span class="hljs-string">'attribute_value'</span>)-&gt;pluck(<span class="hljs-string">'attribute_value'</span>)-&gt;toArray();
+                $getSurveys = DB::table(<span class="hljs-string">'surveys'</span>)
+                        -&gt;select(<span class="hljs-string">'attribute_value'</span>, DB::raw(<span class="hljs-string">'count(*) as total'</span>))
+                        -&gt;groupBy(<span class="hljs-string">'attribute_value'</span>)
+                        -&gt;whereAttributeId($item-&gt;id);
+                <span class="hljs-keyword">if</span>(request()-&gt;has(<span class="hljs-string">'periode'</span>)){
+                    $getSurveys = $getSurveys-&gt;wherePeriodeId(request()-&gt;periode);
+                }
+                $dataGrafik[<span class="hljs-string">'label_total'</span>] = $getSurveys-&gt;get()-&gt;pluck(<span class="hljs-string">'total'</span>)-&gt;toArray();
+                $data[] = $dataGrafik;
+            }
+        }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>dd($data);</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        <span class="hljs-keyword">return</span> view(<span class="hljs-string">'dashboard-user'</span>,compact(<span class="hljs-string">'data'</span>,<span class="hljs-string">'periodes'</span>));
+    }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

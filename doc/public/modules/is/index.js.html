@@ -1,0 +1,2591 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\is\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/* globals window, HTMLElement */</span>
+
+<span class="hljs-meta">'use strict'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>!
+is
+the definitive JavaScript type testing library</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">var</span> objProto = <span class="hljs-built_in">Object</span>.prototype;
+<span class="hljs-keyword">var</span> owns = objProto.hasOwnProperty;
+<span class="hljs-keyword">var</span> toStr = objProto.toString;
+<span class="hljs-keyword">var</span> symbolValueOf;
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Symbol</span> === <span class="hljs-string">'function'</span>) {
+  symbolValueOf = <span class="hljs-built_in">Symbol</span>.prototype.valueOf;
+}
+<span class="hljs-keyword">var</span> bigIntValueOf;
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> BigInt === <span class="hljs-string">'function'</span>) {
+  bigIntValueOf = BigInt.prototype.valueOf;
+}
+<span class="hljs-keyword">var</span> isActualNaN = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> value !== value;
+};
+<span class="hljs-keyword">var</span> NON_HOST_TYPES = {
+  <span class="hljs-string">'boolean'</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">number</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">string</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">undefined</span>: <span class="hljs-number">1</span>
+};
+
+<span class="hljs-keyword">var</span> base64Regex = <span class="hljs-regexp">/^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/</span>;
+<span class="hljs-keyword">var</span> hexRegex = <span class="hljs-regexp">/^[A-Fa-f0-9]+$/</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose <code>is</code></p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">var</span> is = {};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test general.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.type
+Test if <code>value</code> is a type of <code>type</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">type</span>
+<span class="dox_type">String</span>
+<span>type
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is a type of <code>type</code>, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.a = is.type = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, type</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value === type;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.defined
+Test if <code>value</code> is defined.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if 'value' is defined, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.defined = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">'undefined'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.empty
+Test if <code>value</code> is empty.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is empty, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.empty = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">var</span> type = toStr.call(value);
+  <span class="hljs-keyword">var</span> key;
+
+  <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'[object Array]'</span> || type === <span class="hljs-string">'[object Arguments]'</span> || type === <span class="hljs-string">'[object String]'</span>) {
+    <span class="hljs-keyword">return</span> value.length === <span class="hljs-number">0</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'[object Object]'</span>) {
+    <span class="hljs-keyword">for</span> (key <span class="hljs-keyword">in</span> value) {
+      <span class="hljs-keyword">if</span> (owns.call(value, key)) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+
+  <span class="hljs-keyword">return</span> !value;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.equal
+Test if <code>value</code> is equal to <code>other</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">other</span>
+<span>value to compare with
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is equal to <code>other</code>, false otherwise
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.equal = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">equal</span>(<span class="hljs-params">value, other</span>) </span>{
+  <span class="hljs-keyword">if</span> (value === other) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+
+  <span class="hljs-keyword">var</span> type = toStr.call(value);
+  <span class="hljs-keyword">var</span> key;
+
+  <span class="hljs-keyword">if</span> (type !== toStr.call(other)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'[object Object]'</span>) {
+    <span class="hljs-keyword">for</span> (key <span class="hljs-keyword">in</span> value) {
+      <span class="hljs-keyword">if</span> (!is.equal(value[key], other[key]) || !(key <span class="hljs-keyword">in</span> other)) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      }
+    }
+    <span class="hljs-keyword">for</span> (key <span class="hljs-keyword">in</span> other) {
+      <span class="hljs-keyword">if</span> (!is.equal(value[key], other[key]) || !(key <span class="hljs-keyword">in</span> value)) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'[object Array]'</span>) {
+    key = value.length;
+    <span class="hljs-keyword">if</span> (key !== other.length) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+    <span class="hljs-keyword">while</span> (key--) {
+      <span class="hljs-keyword">if</span> (!is.equal(value[key], other[key])) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'[object Function]'</span>) {
+    <span class="hljs-keyword">return</span> value.prototype === other.prototype;
+  }
+
+  <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'[object Date]'</span>) {
+    <span class="hljs-keyword">return</span> value.getTime() === other.getTime();
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.hosted
+Test if <code>value</code> is hosted by <code>host</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>to test
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">host</span>
+<span>host to test with
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is hosted by <code>host</code>, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.hosted = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, host</span>) </span>{
+  <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> host[value];
+  <span class="hljs-keyword">return</span> type === <span class="hljs-string">'object'</span> ? !!host[value] : !NON_HOST_TYPES[type];
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.instance
+Test if <code>value</code> is an instance of <code>constructor</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is an instance of <code>constructor</code>
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.instance = is[<span class="hljs-string">'instanceof'</span>] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, constructor</span>) </span>{
+  <span class="hljs-keyword">return</span> value <span class="hljs-keyword">instanceof</span> <span class="hljs-keyword">constructor</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.nil / is.null
+Test if <code>value</code> is null.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is null, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.nil = is[<span class="hljs-string">'null'</span>] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> value === <span class="hljs-literal">null</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.undef / is.undefined
+Test if <code>value</code> is undefined.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is undefined, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.undef = is.undefined = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'undefined'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test arguments.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.args
+Test if <code>value</code> is an arguments object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is an arguments object, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.args = is.arguments = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">var</span> isStandardArguments = toStr.call(value) === <span class="hljs-string">'[object Arguments]'</span>;
+  <span class="hljs-keyword">var</span> isOldArguments = !is.array(value) &amp;&amp; is.arraylike(value) &amp;&amp; is.object(value) &amp;&amp; is.fn(value.callee);
+  <span class="hljs-keyword">return</span> isStandardArguments || isOldArguments;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test array.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.array
+Test if 'value' is an array.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is an array, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.array = <span class="hljs-built_in">Array</span>.isArray || <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> toStr.call(value) === <span class="hljs-string">'[object Array]'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.arguments.empty
+Test if <code>value</code> is an empty arguments object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is an empty arguments object, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">is.args.empty = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> is.args(value) &amp;&amp; value.length === <span class="hljs-number">0</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.array.empty
+Test if <code>value</code> is an empty array.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is an empty array, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">is.array.empty = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> is.array(value) &amp;&amp; value.length === <span class="hljs-number">0</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.arraylike
+Test if <code>value</code> is an arraylike object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is an arguments object, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.arraylike = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> !!value &amp;&amp; !is.bool(value)
+    &amp;&amp; owns.call(value, <span class="hljs-string">'length'</span>)
+    &amp;&amp; <span class="hljs-built_in">isFinite</span>(value.length)
+    &amp;&amp; is.number(value.length)
+    &amp;&amp; value.length &gt;= <span class="hljs-number">0</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test boolean.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.bool
+Test if <code>value</code> is a boolean.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is a boolean, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.bool = is[<span class="hljs-string">'boolean'</span>] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> toStr.call(value) === <span class="hljs-string">'[object Boolean]'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.false
+Test if <code>value</code> is false.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is false, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is[<span class="hljs-string">'false'</span>] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> is.bool(value) &amp;&amp; <span class="hljs-built_in">Boolean</span>(<span class="hljs-built_in">Number</span>(value)) === <span class="hljs-literal">false</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.true
+Test if <code>value</code> is true.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is true, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is[<span class="hljs-string">'true'</span>] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> is.bool(value) &amp;&amp; <span class="hljs-built_in">Boolean</span>(<span class="hljs-built_in">Number</span>(value)) === <span class="hljs-literal">true</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test date.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.date
+Test if <code>value</code> is a date.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is a date, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.date = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> toStr.call(value) === <span class="hljs-string">'[object Date]'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.date.valid
+Test if <code>value</code> is a valid date.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">is.date.valid = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> is.date(value) &amp;&amp; !<span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">Number</span>(value));
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test element.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.element
+Test if <code>value</code> is an html element.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is an HTML Element, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.element = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> value !== <span class="hljs-literal">undefined</span>
+    &amp;&amp; <span class="hljs-keyword">typeof</span> HTMLElement !== <span class="hljs-string">'undefined'</span>
+    &amp;&amp; value <span class="hljs-keyword">instanceof</span> HTMLElement
+    &amp;&amp; value.nodeType === <span class="hljs-number">1</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test error.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.error
+Test if <code>value</code> is an error object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is an error object, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.error = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> toStr.call(value) === <span class="hljs-string">'[object Error]'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test function.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.fn / is.function (deprecated)
+Test if <code>value</code> is a function.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is a function, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.fn = is[<span class="hljs-string">'function'</span>] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">var</span> isAlert = <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span> !== <span class="hljs-string">'undefined'</span> &amp;&amp; value === <span class="hljs-built_in">window</span>.alert;
+  <span class="hljs-keyword">if</span> (isAlert) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+  <span class="hljs-keyword">var</span> str = toStr.call(value);
+  <span class="hljs-keyword">return</span> str === <span class="hljs-string">'[object Function]'</span> || str === <span class="hljs-string">'[object GeneratorFunction]'</span> || str === <span class="hljs-string">'[object AsyncFunction]'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test number.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.number
+Test if <code>value</code> is a number.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is a number, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.number = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> toStr.call(value) === <span class="hljs-string">'[object Number]'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.infinite
+Test if <code>value</code> is positive or negative infinity.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is positive or negative Infinity, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">is.infinite = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> value === <span class="hljs-literal">Infinity</span> || value === -<span class="hljs-literal">Infinity</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.decimal
+Test if <code>value</code> is a decimal number.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is a decimal number, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.decimal = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> is.number(value) &amp;&amp; !isActualNaN(value) &amp;&amp; !is.infinite(value) &amp;&amp; value % <span class="hljs-number">1</span> !== <span class="hljs-number">0</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.divisibleBy
+Test if <code>value</code> is divisible by <code>n</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span class="dox_type">Number</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">n</span>
+<span class="dox_type">Number</span>
+<span>dividend
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is divisible by <code>n</code>, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.divisibleBy = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, n</span>) </span>{
+  <span class="hljs-keyword">var</span> isDividendInfinite = is.infinite(value);
+  <span class="hljs-keyword">var</span> isDivisorInfinite = is.infinite(n);
+  <span class="hljs-keyword">var</span> isNonZeroNumber = is.number(value) &amp;&amp; !isActualNaN(value) &amp;&amp; is.number(n) &amp;&amp; !isActualNaN(n) &amp;&amp; n !== <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">return</span> isDividendInfinite || isDivisorInfinite || (isNonZeroNumber &amp;&amp; value % n === <span class="hljs-number">0</span>);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.integer
+Test if <code>value</code> is an integer.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is an integer, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.integer = is[<span class="hljs-string">'int'</span>] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> is.number(value) &amp;&amp; !isActualNaN(value) &amp;&amp; value % <span class="hljs-number">1</span> === <span class="hljs-number">0</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-39" id="section-39"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.maximum
+Test if <code>value</code> is greater than 'others' values.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span class="dox_type">Number</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">others</span>
+<span class="dox_type">Array</span>
+<span>values to compare with
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is greater than <code>others</code> values
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.maximum = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, others</span>) </span>{
+  <span class="hljs-keyword">if</span> (isActualNaN(value)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'NaN is not a valid value'</span>);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!is.arraylike(others)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'second argument must be array-like'</span>);
+  }
+  <span class="hljs-keyword">var</span> len = others.length;
+
+  <span class="hljs-keyword">while</span> (--len &gt;= <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">if</span> (value &lt; others[len]) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-40" id="section-40"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.minimum
+Test if <code>value</code> is less than <code>others</code> values.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span class="dox_type">Number</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">others</span>
+<span class="dox_type">Array</span>
+<span>values to compare with
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is less than <code>others</code> values
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.minimum = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, others</span>) </span>{
+  <span class="hljs-keyword">if</span> (isActualNaN(value)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'NaN is not a valid value'</span>);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!is.arraylike(others)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'second argument must be array-like'</span>);
+  }
+  <span class="hljs-keyword">var</span> len = others.length;
+
+  <span class="hljs-keyword">while</span> (--len &gt;= <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">if</span> (value &gt; others[len]) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-41" id="section-41"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.nan
+Test if <code>value</code> is not a number.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is not a number, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.nan = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> !is.number(value) || value !== value;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-42" id="section-42"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.even
+Test if <code>value</code> is an even number.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span class="dox_type">Number</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is an even number, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.even = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> is.infinite(value) || (is.number(value) &amp;&amp; value === value &amp;&amp; value % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.odd
+Test if <code>value</code> is an odd number.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span class="dox_type">Number</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is an odd number, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.odd = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> is.infinite(value) || (is.number(value) &amp;&amp; value === value &amp;&amp; value % <span class="hljs-number">2</span> !== <span class="hljs-number">0</span>);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.ge
+Test if <code>value</code> is greater than or equal to <code>other</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span class="dox_type">Number</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">other</span>
+<span class="dox_type">Number</span>
+<span>value to compare with
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.ge = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, other</span>) </span>{
+  <span class="hljs-keyword">if</span> (isActualNaN(value) || isActualNaN(other)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'NaN is not a valid value'</span>);
+  }
+  <span class="hljs-keyword">return</span> !is.infinite(value) &amp;&amp; !is.infinite(other) &amp;&amp; value &gt;= other;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.gt
+Test if <code>value</code> is greater than <code>other</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span class="dox_type">Number</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">other</span>
+<span class="dox_type">Number</span>
+<span>value to compare with
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.gt = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, other</span>) </span>{
+  <span class="hljs-keyword">if</span> (isActualNaN(value) || isActualNaN(other)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'NaN is not a valid value'</span>);
+  }
+  <span class="hljs-keyword">return</span> !is.infinite(value) &amp;&amp; !is.infinite(other) &amp;&amp; value &gt; other;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-46" id="section-46"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.le
+Test if <code>value</code> is less than or equal to <code>other</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span class="dox_type">Number</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">other</span>
+<span class="dox_type">Number</span>
+<span>value to compare with
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>if 'value' is less than or equal to 'other'
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.le = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, other</span>) </span>{
+  <span class="hljs-keyword">if</span> (isActualNaN(value) || isActualNaN(other)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'NaN is not a valid value'</span>);
+  }
+  <span class="hljs-keyword">return</span> !is.infinite(value) &amp;&amp; !is.infinite(other) &amp;&amp; value &lt;= other;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-47" id="section-47"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.lt
+Test if <code>value</code> is less than <code>other</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span class="dox_type">Number</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">other</span>
+<span class="dox_type">Number</span>
+<span>value to compare with
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>if <code>value</code> is less than <code>other</code>
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.lt = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, other</span>) </span>{
+  <span class="hljs-keyword">if</span> (isActualNaN(value) || isActualNaN(other)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'NaN is not a valid value'</span>);
+  }
+  <span class="hljs-keyword">return</span> !is.infinite(value) &amp;&amp; !is.infinite(other) &amp;&amp; value &lt; other;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-48" id="section-48"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.within
+Test if <code>value</code> is within <code>start</code> and <code>finish</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span class="dox_type">Number</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">start</span>
+<span class="dox_type">Number</span>
+<span>lower bound
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">finish</span>
+<span class="dox_type">Number</span>
+<span>upper bound
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if 'value' is is within 'start' and 'finish'
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">is.within = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, start, finish</span>) </span>{
+  <span class="hljs-keyword">if</span> (isActualNaN(value) || isActualNaN(start) || isActualNaN(finish)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'NaN is not a valid value'</span>);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!is.number(value) || !is.number(start) || !is.number(finish)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'all arguments must be numbers'</span>);
+  }
+  <span class="hljs-keyword">var</span> isAnyInfinite = is.infinite(value) || is.infinite(start) || is.infinite(finish);
+  <span class="hljs-keyword">return</span> isAnyInfinite || (value &gt;= start &amp;&amp; value &lt;= finish);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-49" id="section-49"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test object.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-50" id="section-50"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.object
+Test if <code>value</code> is an object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is an object, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">is.object = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> toStr.call(value) === <span class="hljs-string">'[object Object]'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-51" id="section-51"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.primitive
+Test if <code>value</code> is a primitive.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is a primitive, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">is.primitive = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isPrimitive</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">if</span> (!value) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'object'</span> || is.object(value) || is.fn(value) || is.array(value)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-52" id="section-52"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.hash
+Test if <code>value</code> is a hash - a plain object literal.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is a hash, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.hash = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> is.object(value) &amp;&amp; value.constructor === <span class="hljs-built_in">Object</span> &amp;&amp; !value.nodeType &amp;&amp; !value.setInterval;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-53" id="section-53"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test regexp.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-54" id="section-54"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.regexp
+Test if <code>value</code> is a regular expression.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is a regexp, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.regexp = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> toStr.call(value) === <span class="hljs-string">'[object RegExp]'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-55" id="section-55"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test string.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-56" id="section-56"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.string
+Test if <code>value</code> is a string.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if 'value' is a string, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.string = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> toStr.call(value) === <span class="hljs-string">'[object String]'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-57" id="section-57"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test base64 string.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-58" id="section-58"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.base64
+Test if <code>value</code> is a valid base64 encoded string.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if 'value' is a base64 encoded string, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.base64 = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> is.string(value) &amp;&amp; (!value.length || base64Regex.test(value));
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-59" id="section-59"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Test base64 string.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-60" id="section-60"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.hex
+Test if <code>value</code> is a valid hex encoded string.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if 'value' is a hex encoded string, false otherwise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.hex = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> is.string(value) &amp;&amp; (!value.length || hexRegex.test(value));
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-61" id="section-61"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.symbol
+Test if <code>value</code> is an ES6 Symbol</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is a Symbol, false otherise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.symbol = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Symbol</span> === <span class="hljs-string">'function'</span> &amp;&amp; toStr.call(value) === <span class="hljs-string">'[object Symbol]'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> symbolValueOf.call(value) === <span class="hljs-string">'symbol'</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-62" id="section-62"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>is.bigint
+Test if <code>value</code> is an ES-proposed BigInt</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>value to test
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+<span>true if <code>value</code> is a BigInt, false otherise
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+is.bigint = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-63" id="section-63"></a>
+</div>
+<p>eslint-disable-next-line valid-typeof</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> BigInt === <span class="hljs-string">'function'</span> &amp;&amp; toStr.call(value) === <span class="hljs-string">'[object BigInt]'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> bigIntValueOf.call(value) === <span class="hljs-string">'bigint'</span>;
+};
+
+<span class="hljs-built_in">module</span>.exports = is;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

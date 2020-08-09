@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>wow.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\front_asset\\js\\wow.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>wow.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> MutationObserver, Util, <span class="hljs-built_in">WeakMap</span>, getComputedStyle, getComputedStyleRX,
+    on = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn, me</span>)</span>{ <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{ <span class="hljs-keyword">return</span> fn.apply(me, <span class="hljs-built_in">arguments</span>); }; },
+    indexOf = [].indexOf || <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">item</span>) </span>{ <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, l = <span class="hljs-keyword">this</span>.length; i &lt; l; i++) { <span class="hljs-keyword">if</span> (i <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span> &amp;&amp; <span class="hljs-keyword">this</span>[i] === item) <span class="hljs-keyword">return</span> i; } <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>; };
+
+  Util = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Util</span>(<span class="hljs-params"></span>) </span>{}
+
+    Util.prototype.extend = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">custom, defaults</span>) </span>{
+      <span class="hljs-keyword">var</span> key, value;
+      <span class="hljs-keyword">for</span> (key <span class="hljs-keyword">in</span> defaults) {
+        value = defaults[key];
+        <span class="hljs-keyword">if</span> (custom[key] == <span class="hljs-literal">null</span>) {
+          custom[key] = value;
+        }
+      }
+      <span class="hljs-keyword">return</span> custom;
+    };
+
+    Util.prototype.isMobile = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">agent</span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-regexp">/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i</span>.test(agent);
+    };
+
+    Util.prototype.createEvent = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event, bubble, cancel, detail</span>) </span>{
+      <span class="hljs-keyword">var</span> customEvent;
+      <span class="hljs-keyword">if</span> (bubble == <span class="hljs-literal">null</span>) {
+        bubble = <span class="hljs-literal">false</span>;
+      }
+      <span class="hljs-keyword">if</span> (cancel == <span class="hljs-literal">null</span>) {
+        cancel = <span class="hljs-literal">false</span>;
+      }
+      <span class="hljs-keyword">if</span> (detail == <span class="hljs-literal">null</span>) {
+        detail = <span class="hljs-literal">null</span>;
+      }
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">document</span>.createEvent != <span class="hljs-literal">null</span>) {
+        customEvent = <span class="hljs-built_in">document</span>.createEvent(<span class="hljs-string">'CustomEvent'</span>);
+        customEvent.initCustomEvent(event, bubble, cancel, detail);
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">document</span>.createEventObject != <span class="hljs-literal">null</span>) {
+        customEvent = <span class="hljs-built_in">document</span>.createEventObject();
+        customEvent.eventType = event;
+      } <span class="hljs-keyword">else</span> {
+        customEvent.eventName = event;
+      }
+      <span class="hljs-keyword">return</span> customEvent;
+    };
+
+    Util.prototype.emitEvent = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">elem, event</span>) </span>{
+      <span class="hljs-keyword">if</span> (elem.dispatchEvent != <span class="hljs-literal">null</span>) {
+        <span class="hljs-keyword">return</span> elem.dispatchEvent(event);
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">in</span> (elem != <span class="hljs-literal">null</span>)) {
+        <span class="hljs-keyword">return</span> elem[event]();
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ((<span class="hljs-string">"on"</span> + event) <span class="hljs-keyword">in</span> (elem != <span class="hljs-literal">null</span>)) {
+        <span class="hljs-keyword">return</span> elem[<span class="hljs-string">"on"</span> + event]();
+      }
+    };
+
+    Util.prototype.addEvent = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">elem, event, fn</span>) </span>{
+      <span class="hljs-keyword">if</span> (elem.addEventListener != <span class="hljs-literal">null</span>) {
+        <span class="hljs-keyword">return</span> elem.addEventListener(event, fn, <span class="hljs-literal">false</span>);
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (elem.attachEvent != <span class="hljs-literal">null</span>) {
+        <span class="hljs-keyword">return</span> elem.attachEvent(<span class="hljs-string">"on"</span> + event, fn);
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> elem[event] = fn;
+      }
+    };
+
+    Util.prototype.removeEvent = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">elem, event, fn</span>) </span>{
+      <span class="hljs-keyword">if</span> (elem.removeEventListener != <span class="hljs-literal">null</span>) {
+        <span class="hljs-keyword">return</span> elem.removeEventListener(event, fn, <span class="hljs-literal">false</span>);
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (elem.detachEvent != <span class="hljs-literal">null</span>) {
+        <span class="hljs-keyword">return</span> elem.detachEvent(<span class="hljs-string">"on"</span> + event, fn);
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">delete</span> elem[event];
+      }
+    };
+
+    Util.prototype.innerHeight = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">if</span> (<span class="hljs-string">'innerHeight'</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">window</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">window</span>.innerHeight;
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">document</span>.documentElement.clientHeight;
+      }
+    };
+
+    <span class="hljs-keyword">return</span> Util;
+
+  })();
+
+  <span class="hljs-built_in">WeakMap</span> = <span class="hljs-keyword">this</span>.WeakMap || <span class="hljs-keyword">this</span>.MozWeakMap || (<span class="hljs-built_in">WeakMap</span> = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">WeakMap</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">this</span>.keys = [];
+      <span class="hljs-keyword">this</span>.values = [];
+    }
+
+    <span class="hljs-built_in">WeakMap</span>.prototype.get = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key</span>) </span>{
+      <span class="hljs-keyword">var</span> i, item, j, len, ref;
+      ref = <span class="hljs-keyword">this</span>.keys;
+      <span class="hljs-keyword">for</span> (i = j = <span class="hljs-number">0</span>, len = ref.length; j &lt; len; i = ++j) {
+        item = ref[i];
+        <span class="hljs-keyword">if</span> (item === key) {
+          <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.values[i];
+        }
+      }
+    };
+
+    <span class="hljs-built_in">WeakMap</span>.prototype.set = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key, value</span>) </span>{
+      <span class="hljs-keyword">var</span> i, item, j, len, ref;
+      ref = <span class="hljs-keyword">this</span>.keys;
+      <span class="hljs-keyword">for</span> (i = j = <span class="hljs-number">0</span>, len = ref.length; j &lt; len; i = ++j) {
+        item = ref[i];
+        <span class="hljs-keyword">if</span> (item === key) {
+          <span class="hljs-keyword">this</span>.values[i] = value;
+          <span class="hljs-keyword">return</span>;
+        }
+      }
+      <span class="hljs-keyword">this</span>.keys.push(key);
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.values.push(value);
+    };
+
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">WeakMap</span>;
+
+  })());
+
+  MutationObserver = <span class="hljs-keyword">this</span>.MutationObserver || <span class="hljs-keyword">this</span>.WebkitMutationObserver || <span class="hljs-keyword">this</span>.MozMutationObserver || (MutationObserver = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MutationObserver</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">console</span> !== <span class="hljs-string">"undefined"</span> &amp;&amp; <span class="hljs-built_in">console</span> !== <span class="hljs-literal">null</span>) {
+        <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">'MutationObserver is not supported by your browser.'</span>);
+      }
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">console</span> !== <span class="hljs-string">"undefined"</span> &amp;&amp; <span class="hljs-built_in">console</span> !== <span class="hljs-literal">null</span>) {
+        <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">'WOW.js cannot detect dom mutations, please call .sync() after loading new content.'</span>);
+      }
+    }
+
+    MutationObserver.notSupported = <span class="hljs-literal">true</span>;
+
+    MutationObserver.prototype.observe = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{};
+
+    <span class="hljs-keyword">return</span> MutationObserver;
+
+  })());
+
+  getComputedStyle = <span class="hljs-keyword">this</span>.getComputedStyle || <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el, pseudo</span>) </span>{
+    <span class="hljs-keyword">this</span>.getPropertyValue = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">prop</span>) </span>{
+      <span class="hljs-keyword">var</span> ref;
+      <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">'float'</span>) {
+        prop = <span class="hljs-string">'styleFloat'</span>;
+      }
+      <span class="hljs-keyword">if</span> (getComputedStyleRX.test(prop)) {
+        prop.replace(getComputedStyleRX, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">_, _char</span>) </span>{
+          <span class="hljs-keyword">return</span> _char.toUpperCase();
+        });
+      }
+      <span class="hljs-keyword">return</span> ((ref = el.currentStyle) != <span class="hljs-literal">null</span> ? ref[prop] : <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>) || <span class="hljs-literal">null</span>;
+    };
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  };
+
+  getComputedStyleRX = <span class="hljs-regexp">/(\-([a-z]){1})/g</span>;
+
+  <span class="hljs-keyword">this</span>.WOW = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    WOW.prototype.defaults = {
+      <span class="hljs-attr">boxClass</span>: <span class="hljs-string">'wow'</span>,
+      <span class="hljs-attr">animateClass</span>: <span class="hljs-string">'animated'</span>,
+      <span class="hljs-attr">offset</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-attr">mobile</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">live</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">callback</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">scrollContainer</span>: <span class="hljs-literal">null</span>
+    };
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">WOW</span>(<span class="hljs-params">options</span>) </span>{
+      <span class="hljs-keyword">if</span> (options == <span class="hljs-literal">null</span>) {
+        options = {};
+      }
+      <span class="hljs-keyword">this</span>.scrollCallback = on(<span class="hljs-keyword">this</span>.scrollCallback, <span class="hljs-keyword">this</span>);
+      <span class="hljs-keyword">this</span>.scrollHandler = on(<span class="hljs-keyword">this</span>.scrollHandler, <span class="hljs-keyword">this</span>);
+      <span class="hljs-keyword">this</span>.resetAnimation = on(<span class="hljs-keyword">this</span>.resetAnimation, <span class="hljs-keyword">this</span>);
+      <span class="hljs-keyword">this</span>.start = on(<span class="hljs-keyword">this</span>.start, <span class="hljs-keyword">this</span>);
+      <span class="hljs-keyword">this</span>.scrolled = <span class="hljs-literal">true</span>;
+      <span class="hljs-keyword">this</span>.config = <span class="hljs-keyword">this</span>.util().extend(options, <span class="hljs-keyword">this</span>.defaults);
+      <span class="hljs-keyword">if</span> (options.scrollContainer != <span class="hljs-literal">null</span>) {
+        <span class="hljs-keyword">this</span>.config.scrollContainer = <span class="hljs-built_in">document</span>.querySelector(options.scrollContainer);
+      }
+      <span class="hljs-keyword">this</span>.animationNameCache = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();
+      <span class="hljs-keyword">this</span>.wowEvent = <span class="hljs-keyword">this</span>.util().createEvent(<span class="hljs-keyword">this</span>.config.boxClass);
+    }
+
+    WOW.prototype.init = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> ref;
+      <span class="hljs-keyword">this</span>.element = <span class="hljs-built_in">window</span>.document.documentElement;
+      <span class="hljs-keyword">if</span> ((ref = <span class="hljs-built_in">document</span>.readyState) === <span class="hljs-string">"interactive"</span> || ref === <span class="hljs-string">"complete"</span>) {
+        <span class="hljs-keyword">this</span>.start();
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">this</span>.util().addEvent(<span class="hljs-built_in">document</span>, <span class="hljs-string">'DOMContentLoaded'</span>, <span class="hljs-keyword">this</span>.start);
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.finished = [];
+    };
+
+    WOW.prototype.start = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> box, j, len, ref;
+      <span class="hljs-keyword">this</span>.stopped = <span class="hljs-literal">false</span>;
+      <span class="hljs-keyword">this</span>.boxes = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> j, len, ref, results;
+        ref = <span class="hljs-keyword">this</span>.element.querySelectorAll(<span class="hljs-string">"."</span> + <span class="hljs-keyword">this</span>.config.boxClass);
+        results = [];
+        <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = ref.length; j &lt; len; j++) {
+          box = ref[j];
+          results.push(box);
+        }
+        <span class="hljs-keyword">return</span> results;
+      }).call(<span class="hljs-keyword">this</span>);
+      <span class="hljs-keyword">this</span>.all = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> j, len, ref, results;
+        ref = <span class="hljs-keyword">this</span>.boxes;
+        results = [];
+        <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = ref.length; j &lt; len; j++) {
+          box = ref[j];
+          results.push(box);
+        }
+        <span class="hljs-keyword">return</span> results;
+      }).call(<span class="hljs-keyword">this</span>);
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.boxes.length) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.disabled()) {
+          <span class="hljs-keyword">this</span>.resetStyle();
+        } <span class="hljs-keyword">else</span> {
+          ref = <span class="hljs-keyword">this</span>.boxes;
+          <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = ref.length; j &lt; len; j++) {
+            box = ref[j];
+            <span class="hljs-keyword">this</span>.applyStyle(box, <span class="hljs-literal">true</span>);
+          }
+        }
+      }
+      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.disabled()) {
+        <span class="hljs-keyword">this</span>.util().addEvent(<span class="hljs-keyword">this</span>.config.scrollContainer || <span class="hljs-built_in">window</span>, <span class="hljs-string">'scroll'</span>, <span class="hljs-keyword">this</span>.scrollHandler);
+        <span class="hljs-keyword">this</span>.util().addEvent(<span class="hljs-built_in">window</span>, <span class="hljs-string">'resize'</span>, <span class="hljs-keyword">this</span>.scrollHandler);
+        <span class="hljs-keyword">this</span>.interval = setInterval(<span class="hljs-keyword">this</span>.scrollCallback, <span class="hljs-number">50</span>);
+      }
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.config.live) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MutationObserver((<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">_this</span>) </span>{
+          <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">records</span>) </span>{
+            <span class="hljs-keyword">var</span> k, len1, node, record, results;
+            results = [];
+            <span class="hljs-keyword">for</span> (k = <span class="hljs-number">0</span>, len1 = records.length; k &lt; len1; k++) {
+              record = records[k];
+              results.push((<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                <span class="hljs-keyword">var</span> l, len2, ref1, results1;
+                ref1 = record.addedNodes || [];
+                results1 = [];
+                <span class="hljs-keyword">for</span> (l = <span class="hljs-number">0</span>, len2 = ref1.length; l &lt; len2; l++) {
+                  node = ref1[l];
+                  results1.push(<span class="hljs-keyword">this</span>.doSync(node));
+                }
+                <span class="hljs-keyword">return</span> results1;
+              }).call(_this));
+            }
+            <span class="hljs-keyword">return</span> results;
+          };
+        })(<span class="hljs-keyword">this</span>)).observe(<span class="hljs-built_in">document</span>.body, {
+          <span class="hljs-attr">childList</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">subtree</span>: <span class="hljs-literal">true</span>
+        });
+      }
+    };
+
+    WOW.prototype.stop = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">this</span>.stopped = <span class="hljs-literal">true</span>;
+      <span class="hljs-keyword">this</span>.util().removeEvent(<span class="hljs-keyword">this</span>.config.scrollContainer || <span class="hljs-built_in">window</span>, <span class="hljs-string">'scroll'</span>, <span class="hljs-keyword">this</span>.scrollHandler);
+      <span class="hljs-keyword">this</span>.util().removeEvent(<span class="hljs-built_in">window</span>, <span class="hljs-string">'resize'</span>, <span class="hljs-keyword">this</span>.scrollHandler);
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.interval != <span class="hljs-literal">null</span>) {
+        <span class="hljs-keyword">return</span> clearInterval(<span class="hljs-keyword">this</span>.interval);
+      }
+    };
+
+    WOW.prototype.sync = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">element</span>) </span>{
+      <span class="hljs-keyword">if</span> (MutationObserver.notSupported) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.doSync(<span class="hljs-keyword">this</span>.element);
+      }
+    };
+
+    WOW.prototype.doSync = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">element</span>) </span>{
+      <span class="hljs-keyword">var</span> box, j, len, ref, results;
+      <span class="hljs-keyword">if</span> (element == <span class="hljs-literal">null</span>) {
+        element = <span class="hljs-keyword">this</span>.element;
+      }
+      <span class="hljs-keyword">if</span> (element.nodeType !== <span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">return</span>;
+      }
+      element = element.parentNode || element;
+      ref = element.querySelectorAll(<span class="hljs-string">"."</span> + <span class="hljs-keyword">this</span>.config.boxClass);
+      results = [];
+      <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = ref.length; j &lt; len; j++) {
+        box = ref[j];
+        <span class="hljs-keyword">if</span> (indexOf.call(<span class="hljs-keyword">this</span>.all, box) &lt; <span class="hljs-number">0</span>) {
+          <span class="hljs-keyword">this</span>.boxes.push(box);
+          <span class="hljs-keyword">this</span>.all.push(box);
+          <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.stopped || <span class="hljs-keyword">this</span>.disabled()) {
+            <span class="hljs-keyword">this</span>.resetStyle();
+          } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">this</span>.applyStyle(box, <span class="hljs-literal">true</span>);
+          }
+          results.push(<span class="hljs-keyword">this</span>.scrolled = <span class="hljs-literal">true</span>);
+        } <span class="hljs-keyword">else</span> {
+          results.push(<span class="hljs-keyword">void</span> <span class="hljs-number">0</span>);
+        }
+      }
+      <span class="hljs-keyword">return</span> results;
+    };
+
+    WOW.prototype.show = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">box</span>) </span>{
+      <span class="hljs-keyword">this</span>.applyStyle(box);
+      box.className = box.className + <span class="hljs-string">" "</span> + <span class="hljs-keyword">this</span>.config.animateClass;
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.config.callback != <span class="hljs-literal">null</span>) {
+        <span class="hljs-keyword">this</span>.config.callback(box);
+      }
+      <span class="hljs-keyword">this</span>.util().emitEvent(box, <span class="hljs-keyword">this</span>.wowEvent);
+      <span class="hljs-keyword">this</span>.util().addEvent(box, <span class="hljs-string">'animationend'</span>, <span class="hljs-keyword">this</span>.resetAnimation);
+      <span class="hljs-keyword">this</span>.util().addEvent(box, <span class="hljs-string">'oanimationend'</span>, <span class="hljs-keyword">this</span>.resetAnimation);
+      <span class="hljs-keyword">this</span>.util().addEvent(box, <span class="hljs-string">'webkitAnimationEnd'</span>, <span class="hljs-keyword">this</span>.resetAnimation);
+      <span class="hljs-keyword">this</span>.util().addEvent(box, <span class="hljs-string">'MSAnimationEnd'</span>, <span class="hljs-keyword">this</span>.resetAnimation);
+      <span class="hljs-keyword">return</span> box;
+    };
+
+    WOW.prototype.applyStyle = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">box, hidden</span>) </span>{
+      <span class="hljs-keyword">var</span> delay, duration, iteration;
+      duration = box.getAttribute(<span class="hljs-string">'data-wow-duration'</span>);
+      delay = box.getAttribute(<span class="hljs-string">'data-wow-delay'</span>);
+      iteration = box.getAttribute(<span class="hljs-string">'data-wow-iteration'</span>);
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.animate((<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">_this</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+          <span class="hljs-keyword">return</span> _this.customStyle(box, hidden, duration, delay, iteration);
+        };
+      })(<span class="hljs-keyword">this</span>));
+    };
+
+    WOW.prototype.animate = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">if</span> (<span class="hljs-string">'requestAnimationFrame'</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">window</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) </span>{
+          <span class="hljs-keyword">return</span> <span class="hljs-built_in">window</span>.requestAnimationFrame(callback);
+        };
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) </span>{
+          <span class="hljs-keyword">return</span> callback();
+        };
+      }
+    })();
+
+    WOW.prototype.resetStyle = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> box, j, len, ref, results;
+      ref = <span class="hljs-keyword">this</span>.boxes;
+      results = [];
+      <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = ref.length; j &lt; len; j++) {
+        box = ref[j];
+        results.push(box.style.visibility = <span class="hljs-string">'visible'</span>);
+      }
+      <span class="hljs-keyword">return</span> results;
+    };
+
+    WOW.prototype.resetAnimation = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+      <span class="hljs-keyword">var</span> target;
+      <span class="hljs-keyword">if</span> (event.type.toLowerCase().indexOf(<span class="hljs-string">'animationend'</span>) &gt;= <span class="hljs-number">0</span>) {
+        target = event.target || event.srcElement;
+        <span class="hljs-keyword">return</span> target.className = target.className.replace(<span class="hljs-keyword">this</span>.config.animateClass, <span class="hljs-string">''</span>).trim();
+      }
+    };
+
+    WOW.prototype.customStyle = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">box, hidden, duration, delay, iteration</span>) </span>{
+      <span class="hljs-keyword">if</span> (hidden) {
+        <span class="hljs-keyword">this</span>.cacheAnimationName(box);
+      }
+      box.style.visibility = hidden ? <span class="hljs-string">'hidden'</span> : <span class="hljs-string">'visible'</span>;
+      <span class="hljs-keyword">if</span> (duration) {
+        <span class="hljs-keyword">this</span>.vendorSet(box.style, {
+          <span class="hljs-attr">animationDuration</span>: duration
+        });
+      }
+      <span class="hljs-keyword">if</span> (delay) {
+        <span class="hljs-keyword">this</span>.vendorSet(box.style, {
+          <span class="hljs-attr">animationDelay</span>: delay
+        });
+      }
+      <span class="hljs-keyword">if</span> (iteration) {
+        <span class="hljs-keyword">this</span>.vendorSet(box.style, {
+          <span class="hljs-attr">animationIterationCount</span>: iteration
+        });
+      }
+      <span class="hljs-keyword">this</span>.vendorSet(box.style, {
+        <span class="hljs-attr">animationName</span>: hidden ? <span class="hljs-string">'none'</span> : <span class="hljs-keyword">this</span>.cachedAnimationName(box)
+      });
+      <span class="hljs-keyword">return</span> box;
+
+    };
+
+    WOW.prototype.vendors = [<span class="hljs-string">"moz"</span>, <span class="hljs-string">"webkit"</span>];
+
+    WOW.prototype.vendorSet = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">elem, properties</span>) </span>{
+      <span class="hljs-keyword">var</span> name, results, value, vendor;
+      results = [];
+      <span class="hljs-keyword">for</span> (name <span class="hljs-keyword">in</span> properties) {
+        value = properties[name];
+        elem[<span class="hljs-string">""</span> + name] = value;
+        results.push((<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+          <span class="hljs-keyword">var</span> j, len, ref, results1;
+          ref = <span class="hljs-keyword">this</span>.vendors;
+          results1 = [];
+          <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = ref.length; j &lt; len; j++) {
+            vendor = ref[j];
+            results1.push(elem[<span class="hljs-string">""</span> + vendor + (name.charAt(<span class="hljs-number">0</span>).toUpperCase()) + (name.substr(<span class="hljs-number">1</span>))] = value);
+          }
+          <span class="hljs-keyword">return</span> results1;
+        }).call(<span class="hljs-keyword">this</span>));
+      }
+      <span class="hljs-keyword">return</span> results;
+    };
+
+    WOW.prototype.vendorCSS = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">elem, property</span>) </span>{
+      <span class="hljs-keyword">var</span> j, len, ref, result, style, vendor;
+      style = getComputedStyle(elem);
+      result = style.getPropertyCSSValue(property);
+      ref = <span class="hljs-keyword">this</span>.vendors;
+      <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = ref.length; j &lt; len; j++) {
+        vendor = ref[j];
+        result = result || style.getPropertyCSSValue(<span class="hljs-string">"-"</span> + vendor + <span class="hljs-string">"-"</span> + property);
+      }
+      <span class="hljs-keyword">return</span> result;
+    };
+
+    WOW.prototype.animationName = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">box</span>) </span>{
+      <span class="hljs-keyword">var</span> animationName, error;
+      <span class="hljs-keyword">try</span> {
+        animationName = <span class="hljs-keyword">this</span>.vendorCSS(box, <span class="hljs-string">'animation-name'</span>).cssText;
+      } <span class="hljs-keyword">catch</span> (error) {
+        animationName = getComputedStyle(box).getPropertyValue(<span class="hljs-string">'animation-name'</span>);
+      }
+      <span class="hljs-keyword">if</span> (animationName === <span class="hljs-string">'none'</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> animationName;
+      }
+    };
+
+    WOW.prototype.cacheAnimationName = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">box</span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.animationNameCache.set(box, <span class="hljs-keyword">this</span>.animationName(box));
+    };
+
+    WOW.prototype.cachedAnimationName = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">box</span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.animationNameCache.get(box);
+    };
+
+    WOW.prototype.scrollHandler = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.scrolled = <span class="hljs-literal">true</span>;
+    };
+
+    WOW.prototype.scrollCallback = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> box;
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.scrolled) {
+        <span class="hljs-keyword">this</span>.scrolled = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.boxes = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+          <span class="hljs-keyword">var</span> j, len, ref, results;
+          ref = <span class="hljs-keyword">this</span>.boxes;
+          results = [];
+          <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = ref.length; j &lt; len; j++) {
+            box = ref[j];
+            <span class="hljs-keyword">if</span> (!(box)) {
+              <span class="hljs-keyword">continue</span>;
+            }
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isVisible(box)) {
+              <span class="hljs-keyword">this</span>.show(box);
+              <span class="hljs-keyword">continue</span>;
+            }
+            results.push(box);
+          }
+          <span class="hljs-keyword">return</span> results;
+        }).call(<span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span>.boxes.length || <span class="hljs-keyword">this</span>.config.live)) {
+          <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.stop();
+        }
+      }
+    };
+
+    WOW.prototype.offsetTop = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">element</span>) </span>{
+      <span class="hljs-keyword">var</span> top;
+      <span class="hljs-keyword">while</span> (element.offsetTop === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>) {
+        element = element.parentNode;
+      }
+      top = element.offsetTop;
+      <span class="hljs-keyword">while</span> (element = element.offsetParent) {
+        top += element.offsetTop;
+      }
+      <span class="hljs-keyword">return</span> top;
+    };
+
+    WOW.prototype.isVisible = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">box</span>) </span>{
+      <span class="hljs-keyword">var</span> bottom, offset, top, viewBottom, viewTop;
+      offset = box.getAttribute(<span class="hljs-string">'data-wow-offset'</span>) || <span class="hljs-keyword">this</span>.config.offset;
+      viewTop = (<span class="hljs-keyword">this</span>.config.scrollContainer &amp;&amp; <span class="hljs-keyword">this</span>.config.scrollContainer.scrollTop) || <span class="hljs-built_in">window</span>.pageYOffset;
+      viewBottom = viewTop + <span class="hljs-built_in">Math</span>.min(<span class="hljs-keyword">this</span>.element.clientHeight, <span class="hljs-keyword">this</span>.util().innerHeight()) - offset;
+      top = <span class="hljs-keyword">this</span>.offsetTop(box);
+      bottom = top + box.clientHeight;
+      <span class="hljs-keyword">return</span> top &lt;= viewBottom &amp;&amp; bottom &gt;= viewTop;
+    };
+
+    WOW.prototype.util = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._util != <span class="hljs-literal">null</span> ? <span class="hljs-keyword">this</span>._util : <span class="hljs-keyword">this</span>._util = <span class="hljs-keyword">new</span> Util();
+    };
+
+    WOW.prototype.disabled = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> !<span class="hljs-keyword">this</span>.config.mobile &amp;&amp; <span class="hljs-keyword">this</span>.util().isMobile(navigator.userAgent);
+    };
+
+    <span class="hljs-keyword">return</span> WOW;
+
+  })();
+
+}).call(<span class="hljs-keyword">this</span>);
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

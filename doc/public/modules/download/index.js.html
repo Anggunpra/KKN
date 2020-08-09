@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\download\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">var</span> url = <span class="hljs-built_in">require</span>(<span class="hljs-string">'url'</span>);
+<span class="hljs-keyword">var</span> caw = <span class="hljs-built_in">require</span>(<span class="hljs-string">'caw'</span>);
+<span class="hljs-keyword">var</span> concatStream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'concat-stream'</span>);
+<span class="hljs-keyword">var</span> decompress = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-decompress'</span>);
+<span class="hljs-keyword">var</span> eachAsync = <span class="hljs-built_in">require</span>(<span class="hljs-string">'each-async'</span>);
+<span class="hljs-keyword">var</span> filenamify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'filenamify'</span>);
+<span class="hljs-keyword">var</span> got = <span class="hljs-built_in">require</span>(<span class="hljs-string">'got'</span>);
+<span class="hljs-keyword">var</span> isUrl = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-url'</span>);
+<span class="hljs-keyword">var</span> objectAssign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'object-assign'</span>);
+<span class="hljs-keyword">var</span> readAllStream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'read-all-stream'</span>);
+<span class="hljs-keyword">var</span> rename = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-rename'</span>);
+<span class="hljs-keyword">var</span> streamCombiner = <span class="hljs-built_in">require</span>(<span class="hljs-string">'stream-combiner2'</span>);
+<span class="hljs-keyword">var</span> PassThrough = <span class="hljs-built_in">require</span>(<span class="hljs-string">'readable-stream/passthrough'</span>);
+<span class="hljs-keyword">var</span> Vinyl = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vinyl'</span>);
+<span class="hljs-keyword">var</span> vinylFs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vinyl-fs'</span>);
+<span class="hljs-keyword">var</span> Ware = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ware'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Initialize a new <code>Download</code></p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">opts</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Download</span>(<span class="hljs-params">opts</span>) </span>{
+	<span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> Download)) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Download(opts);
+	}
+
+	<span class="hljs-keyword">this</span>.opts = objectAssign({<span class="hljs-attr">encoding</span>: <span class="hljs-literal">null</span>}, opts);
+	<span class="hljs-keyword">this</span>.ware = <span class="hljs-keyword">new</span> Ware();
+}
+
+<span class="hljs-built_in">module</span>.exports = Download;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Get or set URL to download</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">url</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">dest</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+Download.prototype.get = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">url, dest</span>) </span>{
+	<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">arguments</span>.length) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._get;
+	}
+
+	<span class="hljs-keyword">this</span>._get = <span class="hljs-keyword">this</span>._get || [];
+	<span class="hljs-keyword">this</span>._get.push({
+		<span class="hljs-attr">url</span>: url,
+		<span class="hljs-attr">dest</span>: dest
+	});
+
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Get or set the destination folder</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">dir</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+Download.prototype.dest = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">dir</span>) </span>{
+	<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">arguments</span>.length) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._dest;
+	}
+
+	<span class="hljs-keyword">this</span>._dest = dir;
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Rename the downloaded file</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">name</span>
+<span class="dox_type">Function</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+Download.prototype.rename = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) </span>{
+	<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">arguments</span>.length) {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._rename;
+	}
+
+	<span class="hljs-keyword">this</span>._rename = name;
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Add a plugin to the middleware stack</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">plugin</span>
+<span class="dox_type">Function</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+Download.prototype.use = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">plugin</span>) </span>{
+	<span class="hljs-keyword">this</span>.ware.use(plugin);
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Run</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cb</span>
+<span class="dox_type">Function</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+Download.prototype.run = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">cb</span>) </span>{
+	cb = cb || <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
+	<span class="hljs-keyword">var</span> files = [];
+
+	eachAsync(<span class="hljs-keyword">this</span>.get(), <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">get, i, done</span>) </span>{
+		<span class="hljs-keyword">if</span> (!isUrl(<span class="hljs-keyword">get</span>.url)) {
+			done(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Specify a valid URL'</span>));
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">var</span> protocol = url.parse(<span class="hljs-keyword">get</span>.url).protocol;
+		if (protocol) {
+			protocol = protocol.slice(<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>);
+		}
+		<span class="hljs-keyword">var</span> agent = caw(<span class="hljs-keyword">this</span>.opts.proxy, {<span class="hljs-attr">protocol</span>: protocol});
+		<span class="hljs-keyword">var</span> stream = got.stream(<span class="hljs-keyword">get</span>.url, objectAssign(this.opts, {agent: agent}));
+
+		stream.on(<span class="hljs-string">'response'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+			stream.headers = res.headers;
+			stream.statusCode = res.statusCode;
+			<span class="hljs-keyword">this</span>.ware.run(stream, <span class="hljs-keyword">get</span>.url);
+		}.bind(this));
+
+		var hasHttpError = false;
+
+		readAllStream(stream, null, function (err, data) {
+			<span class="hljs-keyword">if</span> (hasHttpError) {
+				<span class="hljs-keyword">return</span>;
+			}
+
+			<span class="hljs-keyword">if</span> (err) {
+				<span class="hljs-keyword">if</span> (err <span class="hljs-keyword">instanceof</span> got.HTTPError) {
+					hasHttpError = <span class="hljs-literal">true</span>;
+				}
+
+				done(err);
+				<span class="hljs-keyword">return</span>;
+			}
+
+			<span class="hljs-keyword">var</span> dest = <span class="hljs-keyword">get</span>.dest || this.dest();
+			var fileStream = this.createStream(this.createFile(<span class="hljs-keyword">get</span>.url, data), dest);
+
+			fileStream.on('error', done);
+			fileStream.pipe(concatStream({encoding: <span class="hljs-string">'object'</span>}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">items</span>) </span>{
+				files = files.concat(items);
+				done();
+			}));
+		}.bind(<span class="hljs-keyword">this</span>));
+	}.bind(<span class="hljs-keyword">this</span>), <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+		<span class="hljs-keyword">if</span> (err) {
+			cb(err);
+			<span class="hljs-keyword">return</span>;
+		}
+
+		cb(<span class="hljs-literal">null</span>, files);
+	});
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Create vinyl file</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">url</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">data</span>
+<span class="dox_type">Buffer</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">private</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+Download.prototype.createFile = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">url, data</span>) </span>{
+	<span class="hljs-keyword">return</span> objectAssign(<span class="hljs-keyword">new</span> Vinyl({
+		<span class="hljs-attr">contents</span>: data,
+		<span class="hljs-attr">path</span>: filenamify(path.basename(url))
+	}), {<span class="hljs-attr">url</span>: url});
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Create stream</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">file</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">dest</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">private</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+Download.prototype.createStream = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">file, dest</span>) </span>{
+	<span class="hljs-keyword">var</span> stream = <span class="hljs-keyword">new</span> PassThrough({<span class="hljs-attr">objectMode</span>: <span class="hljs-literal">true</span>});
+	<span class="hljs-keyword">var</span> streams = [stream];
+
+	stream.end(file);
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.opts.extract) {
+		streams.push(decompress(<span class="hljs-keyword">this</span>.opts));
+	}
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.rename()) {
+		streams.push(rename(<span class="hljs-keyword">this</span>.rename()));
+	}
+
+	<span class="hljs-keyword">if</span> (dest) {
+		streams.push(vinylFs.dest(dest, <span class="hljs-keyword">this</span>.opts));
+	}
+
+	<span class="hljs-keyword">return</span> streamCombiner.obj(streams);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

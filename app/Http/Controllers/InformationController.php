@@ -48,7 +48,7 @@ class InformationController extends Controller
         if($validator->fails()){
             return response()->json(['status' => false , 'message' => $validator->errors()->all() ], 400);
         }
-        $slug = Str::slug(uniqid().' '.$request->title);
+        $slug = Str::slug('-',$request->title);
         if($request->hasFile('gambar')) {
             $uploadBerkas = $request->file('gambar');
             $destinationPath = 'uploads/informasi/image/'; // upload path

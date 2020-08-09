@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\each-props\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#each-props">each-props     </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#load-this-module">Load this module</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#eachprops-obj-fn-opts-void">eachProps(obj, fn [, opts]) : void</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#parameters">Parameters:</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#fn-value-keychain-nodeinfo-boolean">fn(value, keyChain, nodeInfo) : boolean</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#parameters-1">Parameters:</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#returns">Returns:</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="each-props">
+  <h1>
+    <a href="#each-props" name="each-props" class="pilcrow"></a>
+<a href="https://github.com/sttk/each-props/">each-props</a> <a href="https://www.npmjs.org/package/each-props/"><img src="https://img.shields.io/badge/npm-v1.3.2-blue.svg" alt="NPM"></a> <a href="https://opensource.org/licenses.MIT"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT License"></a> <a href="https://travis-ci.org/sttk/each-props"><img src="https://travis-ci.org/sttk/each-props.svg?branch=master" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/sttk/each-props"><img src="https://ci.appveyor.com/api/projects/status/github/sttk/each-props?branch=master&amp;svg=true" alt="Build Status"></a> <a href="https://coveralls.io/github/sttk/each-props?branch=master"><img src="https://coveralls.io/repos/github/sttk/each-props/badge.svg?branch=master" alt="Coverage Status"></a>
+  </h1>
+</div>
+<p>Processes each properties of an object deeply.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>To install from npm:</p>
+<pre><code class="sh">$ npm i each-props --save
+</code></pre>
+<div class="pilwrap" id="load-this-module">
+  <h2>
+    <a href="#load-this-module" name="load-this-module" class="pilcrow"></a>
+Load this module
+  </h2>
+</div>
+<p>For Node.js:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> eachProps = <span class="hljs-built_in">require</span>(<span class="hljs-string">'each-props'</span>);
+</code></pre>
+<p>For Web browser:</p>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"each-props.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>Apply a function to all (non plain object) properties.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> obj = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: { <span class="hljs-attr">c</span>: <span class="hljs-string">'CCC'</span>, <span class="hljs-attr">d</span>: { <span class="hljs-attr">e</span>: <span class="hljs-string">'EEE'</span> } } };
+
+eachProps(obj, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value, keyChain, nodeInfo</span>) </span>{
+  <span class="hljs-keyword">if</span> (keyChain === <span class="hljs-string">'a'</span>) {
+    nodeInfo.parent[<span class="hljs-string">'a'</span>] = value * <span class="hljs-number">2</span>;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (keyChain === <span class="hljs-string">'b.c'</span>) {
+    nodeInfo.parent[<span class="hljs-string">'c'</span>] = value.toLowerCase();
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (keyChain === <span class="hljs-string">'b.d'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">// stop to dig</span>
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (keyChain === <span class="hljs-string">'b.d.e'</span>) {
+    nodeInfo.parent[<span class="hljs-string">'e'</span>] = value.toLowerCase();
+  }
+});
+
+<span class="hljs-built_in">console</span>.log(obj);
+<span class="hljs-comment">// =&gt; { a: 2, b: { c: 'ccc', d: { e: 'EEE' } } };</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="eachprops-obj-fn-opts-void">
+  <h3>
+    <a href="#eachprops-obj-fn-opts-void" name="eachprops-obj-fn-opts-void" class="pilcrow"></a>
+<u>eachProps(obj, fn [, opts]) : void</u>
+  </h3>
+</div>
+<p>Executes the <em>fn</em> function for all properties.</p>
+<div class="pilwrap" id="parameters">
+  <h4>
+    <a href="#parameters" name="parameters" class="pilcrow"></a>
+Parameters:
+  </h4>
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><em>obj</em></td>
+<td style="text-align:center">object</td>
+<td style="text-align:left">A plain object to be treated.</td>
+</tr>
+<tr>
+<td style="text-align:left"><em>fn</em></td>
+<td style="text-align:center">function</td>
+<td style="text-align:left">A function to operate each properties.</td>
+</tr>
+<tr>
+<td style="text-align:left"><em>opts</em></td>
+<td style="text-align:center">object</td>
+<td style="text-align:left">An object to pass any data to each properties.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>API of <em>fn</em> function</strong></p>
+<div class="pilwrap" id="fn-value-keychain-nodeinfo-boolean">
+  <h4>
+    <a href="#fn-value-keychain-nodeinfo-boolean" name="fn-value-keychain-nodeinfo-boolean" class="pilcrow"></a>
+<u>fn(value, keyChain, nodeInfo) : boolean</u>
+  </h4>
+</div>
+<p>This function is applied to all properties in an object.</p>
+<div class="pilwrap" id="parameters-1">
+  <h5>
+    <a href="#parameters-1" name="parameters-1" class="pilcrow"></a>
+Parameters:
+  </h5>
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>value</em></td>
+<td style="text-align:left">any</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>keyChain</em></td>
+<td style="text-align:left">string</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>nodeInfo</em></td>
+<td style="text-align:left">object</td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="returns">
+  <h5>
+    <a href="#returns" name="returns" class="pilcrow"></a>
+Returns:
+  </h5>
+</div>
+<p>True, if stops digging child properties.</p>
+<p><strong>Type:</strong> boolean</p>
+</li>
+</ul>
+<p><a name="nodeinfo"></a></p>
+<ul>
+<li>
+<p><strong>Properties of <i>nodeInfo</i></strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Properties</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>name</em></td>
+<td style="text-align:left">string</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>index</em></td>
+<td style="text-align:left">number</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>count</em></td>
+<td style="text-align:left">number</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>depth</em></td>
+<td style="text-align:left">number</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>parent</em></td>
+<td style="text-align:left">object</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>sort</em></td>
+<td style="text-align:left">function</td>
+</tr>
+</tbody>
+</table>
+<p>... and any properties inherited from <em>opts</em>.</p>
+</li>
+<li>
+<p><strong>Properties of <i>opts</i></strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Properties</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center"><em>sort</em></td>
+<td style="text-align:left">function</td>
+</tr>
+</tbody>
+</table>
+<p>... and any properties you want to pass to each node.</p>
+</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>Copyright (C) 2016-2018 Takayuki Sato</p>
+<p>This program is free software under <a href="https://opensource.org/licenses.MIT">MIT</a> License.
+See the file LICENSE in this distribution for more details.</p>
+</div>
+  </div>
+</body>
+</html>

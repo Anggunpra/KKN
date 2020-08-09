@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\beeper\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#beeper">beeper </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#beeper-countormelody-callback">beeper([count|melody], [callback])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#count">count</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#melody">melody</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="beeper">
+  <h1>
+    <a href="#beeper" name="beeper" class="pilcrow"></a>
+beeper <a href="https://travis-ci.org/sindresorhus/beeper"><img src="https://travis-ci.org/sindresorhus/beeper.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Make your terminal beep</p>
+</blockquote>
+<p><img src="https://cloud.githubusercontent.com/assets/170270/5261236/f8471100-7a49-11e4-81af-96cd09a522d9.gif" alt=""></p>
+<p>Useful as an attention grabber e.g. when an error happens.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save beeper
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> beeper = <span class="hljs-built_in">require</span>(<span class="hljs-string">'beeper'</span>);
+
+beeper();
+<span class="hljs-comment">// beep one time</span>
+
+beeper(<span class="hljs-number">3</span>);
+<span class="hljs-comment">// beep three times</span>
+
+beeper(<span class="hljs-string">'****-*-*'</span>);
+<span class="hljs-comment">// beep, beep, beep, beep, pause, beep, pause, beep</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<p>It will not beep if stdout is not TTY or if the user supplies the <code>--no-beep</code> flag.</p>
+<div class="pilwrap" id="beeper-countormelody-callback">
+  <h3>
+    <a href="#beeper-countormelody-callback" name="beeper-countormelody-callback" class="pilcrow"></a>
+beeper([count|melody], [callback])
+  </h3>
+</div>
+<div class="pilwrap" id="count">
+  <h4>
+    <a href="#count" name="count" class="pilcrow"></a>
+count
+  </h4>
+</div>
+<p>Type: <code>number</code><br>
+Default: <code>1</code></p>
+<p>How many times you want it to beep.</p>
+<div class="pilwrap" id="melody">
+  <h4>
+    <a href="#melody" name="melody" class="pilcrow"></a>
+melody
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Construct your own melody by supplying a string of <code>*</code> for beep <code>-</code> for pause.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

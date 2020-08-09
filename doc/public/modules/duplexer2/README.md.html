@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\duplexer2\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#duplexer2">duplexer2  </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#overview">Overview</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#duplexer2-1">duplexer2</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contact">Contact</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="duplexer2">
+  <h1>
+    <a href="#duplexer2" name="duplexer2" class="pilcrow"></a>
+duplexer2 <a href="https://travis-ci.org/deoxxa/duplexer2"><img src="https://travis-ci.org/deoxxa/duplexer2.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/deoxxa/duplexer2?branch=master"><img src="https://coveralls.io/repos/deoxxa/duplexer2/badge.svg?branch=master&amp;service=github" alt="Coverage Status"></a>
+  </h1>
+</div>
+<p>Like <a href="https://github.com/Raynos/duplexer">duplexer</a> but using Streams3</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> stream = <span class="hljs-built_in">require</span>(<span class="hljs-string">"stream"</span>);
+
+<span class="hljs-keyword">var</span> duplexer2 = <span class="hljs-built_in">require</span>(<span class="hljs-string">"duplexer2"</span>);
+
+<span class="hljs-keyword">var</span> writable = <span class="hljs-keyword">new</span> stream.Writable({<span class="hljs-attr">objectMode</span>: <span class="hljs-literal">true</span>}),
+    readable = <span class="hljs-keyword">new</span> stream.Readable({<span class="hljs-attr">objectMode</span>: <span class="hljs-literal">true</span>});
+
+writable._write = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_write</span>(<span class="hljs-params">input, encoding, done</span>) </span>{
+  <span class="hljs-keyword">if</span> (readable.push(input)) {
+    <span class="hljs-keyword">return</span> done();
+  } <span class="hljs-keyword">else</span> {
+    readable.once(<span class="hljs-string">"drain"</span>, done);
+  }
+};
+
+readable._read = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_read</span>(<span class="hljs-params">n</span>) </span>{
+  <span class="hljs-comment">// no-op</span>
+};
+
+<span class="hljs-comment">// simulate the readable thing closing after a bit</span>
+writable.once(<span class="hljs-string">"finish"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    readable.push(<span class="hljs-literal">null</span>);
+  }, <span class="hljs-number">500</span>);
+});
+
+<span class="hljs-keyword">var</span> duplex = duplexer2(writable, readable);
+
+duplex.on(<span class="hljs-string">"data"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"got data"</span>, <span class="hljs-built_in">JSON</span>.stringify(e));
+});
+
+duplex.on(<span class="hljs-string">"finish"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"got finish event"</span>);
+});
+
+duplex.on(<span class="hljs-string">"end"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"got end event"</span>);
+});
+
+duplex.write(<span class="hljs-string">"oh, hi there"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"finished writing"</span>);
+});
+
+duplex.end(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"finished ending"</span>);
+});
+</code></pre>
+<pre><code>got data &quot;oh, hi there&quot;
+finished writing
+got finish event
+finished ending
+got end event
+</code></pre>
+<div class="pilwrap" id="overview">
+  <h2>
+    <a href="#overview" name="overview" class="pilcrow"></a>
+Overview
+  </h2>
+</div>
+<p>This is a reimplementation of <a href="https://www.npmjs.com/package/duplexer">duplexer</a> using the
+Streams3 API which is standard in Node as of v4. Everything largely
+works the same.</p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<p><a href="https://docs.npmjs.com/cli/install">Available via <code>npm</code></a>:</p>
+<pre><code>$ npm i duplexer2
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="duplexer2-1">
+  <h3>
+    <a href="#duplexer2-1" name="duplexer2-1" class="pilcrow"></a>
+duplexer2
+  </h3>
+</div>
+<p>Creates a new <code>DuplexWrapper</code> object, which is the actual class that implements
+most of the fun stuff. All that fun stuff is hidden. DON'T LOOK.</p>
+<pre><code class="javascript">duplexer2([options], writable, readable)
+</code></pre>
+<pre><code class="javascript"><span class="hljs-keyword">const</span> duplex = duplexer2(<span class="hljs-keyword">new</span> stream.Writable(), <span class="hljs-keyword">new</span> stream.Readable());
+</code></pre>
+<p>Arguments</p>
+<ul>
+<li><strong>options</strong> - an object specifying the regular <code>stream.Duplex</code> options, as
+well as the properties described below.</li>
+<li><strong>writable</strong> - a writable stream</li>
+<li><strong>readable</strong> - a readable stream</li>
+</ul>
+<p>Options</p>
+<ul>
+<li><strong>bubbleErrors</strong> - a boolean value that specifies whether to bubble errors
+from the underlying readable/writable streams. Default is <code>true</code>.</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>3-clause BSD. <a href="./LICENSE.html">A copy</a> is included with the source.</p>
+<div class="pilwrap" id="contact">
+  <h2>
+    <a href="#contact" name="contact" class="pilcrow"></a>
+Contact
+  </h2>
+</div>
+<ul>
+<li>GitHub (<a href="http://github.com/deoxxa">deoxxa</a>)</li>
+<li>Twitter (<a href="http://twitter.com/deoxxa">@deoxxa</a>)</li>
+<li>Email (<a href="mailto:deoxxa@fknsrs.biz.html">deoxxa@fknsrs.biz</a>)</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

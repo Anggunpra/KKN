@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\isurl\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#isurl">isurl  </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="isurl">
+  <h1>
+    <a href="#isurl" name="isurl" class="pilcrow"></a>
+isurl <a href="https://npmjs.org/package/isurl"><img src="https://img.shields.io/npm/v/isurl.svg" alt="NPM Version"></a> <a href="https://travis-ci.org/stevenvachon/isurl"><img src="https://img.shields.io/travis/stevenvachon/isurl.svg" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Checks whether a value is a WHATWG <a href="https://developer.mozilla.org/en/docs/Web/API/URL"><code>URL</code></a>.</p>
+</blockquote>
+<p>Works cross-realm/iframe and despite @@toStringTag.</p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<p><a href="http://nodejs.org/">Node.js</a> <code>&gt;= 4</code> is required. To install, type this at the command line:</p>
+<pre><code class="shell">npm install isurl
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> isURL = <span class="hljs-built_in">require</span>(<span class="hljs-string">'isurl'</span>);
+
+isURL(<span class="hljs-string">'http://domain/'</span>);  <span class="hljs-comment">//-&gt; false</span>
+isURL(<span class="hljs-keyword">new</span> URL(<span class="hljs-string">'http://domain/'</span>));  <span class="hljs-comment">//-&gt; true</span>
+</code></pre>
+<p>Optionally, acceptance can be extended to incomplete <code>URL</code> implementations that lack <code>searchParams</code> (which are common in many modern web browsers):</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">'http://domain/?query'</span>);
+
+<span class="hljs-built_in">console</span>.log(url.searchParams);  <span class="hljs-comment">//-&gt; undefined</span>
+
+isURL.lenient(url);  <span class="hljs-comment">//-&gt; true</span>
+</code></pre>
+</div>
+  </div>
+</body>
+</html>

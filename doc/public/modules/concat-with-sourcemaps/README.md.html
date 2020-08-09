@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\concat-with-sourcemaps\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#concat-with-source-maps">Concat with source maps   </a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#usage-example">Usage example</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#new-concat-generatesourcemap-outfilename-separator">new Concat(generateSourceMap, outFileName, separator)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#concat.add-filename-content-sourcemap">concat.add(fileName, content, sourceMap)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#concat.content">concat.content</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#concat.sourcemap">concat.sourceMap</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="concat-with-source-maps">
+  <h2>
+    <a href="#concat-with-source-maps" name="concat-with-source-maps" class="pilcrow"></a>
+Concat with source maps <a href="https://www.npmjs.com/package/concat-with-sourcemaps"><img src="https://img.shields.io/npm/v/concat-with-sourcemaps.svg" alt="NPM version"></a> <a href="https://travis-ci.org/floridoo/concat-with-sourcemaps"><img src="https://img.shields.io/travis/floridoo/concat-with-sourcemaps.svg" alt="build status"></a> <a href="https://coveralls.io/r/floridoo/concat-with-sourcemaps?branch=master"><img src="https://img.shields.io/coveralls/floridoo/concat-with-sourcemaps.svg" alt="Test coverage"></a>
+  </h2>
+</div>
+<p>NPM module for concatenating files and generating source maps.</p>
+<div class="pilwrap" id="usage-example">
+  <h3>
+    <a href="#usage-example" name="usage-example" class="pilcrow"></a>
+Usage example
+  </h3>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> concat = <span class="hljs-keyword">new</span> Concat(<span class="hljs-literal">true</span>, <span class="hljs-string">'all.js'</span>, <span class="hljs-string">'\n'</span>);
+concat.add(<span class="hljs-literal">null</span>, <span class="hljs-string">"// (c) John Doe"</span>);
+concat.add(<span class="hljs-string">'file1.js'</span>, file1Content);
+concat.add(<span class="hljs-string">'file2.js'</span>, file2Content, file2SourceMap);
+
+<span class="hljs-keyword">var</span> concatenatedContent = concat.content;
+<span class="hljs-keyword">var</span> sourceMapForContent = concat.sourceMap;
+</code></pre>
+<div class="pilwrap" id="api">
+  <h3>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h3>
+</div>
+<div class="pilwrap" id="new-concat-generatesourcemap-outfilename-separator">
+  <h4>
+    <a href="#new-concat-generatesourcemap-outfilename-separator" name="new-concat-generatesourcemap-outfilename-separator" class="pilcrow"></a>
+new Concat(generateSourceMap, outFileName, separator)
+  </h4>
+</div>
+<p>Initialize a new concat object.</p>
+<p>Parameters:</p>
+<ul>
+<li>generateSourceMap: whether or not to generate a source map (default: false)</li>
+<li>outFileName: the file name/path of the output file (for the source map)</li>
+<li>separator: the string that should separate files (default: no separator)</li>
+</ul>
+<div class="pilwrap" id="concat.add-filename-content-sourcemap">
+  <h4>
+    <a href="#concat.add-filename-content-sourcemap" name="concat.add-filename-content-sourcemap" class="pilcrow"></a>
+concat.add(fileName, content, sourceMap)
+  </h4>
+</div>
+<p>Add a file to the output file.</p>
+<p>Parameters:</p>
+<ul>
+<li>fileName: file name of the input file (can be null for content without a file reference, e.g. a license comment)</li>
+<li>content: content (Buffer or string) of the input file</li>
+<li>sourceMap: optional source map of the input file (string). Will be merged into the output source map.</li>
+</ul>
+<div class="pilwrap" id="concat.content">
+  <h4>
+    <a href="#concat.content" name="concat.content" class="pilcrow"></a>
+concat.content
+  </h4>
+</div>
+<p>The resulting concatenated file content (Buffer).</p>
+<div class="pilwrap" id="concat.sourcemap">
+  <h4>
+    <a href="#concat.sourcemap" name="concat.sourcemap" class="pilcrow"></a>
+concat.sourceMap
+  </h4>
+</div>
+<p>The resulting source map of the concatenated files (string).</p>
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>InformationDataTable.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "app\\DataTables\\InformationDataTable.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>InformationDataTable.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">DataTables</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Information</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Yajra</span>\<span class="hljs-title">DataTables</span>\<span class="hljs-title">Html</span>\<span class="hljs-title">Button</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Yajra</span>\<span class="hljs-title">DataTables</span>\<span class="hljs-title">Html</span>\<span class="hljs-title">Column</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Yajra</span>\<span class="hljs-title">DataTables</span>\<span class="hljs-title">Html</span>\<span class="hljs-title">Editor</span>\<span class="hljs-title">Editor</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Yajra</span>\<span class="hljs-title">DataTables</span>\<span class="hljs-title">Html</span>\<span class="hljs-title">Editor</span>\<span class="hljs-title">Fields</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Yajra</span>\<span class="hljs-title">DataTables</span>\<span class="hljs-title">Services</span>\<span class="hljs-title">DataTable</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InformationDataTable</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DataTable</span>
+</span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Build DataTable class.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">mixed</span>
+<span>$query Results from query() method.
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Yajra\DataTables\DataTableAbstract
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dataTable</span><span class="hljs-params">($query)</span>
+    </span>{
+        <span class="hljs-keyword">return</span> datatables()
+            -&gt;eloquent($query)
+            -&gt;addIndexColumn()
+            -&gt;addColumn(<span class="hljs-string">'action'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($row)</span></span>{
+                <span class="hljs-keyword">return</span> view(<span class="hljs-string">'information.action'</span>,compact(<span class="hljs-string">'row'</span>))-&gt;render();
+            })
+            -&gt;rawColumns([<span class="hljs-string">'action'</span>]);
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Get query source of dataTable.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">\App\Information</span>
+<span>$model
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Illuminate\Database\Eloquent\Builder
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">query</span><span class="hljs-params">(Information $model)</span>
+    </span>{
+        <span class="hljs-keyword">return</span> $model-&gt;newQuery()-&gt;with([<span class="hljs-string">'category'</span>]);
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Optional method if you want to use html builder.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>\Yajra\DataTables\Html\Builder
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">html</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;builder()
+                    -&gt;setTableId(<span class="hljs-string">'information-table'</span>)
+                    -&gt;columns(<span class="hljs-keyword">$this</span>-&gt;getColumns())
+                    -&gt;minifiedAjax()
+                    -&gt;dom(<span class="hljs-string">'Bfrtip'</span>)
+                    -&gt;orderBy(<span class="hljs-number">1</span>)
+                    -&gt;parameters([
+                        <span class="hljs-string">'responsive'</span> =&gt; <span class="hljs-keyword">true</span>,
+                        <span class="hljs-string">'columnDefs'</span> =&gt; [
+                            [
+                                <span class="hljs-string">'responsivePriority'</span> =&gt; <span class="hljs-number">1</span>,
+                                <span class="hljs-string">'targets'</span> =&gt; <span class="hljs-number">0</span>,
+                            ],
+                            [
+                                <span class="hljs-string">'responsivePriority'</span> =&gt; <span class="hljs-number">2</span>,
+                                <span class="hljs-string">'targets'</span> =&gt; <span class="hljs-number">-1</span>,
+                            ],
+                        ]
+                    ])
+                    -&gt;buttons(
+                        Button::make(<span class="hljs-string">'export'</span>),
+                        Button::make(<span class="hljs-string">'print'</span>),
+                        Button::make(<span class="hljs-string">'reload'</span>)
+                    );
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Get columns.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>array
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getColumns</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">return</span> [
+            Column::make(<span class="hljs-string">'DT_RowIndex'</span>)-&gt;searchable(<span class="hljs-keyword">false</span>)-&gt;title(<span class="hljs-string">'#'</span>),
+            Column::make(<span class="hljs-string">'judul'</span>),
+            Column::make(<span class="hljs-string">'category.nama_kategori'</span>)-&gt;title(<span class="hljs-string">'Nama Kategori'</span>),
+            Column::make(<span class="hljs-string">'created_at'</span>),
+            Column::make(<span class="hljs-string">'updated_at'</span>),
+            Column::make(<span class="hljs-string">'action'</span>),
+        ];
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Get filename for export.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span>string
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filename</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'Information_'</span> . date(<span class="hljs-string">'YmdHis'</span>);
+    }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

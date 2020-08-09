@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\is-unc-path\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#is-unc-path">is-unc-path    </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#release-history">Release history</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#v1.0.0-2017-07-12">v1.0.0 - 2017-07-12</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#about">About</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#building-docs">Building docs</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#running-tests">Running tests</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="is-unc-path">
+  <h1>
+    <a href="#is-unc-path" name="is-unc-path" class="pilcrow"></a>
+is-unc-path <a href="https://www.npmjs.com/package/is-unc-path"><img src="https://img.shields.io/npm/v/is-unc-path.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.org/package/is-unc-path"><img src="https://img.shields.io/npm/dm/is-unc-path.svg?style=flat" alt="NPM monthly downloads"></a> <a href="https://npmjs.org/package/is-unc-path"><img src="https://img.shields.io/npm/dt/is-unc-path.svg?style=flat" alt="NPM total downloads"></a> <a href="https://travis-ci.org/jonschlinkert/is-unc-path"><img src="https://img.shields.io/travis/jonschlinkert/is-unc-path.svg?style=flat&amp;label=Travis" alt="Linux Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Returns true if a filepath is a windows UNC file path.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://www.npmjs.com/">npm</a>:</p>
+<pre><code class="sh">$ npm install --save is-unc-path
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> isUncPath = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-unc-path'</span>);
+</code></pre>
+<p><strong>true</strong></p>
+<p>Returns true for windows UNC paths:</p>
+<pre><code class="js">isUncPath(<span class="hljs-string">'\\/foo/bar'</span>);
+isUncPath(<span class="hljs-string">'\\\\foo/bar'</span>);
+isUncPath(<span class="hljs-string">'\\\\foo\\admin$'</span>);
+isUncPath(<span class="hljs-string">'\\\\foo\\admin$\\system32'</span>);
+isUncPath(<span class="hljs-string">'\\\\foo\\temp'</span>);
+isUncPath(<span class="hljs-string">'\\\\/foo/bar'</span>);
+isUncPath(<span class="hljs-string">'\\\\\\/foo/bar'</span>);
+</code></pre>
+<p><strong>false</strong></p>
+<p>Returns false for non-UNC paths:</p>
+<pre><code class="js">isUncPath(<span class="hljs-string">'/foo/bar'</span>);
+isUncPath(<span class="hljs-string">'/'</span>);
+isUncPath(<span class="hljs-string">'/foo'</span>);
+isUncPath(<span class="hljs-string">'/foo/'</span>);
+isUncPath(<span class="hljs-string">'c:'</span>);
+isUncPath(<span class="hljs-string">'c:.'</span>);
+isUncPath(<span class="hljs-string">'c:./'</span>);
+isUncPath(<span class="hljs-string">'c:./file'</span>);
+isUncPath(<span class="hljs-string">'c:/'</span>);
+isUncPath(<span class="hljs-string">'c:/file'</span>);
+</code></pre>
+<p><strong>Customization</strong></p>
+<p>Use <code>.source</code> to use the regex as a component of another regex:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> myRegex = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(isUncPath.source + <span class="hljs-string">'foo'</span>);
+</code></pre>
+<p><strong><a href="http://resources.esri.com/help/9.3/ArcGISDesktop/com/Gp_ToolRef/sharing_tools_and_toolboxes/pathnames_explained_colon_absolute_relative_unc_and_url.htm">Rules for UNC paths</a></strong></p>
+<ul>
+<li>The computer name is always preceded by a double backward-slash (<code>\\</code>).</li>
+<li>UNC paths cannot contain a drive letter (such as <code>D:</code>)</li>
+</ul>
+<div class="pilwrap" id="release-history">
+  <h2>
+    <a href="#release-history" name="release-history" class="pilcrow"></a>
+Release history
+  </h2>
+</div>
+<div class="pilwrap" id="v1.0.0-2017-07-12">
+  <h3>
+    <a href="#v1.0.0-2017-07-12" name="v1.0.0-2017-07-12" class="pilcrow"></a>
+v1.0.0 - 2017-07-12
+  </h3>
+</div>
+<p><strong>Changes</strong></p>
+<ul>
+<li>now throws a <code>TypeError</code> if value is not a string</li>
+</ul>
+<div class="pilwrap" id="about">
+  <h2>
+    <a href="#about" name="about" class="pilcrow"></a>
+About
+  </h2>
+</div>
+<div class="pilwrap" id="related-projects">
+  <h3>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h3>
+</div>
+<ul>
+<li><a href="https://www.npmjs.com/package/is-absolute">is-absolute</a>: Polyfill for node.js <code>path.isAbolute</code>. Returns true if a file path is absolute. | <a href="https://github.com/jonschlinkert/is-absolute" title="Polyfill for node.js `path.isAbolute`. Returns true if a file path is absolute.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/is-glob">is-glob</a>: Returns <code>true</code> if the given string looks like a glob pattern or an extglob pattern… <a href="https://github.com/jonschlinkert/is-glob">more</a> | <a href="https://github.com/jonschlinkert/is-glob" title="Returns `true` if the given string looks like a glob pattern or an extglob pattern. This makes it easy to create code that only uses external modules like node-glob when necessary, resulting in much faster code execution and initialization time, and a bet">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/is-relative">is-relative</a>: Returns <code>true</code> if the path appears to be relative. | <a href="https://github.com/jonschlinkert/is-relative" title="Returns `true` if the path appears to be relative.">homepage</a></li>
+</ul>
+<div class="pilwrap" id="contributing">
+  <h3>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h3>
+</div>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="../../issues/new.html">please create an issue</a>.</p>
+<div class="pilwrap" id="building-docs">
+  <h3>
+    <a href="#building-docs" name="building-docs" class="pilcrow"></a>
+Building docs
+  </h3>
+</div>
+<p><em>(This project's readme.md is generated by <a href="https://github.com/verbose/verb-generate-readme">verb</a>, please don't edit the readme directly. Any changes to the readme must be made in the <a href=".verb.md.html">.verb.md</a> readme template.)</em></p>
+<p>To generate the readme, run the following command:</p>
+<pre><code class="sh">$ npm install -g verbose/verb<span class="hljs-comment">#dev verb-generate-readme &amp;&amp; verb</span>
+</code></pre>
+<div class="pilwrap" id="running-tests">
+  <h3>
+    <a href="#running-tests" name="running-tests" class="pilcrow"></a>
+Running tests
+  </h3>
+</div>
+<p>Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:</p>
+<pre><code class="sh">$ npm install &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="author">
+  <h3>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h3>
+</div>
+<p><strong>Jon Schlinkert</strong></p>
+<ul>
+<li><a href="https://github.com/jonschlinkert">github/jonschlinkert</a></li>
+<li><a href="https://twitter.com/jonschlinkert">twitter/jonschlinkert</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h3>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h3>
+</div>
+<p>Copyright © 2017, <a href="https://github.com/jonschlinkert">Jon Schlinkert</a>.
+Released under the <a href="LICENSE.html">MIT License</a>.</p>
+<hr>
+<p><em>This file was generated by <a href="https://github.com/verbose/verb-generate-readme">verb-generate-readme</a>, v0.6.0, on July 13, 2017.</em></p>
+</div>
+  </div>
+</body>
+</html>

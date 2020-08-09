@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-cli\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">var</span> log = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulplog'</span>);
+<span class="hljs-keyword">var</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>);
+<span class="hljs-keyword">var</span> Liftoff = <span class="hljs-built_in">require</span>(<span class="hljs-string">'liftoff'</span>);
+<span class="hljs-keyword">var</span> interpret = <span class="hljs-built_in">require</span>(<span class="hljs-string">'interpret'</span>);
+<span class="hljs-keyword">var</span> v8flags = <span class="hljs-built_in">require</span>(<span class="hljs-string">'v8flags'</span>);
+<span class="hljs-keyword">var</span> findRange = <span class="hljs-built_in">require</span>(<span class="hljs-string">'semver-greatest-satisfied-range'</span>);
+<span class="hljs-keyword">var</span> ansi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/ansi'</span>);
+<span class="hljs-keyword">var</span> exit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/exit'</span>);
+<span class="hljs-keyword">var</span> tildify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/tildify'</span>);
+<span class="hljs-keyword">var</span> makeTitle = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/make-title'</span>);
+<span class="hljs-keyword">var</span> cliOptions = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/cli-options'</span>);
+<span class="hljs-keyword">var</span> completion = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/completion'</span>);
+<span class="hljs-keyword">var</span> verifyDeps = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/verify-dependencies'</span>);
+<span class="hljs-keyword">var</span> cliVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./package.json'</span>).version;
+<span class="hljs-keyword">var</span> getBlacklist = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/get-blacklist'</span>);
+<span class="hljs-keyword">var</span> toConsole = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/log/to-console'</span>);
+
+<span class="hljs-keyword">var</span> loadConfigFiles = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/config/load-files'</span>);
+<span class="hljs-keyword">var</span> mergeConfigToCliFlags = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/config/cli-flags'</span>);
+<span class="hljs-keyword">var</span> mergeConfigToEnvFlags = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/config/env-flags'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Logging functions</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> logVerify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/log/verify'</span>);
+<span class="hljs-keyword">var</span> logBlacklistError = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/shared/log/blacklist-error'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>Get supported ranges</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> ranges = fs.readdirSync(__dirname + <span class="hljs-string">'/lib/versioned/'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Set env var for ORIGINAL cwd
+before anything touches it</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">process.env.INIT_CWD = process.cwd();
+
+<span class="hljs-keyword">var</span> cli = <span class="hljs-keyword">new</span> Liftoff({
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'gulp'</span>,
+  <span class="hljs-attr">processTitle</span>: makeTitle(<span class="hljs-string">'gulp'</span>, process.argv.slice(<span class="hljs-number">2</span>)),
+  <span class="hljs-attr">completions</span>: completion,
+  <span class="hljs-attr">extensions</span>: interpret.jsVariants,
+  <span class="hljs-attr">v8flags</span>: v8flags,
+  <span class="hljs-attr">configFiles</span>: {
+    <span class="hljs-string">'.gulp'</span>: {
+      <span class="hljs-attr">home</span>: {
+        <span class="hljs-attr">path</span>: <span class="hljs-string">'~'</span>,
+        <span class="hljs-attr">extensions</span>: interpret.extensions,
+      },
+      <span class="hljs-attr">cwd</span>: {
+        <span class="hljs-attr">path</span>: <span class="hljs-string">'.'</span>,
+        <span class="hljs-attr">extensions</span>: interpret.extensions,
+      },
+    },
+  },
+});
+
+<span class="hljs-keyword">var</span> usage =
+  <span class="hljs-string">'\n'</span> + ansi.bold(<span class="hljs-string">'Usage:'</span>) +
+  <span class="hljs-string">' gulp '</span> + ansi.blue(<span class="hljs-string">'[options]'</span>) + <span class="hljs-string">' tasks'</span>;
+
+<span class="hljs-keyword">var</span> parser = yargs.usage(usage, cliOptions);
+<span class="hljs-keyword">var</span> opts = parser.argv;
+
+cli.on(<span class="hljs-string">'require'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+  log.info(<span class="hljs-string">'Requiring external module'</span>, ansi.magenta(name));
+});
+
+cli.on(<span class="hljs-string">'requireFail'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, error</span>) </span>{
+  log.warn(
+    ansi.yellow(<span class="hljs-string">'Failed to load external module'</span>),
+    ansi.magenta(name)
+  );
+  <span class="hljs-comment">/* istanbul ignore else */</span>
+  <span class="hljs-keyword">if</span> (error) {
+    log.warn(ansi.yellow(error.toString()));
+  }
+});
+
+cli.on(<span class="hljs-string">'respawn'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">flags, child</span>) </span>{
+  <span class="hljs-keyword">var</span> nodeFlags = ansi.magenta(flags.join(<span class="hljs-string">', '</span>));
+  <span class="hljs-keyword">var</span> pid = ansi.magenta(child.pid);
+  log.info(<span class="hljs-string">'Node flags detected:'</span>, nodeFlags);
+  log.info(<span class="hljs-string">'Respawned to PID:'</span>, pid);
+});
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  cli.prepare({
+    <span class="hljs-attr">cwd</span>: opts.cwd,
+    <span class="hljs-attr">configPath</span>: opts.gulpfile,
+    <span class="hljs-attr">require</span>: opts.require,
+    <span class="hljs-attr">completion</span>: opts.completion,
+  }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">env</span>) </span>{
+    <span class="hljs-keyword">var</span> cfgLoadOrder = [<span class="hljs-string">'home'</span>, <span class="hljs-string">'cwd'</span>];
+    <span class="hljs-keyword">var</span> cfg = loadConfigFiles(env.configFiles[<span class="hljs-string">'.gulp'</span>], cfgLoadOrder);
+    opts = mergeConfigToCliFlags(opts, cfg);
+    env = mergeConfigToEnvFlags(env, cfg, opts);
+    env.configProps = cfg;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>Set up event listeners for logging again after configuring.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    toConsole(log, opts);
+
+    cli.execute(env, env.nodeFlags, handleArguments);
+  });
+}
+
+<span class="hljs-built_in">module</span>.exports = run;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>The actual logic</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleArguments</span>(<span class="hljs-params">env</span>) </span>{
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>This translates the --continue flag in gulp
+To the settle env variable for undertaker
+We use the process.env so the user's gulpfile
+Can know about the flag</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (opts.continue) {
+    process.env.UNDERTAKER_SETTLE = <span class="hljs-string">'true'</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (opts.help) {
+    parser.showHelp(<span class="hljs-built_in">console</span>.log);
+    exit(<span class="hljs-number">0</span>);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>Anything that needs to print outside of the logging mechanism should use console.log</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (opts.version) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'CLI version:'</span>, cliVersion);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Local version:'</span>, env.modulePackage.version || <span class="hljs-string">'Unknown'</span>);
+    exit(<span class="hljs-number">0</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (opts.verify) {
+    <span class="hljs-keyword">var</span> pkgPath = opts.verify !== <span class="hljs-literal">true</span> ? opts.verify : <span class="hljs-string">'package.json'</span>;
+    <span class="hljs-comment">/* istanbul ignore else */</span>
+    <span class="hljs-keyword">if</span> (path.resolve(pkgPath) !== path.normalize(pkgPath)) {
+      pkgPath = path.join(env.cwd, pkgPath);
+    }
+    log.info(<span class="hljs-string">'Verifying plugins in '</span> + pkgPath);
+    <span class="hljs-keyword">return</span> getBlacklist(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, blacklist</span>) </span>{
+      <span class="hljs-comment">/* istanbul ignore if */</span>
+      <span class="hljs-keyword">if</span> (err) {
+        <span class="hljs-keyword">return</span> logBlacklistError(err);
+      }
+
+      <span class="hljs-keyword">var</span> blacklisted = verifyDeps(<span class="hljs-built_in">require</span>(pkgPath), blacklist);
+
+      logVerify(blacklisted);
+    });
+  }
+
+  <span class="hljs-keyword">if</span> (!env.modulePath) {
+    <span class="hljs-comment">/* istanbul ignore next */</span>
+    <span class="hljs-keyword">var</span> missingNodeModules =
+      fs.existsSync(path.join(env.cwd, <span class="hljs-string">'package.json'</span>))
+      &amp;&amp; !fs.existsSync(path.join(env.cwd, <span class="hljs-string">'node_modules'</span>));
+
+    <span class="hljs-comment">/* istanbul ignore next */</span>
+    <span class="hljs-keyword">var</span> missingGulpMessage =
+      missingNodeModules
+        ? <span class="hljs-string">'Local modules not found in'</span>
+        : <span class="hljs-string">'Local gulp not found in'</span>;
+    log.error(
+      ansi.red(missingGulpMessage),
+      ansi.magenta(tildify(env.cwd))
+    );
+    <span class="hljs-comment">/* istanbul ignore next */</span>
+    <span class="hljs-keyword">var</span> installCommand =
+      missingNodeModules
+        ? <span class="hljs-string">'npm install'</span>
+        : <span class="hljs-string">'npm install gulp'</span>;
+    log.error(ansi.red(<span class="hljs-string">'Try running: '</span> + installCommand));
+    exit(<span class="hljs-number">1</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (!env.configPath) {
+    log.error(ansi.red(<span class="hljs-string">'No gulpfile found'</span>));
+    exit(<span class="hljs-number">1</span>);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>Chdir before requiring gulpfile to make sure
+we let them chdir as needed</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (process.cwd() !== env.cwd) {
+    process.chdir(env.cwd);
+    log.info(
+      <span class="hljs-string">'Working directory changed to'</span>,
+      ansi.magenta(tildify(env.cwd))
+    );
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>Find the correct CLI version to run</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> range = findRange(env.modulePackage.version, ranges);
+
+  <span class="hljs-keyword">if</span> (!range) {
+    log.error(
+      ansi.red(<span class="hljs-string">'Unsupported gulp version'</span>, env.modulePackage.version)
+    );
+    exit(<span class="hljs-number">1</span>);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>Load and execute the CLI version</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> versionedDir = path.join(__dirname, <span class="hljs-string">'/lib/versioned/'</span>, range, <span class="hljs-string">'/'</span>);
+  <span class="hljs-built_in">require</span>(versionedDir)(opts, env, env.configProps);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>cache.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "config\\cache.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>cache.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Str</span>;
+
+<span class="hljs-keyword">return</span> [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Default Cache Store</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This option controls the default cache connection that gets used while</td>
+</tr>
+<tr>
+<td>using this caching library. This connection is used when another is</td>
+</tr>
+<tr>
+<td>not explicitly specified when executing a given caching function.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Supported: &quot;apc&quot;, &quot;array&quot;, &quot;database&quot;, &quot;file&quot;,</td>
+</tr>
+<tr>
+<td>&quot;memcached&quot;, &quot;redis&quot;, &quot;dynamodb&quot;</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'default'</span> =&gt; env(<span class="hljs-string">'CACHE_DRIVER'</span>, <span class="hljs-string">'file'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Cache Stores</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may define all of the cache &quot;stores&quot; for your application as</td>
+</tr>
+<tr>
+<td>well as their drivers. You may even define multiple stores for the</td>
+</tr>
+<tr>
+<td>same cache driver to group types of items stored in your caches.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'stores'</span> =&gt; [
+
+        <span class="hljs-string">'apc'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'apc'</span>,
+        ],
+
+        <span class="hljs-string">'array'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'array'</span>,
+            <span class="hljs-string">'serialize'</span> =&gt; <span class="hljs-keyword">false</span>,
+        ],
+
+        <span class="hljs-string">'database'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'database'</span>,
+            <span class="hljs-string">'table'</span> =&gt; <span class="hljs-string">'cache'</span>,
+            <span class="hljs-string">'connection'</span> =&gt; <span class="hljs-keyword">null</span>,
+        ],
+
+        <span class="hljs-string">'file'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'file'</span>,
+            <span class="hljs-string">'path'</span> =&gt; storage_path(<span class="hljs-string">'framework/cache/data'</span>),
+        ],
+
+        <span class="hljs-string">'memcached'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'memcached'</span>,
+            <span class="hljs-string">'persistent_id'</span> =&gt; env(<span class="hljs-string">'MEMCACHED_PERSISTENT_ID'</span>),
+            <span class="hljs-string">'sasl'</span> =&gt; [
+                env(<span class="hljs-string">'MEMCACHED_USERNAME'</span>),
+                env(<span class="hljs-string">'MEMCACHED_PASSWORD'</span>),
+            ],
+            <span class="hljs-string">'options'</span> =&gt; [
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Memcached::OPT_CONNECT_TIMEOUT =&gt; 2000,</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">            ],
+            <span class="hljs-string">'servers'</span> =&gt; [
+                [
+                    <span class="hljs-string">'host'</span> =&gt; env(<span class="hljs-string">'MEMCACHED_HOST'</span>, <span class="hljs-string">'127.0.0.1'</span>),
+                    <span class="hljs-string">'port'</span> =&gt; env(<span class="hljs-string">'MEMCACHED_PORT'</span>, <span class="hljs-number">11211</span>),
+                    <span class="hljs-string">'weight'</span> =&gt; <span class="hljs-number">100</span>,
+                ],
+            ],
+        ],
+
+        <span class="hljs-string">'redis'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'redis'</span>,
+            <span class="hljs-string">'connection'</span> =&gt; <span class="hljs-string">'cache'</span>,
+        ],
+
+        <span class="hljs-string">'dynamodb'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'dynamodb'</span>,
+            <span class="hljs-string">'key'</span> =&gt; env(<span class="hljs-string">'AWS_ACCESS_KEY_ID'</span>),
+            <span class="hljs-string">'secret'</span> =&gt; env(<span class="hljs-string">'AWS_SECRET_ACCESS_KEY'</span>),
+            <span class="hljs-string">'region'</span> =&gt; env(<span class="hljs-string">'AWS_DEFAULT_REGION'</span>, <span class="hljs-string">'us-east-1'</span>),
+            <span class="hljs-string">'table'</span> =&gt; env(<span class="hljs-string">'DYNAMODB_CACHE_TABLE'</span>, <span class="hljs-string">'cache'</span>),
+            <span class="hljs-string">'endpoint'</span> =&gt; env(<span class="hljs-string">'DYNAMODB_ENDPOINT'</span>),
+        ],
+
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Cache Key Prefix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>When utilizing a RAM based store such as APC or Memcached, there might</td>
+</tr>
+<tr>
+<td>be other applications utilizing the same cache. So, we'll specify a</td>
+</tr>
+<tr>
+<td>value to get prefixed to all our keys so we can avoid collisions.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'prefix'</span> =&gt; env(<span class="hljs-string">'CACHE_PREFIX'</span>, Str::slug(env(<span class="hljs-string">'APP_NAME'</span>, <span class="hljs-string">'laravel'</span>), <span class="hljs-string">'_'</span>).<span class="hljs-string">'_cache'</span>),
+
+];
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

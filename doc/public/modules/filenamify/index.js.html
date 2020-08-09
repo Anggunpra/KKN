@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\filenamify\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">const</span> trimRepeated = <span class="hljs-built_in">require</span>(<span class="hljs-string">'trim-repeated'</span>);
+<span class="hljs-keyword">const</span> filenameReservedRegex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'filename-reserved-regex'</span>);
+<span class="hljs-keyword">const</span> stripOuter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'strip-outer'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Doesn't make sense to have longer filenames</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">const</span> MAX_FILENAME_LENGTH = <span class="hljs-number">100</span>;
+
+<span class="hljs-keyword">const</span> reControlChars = <span class="hljs-regexp">/[\u0000-\u001f\u0080-\u009f]/g</span>; <span class="hljs-comment">// eslint-disable-line no-control-regex</span>
+<span class="hljs-keyword">const</span> reRelativePath = <span class="hljs-regexp">/^\.+/</span>;
+
+<span class="hljs-keyword">const</span> fn = <span class="hljs-function">(<span class="hljs-params">string, options</span>) =&gt;</span> {
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> string !== <span class="hljs-string">'string'</span>) {
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Expected a string'</span>);
+	}
+
+	options = options || {};
+
+	<span class="hljs-keyword">const</span> replacement = options.replacement === <span class="hljs-literal">undefined</span> ? <span class="hljs-string">'!'</span> : options.replacement;
+
+	<span class="hljs-keyword">if</span> (filenameReservedRegex().test(replacement) &amp;&amp; reControlChars.test(replacement)) {
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Replacement string cannot contain reserved filename characters'</span>);
+	}
+
+	string = string.replace(filenameReservedRegex(), replacement);
+	string = string.replace(reControlChars, replacement);
+	string = string.replace(reRelativePath, replacement);
+
+	<span class="hljs-keyword">if</span> (replacement.length &gt; <span class="hljs-number">0</span>) {
+		string = trimRepeated(string, replacement);
+		string = string.length &gt; <span class="hljs-number">1</span> ? stripOuter(string, replacement) : string;
+	}
+
+	string = filenameReservedRegex.windowsNames().test(string) ? string + replacement : string;
+	string = string.slice(<span class="hljs-number">0</span>, MAX_FILENAME_LENGTH);
+
+	<span class="hljs-keyword">return</span> string;
+};
+
+fn.path = <span class="hljs-function">(<span class="hljs-params">pth, options</span>) =&gt;</span> {
+	pth = path.resolve(pth);
+	<span class="hljs-keyword">return</span> path.join(path.dirname(pth), fn(path.basename(pth), options));
+};
+
+<span class="hljs-built_in">module</span>.exports = fn;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

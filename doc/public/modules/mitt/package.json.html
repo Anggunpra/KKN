@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\mitt\\package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"mitt"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"1.1.3"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Tiny 200b functional Event Emitter / pubsub."</span>,
+  <span class="hljs-attr">"jsnext:main"</span>: <span class="hljs-string">"dist/mitt.es.js"</span>,
+  <span class="hljs-attr">"module"</span>: <span class="hljs-string">"dist/mitt.es.js"</span>,
+  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"dist/mitt.js"</span>,
+  <span class="hljs-attr">"umd:main"</span>: <span class="hljs-string">"dist/mitt.umd.js"</span>,
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"bump"</span>: <span class="hljs-string">"standard-version"</span>,
+    <span class="hljs-attr">"testonly"</span>: <span class="hljs-string">"mocha --require reify/node --require flow-remove-types/register test/**/*.js"</span>,
+    <span class="hljs-attr">"lint"</span>: <span class="hljs-string">"eslint src test"</span>,
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"flow &amp;&amp; npm run lint &amp;&amp; npm run testonly"</span>,
+    <span class="hljs-attr">"build"</span>: <span class="hljs-string">"npm-run-all --silent clean -p rollup -p minify:* -s docs size"</span>,
+    <span class="hljs-attr">"clean"</span>: <span class="hljs-string">"rimraf dist"</span>,
+    <span class="hljs-attr">"rollup"</span>: <span class="hljs-string">"rollup -c"</span>,
+    <span class="hljs-attr">"minify:cjs"</span>: <span class="hljs-string">"uglifyjs $npm_package_main -cm toplevel -o $npm_package_main -p relative --in-source-map ${npm_package_main}.map --source-map ${npm_package_main}.map"</span>,
+    <span class="hljs-attr">"minify:umd"</span>: <span class="hljs-string">"uglifyjs $npm_package_umd_main -cm -o $npm_package_umd_main -p relative --in-source-map ${npm_package_umd_main}.map --source-map ${npm_package_umd_main}.map"</span>,
+    <span class="hljs-attr">"docs"</span>: <span class="hljs-string">"documentation readme src/index.js --section API -q"</span>,
+    <span class="hljs-attr">"size"</span>: <span class="hljs-string">"echo \"Gzipped Size: $(strip-json-comments --no-whitespace $npm_package_main | gzip-size | pretty-bytes)\""</span>,
+    <span class="hljs-attr">"release"</span>: <span class="hljs-string">"npm run build -s &amp;&amp; npm run bump &amp;&amp; git push --follow-tags origin master &amp;&amp; npm publish"</span>
+  },
+  <span class="hljs-attr">"repository"</span>: <span class="hljs-string">"developit/mitt"</span>,
+  <span class="hljs-attr">"keywords"</span>: [
+    <span class="hljs-string">"events"</span>,
+    <span class="hljs-string">"eventemitter"</span>,
+    <span class="hljs-string">"pubsub"</span>
+  ],
+  <span class="hljs-attr">"homepage"</span>: <span class="hljs-string">"https://github.com/developit/mitt"</span>,
+  <span class="hljs-attr">"authors"</span>: [
+    <span class="hljs-string">"Jason Miller &lt;jason@developit.ca&gt;"</span>
+  ],
+  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"MIT"</span>,
+  <span class="hljs-attr">"files"</span>: [
+    <span class="hljs-string">"src"</span>,
+    <span class="hljs-string">"dist"</span>,
+    <span class="hljs-string">"mitt.d.ts"</span>
+  ],
+  <span class="hljs-attr">"eslintConfig"</span>: {
+    <span class="hljs-attr">"parser"</span>: <span class="hljs-string">"babel-eslint"</span>,
+    <span class="hljs-attr">"extends"</span>: <span class="hljs-string">"eslint:recommended"</span>,
+    <span class="hljs-attr">"env"</span>: {
+      <span class="hljs-attr">"browser"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"mocha"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"es6"</span>: <span class="hljs-literal">true</span>
+    },
+    <span class="hljs-attr">"globals"</span>: {
+      <span class="hljs-attr">"expect"</span>: <span class="hljs-literal">true</span>
+    },
+    <span class="hljs-attr">"rules"</span>: {
+      <span class="hljs-attr">"semi"</span>: [
+        <span class="hljs-number">2</span>,
+        <span class="hljs-string">"always"</span>
+      ]
+    }
+  },
+  <span class="hljs-attr">"typings"</span>: <span class="hljs-string">"./mitt.d.ts"</span>,
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"babel-core"</span>: <span class="hljs-string">"^6.9.1"</span>,
+    <span class="hljs-attr">"babel-eslint"</span>: <span class="hljs-string">"^7.1.1"</span>,
+    <span class="hljs-attr">"babel-plugin-transform-flow-strip-types"</span>: <span class="hljs-string">"^6.21.0"</span>,
+    <span class="hljs-attr">"babel-preset-es2015"</span>: <span class="hljs-string">"^6.9.0"</span>,
+    <span class="hljs-attr">"babel-preset-stage-0"</span>: <span class="hljs-string">"^6.5.0"</span>,
+    <span class="hljs-attr">"chai"</span>: <span class="hljs-string">"^3.5.0"</span>,
+    <span class="hljs-attr">"documentation"</span>: <span class="hljs-string">"^4.0.0-beta4"</span>,
+    <span class="hljs-attr">"eslint"</span>: <span class="hljs-string">"^3.13.1"</span>,
+    <span class="hljs-attr">"flow-bin"</span>: <span class="hljs-string">"^0.38.0"</span>,
+    <span class="hljs-attr">"flow-remove-types"</span>: <span class="hljs-string">"^1.2.0"</span>,
+    <span class="hljs-attr">"gzip-size-cli"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"mocha"</span>: <span class="hljs-string">"^3.2.0"</span>,
+    <span class="hljs-attr">"npm-run-all"</span>: <span class="hljs-string">"^2.1.1"</span>,
+    <span class="hljs-attr">"pretty-bytes-cli"</span>: <span class="hljs-string">"^2.0.0"</span>,
+    <span class="hljs-attr">"reify"</span>: <span class="hljs-string">"^0.8.3"</span>,
+    <span class="hljs-attr">"rimraf"</span>: <span class="hljs-string">"^2.5.2"</span>,
+    <span class="hljs-attr">"rollup"</span>: <span class="hljs-string">"^0.41.4"</span>,
+    <span class="hljs-attr">"rollup-plugin-buble"</span>: <span class="hljs-string">"^0.15.0"</span>,
+    <span class="hljs-attr">"rollup-plugin-flow"</span>: <span class="hljs-string">"^1.1.1"</span>,
+    <span class="hljs-attr">"sinon"</span>: <span class="hljs-string">"^1.17.4"</span>,
+    <span class="hljs-attr">"sinon-chai"</span>: <span class="hljs-string">"^2.8.0"</span>,
+    <span class="hljs-attr">"standard-version"</span>: <span class="hljs-string">"^4.0.0"</span>,
+    <span class="hljs-attr">"strip-json-comments-cli"</span>: <span class="hljs-string">"^1.0.1"</span>,
+    <span class="hljs-attr">"uglify-js"</span>: <span class="hljs-string">"^2.6.2"</span>
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

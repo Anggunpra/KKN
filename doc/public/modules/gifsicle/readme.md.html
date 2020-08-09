@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gifsicle\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gifsicle-bin">gifsicle-bin </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#cli">CLI</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="gifsicle-bin">
+  <h1>
+    <a href="#gifsicle-bin" name="gifsicle-bin" class="pilcrow"></a>
+gifsicle-bin <a href="https://travis-ci.org/imagemin/gifsicle-bin"><img src="https://travis-ci.org/imagemin/gifsicle-bin.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>gifsicle manipulates GIF image files in many different ways. Depending on command line options, it can merge several GIFs into a GIF animation; explode an animation into its component frames; change individual frames in an animation; turn interlacing on and off; add transparency and much more.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save gifsicle
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> {execFile} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'child_process'</span>);
+<span class="hljs-keyword">const</span> gifsicle = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gifsicle'</span>);
+
+execFile(gifsicle, [<span class="hljs-string">'-o'</span>, <span class="hljs-string">'output.gif'</span>, <span class="hljs-string">'input.gif'</span>], err =&gt; {
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Image minified!'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="cli">
+  <h2>
+    <a href="#cli" name="cli" class="pilcrow"></a>
+CLI
+  </h2>
+</div>
+<pre><code>$ npm install --global gifsicle
+</code></pre>
+<pre><code>$ gifsicle --help
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/imagemin">imagemin</a></p>
+</div>
+  </div>
+</body>
+</html>

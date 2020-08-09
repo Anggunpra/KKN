@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>mail.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "config\\mail.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>mail.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">return</span> [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Default Mailer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This option controls the default mailer that is used to send any email</td>
+</tr>
+<tr>
+<td>messages sent by your application. Alternative mailers may be setup</td>
+</tr>
+<tr>
+<td>and used as needed; however, this mailer will be used by default.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'default'</span> =&gt; env(<span class="hljs-string">'MAIL_MAILER'</span>, <span class="hljs-string">'smtp'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Mailer Configurations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may configure all of the mailers used by your application plus</td>
+</tr>
+<tr>
+<td>their respective settings. Several examples have been configured for</td>
+</tr>
+<tr>
+<td>you and you are free to add your own as your application requires.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Laravel supports a variety of mail &quot;transport&quot; drivers to be used while</td>
+</tr>
+<tr>
+<td>sending an e-mail. You will specify which one you are using for your</td>
+</tr>
+<tr>
+<td>mailers below. You are free to add additional mailers as required.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Supported: &quot;smtp&quot;, &quot;sendmail&quot;, &quot;mailgun&quot;, &quot;ses&quot;,</td>
+</tr>
+<tr>
+<td>&quot;postmark&quot;, &quot;log&quot;, &quot;array&quot;</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'mailers'</span> =&gt; [
+        <span class="hljs-string">'smtp'</span> =&gt; [
+            <span class="hljs-string">'transport'</span> =&gt; <span class="hljs-string">'smtp'</span>,
+            <span class="hljs-string">'host'</span> =&gt; env(<span class="hljs-string">'MAIL_HOST'</span>, <span class="hljs-string">'smtp.mailgun.org'</span>),
+            <span class="hljs-string">'port'</span> =&gt; env(<span class="hljs-string">'MAIL_PORT'</span>, <span class="hljs-number">587</span>),
+            <span class="hljs-string">'encryption'</span> =&gt; env(<span class="hljs-string">'MAIL_ENCRYPTION'</span>, <span class="hljs-string">'tls'</span>),
+            <span class="hljs-string">'username'</span> =&gt; env(<span class="hljs-string">'MAIL_USERNAME'</span>),
+            <span class="hljs-string">'password'</span> =&gt; env(<span class="hljs-string">'MAIL_PASSWORD'</span>),
+            <span class="hljs-string">'timeout'</span> =&gt; <span class="hljs-keyword">null</span>,
+            <span class="hljs-string">'auth_mode'</span> =&gt; <span class="hljs-keyword">null</span>,
+        ],
+
+        <span class="hljs-string">'ses'</span> =&gt; [
+            <span class="hljs-string">'transport'</span> =&gt; <span class="hljs-string">'ses'</span>,
+        ],
+
+        <span class="hljs-string">'mailgun'</span> =&gt; [
+            <span class="hljs-string">'transport'</span> =&gt; <span class="hljs-string">'mailgun'</span>,
+        ],
+
+        <span class="hljs-string">'postmark'</span> =&gt; [
+            <span class="hljs-string">'transport'</span> =&gt; <span class="hljs-string">'postmark'</span>,
+        ],
+
+        <span class="hljs-string">'sendmail'</span> =&gt; [
+            <span class="hljs-string">'transport'</span> =&gt; <span class="hljs-string">'sendmail'</span>,
+            <span class="hljs-string">'path'</span> =&gt; <span class="hljs-string">'/usr/sbin/sendmail -bs'</span>,
+        ],
+
+        <span class="hljs-string">'log'</span> =&gt; [
+            <span class="hljs-string">'transport'</span> =&gt; <span class="hljs-string">'log'</span>,
+            <span class="hljs-string">'channel'</span> =&gt; env(<span class="hljs-string">'MAIL_LOG_CHANNEL'</span>),
+        ],
+
+        <span class="hljs-string">'array'</span> =&gt; [
+            <span class="hljs-string">'transport'</span> =&gt; <span class="hljs-string">'array'</span>,
+        ],
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Global &quot;From&quot; Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>You may wish for all e-mails sent by your application to be sent from</td>
+</tr>
+<tr>
+<td>the same address. Here, you may specify a name and address that is</td>
+</tr>
+<tr>
+<td>used globally for all e-mails that are sent by your application.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'from'</span> =&gt; [
+        <span class="hljs-string">'address'</span> =&gt; env(<span class="hljs-string">'MAIL_FROM_ADDRESS'</span>, <span class="hljs-string">'hello@example.com'</span>),
+        <span class="hljs-string">'name'</span> =&gt; env(<span class="hljs-string">'MAIL_FROM_NAME'</span>, <span class="hljs-string">'Example'</span>),
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Markdown Mail Settings</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>If you are using Markdown based email rendering, you may configure your</td>
+</tr>
+<tr>
+<td>theme and component paths here, allowing you to customize the design</td>
+</tr>
+<tr>
+<td>of the emails. Or, you may simply stick with the Laravel defaults!</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'markdown'</span> =&gt; [
+        <span class="hljs-string">'theme'</span> =&gt; <span class="hljs-string">'default'</span>,
+
+        <span class="hljs-string">'paths'</span> =&gt; [
+            resource_path(<span class="hljs-string">'views/vendor/mail'</span>),
+        ],
+    ],
+
+];
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

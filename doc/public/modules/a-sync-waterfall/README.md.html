@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\a-sync-waterfall\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#a-sync-waterfall">a-sync-waterfall</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#node.js">Node.js:</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#browser">Browser:</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#tasks-as-array-of-functions">Tasks as Array of Functions</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#derive-tasks-from-an-array.map">Derive Tasks from an Array.map</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#acknowledgements">Acknowledgements</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="a-sync-waterfall">
+  <h1>
+    <a href="#a-sync-waterfall" name="a-sync-waterfall" class="pilcrow"></a>
+a-sync-waterfall
+  </h1>
+</div>
+<p>Simple, isolated sync/async waterfall module for JavaScript.</p>
+<p>Runs an array of functions in series, each passing their results to the next in
+the array. However, if any of the functions pass an error to the callback, the
+next function is not executed and the main callback is immediately called with
+the error.</p>
+<p>For browsers and node.js.</p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<ul>
+<li>Just include a-sync-waterfall before your scripts.</li>
+<li><code>npm install a-sync-waterfall</code> if you’re using node.js.</li>
+</ul>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<ul>
+<li><code>waterfall(tasks, optionalCallback, forceAsync);</code></li>
+<li><strong>tasks</strong> - An array of functions to run, each function is passed a
+<code>callback(err, result1, result2, ...)</code> it must call on completion. The first
+argument is an error (which can be null) and any further arguments will be
+passed as arguments in order to the next task.</li>
+<li><strong>optionalCallback</strong> - An optional callback to run once all the functions have
+completed. This will be passed the results of the last task's callback.</li>
+<li><strong>forceAsync</strong> An optional flag that force tasks run asynchronously even if they are sync.</li>
+</ul>
+<div class="pilwrap" id="node.js">
+  <h5>
+    <a href="#node.js" name="node.js" class="pilcrow"></a>
+Node.js:
+  </h5>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> waterfall = <span class="hljs-built_in">require</span>(<span class="hljs-string">'a-sync-waterfall'</span>);
+waterfall(tasks, callback);
+</code></pre>
+<div class="pilwrap" id="browser">
+  <h5>
+    <a href="#browser" name="browser" class="pilcrow"></a>
+Browser:
+  </h5>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> waterfall = <span class="hljs-built_in">require</span>(<span class="hljs-string">'a-sync-waterfall'</span>);
+waterfall(tasks, callback);
+
+<span class="hljs-comment">// Default:</span>
+<span class="hljs-built_in">window</span>.waterfall(tasks, callback);
+</code></pre>
+<div class="pilwrap" id="tasks-as-array-of-functions">
+  <h5>
+    <a href="#tasks-as-array-of-functions" name="tasks-as-array-of-functions" class="pilcrow"></a>
+Tasks as Array of Functions
+  </h5>
+</div>
+<pre><code class="javascript">waterfall([
+  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>)</span>{
+    callback(<span class="hljs-literal">null</span>, <span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>);
+  },
+  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arg1, arg2, callback</span>)</span>{
+    callback(<span class="hljs-literal">null</span>, <span class="hljs-string">'three'</span>);
+  },
+  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arg1, callback</span>)</span>{
+    <span class="hljs-comment">// arg1 now equals 'three'</span>
+    callback(<span class="hljs-literal">null</span>, <span class="hljs-string">'done'</span>);
+  }
+], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
+  <span class="hljs-comment">// result now equals 'done'</span>
+});
+</code></pre>
+<div class="pilwrap" id="derive-tasks-from-an-array.map">
+  <h5>
+    <a href="#derive-tasks-from-an-array.map" name="derive-tasks-from-an-array.map" class="pilcrow"></a>
+Derive Tasks from an Array.map
+  </h5>
+</div>
+<pre><code class="javascript"><span class="hljs-comment">/* basic - no arguments */</span>
+waterfall(myArray.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">arrayItem</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">nextCallback</span>) </span>{
+    <span class="hljs-comment">// same execution for each item, call the next one when done</span>
+    doAsyncThingsWith(arrayItem, nextCallback);
+}}));
+
+<span class="hljs-comment">/* with arguments, initializer function, and final callback */</span>
+waterfall([<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initializer</span> (<span class="hljs-params">firstMapFunction</span>) </span>{
+    firstMapFunction(<span class="hljs-literal">null</span>, initialValue);
+  }].concat(myArray.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">arrayItem</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">lastItemResult, nextCallback</span>) </span>{
+      <span class="hljs-comment">// same execution for each item in the array</span>
+      <span class="hljs-keyword">var</span> itemResult = doThingsWith(arrayItem, lastItemResult);
+      <span class="hljs-comment">// results carried along from each to the next</span>
+      nextCallback(<span class="hljs-literal">null</span>, itemResult);
+}})), <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, finalResult</span>) </span>{
+  <span class="hljs-comment">// final callback</span>
+});
+</code></pre>
+<div class="pilwrap" id="acknowledgements">
+  <h2>
+    <a href="#acknowledgements" name="acknowledgements" class="pilcrow"></a>
+Acknowledgements
+  </h2>
+</div>
+<p>Hat tip to <a href="https://github.com/caolan">Caolan McMahon</a> and
+<a href="https://github.com/paulmillr">Paul Miller</a>, whose prior contributions this is
+based upon.
+Also <a href="https://github.com/es128">Elan Shanker</a> from which this rep is forked</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p><a href="https://raw.github.com/hydiak/a-sync-waterfall/master/LICENSE">MIT</a></p>
+</div>
+  </div>
+</body>
+</html>

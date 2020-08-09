@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\fragment-cache\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#fragment-cache">fragment-cache   </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#fragmentcache">FragmentCache</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.cache">.cache</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.set">.set</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.has">.has</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.get">.get</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#about">About</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#building-docs">Building docs</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#running-tests">Running tests</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="fragment-cache">
+  <h1>
+    <a href="#fragment-cache" name="fragment-cache" class="pilcrow"></a>
+fragment-cache <a href="https://www.npmjs.com/package/fragment-cache"><img src="https://img.shields.io/npm/v/fragment-cache.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.org/package/fragment-cache"><img src="https://img.shields.io/npm/dm/fragment-cache.svg?style=flat" alt="NPM downloads"></a> <a href="https://travis-ci.org/jonschlinkert/fragment-cache"><img src="https://img.shields.io/travis/jonschlinkert/fragment-cache.svg?style=flat&amp;label=Travis" alt="Linux Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>A cache for managing namespaced sub-caches</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://www.npmjs.com/">npm</a>:</p>
+<pre><code class="sh">$ npm install --save fragment-cache
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> Fragment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fragment-cache'</span>);
+<span class="hljs-keyword">var</span> fragment = <span class="hljs-keyword">new</span> Fragment();
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="fragmentcache">
+  <h3>
+    <a href="#fragmentcache" name="fragmentcache" class="pilcrow"></a>
+<a href="index.js#L24.html">FragmentCache</a>
+  </h3>
+</div>
+<p>Create a new <code>FragmentCache</code> with an optional object to use for <code>caches</code>.</p>
+<p><strong>Example</strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> fragment = <span class="hljs-keyword">new</span> FragmentCache();
+</code></pre>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>cacheName</code> <strong>{String}</strong></li>
+<li><code>returns</code> <strong>{Object}</strong>: Returns the <a href="https://github.com/jonschlinkert/map-cache">map-cache</a> instance.</li>
+</ul>
+<div class="pilwrap" id=".cache">
+  <h3>
+    <a href="#.cache" name=".cache" class="pilcrow"></a>
+<a href="index.js#L49.html">.cache</a>
+  </h3>
+</div>
+<p>Get cache <code>name</code> from the <code>fragment.caches</code> object. Creates a new <code>MapCache</code> if it doesn't already exist.</p>
+<p><strong>Example</strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> cache = fragment.cache(<span class="hljs-string">'files'</span>);
+<span class="hljs-built_in">console</span>.log(fragment.caches.hasOwnProperty(<span class="hljs-string">'files'</span>));
+<span class="hljs-comment">//=&gt; true</span>
+</code></pre>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>cacheName</code> <strong>{String}</strong></li>
+<li><code>returns</code> <strong>{Object}</strong>: Returns the <a href="https://github.com/jonschlinkert/map-cache">map-cache</a> instance.</li>
+</ul>
+<div class="pilwrap" id=".set">
+  <h3>
+    <a href="#.set" name=".set" class="pilcrow"></a>
+<a href="index.js#L67.html">.set</a>
+  </h3>
+</div>
+<p>Set a value for property <code>key</code> on cache <code>name</code></p>
+<p><strong>Example</strong></p>
+<pre><code class="js">fragment.set(<span class="hljs-string">'files'</span>, <span class="hljs-string">'somefile.js'</span>, <span class="hljs-keyword">new</span> File({<span class="hljs-attr">path</span>: <span class="hljs-string">'somefile.js'</span>}));
+</code></pre>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>name</code> <strong>{String}</strong></li>
+<li><code>key</code> <strong>{String}</strong>: Property name to set</li>
+<li><code>val</code> <strong>{any}</strong>: The value of <code>key</code></li>
+<li><code>returns</code> <strong>{Object}</strong>: The cache instance for chaining</li>
+</ul>
+<div class="pilwrap" id=".has">
+  <h3>
+    <a href="#.has" name=".has" class="pilcrow"></a>
+<a href="index.js#L93.html">.has</a>
+  </h3>
+</div>
+<p>Returns true if a non-undefined value is set for <code>key</code> on fragment cache <code>name</code>.</p>
+<p><strong>Example</strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> cache = fragment.cache(<span class="hljs-string">'files'</span>);
+cache.set(<span class="hljs-string">'somefile.js'</span>);
+
+<span class="hljs-built_in">console</span>.log(cache.has(<span class="hljs-string">'somefile.js'</span>));
+<span class="hljs-comment">//=&gt; true</span>
+
+<span class="hljs-built_in">console</span>.log(cache.has(<span class="hljs-string">'some-other-file.js'</span>));
+<span class="hljs-comment">//=&gt; false</span>
+</code></pre>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>name</code> <strong>{String}</strong>: Cache name</li>
+<li><code>key</code> <strong>{String}</strong>: Optionally specify a property to check for on cache <code>name</code></li>
+<li><code>returns</code> <strong>{Boolean}</strong></li>
+</ul>
+<div class="pilwrap" id=".get">
+  <h3>
+    <a href="#.get" name=".get" class="pilcrow"></a>
+<a href="index.js#L115.html">.get</a>
+  </h3>
+</div>
+<p>Get <code>name</code>, or if specified, the value of <code>key</code>. Invokes the <a href="#cache.html">cache</a> method, so that cache <code>name</code> will be created it doesn't already exist. If <code>key</code> is not passed, the entire cache (<code>name</code>) is returned.</p>
+<p><strong>Example</strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> Vinyl = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vinyl'</span>);
+<span class="hljs-keyword">var</span> cache = fragment.cache(<span class="hljs-string">'files'</span>);
+cache.set(<span class="hljs-string">'somefile.js'</span>, <span class="hljs-keyword">new</span> Vinyl({<span class="hljs-attr">path</span>: <span class="hljs-string">'somefile.js'</span>}));
+<span class="hljs-built_in">console</span>.log(cache.get(<span class="hljs-string">'somefile.js'</span>));
+<span class="hljs-comment">//=&gt; &lt;File "somefile.js"&gt;</span>
+</code></pre>
+<p><strong>Params</strong></p>
+<ul>
+<li><code>name</code> <strong>{String}</strong></li>
+<li><code>returns</code> <strong>{Object}</strong>: Returns cache <code>name</code>, or the value of <code>key</code> if specified</li>
+</ul>
+<div class="pilwrap" id="about">
+  <h2>
+    <a href="#about" name="about" class="pilcrow"></a>
+About
+  </h2>
+</div>
+<div class="pilwrap" id="related-projects">
+  <h3>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h3>
+</div>
+<ul>
+<li><a href="https://www.npmjs.com/package/base">base</a>: base is the foundation for creating modular, unit testable and highly pluggable node.js applications, starting… <a href="https://github.com/node-base/base">more</a> | <a href="https://github.com/node-base/base" title="base is the foundation for creating modular, unit testable and highly pluggable node.js applications, starting with a handful of common methods, like `set`, `get`, `del` and `use`.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/map-cache">map-cache</a>: Basic cache object for storing key-value pairs. | <a href="https://github.com/jonschlinkert/map-cache" title="Basic cache object for storing key-value pairs.">homepage</a></li>
+</ul>
+<div class="pilwrap" id="contributing">
+  <h3>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h3>
+</div>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="../../issues/new.html">please create an issue</a>.</p>
+<div class="pilwrap" id="building-docs">
+  <h3>
+    <a href="#building-docs" name="building-docs" class="pilcrow"></a>
+Building docs
+  </h3>
+</div>
+<p><em>(This document was generated by <a href="https://github.com/verbose/verb-generate-readme">verb-generate-readme</a> (a <a href="https://github.com/verbose/verb">verb</a> generator), please don't edit the readme directly. Any changes to the readme must be made in <a href=".verb.md.html">.verb.md</a>.)</em></p>
+<p>To generate the readme and API documentation with <a href="https://github.com/verbose/verb">verb</a>:</p>
+<pre><code class="sh">$ npm install -g verb verb-generate-readme &amp;&amp; verb
+</code></pre>
+<div class="pilwrap" id="running-tests">
+  <h3>
+    <a href="#running-tests" name="running-tests" class="pilcrow"></a>
+Running tests
+  </h3>
+</div>
+<p>Install dev dependencies:</p>
+<pre><code class="sh">$ npm install -d &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="author">
+  <h3>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h3>
+</div>
+<p><strong>Jon Schlinkert</strong></p>
+<ul>
+<li><a href="https://github.com/jonschlinkert">github/jonschlinkert</a></li>
+<li><a href="http://twitter.com/jonschlinkert">twitter/jonschlinkert</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h3>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h3>
+</div>
+<p>Copyright © 2016, <a href="https://github.com/jonschlinkert">Jon Schlinkert</a>.
+Released under the <a href="https://github.com/jonschlinkert/fragment-cache/blob/master/LICENSE">MIT license</a>.</p>
+<hr>
+<p><em>This file was generated by <a href="https://github.com/verbose/verb-generate-readme">verb-generate-readme</a>, v0.2.0, on October 17, 2016.</em></p>
+</div>
+  </div>
+</body>
+</html>

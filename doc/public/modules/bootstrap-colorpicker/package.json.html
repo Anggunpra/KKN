@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bootstrap-colorpicker\\package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"bootstrap-colorpicker"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"3.1.2"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Bootstrap Colorpicker is a modular color picker plugin for Bootstrap 4."</span>,
+  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"./dist/js/bootstrap-colorpicker.js"</span>,
+  <span class="hljs-attr">"homepage"</span>: <span class="hljs-string">"https://farbelous.github.io/bootstrap-colorpicker/"</span>,
+  <span class="hljs-attr">"repository"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"git"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/farbelous/bootstrap-colorpicker.git"</span>
+  },
+  <span class="hljs-attr">"bugs"</span>: {
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/farbelous/bootstrap-colorpicker/issues"</span>
+  },
+  <span class="hljs-attr">"keywords"</span>: [
+    <span class="hljs-string">"bootstrap"</span>,
+    <span class="hljs-string">"colorpicker"</span>
+  ],
+  <span class="hljs-attr">"author"</span>: <span class="hljs-string">"Javi Aguilar"</span>,
+  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"MIT"</span>,
+  <span class="hljs-attr">"dependencies"</span>: {
+    <span class="hljs-attr">"bootstrap"</span>: <span class="hljs-string">"&gt;=4.0"</span>,
+    <span class="hljs-attr">"jquery"</span>: <span class="hljs-string">"&gt;=2.1.0"</span>
+  },
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"npm run lint &amp;&amp; ava --color --verbose"</span>,
+    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"node_modules/.bin/http-server ./build/docs"</span>,
+    <span class="hljs-attr">"lint"</span>: <span class="hljs-string">"node_modules/.bin/eslint ./src/js ./*.js ./test"</span>,
+    <span class="hljs-attr">"lint-fix"</span>: <span class="hljs-string">"node_modules/.bin/eslint --fix ./src/js ./*.js ./test"</span>,
+    <span class="hljs-attr">"build"</span>: <span class="hljs-string">"gulp clean &amp;&amp; gulp dist &amp;&amp; gulp docs &amp;&amp; gulp docs:add-v2-docs"</span>,
+    <span class="hljs-attr">"build-dist"</span>: <span class="hljs-string">"gulp dist"</span>,
+    <span class="hljs-attr">"build-docs"</span>: <span class="hljs-string">"gulp dist &amp;&amp; gulp docs &amp;&amp; gulp docs:add-v2-docs"</span>,
+    <span class="hljs-attr">"build-npm"</span>: <span class="hljs-string">"npm run build &amp;&amp; gulp npm-prepublish"</span>,
+    <span class="hljs-attr">"publish-docs"</span>: <span class="hljs-string">"npm run build &amp;&amp; npm run test &amp;&amp; gulp publish-gh-pages"</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"ava"</span>: <span class="hljs-string">"^0.23.0"</span>,
+    <span class="hljs-attr">"babel-cli"</span>: <span class="hljs-string">"^6.26.0"</span>,
+    <span class="hljs-attr">"babel-eslint"</span>: <span class="hljs-string">"^8.0.2"</span>,
+    <span class="hljs-attr">"babel-loader"</span>: <span class="hljs-string">"^7.1.2"</span>,
+    <span class="hljs-attr">"babel-plugin-add-module-exports"</span>: <span class="hljs-string">"^0.2.1"</span>,
+    <span class="hljs-attr">"babel-preset-env"</span>: <span class="hljs-string">"^1.6.1"</span>,
+    <span class="hljs-attr">"color"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"del"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"eslint"</span>: <span class="hljs-string">"^4.11.0"</span>,
+    <span class="hljs-attr">"eslint-loader"</span>: <span class="hljs-string">"^1.9.0"</span>,
+    <span class="hljs-attr">"gh-pages"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"gulp"</span>: <span class="hljs-string">"^3.9.1"</span>,
+    <span class="hljs-attr">"gulp-autoprefixer"</span>: <span class="hljs-string">"^4.0.0"</span>,
+    <span class="hljs-attr">"gulp-clean-css"</span>: <span class="hljs-string">"^3.9.0"</span>,
+    <span class="hljs-attr">"gulp-compile-handlebars"</span>: <span class="hljs-string">"^0.6.1"</span>,
+    <span class="hljs-attr">"gulp-header"</span>: <span class="hljs-string">"^1.8.9"</span>,
+    <span class="hljs-attr">"gulp-rename"</span>: <span class="hljs-string">"^1.2.2"</span>,
+    <span class="hljs-attr">"gulp-sass"</span>: <span class="hljs-string">"^2.3.2"</span>,
+    <span class="hljs-attr">"gulp-shell"</span>: <span class="hljs-string">"^0.6.3"</span>,
+    <span class="hljs-attr">"gulp-sourcemaps"</span>: <span class="hljs-string">"^2.6.1"</span>,
+    <span class="hljs-attr">"gulp-string-replace"</span>: <span class="hljs-string">"^1.1.1"</span>,
+    <span class="hljs-attr">"handlebars-layouts"</span>: <span class="hljs-string">"^3.1.4"</span>,
+    <span class="hljs-attr">"http-server"</span>: <span class="hljs-string">"^0.10.0"</span>,
+    <span class="hljs-attr">"jsdoc"</span>: <span class="hljs-string">"^3.5.5"</span>,
+    <span class="hljs-attr">"jsdom"</span>: <span class="hljs-string">"^11.3.0"</span>,
+    <span class="hljs-attr">"run-sequence"</span>: <span class="hljs-string">"^2.2.1"</span>,
+    <span class="hljs-attr">"uglifyjs-webpack-plugin"</span>: <span class="hljs-string">"^1.0.1"</span>,
+    <span class="hljs-attr">"webpack"</span>: <span class="hljs-string">"^3.8.1"</span>,
+    <span class="hljs-attr">"webpack-stream"</span>: <span class="hljs-string">"^4.0.0"</span>
+  },
+  <span class="hljs-attr">"ava"</span>: {
+    <span class="hljs-attr">"files"</span>: [
+      <span class="hljs-string">"tests/**/*test.js"</span>
+    ],
+    <span class="hljs-attr">"source"</span>: [
+      <span class="hljs-string">"src/js/**/*.{js,jsx}"</span>
+    ],
+    <span class="hljs-attr">"concurrency"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-attr">"failFast"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"failWithoutAssertions"</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">"tap"</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">"powerAssert"</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">"require"</span>: [
+      <span class="hljs-string">"babel-register"</span>
+    ],
+    <span class="hljs-attr">"babel"</span>: <span class="hljs-string">"inherit"</span>
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

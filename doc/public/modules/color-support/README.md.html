@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\color-support\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#color-support">color-support</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">USAGE</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#options">Options</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#return-value">Return Value</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#cli">CLI</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#credits">Credits</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="color-support">
+  <h1>
+    <a href="#color-support" name="color-support" class="pilcrow"></a>
+color-support
+  </h1>
+</div>
+<p>A module which will endeavor to guess your terminal's level of color
+support.</p>
+<p><a href="https://travis-ci.org/isaacs/color-support"><img src="https://travis-ci.org/isaacs/color-support.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/isaacs/color-support?branch=master"><img src="https://coveralls.io/repos/github/isaacs/color-support/badge.svg?branch=master" alt="Coverage Status"></a></p>
+<p>This is similar to <code>supports-color</code>, but it does not read
+<code>process.argv</code>.</p>
+<ol>
+<li>
+<p>If not in a node environment, not supported.</p>
+</li>
+<li>
+<p>If stdout is not a TTY, not supported, unless the <code>ignoreTTY</code>
+option is set.</p>
+</li>
+<li>
+<p>If the <code>TERM</code> environ is <code>dumb</code>, not supported, unless the
+<code>ignoreDumb</code> option is set.</p>
+</li>
+<li>
+<p>If on Windows, then support 16 colors.</p>
+</li>
+<li>
+<p>If using Tmux, then support 256 colors.</p>
+</li>
+<li>
+<p>Handle continuous-integration servers.  If <code>CI</code> or
+<code>TEAMCITY_VERSION</code> are set in the environment, and <code>TRAVIS</code> is not
+set, then color is not supported, unless <code>ignoreCI</code> option is set.</p>
+</li>
+<li>
+<p>Guess based on the <code>TERM_PROGRAM</code> environ.  These terminals support
+16m colors:</p>
+<ul>
+<li><code>iTerm.app</code> version 3.x supports 16m colors, below support 256</li>
+<li><code>MacTerm</code> supports 16m colors</li>
+<li><code>Apple_Terminal</code> supports 256 colors</li>
+<li>Have more things that belong on this list?  Send a PR!</li>
+</ul>
+</li>
+<li>
+<p>Make a guess based on the <code>TERM</code> environment variable.  Any
+<code>xterm-256color</code> will get 256 colors.  Any screen, xterm, vt100,
+color, ansi, cygwin, or linux <code>TERM</code> will get 16 colors.</p>
+</li>
+<li>
+<p>If <code>COLORTERM</code> environment variable is set, then support 16 colors.</p>
+</li>
+<li>
+<p>At this point, we assume that color is not supported.</p>
+</li>
+</ol>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+USAGE
+  </h2>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> testColorSupport = <span class="hljs-built_in">require</span>(<span class="hljs-string">'color-support'</span>)
+<span class="hljs-keyword">var</span> colorSupport = testColorSupport(<span class="hljs-comment">/* options object */</span>)
+
+<span class="hljs-keyword">if</span> (!colorSupport) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'color is not supported'</span>)
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (colorSupport.has16m) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\x1b[38;2;102;194;255m16m colors\x1b[0m'</span>)
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (colorSupport.has256) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\x1b[38;5;119m256 colors\x1b[0m'</span>)
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (colorSupport.hasBasic) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\x1b[31mbasic colors\x1b[0m'</span>)
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'this is impossible, but colors are not supported'</span>)
+}
+</code></pre>
+<p>If you don't have any options to set, you can also just look at the
+flags which will all be set on the test function itself.  (Of course,
+this doesn't return a falsey value when colors aren't supported, and
+doesn't allow you to set options.)</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> colorSupport = <span class="hljs-built_in">require</span>(<span class="hljs-string">'color-support'</span>)
+
+<span class="hljs-keyword">if</span> (colorSupport.has16m) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\x1b[38;2;102;194;255m16m colors\x1b[0m'</span>)
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (colorSupport.has256) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\x1b[38;5;119m256 colors\x1b[0m'</span>)
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (colorSupport.hasBasic) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\x1b[31mbasic colors\x1b[0m'</span>)
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'colors are not supported'</span>)
+}
+</code></pre>
+<div class="pilwrap" id="options">
+  <h2>
+    <a href="#options" name="options" class="pilcrow"></a>
+Options
+  </h2>
+</div>
+<p>You can pass in the following options.</p>
+<ul>
+<li>ignoreTTY - default false.  Ignore the <code>isTTY</code> check.</li>
+<li>ignoreDumb - default false.  Ignore <code>TERM=dumb</code> environ check.</li>
+<li>ignoreCI - default false.  Ignore <code>CI</code> environ check.</li>
+<li>env - Object for environment vars. Defaults to <code>process.env</code>.</li>
+<li>stream - Stream for <code>isTTY</code> check. Defaults to <code>process.stdout</code>.</li>
+<li>term - String for <code>TERM</code> checking. Defaults to <code>env.TERM</code>.</li>
+<li>alwaysReturn - default false.  Return an object when colors aren't
+supported (instead of returning <code>false</code>).</li>
+<li>level - A number from 0 to 3.  This will return a result for the
+specified level.  This is useful if you want to be able to set the
+color support level explicitly as a number in an environment
+variable or config, but then use the object flags in your program.
+Except for <code>alwaysReturn</code> to return an object for level 0, all other
+options are ignored, since no checking is done if a level is
+explicitly set.</li>
+</ul>
+<div class="pilwrap" id="return-value">
+  <h2>
+    <a href="#return-value" name="return-value" class="pilcrow"></a>
+Return Value
+  </h2>
+</div>
+<p>If no color support is available, then <code>false</code> is returned by default,
+unless the <code>alwaysReturn</code> flag is set to <code>true</code>.  This is so that the
+simple question of &quot;can I use colors or not&quot; can treat any truthy
+return as &quot;yes&quot;.</p>
+<p>Otherwise, the return object has the following fields:</p>
+<ul>
+<li><code>level</code> - A number from 0 to 3
+<ul>
+<li><code>0</code> - No color support</li>
+<li><code>1</code> - Basic (16) color support</li>
+<li><code>2</code> - 256 color support</li>
+<li><code>3</code> - 16 million (true) color support</li>
+</ul>
+</li>
+<li><code>hasBasic</code> - Boolean</li>
+<li><code>has256</code> - Boolean</li>
+<li><code>has16m</code> - Boolean</li>
+</ul>
+<div class="pilwrap" id="cli">
+  <h2>
+    <a href="#cli" name="cli" class="pilcrow"></a>
+CLI
+  </h2>
+</div>
+<p>You can run the <code>color-support</code> bin from the command line which will
+just dump the values as this module calculates them in whatever env
+it's run.  It takes no command line arguments.</p>
+<div class="pilwrap" id="credits">
+  <h2>
+    <a href="#credits" name="credits" class="pilcrow"></a>
+Credits
+  </h2>
+</div>
+<p>This is a spiritual, if not actual, fork of
+<a href="http://npm.im/supports-color">supports-color</a> by the ever prolific
+<a href="http://npm.im/~sindresorhus">Sindre Sorhus</a>.</p>
+</div>
+  </div>
+</body>
+</html>

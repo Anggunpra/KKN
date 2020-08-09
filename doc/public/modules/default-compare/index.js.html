@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\default-compare\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> typeOf = <span class="hljs-built_in">require</span>(<span class="hljs-string">'kind-of'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Basic sort algorithm that has similar behavior to <code>Array.prototype.sort</code>
+for null and undefined, but also allows sorting by an object property.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`a`</span>
+<span class="dox_type">Mixed</span>
+<span>First value to compare.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`b`</span>
+<span class="dox_type">Mixed</span>
+<span>Second value to compare.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`prop`</span>
+<span class="dox_type">String</span>
+<span>Optional property to use when comparing objects. If specified must be a string.
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Number</span>
+<span>Returns 1 when <code>a</code> should come after <code>b</code>, -1 when <code>a</code> should come before <code>b</code>, and 0 when <code>a</code> and <code>b</code> are equal.
+</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">defaultCompare</span>(<span class="hljs-params">a, b, prop</span>) </span>{
+  <span class="hljs-keyword">if</span> (prop != <span class="hljs-literal">null</span> &amp;&amp; typeOf(prop) !== <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected "prop" to be undefined or a string'</span>);
+  }
+
+  <span class="hljs-keyword">var</span> typeA = typeOf(a);
+  <span class="hljs-keyword">var</span> typeB = typeOf(b);
+
+  <span class="hljs-keyword">if</span> (prop) {
+    <span class="hljs-keyword">if</span> (typeA === <span class="hljs-string">'object'</span>) {
+      a = a[prop];
+      typeA = typeOf(a);
+    }
+    <span class="hljs-keyword">if</span> (typeB === <span class="hljs-string">'object'</span>) {
+      b = b[prop];
+      typeB = typeOf(b);
+    }
+  }
+
+  <span class="hljs-keyword">if</span> (typeA === <span class="hljs-string">'null'</span>) {
+    <span class="hljs-keyword">return</span> typeB === <span class="hljs-string">'null'</span> ? <span class="hljs-number">0</span> : (typeB === <span class="hljs-string">'undefined'</span> ? <span class="hljs-number">-1</span> : <span class="hljs-number">1</span>);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (typeA === <span class="hljs-string">'undefined'</span>) {
+    <span class="hljs-keyword">return</span> typeB === <span class="hljs-string">'null'</span> ? <span class="hljs-number">1</span> : (typeB === <span class="hljs-string">'undefined'</span> ? <span class="hljs-number">0</span> : <span class="hljs-number">1</span>);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (typeB === <span class="hljs-string">'null'</span> || typeB === <span class="hljs-string">'undefined'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> a &lt; b ? <span class="hljs-number">-1</span> : (a &gt; b ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>);
+  }
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

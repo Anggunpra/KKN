@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\fancy-log\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> Console = <span class="hljs-built_in">require</span>(<span class="hljs-string">'console'</span>).Console;
+<span class="hljs-keyword">var</span> gray = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ansi-gray'</span>);
+<span class="hljs-keyword">var</span> timestamp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'time-stamp'</span>);
+<span class="hljs-keyword">var</span> supportsColor = <span class="hljs-built_in">require</span>(<span class="hljs-string">'color-support'</span>);
+<span class="hljs-keyword">var</span> nodeVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">'parse-node-version'</span>)(process.version);
+
+<span class="hljs-keyword">var</span> colorDetectionOptions = {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>If on Windows, ignore the isTTY check
+This is due to AppVeyor (and thus probably common Windows platforms?) failing the check
+TODO: If this is too broad, we can reduce it to an APPVEYOR env check</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  ignoreTTY: (process.platform === <span class="hljs-string">'win32'</span>),
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>Needed to add this because node 10 decided to start coloring log output randomly</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> <span class="hljs-built_in">console</span>;
+<span class="hljs-keyword">if</span> (nodeVersion.major &gt;= <span class="hljs-number">10</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Node 10 also changed the way this is constructed</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-built_in">console</span> = <span class="hljs-keyword">new</span> Console({
+    <span class="hljs-attr">stdout</span>: process.stdout,
+    <span class="hljs-attr">stderr</span>: process.stderr,
+    <span class="hljs-attr">colorMode</span>: <span class="hljs-literal">false</span>,
+  });
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span> = <span class="hljs-keyword">new</span> Console(process.stdout, process.stderr);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasFlag</span>(<span class="hljs-params">flag</span>) </span>{
+  <span class="hljs-keyword">return</span> (process.argv.indexOf(<span class="hljs-string">'--'</span> + flag) !== <span class="hljs-number">-1</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addColor</span>(<span class="hljs-params">str</span>) </span>{
+  <span class="hljs-keyword">if</span> (hasFlag(<span class="hljs-string">'no-color'</span>)) {
+    <span class="hljs-keyword">return</span> str;
+  }
+
+  <span class="hljs-keyword">if</span> (hasFlag(<span class="hljs-string">'color'</span>)) {
+    <span class="hljs-keyword">return</span> gray(str);
+  }
+
+  <span class="hljs-keyword">if</span> (supportsColor(colorDetectionOptions)) {
+    <span class="hljs-keyword">return</span> gray(str);
+  }
+
+  <span class="hljs-keyword">return</span> str;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getTimestamp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-string">'['</span> + addColor(timestamp(<span class="hljs-string">'HH:mm:ss'</span>)) + <span class="hljs-string">']'</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> time = getTimestamp();
+  process.stdout.write(time + <span class="hljs-string">' '</span>);
+  <span class="hljs-built_in">console</span>.log.apply(<span class="hljs-built_in">console</span>, <span class="hljs-built_in">arguments</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">info</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> time = getTimestamp();
+  process.stdout.write(time + <span class="hljs-string">' '</span>);
+  <span class="hljs-built_in">console</span>.info.apply(<span class="hljs-built_in">console</span>, <span class="hljs-built_in">arguments</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dir</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> time = getTimestamp();
+  process.stdout.write(time + <span class="hljs-string">' '</span>);
+  <span class="hljs-built_in">console</span>.dir.apply(<span class="hljs-built_in">console</span>, <span class="hljs-built_in">arguments</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">warn</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> time = getTimestamp();
+  process.stderr.write(time + <span class="hljs-string">' '</span>);
+  <span class="hljs-built_in">console</span>.warn.apply(<span class="hljs-built_in">console</span>, <span class="hljs-built_in">arguments</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> time = getTimestamp();
+  process.stderr.write(time + <span class="hljs-string">' '</span>);
+  <span class="hljs-built_in">console</span>.error.apply(<span class="hljs-built_in">console</span>, <span class="hljs-built_in">arguments</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+}
+
+<span class="hljs-built_in">module</span>.exports = log;
+<span class="hljs-built_in">module</span>.exports.info = info;
+<span class="hljs-built_in">module</span>.exports.dir = dir;
+<span class="hljs-built_in">module</span>.exports.warn = warn;
+<span class="hljs-built_in">module</span>.exports.error = error;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

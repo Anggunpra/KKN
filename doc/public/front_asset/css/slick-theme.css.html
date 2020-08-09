@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>slick-theme.css</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\front_asset\\css\\slick-theme.css";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>slick-theme.css</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="css"><span class="hljs-keyword">@charset</span> <span class="hljs-string">'UTF-8'</span>;
+<span class="hljs-comment">/* Slider */</span>
+<span class="hljs-selector-class">.slick-loading</span> <span class="hljs-selector-class">.slick-list</span>
+{
+    
+}
+
+<span class="hljs-comment">/* Icons */</span>
+<span class="hljs-keyword">@font-face</span>
+{
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">'slick'</span>;
+    <span class="hljs-attribute">font-weight</span>: normal;
+    <span class="hljs-attribute">font-style</span>: normal;
+
+    <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">'./fonts/slick.eot'</span>);
+    <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">'./fonts/slick.eot?#iefix'</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">'embedded-opentype'</span>), <span class="hljs-built_in">url</span>(<span class="hljs-string">'./fonts/slick.woff'</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">'woff'</span>), <span class="hljs-built_in">url</span>(<span class="hljs-string">'./fonts/slick.ttf'</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">'truetype'</span>), <span class="hljs-built_in">url</span>(<span class="hljs-string">'./fonts/slick.svg#slick'</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">'svg'</span>);
+}
+<span class="hljs-comment">/* Arrows */</span>
+<span class="hljs-selector-class">.slick-prev</span>,
+<span class="hljs-selector-class">.slick-next</span>
+{
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">0</span>;
+
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">50%</span>;
+
+    <span class="hljs-attribute">display</span>: block;
+
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">-webkit-transform</span>: <span class="hljs-built_in">translate</span>(<span class="hljs-number">0</span>, -<span class="hljs-number">50%</span>);
+    <span class="hljs-attribute">-ms-transform</span>: <span class="hljs-built_in">translate</span>(<span class="hljs-number">0</span>, -<span class="hljs-number">50%</span>);
+    <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translate</span>(<span class="hljs-number">0</span>, -<span class="hljs-number">50%</span>);
+
+    <span class="hljs-attribute">cursor</span>: pointer;
+
+    <span class="hljs-attribute">color</span>: transparent;
+    <span class="hljs-attribute">border</span>: none;
+    <span class="hljs-attribute">outline</span>: none;
+    <span class="hljs-attribute">background</span>: transparent;
+}
+<span class="hljs-selector-class">.slick-prev</span><span class="hljs-selector-pseudo">:hover</span>,
+<span class="hljs-selector-class">.slick-prev</span><span class="hljs-selector-pseudo">:focus</span>,
+<span class="hljs-selector-class">.slick-next</span><span class="hljs-selector-pseudo">:hover</span>,
+<span class="hljs-selector-class">.slick-next</span><span class="hljs-selector-pseudo">:focus</span>
+{
+    <span class="hljs-attribute">color</span>: transparent;
+    <span class="hljs-attribute">outline</span>: none;
+    <span class="hljs-attribute">background</span>: transparent;
+}
+<span class="hljs-selector-class">.slick-prev</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">:before</span>,
+<span class="hljs-selector-class">.slick-prev</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">:before</span>,
+<span class="hljs-selector-class">.slick-next</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">:before</span>,
+<span class="hljs-selector-class">.slick-next</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">:before</span>
+{
+    <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+}
+<span class="hljs-selector-class">.slick-prev</span><span class="hljs-selector-class">.slick-disabled</span><span class="hljs-selector-pseudo">:before</span>,
+<span class="hljs-selector-class">.slick-next</span><span class="hljs-selector-class">.slick-disabled</span><span class="hljs-selector-pseudo">:before</span>
+{
+    <span class="hljs-attribute">opacity</span>: .<span class="hljs-number">25</span>;
+}
+
+<span class="hljs-selector-class">.slick-prev</span><span class="hljs-selector-pseudo">:before</span>,
+<span class="hljs-selector-class">.slick-next</span><span class="hljs-selector-pseudo">:before</span>
+{
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">'Fontawesome'</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1</span>;
+
+    <span class="hljs-attribute">opacity</span>: .<span class="hljs-number">75</span>;
+    <span class="hljs-attribute">color</span>: white;
+
+    <span class="hljs-attribute">-webkit-font-smoothing</span>: antialiased;
+    <span class="hljs-attribute">-moz-osx-font-smoothing</span>: grayscale;
+}
+
+<span class="hljs-selector-class">.slick-prev</span>
+{
+    <span class="hljs-attribute">left</span>: -<span class="hljs-number">25px</span>;
+}
+<span class="hljs-selector-attr">[dir=<span class="hljs-string">'rtl'</span>]</span> <span class="hljs-selector-class">.slick-prev</span>
+{
+    <span class="hljs-attribute">right</span>: -<span class="hljs-number">25px</span>;
+    <span class="hljs-attribute">left</span>: auto;
+}
+<span class="hljs-selector-class">.slick-prev</span><span class="hljs-selector-pseudo">:before</span>
+{
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">'\f053'</span>;
+}
+<span class="hljs-selector-attr">[dir=<span class="hljs-string">'rtl'</span>]</span> <span class="hljs-selector-class">.slick-prev</span><span class="hljs-selector-pseudo">:before</span>
+{
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">'\f054'</span>;
+}
+
+<span class="hljs-selector-class">.slick-next</span>
+{
+    <span class="hljs-attribute">right</span>: -<span class="hljs-number">25px</span>;
+}
+<span class="hljs-selector-attr">[dir=<span class="hljs-string">'rtl'</span>]</span> <span class="hljs-selector-class">.slick-next</span>
+{
+    <span class="hljs-attribute">right</span>: auto;
+    <span class="hljs-attribute">left</span>: -<span class="hljs-number">25px</span>;
+}
+<span class="hljs-selector-class">.slick-next</span><span class="hljs-selector-pseudo">:before</span>
+{
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">'\f054'</span>;
+}
+<span class="hljs-selector-attr">[dir=<span class="hljs-string">'rtl'</span>]</span> <span class="hljs-selector-class">.slick-next</span><span class="hljs-selector-pseudo">:before</span>
+{
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">'\f054'</span>;
+}
+
+<span class="hljs-comment">/* Dots */</span>
+<span class="hljs-selector-class">.slick-dotted</span><span class="hljs-selector-class">.slick-slider</span>
+{
+    <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">30px</span>;
+}
+
+<span class="hljs-selector-class">.slick-dots</span>
+{
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">bottom</span>: -<span class="hljs-number">25px</span>;
+
+    <span class="hljs-attribute">display</span>: block;
+
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+
+    <span class="hljs-attribute">list-style</span>: none;
+
+    <span class="hljs-attribute">text-align</span>: center;
+}
+<span class="hljs-selector-class">.slick-dots</span> <span class="hljs-selector-tag">li</span>
+{
+    <span class="hljs-attribute">position</span>: relative;
+
+    <span class="hljs-attribute">display</span>: inline-block;
+
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">20px</span>;
+  
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+
+    <span class="hljs-attribute">cursor</span>: pointer;
+}
+<span class="hljs-selector-class">.slick-dots</span> <span class="hljs-selector-tag">li</span> <span class="hljs-selector-tag">button</span>
+{
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">0</span>;
+
+    <span class="hljs-attribute">display</span>: block;
+
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">12px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">12px</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">5px</span>;
+
+    <span class="hljs-attribute">cursor</span>: pointer;
+
+    <span class="hljs-attribute">color</span>: transparent;
+    <span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">outline</span>: none;
+    <span class="hljs-attribute">background</span>: transparent;
+}
+<span class="hljs-selector-class">.slick-dots</span> <span class="hljs-selector-tag">li</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:hover</span>,
+<span class="hljs-selector-class">.slick-dots</span> <span class="hljs-selector-tag">li</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:focus</span>
+{
+    <span class="hljs-attribute">outline</span>: none;
+}
+<span class="hljs-selector-class">.slick-dots</span> <span class="hljs-selector-tag">li</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">:before</span>,
+<span class="hljs-selector-class">.slick-dots</span> <span class="hljs-selector-tag">li</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">:before</span>
+{
+    <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+}
+<span class="hljs-selector-class">.slick-dots</span> <span class="hljs-selector-tag">li</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:before</span>
+{
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">'Fontawesme'</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">6px</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">20px</span>;
+
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">20px</span>;
+
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">'•'</span>;
+    <span class="hljs-attribute">text-align</span>: center;
+
+    <span class="hljs-attribute">opacity</span>: .<span class="hljs-number">25</span>;
+    <span class="hljs-attribute">color</span>: black;
+
+    <span class="hljs-attribute">-webkit-font-smoothing</span>: antialiased;
+    <span class="hljs-attribute">-moz-osx-font-smoothing</span>: grayscale;
+}
+<span class="hljs-selector-class">.slick-dots</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-class">.slick-active</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:before</span>
+{
+    <span class="hljs-attribute">opacity</span>: .<span class="hljs-number">75</span>;
+    <span class="hljs-attribute">color</span>: black;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\imagemin-svgo\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#imagemin-svgo">imagemin-svgo  </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#imageminsvgo-options-buffer">imageminSvgo([options])(buffer)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#buffer">buffer</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="imagemin-svgo">
+  <h1>
+    <a href="#imagemin-svgo" name="imagemin-svgo" class="pilcrow"></a>
+imagemin-svgo <a href="https://travis-ci.org/imagemin/imagemin-svgo"><img src="https://travis-ci.org/imagemin/imagemin-svgo.svg?branch=master" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/ShinnosukeWatanabe/imagemin-svgo/branch/master"><img src="https://ci.appveyor.com/api/projects/status/esa7m3u8bcol1mtr/branch/master?svg=true" alt="Build status"></a>
+  </h1>
+</div>
+<blockquote>
+<p><a href="https://github.com/svg/svgo">SVGO</a> imagemin plugin</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install imagemin-svgo
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> imagemin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin'</span>);
+<span class="hljs-keyword">const</span> imageminSvgo = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin-svgo'</span>);
+
+imagemin([<span class="hljs-string">'images/*.svg'</span>], <span class="hljs-string">'build/images'</span>, {
+	<span class="hljs-attr">use</span>: [
+		imageminSvgo({
+			<span class="hljs-attr">plugins</span>: [
+				{<span class="hljs-attr">removeViewBox</span>: <span class="hljs-literal">false</span>}
+			]
+		})
+	]
+}).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Images optimized'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="imageminsvgo-options-buffer">
+  <h3>
+    <a href="#imageminsvgo-options-buffer" name="imageminsvgo-options-buffer" class="pilcrow"></a>
+imageminSvgo([options])(buffer)
+  </h3>
+</div>
+<p>Returns a <code>Promise&lt;Buffer&gt;</code>.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>Object</code></p>
+<p>Pass options to <a href="https://github.com/svg/svgo#what-it-can-do">SVGO</a>.</p>
+<div class="pilwrap" id="buffer">
+  <h4>
+    <a href="#buffer" name="buffer" class="pilcrow"></a>
+buffer
+  </h4>
+</div>
+<p>Type: <code>Buffer</code></p>
+<p>Buffer to optimize.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/imagemin">imagemin</a></p>
+</div>
+  </div>
+</body>
+</html>

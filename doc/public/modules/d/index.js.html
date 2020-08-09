@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\d\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">"use strict"</span>;
+
+<span class="hljs-keyword">var</span> isValue         = <span class="hljs-built_in">require</span>(<span class="hljs-string">"type/value/is"</span>)
+  , isPlainFunction = <span class="hljs-built_in">require</span>(<span class="hljs-string">"type/plain-function/is"</span>)
+  , assign          = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/object/assign"</span>)
+  , normalizeOpts   = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/object/normalize-options"</span>)
+  , contains        = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/string/#/contains"</span>);
+
+<span class="hljs-keyword">var</span> d = (<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">dscr, value<span class="hljs-regexp">/*, options*/</span></span>) </span>{
+	<span class="hljs-keyword">var</span> c, e, w, options, desc;
+	<span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>.length &lt; <span class="hljs-number">2</span> || <span class="hljs-keyword">typeof</span> dscr !== <span class="hljs-string">"string"</span>) {
+		options = value;
+		value = dscr;
+		dscr = <span class="hljs-literal">null</span>;
+	} <span class="hljs-keyword">else</span> {
+		options = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">2</span>];
+	}
+	<span class="hljs-keyword">if</span> (isValue(dscr)) {
+		c = contains.call(dscr, <span class="hljs-string">"c"</span>);
+		e = contains.call(dscr, <span class="hljs-string">"e"</span>);
+		w = contains.call(dscr, <span class="hljs-string">"w"</span>);
+	} <span class="hljs-keyword">else</span> {
+		c = w = <span class="hljs-literal">true</span>;
+		e = <span class="hljs-literal">false</span>;
+	}
+
+	desc = { <span class="hljs-attr">value</span>: value, <span class="hljs-attr">configurable</span>: c, <span class="hljs-attr">enumerable</span>: e, <span class="hljs-attr">writable</span>: w };
+	<span class="hljs-keyword">return</span> !options ? desc : assign(normalizeOpts(options), desc);
+});
+
+d.gs = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">dscr, get, set<span class="hljs-regexp">/*, options*/</span></span>) </span>{
+	<span class="hljs-keyword">var</span> c, e, options, desc;
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> dscr !== <span class="hljs-string">"string"</span>) {
+		options = <span class="hljs-keyword">set</span>;
+		<span class="hljs-keyword">set</span> = <span class="hljs-keyword">get</span>;
+		<span class="hljs-keyword">get</span> = dscr;
+		dscr = null;
+	} else {
+		options = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">3</span>];
+	}
+	<span class="hljs-keyword">if</span> (!isValue(<span class="hljs-keyword">get</span>)) {
+		<span class="hljs-keyword">get</span> = undefined;
+	} else if (!isPlainFunction(<span class="hljs-keyword">get</span>)) {
+		options = <span class="hljs-keyword">get</span>;
+		<span class="hljs-keyword">get</span> = <span class="hljs-keyword">set</span> = undefined;
+	} else if (!isValue(<span class="hljs-keyword">set</span>)) {
+		<span class="hljs-keyword">set</span> = undefined;
+	} else if (!isPlainFunction(<span class="hljs-keyword">set</span>)) {
+		options = <span class="hljs-keyword">set</span>;
+		<span class="hljs-keyword">set</span> = undefined;
+	}
+	if (isValue(dscr)) {
+		c = contains.call(dscr, <span class="hljs-string">"c"</span>);
+		e = contains.call(dscr, <span class="hljs-string">"e"</span>);
+	} <span class="hljs-keyword">else</span> {
+		c = <span class="hljs-literal">true</span>;
+		e = <span class="hljs-literal">false</span>;
+	}
+
+	desc = { <span class="hljs-attr">get</span>: <span class="hljs-keyword">get</span>, <span class="hljs-keyword">set</span>: <span class="hljs-keyword">set</span>, configurable: c, enumerable: e };
+	return !options ? desc : assign(normalizeOpts(options), desc);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

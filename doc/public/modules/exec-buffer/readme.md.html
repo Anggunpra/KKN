@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\exec-buffer\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#exec-buffer">exec-buffer </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#execbuffer-options">execBuffer(options)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#input">input</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#bin">bin</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#args">args</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#inputpath">inputPath</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#outputpath">outputPath</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#execbuffer.input">execBuffer.input</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#execbuffer.output">execBuffer.output</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="exec-buffer">
+  <h1>
+    <a href="#exec-buffer" name="exec-buffer" class="pilcrow"></a>
+exec-buffer <a href="https://travis-ci.org/kevva/exec-buffer"><img src="http://img.shields.io/travis/kevva/exec-buffer.svg?style=flat" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Run a Buffer through a child process</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install exec-buffer
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> execBuffer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'exec-buffer'</span>);
+<span class="hljs-keyword">const</span> gifsicle = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gifsicle'</span>).path;
+
+execBuffer({
+	<span class="hljs-attr">input</span>: fs.readFileSync(<span class="hljs-string">'test.gif'</span>),
+	<span class="hljs-attr">bin</span>: gifsicle,
+	<span class="hljs-attr">args</span>: [<span class="hljs-string">'-o'</span>, execBuffer.output, execBuffer.input]
+}).then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log(data);
+	<span class="hljs-comment">//=&gt; &lt;Buffer 47 49 46 38 37 61 ...&gt;</span>
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="execbuffer-options">
+  <h3>
+    <a href="#execbuffer-options" name="execbuffer-options" class="pilcrow"></a>
+execBuffer(options)
+  </h3>
+</div>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>Object</code></p>
+<div class="pilwrap" id="input">
+  <h5>
+    <a href="#input" name="input" class="pilcrow"></a>
+input
+  </h5>
+</div>
+<p>Type: <code>Buffer</code></p>
+<p>The <code>Buffer</code> to be ran through the child process.</p>
+<div class="pilwrap" id="bin">
+  <h5>
+    <a href="#bin" name="bin" class="pilcrow"></a>
+bin
+  </h5>
+</div>
+<p>Type: <code>string</code></p>
+<p>Path to the binary.</p>
+<div class="pilwrap" id="args">
+  <h5>
+    <a href="#args" name="args" class="pilcrow"></a>
+args
+  </h5>
+</div>
+<p>Type: <code>Array</code></p>
+<p>Arguments to run the binary with.</p>
+<div class="pilwrap" id="inputpath">
+  <h4>
+    <a href="#inputpath" name="inputpath" class="pilcrow"></a>
+inputPath
+  </h4>
+</div>
+<p>Type: <code>string</code><br>
+Default: <code>tempfile()</code></p>
+<p>Where <code>input</code> will be written to. In most cases you don't need to set this.</p>
+<div class="pilwrap" id="outputpath">
+  <h4>
+    <a href="#outputpath" name="outputpath" class="pilcrow"></a>
+outputPath
+  </h4>
+</div>
+<p>Type: <code>string</code><br>
+Default: <code>tempfile()</code></p>
+<p>Where output file will be written to. In most cases you don't need to set this.</p>
+<div class="pilwrap" id="execbuffer.input">
+  <h3>
+    <a href="#execbuffer.input" name="execbuffer.input" class="pilcrow"></a>
+execBuffer.input
+  </h3>
+</div>
+<p>Returns a temporary path to where the input file will be written.</p>
+<div class="pilwrap" id="execbuffer.output">
+  <h3>
+    <a href="#execbuffer.output" name="execbuffer.output" class="pilcrow"></a>
+execBuffer.output
+  </h3>
+</div>
+<p>Returns a temporary path to where the output file will be written.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/kevva">Kevin Mårtensson</a></p>
+</div>
+  </div>
+</body>
+</html>

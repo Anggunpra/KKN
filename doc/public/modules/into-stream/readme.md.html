@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\into-stream\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#into-stream">into-stream </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#intostream-input">intoStream(input)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#intostream.obj-input">intoStream.obj(input)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="into-stream">
+  <h1>
+    <a href="#into-stream" name="into-stream" class="pilcrow"></a>
+into-stream <a href="https://travis-ci.org/sindresorhus/into-stream"><img src="https://travis-ci.org/sindresorhus/into-stream.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Convert a buffer/string/array/object/iterable/promise into a stream</p>
+</blockquote>
+<p>Correctly chunks up the input and handles backpressure.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save into-stream
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> intoStream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'into-stream'</span>);
+
+intoStream(<span class="hljs-string">'unicorn'</span>).pipe(process.stdout);
+<span class="hljs-comment">//=&gt; 'unicorn'</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="intostream-input">
+  <h3>
+    <a href="#intostream-input" name="intostream-input" class="pilcrow"></a>
+intoStream(input)
+  </h3>
+</div>
+<p>Type: <code>Buffer</code> <code>string</code> <code>Iterable&lt;Buffer|string&gt;</code> <code>Promise</code><br>
+Returns: <a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">Readable stream</a></p>
+<p>Adheres to the requested chunk size, except for <code>array</code> where each element will be a chunk.</p>
+<div class="pilwrap" id="intostream.obj-input">
+  <h3>
+    <a href="#intostream.obj-input" name="intostream.obj-input" class="pilcrow"></a>
+intoStream.obj(input)
+  </h3>
+</div>
+<p>Type: <code>Object</code>, <code>Iterable&lt;Object&gt;</code> <code>Promise</code><br>
+Returns: <a href="https://nodejs.org/api/stream.html#stream_object_mode">Readable object stream</a></p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

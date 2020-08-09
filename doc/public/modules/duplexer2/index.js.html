@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\duplexer2\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">"use strict"</span>;
+
+<span class="hljs-keyword">var</span> stream = <span class="hljs-built_in">require</span>(<span class="hljs-string">"readable-stream"</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DuplexWrapper</span>(<span class="hljs-params">options, writable, readable</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> readable === <span class="hljs-string">"undefined"</span>) {
+    readable = writable;
+    writable = options;
+    options = <span class="hljs-literal">null</span>;
+  }
+
+  stream.Duplex.call(<span class="hljs-keyword">this</span>, options);
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> readable.read !== <span class="hljs-string">"function"</span>) {
+    readable = (<span class="hljs-keyword">new</span> stream.Readable(options)).wrap(readable);
+  }
+
+  <span class="hljs-keyword">this</span>._writable = writable;
+  <span class="hljs-keyword">this</span>._readable = readable;
+  <span class="hljs-keyword">this</span>._waiting = <span class="hljs-literal">false</span>;
+
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+
+  writable.once(<span class="hljs-string">"finish"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    self.end();
+  });
+
+  <span class="hljs-keyword">this</span>.once(<span class="hljs-string">"finish"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    writable.end();
+  });
+
+  readable.on(<span class="hljs-string">"readable"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (self._waiting) {
+      self._waiting = <span class="hljs-literal">false</span>;
+      self._read();
+    }
+  });
+
+  readable.once(<span class="hljs-string">"end"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    self.push(<span class="hljs-literal">null</span>);
+  });
+
+  <span class="hljs-keyword">if</span> (!options || <span class="hljs-keyword">typeof</span> options.bubbleErrors === <span class="hljs-string">"undefined"</span> || options.bubbleErrors) {
+    writable.on(<span class="hljs-string">"error"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+      self.emit(<span class="hljs-string">"error"</span>, err);
+    });
+
+    readable.on(<span class="hljs-string">"error"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+      self.emit(<span class="hljs-string">"error"</span>, err);
+    });
+  }
+}
+
+DuplexWrapper.prototype = <span class="hljs-built_in">Object</span>.create(stream.Duplex.prototype, {<span class="hljs-attr">constructor</span>: {<span class="hljs-attr">value</span>: DuplexWrapper}});
+
+DuplexWrapper.prototype._write = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_write</span>(<span class="hljs-params">input, encoding, done</span>) </span>{
+  <span class="hljs-keyword">this</span>._writable.write(input, encoding, done);
+};
+
+DuplexWrapper.prototype._read = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_read</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> buf;
+  <span class="hljs-keyword">var</span> reads = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">while</span> ((buf = <span class="hljs-keyword">this</span>._readable.read()) !== <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">this</span>.push(buf);
+    reads++;
+  }
+  <span class="hljs-keyword">if</span> (reads === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">this</span>._waiting = <span class="hljs-literal">true</span>;
+  }
+};
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">duplex2</span>(<span class="hljs-params">options, writable, readable</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DuplexWrapper(options, writable, readable);
+};
+
+<span class="hljs-built_in">module</span>.exports.DuplexWrapper = DuplexWrapper;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

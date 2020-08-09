@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-color\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gulp-color">gulp-color</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="gulp-color">
+  <h1>
+    <a href="#gulp-color" name="gulp-color" class="pilcrow"></a>
+gulp-color
+  </h1>
+</div>
+<p><a href="https://github.com/standard/standard"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg" alt="js-standard-style"></a></p>
+<blockquote>
+<p>Color your console.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://npmjs.org/package/gulp-color">npm</a>.</p>
+<pre><code class="bash">npm install --save-dev gulp-color
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> color = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-color'</span>);
+
+gulp.task(<span class="hljs-string">'default'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(color(<span class="hljs-string">'Hello World!'</span>, <span class="hljs-string">'RED'</span>));
+});
+</code></pre>
+<p>You can use this following color:</p>
+<ul>
+<li>BLACK</li>
+<li>RED</li>
+<li>GREEN</li>
+<li>YELLOW</li>
+<li>BLUE</li>
+<li>MAGENTA</li>
+<li>CYAN</li>
+<li>WHITE</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

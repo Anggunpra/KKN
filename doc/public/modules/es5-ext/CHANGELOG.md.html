@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CHANGELOG.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es5-ext\\CHANGELOG.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#changelog">Changelog</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.10.51-2019-08-30">0.10.51 (2019-08-30)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes">Bug Fixes</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#tests">Tests</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.50-2019-04-30">0.10.50 (2019-04-30)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-1">Bug Fixes</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.49-2019-03-11">0.10.49 (2019-03-11)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-1">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.48-2019-02-22">0.10.48 (2019-02-22)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-2">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.47-2019-01-16">0.10.47 (2019-01-16)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-3">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.46-2018-08-13">0.10.46 (2018-08-13)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-2">Bug Fixes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.45-2018-06-01">0.10.45 (2018-06-01)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-3">Bug Fixes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.44-2018-05-30">0.10.44 (2018-05-30)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-4">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.43-2018-05-28">0.10.43 (2018-05-28)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-5">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.42-2018-03-28">0.10.42 (2018-03-28)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-4">Bug Fixes</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-6">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.41-2018-03-16">0.10.41 (2018-03-16)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-7">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.40-2018-03-09">0.10.40 (2018-03-09)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-8">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.39-2018-02-16">0.10.39 (2018-02-16)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-9">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.38-2018-01-16">0.10.38 (2018-01-16)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-10">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.37-2017-11-23">0.10.37 (2017-11-23)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-11">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.36-2017-11-23">0.10.36 (2017-11-23)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-12">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.35-2017-10-13">0.10.35 (2017-10-13)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-5">Bug Fixes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.34-2017-10-13">0.10.34 (2017-10-13)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-13">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.33-2017-10-13">0.10.33 (2017-10-13)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-6">Bug Fixes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.32-2017-10-13">0.10.32 (2017-10-13)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-14">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.31-2017-10-09">0.10.31 (2017-10-09)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-15">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.30-2017-08-25">0.10.30 (2017-08-25)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-7">Bug Fixes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.29-2017-08-18">0.10.29 (2017-08-18)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-8">Bug Fixes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.28-2017-08-18">0.10.28 (2017-08-18)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-16">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.27-2017-08-11">0.10.27 (2017-08-11)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-9">Bug Fixes</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-17">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.26-2017-08-02">0.10.26 (2017-08-02)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-10">Bug Fixes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.25-2017-08-02">0.10.25 (2017-08-02)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-18">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.24-2017-07-10">0.10.24 (2017-07-10)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-19">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.23-2017-06-05">0.10.23 (2017-06-05)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-11">Bug Fixes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.22-2017-05-31">0.10.22 (2017-05-31)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-12">Bug Fixes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.21-2017-05-22">0.10.21 (2017-05-22)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-20">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.20-2017-05-17">0.10.20 (2017-05-17)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-21">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.19-2017-05-17">0.10.19 (2017-05-17)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-22">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.18-2017-05-15">0.10.18 (2017-05-15)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#bug-fixes-13">Bug Fixes</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.17-2017-05-15">0.10.17 (2017-05-15)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-23">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.10.16-2017-05-09">0.10.16 (2017-05-09)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#features-24">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#changelog-for-previous-versions">Changelog for previous versions</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="changelog">
+  <h1>
+    <a href="#changelog" name="changelog" class="pilcrow"></a>
+Changelog
+  </h1>
+</div>
+<p>All notable changes to this project will be documented in this file. See <a href="https://github.com/conventional-changelog/standard-version">standard-version</a> for commit guidelines.</p>
+<div class="pilwrap" id="0.10.51-2019-08-30">
+  <h3>
+    <a href="#0.10.51-2019-08-30" name="0.10.51-2019-08-30" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.50...v0.10.51">0.10.51</a> (2019-08-30)
+  </h3>
+</div>
+<div class="pilwrap" id="bug-fixes">
+  <h3>
+    <a href="#bug-fixes" name="bug-fixes" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li>Ensure Function.isFunction recognizes async functions (<a href="https://github.com/medikoo/es5-ext/commit/6f06e66">6f06e66</a>)</li>
+</ul>
+<div class="pilwrap" id="tests">
+  <h3>
+    <a href="#tests" name="tests" class="pilcrow"></a>
+Tests
+  </h3>
+</div>
+<ul>
+<li>Fix after prettification changes (<a href="https://github.com/medikoo/es5-ext/commit/dd6fc3f">dd6fc3f</a>)</li>
+</ul>
+<div class="pilwrap" id="0.10.50-2019-04-30">
+  <h2>
+    <a href="#0.10.50-2019-04-30" name="0.10.50-2019-04-30" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.49...v0.10.50">0.10.50</a> (2019-04-30)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-1">
+  <h3>
+    <a href="#bug-fixes-1" name="bug-fixes-1" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li>maximum time value reference (<a href="https://github.com/medikoo/es5-ext/commit/708202d">708202d</a>)</li>
+</ul>
+<div class="pilwrap" id="features">
+  <h3>
+    <a href="#features" name="features" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>ensure global resolves in strict mode (<a href="https://github.com/medikoo/es5-ext/commit/c6a19d7">c6a19d7</a>), closes <a href="https://github.com/medikoo/es5-ext/issues/86">#86</a></li>
+</ul>
+<div class="pilwrap" id="0.10.49-2019-03-11">
+  <h2>
+    <a href="#0.10.49-2019-03-11" name="0.10.49-2019-03-11" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.48...v0.10.49">0.10.49</a> (2019-03-11)
+  </h2>
+</div>
+<div class="pilwrap" id="features-1">
+  <h3>
+    <a href="#features-1" name="features-1" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>allow plain function usage of fn.compose (<a href="https://github.com/medikoo/es5-ext/commit/2bafef7">2bafef7</a>)</li>
+</ul>
+<div class="pilwrap" id="0.10.48-2019-02-22">
+  <h2>
+    <a href="#0.10.48-2019-02-22" name="0.10.48-2019-02-22" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.47...v0.10.48">0.10.48</a> (2019-02-22)
+  </h2>
+</div>
+<div class="pilwrap" id="features-2">
+  <h3>
+    <a href="#features-2" name="features-2" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>Object.ensurePlainObject util (<a href="https://github.com/medikoo/es5-ext/commit/f48fbcf">f48fbcf</a>)</li>
+</ul>
+<p><a name="0.10.47"></a></p>
+<div class="pilwrap" id="0.10.47-2019-01-16">
+  <h2>
+    <a href="#0.10.47-2019-01-16" name="0.10.47-2019-01-16" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.46...v0.10.47">0.10.47</a> (2019-01-16)
+  </h2>
+</div>
+<div class="pilwrap" id="features-3">
+  <h3>
+    <a href="#features-3" name="features-3" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>Promise.prototype.finally shim (<a href="https://github.com/medikoo/es5-ext/commit/4dadbc7">4dadbc7</a>)</li>
+</ul>
+<p><a name="0.10.46"></a></p>
+<div class="pilwrap" id="0.10.46-2018-08-13">
+  <h2>
+    <a href="#0.10.46-2018-08-13" name="0.10.46-2018-08-13" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.45...v0.10.46">0.10.46</a> (2018-08-13)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-2">
+  <h3>
+    <a href="#bug-fixes-2" name="bug-fixes-2" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li>assign-deep to not modify following arguments (<a href="https://github.com/medikoo/es5-ext/commit/bf43d57">bf43d57</a>)</li>
+</ul>
+<p><a name="0.10.45"></a></p>
+<div class="pilwrap" id="0.10.45-2018-06-01">
+  <h2>
+    <a href="#0.10.45-2018-06-01" name="0.10.45-2018-06-01" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.44...v0.10.45">0.10.45</a> (2018-06-01)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-3">
+  <h3>
+    <a href="#bug-fixes-3" name="bug-fixes-3" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li>improve error message readbility (<a href="https://github.com/medikoo/es5-ext/commit/adc91b9">adc91b9</a>)</li>
+</ul>
+<p><a name="0.10.44"></a></p>
+<div class="pilwrap" id="0.10.44-2018-05-30">
+  <h2>
+    <a href="#0.10.44-2018-05-30" name="0.10.44-2018-05-30" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.43...v0.10.44">0.10.44</a> (2018-05-30)
+  </h2>
+</div>
+<div class="pilwrap" id="features-4">
+  <h3>
+    <a href="#features-4" name="features-4" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>add Object.entries (<a href="https://github.com/medikoo/es5-ext/commit/51d2f43">51d2f43</a>)</li>
+</ul>
+<p><a name="0.10.43"></a></p>
+<div class="pilwrap" id="0.10.43-2018-05-28">
+  <h2>
+    <a href="#0.10.43-2018-05-28" name="0.10.43-2018-05-28" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.42...v0.10.43">0.10.43</a> (2018-05-28)
+  </h2>
+</div>
+<div class="pilwrap" id="features-5">
+  <h3>
+    <a href="#features-5" name="features-5" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>improve patch string (<a href="https://github.com/medikoo/es5-ext/commit/6a25b10">6a25b10</a>)</li>
+</ul>
+<p><a name="0.10.42"></a></p>
+<div class="pilwrap" id="0.10.42-2018-03-28">
+  <h2>
+    <a href="#0.10.42-2018-03-28" name="0.10.42-2018-03-28" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.41...v0.10.42">0.10.42</a> (2018-03-28)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-4">
+  <h3>
+    <a href="#bug-fixes-4" name="bug-fixes-4" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li>Date.isDate to exclude NaN dates (<a href="https://github.com/medikoo/es5-ext/commit/3b61bc6">3b61bc6</a>)</li>
+</ul>
+<div class="pilwrap" id="features-6">
+  <h3>
+    <a href="#features-6" name="features-6" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>improve non-coercible string representation (<a href="https://github.com/medikoo/es5-ext/commit/20bfb78">20bfb78</a>)</li>
+<li>improve non-stringifiable string representation (<a href="https://github.com/medikoo/es5-ext/commit/2e4512d">2e4512d</a>)</li>
+</ul>
+<p><a name="0.10.41"></a></p>
+<div class="pilwrap" id="0.10.41-2018-03-16">
+  <h2>
+    <a href="#0.10.41-2018-03-16" name="0.10.41-2018-03-16" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.40...v0.10.41">0.10.41</a> (2018-03-16)
+  </h2>
+</div>
+<div class="pilwrap" id="features-7">
+  <h3>
+    <a href="#features-7" name="features-7" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>Add function.microtaskDelay method (<a href="https://github.com/medikoo/es5-ext/commit/66481c0">66481c0</a>)</li>
+<li>Add Object.isThenable (<a href="https://github.com/medikoo/es5-ext/commit/8d5a45c">8d5a45c</a>)</li>
+<li>Add promise.asCallback method (<a href="https://github.com/medikoo/es5-ext/commit/dcc1451">dcc1451</a>)</li>
+<li>Object.ensurePlainFunction (<a href="https://github.com/medikoo/es5-ext/commit/2682be6">2682be6</a>)</li>
+</ul>
+<p><a name="0.10.40"></a></p>
+<div class="pilwrap" id="0.10.40-2018-03-09">
+  <h2>
+    <a href="#0.10.40-2018-03-09" name="0.10.40-2018-03-09" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.39...v0.10.40">0.10.40</a> (2018-03-09)
+  </h2>
+</div>
+<div class="pilwrap" id="features-8">
+  <h3>
+    <a href="#features-8" name="features-8" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li><strong>math:</strong> decimal round, floor and ceil (<a href="https://github.com/medikoo/es5-ext/commit/39290c6">39290c6</a>)</li>
+<li><strong>object:</strong> isInteger and ensureInteger (<a href="https://github.com/medikoo/es5-ext/commit/a5f7d04">a5f7d04</a>)</li>
+</ul>
+<p><a name="0.10.39"></a></p>
+<div class="pilwrap" id="0.10.39-2018-02-16">
+  <h2>
+    <a href="#0.10.39-2018-02-16" name="0.10.39-2018-02-16" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.38...v0.10.39">0.10.39</a> (2018-02-16)
+  </h2>
+</div>
+<div class="pilwrap" id="features-9">
+  <h3>
+    <a href="#features-9" name="features-9" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>Promise.lazy (<a href="https://github.com/medikoo/es5-ext/commit/7a30a78">7a30a78</a>)</li>
+</ul>
+<p><a name="0.10.38"></a></p>
+<div class="pilwrap" id="0.10.38-2018-01-16">
+  <h2>
+    <a href="#0.10.38-2018-01-16" name="0.10.38-2018-01-16" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.37...v0.10.38">0.10.38</a> (2018-01-16)
+  </h2>
+</div>
+<div class="pilwrap" id="features-10">
+  <h3>
+    <a href="#features-10" name="features-10" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>Object.isNaturalNumber an Object.isNaturalNumberValue (<a href="https://github.com/medikoo/es5-ext/commit/66a40af">66a40af</a>)</li>
+</ul>
+<p><a name="0.10.37"></a></p>
+<div class="pilwrap" id="0.10.37-2017-11-23">
+  <h2>
+    <a href="#0.10.37-2017-11-23" name="0.10.37-2017-11-23" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.36...v0.10.37">0.10.37</a> (2017-11-23)
+  </h2>
+</div>
+<div class="pilwrap" id="features-11">
+  <h3>
+    <a href="#features-11" name="features-11" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>String.random util (<a href="https://github.com/medikoo/es5-ext/commit/7c28739">7c28739</a>)</li>
+</ul>
+<p><a name="0.10.36"></a></p>
+<div class="pilwrap" id="0.10.36-2017-11-23">
+  <h2>
+    <a href="#0.10.36-2017-11-23" name="0.10.36-2017-11-23" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.35...v0.10.36">0.10.36</a> (2017-11-23)
+  </h2>
+</div>
+<div class="pilwrap" id="features-12">
+  <h3>
+    <a href="#features-12" name="features-12" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li><strong>date:</strong> isTimeValue and ensureTimeValue utils (<a href="https://github.com/medikoo/es5-ext/commit/7659dc5">7659dc5</a>)</li>
+</ul>
+<p><a name="0.10.35"></a></p>
+<div class="pilwrap" id="0.10.35-2017-10-13">
+  <h2>
+    <a href="#0.10.35-2017-10-13" name="0.10.35-2017-10-13" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.34...v0.10.35">0.10.35</a> (2017-10-13)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-5">
+  <h3>
+    <a href="#bug-fixes-5" name="bug-fixes-5" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li><strong>Object.copy:</strong> do not upgrade primitives to objects (<a href="https://github.com/medikoo/es5-ext/commit/dd4d88f">dd4d88f</a>)</li>
+</ul>
+<p><a name="0.10.34"></a></p>
+<div class="pilwrap" id="0.10.34-2017-10-13">
+  <h2>
+    <a href="#0.10.34-2017-10-13" name="0.10.34-2017-10-13" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.33...v0.10.34">0.10.34</a> (2017-10-13)
+  </h2>
+</div>
+<div class="pilwrap" id="features-13">
+  <h3>
+    <a href="#features-13" name="features-13" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li><strong>copyDeep:</strong> duplicate only recursive instances (<a href="https://github.com/medikoo/es5-ext/commit/bba529a">bba529a</a>)</li>
+</ul>
+<p><a name="0.10.33"></a></p>
+<div class="pilwrap" id="0.10.33-2017-10-13">
+  <h2>
+    <a href="#0.10.33-2017-10-13" name="0.10.33-2017-10-13" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.32...v0.10.33">0.10.33</a> (2017-10-13)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-6">
+  <h3>
+    <a href="#bug-fixes-6" name="bug-fixes-6" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li><strong>Object.assignDeep:</strong> relax input validation (<a href="https://github.com/medikoo/es5-ext/commit/1baf57d">1baf57d</a>)</li>
+</ul>
+<p><a name="0.10.32"></a></p>
+<div class="pilwrap" id="0.10.32-2017-10-13">
+  <h2>
+    <a href="#0.10.32-2017-10-13" name="0.10.32-2017-10-13" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.31...v0.10.32">0.10.32</a> (2017-10-13)
+  </h2>
+</div>
+<div class="pilwrap" id="features-14">
+  <h3>
+    <a href="#features-14" name="features-14" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>Object.assignDeep (<a href="https://github.com/medikoo/es5-ext/commit/2345e0b">2345e0b</a>)</li>
+</ul>
+<p><a name="0.10.31"></a></p>
+<div class="pilwrap" id="0.10.31-2017-10-09">
+  <h2>
+    <a href="#0.10.31-2017-10-09" name="0.10.31-2017-10-09" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.30...v0.10.31">0.10.31</a> (2017-10-09)
+  </h2>
+</div>
+<div class="pilwrap" id="features-15">
+  <h3>
+    <a href="#features-15" name="features-15" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>Object.isPlainFunction utility (<a href="https://github.com/medikoo/es5-ext/commit/031be0a">031be0a</a>)</li>
+</ul>
+<p><a name="0.10.30"></a></p>
+<div class="pilwrap" id="0.10.30-2017-08-25">
+  <h2>
+    <a href="#0.10.30-2017-08-25" name="0.10.30-2017-08-25" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.29...v0.10.30">0.10.30</a> (2017-08-25)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-7">
+  <h3>
+    <a href="#bug-fixes-7" name="bug-fixes-7" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li>value stringification for error message (<a href="https://github.com/medikoo/es5-ext/commit/37bb96b">37bb96b</a>)</li>
+</ul>
+<p><a name="0.10.29"></a></p>
+<div class="pilwrap" id="0.10.29-2017-08-18">
+  <h2>
+    <a href="#0.10.29-2017-08-18" name="0.10.29-2017-08-18" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.28...v0.10.29">0.10.29</a> (2017-08-18)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-8">
+  <h3>
+    <a href="#bug-fixes-8" name="bug-fixes-8" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li>string.repeat after recent regression (<a href="https://github.com/medikoo/es5-ext/commit/b02fab4">b02fab4</a>)</li>
+</ul>
+<p><a name="0.10.28"></a></p>
+<div class="pilwrap" id="0.10.28-2017-08-18">
+  <h2>
+    <a href="#0.10.28-2017-08-18" name="0.10.28-2017-08-18" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.27...v0.10.28">0.10.28</a> (2017-08-18)
+  </h2>
+</div>
+<div class="pilwrap" id="features-16">
+  <h3>
+    <a href="#features-16" name="features-16" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>array.isEmpty method (<a href="https://github.com/medikoo/es5-ext/commit/b0cfbdd">b0cfbdd</a>)</li>
+<li>improve new lines representation (<a href="https://github.com/medikoo/es5-ext/commit/860fe8b">860fe8b</a>)</li>
+<li>Object.ensureArray util (<a href="https://github.com/medikoo/es5-ext/commit/595c341">595c341</a>)</li>
+<li>toShortStringRepresentation util (<a href="https://github.com/medikoo/es5-ext/commit/6842d06">6842d06</a>)</li>
+</ul>
+<p><a name="0.10.27"></a></p>
+<div class="pilwrap" id="0.10.27-2017-08-11">
+  <h2>
+    <a href="#0.10.27-2017-08-11" name="0.10.27-2017-08-11" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.26...v0.10.27">0.10.27</a> (2017-08-11)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-9">
+  <h3>
+    <a href="#bug-fixes-9" name="bug-fixes-9" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li>isNumberValue should not crash on non-coercible values (<a href="https://github.com/medikoo/es5-ext/commit/0db765e">0db765e</a>)</li>
+</ul>
+<div class="pilwrap" id="features-17">
+  <h3>
+    <a href="#features-17" name="features-17" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>add Object.ensureFiniteNumber util (<a href="https://github.com/medikoo/es5-ext/commit/11c67f5">11c67f5</a>)</li>
+<li>add Object.isFiniteNumber util (<a href="https://github.com/medikoo/es5-ext/commit/fe5b55a">fe5b55a</a>)</li>
+</ul>
+<p><a name="0.10.26"></a></p>
+<div class="pilwrap" id="0.10.26-2017-08-02">
+  <h2>
+    <a href="#0.10.26-2017-08-02" name="0.10.26-2017-08-02" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.25...v0.10.26">0.10.26</a> (2017-08-02)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-10">
+  <h3>
+    <a href="#bug-fixes-10" name="bug-fixes-10" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li><strong>general:</strong> ensure optionalChaining in index (<a href="https://github.com/medikoo/es5-ext/commit/3df879a">3df879a</a>)</li>
+</ul>
+<p><a name="0.10.25"></a></p>
+<div class="pilwrap" id="0.10.25-2017-08-02">
+  <h2>
+    <a href="#0.10.25-2017-08-02" name="0.10.25-2017-08-02" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.24...v0.10.25">0.10.25</a> (2017-08-02)
+  </h2>
+</div>
+<div class="pilwrap" id="features-18">
+  <h3>
+    <a href="#features-18" name="features-18" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li><strong>general:</strong> optionalChaining utility (<a href="https://github.com/medikoo/es5-ext/commit/26332b5">26332b5</a>)</li>
+</ul>
+<p><a name="0.10.24"></a></p>
+<div class="pilwrap" id="0.10.24-2017-07-10">
+  <h2>
+    <a href="#0.10.24-2017-07-10" name="0.10.24-2017-07-10" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.23...v0.10.24">0.10.24</a> (2017-07-10)
+  </h2>
+</div>
+<div class="pilwrap" id="features-19">
+  <h3>
+    <a href="#features-19" name="features-19" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>resolve global with CSP safe method (<a href="https://github.com/medikoo/es5-ext/commit/d386449">d386449</a>)</li>
+</ul>
+<p><a name="0.10.23"></a></p>
+<div class="pilwrap" id="0.10.23-2017-06-05">
+  <h2>
+    <a href="#0.10.23-2017-06-05" name="0.10.23-2017-06-05" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.22...v0.10.23">0.10.23</a> (2017-06-05)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-11">
+  <h3>
+    <a href="#bug-fixes-11" name="bug-fixes-11" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li><strong>Error.custom:</strong> allow non-string code (<a href="https://github.com/medikoo/es5-ext/commit/e8db3a0">e8db3a0</a>)</li>
+<li><strong>Error.custom:</strong> improve <code>ext</code> argument detection (<a href="https://github.com/medikoo/es5-ext/commit/0edbfbc">0edbfbc</a>)</li>
+</ul>
+<p><a name="0.10.22"></a></p>
+<div class="pilwrap" id="0.10.22-2017-05-31">
+  <h2>
+    <a href="#0.10.22-2017-05-31" name="0.10.22-2017-05-31" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.21...v0.10.22">0.10.22</a> (2017-05-31)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-12">
+  <h3>
+    <a href="#bug-fixes-12" name="bug-fixes-12" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li>ensure proper symbols stringification in early implementations (<a href="https://github.com/medikoo/es5-ext/commit/ce51900">ce51900</a>)</li>
+</ul>
+<p><a name="0.10.21"></a></p>
+<div class="pilwrap" id="0.10.21-2017-05-22">
+  <h2>
+    <a href="#0.10.21-2017-05-22" name="0.10.21-2017-05-22" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.20...v0.10.21">0.10.21</a> (2017-05-22)
+  </h2>
+</div>
+<div class="pilwrap" id="features-20">
+  <h3>
+    <a href="#features-20" name="features-20" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>support arrow functions in Function/#/to-tring-tokens.js (<a href="https://github.com/medikoo/es5-ext/commit/ad3de1e">ad3de1e</a>)</li>
+</ul>
+<p><a name="0.10.20"></a></p>
+<div class="pilwrap" id="0.10.20-2017-05-17">
+  <h2>
+    <a href="#0.10.20-2017-05-17" name="0.10.20-2017-05-17" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.19...v0.10.20">0.10.20</a> (2017-05-17)
+  </h2>
+</div>
+<div class="pilwrap" id="features-21">
+  <h3>
+    <a href="#features-21" name="features-21" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>if listed copy not only if own property (<a href="https://github.com/medikoo/es5-ext/commit/d7e7cef">d7e7cef</a>)</li>
+<li>support <code>ensure</code> option in Object.copy (<a href="https://github.com/medikoo/es5-ext/commit/295326f">295326f</a>)</li>
+</ul>
+<p><a name="0.10.19"></a></p>
+<div class="pilwrap" id="0.10.19-2017-05-17">
+  <h2>
+    <a href="#0.10.19-2017-05-17" name="0.10.19-2017-05-17" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.18...v0.10.19">0.10.19</a> (2017-05-17)
+  </h2>
+</div>
+<div class="pilwrap" id="features-22">
+  <h3>
+    <a href="#features-22" name="features-22" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>support propertyNames option in Object.copy (<a href="https://github.com/medikoo/es5-ext/commit/5442279">5442279</a>)</li>
+</ul>
+<p><a name="0.10.18"></a></p>
+<div class="pilwrap" id="0.10.18-2017-05-15">
+  <h2>
+    <a href="#0.10.18-2017-05-15" name="0.10.18-2017-05-15" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.17...v0.10.18">0.10.18</a> (2017-05-15)
+  </h2>
+</div>
+<div class="pilwrap" id="bug-fixes-13">
+  <h3>
+    <a href="#bug-fixes-13" name="bug-fixes-13" class="pilcrow"></a>
+Bug Fixes
+  </h3>
+</div>
+<ul>
+<li>take all changes in safeToString (<a href="https://github.com/medikoo/es5-ext/commit/3c5cd12">3c5cd12</a>)</li>
+</ul>
+<p><a name="0.10.17"></a></p>
+<div class="pilwrap" id="0.10.17-2017-05-15">
+  <h2>
+    <a href="#0.10.17-2017-05-15" name="0.10.17-2017-05-15" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.16...v0.10.17">0.10.17</a> (2017-05-15)
+  </h2>
+</div>
+<div class="pilwrap" id="features-23">
+  <h3>
+    <a href="#features-23" name="features-23" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>introduce Object.ensurePromise (<a href="https://github.com/medikoo/es5-ext/commit/46a2f45">46a2f45</a>)</li>
+<li>introduce Object.isPromise (<a href="https://github.com/medikoo/es5-ext/commit/27aecc8">27aecc8</a>)</li>
+<li>introduce safeToString (<a href="https://github.com/medikoo/es5-ext/commit/0cc6a7b">0cc6a7b</a>)</li>
+</ul>
+<p><a name="0.10.16"></a></p>
+<div class="pilwrap" id="0.10.16-2017-05-09">
+  <h2>
+    <a href="#0.10.16-2017-05-09" name="0.10.16-2017-05-09" class="pilcrow"></a>
+<a href="https://github.com/medikoo/es5-ext/compare/v0.10.15...v0.10.16">0.10.16</a> (2017-05-09)
+  </h2>
+</div>
+<div class="pilwrap" id="features-24">
+  <h3>
+    <a href="#features-24" name="features-24" class="pilcrow"></a>
+Features
+  </h3>
+</div>
+<ul>
+<li>add String.prototype.count (<a href="https://github.com/medikoo/es5-ext/commit/2e53241">2e53241</a>)</li>
+</ul>
+<div class="pilwrap" id="changelog-for-previous-versions">
+  <h2>
+    <a href="#changelog-for-previous-versions" name="changelog-for-previous-versions" class="pilcrow"></a>
+Changelog for previous versions
+  </h2>
+</div>
+<p>See <code>CHANGES</code> file</p>
+</div>
+  </div>
+</body>
+</html>

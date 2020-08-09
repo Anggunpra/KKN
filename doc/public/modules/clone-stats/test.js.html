@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\clone-stats\\test.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>test.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> test = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tape'</span>)
+<span class="hljs-keyword">var</span> clone = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./'</span>)
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)
+
+test(<span class="hljs-string">'file'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  compare(t, fs.statSync(__filename))
+  t.end()
+})
+
+test(<span class="hljs-string">'directory'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) </span>{
+  compare(t, fs.statSync(__dirname))
+  t.end()
+})
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compare</span>(<span class="hljs-params">t, stat</span>) </span>{
+  <span class="hljs-keyword">var</span> copy = clone(stat)
+
+  t.deepEqual(stat, copy, <span class="hljs-string">'clone has equal properties'</span>)
+  t.ok(stat <span class="hljs-keyword">instanceof</span> fs.Stats, <span class="hljs-string">'original is an fs.Stat'</span>)
+  t.ok(copy <span class="hljs-keyword">instanceof</span> fs.Stats, <span class="hljs-string">'copy is an fs.Stat'</span>)
+
+  ;[<span class="hljs-string">'isDirectory'</span>
+  , <span class="hljs-string">'isFile'</span>
+  , <span class="hljs-string">'isBlockDevice'</span>
+  , <span class="hljs-string">'isCharacterDevice'</span>
+  , <span class="hljs-string">'isSymbolicLink'</span>
+  , <span class="hljs-string">'isFIFO'</span>
+  , <span class="hljs-string">'isSocket'</span>
+  ].forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">method</span>) </span>{
+    t.equal(
+        stat[method].call(stat)
+      , copy[method].call(copy)
+      , <span class="hljs-string">'equal value for stat.'</span> + method + <span class="hljs-string">'()'</span>
+    )
+  })
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

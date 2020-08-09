@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\is-png\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#is-png">is-png </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#node.js">Node.js</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#browser">Browser</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#ispng-buffer">isPng(buffer)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="is-png">
+  <h1>
+    <a href="#is-png" name="is-png" class="pilcrow"></a>
+is-png <a href="https://travis-ci.org/sindresorhus/is-png"><img src="https://travis-ci.org/sindresorhus/is-png.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Check if a Buffer/Uint8Array is a <a href="http://en.wikipedia.org/wiki/Portable_Network_Graphics">PNG</a> image</p>
+</blockquote>
+<p>Used by <a href="https://github.com/sindresorhus/image-type">image-type</a>.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code class="sh">$ npm install --save is-png
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<div class="pilwrap" id="node.js">
+  <h5>
+    <a href="#node.js" name="node.js" class="pilcrow"></a>
+Node.js
+  </h5>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> readChunk = <span class="hljs-built_in">require</span>(<span class="hljs-string">'read-chunk'</span>); <span class="hljs-comment">// npm install read-chunk</span>
+<span class="hljs-keyword">var</span> isPng = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-png'</span>);
+<span class="hljs-keyword">var</span> buffer = readChunk.sync(<span class="hljs-string">'unicorn.png'</span>, <span class="hljs-number">0</span>, <span class="hljs-number">8</span>);
+
+isPng(buffer);
+<span class="hljs-comment">//=&gt; true</span>
+</code></pre>
+<div class="pilwrap" id="browser">
+  <h5>
+    <a href="#browser" name="browser" class="pilcrow"></a>
+Browser
+  </h5>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
+xhr.open(<span class="hljs-string">'GET'</span>, <span class="hljs-string">'unicorn.png'</span>);
+xhr.responseType = <span class="hljs-string">'arraybuffer'</span>;
+
+xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+	isPng(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(<span class="hljs-keyword">this</span>.response));
+	<span class="hljs-comment">//=&gt; true</span>
+};
+
+xhr.send();
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="ispng-buffer">
+  <h3>
+    <a href="#ispng-buffer" name="ispng-buffer" class="pilcrow"></a>
+isPng(buffer)
+  </h3>
+</div>
+<p>Accepts a Buffer (Node.js) or Uint8Array.</p>
+<p>It only needs the first 8 bytes.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

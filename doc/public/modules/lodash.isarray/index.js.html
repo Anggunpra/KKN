@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\lodash.isarray\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>lodash 3.0.4 (Custom Build) <a href="https://lodash.com/">https://lodash.com/</a>
+Build: <code>lodash modern modularize exports=&quot;npm&quot; -o ./</code>
+Copyright 2012-2015 The Dojo Foundation <a href="http://dojofoundation.org/">http://dojofoundation.org/</a>
+Based on Underscore.js 1.8.3 <a href="http://underscorejs.org/LICENSE">http://underscorejs.org/LICENSE</a>
+Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters &amp; Editors
+Available under MIT license <a href="https://lodash.com/license">https://lodash.com/license</a></p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-comment">/** `Object#toString` result references. */</span>
+<span class="hljs-keyword">var</span> arrayTag = <span class="hljs-string">'[object Array]'</span>,
+    funcTag = <span class="hljs-string">'[object Function]'</span>;
+
+<span class="hljs-comment">/** Used to detect host constructors (Safari &gt; 5). */</span>
+<span class="hljs-keyword">var</span> reIsHostCtor = <span class="hljs-regexp">/^\[object .+?Constructor\]$/</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is object-like.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObjectLike</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> !!value &amp;&amp; <span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'object'</span>;
+}
+
+<span class="hljs-comment">/** Used for native method references. */</span>
+<span class="hljs-keyword">var</span> objectProto = <span class="hljs-built_in">Object</span>.prototype;
+
+<span class="hljs-comment">/** Used to resolve the decompiled source of functions. */</span>
+<span class="hljs-keyword">var</span> fnToString = <span class="hljs-built_in">Function</span>.prototype.toString;
+
+<span class="hljs-comment">/** Used to check objects for own properties. */</span>
+<span class="hljs-keyword">var</span> hasOwnProperty = objectProto.hasOwnProperty;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Used to resolve the <a href="http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring"><code>toStringTag</code></a>
+of values.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> objToString = objectProto.toString;
+
+<span class="hljs-comment">/** Used to detect if a method is native. */</span>
+<span class="hljs-keyword">var</span> reIsNative = <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^'</span> +
+  fnToString.call(hasOwnProperty).replace(<span class="hljs-regexp">/[\\^$.*+?()[\]{}|]/g</span>, <span class="hljs-string">'\\$&amp;'</span>)
+  .replace(<span class="hljs-regexp">/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g</span>, <span class="hljs-string">'$1.*?'</span>) + <span class="hljs-string">'$'</span>
+);
+
+<span class="hljs-comment">/* Native method references for those with the same name as other `lodash` methods. */</span>
+<span class="hljs-keyword">var</span> nativeIsArray = getNative(<span class="hljs-built_in">Array</span>, <span class="hljs-string">'isArray'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Used as the <a href="http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer">maximum length</a>
+of an array-like value.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> MAX_SAFE_INTEGER = <span class="hljs-number">9007199254740991</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the native function at <code>key</code> of <code>object</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the method to get.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getNative</span>(<span class="hljs-params">object, key</span>) </span>{
+  <span class="hljs-keyword">var</span> value = object == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : object[key];
+  <span class="hljs-keyword">return</span> isNative(value) ? value : <span class="hljs-literal">undefined</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a valid array-like length.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> This function is based on <a href="http://ecma-international.org/ecma-262/6.0/#sec-tolength"><code>ToLength</code></a>.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isLength</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'number'</span> &amp;&amp; value &gt; <span class="hljs-number">-1</span> &amp;&amp; value % <span class="hljs-number">1</span> == <span class="hljs-number">0</span> &amp;&amp; value &lt;= MAX_SAFE_INTEGER;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is classified as an <code>Array</code> object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> isArray = nativeIsArray || <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> isObjectLike(value) &amp;&amp; isLength(value.length) &amp;&amp; objToString.call(value) == arrayTag;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is classified as a <code>Function</code> object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isFunction</span>(<span class="hljs-params">value</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>The use of <code>Object#toString</code> avoids issues with the <code>typeof</code> operator
+in older versions of Chrome and Safari which return 'function' for regexes
+and Safari 8 equivalents which return 'object' for typed array constructors.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">return</span> isObject(value) &amp;&amp; objToString.call(value) == funcTag;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is the <a href="https://es5.github.io/#x8">language type</a> of <code>Object</code>.
+(e.g. arrays, functions, objects, regexes, <code>new Number(0)</code>, and <code>new String('')</code>)</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">value</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>Avoid a V8 JIT bug in Chrome 19-20.
+See https://code.google.com/p/v8/issues/detail?id=2291 for more details.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> value;
+  <span class="hljs-keyword">return</span> !!value &amp;&amp; (type == <span class="hljs-string">'object'</span> || type == <span class="hljs-string">'function'</span>);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a native function.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNative</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">if</span> (value == <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+  <span class="hljs-keyword">if</span> (isFunction(value)) {
+    <span class="hljs-keyword">return</span> reIsNative.test(fnToString.call(value));
+  }
+  <span class="hljs-keyword">return</span> isObjectLike(value) &amp;&amp; reIsHostCtor.test(value);
+}
+
+<span class="hljs-built_in">module</span>.exports = isArray;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

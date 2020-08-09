@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\lpad-align\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#lpad-align">lpad-align </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#lpadalign-string-array-pad">lpadAlign(string, array, pad)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#string">string</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#array">array</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#pad">pad</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#cli">CLI</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="lpad-align">
+  <h1>
+    <a href="#lpad-align" name="lpad-align" class="pilcrow"></a>
+lpad-align <a href="https://travis-ci.org/kevva/lpad-align"><img src="https://travis-ci.org/kevva/lpad-align.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Left pad a string to align with the longest string in an array</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save lpad-align
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> lpadAlign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lpad-align'</span>);
+
+<span class="hljs-keyword">const</span> words = [
+	<span class="hljs-string">'foo'</span>,
+	<span class="hljs-string">'foobar'</span>,
+	<span class="hljs-string">'foobarcat'</span>
+];
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> words) {
+	<span class="hljs-built_in">console</span>.log(lpadAlign(x, words, <span class="hljs-number">4</span>));
+}
+
+<span class="hljs-comment">/*
+		  foo
+	   foobar
+	foobarcat
+ */</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="lpadalign-string-array-pad">
+  <h3>
+    <a href="#lpadalign-string-array-pad" name="lpadalign-string-array-pad" class="pilcrow"></a>
+lpadAlign(string, array, pad)
+  </h3>
+</div>
+<div class="pilwrap" id="string">
+  <h4>
+    <a href="#string" name="string" class="pilcrow"></a>
+string
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>String that will be padded.</p>
+<div class="pilwrap" id="array">
+  <h4>
+    <a href="#array" name="array" class="pilcrow"></a>
+array
+  </h4>
+</div>
+<p>Type: <code>Array</code></p>
+<p>Array to align against.</p>
+<div class="pilwrap" id="pad">
+  <h4>
+    <a href="#pad" name="pad" class="pilcrow"></a>
+pad
+  </h4>
+</div>
+<p>Type: <code>number</code><br>
+Default: <code>4</code></p>
+<p>Indentation to prepend the string with.</p>
+<div class="pilwrap" id="cli">
+  <h2>
+    <a href="#cli" name="cli" class="pilcrow"></a>
+CLI
+  </h2>
+</div>
+<pre><code>$ npm install --global lpad-align
+</code></pre>
+<pre><code>  Usage
+    $ cat &lt;file&gt; | lpad-align
+
+  Example
+    $ cat unicorn.txt | lpad-align
+          foo
+       foobar
+    foobarcat
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/kevva">Kevin Mårtensson</a></p>
+</div>
+  </div>
+</body>
+</html>

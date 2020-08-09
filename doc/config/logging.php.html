@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>logging.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "config\\logging.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>logging.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Monolog</span>\<span class="hljs-title">Handler</span>\<span class="hljs-title">NullHandler</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Monolog</span>\<span class="hljs-title">Handler</span>\<span class="hljs-title">StreamHandler</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Monolog</span>\<span class="hljs-title">Handler</span>\<span class="hljs-title">SyslogUdpHandler</span>;
+
+<span class="hljs-keyword">return</span> [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Default Log Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This option defines the default log channel that gets used when writing</td>
+</tr>
+<tr>
+<td>messages to the logs. The name specified in this option should match</td>
+</tr>
+<tr>
+<td>one of the channels defined in the &quot;channels&quot; configuration array.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'default'</span> =&gt; env(<span class="hljs-string">'LOG_CHANNEL'</span>, <span class="hljs-string">'stack'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Log Channels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may configure the log channels for your application. Out of</td>
+</tr>
+<tr>
+<td>the box, Laravel uses the Monolog PHP logging library. This gives</td>
+</tr>
+<tr>
+<td>you a variety of powerful log handlers / formatters to utilize.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Available Drivers: &quot;single&quot;, &quot;daily&quot;, &quot;slack&quot;, &quot;syslog&quot;,</td>
+</tr>
+<tr>
+<td>&quot;errorlog&quot;, &quot;monolog&quot;,</td>
+</tr>
+<tr>
+<td>&quot;custom&quot;, &quot;stack&quot;</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'channels'</span> =&gt; [
+        <span class="hljs-string">'stack'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'stack'</span>,
+            <span class="hljs-string">'channels'</span> =&gt; [<span class="hljs-string">'single'</span>],
+            <span class="hljs-string">'ignore_exceptions'</span> =&gt; <span class="hljs-keyword">false</span>,
+        ],
+
+        <span class="hljs-string">'single'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'single'</span>,
+            <span class="hljs-string">'path'</span> =&gt; storage_path(<span class="hljs-string">'logs/laravel.log'</span>),
+            <span class="hljs-string">'level'</span> =&gt; <span class="hljs-string">'debug'</span>,
+        ],
+
+        <span class="hljs-string">'daily'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'daily'</span>,
+            <span class="hljs-string">'path'</span> =&gt; storage_path(<span class="hljs-string">'logs/laravel.log'</span>),
+            <span class="hljs-string">'level'</span> =&gt; <span class="hljs-string">'debug'</span>,
+            <span class="hljs-string">'days'</span> =&gt; <span class="hljs-number">14</span>,
+        ],
+
+        <span class="hljs-string">'slack'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'slack'</span>,
+            <span class="hljs-string">'url'</span> =&gt; env(<span class="hljs-string">'LOG_SLACK_WEBHOOK_URL'</span>),
+            <span class="hljs-string">'username'</span> =&gt; <span class="hljs-string">'Laravel Log'</span>,
+            <span class="hljs-string">'emoji'</span> =&gt; <span class="hljs-string">':boom:'</span>,
+            <span class="hljs-string">'level'</span> =&gt; <span class="hljs-string">'critical'</span>,
+        ],
+
+        <span class="hljs-string">'papertrail'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'monolog'</span>,
+            <span class="hljs-string">'level'</span> =&gt; <span class="hljs-string">'debug'</span>,
+            <span class="hljs-string">'handler'</span> =&gt; SyslogUdpHandler::class,
+            <span class="hljs-string">'handler_with'</span> =&gt; [
+                <span class="hljs-string">'host'</span> =&gt; env(<span class="hljs-string">'PAPERTRAIL_URL'</span>),
+                <span class="hljs-string">'port'</span> =&gt; env(<span class="hljs-string">'PAPERTRAIL_PORT'</span>),
+            ],
+        ],
+
+        <span class="hljs-string">'stderr'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'monolog'</span>,
+            <span class="hljs-string">'handler'</span> =&gt; StreamHandler::class,
+            <span class="hljs-string">'formatter'</span> =&gt; env(<span class="hljs-string">'LOG_STDERR_FORMATTER'</span>),
+            <span class="hljs-string">'with'</span> =&gt; [
+                <span class="hljs-string">'stream'</span> =&gt; <span class="hljs-string">'php://stderr'</span>,
+            ],
+        ],
+
+        <span class="hljs-string">'syslog'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'syslog'</span>,
+            <span class="hljs-string">'level'</span> =&gt; <span class="hljs-string">'debug'</span>,
+        ],
+
+        <span class="hljs-string">'errorlog'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'errorlog'</span>,
+            <span class="hljs-string">'level'</span> =&gt; <span class="hljs-string">'debug'</span>,
+        ],
+
+        <span class="hljs-string">'null'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'monolog'</span>,
+            <span class="hljs-string">'handler'</span> =&gt; NullHandler::class,
+        ],
+
+        <span class="hljs-string">'emergency'</span> =&gt; [
+            <span class="hljs-string">'path'</span> =&gt; storage_path(<span class="hljs-string">'logs/laravel.log'</span>),
+        ],
+    ],
+
+];
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

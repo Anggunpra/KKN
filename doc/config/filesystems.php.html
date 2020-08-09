@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>filesystems.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "config\\filesystems.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>filesystems.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">return</span> [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Default Filesystem Disk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may specify the default filesystem disk that should be used</td>
+</tr>
+<tr>
+<td>by the framework. The &quot;local&quot; disk, as well as a variety of cloud</td>
+</tr>
+<tr>
+<td>based disks are available to your application. Just store away!</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'default'</span> =&gt; env(<span class="hljs-string">'FILESYSTEM_DRIVER'</span>, <span class="hljs-string">'local'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Default Cloud Filesystem Disk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Many applications store files both locally and in the cloud. For this</td>
+</tr>
+<tr>
+<td>reason, you may specify a default &quot;cloud&quot; driver here. This driver</td>
+</tr>
+<tr>
+<td>will be bound as the Cloud disk implementation in the container.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'cloud'</span> =&gt; env(<span class="hljs-string">'FILESYSTEM_CLOUD'</span>, <span class="hljs-string">'s3'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Filesystem Disks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may configure as many filesystem &quot;disks&quot; as you wish, and you</td>
+</tr>
+<tr>
+<td>may even configure multiple disks of the same driver. Defaults have</td>
+</tr>
+<tr>
+<td>been setup for each driver as an example of the required options.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Supported Drivers: &quot;local&quot;, &quot;ftp&quot;, &quot;sftp&quot;, &quot;s3&quot;</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'disks'</span> =&gt; [
+
+        <span class="hljs-string">'local'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'local'</span>,
+            <span class="hljs-string">'root'</span> =&gt; storage_path(<span class="hljs-string">'app'</span>),
+        ],
+
+        <span class="hljs-string">'public'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'local'</span>,
+            <span class="hljs-string">'root'</span> =&gt; storage_path(<span class="hljs-string">'app/public'</span>),
+            <span class="hljs-string">'url'</span> =&gt; env(<span class="hljs-string">'APP_URL'</span>).<span class="hljs-string">'/storage'</span>,
+            <span class="hljs-string">'visibility'</span> =&gt; <span class="hljs-string">'public'</span>,
+        ],
+
+        <span class="hljs-string">'s3'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'s3'</span>,
+            <span class="hljs-string">'key'</span> =&gt; env(<span class="hljs-string">'AWS_ACCESS_KEY_ID'</span>),
+            <span class="hljs-string">'secret'</span> =&gt; env(<span class="hljs-string">'AWS_SECRET_ACCESS_KEY'</span>),
+            <span class="hljs-string">'region'</span> =&gt; env(<span class="hljs-string">'AWS_DEFAULT_REGION'</span>),
+            <span class="hljs-string">'bucket'</span> =&gt; env(<span class="hljs-string">'AWS_BUCKET'</span>),
+            <span class="hljs-string">'url'</span> =&gt; env(<span class="hljs-string">'AWS_URL'</span>),
+            <span class="hljs-string">'endpoint'</span> =&gt; env(<span class="hljs-string">'AWS_ENDPOINT'</span>),
+        ],
+
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Symbolic Links</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may configure the symbolic links that will be created when the</td>
+</tr>
+<tr>
+<td><code>storage:link</code> Artisan command is executed. The array keys should be</td>
+</tr>
+<tr>
+<td>the locations of the links and the values should be their targets.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'links'</span> =&gt; [
+        public_path(<span class="hljs-string">'storage'</span>) =&gt; storage_path(<span class="hljs-string">'app/public'</span>),
+    ],
+
+];
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

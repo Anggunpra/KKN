@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-concat\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#information">Information</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#source-maps">Source maps</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p><img src="https://secure.travis-ci.org/contra/gulp-concat.svg?branch=master" alt="status"></p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<p>Install package with NPM and add it to your development dependencies:</p>
+<p><code>npm install --save-dev gulp-concat</code></p>
+<div class="pilwrap" id="information">
+  <h2>
+    <a href="#information" name="information" class="pilcrow"></a>
+Information
+  </h2>
+</div>
+<table>
+<tr>
+<td>Package</td><td>gulp-concat</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Concatenates files</td>
+</tr>
+<tr>
+<td>Node Version</td>
+<td>>= 0.10</td>
+</tr>
+</table>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> concat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-concat'</span>);
+
+gulp.task(<span class="hljs-string">'scripts'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./lib/*.js'</span>)
+    .pipe(concat(<span class="hljs-string">'all.js'</span>))
+    .pipe(gulp.dest(<span class="hljs-string">'./dist/'</span>));
+});
+</code></pre>
+<p>This will concat files by your operating systems newLine. It will take the base directory from the first file that passes through it.</p>
+<p>Files will be concatenated in the order that they are specified in the <code>gulp.src</code> function. For example, to concat <code>./lib/file3.js</code>, <code>./lib/file1.js</code> and <code>./lib/file2.js</code> in that order, the following code will create a task to do that:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> concat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-concat'</span>);
+
+gulp.task(<span class="hljs-string">'scripts'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> gulp.src([<span class="hljs-string">'./lib/file3.js'</span>, <span class="hljs-string">'./lib/file1.js'</span>, <span class="hljs-string">'./lib/file2.js'</span>])
+    .pipe(concat(<span class="hljs-string">'all.js'</span>))
+    .pipe(gulp.dest(<span class="hljs-string">'./dist/'</span>));
+});
+</code></pre>
+<p>To change the newLine simply pass an object as the second argument to concat with newLine being whatever (\r\n if you want to support any OS to look at it)</p>
+<p>For instance:</p>
+<pre><code class="js">.pipe(concat(<span class="hljs-string">'main.js'</span>, {<span class="hljs-attr">newLine</span>: <span class="hljs-string">';'</span>}))
+</code></pre>
+<p>To specify <code>cwd</code>, <code>path</code> and other <a href="https://github.com/wearefractal/vinyl">vinyl</a> properties, gulp-concat accepts <code>Object</code> as first argument:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> concat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-concat'</span>);
+
+gulp.task(<span class="hljs-string">'scripts'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> gulp.src([<span class="hljs-string">'./lib/file3.js'</span>, <span class="hljs-string">'./lib/file1.js'</span>, <span class="hljs-string">'./lib/file2.js'</span>])
+    .pipe(concat({ <span class="hljs-attr">path</span>: <span class="hljs-string">'new.js'</span>, <span class="hljs-attr">stat</span>: { <span class="hljs-attr">mode</span>: <span class="hljs-number">0666</span> }}))
+    .pipe(gulp.dest(<span class="hljs-string">'./dist'</span>));
+});
+</code></pre>
+<p>This will concat files into <code>./dist/new.js</code>.</p>
+<div class="pilwrap" id="source-maps">
+  <h3>
+    <a href="#source-maps" name="source-maps" class="pilcrow"></a>
+Source maps
+  </h3>
+</div>
+<p>Source maps can be generated by using <a href="https://www.npmjs.org/package/gulp-sourcemaps">gulp-sourcemaps</a>:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> concat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-concat'</span>);
+<span class="hljs-keyword">var</span> sourcemaps = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-sourcemaps'</span>);
+
+gulp.task(<span class="hljs-string">'javascript'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'src/**/*.js'</span>)
+    .pipe(sourcemaps.init())
+      .pipe(concat(<span class="hljs-string">'all.js'</span>))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(<span class="hljs-string">'dist'</span>));
+});
+</code></pre>
+</div>
+  </div>
+</body>
+</html>

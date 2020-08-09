@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>render-template.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gauge\\render-template.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>render-template.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+<span class="hljs-keyword">var</span> align = <span class="hljs-built_in">require</span>(<span class="hljs-string">'wide-align'</span>)
+<span class="hljs-keyword">var</span> validate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'aproba'</span>)
+<span class="hljs-keyword">var</span> objectAssign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'object-assign'</span>)
+<span class="hljs-keyword">var</span> wideTruncate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./wide-truncate'</span>)
+<span class="hljs-keyword">var</span> error = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./error'</span>)
+<span class="hljs-keyword">var</span> TemplateItem = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./template-item'</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderValueWithValues</span> (<span class="hljs-params">values</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
+    <span class="hljs-keyword">return</span> renderValue(item, values)
+  }
+}
+
+<span class="hljs-keyword">var</span> renderTemplate = <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">width, template, values</span>) </span>{
+  <span class="hljs-keyword">var</span> items = prepareItems(width, template, values)
+  <span class="hljs-keyword">var</span> rendered = items.map(renderValueWithValues(values)).join(<span class="hljs-string">''</span>)
+  <span class="hljs-keyword">return</span> align.left(wideTruncate(rendered, width), width)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">preType</span> (<span class="hljs-params">item</span>) </span>{
+  <span class="hljs-keyword">var</span> cappedTypeName = item.type[<span class="hljs-number">0</span>].toUpperCase() + item.type.slice(<span class="hljs-number">1</span>)
+  <span class="hljs-keyword">return</span> <span class="hljs-string">'pre'</span> + cappedTypeName
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">postType</span> (<span class="hljs-params">item</span>) </span>{
+  <span class="hljs-keyword">var</span> cappedTypeName = item.type[<span class="hljs-number">0</span>].toUpperCase() + item.type.slice(<span class="hljs-number">1</span>)
+  <span class="hljs-keyword">return</span> <span class="hljs-string">'post'</span> + cappedTypeName
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasPreOrPost</span> (<span class="hljs-params">item, values</span>) </span>{
+  <span class="hljs-keyword">if</span> (!item.type) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">return</span> values[preType(item)] || values[postType(item)]
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generatePreAndPost</span> (<span class="hljs-params">baseItem, parentValues</span>) </span>{
+  <span class="hljs-keyword">var</span> item = objectAssign({}, baseItem)
+  <span class="hljs-keyword">var</span> values = <span class="hljs-built_in">Object</span>.create(parentValues)
+  <span class="hljs-keyword">var</span> template = []
+  <span class="hljs-keyword">var</span> pre = preType(item)
+  <span class="hljs-keyword">var</span> post = postType(item)
+  <span class="hljs-keyword">if</span> (values[pre]) {
+    template.push({<span class="hljs-attr">value</span>: values[pre]})
+    values[pre] = <span class="hljs-literal">null</span>
+  }
+  item.minLength = <span class="hljs-literal">null</span>
+  item.length = <span class="hljs-literal">null</span>
+  item.maxLength = <span class="hljs-literal">null</span>
+  template.push(item)
+  values[item.type] = values[item.type]
+  <span class="hljs-keyword">if</span> (values[post]) {
+    template.push({<span class="hljs-attr">value</span>: values[post]})
+    values[post] = <span class="hljs-literal">null</span>
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$<span class="hljs-number">1</span>, $<span class="hljs-number">2</span>, length</span>) </span>{
+    <span class="hljs-keyword">return</span> renderTemplate(length, template, values)
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">prepareItems</span> (<span class="hljs-params">width, template, values</span>) </span>{
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cloneAndObjectify</span> (<span class="hljs-params">item, index, arr</span>) </span>{
+    <span class="hljs-keyword">var</span> cloned = <span class="hljs-keyword">new</span> TemplateItem(item, width)
+    <span class="hljs-keyword">var</span> type = cloned.type
+    <span class="hljs-keyword">if</span> (cloned.value == <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">if</span> (!(type <span class="hljs-keyword">in</span> values)) {
+        <span class="hljs-keyword">if</span> (cloned.default == <span class="hljs-literal">null</span>) {
+          <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> error.MissingTemplateValue(cloned, values)
+        } <span class="hljs-keyword">else</span> {
+          cloned.value = cloned.default
+        }
+      } <span class="hljs-keyword">else</span> {
+        cloned.value = values[type]
+      }
+    }
+    <span class="hljs-keyword">if</span> (cloned.value == <span class="hljs-literal">null</span> || cloned.value === <span class="hljs-string">''</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
+    cloned.index = index
+    cloned.first = index === <span class="hljs-number">0</span>
+    cloned.last = index === arr.length - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">if</span> (hasPreOrPost(cloned, values)) cloned.value = generatePreAndPost(cloned, values)
+    <span class="hljs-keyword">return</span> cloned
+  }
+
+  <span class="hljs-keyword">var</span> output = template.map(cloneAndObjectify).filter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{ <span class="hljs-keyword">return</span> item != <span class="hljs-literal">null</span> })
+
+  <span class="hljs-keyword">var</span> outputLength = <span class="hljs-number">0</span>
+  <span class="hljs-keyword">var</span> remainingSpace = width
+  <span class="hljs-keyword">var</span> variableCount = output.length
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">consumeSpace</span> (<span class="hljs-params">length</span>) </span>{
+    <span class="hljs-keyword">if</span> (length &gt; remainingSpace) length = remainingSpace
+    outputLength += length
+    remainingSpace -= length
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">finishSizing</span> (<span class="hljs-params">item, length</span>) </span>{
+    <span class="hljs-keyword">if</span> (item.finished) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> error.Internal(<span class="hljs-string">'Tried to finish template item that was already finished'</span>)
+    <span class="hljs-keyword">if</span> (length === <span class="hljs-literal">Infinity</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> error.Internal(<span class="hljs-string">'Length of template item cannot be infinity'</span>)
+    <span class="hljs-keyword">if</span> (length != <span class="hljs-literal">null</span>) item.length = length
+    item.minLength = <span class="hljs-literal">null</span>
+    item.maxLength = <span class="hljs-literal">null</span>
+    --variableCount
+    item.finished = <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">if</span> (item.length == <span class="hljs-literal">null</span>) item.length = item.getBaseLength()
+    <span class="hljs-keyword">if</span> (item.length == <span class="hljs-literal">null</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> error.Internal(<span class="hljs-string">'Finished template items must have a length'</span>)
+    consumeSpace(item.getLength())
+  }
+
+  output.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
+    <span class="hljs-keyword">if</span> (!item.kerning) <span class="hljs-keyword">return</span>
+    <span class="hljs-keyword">var</span> prevPadRight = item.first ? <span class="hljs-number">0</span> : output[item.index - <span class="hljs-number">1</span>].padRight
+    <span class="hljs-keyword">if</span> (!item.first &amp;&amp; prevPadRight &lt; item.kerning) item.padLeft = item.kerning - prevPadRight
+    <span class="hljs-keyword">if</span> (!item.last) item.padRight = item.kerning
+  })
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Finish any that have a fixed (literal or intuited) length</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  output.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
+    <span class="hljs-keyword">if</span> (item.getBaseLength() == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span>
+    finishSizing(item)
+  })
+
+  <span class="hljs-keyword">var</span> resized = <span class="hljs-number">0</span>
+  <span class="hljs-keyword">var</span> resizing
+  <span class="hljs-keyword">var</span> hunkSize
+  <span class="hljs-keyword">do</span> {
+    resizing = <span class="hljs-literal">false</span>
+    hunkSize = <span class="hljs-built_in">Math</span>.round(remainingSpace / variableCount)
+    output.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
+      <span class="hljs-keyword">if</span> (item.finished) <span class="hljs-keyword">return</span>
+      <span class="hljs-keyword">if</span> (!item.maxLength) <span class="hljs-keyword">return</span>
+      <span class="hljs-keyword">if</span> (item.getMaxLength() &lt; hunkSize) {
+        finishSizing(item, item.maxLength)
+        resizing = <span class="hljs-literal">true</span>
+      }
+    })
+  } <span class="hljs-keyword">while</span> (resizing &amp;&amp; resized++ &lt; output.length)
+  <span class="hljs-keyword">if</span> (resizing) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> error.Internal(<span class="hljs-string">'Resize loop iterated too many times while determining maxLength'</span>)
+
+  resized = <span class="hljs-number">0</span>
+  <span class="hljs-keyword">do</span> {
+    resizing = <span class="hljs-literal">false</span>
+    hunkSize = <span class="hljs-built_in">Math</span>.round(remainingSpace / variableCount)
+    output.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
+      <span class="hljs-keyword">if</span> (item.finished) <span class="hljs-keyword">return</span>
+      <span class="hljs-keyword">if</span> (!item.minLength) <span class="hljs-keyword">return</span>
+      <span class="hljs-keyword">if</span> (item.getMinLength() &gt;= hunkSize) {
+        finishSizing(item, item.minLength)
+        resizing = <span class="hljs-literal">true</span>
+      }
+    })
+  } <span class="hljs-keyword">while</span> (resizing &amp;&amp; resized++ &lt; output.length)
+  <span class="hljs-keyword">if</span> (resizing) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> error.Internal(<span class="hljs-string">'Resize loop iterated too many times while determining minLength'</span>)
+
+  hunkSize = <span class="hljs-built_in">Math</span>.round(remainingSpace / variableCount)
+  output.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>{
+    <span class="hljs-keyword">if</span> (item.finished) <span class="hljs-keyword">return</span>
+    finishSizing(item, hunkSize)
+  })
+
+  <span class="hljs-keyword">return</span> output
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderFunction</span> (<span class="hljs-params">item, values, length</span>) </span>{
+  validate(<span class="hljs-string">'OON'</span>, <span class="hljs-built_in">arguments</span>)
+  <span class="hljs-keyword">if</span> (item.type) {
+    <span class="hljs-keyword">return</span> item.value(values, values[item.type + <span class="hljs-string">'Theme'</span>] || {}, length)
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> item.value(values, {}, length)
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderValue</span> (<span class="hljs-params">item, values</span>) </span>{
+  <span class="hljs-keyword">var</span> length = item.getBaseLength()
+  <span class="hljs-keyword">var</span> value = <span class="hljs-keyword">typeof</span> item.value === <span class="hljs-string">'function'</span> ? renderFunction(item, values, length) : item.value
+  <span class="hljs-keyword">if</span> (value == <span class="hljs-literal">null</span> || value === <span class="hljs-string">''</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>
+  <span class="hljs-keyword">var</span> alignWith = align[item.align] || align.left
+  <span class="hljs-keyword">var</span> leftPadding = item.padLeft ? align.left(<span class="hljs-string">''</span>, item.padLeft) : <span class="hljs-string">''</span>
+  <span class="hljs-keyword">var</span> rightPadding = item.padRight ? align.right(<span class="hljs-string">''</span>, item.padRight) : <span class="hljs-string">''</span>
+  <span class="hljs-keyword">var</span> truncated = wideTruncate(<span class="hljs-built_in">String</span>(value), length)
+  <span class="hljs-keyword">var</span> aligned = alignWith(truncated, length)
+  <span class="hljs-keyword">return</span> leftPadding + aligned + rightPadding
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

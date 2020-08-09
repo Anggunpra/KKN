@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\matchdep\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#matchdep">matchdep </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#examples">Examples</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#pattern">pattern</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#config">config</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#release-history">Release History</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="matchdep">
+  <h1>
+    <a href="#matchdep" name="matchdep" class="pilcrow"></a>
+matchdep <a href="http://travis-ci.org/tkellen/js-matchdep"><img src="https://secure.travis-ci.org/tkellen/js-matchdep.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Use <a href="https://github.com/jonschlinkert/micromatch">micromatch</a> to filter npm module dependencies by name.</p>
+</blockquote>
+<p><a href="https://nodei.co/npm/matchdep/"><img src="https://nodei.co/npm/matchdep.png" alt="NPM"></a></p>
+<div class="pilwrap" id="examples">
+  <h2>
+    <a href="#examples" name="examples" class="pilcrow"></a>
+Examples
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> matchdep = <span class="hljs-built_in">require</span>(<span class="hljs-string">'matchdep'</span>);
+
+<span class="hljs-comment">// Filter dependencies (by autoloading nearest package.json)</span>
+matchdep.filter(<span class="hljs-string">'mini*'</span>);
+
+<span class="hljs-comment">// Filter devDependencies (with config string indicating file to be required)</span>
+matchdep.filterDev(<span class="hljs-string">'grunt-contrib-*'</span>, <span class="hljs-string">'./package.json'</span>);
+
+<span class="hljs-comment">// Filter peerDependencies (with config string indicating file to be required)</span>
+matchdep.filterPeer(<span class="hljs-string">'foo-{bar,baz}'</span>, <span class="hljs-string">'./some-other.json'</span>);
+
+<span class="hljs-comment">// Filter all dependencies (with explicit config provided)</span>
+matchdep.filterAll(<span class="hljs-string">'*'</span>, <span class="hljs-built_in">require</span>(<span class="hljs-string">'./yet-another.json'</span>));
+
+<span class="hljs-comment">// Filter all dependencies, exclude grunt (multiple matching patterns)</span>
+matchdep.filterAll([<span class="hljs-string">'*'</span>,<span class="hljs-string">'!grunt'</span>]);
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js">filter(pattern, config)
+filterDev(pattern, config)
+filterPeer(pattern, config)
+filterAll(pattern, config)
+</code></pre>
+<div class="pilwrap" id="pattern">
+  <h3>
+    <a href="#pattern" name="pattern" class="pilcrow"></a>
+pattern
+  </h3>
+</div>
+<p>Type: <code>String|Array</code>
+Default: 'none'</p>
+<p>A <a href="https://github.com/jonschlinkert/micromatch">micromatch</a> compatible match pattern to filter dependencies.</p>
+<div class="pilwrap" id="config">
+  <h3>
+    <a href="#config" name="config" class="pilcrow"></a>
+config
+  </h3>
+</div>
+<p>Type: <code>String</code> or <code>Object</code>
+Default: Path to nearest package.json.</p>
+<p>If config is a string, matchdep will attempt to require it.  If it is an object, it will be used directly.</p>
+<div class="pilwrap" id="release-history">
+  <h2>
+    <a href="#release-history" name="release-history" class="pilcrow"></a>
+Release History
+  </h2>
+</div>
+<ul>
+<li>2017-08-18 - v2.0.0 - Upgrade major versions of dependencies, Upgrade devDeps</li>
+<li>2016-02-09 - v1.0.1 - switch to <a href="https://github.com/jonschlinkert/micromatch">micromatch</a>, remove <a href="https://github.com/cowboy/node-globule">globule</a></li>
+<li>2015-09-27 - v1.0.0 - throw when no package.json found, update dependencies, remove node 0.8 support</li>
+<li>2013-10-09 - v0.3.0 - support multiple pattern matches using <a href="https://github.com/cowboy/node-globule">globule</a></li>
+<li>2013-10-08 - v0.2.0 - refactor and support filtering peerDependencies</li>
+<li>2012-11-27 - v0.1.0 - initial release</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

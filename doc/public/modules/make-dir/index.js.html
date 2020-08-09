@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\make-dir\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">const</span> pify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pify'</span>);
+
+<span class="hljs-keyword">const</span> defaults = {
+	<span class="hljs-attr">mode</span>: <span class="hljs-number">0o777</span> &amp; (~process.umask()),
+	fs
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>https://github.com/nodejs/node/issues/8987
+https://github.com/libuv/libuv/pull/1088</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">const</span> checkPath = <span class="hljs-function"><span class="hljs-params">pth</span> =&gt;</span> {
+	<span class="hljs-keyword">if</span> (process.platform === <span class="hljs-string">'win32'</span>) {
+		<span class="hljs-keyword">const</span> pathHasInvalidWinCharacters = <span class="hljs-regexp">/[&lt;&gt;:"|?*]/</span>.test(pth.replace(path.parse(pth).root, <span class="hljs-string">''</span>));
+
+		<span class="hljs-keyword">if</span> (pathHasInvalidWinCharacters) {
+			<span class="hljs-keyword">const</span> err = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Path contains invalid characters: <span class="hljs-subst">${pth}</span>`</span>);
+			err.code = <span class="hljs-string">'EINVAL'</span>;
+			<span class="hljs-keyword">throw</span> err;
+		}
+	}
+};
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">input, opts</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+	checkPath(input);
+	opts = <span class="hljs-built_in">Object</span>.assign({}, defaults, opts);
+
+	<span class="hljs-keyword">const</span> mkdir = pify(opts.fs.mkdir);
+	<span class="hljs-keyword">const</span> stat = pify(opts.fs.stat);
+
+	<span class="hljs-keyword">const</span> make = <span class="hljs-function"><span class="hljs-params">pth</span> =&gt;</span> {
+		<span class="hljs-keyword">return</span> mkdir(pth, opts.mode)
+			.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> pth)
+			.catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+				<span class="hljs-keyword">if</span> (err.code === <span class="hljs-string">'ENOENT'</span>) {
+					<span class="hljs-keyword">if</span> (err.message.includes(<span class="hljs-string">'null bytes'</span>) || path.dirname(pth) === pth) {
+						<span class="hljs-keyword">throw</span> err;
+					}
+
+					<span class="hljs-keyword">return</span> make(path.dirname(pth)).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> make(pth));
+				}
+
+				<span class="hljs-keyword">return</span> stat(pth)
+					.then(<span class="hljs-function"><span class="hljs-params">stats</span> =&gt;</span> stats.isDirectory() ? pth : <span class="hljs-built_in">Promise</span>.reject())
+					.catch(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+						<span class="hljs-keyword">throw</span> err;
+					});
+			});
+	};
+
+	<span class="hljs-keyword">return</span> make(path.resolve(input));
+});
+
+<span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function">(<span class="hljs-params">input, opts</span>) =&gt;</span> {
+	checkPath(input);
+	opts = <span class="hljs-built_in">Object</span>.assign({}, defaults, opts);
+
+	<span class="hljs-keyword">const</span> make = <span class="hljs-function"><span class="hljs-params">pth</span> =&gt;</span> {
+		<span class="hljs-keyword">try</span> {
+			opts.fs.mkdirSync(pth, opts.mode);
+		} <span class="hljs-keyword">catch</span> (err) {
+			<span class="hljs-keyword">if</span> (err.code === <span class="hljs-string">'ENOENT'</span>) {
+				<span class="hljs-keyword">if</span> (err.message.includes(<span class="hljs-string">'null bytes'</span>) || path.dirname(pth) === pth) {
+					<span class="hljs-keyword">throw</span> err;
+				}
+
+				make(path.dirname(pth));
+				<span class="hljs-keyword">return</span> make(pth);
+			}
+
+			<span class="hljs-keyword">try</span> {
+				<span class="hljs-keyword">if</span> (!opts.fs.statSync(pth).isDirectory()) {
+					<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'The path is not a directory'</span>);
+				}
+			} <span class="hljs-keyword">catch</span> (_) {
+				<span class="hljs-keyword">throw</span> err;
+			}
+		}
+
+		<span class="hljs-keyword">return</span> pth;
+	};
+
+	<span class="hljs-keyword">return</span> make(path.resolve(input));
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

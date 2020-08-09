@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CHANGELOG.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\fd-slicer\\CHANGELOG.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h3">
+        <a href="#1.0.1">1.0.1</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#1.0.0">1.0.0</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.4.0">0.4.0</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.3.2">0.3.2</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.3.1">0.3.1</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.3.0">0.3.0</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.2.1">0.2.1</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.2.0">0.2.0</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.1.0">0.1.0</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.0.2">0.0.2</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.0.1">0.0.1</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="1.0.1">
+  <h3>
+    <a href="#1.0.1" name="1.0.1" class="pilcrow"></a>
+1.0.1
+  </h3>
+</div>
+<ul>
+<li>use <code>setImmediate</code> instead of <code>nextTick</code></li>
+</ul>
+<div class="pilwrap" id="1.0.0">
+  <h3>
+    <a href="#1.0.0" name="1.0.0" class="pilcrow"></a>
+1.0.0
+  </h3>
+</div>
+<ul>
+<li><code>new FdSlicer(fd, options)</code> must now be <code>fdSlicer.createFromFd(fd, options)</code></li>
+<li>fix behavior when <code>end</code> is 0.</li>
+<li>fix <code>createWriteStream</code> when using <code>createFromBuffer</code></li>
+</ul>
+<div class="pilwrap" id="0.4.0">
+  <h3>
+    <a href="#0.4.0" name="0.4.0" class="pilcrow"></a>
+0.4.0
+  </h3>
+</div>
+<ul>
+<li>add ability to create an FdSlicer instance from a Buffer</li>
+</ul>
+<div class="pilwrap" id="0.3.2">
+  <h3>
+    <a href="#0.3.2" name="0.3.2" class="pilcrow"></a>
+0.3.2
+  </h3>
+</div>
+<ul>
+<li>fix write stream and read stream destroy behavior</li>
+</ul>
+<div class="pilwrap" id="0.3.1">
+  <h3>
+    <a href="#0.3.1" name="0.3.1" class="pilcrow"></a>
+0.3.1
+  </h3>
+</div>
+<ul>
+<li>write stream: fix end option behavior</li>
+</ul>
+<div class="pilwrap" id="0.3.0">
+  <h3>
+    <a href="#0.3.0" name="0.3.0" class="pilcrow"></a>
+0.3.0
+  </h3>
+</div>
+<ul>
+<li>write stream emits 'progress' events</li>
+<li>write stream supports 'end' option which causes the stream to emit an error
+if a maximum size is exceeded</li>
+<li>improve documentation</li>
+</ul>
+<div class="pilwrap" id="0.2.1">
+  <h3>
+    <a href="#0.2.1" name="0.2.1" class="pilcrow"></a>
+0.2.1
+  </h3>
+</div>
+<ul>
+<li>Update pend dependency to latest bugfix version.</li>
+</ul>
+<div class="pilwrap" id="0.2.0">
+  <h3>
+    <a href="#0.2.0" name="0.2.0" class="pilcrow"></a>
+0.2.0
+  </h3>
+</div>
+<ul>
+<li>Add read and write functions</li>
+</ul>
+<div class="pilwrap" id="0.1.0">
+  <h3>
+    <a href="#0.1.0" name="0.1.0" class="pilcrow"></a>
+0.1.0
+  </h3>
+</div>
+<ul>
+<li>Add <code>autoClose</code> option and <code>ref()</code> and <code>unref()</code>.</li>
+</ul>
+<div class="pilwrap" id="0.0.2">
+  <h3>
+    <a href="#0.0.2" name="0.0.2" class="pilcrow"></a>
+0.0.2
+  </h3>
+</div>
+<ul>
+<li>Add API documentation</li>
+<li>read stream: create buffer at last possible moment</li>
+</ul>
+<div class="pilwrap" id="0.0.1">
+  <h3>
+    <a href="#0.0.1" name="0.0.1" class="pilcrow"></a>
+0.0.1
+  </h3>
+</div>
+<ul>
+<li>Initial release</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

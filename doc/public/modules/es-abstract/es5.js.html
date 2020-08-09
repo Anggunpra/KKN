@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>es5.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es-abstract\\es5.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>es5.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> GetIntrinsic = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./GetIntrinsic'</span>);
+
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">Object</span> = GetIntrinsic(<span class="hljs-string">'%Object%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">TypeError</span> = GetIntrinsic(<span class="hljs-string">'%TypeError%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">String</span> = GetIntrinsic(<span class="hljs-string">'%String%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">Number</span> = GetIntrinsic(<span class="hljs-string">'%Number%'</span>);
+
+<span class="hljs-keyword">var</span> assertRecord = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/assertRecord'</span>);
+<span class="hljs-keyword">var</span> isPropertyDescriptor = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/isPropertyDescriptor'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">isNaN</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/isNaN'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">isFinite</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/isFinite'</span>);
+
+<span class="hljs-keyword">var</span> sign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/sign'</span>);
+<span class="hljs-keyword">var</span> mod = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/mod'</span>);
+
+<span class="hljs-keyword">var</span> IsCallable = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-callable'</span>);
+<span class="hljs-keyword">var</span> toPrimitive = <span class="hljs-built_in">require</span>(<span class="hljs-string">'es-to-primitive/es5'</span>);
+
+<span class="hljs-keyword">var</span> has = <span class="hljs-built_in">require</span>(<span class="hljs-string">'has'</span>);
+
+<span class="hljs-keyword">var</span> callBind = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/callBind'</span>);
+<span class="hljs-keyword">var</span> strSlice = callBind($<span class="hljs-built_in">String</span>.prototype.slice);
+
+<span class="hljs-keyword">var</span> isPrefixOf = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isPrefixOf</span>(<span class="hljs-params">prefix, string</span>) </span>{
+	<span class="hljs-keyword">if</span> (prefix === string) {
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	}
+	<span class="hljs-keyword">if</span> (prefix.length &gt; string.length) {
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	}
+	<span class="hljs-keyword">return</span> strSlice(string, <span class="hljs-number">0</span>, prefix.length) === prefix;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>https://es5.github.io/#x9</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> ES5 = {
+	<span class="hljs-attr">ToPrimitive</span>: toPrimitive,
+
+	<span class="hljs-attr">ToBoolean</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToBoolean</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">return</span> !!value;
+	},
+	<span class="hljs-attr">ToNumber</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToNumber</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">return</span> +value; <span class="hljs-comment">// eslint-disable-line no-implicit-coercion</span>
+	},
+	<span class="hljs-attr">ToInteger</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToInteger</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">var</span> number = <span class="hljs-keyword">this</span>.ToNumber(value);
+		<span class="hljs-keyword">if</span> ($<span class="hljs-built_in">isNaN</span>(number)) { <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; }
+		<span class="hljs-keyword">if</span> (number === <span class="hljs-number">0</span> || !$<span class="hljs-built_in">isFinite</span>(number)) { <span class="hljs-keyword">return</span> number; }
+		<span class="hljs-keyword">return</span> sign(number) * <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.abs(number));
+	},
+	<span class="hljs-attr">ToInt32</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToInt32</span>(<span class="hljs-params">x</span>) </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ToNumber(x) &gt;&gt; <span class="hljs-number">0</span>;
+	},
+	<span class="hljs-attr">ToUint32</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToUint32</span>(<span class="hljs-params">x</span>) </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ToNumber(x) &gt;&gt;&gt; <span class="hljs-number">0</span>;
+	},
+	<span class="hljs-attr">ToUint16</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToUint16</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">var</span> number = <span class="hljs-keyword">this</span>.ToNumber(value);
+		<span class="hljs-keyword">if</span> ($<span class="hljs-built_in">isNaN</span>(number) || number === <span class="hljs-number">0</span> || !$<span class="hljs-built_in">isFinite</span>(number)) { <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; }
+		<span class="hljs-keyword">var</span> posInt = sign(number) * <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.abs(number));
+		<span class="hljs-keyword">return</span> mod(posInt, <span class="hljs-number">0x10000</span>);
+	},
+	<span class="hljs-attr">ToString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToString</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">return</span> $<span class="hljs-built_in">String</span>(value);
+	},
+	<span class="hljs-attr">ToObject</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToObject</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">this</span>.CheckObjectCoercible(value);
+		<span class="hljs-keyword">return</span> $<span class="hljs-built_in">Object</span>(value);
+	},
+	<span class="hljs-attr">CheckObjectCoercible</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CheckObjectCoercible</span>(<span class="hljs-params">value, optMessage</span>) </span>{
+		<span class="hljs-comment">/* jshint eqnull:true */</span>
+		<span class="hljs-keyword">if</span> (value == <span class="hljs-literal">null</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(optMessage || <span class="hljs-string">'Cannot call method on '</span> + value);
+		}
+		<span class="hljs-keyword">return</span> value;
+	},
+	<span class="hljs-attr">IsCallable</span>: IsCallable,
+	<span class="hljs-attr">SameValue</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SameValue</span>(<span class="hljs-params">x, y</span>) </span>{
+		<span class="hljs-keyword">if</span> (x === y) { <span class="hljs-comment">// 0 === -0, but they are not identical.</span>
+			<span class="hljs-keyword">if</span> (x === <span class="hljs-number">0</span>) { <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> / x === <span class="hljs-number">1</span> / y; }
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		}
+		<span class="hljs-keyword">return</span> $<span class="hljs-built_in">isNaN</span>(x) &amp;&amp; $<span class="hljs-built_in">isNaN</span>(y);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/5.1/#sec-8</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	Type: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Type</span>(<span class="hljs-params">x</span>) </span>{
+		<span class="hljs-keyword">if</span> (x === <span class="hljs-literal">null</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-string">'Null'</span>;
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">'undefined'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-string">'Undefined'</span>;
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">'function'</span> || <span class="hljs-keyword">typeof</span> x === <span class="hljs-string">'object'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-string">'Object'</span>;
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">'number'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-string">'Number'</span>;
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">'boolean'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-string">'Boolean'</span>;
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">'string'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-string">'String'</span>;
+		}
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/6.0/#sec-property-descriptor-specification-type</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IsPropertyDescriptor: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IsPropertyDescriptor</span>(<span class="hljs-params">Desc</span>) </span>{
+		<span class="hljs-keyword">return</span> isPropertyDescriptor(<span class="hljs-keyword">this</span>, Desc);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/5.1/#sec-8.10.1</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IsAccessorDescriptor: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IsAccessorDescriptor</span>(<span class="hljs-params">Desc</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> Desc === <span class="hljs-string">'undefined'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+
+		assertRecord(<span class="hljs-keyword">this</span>, <span class="hljs-string">'Property Descriptor'</span>, <span class="hljs-string">'Desc'</span>, Desc);
+
+		<span class="hljs-keyword">if</span> (!has(Desc, <span class="hljs-string">'[[Get]]'</span>) &amp;&amp; !has(Desc, <span class="hljs-string">'[[Set]]'</span>)) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/5.1/#sec-8.10.2</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IsDataDescriptor: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IsDataDescriptor</span>(<span class="hljs-params">Desc</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> Desc === <span class="hljs-string">'undefined'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+
+		assertRecord(<span class="hljs-keyword">this</span>, <span class="hljs-string">'Property Descriptor'</span>, <span class="hljs-string">'Desc'</span>, Desc);
+
+		<span class="hljs-keyword">if</span> (!has(Desc, <span class="hljs-string">'[[Value]]'</span>) &amp;&amp; !has(Desc, <span class="hljs-string">'[[Writable]]'</span>)) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/5.1/#sec-8.10.3</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IsGenericDescriptor: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IsGenericDescriptor</span>(<span class="hljs-params">Desc</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> Desc === <span class="hljs-string">'undefined'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+
+		assertRecord(<span class="hljs-keyword">this</span>, <span class="hljs-string">'Property Descriptor'</span>, <span class="hljs-string">'Desc'</span>, Desc);
+
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsAccessorDescriptor(Desc) &amp;&amp; !<span class="hljs-keyword">this</span>.IsDataDescriptor(Desc)) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		}
+
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/5.1/#sec-8.10.4</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	FromPropertyDescriptor: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FromPropertyDescriptor</span>(<span class="hljs-params">Desc</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> Desc === <span class="hljs-string">'undefined'</span>) {
+			<span class="hljs-keyword">return</span> Desc;
+		}
+
+		assertRecord(<span class="hljs-keyword">this</span>, <span class="hljs-string">'Property Descriptor'</span>, <span class="hljs-string">'Desc'</span>, Desc);
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsDataDescriptor(Desc)) {
+			<span class="hljs-keyword">return</span> {
+				<span class="hljs-attr">value</span>: Desc[<span class="hljs-string">'[[Value]]'</span>],
+				<span class="hljs-attr">writable</span>: !!Desc[<span class="hljs-string">'[[Writable]]'</span>],
+				<span class="hljs-attr">enumerable</span>: !!Desc[<span class="hljs-string">'[[Enumerable]]'</span>],
+				<span class="hljs-attr">configurable</span>: !!Desc[<span class="hljs-string">'[[Configurable]]'</span>]
+			};
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsAccessorDescriptor(Desc)) {
+			<span class="hljs-keyword">return</span> {
+				<span class="hljs-attr">get</span>: Desc[<span class="hljs-string">'[[Get]]'</span>],
+				<span class="hljs-attr">set</span>: Desc[<span class="hljs-string">'[[Set]]'</span>],
+				<span class="hljs-attr">enumerable</span>: !!Desc[<span class="hljs-string">'[[Enumerable]]'</span>],
+				<span class="hljs-attr">configurable</span>: !!Desc[<span class="hljs-string">'[[Configurable]]'</span>]
+			};
+		} <span class="hljs-keyword">else</span> {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'FromPropertyDescriptor must be called with a fully populated Property Descriptor'</span>);
+		}
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/5.1/#sec-8.10.5</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	ToPropertyDescriptor: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToPropertyDescriptor</span>(<span class="hljs-params">Obj</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(Obj) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'ToPropertyDescriptor requires an object'</span>);
+		}
+
+		<span class="hljs-keyword">var</span> desc = {};
+		<span class="hljs-keyword">if</span> (has(Obj, <span class="hljs-string">'enumerable'</span>)) {
+			desc[<span class="hljs-string">'[[Enumerable]]'</span>] = <span class="hljs-keyword">this</span>.ToBoolean(Obj.enumerable);
+		}
+		<span class="hljs-keyword">if</span> (has(Obj, <span class="hljs-string">'configurable'</span>)) {
+			desc[<span class="hljs-string">'[[Configurable]]'</span>] = <span class="hljs-keyword">this</span>.ToBoolean(Obj.configurable);
+		}
+		<span class="hljs-keyword">if</span> (has(Obj, <span class="hljs-string">'value'</span>)) {
+			desc[<span class="hljs-string">'[[Value]]'</span>] = Obj.value;
+		}
+		<span class="hljs-keyword">if</span> (has(Obj, <span class="hljs-string">'writable'</span>)) {
+			desc[<span class="hljs-string">'[[Writable]]'</span>] = <span class="hljs-keyword">this</span>.ToBoolean(Obj.writable);
+		}
+		<span class="hljs-keyword">if</span> (has(Obj, <span class="hljs-string">'get'</span>)) {
+			<span class="hljs-keyword">var</span> getter = Obj.get;
+			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> getter !== <span class="hljs-string">'undefined'</span> &amp;&amp; !<span class="hljs-keyword">this</span>.IsCallable(getter)) {
+				<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'getter must be a function'</span>);
+			}
+			desc[<span class="hljs-string">'[[Get]]'</span>] = getter;
+		}
+		<span class="hljs-keyword">if</span> (has(Obj, <span class="hljs-string">'set'</span>)) {
+			<span class="hljs-keyword">var</span> setter = Obj.set;
+			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> setter !== <span class="hljs-string">'undefined'</span> &amp;&amp; !<span class="hljs-keyword">this</span>.IsCallable(setter)) {
+				<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'setter must be a function'</span>);
+			}
+			desc[<span class="hljs-string">'[[Set]]'</span>] = setter;
+		}
+
+		<span class="hljs-keyword">if</span> ((has(desc, <span class="hljs-string">'[[Get]]'</span>) || has(desc, <span class="hljs-string">'[[Set]]'</span>)) &amp;&amp; (has(desc, <span class="hljs-string">'[[Value]]'</span>) || has(desc, <span class="hljs-string">'[[Writable]]'</span>))) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Invalid property descriptor. Cannot both specify accessors and a value or writable attribute'</span>);
+		}
+		<span class="hljs-keyword">return</span> desc;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/5.1/#sec-11.9.3</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-string">'Abstract Equality Comparison'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">AbstractEqualityComparison</span>(<span class="hljs-params">x, y</span>) </span>{
+		<span class="hljs-keyword">var</span> xType = <span class="hljs-keyword">this</span>.Type(x);
+		<span class="hljs-keyword">var</span> yType = <span class="hljs-keyword">this</span>.Type(y);
+		<span class="hljs-keyword">if</span> (xType === yType) {
+			<span class="hljs-keyword">return</span> x === y; <span class="hljs-comment">// ES6+ specified this shortcut anyways.</span>
+		}
+		<span class="hljs-keyword">if</span> (x == <span class="hljs-literal">null</span> &amp;&amp; y == <span class="hljs-literal">null</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		}
+		<span class="hljs-keyword">if</span> (xType === <span class="hljs-string">'Number'</span> &amp;&amp; yType === <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'Abstract Equality Comparison'</span>](x, <span class="hljs-keyword">this</span>.ToNumber(y));
+		}
+		<span class="hljs-keyword">if</span> (xType === <span class="hljs-string">'String'</span> &amp;&amp; yType === <span class="hljs-string">'Number'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'Abstract Equality Comparison'</span>](<span class="hljs-keyword">this</span>.ToNumber(x), y);
+		}
+		<span class="hljs-keyword">if</span> (xType === <span class="hljs-string">'Boolean'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'Abstract Equality Comparison'</span>](<span class="hljs-keyword">this</span>.ToNumber(x), y);
+		}
+		<span class="hljs-keyword">if</span> (yType === <span class="hljs-string">'Boolean'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'Abstract Equality Comparison'</span>](x, <span class="hljs-keyword">this</span>.ToNumber(y));
+		}
+		<span class="hljs-keyword">if</span> ((xType === <span class="hljs-string">'String'</span> || xType === <span class="hljs-string">'Number'</span>) &amp;&amp; yType === <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'Abstract Equality Comparison'</span>](x, <span class="hljs-keyword">this</span>.ToPrimitive(y));
+		}
+		<span class="hljs-keyword">if</span> (xType === <span class="hljs-string">'Object'</span> &amp;&amp; (yType === <span class="hljs-string">'String'</span> || yType === <span class="hljs-string">'Number'</span>)) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'Abstract Equality Comparison'</span>](<span class="hljs-keyword">this</span>.ToPrimitive(x), y);
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/5.1/#sec-11.9.6</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-string">'Strict Equality Comparison'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">StrictEqualityComparison</span>(<span class="hljs-params">x, y</span>) </span>{
+		<span class="hljs-keyword">var</span> xType = <span class="hljs-keyword">this</span>.Type(x);
+		<span class="hljs-keyword">var</span> yType = <span class="hljs-keyword">this</span>.Type(y);
+		<span class="hljs-keyword">if</span> (xType !== yType) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">if</span> (xType === <span class="hljs-string">'Undefined'</span> || xType === <span class="hljs-string">'Null'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		}
+		<span class="hljs-keyword">return</span> x === y; <span class="hljs-comment">// shortcut for steps 4-7</span>
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/5.1/#sec-11.8.5
+eslint-disable-next-line max-statements</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-string">'Abstract Relational Comparison'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">AbstractRelationalComparison</span>(<span class="hljs-params">x, y, LeftFirst</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(LeftFirst) !== <span class="hljs-string">'Boolean'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: LeftFirst argument must be a Boolean'</span>);
+		}
+		<span class="hljs-keyword">var</span> px;
+		<span class="hljs-keyword">var</span> py;
+		<span class="hljs-keyword">if</span> (LeftFirst) {
+			px = <span class="hljs-keyword">this</span>.ToPrimitive(x, $<span class="hljs-built_in">Number</span>);
+			py = <span class="hljs-keyword">this</span>.ToPrimitive(y, $<span class="hljs-built_in">Number</span>);
+		} <span class="hljs-keyword">else</span> {
+			py = <span class="hljs-keyword">this</span>.ToPrimitive(y, $<span class="hljs-built_in">Number</span>);
+			px = <span class="hljs-keyword">this</span>.ToPrimitive(x, $<span class="hljs-built_in">Number</span>);
+		}
+		<span class="hljs-keyword">var</span> bothStrings = <span class="hljs-keyword">this</span>.Type(px) === <span class="hljs-string">'String'</span> &amp;&amp; <span class="hljs-keyword">this</span>.Type(py) === <span class="hljs-string">'String'</span>;
+		<span class="hljs-keyword">if</span> (!bothStrings) {
+			<span class="hljs-keyword">var</span> nx = <span class="hljs-keyword">this</span>.ToNumber(px);
+			<span class="hljs-keyword">var</span> ny = <span class="hljs-keyword">this</span>.ToNumber(py);
+			<span class="hljs-keyword">if</span> ($<span class="hljs-built_in">isNaN</span>(nx) || $<span class="hljs-built_in">isNaN</span>(ny)) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+			}
+			<span class="hljs-keyword">if</span> ($<span class="hljs-built_in">isFinite</span>(nx) &amp;&amp; $<span class="hljs-built_in">isFinite</span>(ny) &amp;&amp; nx === ny) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+			}
+			<span class="hljs-keyword">if</span> (nx === <span class="hljs-number">0</span> &amp;&amp; ny === <span class="hljs-number">0</span>) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+			}
+			<span class="hljs-keyword">if</span> (nx === <span class="hljs-literal">Infinity</span>) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+			}
+			<span class="hljs-keyword">if</span> (ny === <span class="hljs-literal">Infinity</span>) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+			}
+			<span class="hljs-keyword">if</span> (ny === -<span class="hljs-literal">Infinity</span>) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+			}
+			<span class="hljs-keyword">if</span> (nx === -<span class="hljs-literal">Infinity</span>) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+			}
+			<span class="hljs-keyword">return</span> nx &lt; ny; <span class="hljs-comment">// by now, these are both nonzero, finite, and not equal</span>
+		}
+		<span class="hljs-keyword">if</span> (isPrefixOf(py, px)) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+		<span class="hljs-keyword">if</span> (isPrefixOf(px, py)) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		}
+		<span class="hljs-keyword">return</span> px &lt; py; <span class="hljs-comment">// both strings, neither a prefix of the other. shortcut for steps c-f</span>
+	}
+};
+
+<span class="hljs-built_in">module</span>.exports = ES5;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\is-retry-allowed\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> WHITELIST = [
+	<span class="hljs-string">'ETIMEDOUT'</span>,
+	<span class="hljs-string">'ECONNRESET'</span>,
+	<span class="hljs-string">'EADDRINUSE'</span>,
+	<span class="hljs-string">'ESOCKETTIMEDOUT'</span>,
+	<span class="hljs-string">'ECONNREFUSED'</span>,
+	<span class="hljs-string">'EPIPE'</span>,
+	<span class="hljs-string">'EHOSTUNREACH'</span>,
+	<span class="hljs-string">'EAI_AGAIN'</span>
+];
+
+<span class="hljs-keyword">var</span> BLACKLIST = [
+	<span class="hljs-string">'ENOTFOUND'</span>,
+	<span class="hljs-string">'ENETUNREACH'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>SSL errors from https://github.com/nodejs/node/blob/ed3d8b13ee9a705d89f9e0397d9e96519e7e47ac/src/node_crypto.cc#L1950</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-string">'UNABLE_TO_GET_ISSUER_CERT'</span>,
+	<span class="hljs-string">'UNABLE_TO_GET_CRL'</span>,
+	<span class="hljs-string">'UNABLE_TO_DECRYPT_CERT_SIGNATURE'</span>,
+	<span class="hljs-string">'UNABLE_TO_DECRYPT_CRL_SIGNATURE'</span>,
+	<span class="hljs-string">'UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY'</span>,
+	<span class="hljs-string">'CERT_SIGNATURE_FAILURE'</span>,
+	<span class="hljs-string">'CRL_SIGNATURE_FAILURE'</span>,
+	<span class="hljs-string">'CERT_NOT_YET_VALID'</span>,
+	<span class="hljs-string">'CERT_HAS_EXPIRED'</span>,
+	<span class="hljs-string">'CRL_NOT_YET_VALID'</span>,
+	<span class="hljs-string">'CRL_HAS_EXPIRED'</span>,
+	<span class="hljs-string">'ERROR_IN_CERT_NOT_BEFORE_FIELD'</span>,
+	<span class="hljs-string">'ERROR_IN_CERT_NOT_AFTER_FIELD'</span>,
+	<span class="hljs-string">'ERROR_IN_CRL_LAST_UPDATE_FIELD'</span>,
+	<span class="hljs-string">'ERROR_IN_CRL_NEXT_UPDATE_FIELD'</span>,
+	<span class="hljs-string">'OUT_OF_MEM'</span>,
+	<span class="hljs-string">'DEPTH_ZERO_SELF_SIGNED_CERT'</span>,
+	<span class="hljs-string">'SELF_SIGNED_CERT_IN_CHAIN'</span>,
+	<span class="hljs-string">'UNABLE_TO_GET_ISSUER_CERT_LOCALLY'</span>,
+	<span class="hljs-string">'UNABLE_TO_VERIFY_LEAF_SIGNATURE'</span>,
+	<span class="hljs-string">'CERT_CHAIN_TOO_LONG'</span>,
+	<span class="hljs-string">'CERT_REVOKED'</span>,
+	<span class="hljs-string">'INVALID_CA'</span>,
+	<span class="hljs-string">'PATH_LENGTH_EXCEEDED'</span>,
+	<span class="hljs-string">'INVALID_PURPOSE'</span>,
+	<span class="hljs-string">'CERT_UNTRUSTED'</span>,
+	<span class="hljs-string">'CERT_REJECTED'</span>
+];
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+	<span class="hljs-keyword">if</span> (!err || !err.code) {
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	}
+
+	<span class="hljs-keyword">if</span> (WHITELIST.indexOf(err.code) !== <span class="hljs-number">-1</span>) {
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	}
+
+	<span class="hljs-keyword">if</span> (BLACKLIST.indexOf(err.code) !== <span class="hljs-number">-1</span>) {
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	}
+
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

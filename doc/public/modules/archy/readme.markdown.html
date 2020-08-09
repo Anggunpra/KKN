@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.markdown</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\archy\\readme.markdown";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#archy">archy</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#example">example</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#methods">methods</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#archy-obj-prefix-opts">archy(obj, prefix=&#39;&#39;, opts={})</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#install">install</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#license">license</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="archy">
+  <h1>
+    <a href="#archy" name="archy" class="pilcrow"></a>
+archy
+  </h1>
+</div>
+<p>Render nested hierarchies <code>npm ls</code> style with unicode pipes.</p>
+<p><a href="http://ci.testling.com/substack/node-archy"><img src="http://ci.testling.com/substack/node-archy.png" alt="browser support"></a></p>
+<p><a href="http://travis-ci.org/substack/node-archy"><img src="https://secure.travis-ci.org/substack/node-archy.png" alt="build status"></a></p>
+<div class="pilwrap" id="example">
+  <h1>
+    <a href="#example" name="example" class="pilcrow"></a>
+example
+  </h1>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> archy = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archy'</span>);
+<span class="hljs-keyword">var</span> s = archy({
+  <span class="hljs-attr">label</span> : <span class="hljs-string">'beep'</span>,
+  <span class="hljs-attr">nodes</span> : [
+    <span class="hljs-string">'ity'</span>,
+    {
+      <span class="hljs-attr">label</span> : <span class="hljs-string">'boop'</span>,
+      <span class="hljs-attr">nodes</span> : [
+        {
+          <span class="hljs-attr">label</span> : <span class="hljs-string">'o_O'</span>,
+          <span class="hljs-attr">nodes</span> : [
+            {
+              <span class="hljs-attr">label</span> : <span class="hljs-string">'oh'</span>,
+              <span class="hljs-attr">nodes</span> : [ <span class="hljs-string">'hello'</span>, <span class="hljs-string">'puny'</span> ]
+            },
+            <span class="hljs-string">'human'</span>
+          ]
+        },
+        <span class="hljs-string">'party\ntime!'</span>
+      ]
+    }
+  ]
+});
+<span class="hljs-built_in">console</span>.log(s);
+</code></pre>
+<p>output</p>
+<pre><code>beep
+├── ity
+└─┬ boop
+  ├─┬ o_O
+  │ ├─┬ oh
+  │ │ ├── hello
+  │ │ └── puny
+  │ └── human
+  └── party
+      time!
+</code></pre>
+<div class="pilwrap" id="methods">
+  <h1>
+    <a href="#methods" name="methods" class="pilcrow"></a>
+methods
+  </h1>
+</div>
+<p>var archy = require('archy')</p>
+<div class="pilwrap" id="archy-obj-prefix-opts">
+  <h2>
+    <a href="#archy-obj-prefix-opts" name="archy-obj-prefix-opts" class="pilcrow"></a>
+archy(obj, prefix='', opts={})
+  </h2>
+</div>
+<p>Return a string representation of <code>obj</code> with unicode pipe characters like how
+<code>npm ls</code> looks.</p>
+<p><code>obj</code> should be a tree of nested objects with <code>'label'</code> and <code>'nodes'</code> fields.
+<code>'label'</code> is a string of text to display at a node level and <code>'nodes'</code> is an
+array of the descendents of the current node.</p>
+<p>If a node is a string, that string will be used as the <code>'label'</code> and an empty
+array of <code>'nodes'</code> will be used.</p>
+<p><code>prefix</code> gets prepended to all the lines and is used by the algorithm to
+recursively update.</p>
+<p>If <code>'label'</code> has newlines they will be indented at the present indentation level
+with the current prefix.</p>
+<p>To disable unicode results in favor of all-ansi output set <code>opts.unicode</code> to
+<code>false</code>.</p>
+<div class="pilwrap" id="install">
+  <h1>
+    <a href="#install" name="install" class="pilcrow"></a>
+install
+  </h1>
+</div>
+<p>With <a href="http://npmjs.org">npm</a> do:</p>
+<pre><code>npm install archy
+</code></pre>
+<div class="pilwrap" id="license">
+  <h1>
+    <a href="#license" name="license" class="pilcrow"></a>
+license
+  </h1>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

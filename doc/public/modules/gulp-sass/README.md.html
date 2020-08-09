@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-sass\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gulp-sass">gulp-sass   </a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#support">Support</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#basic-usage">Basic Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#options">Options</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#source-maps">Source Maps</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#issues">Issues</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="gulp-sass">
+  <h1>
+    <a href="#gulp-sass" name="gulp-sass" class="pilcrow"></a>
+gulp-sass <a href="https://travis-ci.org/dlmanning/gulp-sass"><img src="https://travis-ci.org/dlmanning/gulp-sass.svg?branch=master" alt="Build Status"></a> <a href="https://gitter.im/dlmanning/gulp-sass?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/dlmanning/gulp-sass"></a> <a href="http://badge.fury.io/js/gulp-sass"><img src="https://badge.fury.io/js/gulp-sass.svg" alt="npm version"></a>
+  </h1>
+</div>
+<p>Sass plugin for <a href="https://github.com/gulpjs/gulp">Gulp</a>.</p>
+<p><strong><em>Before filing an issue, please make sure you have <a href="https://github.com/dlmanning/gulp-sass/wiki/Update-to-the-latest-Gulp-Sass">Updated to the latest Gulp Sass</a> and have gone through our <a href="https://github.com/dlmanning/gulp-sass/wiki/Common-Issues-and-Their-Fixes">Common Issues and Their Fixes</a> section.</em></strong></p>
+<div class="pilwrap" id="support">
+  <h1>
+    <a href="#support" name="support" class="pilcrow"></a>
+Support
+  </h1>
+</div>
+<p>Only <a href="https://github.com/nodejs/Release#release-schedule">Active LTS and Current releases</a> are supported.</p>
+<div class="pilwrap" id="install">
+  <h1>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h1>
+</div>
+<pre><code>npm install node-sass gulp-sass --save-dev
+</code></pre>
+<div class="pilwrap" id="basic-usage">
+  <h1>
+    <a href="#basic-usage" name="basic-usage" class="pilcrow"></a>
+Basic Usage
+  </h1>
+</div>
+<p>Something like this will compile your Sass files:</p>
+<pre><code class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> sass = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-sass'</span>);
+
+sass.compiler = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-sass'</span>);
+
+gulp.task(<span class="hljs-string">'sass'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./sass/**/*.scss'</span>)
+    .pipe(sass().on(<span class="hljs-string">'error'</span>, sass.logError))
+    .pipe(gulp.dest(<span class="hljs-string">'./css'</span>));
+});
+
+gulp.task(<span class="hljs-string">'sass:watch'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  gulp.watch(<span class="hljs-string">'./sass/**/*.scss'</span>, [<span class="hljs-string">'sass'</span>]);
+});
+</code></pre>
+<p>You can also compile synchronously, doing something like this:</p>
+<pre><code class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> sass = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-sass'</span>);
+
+sass.compiler = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-sass'</span>);
+
+gulp.task(<span class="hljs-string">'sass'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./sass/**/*.scss'</span>)
+    .pipe(sass.sync().on(<span class="hljs-string">'error'</span>, sass.logError))
+    .pipe(gulp.dest(<span class="hljs-string">'./css'</span>));
+});
+
+gulp.task(<span class="hljs-string">'sass:watch'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  gulp.watch(<span class="hljs-string">'./sass/**/*.scss'</span>, [<span class="hljs-string">'sass'</span>]);
+});
+</code></pre>
+<p>You can choose whether to use <a href="http://sass-lang.com/dart-sass">Dart Sass</a> or <a href="https://github.com/sass/node-sass">Node Sass</a> by setting the <code>sass.compiler</code> property. Node Sass will be used by default, but it's strongly recommended that you set it explicitly for forwards-compatibility in case the default ever changes.</p>
+<p>Note that when using Dart Sass, <strong>synchronous compilation is twice as fast as asynchronous compilation</strong> by default, due to the overhead of asynchronous callbacks. To avoid this overhead, you can use the <a href="https://www.npmjs.com/package/fibers"><code>fibers</code></a> package to call asynchronous importers from the synchronous code path. To enable this, pass the <code>Fiber</code> class to the <code>fiber</code> option:</p>
+<pre><code class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> Fiber = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fibers'</span>);
+<span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> sass = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-sass'</span>);
+
+sass.compiler = <span class="hljs-built_in">require</span>(<span class="hljs-string">'sass'</span>);
+
+gulp.task(<span class="hljs-string">'sass'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./sass/**/*.scss'</span>)
+    .pipe(sass({<span class="hljs-attr">fiber</span>: Fiber}).on(<span class="hljs-string">'error'</span>, sass.logError))
+    .pipe(gulp.dest(<span class="hljs-string">'./css'</span>));
+});
+
+gulp.task(<span class="hljs-string">'sass:watch'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  gulp.watch(<span class="hljs-string">'./sass/**/*.scss'</span>, [<span class="hljs-string">'sass'</span>]);
+});
+</code></pre>
+<div class="pilwrap" id="options">
+  <h2>
+    <a href="#options" name="options" class="pilcrow"></a>
+Options
+  </h2>
+</div>
+<p>Pass in options just like you would for <a href="https://github.com/sass/node-sass#options">Node Sass</a>; they will be passed along just as if you were using Node Sass. Except for the <code>data</code> option which is used by gulp-sass internally. Using the <code>file</code> option is also unsupported and results in undefined behaviour that may change without notice.</p>
+<p>For example:</p>
+<pre><code class="javascript">gulp.task(<span class="hljs-string">'sass'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+ <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./sass/**/*.scss'</span>)
+   .pipe(sass({<span class="hljs-attr">outputStyle</span>: <span class="hljs-string">'compressed'</span>}).on(<span class="hljs-string">'error'</span>, sass.logError))
+   .pipe(gulp.dest(<span class="hljs-string">'./css'</span>));
+});
+</code></pre>
+<p>Or this for synchronous code:</p>
+<pre><code class="javascript">gulp.task(<span class="hljs-string">'sass'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+ <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./sass/**/*.scss'</span>)
+   .pipe(sass.sync({<span class="hljs-attr">outputStyle</span>: <span class="hljs-string">'compressed'</span>}).on(<span class="hljs-string">'error'</span>, sass.logError))
+   .pipe(gulp.dest(<span class="hljs-string">'./css'</span>));
+});
+</code></pre>
+<div class="pilwrap" id="source-maps">
+  <h2>
+    <a href="#source-maps" name="source-maps" class="pilcrow"></a>
+Source Maps
+  </h2>
+</div>
+<p><code>gulp-sass</code> can be used in tandem with <a href="https://github.com/floridoo/gulp-sourcemaps">gulp-sourcemaps</a> to generate source maps for the Sass to CSS compilation. You will need to initialize <a href="https://github.com/floridoo/gulp-sourcemaps">gulp-sourcemaps</a> prior to running <code>gulp-sass</code> and write the source maps after.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> sourcemaps = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-sourcemaps'</span>);
+
+gulp.task(<span class="hljs-string">'sass'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+ <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./sass/**/*.scss'</span>)
+  .pipe(sourcemaps.init())
+  .pipe(sass().on(<span class="hljs-string">'error'</span>, sass.logError))
+  .pipe(sourcemaps.write())
+  .pipe(gulp.dest(<span class="hljs-string">'./css'</span>));
+});
+</code></pre>
+<p>By default, <a href="https://github.com/floridoo/gulp-sourcemaps">gulp-sourcemaps</a> writes the source maps inline in the compiled CSS files. To write them to a separate file, specify a path relative to the <code>gulp.dest()</code> destination in the <code>sourcemaps.write()</code> function.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> sourcemaps = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-sourcemaps'</span>);
+gulp.task(<span class="hljs-string">'sass'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+ <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./sass/**/*.scss'</span>)
+  .pipe(sourcemaps.init())
+  .pipe(sass().on(<span class="hljs-string">'error'</span>, sass.logError))
+  .pipe(sourcemaps.write(<span class="hljs-string">'./maps'</span>))
+  .pipe(gulp.dest(<span class="hljs-string">'./css'</span>));
+});
+</code></pre>
+<div class="pilwrap" id="issues">
+  <h1>
+    <a href="#issues" name="issues" class="pilcrow"></a>
+Issues
+  </h1>
+</div>
+<p><code>gulp-sass</code> is a very light-weight wrapper around either <a href="http://sass-lang.com/dart-sass">Dart Sass</a> or <a href="https://github.com/sass/node-sass">Node Sass</a> (which in turn is a Node binding for <a href="https://sass-lang.com/libsass">LibSass</a>). Because of this, the issue you're having likely isn't a <code>gulp-sass</code> issue, but an issue with one those projects or with <a href="https://sass-lang.com">Sass</a> as a whole.</p>
+<p>If you have a feature request/question how Sass works/concerns on how your Sass gets compiled/errors in your compiling, it's likely a Dart Sass or LibSass issue and you should file your issue with one of those projects.</p>
+<p>If you're having problems with the options you're passing in, it's likely a Dart Sass or Node Sass issue and you should file your issue with one of those projects.</p>
+<p>We may, in the course of resolving issues, direct you to one of these other projects. If we do so, please follow up by searching that project's issue queue (both open and closed) for your problem and, if it doesn't exist, filing an issue with them.</p>
+</div>
+  </div>
+</body>
+</html>

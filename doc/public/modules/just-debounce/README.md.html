@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\just-debounce\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#just-debounce">just-debounce</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#why">Why?</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#arguments">arguments</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#license">license</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="just-debounce">
+  <h1>
+    <a href="#just-debounce" name="just-debounce" class="pilcrow"></a>
+just-debounce
+  </h1>
+</div>
+<p>just a basic debounce function</p>
+<div class="pilwrap" id="why">
+  <h1>
+    <a href="#why" name="why" class="pilcrow"></a>
+Why?
+  </h1>
+</div>
+<p>I searched npm and the first 3 pages of results for &quot;debounce&quot; did not have a
+small correctly implemented version of debounce</p>
+<div class="pilwrap" id="usage">
+  <h1>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h1>
+</div>
+<div class="pilwrap" id="arguments">
+  <h3>
+    <a href="#arguments" name="arguments" class="pilcrow"></a>
+arguments
+  </h3>
+</div>
+<ul>
+<li><code>fn</code>: the function to debounce</li>
+<li><code>delay</code>: debounce delay in ms</li>
+<li><code>at_start:</code> if true, the function will be called at the beginning of the
+delay rather than the end</li>
+<li><code>guarantee</code>: ensures the time before the next call the <code>fn</code> is not greater <br>
+than the delay period.</li>
+</ul>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> db = <span class="hljs-built_in">require</span>(<span class="hljs-string">'just-debounce'</span>)
+
+<span class="hljs-keyword">var</span> debounced = db(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{<span class="hljs-built_in">console</span>.log(v)}, <span class="hljs-number">100</span>)
+
+debounced(<span class="hljs-string">'hi'</span>)
+debounced(<span class="hljs-string">'hi'</span>)
+<span class="hljs-comment">// logs 'hi' once after 100ms</span>
+</code></pre>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> db = <span class="hljs-built_in">require</span>(<span class="hljs-string">'just-debounce'</span>)
+
+<span class="hljs-keyword">var</span> debounced = db(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{<span class="hljs-built_in">console</span>.log(v)}, <span class="hljs-number">100</span>, <span class="hljs-literal">true</span>)
+
+debounced(<span class="hljs-string">'hi'</span>)
+debounced(<span class="hljs-string">'hi'</span>)
+<span class="hljs-comment">// logs 'hi' once right away, but not a second time. calling after 100ms will log again</span>
+</code></pre>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> db = <span class="hljs-built_in">require</span>(<span class="hljs-string">'just-debounce'</span>)
+
+<span class="hljs-keyword">var</span> debounced = db(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{<span class="hljs-built_in">console</span>.log(v)}, <span class="hljs-number">100</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>)
+
+debounced(<span class="hljs-string">'hi'</span>)
+setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{debounced(<span class="hljs-string">'hi2'</span>)}, <span class="hljs-number">80</span>)
+
+<span class="hljs-comment">// logs 'hi2' once 100ms after the first call to debounced</span>
+</code></pre>
+<div class="pilwrap" id="license">
+  <h1>
+    <a href="#license" name="license" class="pilcrow"></a>
+license
+  </h1>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

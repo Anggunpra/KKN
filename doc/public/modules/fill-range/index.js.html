@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\fill-range\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>!
+fill-range <a href="https://github.com/jonschlinkert/fill-range">https://github.com/jonschlinkert/fill-range</a></p>
+</div>
+<div class="body">
+<p>Copyright (c) 2014-2015, 2017, Jon Schlinkert.
+Released under the MIT License.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">
+'use strict'</span>;
+
+<span class="hljs-keyword">var</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
+<span class="hljs-keyword">var</span> isNumber = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-number'</span>);
+<span class="hljs-keyword">var</span> extend = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extend-shallow'</span>);
+<span class="hljs-keyword">var</span> repeat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'repeat-string'</span>);
+<span class="hljs-keyword">var</span> toRegex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'to-regex-range'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Return a range of numbers or letters.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`start`</span>
+<span class="dox_type">String</span>
+<span>Start of the range
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`stop`</span>
+<span class="dox_type">String</span>
+<span>End of the range
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`step`</span>
+<span class="dox_type">String</span>
+<span>Increment or decrement to use.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`fn`</span>
+<span class="dox_type">Function</span>
+<span>Custom function to modify each element in the range.
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Array</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fillRange</span>(<span class="hljs-params">start, stop, step, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> start === <span class="hljs-string">'undefined'</span>) {
+    <span class="hljs-keyword">return</span> [];
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> stop === <span class="hljs-string">'undefined'</span> || start === stop) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>special case, for handling negative zero</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">var</span> isString = <span class="hljs-keyword">typeof</span> start === <span class="hljs-string">'string'</span>;
+    <span class="hljs-keyword">if</span> (isNumber(start) &amp;&amp; !toNumber(start)) {
+      <span class="hljs-keyword">return</span> [isString ? <span class="hljs-string">'0'</span> : <span class="hljs-number">0</span>];
+    }
+    <span class="hljs-keyword">return</span> [start];
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> step !== <span class="hljs-string">'number'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> step !== <span class="hljs-string">'string'</span>) {
+    options = step;
+    step = <span class="hljs-literal">undefined</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options === <span class="hljs-string">'function'</span>) {
+    options = { <span class="hljs-attr">transform</span>: options };
+  }
+
+  <span class="hljs-keyword">var</span> opts = extend({<span class="hljs-attr">step</span>: step}, options);
+  <span class="hljs-keyword">if</span> (opts.step &amp;&amp; !isValidNumber(opts.step)) {
+    <span class="hljs-keyword">if</span> (opts.strictRanges === <span class="hljs-literal">true</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected options.step to be a number'</span>);
+    }
+    <span class="hljs-keyword">return</span> [];
+  }
+
+  opts.isNumber = isValidNumber(start) &amp;&amp; isValidNumber(stop);
+  <span class="hljs-keyword">if</span> (!opts.isNumber &amp;&amp; !isValid(start, stop)) {
+    <span class="hljs-keyword">if</span> (opts.strictRanges === <span class="hljs-literal">true</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RangeError</span>(<span class="hljs-string">'invalid range arguments: '</span> + util.inspect([start, stop]));
+    }
+    <span class="hljs-keyword">return</span> [];
+  }
+
+  opts.isPadded = isPadded(start) || isPadded(stop);
+  opts.toString = opts.stringify
+    || <span class="hljs-keyword">typeof</span> opts.step === <span class="hljs-string">'string'</span>
+    || <span class="hljs-keyword">typeof</span> start === <span class="hljs-string">'string'</span>
+    || <span class="hljs-keyword">typeof</span> stop === <span class="hljs-string">'string'</span>
+    || !opts.isNumber;
+
+  <span class="hljs-keyword">if</span> (opts.isPadded) {
+    opts.maxLength = <span class="hljs-built_in">Math</span>.max(<span class="hljs-built_in">String</span>(start).length, <span class="hljs-built_in">String</span>(stop).length);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>support legacy minimatch/fill-range options</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opts.optimize === <span class="hljs-string">'boolean'</span>) opts.toRegex = opts.optimize;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opts.makeRe === <span class="hljs-string">'boolean'</span>) opts.toRegex = opts.makeRe;
+  <span class="hljs-keyword">return</span> expand(start, stop, opts);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">expand</span>(<span class="hljs-params">start, stop, options</span>) </span>{
+  <span class="hljs-keyword">var</span> a = options.isNumber ? toNumber(start) : start.charCodeAt(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">var</span> b = options.isNumber ? toNumber(stop) : stop.charCodeAt(<span class="hljs-number">0</span>);
+
+  <span class="hljs-keyword">var</span> step = <span class="hljs-built_in">Math</span>.abs(toNumber(options.step)) || <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">if</span> (options.toRegex &amp;&amp; step === <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">return</span> toRange(a, b, start, stop, options);
+  }
+
+  <span class="hljs-keyword">var</span> zero = {<span class="hljs-attr">greater</span>: [], <span class="hljs-attr">lesser</span>: []};
+  <span class="hljs-keyword">var</span> asc = a &lt; b;
+  <span class="hljs-keyword">var</span> arr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-built_in">Math</span>.round((asc ? b - a : a - b) / step));
+  <span class="hljs-keyword">var</span> idx = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">while</span> (asc ? a &lt;= b : a &gt;= b) {
+    <span class="hljs-keyword">var</span> val = options.isNumber ? a : <span class="hljs-built_in">String</span>.fromCharCode(a);
+    <span class="hljs-keyword">if</span> (options.toRegex &amp;&amp; (val &gt;= <span class="hljs-number">0</span> || !options.isNumber)) {
+      zero.greater.push(val);
+    } <span class="hljs-keyword">else</span> {
+      zero.lesser.push(<span class="hljs-built_in">Math</span>.abs(val));
+    }
+
+    <span class="hljs-keyword">if</span> (options.isPadded) {
+      val = zeros(val, options);
+    }
+
+    <span class="hljs-keyword">if</span> (options.toString) {
+      val = <span class="hljs-built_in">String</span>(val);
+    }
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.transform === <span class="hljs-string">'function'</span>) {
+      arr[idx++] = options.transform(val, a, b, step, idx, arr, options);
+    } <span class="hljs-keyword">else</span> {
+      arr[idx++] = val;
+    }
+
+    <span class="hljs-keyword">if</span> (asc) {
+      a += step;
+    } <span class="hljs-keyword">else</span> {
+      a -= step;
+    }
+  }
+
+  <span class="hljs-keyword">if</span> (options.toRegex === <span class="hljs-literal">true</span>) {
+    <span class="hljs-keyword">return</span> toSequence(arr, zero, options);
+  }
+  <span class="hljs-keyword">return</span> arr;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toRange</span>(<span class="hljs-params">a, b, start, stop, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (options.isPadded) {
+    <span class="hljs-keyword">return</span> toRegex(start, stop, options);
+  }
+
+  <span class="hljs-keyword">if</span> (options.isNumber) {
+    <span class="hljs-keyword">return</span> toRegex(<span class="hljs-built_in">Math</span>.min(a, b), <span class="hljs-built_in">Math</span>.max(a, b), options);
+  }
+
+  <span class="hljs-keyword">var</span> start = <span class="hljs-built_in">String</span>.fromCharCode(<span class="hljs-built_in">Math</span>.min(a, b));
+  <span class="hljs-keyword">var</span> stop = <span class="hljs-built_in">String</span>.fromCharCode(<span class="hljs-built_in">Math</span>.max(a, b));
+  <span class="hljs-keyword">return</span> <span class="hljs-string">'['</span> + start + <span class="hljs-string">'-'</span> + stop + <span class="hljs-string">']'</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toSequence</span>(<span class="hljs-params">arr, zeros, options</span>) </span>{
+  <span class="hljs-keyword">var</span> greater = <span class="hljs-string">''</span>, lesser = <span class="hljs-string">''</span>;
+  <span class="hljs-keyword">if</span> (zeros.greater.length) {
+    greater = zeros.greater.join(<span class="hljs-string">'|'</span>);
+  }
+  <span class="hljs-keyword">if</span> (zeros.lesser.length) {
+    lesser = <span class="hljs-string">'-('</span> + zeros.lesser.join(<span class="hljs-string">'|'</span>) + <span class="hljs-string">')'</span>;
+  }
+  <span class="hljs-keyword">var</span> res = greater &amp;&amp; lesser
+    ? greater + <span class="hljs-string">'|'</span> + lesser
+    : greater || lesser;
+
+  <span class="hljs-keyword">if</span> (options.capture) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'('</span> + res + <span class="hljs-string">')'</span>;
+  }
+  <span class="hljs-keyword">return</span> res;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">zeros</span>(<span class="hljs-params">val, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (options.isPadded) {
+    <span class="hljs-keyword">var</span> str = <span class="hljs-built_in">String</span>(val);
+    <span class="hljs-keyword">var</span> len = str.length;
+    <span class="hljs-keyword">var</span> dash = <span class="hljs-string">''</span>;
+    <span class="hljs-keyword">if</span> (str.charAt(<span class="hljs-number">0</span>) === <span class="hljs-string">'-'</span>) {
+      dash = <span class="hljs-string">'-'</span>;
+      str = str.slice(<span class="hljs-number">1</span>);
+    }
+    <span class="hljs-keyword">var</span> diff = options.maxLength - len;
+    <span class="hljs-keyword">var</span> pad = repeat(<span class="hljs-string">'0'</span>, diff);
+    val = (dash + pad + str);
+  }
+  <span class="hljs-keyword">if</span> (options.stringify) {
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">String</span>(val);
+  }
+  <span class="hljs-keyword">return</span> val;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toNumber</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(val) || <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isPadded</span>(<span class="hljs-params">str</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^-?0\d/</span>.test(str);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isValid</span>(<span class="hljs-params">min, max</span>) </span>{
+  <span class="hljs-keyword">return</span> (isValidNumber(min) || isValidLetter(min))
+      &amp;&amp; (isValidNumber(max) || isValidLetter(max));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isValidLetter</span>(<span class="hljs-params">ch</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> ch === <span class="hljs-string">'string'</span> &amp;&amp; ch.length === <span class="hljs-number">1</span> &amp;&amp; <span class="hljs-regexp">/^\w+$/</span>.test(ch);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isValidNumber</span>(<span class="hljs-params">n</span>) </span>{
+  <span class="hljs-keyword">return</span> isNumber(n) &amp;&amp; !<span class="hljs-regexp">/\./</span>.test(n);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose <code>fillRange</code></p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">Function</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">module</span>.exports = fillRange;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

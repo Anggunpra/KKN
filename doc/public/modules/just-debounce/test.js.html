@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\just-debounce\\test.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>test.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> debounce = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./index.js'</span>)
+<span class="hljs-keyword">var</span> test = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tape'</span>)
+
+test(<span class="hljs-string">'debauce'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">t</span>) </span>{
+  t.plan(<span class="hljs-number">3</span>)
+
+  <span class="hljs-keyword">var</span> fn = debounce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>{
+    t.deepEqual(<span class="hljs-keyword">this</span>, {<span class="hljs-attr">call</span>: <span class="hljs-number">3</span>}, <span class="hljs-string">'context should be preserved'</span>)
+    t.equal(a, <span class="hljs-number">30</span>, <span class="hljs-string">'should preserve args'</span>)
+    t.equal(b, <span class="hljs-number">300</span>, <span class="hljs-string">'should preserve args'</span>)
+  }, <span class="hljs-number">10</span>)
+
+  fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">1</span>}, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)
+  fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">2</span>}, <span class="hljs-number">20</span>, <span class="hljs-number">200</span>)
+
+  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">3</span>}, <span class="hljs-number">30</span>, <span class="hljs-number">300</span>)
+  }, <span class="hljs-number">3</span>)
+})
+
+test(<span class="hljs-string">'multiple calls should extend delay'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">t</span>) </span>{
+  t.plan(<span class="hljs-number">4</span>)
+
+  <span class="hljs-keyword">var</span> wasDelayed = <span class="hljs-literal">false</span>
+
+  <span class="hljs-keyword">var</span> fn = debounce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>{
+    t.deepEqual(<span class="hljs-keyword">this</span>, {<span class="hljs-attr">call</span>: <span class="hljs-number">3</span>}, <span class="hljs-string">'context should be preserved'</span>)
+    t.equal(a, <span class="hljs-number">30</span>, <span class="hljs-string">'should preserve args'</span>)
+    t.equal(b, <span class="hljs-number">300</span>, <span class="hljs-string">'should preserve args'</span>)
+    t.ok(wasDelayed, <span class="hljs-string">'should have waited longer than debounce period'</span>)
+  }, <span class="hljs-number">6</span>)
+
+  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">longer</span> (<span class="hljs-params"></span>) </span>{
+    wasDelayed = <span class="hljs-literal">true</span>
+  }, <span class="hljs-number">9</span>)
+
+  fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">1</span>}, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)
+
+  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">2</span>}, <span class="hljs-number">20</span>, <span class="hljs-number">200</span>)
+
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">3</span>}, <span class="hljs-number">30</span>, <span class="hljs-number">300</span>)
+    }, <span class="hljs-number">5</span>)
+  }, <span class="hljs-number">3</span>)
+})
+
+test(<span class="hljs-string">'multiple calls should not extend delay when guarantee is true'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">t</span>) </span>{
+  t.plan(<span class="hljs-number">8</span>)
+
+  <span class="hljs-keyword">var</span> first = <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">var</span> wasDelayed = <span class="hljs-literal">false</span>
+
+  <span class="hljs-keyword">var</span> fn = debounce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>{
+    <span class="hljs-keyword">if</span> (first) {
+      t.deepEqual(<span class="hljs-keyword">this</span>, {<span class="hljs-attr">call</span>: <span class="hljs-number">2</span>}, <span class="hljs-string">'1st context should be preserved'</span>)
+      t.equal(a, <span class="hljs-number">20</span>, <span class="hljs-string">'1st should preserve 1st args'</span>)
+      t.equal(b, <span class="hljs-number">200</span>, <span class="hljs-string">'1st should preserve 2nd args'</span>)
+      t.notOk(wasDelayed, <span class="hljs-string">'should not have waited longer than debounce period'</span>)
+      first = <span class="hljs-literal">false</span>
+    } <span class="hljs-keyword">else</span> {
+      t.deepEqual(<span class="hljs-keyword">this</span>, {<span class="hljs-attr">call</span>: <span class="hljs-number">3</span>}, <span class="hljs-string">'context should be preserved'</span>)
+      t.equal(a, <span class="hljs-number">30</span>, <span class="hljs-string">'should preserve args'</span>)
+      t.equal(b, <span class="hljs-number">300</span>, <span class="hljs-string">'should preserve args'</span>)
+      t.ok(wasDelayed, <span class="hljs-string">'should have waited longer than debounce period'</span>)
+    }
+  }, <span class="hljs-number">6</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>)
+
+  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">longer</span> (<span class="hljs-params"></span>) </span>{
+    wasDelayed = <span class="hljs-literal">true</span>
+  }, <span class="hljs-number">7</span>)
+
+  fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">1</span>}, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)
+
+  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">2</span>}, <span class="hljs-number">20</span>, <span class="hljs-number">200</span>)
+
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">3</span>}, <span class="hljs-number">30</span>, <span class="hljs-number">300</span>)
+    }, <span class="hljs-number">5</span>)
+  }, <span class="hljs-number">3</span>)
+})
+
+test(<span class="hljs-string">'at start'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">t</span>) </span>{
+  t.plan(<span class="hljs-number">9</span>)
+
+  <span class="hljs-keyword">var</span> callCount = <span class="hljs-number">0</span>
+
+  <span class="hljs-keyword">var</span> fn = debounce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>{
+    <span class="hljs-keyword">if</span> (callCount === <span class="hljs-number">0</span>) {
+      t.deepEqual(<span class="hljs-keyword">this</span>, {<span class="hljs-attr">call</span>: <span class="hljs-number">1</span>}, <span class="hljs-string">'1st context should be preserved'</span>)
+      t.equal(a, <span class="hljs-number">10</span>, <span class="hljs-string">'1st should preserve 1st args'</span>)
+      t.equal(b, <span class="hljs-number">100</span>, <span class="hljs-string">'1st should preserve 2nd args'</span>)
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (callCount === <span class="hljs-number">1</span>) {
+      t.deepEqual(<span class="hljs-keyword">this</span>, {<span class="hljs-attr">call</span>: <span class="hljs-number">3</span>}, <span class="hljs-string">'context should be preserved'</span>)
+      t.equal(a, <span class="hljs-number">30</span>, <span class="hljs-string">'should preserve args'</span>)
+      t.equal(b, <span class="hljs-number">300</span>, <span class="hljs-string">'should preserve args'</span>)
+    } <span class="hljs-keyword">else</span> {
+      t.deepEqual(<span class="hljs-keyword">this</span>, {<span class="hljs-attr">call</span>: <span class="hljs-number">4</span>}, <span class="hljs-string">'context should be preserved'</span>)
+      t.equal(a, <span class="hljs-number">40</span>, <span class="hljs-string">'should preserve 1st args'</span>)
+      t.equal(b, <span class="hljs-number">400</span>, <span class="hljs-string">'should preserve 2nd args'</span>)
+    }
+
+    callCount += <span class="hljs-number">1</span>
+  }, <span class="hljs-number">6</span>, <span class="hljs-literal">true</span>)
+
+  fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">1</span>}, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)
+  fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">2</span>}, <span class="hljs-number">20</span>, <span class="hljs-number">200</span>)
+
+  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">3</span>}, <span class="hljs-number">30</span>, <span class="hljs-number">300</span>)
+
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">4</span>}, <span class="hljs-number">40</span>, <span class="hljs-number">400</span>)
+    }, <span class="hljs-number">10</span>)
+
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      fn.call({<span class="hljs-attr">call</span>: <span class="hljs-number">5</span>}, <span class="hljs-number">50</span>, <span class="hljs-number">500</span>)
+    }, <span class="hljs-number">3</span>)
+  }, <span class="hljs-number">10</span>)
+})
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

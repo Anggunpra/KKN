@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\isurl\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">"use strict"</span>;
+<span class="hljs-keyword">const</span> hasToStringTag = <span class="hljs-built_in">require</span>(<span class="hljs-string">"has-to-string-tag-x"</span>);
+<span class="hljs-keyword">const</span> isObject = <span class="hljs-built_in">require</span>(<span class="hljs-string">"is-object"</span>);
+
+<span class="hljs-keyword">const</span> toString = <span class="hljs-built_in">Object</span>.prototype.toString;
+<span class="hljs-keyword">const</span> urlClass = <span class="hljs-string">"[object URL]"</span>;
+
+<span class="hljs-keyword">const</span> hash = <span class="hljs-string">"hash"</span>;
+<span class="hljs-keyword">const</span> host = <span class="hljs-string">"host"</span>;
+<span class="hljs-keyword">const</span> hostname = <span class="hljs-string">"hostname"</span>;
+<span class="hljs-keyword">const</span> href = <span class="hljs-string">"href"</span>;
+<span class="hljs-keyword">const</span> password = <span class="hljs-string">"password"</span>;
+<span class="hljs-keyword">const</span> pathname = <span class="hljs-string">"pathname"</span>;
+<span class="hljs-keyword">const</span> port = <span class="hljs-string">"port"</span>;
+<span class="hljs-keyword">const</span> protocol = <span class="hljs-string">"protocol"</span>;
+<span class="hljs-keyword">const</span> search = <span class="hljs-string">"search"</span>;
+<span class="hljs-keyword">const</span> username = <span class="hljs-string">"username"</span>;
+
+
+
+<span class="hljs-keyword">const</span> isURL = <span class="hljs-function">(<span class="hljs-params">url, supportIncomplete<span class="hljs-regexp">/*=false*/</span></span>) =&gt;</span>
+{
+	<span class="hljs-keyword">if</span> (!isObject(url)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Native implementation in older browsers</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-keyword">if</span> (!hasToStringTag &amp;&amp; toString.call(url) === urlClass) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+
+	<span class="hljs-keyword">if</span> (!(href     <span class="hljs-keyword">in</span> url)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	<span class="hljs-keyword">if</span> (!(protocol <span class="hljs-keyword">in</span> url)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	<span class="hljs-keyword">if</span> (!(username <span class="hljs-keyword">in</span> url)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	<span class="hljs-keyword">if</span> (!(password <span class="hljs-keyword">in</span> url)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	<span class="hljs-keyword">if</span> (!(hostname <span class="hljs-keyword">in</span> url)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	<span class="hljs-keyword">if</span> (!(port     <span class="hljs-keyword">in</span> url)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	<span class="hljs-keyword">if</span> (!(host     <span class="hljs-keyword">in</span> url)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	<span class="hljs-keyword">if</span> (!(pathname <span class="hljs-keyword">in</span> url)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	<span class="hljs-keyword">if</span> (!(search   <span class="hljs-keyword">in</span> url)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	<span class="hljs-keyword">if</span> (!(hash     <span class="hljs-keyword">in</span> url)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+
+	<span class="hljs-keyword">if</span> (supportIncomplete !== <span class="hljs-literal">true</span>)
+	{
+		<span class="hljs-keyword">if</span> (!isObject(url.searchParams)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>TODO :: write a separate isURLSearchParams ?</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	}
+
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+}
+
+
+
+isURL.lenient = <span class="hljs-function"><span class="hljs-params">url</span> =&gt;</span>
+{
+	<span class="hljs-keyword">return</span> isURL(url, <span class="hljs-literal">true</span>);
+};
+
+
+
+<span class="hljs-built_in">module</span>.exports = isURL;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

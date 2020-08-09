@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UPGRADE_GUIDE.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\axios\\UPGRADE_GUIDE.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#upgrade-guide">Upgrade Guide</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.15.x-greater-0.16.0">0.15.x -&amp;gt; 0.16.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#promise-type-declarations">Promise Type Declarations</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.13.x-greater-0.14.0">0.13.x -&amp;gt; 0.14.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#typescript-definitions">TypeScript Definitions</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#agent-config-option">agent Config Option</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#progress-config-option">progress Config Option</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.12.x-greater-0.13.0">0.12.x -&amp;gt; 0.13.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#error-handling">Error Handling</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#request-adapters">Request Adapters</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#0.5.x-greater-0.6.0">0.5.x -&amp;gt; 0.6.0</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#es6-promise-polyfill">ES6 Promise Polyfill</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#axios.successaxios.error">axios.success/axios.error</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#umd">UMD</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="upgrade-guide">
+  <h1>
+    <a href="#upgrade-guide" name="upgrade-guide" class="pilcrow"></a>
+Upgrade Guide
+  </h1>
+</div>
+<div class="pilwrap" id="0.15.x-greater-0.16.0">
+  <h3>
+    <a href="#0.15.x-greater-0.16.0" name="0.15.x-greater-0.16.0" class="pilcrow"></a>
+0.15.x -&gt; 0.16.0
+  </h3>
+</div>
+<div class="pilwrap" id="promise-type-declarations">
+  <h4>
+    <a href="#promise-type-declarations" name="promise-type-declarations" class="pilcrow"></a>
+<code>Promise</code> Type Declarations
+  </h4>
+</div>
+<p>The <code>Promise</code> type declarations have been removed from the axios typings in favor of the built-in type declarations. If you use axios in a TypeScript project that targets <code>ES5</code>, please make sure to include the <code>es2015.promise</code> lib. Please see <a href="https://blog.mariusschulz.com/2016/11/25/typescript-2-0-built-in-type-declarations">this post</a> for details.</p>
+<div class="pilwrap" id="0.13.x-greater-0.14.0">
+  <h3>
+    <a href="#0.13.x-greater-0.14.0" name="0.13.x-greater-0.14.0" class="pilcrow"></a>
+0.13.x -&gt; 0.14.0
+  </h3>
+</div>
+<div class="pilwrap" id="typescript-definitions">
+  <h4>
+    <a href="#typescript-definitions" name="typescript-definitions" class="pilcrow"></a>
+TypeScript Definitions
+  </h4>
+</div>
+<p>The axios TypeScript definitions have been updated to match the axios API and use the ES2015 module syntax.</p>
+<p>Please use the following <code>import</code> statement to import axios in TypeScript:</p>
+<pre><code class="typescript"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+
+axios.get(<span class="hljs-string">'/foo'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(response))
+  .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(error));
+</code></pre>
+<div class="pilwrap" id="agent-config-option">
+  <h4>
+    <a href="#agent-config-option" name="agent-config-option" class="pilcrow"></a>
+<code>agent</code> Config Option
+  </h4>
+</div>
+<p>The <code>agent</code> config option has been replaced with two new options: <code>httpAgent</code> and <code>httpsAgent</code>. Please use them instead.</p>
+<pre><code class="js">{
+  <span class="hljs-comment">// Define a custom agent for HTTP</span>
+  <span class="hljs-attr">httpAgent</span>: <span class="hljs-keyword">new</span> http.Agent({ <span class="hljs-attr">keepAlive</span>: <span class="hljs-literal">true</span> }),
+  <span class="hljs-comment">// Define a custom agent for HTTPS</span>
+  <span class="hljs-attr">httpsAgent</span>: <span class="hljs-keyword">new</span> https.Agent({ <span class="hljs-attr">keepAlive</span>: <span class="hljs-literal">true</span> })
+}
+</code></pre>
+<div class="pilwrap" id="progress-config-option">
+  <h4>
+    <a href="#progress-config-option" name="progress-config-option" class="pilcrow"></a>
+<code>progress</code> Config Option
+  </h4>
+</div>
+<p>The <code>progress</code> config option has been replaced with the <code>onUploadProgress</code> and <code>onDownloadProgress</code> options.</p>
+<pre><code class="js">{
+  <span class="hljs-comment">// Define a handler for upload progress events</span>
+  <span class="hljs-attr">onUploadProgress</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">progressEvent</span>) </span>{
+    <span class="hljs-comment">// ...</span>
+  },
+
+  <span class="hljs-comment">// Define a handler for download progress events</span>
+  <span class="hljs-attr">onDownloadProgress</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">progressEvent</span>) </span>{
+    <span class="hljs-comment">// ...</span>
+  }
+}
+</code></pre>
+<div class="pilwrap" id="0.12.x-greater-0.13.0">
+  <h3>
+    <a href="#0.12.x-greater-0.13.0" name="0.12.x-greater-0.13.0" class="pilcrow"></a>
+0.12.x -&gt; 0.13.0
+  </h3>
+</div>
+<p>The <code>0.13.0</code> release contains several changes to custom adapters and error handling.</p>
+<div class="pilwrap" id="error-handling">
+  <h4>
+    <a href="#error-handling" name="error-handling" class="pilcrow"></a>
+Error Handling
+  </h4>
+</div>
+<p>Previous to this release an error could either be a server response with bad status code or an actual <code>Error</code>. With this release Promise will always reject with an <code>Error</code>. In the case that a response was received, the <code>Error</code> will also include the response.</p>
+<pre><code class="js">axios.get(<span class="hljs-string">'/user/12345'</span>)
+  .catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error.message);
+    <span class="hljs-built_in">console</span>.log(error.code); <span class="hljs-comment">// Not always specified</span>
+    <span class="hljs-built_in">console</span>.log(error.config); <span class="hljs-comment">// The config that was used to make the request</span>
+    <span class="hljs-built_in">console</span>.log(error.response); <span class="hljs-comment">// Only available if response was received from the server</span>
+  });
+</code></pre>
+<div class="pilwrap" id="request-adapters">
+  <h4>
+    <a href="#request-adapters" name="request-adapters" class="pilcrow"></a>
+Request Adapters
+  </h4>
+</div>
+<p>This release changes a few things about how request adapters work. Please take note if you are using your own custom adapter.</p>
+<ol>
+<li>Response transformer is now called outside of adapter.</li>
+<li>Request adapter returns a <code>Promise</code>.</li>
+</ol>
+<p>This means that you no longer need to invoke <code>transformData</code> on response data. You will also no longer receive <code>resolve</code> and <code>reject</code> as arguments in your adapter.</p>
+<p>Previous code:</p>
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myAdapter</span>(<span class="hljs-params">resolve, reject, config</span>) </span>{
+  <span class="hljs-keyword">var</span> response = {
+    <span class="hljs-attr">data</span>: transformData(
+      responseData,
+      responseHeaders,
+      config.transformResponse
+    ),
+    <span class="hljs-attr">status</span>: request.status,
+    <span class="hljs-attr">statusText</span>: request.statusText,
+    <span class="hljs-attr">headers</span>: responseHeaders
+  };
+  settle(resolve, reject, response);
+}
+</code></pre>
+<p>New code:</p>
+<pre><code class="js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myAdapter</span>(<span class="hljs-params">config</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+    <span class="hljs-keyword">var</span> response = {
+      <span class="hljs-attr">data</span>: responseData,
+      <span class="hljs-attr">status</span>: request.status,
+      <span class="hljs-attr">statusText</span>: request.statusText,
+      <span class="hljs-attr">headers</span>: responseHeaders
+    };
+    settle(resolve, reject, response);
+  });
+}
+</code></pre>
+<p>See the related commits for more details:</p>
+<ul>
+<li><a href="https://github.com/axios/axios/commit/10eb23865101f9347570552c04e9d6211376e25e">Response transformers</a></li>
+<li><a href="https://github.com/axios/axios/commit/157efd5615890301824e3121cc6c9d2f9b21f94a">Request adapter Promise</a></li>
+</ul>
+<div class="pilwrap" id="0.5.x-greater-0.6.0">
+  <h3>
+    <a href="#0.5.x-greater-0.6.0" name="0.5.x-greater-0.6.0" class="pilcrow"></a>
+0.5.x -&gt; 0.6.0
+  </h3>
+</div>
+<p>The <code>0.6.0</code> release contains mostly bug fixes, but there are a couple things to be aware of when upgrading.</p>
+<div class="pilwrap" id="es6-promise-polyfill">
+  <h4>
+    <a href="#es6-promise-polyfill" name="es6-promise-polyfill" class="pilcrow"></a>
+ES6 Promise Polyfill
+  </h4>
+</div>
+<p>Up until the <code>0.6.0</code> release ES6 <code>Promise</code> was being polyfilled using <a href="https://github.com/jakearchibald/es6-promise">es6-promise</a>. With this release, the polyfill has been removed, and you will need to supply it yourself if your environment needs it.</p>
+<pre><code class="js"><span class="hljs-built_in">require</span>(<span class="hljs-string">'es6-promise'</span>).polyfill();
+<span class="hljs-keyword">var</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+</code></pre>
+<p>This will polyfill the global environment, and only needs to be done once.</p>
+<div class="pilwrap" id="axios.successaxios.error">
+  <h4>
+    <a href="#axios.successaxios.error" name="axios.successaxios.error" class="pilcrow"></a>
+<code>axios.success</code>/<code>axios.error</code>
+  </h4>
+</div>
+<p>The <code>success</code>, and <code>error</code> aliases were deprectated in <a href="https://github.com/axios/axios/blob/master/CHANGELOG.md#040-oct-03-2014">0.4.0</a>. As of this release they have been removed entirely. Instead please use <code>axios.then</code>, and <code>axios.catch</code> respectively.</p>
+<pre><code class="js">axios.get(<span class="hljs-string">'some/url'</span>)
+  .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-comment">/* ... */</span>
+  })
+  .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+    <span class="hljs-comment">/* ... */</span>
+  });
+</code></pre>
+<div class="pilwrap" id="umd">
+  <h4>
+    <a href="#umd" name="umd" class="pilcrow"></a>
+UMD
+  </h4>
+</div>
+<p>Previous versions of axios shipped with an AMD, CommonJS, and Global build. This has all been rolled into a single UMD build.</p>
+<pre><code class="js"><span class="hljs-comment">// AMD</span>
+<span class="hljs-built_in">require</span>([<span class="hljs-string">'bower_components/axios/dist/axios'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">axios</span>) </span>{
+  <span class="hljs-comment">/* ... */</span>
+});
+
+<span class="hljs-comment">// CommonJS</span>
+<span class="hljs-keyword">var</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios/dist/axios'</span>);
+</code></pre>
+</div>
+  </div>
+</body>
+</html>

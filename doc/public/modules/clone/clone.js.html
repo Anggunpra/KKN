@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>clone.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\clone\\clone.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>clone.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> clone = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<span class="hljs-meta">'use strict'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Clones (copies) an Object using deep copying.</p>
+</div>
+<div class="body">
+<p>This function supports circular references by default, but if you are certain
+there are no circular references in your object, you can save some CPU time
+by calling clone(obj, false).</p>
+<p>Caution: if <code>circular</code> is false and <code>parent</code> contains circular references,
+your program may enter an infinite loop and crash.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`parent`</span>
+<span><ul>
+<li>the object to be cloned</li>
+</ul>
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`circular`</span>
+<span><ul>
+<li>set to true if the object to be cloned may contain    circular references. (optional - true by default)</li>
+</ul>
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`depth`</span>
+<span><ul>
+<li>set to a number if the object is only to be cloned to    a particular depth. (optional - defaults to Infinity)</li>
+</ul>
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`prototype`</span>
+<span><ul>
+<li>sets the prototype to be used when cloning an object.    (optional - defaults to parent prototype).</li>
+</ul>
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clone</span>(<span class="hljs-params">parent, circular, depth, prototype</span>) </span>{
+  <span class="hljs-keyword">var</span> filter;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> circular === <span class="hljs-string">'object'</span>) {
+    depth = circular.depth;
+    prototype = circular.prototype;
+    filter = circular.filter;
+    circular = circular.circular
+  }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>maintain two arrays for circular references, where corresponding parents
+and children have the same index</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> allParents = [];
+  <span class="hljs-keyword">var</span> allChildren = [];
+
+  <span class="hljs-keyword">var</span> useBuffer = <span class="hljs-keyword">typeof</span> Buffer != <span class="hljs-string">'undefined'</span>;
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> circular == <span class="hljs-string">'undefined'</span>)
+    circular = <span class="hljs-literal">true</span>;
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> depth == <span class="hljs-string">'undefined'</span>)
+    depth = <span class="hljs-literal">Infinity</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>recurse this function so we don't reset allParents and allChildren</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_clone</span>(<span class="hljs-params">parent, depth</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>cloning null always returns null</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (parent === <span class="hljs-literal">null</span>)
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+
+    <span class="hljs-keyword">if</span> (depth == <span class="hljs-number">0</span>)
+      <span class="hljs-keyword">return</span> parent;
+
+    <span class="hljs-keyword">var</span> child;
+    <span class="hljs-keyword">var</span> proto;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> parent != <span class="hljs-string">'object'</span>) {
+      <span class="hljs-keyword">return</span> parent;
+    }
+
+    <span class="hljs-keyword">if</span> (clone.__isArray(parent)) {
+      child = [];
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (clone.__isRegExp(parent)) {
+      child = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(parent.source, __getRegExpFlags(parent));
+      <span class="hljs-keyword">if</span> (parent.lastIndex) child.lastIndex = parent.lastIndex;
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (clone.__isDate(parent)) {
+      child = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(parent.getTime());
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (useBuffer &amp;&amp; Buffer.isBuffer(parent)) {
+      <span class="hljs-keyword">if</span> (Buffer.allocUnsafe) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>Node.js &gt;= 4.5.0</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        child = Buffer.allocUnsafe(parent.length);
+      } <span class="hljs-keyword">else</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>Older Node.js versions</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        child = <span class="hljs-keyword">new</span> Buffer(parent.length);
+      }
+      parent.copy(child);
+      <span class="hljs-keyword">return</span> child;
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> prototype == <span class="hljs-string">'undefined'</span>) {
+        proto = <span class="hljs-built_in">Object</span>.getPrototypeOf(parent);
+        child = <span class="hljs-built_in">Object</span>.create(proto);
+      }
+      <span class="hljs-keyword">else</span> {
+        child = <span class="hljs-built_in">Object</span>.create(prototype);
+        proto = prototype;
+      }
+    }
+
+    <span class="hljs-keyword">if</span> (circular) {
+      <span class="hljs-keyword">var</span> index = allParents.indexOf(parent);
+
+      <span class="hljs-keyword">if</span> (index != <span class="hljs-number">-1</span>) {
+        <span class="hljs-keyword">return</span> allChildren[index];
+      }
+      allParents.push(parent);
+      allChildren.push(child);
+    }
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> parent) {
+      <span class="hljs-keyword">var</span> attrs;
+      <span class="hljs-keyword">if</span> (proto) {
+        attrs = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(proto, i);
+      }
+
+      <span class="hljs-keyword">if</span> (attrs &amp;&amp; attrs.set == <span class="hljs-literal">null</span>) {
+        <span class="hljs-keyword">continue</span>;
+      }
+      child[i] = _clone(parent[i], depth - <span class="hljs-number">1</span>);
+    }
+
+    <span class="hljs-keyword">return</span> child;
+  }
+
+  <span class="hljs-keyword">return</span> _clone(parent, depth);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Simple flat clone using prototype, accepts only objects, usefull for property
+override on FLAT configuration object (no nested props).</p>
+</div>
+<div class="body">
+<p>USE WITH CAUTION! This may not behave as you wish if you do not know how this
+works.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">clone.clonePrototype = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clonePrototype</span>(<span class="hljs-params">parent</span>) </span>{
+  <span class="hljs-keyword">if</span> (parent === <span class="hljs-literal">null</span>)
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+
+  <span class="hljs-keyword">var</span> c = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{};
+  c.prototype = parent;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> c();
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>private utility functions</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__objToStr</span>(<span class="hljs-params">o</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.prototype.toString.call(o);
+};
+clone.__objToStr = __objToStr;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__isDate</span>(<span class="hljs-params">o</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> o === <span class="hljs-string">'object'</span> &amp;&amp; __objToStr(o) === <span class="hljs-string">'[object Date]'</span>;
+};
+clone.__isDate = __isDate;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__isArray</span>(<span class="hljs-params">o</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> o === <span class="hljs-string">'object'</span> &amp;&amp; __objToStr(o) === <span class="hljs-string">'[object Array]'</span>;
+};
+clone.__isArray = __isArray;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__isRegExp</span>(<span class="hljs-params">o</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> o === <span class="hljs-string">'object'</span> &amp;&amp; __objToStr(o) === <span class="hljs-string">'[object RegExp]'</span>;
+};
+clone.__isRegExp = __isRegExp;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__getRegExpFlags</span>(<span class="hljs-params">re</span>) </span>{
+  <span class="hljs-keyword">var</span> flags = <span class="hljs-string">''</span>;
+  <span class="hljs-keyword">if</span> (re.global) flags += <span class="hljs-string">'g'</span>;
+  <span class="hljs-keyword">if</span> (re.ignoreCase) flags += <span class="hljs-string">'i'</span>;
+  <span class="hljs-keyword">if</span> (re.multiline) flags += <span class="hljs-string">'m'</span>;
+  <span class="hljs-keyword">return</span> flags;
+};
+clone.__getRegExpFlags = __getRegExpFlags;
+
+<span class="hljs-keyword">return</span> clone;
+})();
+
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span> === <span class="hljs-string">'object'</span> &amp;&amp; <span class="hljs-built_in">module</span>.exports) {
+  <span class="hljs-built_in">module</span>.exports = clone;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

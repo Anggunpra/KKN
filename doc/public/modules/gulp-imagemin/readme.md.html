@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-imagemin\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gulp-imagemin">gulp-imagemin  </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#basic">Basic</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#custom-plugin-options">Custom plugin options</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#custom-plugin-options-and-custom-gulp-imagemin-options">Custom plugin options and custom gulp-imagemin options</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#imagemin-plugins-options">imagemin([plugins], [options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#plugins">plugins</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#verbose">verbose</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="gulp-imagemin">
+  <h1>
+    <a href="#gulp-imagemin" name="gulp-imagemin" class="pilcrow"></a>
+gulp-imagemin <a href="https://travis-ci.org/sindresorhus/gulp-imagemin"><img src="https://travis-ci.org/sindresorhus/gulp-imagemin.svg?branch=master" alt="Build Status"></a> <a href="https://github.com/sindresorhus/xo"><img src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg" alt="XO code style"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Minify PNG, JPEG, GIF and SVG images with <a href="https://github.com/imagemin/imagemin">imagemin</a></p>
+</blockquote>
+<p><em>Issues with the output should be reported on the imagemin <a href="https://github.com/imagemin/imagemin/issues">issue tracker</a>.</em></p>
+<hr>
+<p align="center"><b>🔥 Want to strengthen your core JavaScript skills and master ES6?</b><br>I would personally recommend this awesome <a href="https://ES6.io/friend/AWESOME">ES6 course</a> by Wes Bos.</p>
+<hr>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save-dev gulp-imagemin
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<div class="pilwrap" id="basic">
+  <h3>
+    <a href="#basic" name="basic" class="pilcrow"></a>
+Basic
+  </h3>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">const</span> imagemin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-imagemin'</span>);
+
+gulp.task(<span class="hljs-string">'default'</span>, () =&gt;
+	gulp.src(<span class="hljs-string">'src/images/*'</span>)
+		.pipe(imagemin())
+		.pipe(gulp.dest(<span class="hljs-string">'dist/images'</span>))
+);
+</code></pre>
+<div class="pilwrap" id="custom-plugin-options">
+  <h3>
+    <a href="#custom-plugin-options" name="custom-plugin-options" class="pilcrow"></a>
+Custom plugin options
+  </h3>
+</div>
+<pre><code class="js">…
+.pipe(imagemin([
+	imagemin.gifsicle({<span class="hljs-attr">interlaced</span>: <span class="hljs-literal">true</span>}),
+	imagemin.jpegtran({<span class="hljs-attr">progressive</span>: <span class="hljs-literal">true</span>}),
+	imagemin.optipng({<span class="hljs-attr">optimizationLevel</span>: <span class="hljs-number">5</span>}),
+	imagemin.svgo({
+		<span class="hljs-attr">plugins</span>: [
+			{<span class="hljs-attr">removeViewBox</span>: <span class="hljs-literal">true</span>},
+			{<span class="hljs-attr">cleanupIDs</span>: <span class="hljs-literal">false</span>}
+		]
+	})
+]))
+…
+</code></pre>
+<p>Note that you may come across an older, implicit syntax. In versions &lt; 3, the same was written like this:</p>
+<pre><code class="js">…
+.pipe(imagemin({
+	<span class="hljs-attr">interlaced</span>: <span class="hljs-literal">true</span>,
+	<span class="hljs-attr">progressive</span>: <span class="hljs-literal">true</span>,
+	<span class="hljs-attr">optimizationLevel</span>: <span class="hljs-number">5</span>,
+	<span class="hljs-attr">svgoPlugins</span>: [{<span class="hljs-attr">removeViewBox</span>: <span class="hljs-literal">true</span>}]
+}))
+…
+</code></pre>
+<div class="pilwrap" id="custom-plugin-options-and-custom-gulp-imagemin-options">
+  <h3>
+    <a href="#custom-plugin-options-and-custom-gulp-imagemin-options" name="custom-plugin-options-and-custom-gulp-imagemin-options" class="pilcrow"></a>
+Custom plugin options and custom <code>gulp-imagemin</code> options
+  </h3>
+</div>
+<pre><code class="js">…
+.pipe(imagemin([
+	imagemin.svgo({<span class="hljs-attr">plugins</span>: [{<span class="hljs-attr">removeViewBox</span>: <span class="hljs-literal">true</span>}]})
+], {
+	<span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span>
+}))
+…
+</code></pre>
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/tmkVF4Qm7RNE8e9RVwnim6gU/sindresorhus/gulp-imagemin'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/tmkVF4Qm7RNE8e9RVwnim6gU/sindresorhus/gulp-imagemin.svg' />
+</a>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<p>Comes bundled with the following <strong>lossless</strong> optimizers:</p>
+<ul>
+<li><a href="https://github.com/imagemin/imagemin-gifsicle">gifsicle</a> — <em>Compress GIF images</em></li>
+<li><a href="https://github.com/imagemin/imagemin-jpegtran">jpegtran</a> — <em>Compress JPEG images</em></li>
+<li><a href="https://github.com/imagemin/imagemin-optipng">optipng</a> — <em>Compress PNG images</em></li>
+<li><a href="https://github.com/imagemin/imagemin-svgo">svgo</a> — <em>Compress SVG images</em></li>
+</ul>
+<p>These are bundled for convenience and most users will not need anything else.</p>
+<div class="pilwrap" id="imagemin-plugins-options">
+  <h3>
+    <a href="#imagemin-plugins-options" name="imagemin-plugins-options" class="pilcrow"></a>
+imagemin([plugins], [options])
+  </h3>
+</div>
+<p>Unsupported files are ignored.</p>
+<div class="pilwrap" id="plugins">
+  <h4>
+    <a href="#plugins" name="plugins" class="pilcrow"></a>
+plugins
+  </h4>
+</div>
+<p>Type: <code>Array</code><br>
+Default: <code>[imagemin.gifsicle(), imagemin.jpegtran(), imagemin.optipng(), imagemin.svgo()]</code></p>
+<p><a href="https://www.npmjs.com/browse/keyword/imageminplugin">Plugins</a> to use. This will overwrite the default plugins. Note that the default plugins comes with good defaults and should be sufficient in most cases. See the individual plugins for supported options.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>Object</code></p>
+<div class="pilwrap" id="verbose">
+  <h5>
+    <a href="#verbose" name="verbose" class="pilcrow"></a>
+verbose
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code></p>
+<p>Enabling this will log info on every image passed to <code>gulp-imagemin</code>:</p>
+<pre><code>gulp-imagemin: ✔ image1.png (already optimized)
+gulp-imagemin: ✔ image2.png (saved 91 B - 0.4%)
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

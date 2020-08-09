@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>custom.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\front_asset\\js\\custom.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>custom.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">jQuery(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<span class="hljs-meta">
+    'use strict'</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>=====================================
+Wow Active
+=====================================**</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">     <span class="hljs-keyword">new</span> WOW().init();
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>=====================================
+Navbar fixed
+=====================================**</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">     $(<span class="hljs-built_in">window</span>).scroll(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+       <span class="hljs-keyword">if</span> ($(<span class="hljs-built_in">document</span>).scrollTop() &gt; <span class="hljs-number">50</span>) {
+         $(<span class="hljs-string">'.navbar'</span>).addClass(<span class="hljs-string">'scroll-nav'</span>);
+       } <span class="hljs-keyword">else</span> {
+         $(<span class="hljs-string">'.navbar'</span>).removeClass(<span class="hljs-string">'scroll-nav'</span>);
+       }
+     });
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>=====================================
+Slick Slider
+=====================================**</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">     $(<span class="hljs-string">'.responsive3'</span>).slick({
+    <span class="hljs-attr">dots</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">infinite</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">speed</span>: <span class="hljs-number">1500</span>,
+     <span class="hljs-attr">autoplay</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">autoplaySpeed</span>: <span class="hljs-number">2000</span>,
+    <span class="hljs-attr">slidesToShow</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-attr">slidesToScroll</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-attr">responsive</span>: [
+    {
+      <span class="hljs-attr">breakpoint</span>: <span class="hljs-number">1024</span>,
+      <span class="hljs-attr">settings</span>: {
+        <span class="hljs-attr">slidesToShow</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">slidesToScroll</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-attr">infinite</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">dots</span>: <span class="hljs-literal">true</span>
+      }
+    },
+    {
+      <span class="hljs-attr">breakpoint</span>: <span class="hljs-number">600</span>,
+      <span class="hljs-attr">settings</span>: {
+        <span class="hljs-attr">slidesToShow</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-attr">slidesToScroll</span>: <span class="hljs-number">2</span>
+      }
+    },
+    {
+      <span class="hljs-attr">breakpoint</span>: <span class="hljs-number">480</span>,
+      <span class="hljs-attr">settings</span>: {
+        <span class="hljs-attr">slidesToShow</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">slidesToScroll</span>: <span class="hljs-number">1</span>
+      }
+    }
+
+    ]
+    });
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>=====================================
+Slick Slider
+=====================================**</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    $(<span class="hljs-string">'.responsive2'</span>).slick({
+   <span class="hljs-attr">dots</span>: <span class="hljs-literal">true</span>,
+   <span class="hljs-attr">infinite</span>: <span class="hljs-literal">false</span>,
+   <span class="hljs-attr">speed</span>: <span class="hljs-number">1500</span>,
+    <span class="hljs-attr">autoplay</span>: <span class="hljs-literal">true</span>,
+   <span class="hljs-attr">autoplaySpeed</span>: <span class="hljs-number">2000</span>,
+   <span class="hljs-attr">slidesToShow</span>: <span class="hljs-number">6</span>,
+   <span class="hljs-attr">slidesToScroll</span>: <span class="hljs-number">3</span>,
+   <span class="hljs-attr">responsive</span>: [
+   {
+     <span class="hljs-attr">breakpoint</span>: <span class="hljs-number">1024</span>,
+     <span class="hljs-attr">settings</span>: {
+       <span class="hljs-attr">slidesToShow</span>: <span class="hljs-number">3</span>,
+       <span class="hljs-attr">slidesToScroll</span>: <span class="hljs-number">3</span>,
+       <span class="hljs-attr">infinite</span>: <span class="hljs-literal">true</span>,
+       <span class="hljs-attr">dots</span>: <span class="hljs-literal">true</span>
+     }
+   },
+   {
+     <span class="hljs-attr">breakpoint</span>: <span class="hljs-number">600</span>,
+     <span class="hljs-attr">settings</span>: {
+       <span class="hljs-attr">slidesToShow</span>: <span class="hljs-number">2</span>,
+       <span class="hljs-attr">slidesToScroll</span>: <span class="hljs-number">2</span>
+     }
+   },
+   {
+     <span class="hljs-attr">breakpoint</span>: <span class="hljs-number">480</span>,
+     <span class="hljs-attr">settings</span>: {
+       <span class="hljs-attr">slidesToShow</span>: <span class="hljs-number">1</span>,
+       <span class="hljs-attr">slidesToScroll</span>: <span class="hljs-number">1</span>
+     }
+   }
+
+   ]
+   });
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>=====================================
+Slick Slider
+=====================================**</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">   $(<span class="hljs-string">'.responsive4'</span>).slick({
+  <span class="hljs-attr">dots</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">infinite</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">speed</span>: <span class="hljs-number">300</span>,
+   <span class="hljs-attr">autoplay</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">autoplaySpeed</span>: <span class="hljs-number">2000</span>,
+  <span class="hljs-attr">slidesToShow</span>:<span class="hljs-number">4</span>,
+  <span class="hljs-attr">slidesToScroll</span>: <span class="hljs-number">3</span>,
+  <span class="hljs-attr">responsive</span>: [
+  {
+    <span class="hljs-attr">breakpoint</span>: <span class="hljs-number">1024</span>,
+    <span class="hljs-attr">settings</span>: {
+      <span class="hljs-attr">slidesToShow</span>: <span class="hljs-number">3</span>,
+      <span class="hljs-attr">slidesToScroll</span>: <span class="hljs-number">3</span>,
+      <span class="hljs-attr">infinite</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">dots</span>: <span class="hljs-literal">true</span>
+    }
+  },
+  {
+    <span class="hljs-attr">breakpoint</span>: <span class="hljs-number">600</span>,
+    <span class="hljs-attr">settings</span>: {
+      <span class="hljs-attr">slidesToShow</span>: <span class="hljs-number">2</span>,
+      <span class="hljs-attr">slidesToScroll</span>: <span class="hljs-number">2</span>
+    }
+  },
+  {
+    <span class="hljs-attr">breakpoint</span>: <span class="hljs-number">480</span>,
+    <span class="hljs-attr">settings</span>: {
+      <span class="hljs-attr">slidesToShow</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-attr">slidesToScroll</span>: <span class="hljs-number">1</span>
+    }
+  }
+  ]
+  });
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>=====================================
+Video image
+=====================================**</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">   $(<span class="hljs-string">'.video-img'</span>).on(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">var</span> video = <span class="hljs-string">'&lt;video width="100%" autoplay&gt;&lt;source src="'</span>+ $(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'data-video'</span>) +<span class="hljs-string">'" type="video/mp4"&gt;&lt;/video&gt;'</span>;
+    $(<span class="hljs-keyword">this</span>).replaceWith(video);
+   });
+
+});
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

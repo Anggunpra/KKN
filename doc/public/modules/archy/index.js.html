@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\archy\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">archy</span> (<span class="hljs-params">obj, prefix, opts</span>) </span>{
+    <span class="hljs-keyword">if</span> (prefix === <span class="hljs-literal">undefined</span>) prefix = <span class="hljs-string">''</span>;
+    <span class="hljs-keyword">if</span> (!opts) opts = {};
+    <span class="hljs-keyword">var</span> chr = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">s</span>) </span>{
+        <span class="hljs-keyword">var</span> chars = {
+            <span class="hljs-string">'│'</span> : <span class="hljs-string">'|'</span>,
+            <span class="hljs-string">'└'</span> : <span class="hljs-string">'`'</span>,
+            <span class="hljs-string">'├'</span> : <span class="hljs-string">'+'</span>,
+            <span class="hljs-string">'─'</span> : <span class="hljs-string">'-'</span>,
+            <span class="hljs-string">'┬'</span> : <span class="hljs-string">'-'</span>
+        };
+        <span class="hljs-keyword">return</span> opts.unicode === <span class="hljs-literal">false</span> ? chars[s] : s;
+    };
+    
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> obj === <span class="hljs-string">'string'</span>) obj = { <span class="hljs-attr">label</span> : obj };
+    
+    <span class="hljs-keyword">var</span> nodes = obj.nodes || [];
+    <span class="hljs-keyword">var</span> lines = (obj.label || <span class="hljs-string">''</span>).split(<span class="hljs-string">'\n'</span>);
+    <span class="hljs-keyword">var</span> splitter = <span class="hljs-string">'\n'</span> + prefix + (nodes.length ? chr(<span class="hljs-string">'│'</span>) : <span class="hljs-string">' '</span>) + <span class="hljs-string">' '</span>;
+    
+    <span class="hljs-keyword">return</span> prefix
+        + lines.join(splitter) + <span class="hljs-string">'\n'</span>
+        + nodes.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">node, ix</span>) </span>{
+            <span class="hljs-keyword">var</span> last = ix === nodes.length - <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">var</span> more = node.nodes &amp;&amp; node.nodes.length;
+            <span class="hljs-keyword">var</span> prefix_ = prefix + (last ? <span class="hljs-string">' '</span> : chr(<span class="hljs-string">'│'</span>)) + <span class="hljs-string">' '</span>;
+            
+            <span class="hljs-keyword">return</span> prefix
+                + (last ? chr(<span class="hljs-string">'└'</span>) : chr(<span class="hljs-string">'├'</span>)) + chr(<span class="hljs-string">'─'</span>)
+                + (more ? chr(<span class="hljs-string">'┬'</span>) : chr(<span class="hljs-string">'─'</span>)) + <span class="hljs-string">' '</span>
+                + archy(node, prefix_, opts).slice(prefix.length + <span class="hljs-number">2</span>)
+            ;
+        }).join(<span class="hljs-string">''</span>)
+    ;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

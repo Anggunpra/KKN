@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>convertSvgToAssetCatalog.sh</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\flag-icon-css\\convertSvgToAssetCatalog.sh";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>convertSvgToAssetCatalog.sh</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="sh"><span class="hljs-meta">#!/bin/bash
+</span>
+<span class="hljs-function"><span class="hljs-title">usage</span></span>() {
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">"<span class="hljs-variable">$1</span>"</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">"Usage: <span class="hljs-variable">$0</span> &lt;input_folder&gt; &lt;output_folder&gt;"</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">"Quit..."</span>
+}
+
+INPUT_FOLDER=<span class="hljs-variable">$1</span>
+OUTPUT_FOLDER=<span class="hljs-variable">$2</span>
+
+<span class="hljs-keyword">if</span> [ -z <span class="hljs-string">"<span class="hljs-variable">$INPUT_FOLDER</span>"</span> ]; <span class="hljs-keyword">then</span> usage <span class="hljs-string">"Input Folder missing!"</span>; <span class="hljs-built_in">exit</span> 1; <span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">if</span> [ -z <span class="hljs-string">"<span class="hljs-variable">$OUTPUT_FOLDER</span>"</span> ]; <span class="hljs-keyword">then</span> usage <span class="hljs-string">"Output Folder missing!"</span>; <span class="hljs-built_in">exit</span> 1; <span class="hljs-keyword">fi</span>
+
+<span class="hljs-built_in">command</span> -v rsvg-convert &gt;/dev/null 2&gt;&amp;1 || { 
+  <span class="hljs-built_in">echo</span> &gt;&amp;2 usage <span class="hljs-string">"RsvgConvert missing - Install using \"brew install librsvg\"."</span>; <span class="hljs-built_in">exit</span> 1;
+}
+
+SVG_LIST=($(ls <span class="hljs-variable">$INPUT_FOLDER</span>/*.svg))
+JSON=<span class="hljs-string">"{\"images\":[{\"idiom\":\"universal\",\"filename\":\"##FILE_NAME##\"}],\"info\":{\"version\":1,\"author\":\"xcode\"},\"properties\":{\"preserves-vector-representation\":true}}"</span>
+ASSET_FOLDER=<span class="hljs-string">"/tmp/Assets.xcassets"</span>
+
+
+rm -rf <span class="hljs-variable">$ASSET_FOLDER</span>
+
+<span class="hljs-keyword">for</span> SVG <span class="hljs-keyword">in</span> <span class="hljs-string">"<span class="hljs-variable">${SVG_LIST[@]}</span>"</span>; <span class="hljs-keyword">do</span>
+  ID=$(<span class="hljs-built_in">echo</span> $(basename <span class="hljs-variable">$SVG</span>) | cut -d. -f1)
+  IMAGESET=<span class="hljs-string">"<span class="hljs-variable">$ASSET_FOLDER</span>/<span class="hljs-variable">$ID</span>.imageset"</span>
+
+  mkdir -p <span class="hljs-variable">$IMAGESET</span>
+  rsvg-convert -f pdf -o <span class="hljs-variable">$IMAGESET</span>/<span class="hljs-variable">$ID</span>.pdf <span class="hljs-variable">$SVG</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-variable">${JSON/"##FILE_NAME##"/"$ID.pdf"}</span> &gt; <span class="hljs-string">"<span class="hljs-variable">$IMAGESET</span>/Contents.json"</span>
+<span class="hljs-keyword">done</span>
+
+mv <span class="hljs-variable">$ASSET_FOLDER</span> <span class="hljs-variable">$OUTPUT_FOLDER</span>
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>services.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "bootstrap\\cache\\services.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>services.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">return</span> <span class="hljs-keyword">array</span> (
+  <span class="hljs-string">'providers'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Illuminate\\Auth\\AuthServiceProvider'</span>,
+    <span class="hljs-number">1</span> =&gt; <span class="hljs-string">'Illuminate\\Broadcasting\\BroadcastServiceProvider'</span>,
+    <span class="hljs-number">2</span> =&gt; <span class="hljs-string">'Illuminate\\Bus\\BusServiceProvider'</span>,
+    <span class="hljs-number">3</span> =&gt; <span class="hljs-string">'Illuminate\\Cache\\CacheServiceProvider'</span>,
+    <span class="hljs-number">4</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-number">5</span> =&gt; <span class="hljs-string">'Illuminate\\Cookie\\CookieServiceProvider'</span>,
+    <span class="hljs-number">6</span> =&gt; <span class="hljs-string">'Illuminate\\Database\\DatabaseServiceProvider'</span>,
+    <span class="hljs-number">7</span> =&gt; <span class="hljs-string">'Illuminate\\Encryption\\EncryptionServiceProvider'</span>,
+    <span class="hljs-number">8</span> =&gt; <span class="hljs-string">'Illuminate\\Filesystem\\FilesystemServiceProvider'</span>,
+    <span class="hljs-number">9</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\FoundationServiceProvider'</span>,
+    <span class="hljs-number">10</span> =&gt; <span class="hljs-string">'Illuminate\\Hashing\\HashServiceProvider'</span>,
+    <span class="hljs-number">11</span> =&gt; <span class="hljs-string">'Illuminate\\Mail\\MailServiceProvider'</span>,
+    <span class="hljs-number">12</span> =&gt; <span class="hljs-string">'Illuminate\\Notifications\\NotificationServiceProvider'</span>,
+    <span class="hljs-number">13</span> =&gt; <span class="hljs-string">'Illuminate\\Pagination\\PaginationServiceProvider'</span>,
+    <span class="hljs-number">14</span> =&gt; <span class="hljs-string">'Illuminate\\Pipeline\\PipelineServiceProvider'</span>,
+    <span class="hljs-number">15</span> =&gt; <span class="hljs-string">'Illuminate\\Queue\\QueueServiceProvider'</span>,
+    <span class="hljs-number">16</span> =&gt; <span class="hljs-string">'Illuminate\\Redis\\RedisServiceProvider'</span>,
+    <span class="hljs-number">17</span> =&gt; <span class="hljs-string">'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider'</span>,
+    <span class="hljs-number">18</span> =&gt; <span class="hljs-string">'Illuminate\\Session\\SessionServiceProvider'</span>,
+    <span class="hljs-number">19</span> =&gt; <span class="hljs-string">'Illuminate\\Translation\\TranslationServiceProvider'</span>,
+    <span class="hljs-number">20</span> =&gt; <span class="hljs-string">'Illuminate\\Validation\\ValidationServiceProvider'</span>,
+    <span class="hljs-number">21</span> =&gt; <span class="hljs-string">'Illuminate\\View\\ViewServiceProvider'</span>,
+    <span class="hljs-number">22</span> =&gt; <span class="hljs-string">'Facade\\Ignition\\IgnitionServiceProvider'</span>,
+    <span class="hljs-number">23</span> =&gt; <span class="hljs-string">'Fideloper\\Proxy\\TrustedProxyServiceProvider'</span>,
+    <span class="hljs-number">24</span> =&gt; <span class="hljs-string">'Fruitcake\\Cors\\CorsServiceProvider'</span>,
+    <span class="hljs-number">25</span> =&gt; <span class="hljs-string">'Laravel\\Tinker\\TinkerServiceProvider'</span>,
+    <span class="hljs-number">26</span> =&gt; <span class="hljs-string">'Laravel\\Ui\\UiServiceProvider'</span>,
+    <span class="hljs-number">27</span> =&gt; <span class="hljs-string">'Collective\\Html\\HtmlServiceProvider'</span>,
+    <span class="hljs-number">28</span> =&gt; <span class="hljs-string">'Maatwebsite\\Excel\\ExcelServiceProvider'</span>,
+    <span class="hljs-number">29</span> =&gt; <span class="hljs-string">'Carbon\\Laravel\\ServiceProvider'</span>,
+    <span class="hljs-number">30</span> =&gt; <span class="hljs-string">'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider'</span>,
+    <span class="hljs-number">31</span> =&gt; <span class="hljs-string">'Spatie\\Permission\\PermissionServiceProvider'</span>,
+    <span class="hljs-number">32</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\ButtonsServiceProvider'</span>,
+    <span class="hljs-number">33</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\EditorServiceProvider'</span>,
+    <span class="hljs-number">34</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\FractalServiceProvider'</span>,
+    <span class="hljs-number">35</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\HtmlServiceProvider'</span>,
+    <span class="hljs-number">36</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\DataTablesServiceProvider'</span>,
+    <span class="hljs-number">37</span> =&gt; <span class="hljs-string">'Spatie\\Permission\\PermissionServiceProvider'</span>,
+    <span class="hljs-number">38</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\DataTablesServiceProvider'</span>,
+    <span class="hljs-number">39</span> =&gt; <span class="hljs-string">'App\\Providers\\AppServiceProvider'</span>,
+    <span class="hljs-number">40</span> =&gt; <span class="hljs-string">'App\\Providers\\AuthServiceProvider'</span>,
+    <span class="hljs-number">41</span> =&gt; <span class="hljs-string">'App\\Providers\\EventServiceProvider'</span>,
+    <span class="hljs-number">42</span> =&gt; <span class="hljs-string">'App\\Providers\\RouteServiceProvider'</span>,
+  ),
+  <span class="hljs-string">'eager'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Illuminate\\Auth\\AuthServiceProvider'</span>,
+    <span class="hljs-number">1</span> =&gt; <span class="hljs-string">'Illuminate\\Cookie\\CookieServiceProvider'</span>,
+    <span class="hljs-number">2</span> =&gt; <span class="hljs-string">'Illuminate\\Database\\DatabaseServiceProvider'</span>,
+    <span class="hljs-number">3</span> =&gt; <span class="hljs-string">'Illuminate\\Encryption\\EncryptionServiceProvider'</span>,
+    <span class="hljs-number">4</span> =&gt; <span class="hljs-string">'Illuminate\\Filesystem\\FilesystemServiceProvider'</span>,
+    <span class="hljs-number">5</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\FoundationServiceProvider'</span>,
+    <span class="hljs-number">6</span> =&gt; <span class="hljs-string">'Illuminate\\Notifications\\NotificationServiceProvider'</span>,
+    <span class="hljs-number">7</span> =&gt; <span class="hljs-string">'Illuminate\\Pagination\\PaginationServiceProvider'</span>,
+    <span class="hljs-number">8</span> =&gt; <span class="hljs-string">'Illuminate\\Session\\SessionServiceProvider'</span>,
+    <span class="hljs-number">9</span> =&gt; <span class="hljs-string">'Illuminate\\View\\ViewServiceProvider'</span>,
+    <span class="hljs-number">10</span> =&gt; <span class="hljs-string">'Facade\\Ignition\\IgnitionServiceProvider'</span>,
+    <span class="hljs-number">11</span> =&gt; <span class="hljs-string">'Fideloper\\Proxy\\TrustedProxyServiceProvider'</span>,
+    <span class="hljs-number">12</span> =&gt; <span class="hljs-string">'Fruitcake\\Cors\\CorsServiceProvider'</span>,
+    <span class="hljs-number">13</span> =&gt; <span class="hljs-string">'Laravel\\Ui\\UiServiceProvider'</span>,
+    <span class="hljs-number">14</span> =&gt; <span class="hljs-string">'Maatwebsite\\Excel\\ExcelServiceProvider'</span>,
+    <span class="hljs-number">15</span> =&gt; <span class="hljs-string">'Carbon\\Laravel\\ServiceProvider'</span>,
+    <span class="hljs-number">16</span> =&gt; <span class="hljs-string">'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider'</span>,
+    <span class="hljs-number">17</span> =&gt; <span class="hljs-string">'Spatie\\Permission\\PermissionServiceProvider'</span>,
+    <span class="hljs-number">18</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\ButtonsServiceProvider'</span>,
+    <span class="hljs-number">19</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\EditorServiceProvider'</span>,
+    <span class="hljs-number">20</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\FractalServiceProvider'</span>,
+    <span class="hljs-number">21</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\HtmlServiceProvider'</span>,
+    <span class="hljs-number">22</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\DataTablesServiceProvider'</span>,
+    <span class="hljs-number">23</span> =&gt; <span class="hljs-string">'Spatie\\Permission\\PermissionServiceProvider'</span>,
+    <span class="hljs-number">24</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\DataTablesServiceProvider'</span>,
+    <span class="hljs-number">25</span> =&gt; <span class="hljs-string">'App\\Providers\\AppServiceProvider'</span>,
+    <span class="hljs-number">26</span> =&gt; <span class="hljs-string">'App\\Providers\\AuthServiceProvider'</span>,
+    <span class="hljs-number">27</span> =&gt; <span class="hljs-string">'App\\Providers\\EventServiceProvider'</span>,
+    <span class="hljs-number">28</span> =&gt; <span class="hljs-string">'App\\Providers\\RouteServiceProvider'</span>,
+  ),
+  <span class="hljs-string">'deferred'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'Illuminate\\Broadcasting\\BroadcastManager'</span> =&gt; <span class="hljs-string">'Illuminate\\Broadcasting\\BroadcastServiceProvider'</span>,
+    <span class="hljs-string">'Illuminate\\Contracts\\Broadcasting\\Factory'</span> =&gt; <span class="hljs-string">'Illuminate\\Broadcasting\\BroadcastServiceProvider'</span>,
+    <span class="hljs-string">'Illuminate\\Contracts\\Broadcasting\\Broadcaster'</span> =&gt; <span class="hljs-string">'Illuminate\\Broadcasting\\BroadcastServiceProvider'</span>,
+    <span class="hljs-string">'Illuminate\\Bus\\Dispatcher'</span> =&gt; <span class="hljs-string">'Illuminate\\Bus\\BusServiceProvider'</span>,
+    <span class="hljs-string">'Illuminate\\Contracts\\Bus\\Dispatcher'</span> =&gt; <span class="hljs-string">'Illuminate\\Bus\\BusServiceProvider'</span>,
+    <span class="hljs-string">'Illuminate\\Contracts\\Bus\\QueueingDispatcher'</span> =&gt; <span class="hljs-string">'Illuminate\\Bus\\BusServiceProvider'</span>,
+    <span class="hljs-string">'cache'</span> =&gt; <span class="hljs-string">'Illuminate\\Cache\\CacheServiceProvider'</span>,
+    <span class="hljs-string">'cache.store'</span> =&gt; <span class="hljs-string">'Illuminate\\Cache\\CacheServiceProvider'</span>,
+    <span class="hljs-string">'cache.psr6'</span> =&gt; <span class="hljs-string">'Illuminate\\Cache\\CacheServiceProvider'</span>,
+    <span class="hljs-string">'memcached.connector'</span> =&gt; <span class="hljs-string">'Illuminate\\Cache\\CacheServiceProvider'</span>,
+    <span class="hljs-string">'command.cache.clear'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.cache.forget'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.clear-compiled'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.auth.resets.clear'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.config.cache'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.config.clear'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.db.wipe'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.down'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.environment'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.event.cache'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.event.clear'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.event.list'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.key.generate'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.optimize'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.optimize.clear'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.package.discover'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.queue.failed'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.queue.flush'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.queue.forget'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.queue.listen'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.queue.restart'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.queue.retry'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.queue.work'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.route.cache'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.route.clear'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.route.list'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.seed'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'Illuminate\\Console\\Scheduling\\ScheduleFinishCommand'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'Illuminate\\Console\\Scheduling\\ScheduleRunCommand'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.storage.link'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.up'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.view.cache'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.view.clear'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.cache.table'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.cast.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.channel.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.component.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.console.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.controller.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.event.generate'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.event.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.exception.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.factory.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.job.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.listener.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.mail.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.middleware.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.model.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.notification.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.notification.table'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.observer.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.policy.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.provider.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.queue.failed-table'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.queue.table'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.request.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.resource.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.rule.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.seeder.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.session.table'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.serve'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.stub.publish'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.test.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.vendor.publish'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'migrator'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'migration.repository'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'migration.creator'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.migrate'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.migrate.fresh'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.migrate.install'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.migrate.refresh'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.migrate.reset'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.migrate.rollback'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.migrate.status'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'command.migrate.make'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'composer'</span> =&gt; <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span>,
+    <span class="hljs-string">'hash'</span> =&gt; <span class="hljs-string">'Illuminate\\Hashing\\HashServiceProvider'</span>,
+    <span class="hljs-string">'hash.driver'</span> =&gt; <span class="hljs-string">'Illuminate\\Hashing\\HashServiceProvider'</span>,
+    <span class="hljs-string">'mail.manager'</span> =&gt; <span class="hljs-string">'Illuminate\\Mail\\MailServiceProvider'</span>,
+    <span class="hljs-string">'mailer'</span> =&gt; <span class="hljs-string">'Illuminate\\Mail\\MailServiceProvider'</span>,
+    <span class="hljs-string">'Illuminate\\Mail\\Markdown'</span> =&gt; <span class="hljs-string">'Illuminate\\Mail\\MailServiceProvider'</span>,
+    <span class="hljs-string">'Illuminate\\Contracts\\Pipeline\\Hub'</span> =&gt; <span class="hljs-string">'Illuminate\\Pipeline\\PipelineServiceProvider'</span>,
+    <span class="hljs-string">'queue'</span> =&gt; <span class="hljs-string">'Illuminate\\Queue\\QueueServiceProvider'</span>,
+    <span class="hljs-string">'queue.worker'</span> =&gt; <span class="hljs-string">'Illuminate\\Queue\\QueueServiceProvider'</span>,
+    <span class="hljs-string">'queue.listener'</span> =&gt; <span class="hljs-string">'Illuminate\\Queue\\QueueServiceProvider'</span>,
+    <span class="hljs-string">'queue.failer'</span> =&gt; <span class="hljs-string">'Illuminate\\Queue\\QueueServiceProvider'</span>,
+    <span class="hljs-string">'queue.connection'</span> =&gt; <span class="hljs-string">'Illuminate\\Queue\\QueueServiceProvider'</span>,
+    <span class="hljs-string">'redis'</span> =&gt; <span class="hljs-string">'Illuminate\\Redis\\RedisServiceProvider'</span>,
+    <span class="hljs-string">'redis.connection'</span> =&gt; <span class="hljs-string">'Illuminate\\Redis\\RedisServiceProvider'</span>,
+    <span class="hljs-string">'auth.password'</span> =&gt; <span class="hljs-string">'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider'</span>,
+    <span class="hljs-string">'auth.password.broker'</span> =&gt; <span class="hljs-string">'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider'</span>,
+    <span class="hljs-string">'translator'</span> =&gt; <span class="hljs-string">'Illuminate\\Translation\\TranslationServiceProvider'</span>,
+    <span class="hljs-string">'translation.loader'</span> =&gt; <span class="hljs-string">'Illuminate\\Translation\\TranslationServiceProvider'</span>,
+    <span class="hljs-string">'validator'</span> =&gt; <span class="hljs-string">'Illuminate\\Validation\\ValidationServiceProvider'</span>,
+    <span class="hljs-string">'validation.presence'</span> =&gt; <span class="hljs-string">'Illuminate\\Validation\\ValidationServiceProvider'</span>,
+    <span class="hljs-string">'command.tinker'</span> =&gt; <span class="hljs-string">'Laravel\\Tinker\\TinkerServiceProvider'</span>,
+    <span class="hljs-string">'html'</span> =&gt; <span class="hljs-string">'Collective\\Html\\HtmlServiceProvider'</span>,
+    <span class="hljs-string">'form'</span> =&gt; <span class="hljs-string">'Collective\\Html\\HtmlServiceProvider'</span>,
+    <span class="hljs-string">'Collective\\Html\\HtmlBuilder'</span> =&gt; <span class="hljs-string">'Collective\\Html\\HtmlServiceProvider'</span>,
+    <span class="hljs-string">'Collective\\Html\\FormBuilder'</span> =&gt; <span class="hljs-string">'Collective\\Html\\HtmlServiceProvider'</span>,
+  ),
+  <span class="hljs-string">'when'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'Illuminate\\Broadcasting\\BroadcastServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+    <span class="hljs-string">'Illuminate\\Bus\\BusServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+    <span class="hljs-string">'Illuminate\\Cache\\CacheServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+    <span class="hljs-string">'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+    <span class="hljs-string">'Illuminate\\Hashing\\HashServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+    <span class="hljs-string">'Illuminate\\Mail\\MailServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+    <span class="hljs-string">'Illuminate\\Pipeline\\PipelineServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+    <span class="hljs-string">'Illuminate\\Queue\\QueueServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+    <span class="hljs-string">'Illuminate\\Redis\\RedisServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+    <span class="hljs-string">'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+    <span class="hljs-string">'Illuminate\\Translation\\TranslationServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+    <span class="hljs-string">'Illuminate\\Validation\\ValidationServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+    <span class="hljs-string">'Laravel\\Tinker\\TinkerServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+    <span class="hljs-string">'Collective\\Html\\HtmlServiceProvider'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+    ),
+  ),
+);
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

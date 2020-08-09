@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CHANGELOG.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bootstrap-timepicker\\CHANGELOG.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#changelog">Changelog</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#unreleased">Unreleased</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#added-not-started">Added (not started)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#deprecated-not-started">Deprecated (not started)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.5.2-2016-01-02">0.5.2 - 2016-01-02</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#added">Added</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#changed">Changed</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#fixed">Fixed</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.5.1-2015-08-06">0.5.1 - 2015-08-06</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#changed-1">Changed</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#0.5-2015-07-31">0.5 - 2015-07-31</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#changed-2">Changed</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="changelog">
+  <h1>
+    <a href="#changelog" name="changelog" class="pilcrow"></a>
+Changelog
+  </h1>
+</div>
+<p>All notable changes will be documented in this file.  This project
+sort of conforms to Semantic Versioning. Since we're still pre-1.0,
+it's like the Wild West up in here!</p>
+<div class="pilwrap" id="unreleased">
+  <h2>
+    <a href="#unreleased" name="unreleased" class="pilcrow"></a>
+Unreleased
+  </h2>
+</div>
+<div class="pilwrap" id="added-not-started">
+  <h3>
+    <a href="#added-not-started" name="added-not-started" class="pilcrow"></a>
+Added (not started)
+  </h3>
+</div>
+<ul>
+<li>Still planning out how to include i18n data and functionality.</li>
+</ul>
+<div class="pilwrap" id="deprecated-not-started">
+  <h3>
+    <a href="#deprecated-not-started" name="deprecated-not-started" class="pilcrow"></a>
+Deprecated (not started)
+  </h3>
+</div>
+<ul>
+<li>Incorrect usage of the word &quot;meridian&quot; will be deprecated. It should
+be &quot;meridiem&quot;.</li>
+<li><code>showWidgetOnAddonClick</code>'s current behavior is not intuitive. Clicking
+the input addon should <em>toggle</em> the widget instead of showing it.</li>
+</ul>
+<div class="pilwrap" id="0.5.2-2016-01-02">
+  <h2>
+    <a href="#0.5.2-2016-01-02" name="0.5.2-2016-01-02" class="pilcrow"></a>
+0.5.2 - 2016-01-02
+  </h2>
+</div>
+<div class="pilwrap" id="added">
+  <h3>
+    <a href="#added" name="added" class="pilcrow"></a>
+Added
+  </h3>
+</div>
+<ul>
+<li>Tabbing out of the timepicker widget will now close it.</li>
+<li>You can specify your own icon classes. See docs for the option.</li>
+</ul>
+<div class="pilwrap" id="changed">
+  <h3>
+    <a href="#changed" name="changed" class="pilcrow"></a>
+Changed
+  </h3>
+</div>
+<ul>
+<li>Cleaned up <code>package.json</code> and <code>bower.json</code> files. The npm/bower package
+should be cleaner now.</li>
+<li><code>timepicker.less</code> now lives in the <code>css/</code> directory of the package.</li>
+<li>bootstrap-timepicker now uses the latest minor releases for jQuery 2 and
+Bootstrap 3</li>
+</ul>
+<div class="pilwrap" id="fixed">
+  <h3>
+    <a href="#fixed" name="fixed" class="pilcrow"></a>
+Fixed
+  </h3>
+</div>
+<ul>
+<li>Fixed bad interaction between <code>setTime(&quot;12:00 AM&quot;)</code> and <code>showMeridian</code></li>
+<li>Various documentation issues were fixed.</li>
+</ul>
+<div class="pilwrap" id="0.5.1-2015-08-06">
+  <h2>
+    <a href="#0.5.1-2015-08-06" name="0.5.1-2015-08-06" class="pilcrow"></a>
+0.5.1 - 2015-08-06
+  </h2>
+</div>
+<div class="pilwrap" id="changed-1">
+  <h3>
+    <a href="#changed-1" name="changed-1" class="pilcrow"></a>
+Changed
+  </h3>
+</div>
+<ul>
+<li>Critical fix (#279) for bootstrap initialization. If you happened to
+list your timepicker's classes in an order other than &quot;input-group
+bootstrap-timepicker&quot;, you'd be out of luck. Now we use jQuery's
+<code>hasClass</code> method correctly. Yay!</li>
+</ul>
+<div class="pilwrap" id="0.5-2015-07-31">
+  <h2>
+    <a href="#0.5-2015-07-31" name="0.5-2015-07-31" class="pilcrow"></a>
+0.5 - 2015-07-31
+  </h2>
+</div>
+<div class="pilwrap" id="changed-2">
+  <h3>
+    <a href="#changed-2" name="changed-2" class="pilcrow"></a>
+Changed
+  </h3>
+</div>
+<ul>
+<li>Bootstrap 3 support. No more Bootstrap 2 support.</li>
+<li>setTime sets time better</li>
+<li>more tests, and they exercise Bootstrap 3 support!</li>
+<li>snapToStep is a new option, off by default, which snaps times to the
+nearest step or overflows to 0 if it would otherwise snap to 60 or
+more.</li>
+<li>explicitMode is a new option, off by default, which lets you leave
+out colons when typing times.</li>
+<li>shift+tab now correctly moves the cursor to the previously
+highlighted unit, and blurs the timepicker when expected.</li>
+<li>We have cut out significant amounts of old cruft from the
+repository.</li>
+<li>Minified/Uglified code is no longer kept in the repo. Please
+download a release tarball or zip file to get the compiled and
+minified CSS and Javascript files.</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

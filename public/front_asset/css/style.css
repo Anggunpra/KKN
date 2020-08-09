@@ -943,6 +943,17 @@ a:hover {
 	bottom: 0;
 	left: 6px;
 }
+.custom-marker.timeline-marker:after {
+	height: 650px;
+	content: "";
+	width: 3px;
+	background: #ccd5db;
+	display: block;
+	position: absolute;
+	top: 0px;
+	bottom: 0;
+	left: 6px;
+}
 .timeline-item:last-child .timeline-marker:after {
 	content: none;
 }

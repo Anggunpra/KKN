@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>for-of.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es6-iterator\\for-of.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>for-of.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">"use strict"</span>;
+
+<span class="hljs-keyword">var</span> isArguments = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/function/is-arguments"</span>)
+  , callable    = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/object/valid-callable"</span>)
+  , isString    = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/string/is-string"</span>)
+  , <span class="hljs-keyword">get</span>         = require("./<span class="hljs-keyword">get</span>");
+
+var isArray = Array.isArray, call = Function.prototype.call, some = Array.prototype.some;
+
+module.exports = function (iterable, cb /*, thisArg*/) {
+	<span class="hljs-keyword">var</span> mode, thisArg = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">2</span>], result, doBreak, broken, i, length, char, code;
+	<span class="hljs-keyword">if</span> (isArray(iterable) || isArguments(iterable)) mode = <span class="hljs-string">"array"</span>;
+	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isString(iterable)) mode = <span class="hljs-string">"string"</span>;
+	<span class="hljs-keyword">else</span> iterable = <span class="hljs-keyword">get</span>(iterable);
+
+	callable(cb);
+	doBreak = function () {
+		broken = <span class="hljs-literal">true</span>;
+	};
+	<span class="hljs-keyword">if</span> (mode === <span class="hljs-string">"array"</span>) {
+		some.call(iterable, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+			call.call(cb, thisArg, value, doBreak);
+			<span class="hljs-keyword">return</span> broken;
+		});
+		<span class="hljs-keyword">return</span>;
+	}
+	<span class="hljs-keyword">if</span> (mode === <span class="hljs-string">"string"</span>) {
+		length = iterable.length;
+		<span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; length; ++i) {
+			char = iterable[i];
+			<span class="hljs-keyword">if</span> (i + <span class="hljs-number">1</span> &lt; length) {
+				code = char.charCodeAt(<span class="hljs-number">0</span>);
+				<span class="hljs-keyword">if</span> (code &gt;= <span class="hljs-number">0xd800</span> &amp;&amp; code &lt;= <span class="hljs-number">0xdbff</span>) char += iterable[++i];
+			}
+			call.call(cb, thisArg, char, doBreak);
+			<span class="hljs-keyword">if</span> (broken) <span class="hljs-keyword">break</span>;
+		}
+		<span class="hljs-keyword">return</span>;
+	}
+	result = iterable.next();
+
+	<span class="hljs-keyword">while</span> (!result.done) {
+		call.call(cb, thisArg, result.value, doBreak);
+		<span class="hljs-keyword">if</span> (broken) <span class="hljs-keyword">return</span>;
+		result = iterable.next();
+	}
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

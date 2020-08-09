@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\chartjs-color\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#chartjs-color">chartjs-color</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#setters">Setters</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#getters">Getters</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#css-strings">CSS Strings</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#luminosity">Luminosity</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#manipulation">Manipulation</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#clone">Clone</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#propers">Propers</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="chartjs-color">
+  <h1>
+    <a href="#chartjs-color" name="chartjs-color" class="pilcrow"></a>
+chartjs-color
+  </h1>
+</div>
+<p><a href="https://npmjs.com/package/chartjs-color"><img src="https://img.shields.io/npm/v/chartjs-color.svg?style=flat-square" alt="npm"></a> <a href="https://travis-ci.org/chartjs/chartjs-color"><img src="https://img.shields.io/travis/chartjs/chartjs-color.svg?style=flat-square" alt="Travis"></a></p>
+<blockquote>
+<p>JavaScript library for color conversion and manipulation with support for CSS color strings.</p>
+</blockquote>
+<pre><code class="js"><span class="hljs-keyword">var</span> color = Color(<span class="hljs-string">"#7743CE"</span>);
+
+color.alpha(<span class="hljs-number">0.5</span>).lighten(<span class="hljs-number">0.5</span>);
+
+<span class="hljs-built_in">console</span>.log(color.hslString());  <span class="hljs-comment">// "hsla(262, 59%, 81%, 0.5)"</span>
+</code></pre>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code class="console"><span class="hljs-meta">$</span><span class="bash"> npm install color</span>
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> Color = <span class="hljs-built_in">require</span>(<span class="hljs-string">"color"</span>)
+</code></pre>
+<div class="pilwrap" id="setters">
+  <h3>
+    <a href="#setters" name="setters" class="pilcrow"></a>
+Setters
+  </h3>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> color = Color(<span class="hljs-string">"rgb(255, 255, 255)"</span>)
+<span class="hljs-keyword">var</span> color = Color({<span class="hljs-attr">r</span>: <span class="hljs-number">255</span>, <span class="hljs-attr">g</span>: <span class="hljs-number">255</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">255</span>})
+<span class="hljs-keyword">var</span> color = Color().rgb(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>)
+<span class="hljs-keyword">var</span> color = Color().rgb([<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>])
+</code></pre>
+<p>Pass any valid CSS color string into <code>Color()</code> or a hash of values. Also load in color values with <code>rgb()</code>, <code>hsl()</code>, <code>hsv()</code>, <code>hwb()</code>, and <code>cmyk()</code>.</p>
+<pre><code class="js">color.red(<span class="hljs-number">120</span>)
+</code></pre>
+<p>Set the values for individual channels with <code>alpha</code>, <code>red</code>, <code>green</code>, <code>blue</code>, <code>hue</code>, <code>saturation</code> (hsl), <code>saturationv</code> (hsv), <code>lightness</code>, <code>whiteness</code>, <code>blackness</code>, <code>cyan</code>, <code>magenta</code>, <code>yellow</code>, <code>black</code></p>
+<div class="pilwrap" id="getters">
+  <h3>
+    <a href="#getters" name="getters" class="pilcrow"></a>
+Getters
+  </h3>
+</div>
+<pre><code class="js">color.rgb()       <span class="hljs-comment">// {r: 255, g: 255, b: 255}</span>
+</code></pre>
+<p>Get a hash of the rgb values with <code>rgb()</code>, similarly for <code>hsl()</code>, <code>hsv()</code>, and <code>cmyk()</code></p>
+<pre><code class="js">color.rgbArray()  <span class="hljs-comment">// [255, 255, 255]</span>
+</code></pre>
+<p>Get an array of the values with <code>rgbArray()</code>, <code>hslArray()</code>, <code>hsvArray()</code>, and <code>cmykArray()</code>.</p>
+<pre><code class="js">color.red()       <span class="hljs-comment">// 255</span>
+</code></pre>
+<p>Get the value for an individual channel.</p>
+<div class="pilwrap" id="css-strings">
+  <h3>
+    <a href="#css-strings" name="css-strings" class="pilcrow"></a>
+CSS Strings
+  </h3>
+</div>
+<pre><code class="js">color.hslString()  <span class="hljs-comment">// "hsl(320, 50%, 100%)"</span>
+</code></pre>
+<p>Different CSS String formats for the color are on <code>hexString</code>, <code>rgbString</code>, <code>percentString</code>, <code>hslString</code>, <code>hwbString</code>, and <code>keyword</code> (undefined if it's not a keyword color). <code>&quot;rgba&quot;</code> and <code>&quot;hsla&quot;</code> are used if the current alpha value of the color isn't <code>1</code>.</p>
+<div class="pilwrap" id="luminosity">
+  <h3>
+    <a href="#luminosity" name="luminosity" class="pilcrow"></a>
+Luminosity
+  </h3>
+</div>
+<pre><code class="js">color.luminosity();  <span class="hljs-comment">// 0.412</span>
+</code></pre>
+<p>The <a href="http://www.w3.org/TR/WCAG20/#relativeluminancedef">WCAG luminosity</a> of the color. 0 is black, 1 is white.</p>
+<pre><code class="js">color.contrast(Color(<span class="hljs-string">"blue"</span>))  <span class="hljs-comment">// 12</span>
+</code></pre>
+<p>The <a href="http://www.w3.org/TR/WCAG20/#contrast-ratiodef">WCAG contrast ratio</a> to another color, from 1 (same color) to 21 (contrast b/w white and black).</p>
+<pre><code class="js">color.light();  <span class="hljs-comment">// true</span>
+color.dark();   <span class="hljs-comment">// false</span>
+</code></pre>
+<p>Get whether the color is &quot;light&quot; or &quot;dark&quot;, useful for deciding text color.</p>
+<div class="pilwrap" id="manipulation">
+  <h3>
+    <a href="#manipulation" name="manipulation" class="pilcrow"></a>
+Manipulation
+  </h3>
+</div>
+<pre><code class="js">color.negate()         <span class="hljs-comment">// rgb(0, 100, 255) -&gt; rgb(255, 155, 0)</span>
+
+color.lighten(<span class="hljs-number">0.5</span>)     <span class="hljs-comment">// hsl(100, 50%, 50%) -&gt; hsl(100, 50%, 75%)</span>
+color.darken(<span class="hljs-number">0.5</span>)      <span class="hljs-comment">// hsl(100, 50%, 50%) -&gt; hsl(100, 50%, 25%)</span>
+
+color.saturate(<span class="hljs-number">0.5</span>)    <span class="hljs-comment">// hsl(100, 50%, 50%) -&gt; hsl(100, 75%, 50%)</span>
+color.desaturate(<span class="hljs-number">0.5</span>)  <span class="hljs-comment">// hsl(100, 50%, 50%) -&gt; hsl(100, 25%, 50%)</span>
+color.greyscale()      <span class="hljs-comment">// #5CBF54 -&gt; #969696</span>
+
+color.whiten(<span class="hljs-number">0.5</span>)      <span class="hljs-comment">// hwb(100, 50%, 50%) -&gt; hwb(100, 75%, 50%)</span>
+color.blacken(<span class="hljs-number">0.5</span>)     <span class="hljs-comment">// hwb(100, 50%, 50%) -&gt; hwb(100, 50%, 75%)</span>
+
+color.clearer(<span class="hljs-number">0.5</span>)     <span class="hljs-comment">// rgba(10, 10, 10, 0.8) -&gt; rgba(10, 10, 10, 0.4)</span>
+color.opaquer(<span class="hljs-number">0.5</span>)     <span class="hljs-comment">// rgba(10, 10, 10, 0.8) -&gt; rgba(10, 10, 10, 1.0)</span>
+
+color.rotate(<span class="hljs-number">180</span>)      <span class="hljs-comment">// hsl(60, 20%, 20%) -&gt; hsl(240, 20%, 20%)</span>
+color.rotate(<span class="hljs-number">-90</span>)      <span class="hljs-comment">// hsl(60, 20%, 20%) -&gt; hsl(330, 20%, 20%)</span>
+
+color.mix(Color(<span class="hljs-string">"yellow"</span>))        <span class="hljs-comment">// cyan -&gt; rgb(128, 255, 128)</span>
+color.mix(Color(<span class="hljs-string">"yellow"</span>), <span class="hljs-number">0.3</span>)   <span class="hljs-comment">// cyan -&gt; rgb(77, 255, 179)</span>
+
+<span class="hljs-comment">// chaining</span>
+color.green(<span class="hljs-number">100</span>).greyscale().lighten(<span class="hljs-number">0.6</span>)
+</code></pre>
+<div class="pilwrap" id="clone">
+  <h3>
+    <a href="#clone" name="clone" class="pilcrow"></a>
+Clone
+  </h3>
+</div>
+<p>You can can create a copy of an existing color object using <code>clone()</code>:</p>
+<pre><code class="js">color.clone() <span class="hljs-comment">// -&gt; New color object</span>
+</code></pre>
+<p>And more to come...</p>
+<div class="pilwrap" id="propers">
+  <h2>
+    <a href="#propers" name="propers" class="pilcrow"></a>
+Propers
+  </h2>
+</div>
+<p>The API was inspired by <a href="https://github.com/brehaut/color-js">color-js</a>. Manipulation functions by CSS tools like Sass, LESS, and Stylus.</p>
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-uglify\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#gulp-uglify">gulp-uglify </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#options">Options</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#errors">Errors</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#using-a-different-uglifyjs">Using a Different UglifyJS</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="gulp-uglify">
+  <h1>
+    <a href="#gulp-uglify" name="gulp-uglify" class="pilcrow"></a>
+gulp-uglify <a href="https://travis-ci.org/terinjokes/gulp-uglify"><img src="https://img.shields.io/travis/terinjokes/gulp-uglify/master.svg?label=Travis%20CI&amp;style=flat-square" alt=""></a><a href="https://ci.appveyor.com/project/terinjokes/gulp-uglify"><img src="https://img.shields.io/appveyor/ci/terinjokes/gulp-uglify/master.svg?label=AppVeyor&amp;style=flat-square" alt=""></a><a href="https://yarnpkg.com/en/package/gulp-uglify"><img src="https://img.shields.io/npm/dm/gulp-uglify.svg?style=flat-square" alt=""></a><a href="https://yarnpkg.com/en/package/gulp-uglify"><img src="https://img.shields.io/npm/v/gulp-uglify.svg?style=flat-square" alt=""></a><a href="https://coveralls.io/github/terinjokes/gulp-uglify"><img src="https://img.shields.io/coveralls/terinjokes/gulp-uglify/master.svg?style=flat-square" alt=""></a>
+  </h1>
+</div>
+<blockquote>
+<p>Minify JavaScript with UglifyJS3.</p>
+</blockquote>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<p>Install package with NPM and add it to your development dependencies:</p>
+<p><code>npm install --save-dev gulp-uglify</code></p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> uglify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-uglify'</span>);
+<span class="hljs-keyword">var</span> pipeline = <span class="hljs-built_in">require</span>(<span class="hljs-string">'readable-stream'</span>).pipeline;
+
+gulp.task(<span class="hljs-string">'compress'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> pipeline(
+        gulp.src(<span class="hljs-string">'lib/*.js'</span>),
+        uglify(),
+        gulp.dest(<span class="hljs-string">'dist'</span>)
+  );
+});
+</code></pre>
+<p>To help properly handle error conditions with Node streams, this project
+recommends the use of
+<a href="https://nodejs.org/docs/latest/api/stream.html#stream_stream_pipeline_streams_callback"><code>pipeline</code></a>,
+from <a href="https://github.com/nodejs/readable-stream"><code>readable-stream</code></a>.</p>
+<div class="pilwrap" id="options">
+  <h2>
+    <a href="#options" name="options" class="pilcrow"></a>
+Options
+  </h2>
+</div>
+<p>Most of the <a href="https://github.com/mishoo/UglifyJS2#minify-options">minify options</a> from
+the UglifyJS API are supported. There are a few exceptions:</p>
+<ol>
+<li>The <code>sourceMap</code> option must not be set, as it will be automatically configured
+based on your Gulp configuration. See the documentation for <a href="https://github.com/gulp-sourcemaps/gulp-sourcemaps#usage">Gulp sourcemaps</a>.</li>
+</ol>
+<div class="pilwrap" id="errors">
+  <h2>
+    <a href="#errors" name="errors" class="pilcrow"></a>
+Errors
+  </h2>
+</div>
+<p><code>gulp-uglify</code> emits an 'error' event if it is unable to minify a specific file.
+The GulpUglifyError constructor is exported by this plugin for <code>instanceof</code> checks.
+It contains the following properties:</p>
+<ul>
+<li><code>fileName</code>: The full file path for the file being minified.</li>
+<li><code>cause</code>: The original UglifyJS error, if available.</li>
+</ul>
+<p>Most UglifyJS error messages have the following properties:</p>
+<ul>
+<li><code>message</code> (or <code>msg</code>)</li>
+<li><code>filename</code></li>
+<li><code>line</code></li>
+</ul>
+<p>To see useful error messages, see <a href="docs/why-use-pipeline/README.md#why-use-pipeline.html">Why Use Pipeline?</a>.</p>
+<div class="pilwrap" id="using-a-different-uglifyjs">
+  <h2>
+    <a href="#using-a-different-uglifyjs" name="using-a-different-uglifyjs" class="pilcrow"></a>
+Using a Different UglifyJS
+  </h2>
+</div>
+<p>By default, <code>gulp-uglify</code> uses the version of UglifyJS installed as a dependency.
+It's possible to configure the use of a different version using the &quot;composer&quot; entry point.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> uglifyjs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'uglify-js'</span>); <span class="hljs-comment">// can be a git checkout</span>
+                                     <span class="hljs-comment">// or another module (such as `uglify-es` for ES6 support)</span>
+<span class="hljs-keyword">var</span> composer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-uglify/composer'</span>);
+<span class="hljs-keyword">var</span> pump = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pump'</span>);
+
+<span class="hljs-keyword">var</span> minify = composer(uglifyjs, <span class="hljs-built_in">console</span>);
+
+gulp.task(<span class="hljs-string">'compress'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">cb</span>) </span>{
+  <span class="hljs-comment">// the same options as described above</span>
+  <span class="hljs-keyword">var</span> options = {};
+
+  pump([
+      gulp.src(<span class="hljs-string">'lib/*.js'</span>),
+      minify(options),
+      gulp.dest(<span class="hljs-string">'dist'</span>)
+    ],
+    cb
+  );
+});
+</code></pre>
+</div>
+  </div>
+</body>
+</html>

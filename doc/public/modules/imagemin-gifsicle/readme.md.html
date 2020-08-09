@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\imagemin-gifsicle\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#imagemin-gifsicle">imagemin-gifsicle  </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#imagemingifsicle-options-buffer">imageminGifsicle([options])(buffer)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#interlaced">interlaced</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#optimizationlevel">optimizationLevel</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#colors">colors</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#buffer">buffer</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="imagemin-gifsicle">
+  <h1>
+    <a href="#imagemin-gifsicle" name="imagemin-gifsicle" class="pilcrow"></a>
+imagemin-gifsicle <a href="https://travis-ci.org/imagemin/imagemin-gifsicle"><img src="http://img.shields.io/travis/imagemin/imagemin-gifsicle.svg?style=flat" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/ShinnosukeWatanabe/imagemin-gifsicle"><img src="https://ci.appveyor.com/api/projects/status/51vfu1ntxwx7t949?svg=true" alt="Build status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>gifsicle imagemin plugin</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save imagemin-gifsicle
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> imagemin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin'</span>);
+<span class="hljs-keyword">const</span> imageminGifsicle = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin-gifsicle'</span>);
+
+imagemin([<span class="hljs-string">'images/*.gif'</span>], <span class="hljs-string">'build/images'</span>, {<span class="hljs-attr">use</span>: [imageminGifsicle()]}).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Images optimized'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="imagemingifsicle-options-buffer">
+  <h3>
+    <a href="#imagemingifsicle-options-buffer" name="imagemingifsicle-options-buffer" class="pilcrow"></a>
+imageminGifsicle([options])(buffer)
+  </h3>
+</div>
+<p>Returns a promise for a buffer.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<div class="pilwrap" id="interlaced">
+  <h5>
+    <a href="#interlaced" name="interlaced" class="pilcrow"></a>
+interlaced
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code></p>
+<p>Interlace gif for progressive rendering.</p>
+<div class="pilwrap" id="optimizationlevel">
+  <h5>
+    <a href="#optimizationlevel" name="optimizationlevel" class="pilcrow"></a>
+optimizationLevel
+  </h5>
+</div>
+<p>Type: <code>number</code><br>
+Default: <code>1</code></p>
+<p>Select an optimization level between <code>1</code> and <code>3</code>.</p>
+<blockquote>
+<p>The optimization level determines how much optimization is done; higher levels take longer, but may have better results.</p>
+</blockquote>
+<ol>
+<li>Stores only the changed portion of each image.</li>
+<li>Also uses transparency to shrink the file further.</li>
+<li>Try several optimization methods (usually slower, sometimes better results)</li>
+</ol>
+<div class="pilwrap" id="colors">
+  <h5>
+    <a href="#colors" name="colors" class="pilcrow"></a>
+colors
+  </h5>
+</div>
+<p>Type: <code>number</code></p>
+<p>Reduce the number of distinct colors in each output GIF to num or less. Num must be between 2 and 256.</p>
+<div class="pilwrap" id="buffer">
+  <h4>
+    <a href="#buffer" name="buffer" class="pilcrow"></a>
+buffer
+  </h4>
+</div>
+<p>Type: <code>buffer</code></p>
+<p>Buffer to optimize.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/imagemin">imagemin</a></p>
+</div>
+  </div>
+</body>
+</html>

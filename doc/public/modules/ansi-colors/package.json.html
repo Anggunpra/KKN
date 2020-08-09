@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\ansi-colors\\package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"ansi-colors"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Collection of ansi colors and styles."</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"1.1.0"</span>,
+  <span class="hljs-attr">"homepage"</span>: <span class="hljs-string">"https://github.com/doowb/ansi-colors"</span>,
+  <span class="hljs-attr">"author"</span>: <span class="hljs-string">"Brian Woodward (https://github.com/doowb)"</span>,
+  <span class="hljs-attr">"contributors"</span>: [
+    <span class="hljs-string">"Brian Woodward (https://twitter.com/doowb)"</span>,
+    <span class="hljs-string">"Jon Schlinkert (http://twitter.com/jonschlinkert)"</span>
+  ],
+  <span class="hljs-attr">"repository"</span>: <span class="hljs-string">"doowb/ansi-colors"</span>,
+  <span class="hljs-attr">"bugs"</span>: {
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/doowb/ansi-colors/issues"</span>
+  },
+  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"MIT"</span>,
+  <span class="hljs-attr">"files"</span>: [
+    <span class="hljs-string">"index.js"</span>,
+    <span class="hljs-string">"types/index.d.ts"</span>
+  ],
+  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"index.js"</span>,
+  <span class="hljs-attr">"types"</span>: <span class="hljs-string">"./types/index.d.ts"</span>,
+  <span class="hljs-attr">"engines"</span>: {
+    <span class="hljs-attr">"node"</span>: <span class="hljs-string">"&gt;=0.10.0"</span>
+  },
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"mocha &amp;&amp; tsc --project types"</span>
+  },
+  <span class="hljs-attr">"dependencies"</span>: {
+    <span class="hljs-attr">"ansi-wrap"</span>: <span class="hljs-string">"^0.1.0"</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"gulp-format-md"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"mocha"</span>: <span class="hljs-string">"^3.5.3"</span>,
+    <span class="hljs-attr">"typescript"</span>: <span class="hljs-string">"^2.7.1"</span>
+  },
+  <span class="hljs-attr">"keywords"</span>: [
+    <span class="hljs-string">"ansi-bgblack"</span>,
+    <span class="hljs-string">"ansi-bgblue"</span>,
+    <span class="hljs-string">"ansi-bgcyan"</span>,
+    <span class="hljs-string">"ansi-bggreen"</span>,
+    <span class="hljs-string">"ansi-bgmagenta"</span>,
+    <span class="hljs-string">"ansi-bgred"</span>,
+    <span class="hljs-string">"ansi-bgwhite"</span>,
+    <span class="hljs-string">"ansi-bgyellow"</span>,
+    <span class="hljs-string">"ansi-black"</span>,
+    <span class="hljs-string">"ansi-blue"</span>,
+    <span class="hljs-string">"ansi-bold"</span>,
+    <span class="hljs-string">"ansi-cyan"</span>,
+    <span class="hljs-string">"ansi-dim"</span>,
+    <span class="hljs-string">"ansi-gray"</span>,
+    <span class="hljs-string">"ansi-green"</span>,
+    <span class="hljs-string">"ansi-grey"</span>,
+    <span class="hljs-string">"ansi-hidden"</span>,
+    <span class="hljs-string">"ansi-inverse"</span>,
+    <span class="hljs-string">"ansi-italic"</span>,
+    <span class="hljs-string">"ansi-magenta"</span>,
+    <span class="hljs-string">"ansi-red"</span>,
+    <span class="hljs-string">"ansi-reset"</span>,
+    <span class="hljs-string">"ansi-strikethrough"</span>,
+    <span class="hljs-string">"ansi-underline"</span>,
+    <span class="hljs-string">"ansi-white"</span>,
+    <span class="hljs-string">"ansi-yellow"</span>,
+    <span class="hljs-string">"bgblack"</span>,
+    <span class="hljs-string">"bgblue"</span>,
+    <span class="hljs-string">"bgcyan"</span>,
+    <span class="hljs-string">"bggreen"</span>,
+    <span class="hljs-string">"bgmagenta"</span>,
+    <span class="hljs-string">"bgred"</span>,
+    <span class="hljs-string">"bgwhite"</span>,
+    <span class="hljs-string">"bgyellow"</span>,
+    <span class="hljs-string">"black"</span>,
+    <span class="hljs-string">"blue"</span>,
+    <span class="hljs-string">"bold"</span>,
+    <span class="hljs-string">"cyan"</span>,
+    <span class="hljs-string">"dim"</span>,
+    <span class="hljs-string">"gray"</span>,
+    <span class="hljs-string">"green"</span>,
+    <span class="hljs-string">"grey"</span>,
+    <span class="hljs-string">"hidden"</span>,
+    <span class="hljs-string">"inverse"</span>,
+    <span class="hljs-string">"italic"</span>,
+    <span class="hljs-string">"magenta"</span>,
+    <span class="hljs-string">"red"</span>,
+    <span class="hljs-string">"reset"</span>,
+    <span class="hljs-string">"strikethrough"</span>,
+    <span class="hljs-string">"underline"</span>,
+    <span class="hljs-string">"white"</span>,
+    <span class="hljs-string">"yellow"</span>
+  ],
+  <span class="hljs-attr">"verb"</span>: {
+    <span class="hljs-attr">"toc"</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">"layout"</span>: <span class="hljs-string">"default"</span>,
+    <span class="hljs-attr">"tasks"</span>: [
+      <span class="hljs-string">"readme"</span>
+    ],
+    <span class="hljs-attr">"plugins"</span>: [
+      <span class="hljs-string">"gulp-format-md"</span>
+    ],
+    <span class="hljs-attr">"lint"</span>: {
+      <span class="hljs-attr">"reflinks"</span>: <span class="hljs-literal">true</span>
+    },
+    <span class="hljs-attr">"reflinks"</span>: [
+      <span class="hljs-string">"verb-readme-generator"</span>,
+      <span class="hljs-string">"verb"</span>
+    ],
+    <span class="hljs-attr">"related"</span>: {
+      <span class="hljs-attr">"list"</span>: [
+        <span class="hljs-string">"ansi-bgblack"</span>,
+        <span class="hljs-string">"ansi-bgblue"</span>,
+        <span class="hljs-string">"ansi-bgcyan"</span>,
+        <span class="hljs-string">"ansi-bggreen"</span>,
+        <span class="hljs-string">"ansi-bgmagenta"</span>,
+        <span class="hljs-string">"ansi-bgred"</span>,
+        <span class="hljs-string">"ansi-bgwhite"</span>,
+        <span class="hljs-string">"ansi-bgyellow"</span>,
+        <span class="hljs-string">"ansi-black"</span>,
+        <span class="hljs-string">"ansi-blue"</span>,
+        <span class="hljs-string">"ansi-bold"</span>,
+        <span class="hljs-string">"ansi-cyan"</span>,
+        <span class="hljs-string">"ansi-dim"</span>,
+        <span class="hljs-string">"ansi-gray"</span>,
+        <span class="hljs-string">"ansi-green"</span>,
+        <span class="hljs-string">"ansi-grey"</span>,
+        <span class="hljs-string">"ansi-hidden"</span>,
+        <span class="hljs-string">"ansi-inverse"</span>,
+        <span class="hljs-string">"ansi-italic"</span>,
+        <span class="hljs-string">"ansi-magenta"</span>,
+        <span class="hljs-string">"ansi-red"</span>,
+        <span class="hljs-string">"ansi-reset"</span>,
+        <span class="hljs-string">"ansi-strikethrough"</span>,
+        <span class="hljs-string">"ansi-underline"</span>,
+        <span class="hljs-string">"ansi-white"</span>,
+        <span class="hljs-string">"ansi-wrap"</span>,
+        <span class="hljs-string">"ansi-yellow"</span>
+      ]
+    }
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

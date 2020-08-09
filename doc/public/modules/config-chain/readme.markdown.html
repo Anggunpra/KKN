@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.markdown</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\config-chain\\readme.markdown";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#config-chain">config-chain</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#note-feature-freeze">NOTE: Feature Freeze</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#full-usage">Full Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#custom-configuations">Custom Configuations</a>
+      </div>
+
+      <div class="heading h1">
+        <a href="#api-docs">API Docs</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#cc...args">cc(...args)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#cc.json...args">cc.json(...args)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#cc.find-relativepath">cc.find(relativePath)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#cc.parse-content-file-type">cc.parse(content, file, type)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#cc.env-prefix-envprocess.env">cc.env(prefix, env=process.env)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#cc.configchain">cc.ConfigChain()</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#let-it-be-known-that-chain-is-an-instance-of-configchain">LET IT BE KNOWN THAT chain IS AN INSTANCE OF ConfigChain.</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chain.sources">chain.sources</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chain.addfile-filename-type-namefilename">chain.addFile(filename, type, [name=filename])</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chain.addurl-url-type-nameurl">chain.addUrl(url, type, [name=url])</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chain.addenv-prefix-env-nameenv">chain.addEnv(prefix, env, [name=&#39;env&#39;])</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chain.addstring-data-file-type-name">chain.addString(data, file, type, [name])</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chain.add-object-name">chain.add(object, [name])</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chain.root-object">chain.root {Object}</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chain.set-key-value-name">chain.set(key, value, name)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chain.get-key-name">chain.get(key, [name])</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chain.save-name-type">chain.save(name, type)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chain.on-save-function">chain.on(&#39;save&#39;, function () {})</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chain.on-load-function-chain">chain.on(&#39;load&#39;, function (chain) {})</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="config-chain">
+  <h1>
+    <a href="#config-chain" name="config-chain" class="pilcrow"></a>
+config-chain
+  </h1>
+</div>
+<p>A module for loading custom configurations</p>
+<div class="pilwrap" id="note-feature-freeze">
+  <h2>
+    <a href="#note-feature-freeze" name="note-feature-freeze" class="pilcrow"></a>
+NOTE: Feature Freeze
+  </h2>
+</div>
+<p><a href="http://github.com/badges/stability-badges"><img src="http://badges.github.io/stability-badges/dist/locked.svg" alt="locked"></a></p>
+<p>This module is frozen.</p>
+<p>In general, we recommend using <a href="https://github.com/dominictarr/rc">rc</a> instead,
+but as <a href="https://github.com/npmjs/npm">npm</a> depends on this, it cannot be changed.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code class="sh">yarn add config-chain
+
+<span class="hljs-comment"># npm users</span>
+npm install --save config-chain
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> cc = <span class="hljs-built_in">require</span>(<span class="hljs-string">'config-chain'</span>);
+
+<span class="hljs-built_in">console</span>.log(cc.env(<span class="hljs-string">'TERM_'</span>, process.env));
+<span class="hljs-comment">/*
+{ SESSION_ID: 'w1:5F38',
+  PROGRAM_VERSION: '3.1.2',
+  PROGRAM: 'iTerm.app' }
+*/</span>
+</code></pre>
+<p>The <code>.env</code> function gets all the keys on the provided object which are
+prefixed by the specified prefix, removes the prefix, and puts the values on a new object.</p>
+<br/>
+<div class="pilwrap" id="full-usage">
+  <h2>
+    <a href="#full-usage" name="full-usage" class="pilcrow"></a>
+Full Usage
+  </h2>
+</div>
+<pre><code class="js">
+  <span class="hljs-comment">// npm install config-chain</span>
+
+  <span class="hljs-keyword">var</span> cc = <span class="hljs-built_in">require</span>(<span class="hljs-string">'config-chain'</span>)
+    , opts = <span class="hljs-built_in">require</span>(<span class="hljs-string">'optimist'</span>).argv <span class="hljs-comment">//ALWAYS USE OPTIMIST FOR COMMAND LINE OPTIONS.</span>
+    , env = opts.env || process.env.YOUR_APP_ENV || <span class="hljs-string">'dev'</span> <span class="hljs-comment">//SET YOUR ENV LIKE THIS.</span>
+
+  <span class="hljs-comment">// EACH ARG TO CONFIGURATOR IS LOADED INTO CONFIGURATION CHAIN</span>
+  <span class="hljs-comment">// EARLIER ITEMS OVERIDE LATER ITEMS</span>
+  <span class="hljs-comment">// PUTS COMMAND LINE OPTS FIRST, AND DEFAULTS LAST!</span>
+
+  <span class="hljs-comment">//strings are interpereted as filenames.</span>
+  <span class="hljs-comment">//will be loaded synchronously</span>
+
+  <span class="hljs-keyword">var</span> conf =
+  cc(
+    <span class="hljs-comment">//OVERRIDE SETTINGS WITH COMMAND LINE OPTS</span>
+    opts,
+
+    <span class="hljs-comment">//ENV VARS IF PREFIXED WITH 'myApp_'</span>
+
+    cc.env(<span class="hljs-string">'myApp_'</span>), <span class="hljs-comment">//myApp_foo = 'like this'</span>
+
+    <span class="hljs-comment">//FILE NAMED BY ENV</span>
+    path.join(__dirname,  <span class="hljs-string">'config.'</span> + env + <span class="hljs-string">'.json'</span>),
+
+    <span class="hljs-comment">//IF `env` is PRODUCTION</span>
+    env === <span class="hljs-string">'prod'</span>
+      ? path.join(__dirname, <span class="hljs-string">'special.json'</span>) <span class="hljs-comment">//load a special file</span>
+      : <span class="hljs-literal">null</span> <span class="hljs-comment">//NULL IS IGNORED!</span>
+
+    <span class="hljs-comment">//SUBDIR FOR ENV CONFIG</span>
+    path.join(__dirname,  <span class="hljs-string">'config'</span>, env, <span class="hljs-string">'config.json'</span>),
+
+    <span class="hljs-comment">//SEARCH PARENT DIRECTORIES FROM CURRENT DIR FOR FILE</span>
+    cc.find(<span class="hljs-string">'config.json'</span>),
+
+    <span class="hljs-comment">//PUT DEFAULTS LAST</span>
+    {
+      <span class="hljs-attr">host</span>: <span class="hljs-string">'localhost'</span>
+      <span class="hljs-attr">port</span>: <span class="hljs-number">8000</span>
+    })
+
+  <span class="hljs-keyword">var</span> host = conf.get(<span class="hljs-string">'host'</span>)
+
+  <span class="hljs-comment">// or</span>
+
+  <span class="hljs-keyword">var</span> host = conf.store.host
+
+</code></pre>
+<p>Finally, flexible configurations!  👌</p>
+<div class="pilwrap" id="custom-configuations">
+  <h2>
+    <a href="#custom-configuations" name="custom-configuations" class="pilcrow"></a>
+Custom Configuations
+  </h2>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> cc = <span class="hljs-built_in">require</span>(<span class="hljs-string">'config-chain'</span>)
+
+<span class="hljs-comment">// all the stuff you did before</span>
+<span class="hljs-keyword">var</span> config = cc({
+      <span class="hljs-attr">some</span>: <span class="hljs-string">'object'</span>
+    },
+    cc.find(<span class="hljs-string">'config.json'</span>),
+    cc.env(<span class="hljs-string">'myApp_'</span>)
+  )
+  <span class="hljs-comment">// CONFIGS AS A SERVICE, aka "CaaS", aka EVERY DEVOPS DREAM OMG!</span>
+  .addUrl(<span class="hljs-string">'http://configurator:1234/my-configs'</span>)
+  <span class="hljs-comment">// ASYNC FTW!</span>
+  .addFile(<span class="hljs-string">'/path/to/file.json'</span>)
+
+  <span class="hljs-comment">// OBJECTS ARE OK TOO, they're SYNC but they still ORDER RIGHT</span>
+  <span class="hljs-comment">// BECAUSE PROMISES ARE USED BUT NO, NOT *THOSE* PROMISES, JUST</span>
+  <span class="hljs-comment">// ACTUAL PROMISES LIKE YOU MAKE TO YOUR MOM, KEPT OUT OF LOVE</span>
+  .add({ <span class="hljs-attr">another</span>: <span class="hljs-string">'object'</span> })
+
+  <span class="hljs-comment">// DIE A THOUSAND DEATHS IF THIS EVER HAPPENS!!</span>
+  .on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">er</span>) </span>{
+    <span class="hljs-comment">// IF ONLY THERE WAS SOMETHIGN HARDER THAN THROW</span>
+    <span class="hljs-comment">// MY SORROW COULD BE ADEQUATELY EXPRESSED.  /o\</span>
+    <span class="hljs-keyword">throw</span> er
+  })
+
+  <span class="hljs-comment">// THROW A PARTY IN YOUR FACE WHEN ITS ALL LOADED!!</span>
+  .on(<span class="hljs-string">'load'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">config</span>) </span>{
+    <span class="hljs-built_in">console</span>.awesome(<span class="hljs-string">'HOLY SHIT!'</span>)
+  })
+</code></pre>
+<div class="pilwrap" id="api-docs">
+  <h1>
+    <a href="#api-docs" name="api-docs" class="pilcrow"></a>
+API Docs
+  </h1>
+</div>
+<div class="pilwrap" id="cc...args">
+  <h2>
+    <a href="#cc...args" name="cc...args" class="pilcrow"></a>
+cc(...args)
+  </h2>
+</div>
+<p>MAKE A CHAIN AND ADD ALL THE ARGS.</p>
+<p>If the arg is a STRING, then it shall be a JSON FILENAME.</p>
+<p>RETURN THE CHAIN!</p>
+<div class="pilwrap" id="cc.json...args">
+  <h2>
+    <a href="#cc.json...args" name="cc.json...args" class="pilcrow"></a>
+cc.json(...args)
+  </h2>
+</div>
+<p>Join the args into a JSON filename!</p>
+<p>SYNC I/O!</p>
+<div class="pilwrap" id="cc.find-relativepath">
+  <h2>
+    <a href="#cc.find-relativepath" name="cc.find-relativepath" class="pilcrow"></a>
+cc.find(relativePath)
+  </h2>
+</div>
+<p>SEEK the RELATIVE PATH by climbing the TREE OF DIRECTORIES.</p>
+<p>RETURN THE FOUND PATH!</p>
+<p>SYNC I/O!</p>
+<div class="pilwrap" id="cc.parse-content-file-type">
+  <h2>
+    <a href="#cc.parse-content-file-type" name="cc.parse-content-file-type" class="pilcrow"></a>
+cc.parse(content, file, type)
+  </h2>
+</div>
+<p>Parse the content string, and guess the type from either the
+specified type or the filename.</p>
+<p>RETURN THE RESULTING OBJECT!</p>
+<p>NO I/O!</p>
+<div class="pilwrap" id="cc.env-prefix-envprocess.env">
+  <h2>
+    <a href="#cc.env-prefix-envprocess.env" name="cc.env-prefix-envprocess.env" class="pilcrow"></a>
+cc.env(prefix, env=process.env)
+  </h2>
+</div>
+<p>Get all the keys on the provided object which are
+prefixed by the specified prefix, removes the prefix, and puts the values on a new object.</p>
+<p>RETURN THE RESULTING OBJECT!</p>
+<p>NO I/O!</p>
+<div class="pilwrap" id="cc.configchain">
+  <h2>
+    <a href="#cc.configchain" name="cc.configchain" class="pilcrow"></a>
+cc.ConfigChain()
+  </h2>
+</div>
+<p>The ConfigChain class for CRAY CRAY JQUERY STYLE METHOD CHAINING!</p>
+<p>One of these is returned by the main exported function, as well.</p>
+<p>It inherits (prototypically) from
+<a href="https://github.com/isaacs/proto-list/">ProtoList</a>, and also inherits
+(parasitically) from
+<a href="http://nodejs.org/api/events.html#events_class_events_eventemitter">EventEmitter</a></p>
+<p>It has all the methods from both, and except where noted, they are
+unchanged.</p>
+<div class="pilwrap" id="let-it-be-known-that-chain-is-an-instance-of-configchain">
+  <h3>
+    <a href="#let-it-be-known-that-chain-is-an-instance-of-configchain" name="let-it-be-known-that-chain-is-an-instance-of-configchain" class="pilcrow"></a>
+LET IT BE KNOWN THAT chain IS AN INSTANCE OF ConfigChain.
+  </h3>
+</div>
+<div class="pilwrap" id="chain.sources">
+  <h2>
+    <a href="#chain.sources" name="chain.sources" class="pilcrow"></a>
+chain.sources
+  </h2>
+</div>
+<p>A list of all the places where it got stuff.  The keys are the names
+passed to addFile or addUrl etc, and the value is an object with some
+info about the data source.</p>
+<div class="pilwrap" id="chain.addfile-filename-type-namefilename">
+  <h2>
+    <a href="#chain.addfile-filename-type-namefilename" name="chain.addfile-filename-type-namefilename" class="pilcrow"></a>
+chain.addFile(filename, type, [name=filename])
+  </h2>
+</div>
+<p>Filename is the name of the file.  Name is an arbitrary string to be
+used later if you desire.  Type is either 'ini' or 'json', and will
+try to guess intelligently if omitted.</p>
+<p>Loaded files can be saved later.</p>
+<div class="pilwrap" id="chain.addurl-url-type-nameurl">
+  <h2>
+    <a href="#chain.addurl-url-type-nameurl" name="chain.addurl-url-type-nameurl" class="pilcrow"></a>
+chain.addUrl(url, type, [name=url])
+  </h2>
+</div>
+<p>Same as the filename thing, but with a url.</p>
+<p>Can't be saved later.</p>
+<div class="pilwrap" id="chain.addenv-prefix-env-nameenv">
+  <h2>
+    <a href="#chain.addenv-prefix-env-nameenv" name="chain.addenv-prefix-env-nameenv" class="pilcrow"></a>
+chain.addEnv(prefix, env, [name='env'])
+  </h2>
+</div>
+<p>Add all the keys from the env object that start with the prefix.</p>
+<div class="pilwrap" id="chain.addstring-data-file-type-name">
+  <h2>
+    <a href="#chain.addstring-data-file-type-name" name="chain.addstring-data-file-type-name" class="pilcrow"></a>
+chain.addString(data, file, type, [name])
+  </h2>
+</div>
+<p>Parse the string and add it to the set.  (Mainly used internally.)</p>
+<div class="pilwrap" id="chain.add-object-name">
+  <h2>
+    <a href="#chain.add-object-name" name="chain.add-object-name" class="pilcrow"></a>
+chain.add(object, [name])
+  </h2>
+</div>
+<p>Add the object to the set.</p>
+<div class="pilwrap" id="chain.root-object">
+  <h2>
+    <a href="#chain.root-object" name="chain.root-object" class="pilcrow"></a>
+chain.root {Object}
+  </h2>
+</div>
+<p>The root from which all the other config objects in the set descend
+prototypically.</p>
+<p>Put your defaults here.</p>
+<div class="pilwrap" id="chain.set-key-value-name">
+  <h2>
+    <a href="#chain.set-key-value-name" name="chain.set-key-value-name" class="pilcrow"></a>
+chain.set(key, value, name)
+  </h2>
+</div>
+<p>Set the key to the value on the named config object.  If name is
+unset, then set it on the first config object in the set.  (That is,
+the one with the highest priority, which was added first.)</p>
+<div class="pilwrap" id="chain.get-key-name">
+  <h2>
+    <a href="#chain.get-key-name" name="chain.get-key-name" class="pilcrow"></a>
+chain.get(key, [name])
+  </h2>
+</div>
+<p>Get the key from the named config object explicitly, or from the
+resolved configs if not specified.</p>
+<div class="pilwrap" id="chain.save-name-type">
+  <h2>
+    <a href="#chain.save-name-type" name="chain.save-name-type" class="pilcrow"></a>
+chain.save(name, type)
+  </h2>
+</div>
+<p>Write the named config object back to its origin.</p>
+<p>Currently only supported for env and file config types.</p>
+<p>For files, encode the data according to the type.</p>
+<div class="pilwrap" id="chain.on-save-function">
+  <h2>
+    <a href="#chain.on-save-function" name="chain.on-save-function" class="pilcrow"></a>
+chain.on('save', function () {})
+  </h2>
+</div>
+<p>When one or more files are saved, emits <code>save</code> event when they're all
+saved.</p>
+<div class="pilwrap" id="chain.on-load-function-chain">
+  <h2>
+    <a href="#chain.on-load-function-chain" name="chain.on-load-function-chain" class="pilcrow"></a>
+chain.on('load', function (chain) {})
+  </h2>
+</div>
+<p>When the config chain has loaded all the specified files and urls and
+such, the 'load' event fires.</p>
+</div>
+  </div>
+</body>
+</html>

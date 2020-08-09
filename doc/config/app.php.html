@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>app.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "config\\app.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>app.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">return</span> [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Application Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This value is the name of your application. This value is used when the</td>
+</tr>
+<tr>
+<td>framework needs to place the application's name in a notification or</td>
+</tr>
+<tr>
+<td>any other location as required by the application or its packages.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'name'</span> =&gt; env(<span class="hljs-string">'APP_NAME'</span>, <span class="hljs-string">'Laravel'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Application Environment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This value determines the &quot;environment&quot; your application is currently</td>
+</tr>
+<tr>
+<td>running in. This may determine how you prefer to configure various</td>
+</tr>
+<tr>
+<td>services the application utilizes. Set this in your &quot;.env&quot; file.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'env'</span> =&gt; env(<span class="hljs-string">'APP_ENV'</span>, <span class="hljs-string">'production'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Application Debug Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>When your application is in debug mode, detailed error messages with</td>
+</tr>
+<tr>
+<td>stack traces will be shown on every error that occurs within your</td>
+</tr>
+<tr>
+<td>application. If disabled, a simple generic error page is shown.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'debug'</span> =&gt; (bool) env(<span class="hljs-string">'APP_DEBUG'</span>, <span class="hljs-keyword">false</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Application URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This URL is used by the console to properly generate URLs when using</td>
+</tr>
+<tr>
+<td>the Artisan command line tool. You should set this to the root of</td>
+</tr>
+<tr>
+<td>your application so that it is used when running Artisan tasks.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'url'</span> =&gt; env(<span class="hljs-string">'APP_URL'</span>, <span class="hljs-string">'http://localhost'</span>),
+
+    <span class="hljs-string">'asset_url'</span> =&gt; env(<span class="hljs-string">'ASSET_URL'</span>, <span class="hljs-keyword">null</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Application Timezone</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may specify the default timezone for your application, which</td>
+</tr>
+<tr>
+<td>will be used by the PHP date and date-time functions. We have gone</td>
+</tr>
+<tr>
+<td>ahead and set this to a sensible default for you out of the box.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'timezone'</span> =&gt; <span class="hljs-string">'UTC'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Application Locale Configuration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>The application locale determines the default locale that will be used</td>
+</tr>
+<tr>
+<td>by the translation service provider. You are free to set this value</td>
+</tr>
+<tr>
+<td>to any of the locales which will be supported by the application.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'locale'</span> =&gt; <span class="hljs-string">'en'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Application Fallback Locale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>The fallback locale determines the locale to use when the current one</td>
+</tr>
+<tr>
+<td>is not available. You may change the value to correspond to any of</td>
+</tr>
+<tr>
+<td>the language folders that are provided through your application.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'fallback_locale'</span> =&gt; <span class="hljs-string">'en'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Faker Locale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This locale will be used by the Faker PHP library when generating fake</td>
+</tr>
+<tr>
+<td>data for your database seeds. For example, this will be used to get</td>
+</tr>
+<tr>
+<td>localized telephone numbers, street address information and more.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'faker_locale'</span> =&gt; <span class="hljs-string">'en_US'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Encryption Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This key is used by the Illuminate encrypter service and should be set</td>
+</tr>
+<tr>
+<td>to a random, 32 character string, otherwise these encrypted strings</td>
+</tr>
+<tr>
+<td>will not be safe. Please do this before deploying an application!</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'key'</span> =&gt; env(<span class="hljs-string">'APP_KEY'</span>),
+
+    <span class="hljs-string">'cipher'</span> =&gt; <span class="hljs-string">'AES-256-CBC'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Autoloaded Service Providers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>The service providers listed here will be automatically loaded on the</td>
+</tr>
+<tr>
+<td>request to your application. Feel free to add your own services to</td>
+</tr>
+<tr>
+<td>this array to grant expanded functionality to your applications.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'providers'</span> =&gt; [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Laravel Framework Service Providers...</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        Illuminate\Auth\AuthServiceProvider::class,
+        Illuminate\Broadcasting\BroadcastServiceProvider::class,
+        Illuminate\Bus\BusServiceProvider::class,
+        Illuminate\Cache\CacheServiceProvider::class,
+        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
+        Illuminate\Cookie\CookieServiceProvider::class,
+        Illuminate\Database\DatabaseServiceProvider::class,
+        Illuminate\Encryption\EncryptionServiceProvider::class,
+        Illuminate\Filesystem\FilesystemServiceProvider::class,
+        Illuminate\Foundation\Providers\FoundationServiceProvider::class,
+        Illuminate\Hashing\HashServiceProvider::class,
+        Illuminate\Mail\MailServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
+        Illuminate\Pagination\PaginationServiceProvider::class,
+        Illuminate\Pipeline\PipelineServiceProvider::class,
+        Illuminate\Queue\QueueServiceProvider::class,
+        Illuminate\Redis\RedisServiceProvider::class,
+        Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
+        Illuminate\Session\SessionServiceProvider::class,
+        Illuminate\Translation\TranslationServiceProvider::class,
+        Illuminate\Validation\ValidationServiceProvider::class,
+        Illuminate\View\ViewServiceProvider::class,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Package Service Providers...</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        Spatie\Permission\PermissionServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Application Service Providers...</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>App\Providers\BroadcastServiceProvider::class,</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Class Aliases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>This array of class aliases will be registered when this application</td>
+</tr>
+<tr>
+<td>is started. However, feel free to register as many as you wish as</td>
+</tr>
+<tr>
+<td>the aliases are &quot;lazy&quot; loaded so they don't hinder performance.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'aliases'</span> =&gt; [
+
+        <span class="hljs-string">'App'</span> =&gt; Illuminate\Support\Facades\App::class,
+        <span class="hljs-string">'Arr'</span> =&gt; Illuminate\Support\Arr::class,
+        <span class="hljs-string">'Artisan'</span> =&gt; Illuminate\Support\Facades\Artisan::class,
+        <span class="hljs-string">'Auth'</span> =&gt; Illuminate\Support\Facades\Auth::class,
+        <span class="hljs-string">'Blade'</span> =&gt; Illuminate\Support\Facades\Blade::class,
+        <span class="hljs-string">'Broadcast'</span> =&gt; Illuminate\Support\Facades\Broadcast::class,
+        <span class="hljs-string">'Bus'</span> =&gt; Illuminate\Support\Facades\Bus::class,
+        <span class="hljs-string">'Cache'</span> =&gt; Illuminate\Support\Facades\Cache::class,
+        <span class="hljs-string">'Config'</span> =&gt; Illuminate\Support\Facades\Config::class,
+        <span class="hljs-string">'Cookie'</span> =&gt; Illuminate\Support\Facades\Cookie::class,
+        <span class="hljs-string">'Crypt'</span> =&gt; Illuminate\Support\Facades\Crypt::class,
+        <span class="hljs-string">'DB'</span> =&gt; Illuminate\Support\Facades\DB::class,
+        <span class="hljs-string">'Eloquent'</span> =&gt; Illuminate\Database\Eloquent\Model::class,
+        <span class="hljs-string">'Event'</span> =&gt; Illuminate\Support\Facades\Event::class,
+        <span class="hljs-string">'File'</span> =&gt; Illuminate\Support\Facades\File::class,
+        <span class="hljs-string">'Gate'</span> =&gt; Illuminate\Support\Facades\Gate::class,
+        <span class="hljs-string">'Hash'</span> =&gt; Illuminate\Support\Facades\Hash::class,
+        <span class="hljs-string">'Http'</span> =&gt; Illuminate\Support\Facades\Http::class,
+        <span class="hljs-string">'Lang'</span> =&gt; Illuminate\Support\Facades\Lang::class,
+        <span class="hljs-string">'Log'</span> =&gt; Illuminate\Support\Facades\Log::class,
+        <span class="hljs-string">'Mail'</span> =&gt; Illuminate\Support\Facades\Mail::class,
+        <span class="hljs-string">'Notification'</span> =&gt; Illuminate\Support\Facades\Notification::class,
+        <span class="hljs-string">'Password'</span> =&gt; Illuminate\Support\Facades\Password::class,
+        <span class="hljs-string">'Queue'</span> =&gt; Illuminate\Support\Facades\Queue::class,
+        <span class="hljs-string">'Redirect'</span> =&gt; Illuminate\Support\Facades\Redirect::class,
+        <span class="hljs-string">'Redis'</span> =&gt; Illuminate\Support\Facades\Redis::class,
+        <span class="hljs-string">'Request'</span> =&gt; Illuminate\Support\Facades\Request::class,
+        <span class="hljs-string">'Response'</span> =&gt; Illuminate\Support\Facades\Response::class,
+        <span class="hljs-string">'Route'</span> =&gt; Illuminate\Support\Facades\Route::class,
+        <span class="hljs-string">'Schema'</span> =&gt; Illuminate\Support\Facades\Schema::class,
+        <span class="hljs-string">'Session'</span> =&gt; Illuminate\Support\Facades\Session::class,
+        <span class="hljs-string">'Storage'</span> =&gt; Illuminate\Support\Facades\Storage::class,
+        <span class="hljs-string">'Str'</span> =&gt; Illuminate\Support\Str::class,
+        <span class="hljs-string">'URL'</span> =&gt; Illuminate\Support\Facades\URL::class,
+        <span class="hljs-string">'Validator'</span> =&gt; Illuminate\Support\Facades\Validator::class,
+        <span class="hljs-string">'View'</span> =&gt; Illuminate\Support\Facades\View::class,
+
+    ],
+
+];
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

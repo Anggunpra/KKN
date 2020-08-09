@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\fs-extra\\package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"fs-extra"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"3.0.1"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"fs-extra contains methods that aren't included in the vanilla Node.js fs package. Such as mkdir -p, cp -r, and rm -rf."</span>,
+  <span class="hljs-attr">"homepage"</span>: <span class="hljs-string">"https://github.com/jprichardson/node-fs-extra"</span>,
+  <span class="hljs-attr">"repository"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"git"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/jprichardson/node-fs-extra"</span>
+  },
+  <span class="hljs-attr">"keywords"</span>: [
+    <span class="hljs-string">"fs"</span>,
+    <span class="hljs-string">"file"</span>,
+    <span class="hljs-string">"file system"</span>,
+    <span class="hljs-string">"copy"</span>,
+    <span class="hljs-string">"directory"</span>,
+    <span class="hljs-string">"extra"</span>,
+    <span class="hljs-string">"mkdirp"</span>,
+    <span class="hljs-string">"mkdir"</span>,
+    <span class="hljs-string">"mkdirs"</span>,
+    <span class="hljs-string">"recursive"</span>,
+    <span class="hljs-string">"json"</span>,
+    <span class="hljs-string">"read"</span>,
+    <span class="hljs-string">"write"</span>,
+    <span class="hljs-string">"extra"</span>,
+    <span class="hljs-string">"delete"</span>,
+    <span class="hljs-string">"remove"</span>,
+    <span class="hljs-string">"touch"</span>,
+    <span class="hljs-string">"create"</span>,
+    <span class="hljs-string">"text"</span>,
+    <span class="hljs-string">"output"</span>,
+    <span class="hljs-string">"move"</span>
+  ],
+  <span class="hljs-attr">"author"</span>: <span class="hljs-string">"JP Richardson &lt;jprichardson@gmail.com&gt;"</span>,
+  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"MIT"</span>,
+  <span class="hljs-attr">"dependencies"</span>: {
+    <span class="hljs-attr">"graceful-fs"</span>: <span class="hljs-string">"^4.1.2"</span>,
+    <span class="hljs-attr">"jsonfile"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"universalify"</span>: <span class="hljs-string">"^0.1.0"</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"coveralls"</span>: <span class="hljs-string">"^2.11.2"</span>,
+    <span class="hljs-attr">"istanbul"</span>: <span class="hljs-string">"^0.4.5"</span>,
+    <span class="hljs-attr">"klaw"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"klaw-sync"</span>: <span class="hljs-string">"^1.1.2"</span>,
+    <span class="hljs-attr">"minimist"</span>: <span class="hljs-string">"^1.1.1"</span>,
+    <span class="hljs-attr">"mocha"</span>: <span class="hljs-string">"^3.1.2"</span>,
+    <span class="hljs-attr">"proxyquire"</span>: <span class="hljs-string">"^1.7.10"</span>,
+    <span class="hljs-attr">"read-dir-files"</span>: <span class="hljs-string">"^0.1.1"</span>,
+    <span class="hljs-attr">"rimraf"</span>: <span class="hljs-string">"^2.2.8"</span>,
+    <span class="hljs-attr">"secure-random"</span>: <span class="hljs-string">"^1.1.1"</span>,
+    <span class="hljs-attr">"standard"</span>: <span class="hljs-string">"^10.0.2"</span>,
+    <span class="hljs-attr">"standard-markdown"</span>: <span class="hljs-string">"^2.3.0"</span>
+  },
+  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"./lib/index"</span>,
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"coverage"</span>: <span class="hljs-string">"istanbul cover -i 'lib/**' -x '**/__tests__/**' test.js"</span>,
+    <span class="hljs-attr">"coveralls"</span>: <span class="hljs-string">"npm run coverage &amp;&amp; coveralls &lt; coverage/lcov.info"</span>,
+    <span class="hljs-attr">"lint"</span>: <span class="hljs-string">"standard &amp;&amp; standard-markdown"</span>,
+    <span class="hljs-attr">"test-find"</span>: <span class="hljs-string">"find ./lib/**/__tests__ -name *.test.js | xargs mocha"</span>,
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"npm run lint &amp;&amp; npm run unit"</span>,
+    <span class="hljs-attr">"unit"</span>: <span class="hljs-string">"node test.js"</span>
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>cli.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\find-versions\\cli.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>cli.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">#!/usr/bin/env node</span>
+<span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">var</span> getStdin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'get-stdin'</span>);
+<span class="hljs-keyword">var</span> meow = <span class="hljs-built_in">require</span>(<span class="hljs-string">'meow'</span>);
+<span class="hljs-keyword">var</span> findVersions = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./'</span>);
+
+<span class="hljs-keyword">var</span> cli = meow([
+	<span class="hljs-string">'Usage'</span>,
+	<span class="hljs-string">'  $ find-versions &lt;string&gt; [--first] [--loose]'</span>,
+	<span class="hljs-string">'  $ echo &lt;string&gt; | find-versions'</span>,
+	<span class="hljs-string">''</span>,
+	<span class="hljs-string">'Example'</span>,
+	<span class="hljs-string">'  $ find-versions \'unicorns v1.2.3\''</span>,
+	<span class="hljs-string">'  1.2.3'</span>,
+	<span class="hljs-string">''</span>,
+	<span class="hljs-string">'  $ curl --version | find-versions --first'</span>,
+	<span class="hljs-string">'  7.30.0'</span>,
+	<span class="hljs-string">''</span>,
+	<span class="hljs-string">'Options'</span>,
+	<span class="hljs-string">'  --first  Return the first match'</span>,
+	<span class="hljs-string">'  --loose  Match non-semver versions like 1.88'</span>
+]);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span>(<span class="hljs-params">data</span>) </span>{
+	<span class="hljs-keyword">var</span> ret = findVersions(data, {<span class="hljs-attr">loose</span>: cli.flags.loose});
+	<span class="hljs-built_in">console</span>.log(cli.flags.first ? ret[<span class="hljs-number">0</span>] : ret.join(<span class="hljs-string">'\n'</span>));
+}
+
+<span class="hljs-keyword">if</span> (process.stdin.isTTY) {
+	<span class="hljs-keyword">if</span> (!cli.input[<span class="hljs-number">0</span>]) {
+		<span class="hljs-built_in">console</span>.error(<span class="hljs-string">'Expected a string'</span>);
+		process.exit(<span class="hljs-number">1</span>);
+	}
+
+	init(cli.input[<span class="hljs-number">0</span>]);
+} <span class="hljs-keyword">else</span> {
+	getStdin(init);
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

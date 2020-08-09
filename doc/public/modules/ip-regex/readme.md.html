@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\ip-regex\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#ip-regex">ip-regex </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#ipregex-options">ipRegex(options)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#ipregex.v4-options">ipRegex.v4(options)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#ipregex.v6-options">ipRegex.v6(options)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options.exact">options.exact</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="ip-regex">
+  <h1>
+    <a href="#ip-regex" name="ip-regex" class="pilcrow"></a>
+ip-regex <a href="https://travis-ci.org/sindresorhus/ip-regex"><img src="https://travis-ci.org/sindresorhus/ip-regex.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Regular expression for matching IP addresses</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code class="sh">$ npm install --save ip-regex
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> ipRegex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ip-regex'</span>);
+
+<span class="hljs-comment">// contains an IP address</span>
+ipRegex().test(<span class="hljs-string">'unicorn 192.168.0.1'</span>);
+<span class="hljs-comment">//=&gt; true</span>
+
+<span class="hljs-comment">// is an IP address</span>
+ipRegex({<span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>}).test(<span class="hljs-string">'unicorn 192.168.0.1'</span>);
+<span class="hljs-comment">//=&gt; false</span>
+
+ipRegex.v6({<span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>}).test(<span class="hljs-string">'1:2:3:4:5:6:7:8'</span>);
+<span class="hljs-comment">//=&gt; true</span>
+
+<span class="hljs-string">'unicorn 192.168.0.1 cake 1:2:3:4:5:6:7:8 rainbow'</span>.match(ipRegex());
+<span class="hljs-comment">//=&gt; ['192.168.0.1', '1:2:3:4:5:6:7:8']</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="ipregex-options">
+  <h3>
+    <a href="#ipregex-options" name="ipregex-options" class="pilcrow"></a>
+ipRegex(options)
+  </h3>
+</div>
+<p>Returns a regex for matching both IPv4 and IPv6.</p>
+<div class="pilwrap" id="ipregex.v4-options">
+  <h3>
+    <a href="#ipregex.v4-options" name="ipregex.v4-options" class="pilcrow"></a>
+ipRegex.v4(options)
+  </h3>
+</div>
+<p>Returns a regex for matching IPv4.</p>
+<div class="pilwrap" id="ipregex.v6-options">
+  <h3>
+    <a href="#ipregex.v6-options" name="ipregex.v6-options" class="pilcrow"></a>
+ipRegex.v6(options)
+  </h3>
+</div>
+<p>Returns a regex for matching IPv6.</p>
+<div class="pilwrap" id="options.exact">
+  <h4>
+    <a href="#options.exact" name="options.exact" class="pilcrow"></a>
+options.exact
+  </h4>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code> <em>(Matches any IP address in a string)</em></p>
+<p>Only match an exact string.<br>
+Useful with <code>RegExp#test</code> to check if a string is an IP address.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

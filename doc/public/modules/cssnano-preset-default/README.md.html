@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\cssnano-preset-default\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#cssnano-preset-default">cssnano-preset-default</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#table-of-contents">Table of Contents</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#overview">Overview</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#configuration">Configuration</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#plugins">Plugins</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#css-declaration-sorter-external">css-declaration-sorter (external)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#cssnano-util-raw-cache">cssnano-util-raw-cache</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-calc-external">postcss-calc (external)</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-colormin">postcss-colormin</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-convert-values">postcss-convert-values</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-discard-comments">postcss-discard-comments</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-discard-duplicates">postcss-discard-duplicates</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-discard-empty">postcss-discard-empty</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-discard-overridden">postcss-discard-overridden</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-merge-longhand">postcss-merge-longhand</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-merge-rules">postcss-merge-rules</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-minify-font-values">postcss-minify-font-values</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-minify-gradients">postcss-minify-gradients</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-minify-params">postcss-minify-params</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-minify-selectors">postcss-minify-selectors</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-normalize-charset">postcss-normalize-charset</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-normalize-display-values">postcss-normalize-display-values</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-normalize-positions">postcss-normalize-positions</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-normalize-repeat-style">postcss-normalize-repeat-style</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-normalize-string">postcss-normalize-string</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-normalize-timing-functions">postcss-normalize-timing-functions</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-normalize-unicode">postcss-normalize-unicode</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-normalize-url">postcss-normalize-url</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-normalize-whitespace">postcss-normalize-whitespace</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-ordered-values">postcss-ordered-values</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-reduce-initial">postcss-reduce-initial</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-reduce-transforms">postcss-reduce-transforms</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-svgo">postcss-svgo</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#postcss-unique-selectors">postcss-unique-selectors</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contributors">Contributors</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="cssnano-preset-default">
+  <h1>
+    <a href="#cssnano-preset-default" name="cssnano-preset-default" class="pilcrow"></a>
+cssnano-preset-default
+  </h1>
+</div>
+<blockquote>
+<p>Safe defaults for cssnano which require minimal configuration.</p>
+</blockquote>
+<div class="pilwrap" id="table-of-contents">
+  <h2>
+    <a href="#table-of-contents" name="table-of-contents" class="pilcrow"></a>
+Table of Contents
+  </h2>
+</div>
+<ul>
+<li>
+<p><a href="#overview.html">Overview</a></p>
+</li>
+<li>
+<p><a href="#usage.html">Usage</a></p>
+<ul>
+<li><a href="#install.html">Install</a></li>
+<li><a href="#configuration.html">Configuration</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#plugins.html">Plugins</a></p>
+<ul>
+<li><a href="#cssnano-util-raw-cache.html">cssnano-util-raw-cache</a></li>
+<li><a href="#postcss-calc-external.html">postcss-calc (external)</a></li>
+<li><a href="#postcss-colormin.html">postcss-colormin</a></li>
+<li><a href="#postcss-convert-values.html">postcss-convert-values</a></li>
+<li><a href="#postcss-discard-comments.html">postcss-discard-comments</a></li>
+<li><a href="#postcss-discard-duplicates.html">postcss-discard-duplicates</a></li>
+<li><a href="#postcss-discard-empty.html">postcss-discard-empty</a></li>
+<li><a href="#postcss-discard-overridden.html">postcss-discard-overridden</a></li>
+<li><a href="#postcss-merge-longhand.html">postcss-merge-longhand</a></li>
+<li><a href="#postcss-merge-rules.html">postcss-merge-rules</a></li>
+<li><a href="#postcss-minify-font-values.html">postcss-minify-font-values</a></li>
+<li><a href="#postcss-minify-gradients.html">postcss-minify-gradients</a></li>
+<li><a href="#postcss-minify-params.html">postcss-minify-params</a></li>
+<li><a href="#postcss-minify-selectors.html">postcss-minify-selectors</a></li>
+<li><a href="#postcss-normalize-charset.html">postcss-normalize-charset</a></li>
+<li><a href="#postcss-normalize-display-values.html">postcss-normalize-display-values</a></li>
+<li><a href="#postcss-normalize-positions.html">postcss-normalize-positions</a></li>
+<li><a href="#postcss-normalize-repeat-style.html">postcss-normalize-repeat-style</a></li>
+<li><a href="#postcss-normalize-string.html">postcss-normalize-string</a></li>
+<li><a href="#postcss-normalize-timing-functions.html">postcss-normalize-timing-functions</a></li>
+<li><a href="#postcss-normalize-unicode.html">postcss-normalize-unicode</a></li>
+<li><a href="#postcss-normalize-url.html">postcss-normalize-url</a></li>
+<li><a href="#postcss-normalize-whitespace.html">postcss-normalize-whitespace</a></li>
+<li><a href="#postcss-ordered-values.html">postcss-ordered-values</a></li>
+<li><a href="#postcss-reduce-initial.html">postcss-reduce-initial</a></li>
+<li><a href="#postcss-reduce-transforms.html">postcss-reduce-transforms</a></li>
+<li><a href="#postcss-svgo.html">postcss-svgo</a></li>
+<li><a href="#postcss-unique-selectors.html">postcss-unique-selectors</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#contributors.html">Contributors</a></p>
+</li>
+<li>
+<p><a href="#license.html">License</a></p>
+</li>
+</ul>
+<div class="pilwrap" id="overview">
+  <h2>
+    <a href="#overview" name="overview" class="pilcrow"></a>
+Overview
+  </h2>
+</div>
+<p>This default preset for cssnano only includes transforms that make no
+assumptions about your CSS other than what is passed in. In previous
+iterations of cssnano, assumptions were made about your CSS which caused
+output to look different in certain use cases, but not others. These
+transforms have been moved from the defaults to other presets, to make
+this preset require only minimal configuration.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<div class="pilwrap" id="install">
+  <h3>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h3>
+</div>
+<p>Note that this preset comes bundled with cssnano <em>by default</em>, so you don't need to install it separately.</p>
+<div class="pilwrap" id="configuration">
+  <h3>
+    <a href="#configuration" name="configuration" class="pilcrow"></a>
+Configuration
+  </h3>
+</div>
+<p>If you would like to use the default configuration, then you don't need to add anything to your <code>package.json</code>.</p>
+<p>But should you wish to customise this, you can pass an array with the second parameter as the options object to use. For example, to remove all comments:</p>
+<pre><code class="diff"> {
+   "name": "awesome-application",
+<span class="hljs-addition">+  "cssnano": {</span>
+<span class="hljs-addition">+    "preset": [</span>
+<span class="hljs-addition">+      "default",</span>
+<span class="hljs-addition">+      {"discardComments": {"removeAll": true}}</span>
+<span class="hljs-addition">+    ]</span>
+<span class="hljs-addition">+  }</span>
+ }
+</code></pre>
+<p>Depending on your usage, the JSON configuration might not work for you, such as in cases where you would like to use options with customisable function parameters. For this use case, we recommend a <code>cssnano.config.js</code> at the same location as your <code>package.json</code>. You can then load a preset and export it with your custom parameters:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> defaultPreset = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cssnano-preset-default'</span>);
+
+<span class="hljs-built_in">module</span>.exports = defaultPreset({
+  <span class="hljs-attr">discardComments</span>: {
+    <span class="hljs-attr">remove</span>: <span class="hljs-function"><span class="hljs-params">comment</span> =&gt;</span> comment[<span class="hljs-number">0</span>] === <span class="hljs-string">"@"</span>
+  }
+});
+</code></pre>
+<p>Note that you may wish to publish your own preset to npm for reusability, should it differ a lot from this one. This is highly encouraged!</p>
+<div class="pilwrap" id="plugins">
+  <h2>
+    <a href="#plugins" name="plugins" class="pilcrow"></a>
+Plugins
+  </h2>
+</div>
+<div class="pilwrap" id="css-declaration-sorter-external">
+  <h3>
+    <a href="#css-declaration-sorter-external" name="css-declaration-sorter-external" class="pilcrow"></a>
+<a href="https://github.com/Siilwyn/css-declaration-sorter"><code>css-declaration-sorter</code></a> (external)
+  </h3>
+</div>
+<blockquote>
+<p>Sorts CSS declarations fast and automatically in a certain order.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="cssnano-util-raw-cache">
+  <h3>
+    <a href="#cssnano-util-raw-cache" name="cssnano-util-raw-cache" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/cssnano-util-raw-cache"><code>cssnano-util-raw-cache</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Manages the raw value formatting for generated AST nodes.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-calc-external">
+  <h3>
+    <a href="#postcss-calc-external" name="postcss-calc-external" class="pilcrow"></a>
+<a href="https://github.com/postcss/postcss-calc"><code>postcss-calc</code></a> (external)
+  </h3>
+</div>
+<blockquote>
+<p>PostCSS plugin to reduce calc()</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-colormin">
+  <h3>
+    <a href="#postcss-colormin" name="postcss-colormin" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-colormin"><code>postcss-colormin</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Minify colors in your CSS files with PostCSS.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-convert-values">
+  <h3>
+    <a href="#postcss-convert-values" name="postcss-convert-values" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-convert-values"><code>postcss-convert-values</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Convert values with PostCSS (e.g. ms -&gt; s)</p>
+</blockquote>
+<p>This plugin is loaded with the following configuration:</p>
+<pre><code class="js">{
+	<span class="hljs-attr">length</span>: <span class="hljs-literal">false</span>
+}
+</code></pre>
+<div class="pilwrap" id="postcss-discard-comments">
+  <h3>
+    <a href="#postcss-discard-comments" name="postcss-discard-comments" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-discard-comments"><code>postcss-discard-comments</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Discard comments in your CSS files with PostCSS.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-discard-duplicates">
+  <h3>
+    <a href="#postcss-discard-duplicates" name="postcss-discard-duplicates" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-discard-duplicates"><code>postcss-discard-duplicates</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Discard duplicate rules in your CSS files with PostCSS.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-discard-empty">
+  <h3>
+    <a href="#postcss-discard-empty" name="postcss-discard-empty" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-discard-empty"><code>postcss-discard-empty</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Discard empty rules and values with PostCSS.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-discard-overridden">
+  <h3>
+    <a href="#postcss-discard-overridden" name="postcss-discard-overridden" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-discard-overridden"><code>postcss-discard-overridden</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>PostCSS plugin to discard overridden @keyframes or @counter-style.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-merge-longhand">
+  <h3>
+    <a href="#postcss-merge-longhand" name="postcss-merge-longhand" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-merge-longhand"><code>postcss-merge-longhand</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Merge longhand properties into shorthand with PostCSS.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-merge-rules">
+  <h3>
+    <a href="#postcss-merge-rules" name="postcss-merge-rules" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-merge-rules"><code>postcss-merge-rules</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Merge CSS rules with PostCSS.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-minify-font-values">
+  <h3>
+    <a href="#postcss-minify-font-values" name="postcss-minify-font-values" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-minify-font-values"><code>postcss-minify-font-values</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Minify font declarations with PostCSS</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-minify-gradients">
+  <h3>
+    <a href="#postcss-minify-gradients" name="postcss-minify-gradients" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-minify-gradients"><code>postcss-minify-gradients</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Minify gradient parameters with PostCSS.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-minify-params">
+  <h3>
+    <a href="#postcss-minify-params" name="postcss-minify-params" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-minify-params"><code>postcss-minify-params</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Minify at-rule params with PostCSS</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-minify-selectors">
+  <h3>
+    <a href="#postcss-minify-selectors" name="postcss-minify-selectors" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-minify-selectors"><code>postcss-minify-selectors</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Minify selectors with PostCSS.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-normalize-charset">
+  <h3>
+    <a href="#postcss-normalize-charset" name="postcss-normalize-charset" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-normalize-charset"><code>postcss-normalize-charset</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Add necessary or remove extra charset with PostCSS</p>
+</blockquote>
+<p>This plugin is loaded with the following configuration:</p>
+<pre><code class="js">{
+	<span class="hljs-attr">add</span>: <span class="hljs-literal">false</span>
+}
+</code></pre>
+<div class="pilwrap" id="postcss-normalize-display-values">
+  <h3>
+    <a href="#postcss-normalize-display-values" name="postcss-normalize-display-values" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-normalize-display-values"><code>postcss-normalize-display-values</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Normalize multiple value display syntaxes into single values.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-normalize-positions">
+  <h3>
+    <a href="#postcss-normalize-positions" name="postcss-normalize-positions" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-normalize-positions"><code>postcss-normalize-positions</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Normalize keyword values for position into length values.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-normalize-repeat-style">
+  <h3>
+    <a href="#postcss-normalize-repeat-style" name="postcss-normalize-repeat-style" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-normalize-repeat-style"><code>postcss-normalize-repeat-style</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Convert two value syntax for repeat-style into one value.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-normalize-string">
+  <h3>
+    <a href="#postcss-normalize-string" name="postcss-normalize-string" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-normalize-string"><code>postcss-normalize-string</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Normalize wrapping quotes for CSS string literals.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-normalize-timing-functions">
+  <h3>
+    <a href="#postcss-normalize-timing-functions" name="postcss-normalize-timing-functions" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-normalize-timing-functions"><code>postcss-normalize-timing-functions</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Normalize CSS animation/transition timing functions.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-normalize-unicode">
+  <h3>
+    <a href="#postcss-normalize-unicode" name="postcss-normalize-unicode" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-normalize-unicode"><code>postcss-normalize-unicode</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Normalize unicode-range descriptors, and can convert to wildcard ranges.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-normalize-url">
+  <h3>
+    <a href="#postcss-normalize-url" name="postcss-normalize-url" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-normalize-url"><code>postcss-normalize-url</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Normalize URLs with PostCSS</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-normalize-whitespace">
+  <h3>
+    <a href="#postcss-normalize-whitespace" name="postcss-normalize-whitespace" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-normalize-whitespace"><code>postcss-normalize-whitespace</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Trim whitespace inside and around CSS rules &amp; declarations.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-ordered-values">
+  <h3>
+    <a href="#postcss-ordered-values" name="postcss-ordered-values" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-ordered-values"><code>postcss-ordered-values</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Ensure values are ordered consistently in your CSS.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-reduce-initial">
+  <h3>
+    <a href="#postcss-reduce-initial" name="postcss-reduce-initial" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-reduce-initial"><code>postcss-reduce-initial</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Reduce initial definitions to the actual initial value, where possible.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-reduce-transforms">
+  <h3>
+    <a href="#postcss-reduce-transforms" name="postcss-reduce-transforms" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-reduce-transforms"><code>postcss-reduce-transforms</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Reduce transform functions with PostCSS.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-svgo">
+  <h3>
+    <a href="#postcss-svgo" name="postcss-svgo" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-svgo"><code>postcss-svgo</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Optimise inline SVG with PostCSS.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="postcss-unique-selectors">
+  <h3>
+    <a href="#postcss-unique-selectors" name="postcss-unique-selectors" class="pilcrow"></a>
+<a href="https://github.com/cssnano/cssnano/tree/master/packages/postcss-unique-selectors"><code>postcss-unique-selectors</code></a>
+  </h3>
+</div>
+<blockquote>
+<p>Ensure CSS selectors are unique.</p>
+</blockquote>
+<p>This plugin is loaded with its default configuration.</p>
+<div class="pilwrap" id="contributors">
+  <h2>
+    <a href="#contributors" name="contributors" class="pilcrow"></a>
+Contributors
+  </h2>
+</div>
+<p>See <a href="https://github.com/cssnano/cssnano/blob/master/CONTRIBUTORS.md">CONTRIBUTORS.md</a>.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://beneb.info">Ben Briggs</a></p>
+</div>
+  </div>
+</body>
+</html>

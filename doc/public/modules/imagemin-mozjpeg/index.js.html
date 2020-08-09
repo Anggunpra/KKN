@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\imagemin-mozjpeg\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">const</span> execa = <span class="hljs-built_in">require</span>(<span class="hljs-string">'execa'</span>);
+<span class="hljs-keyword">const</span> isJpg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-jpg'</span>);
+<span class="hljs-keyword">const</span> mozjpeg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mozjpeg'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">options</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">buffer</span> =&gt;</span> {
+	options = <span class="hljs-built_in">Object</span>.assign({
+		<span class="hljs-attr">trellis</span>: <span class="hljs-literal">true</span>,
+		<span class="hljs-attr">trellisDC</span>: <span class="hljs-literal">true</span>,
+		<span class="hljs-attr">overshoot</span>: <span class="hljs-literal">true</span>
+	}, options);
+
+	<span class="hljs-keyword">if</span> (!Buffer.isBuffer(buffer)) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Expected a buffer'</span>));
+	}
+
+	<span class="hljs-keyword">if</span> (!isJpg(buffer)) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(buffer);
+	}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>TODO: Remove these sometime far in the future</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	<span class="hljs-keyword">if</span> (options.fastcrush) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Option `fastcrush` was renamed to `fastCrush`'</span>));
+	}
+	<span class="hljs-keyword">if</span> (options.maxmemory) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Option `maxmemory` was renamed to `maxMemory`'</span>));
+	}
+	<span class="hljs-keyword">if</span> (options.notrellis) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Option `notrellis` was renamed to `trellis` and inverted'</span>));
+	}
+	<span class="hljs-keyword">if</span> (options.noovershoot) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Option `noovershoot` was renamed to `overshoot` and inverted'</span>));
+	}
+
+	<span class="hljs-keyword">const</span> args = [];
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.quality !== <span class="hljs-string">'undefined'</span>) {
+		args.push(<span class="hljs-string">'-quality'</span>, options.quality);
+	}
+
+	<span class="hljs-keyword">if</span> (options.progressive === <span class="hljs-literal">false</span>) {
+		args.push(<span class="hljs-string">'-baseline'</span>);
+	}
+
+	<span class="hljs-keyword">if</span> (options.targa) {
+		args.push(<span class="hljs-string">'-targa'</span>);
+	}
+
+	<span class="hljs-keyword">if</span> (options.revert) {
+		args.push(<span class="hljs-string">'-revert'</span>);
+	}
+
+	<span class="hljs-keyword">if</span> (options.fastCrush) {
+		args.push(<span class="hljs-string">'-fastcrush'</span>);
+	}
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.dcScanOpt !== <span class="hljs-string">'undefined'</span>) {
+		args.push(<span class="hljs-string">'-dc-scan-opt'</span>, options.dcScanOpt);
+	}
+
+	<span class="hljs-keyword">if</span> (!options.trellis) {
+		args.push(<span class="hljs-string">'-notrellis'</span>);
+	}
+
+	<span class="hljs-keyword">if</span> (!options.trellisDC) {
+		args.push(<span class="hljs-string">'-notrellis-dc'</span>);
+	}
+
+	<span class="hljs-keyword">if</span> (options.tune) {
+		args.push(<span class="hljs-string">`-tune-<span class="hljs-subst">${options.tune}</span>`</span>);
+	}
+
+	<span class="hljs-keyword">if</span> (!options.overshoot) {
+		args.push(<span class="hljs-string">'-noovershoot'</span>);
+	}
+
+	<span class="hljs-keyword">if</span> (options.arithmetic) {
+		args.push(<span class="hljs-string">'-arithmetic'</span>);
+	}
+
+	<span class="hljs-keyword">if</span> (options.dct) {
+		args.push(<span class="hljs-string">'-dct'</span>, options.dct);
+	}
+
+	<span class="hljs-keyword">if</span> (options.quantBaseline) {
+		args.push(<span class="hljs-string">'-quant-baseline'</span>, options.quantBaseline);
+	}
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.quantTable !== <span class="hljs-string">'undefined'</span>) {
+		args.push(<span class="hljs-string">'-quant-table'</span>, options.quantTable);
+	}
+
+	<span class="hljs-keyword">if</span> (options.smooth) {
+		args.push(<span class="hljs-string">'-smooth'</span>, options.smooth);
+	}
+
+	<span class="hljs-keyword">if</span> (options.maxMemory) {
+		args.push(<span class="hljs-string">'-maxmemory'</span>, options.maxMemory);
+	}
+
+	<span class="hljs-keyword">if</span> (options.sample) {
+		args.push(<span class="hljs-string">'-sample'</span>, options.sample.join(<span class="hljs-string">','</span>));
+	}
+
+	<span class="hljs-keyword">return</span> execa.stdout(mozjpeg, args, {
+		<span class="hljs-attr">encoding</span>: <span class="hljs-literal">null</span>,
+		<span class="hljs-attr">input</span>: buffer,
+		<span class="hljs-attr">maxBuffer</span>: <span class="hljs-literal">Infinity</span>
+	});
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

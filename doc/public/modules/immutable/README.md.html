@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\immutable\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#immutable-collections-for-javascript">Immutable collections for JavaScript</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#getting-started">Getting started</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#browser">Browser</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#typescript">TypeScript</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#the-case-for-immutability">The case for Immutability</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#javascript-first-api">JavaScript-first API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#accepts-raw-javascript-objects">Accepts raw JavaScript objects.</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#converts-back-to-raw-javascript-objects">Converts back to raw JavaScript objects.</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#embraces-es6">Embraces ES6</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#nested-structures">Nested Structures</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#lazy-seq">Lazy Seq</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#equality-treats-collections-as-data">Equality treats Collections as Data</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#batching-mutations">Batching Mutations</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#documentation">Documentation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#testing">Testing</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contribution">Contribution</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#changelog">Changelog</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#thanks">Thanks</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="immutable-collections-for-javascript">
+  <h1>
+    <a href="#immutable-collections-for-javascript" name="immutable-collections-for-javascript" class="pilcrow"></a>
+Immutable collections for JavaScript
+  </h1>
+</div>
+<p><a href="https://travis-ci.org/facebook/immutable-js"><img src="https://travis-ci.org/facebook/immutable-js.svg" alt="Build Status"></a></p>
+<p><a href="http://en.wikipedia.org/wiki/Immutable_object">Immutable</a> data cannot be changed once created, leading to much simpler
+application development, no defensive copying, and enabling advanced memoization
+and change detection techniques with simple logic. <a href="http://en.wikipedia.org/wiki/Persistent_data_structure">Persistent</a> data presents
+a mutative API which does not update the data in-place, but instead always
+yields new updated data.</p>
+<p>Immutable.js provides many Persistent Immutable data structures including:
+<code>List</code>, <code>Stack</code>, <code>Map</code>, <code>OrderedMap</code>, <code>Set</code>, <code>OrderedSet</code> and <code>Record</code>.</p>
+<p>These data structures are highly efficient on modern JavaScript VMs by using
+structural sharing via <a href="http://en.wikipedia.org/wiki/Hash_array_mapped_trie">hash maps tries</a> and <a href="http://hypirion.com/musings/understanding-persistent-vector-pt-1">vector tries</a> as popularized
+by Clojure and Scala, minimizing the need to copy or cache data.</p>
+<p><code>Immutable</code> also provides a lazy <code>Seq</code>, allowing efficient
+chaining of collection methods like <code>map</code> and <code>filter</code> without creating
+intermediate representations. Create some <code>Seq</code> with <code>Range</code> and <code>Repeat</code>.</p>
+<p>Want to hear more? Watch the presentation about Immutable.js:</p>
+<p><a href="https://youtu.be/I7IdS-PbEgI" target="_blank" alt="Immutable Data and React"><img src="https://img.youtube.com/vi/I7IdS-PbEgI/0.jpg" /></a></p>
+<div class="pilwrap" id="getting-started">
+  <h2>
+    <a href="#getting-started" name="getting-started" class="pilcrow"></a>
+Getting started
+  </h2>
+</div>
+<p>Install <code>immutable</code> using npm.</p>
+<pre><code class="shell">npm install immutable
+</code></pre>
+<p>Then require it into any module.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> Immutable = <span class="hljs-built_in">require</span>(<span class="hljs-string">'immutable'</span>);
+<span class="hljs-keyword">var</span> map1 = Immutable.Map({<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">b</span>:<span class="hljs-number">2</span>, <span class="hljs-attr">c</span>:<span class="hljs-number">3</span>});
+<span class="hljs-keyword">var</span> map2 = map1.set(<span class="hljs-string">'b'</span>, <span class="hljs-number">50</span>);
+map1.get(<span class="hljs-string">'b'</span>); <span class="hljs-comment">// 2</span>
+map2.get(<span class="hljs-string">'b'</span>); <span class="hljs-comment">// 50</span>
+</code></pre>
+<div class="pilwrap" id="browser">
+  <h3>
+    <a href="#browser" name="browser" class="pilcrow"></a>
+Browser
+  </h3>
+</div>
+<p>To use <code>immutable</code> from a browser, download <a href="https://github.com/facebook/immutable-js/blob/master/dist/immutable.min.js">dist/immutable.min.js</a>
+or use a CDN such as <a href="https://cdnjs.com/libraries/immutable">CDNJS</a>
+or <a href="http://www.jsdelivr.com/#!immutable.js">jsDelivr</a>.</p>
+<p>Then, add it as a script tag to your page:</p>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"immutable.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+    <span class="hljs-keyword">var</span> map1 = Immutable.Map({a:<span class="hljs-number">1</span>, b:<span class="hljs-number">2</span>, c:<span class="hljs-number">3</span>});
+    <span class="hljs-keyword">var</span> map2 = map1.set(<span class="hljs-string">'b'</span>, <span class="hljs-number">50</span>);
+    map1.get(<span class="hljs-string">'b'</span>); <span class="hljs-comment">// 2</span>
+    map2.get(<span class="hljs-string">'b'</span>); <span class="hljs-comment">// 50</span>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>Or use an AMD loader (such as <a href="http://requirejs.org/">RequireJS</a>):</p>
+<pre><code class="javascript"><span class="hljs-built_in">require</span>([<span class="hljs-string">'./immutable.min.js'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">Immutable</span>) </span>{
+    <span class="hljs-keyword">var</span> map1 = Immutable.Map({<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">b</span>:<span class="hljs-number">2</span>, <span class="hljs-attr">c</span>:<span class="hljs-number">3</span>});
+    <span class="hljs-keyword">var</span> map2 = map1.set(<span class="hljs-string">'b'</span>, <span class="hljs-number">50</span>);
+    map1.get(<span class="hljs-string">'b'</span>); <span class="hljs-comment">// 2</span>
+    map2.get(<span class="hljs-string">'b'</span>); <span class="hljs-comment">// 50</span>
+});
+</code></pre>
+<p>If you're using <a href="http://browserify.org/">browserify</a>, the <code>immutable</code> npm module
+also works from the browser.</p>
+<div class="pilwrap" id="typescript">
+  <h3>
+    <a href="#typescript" name="typescript" class="pilcrow"></a>
+TypeScript
+  </h3>
+</div>
+<p>Use these Immutable collections and sequences as you would use native
+collections in your <a href="http://typescriptlang.org">TypeScript</a> programs while still taking
+advantage of type generics, error detection, and auto-complete in your IDE.</p>
+<p>Just add a reference with a relative path to the type declarations at the top
+of your file.</p>
+<pre><code class="javascript"><span class="hljs-comment">///&lt;reference path='./node_modules/immutable/dist/immutable.d.ts'/&gt;</span>
+<span class="hljs-keyword">import</span> Immutable = <span class="hljs-built_in">require</span>(<span class="hljs-string">'immutable'</span>);
+<span class="hljs-keyword">var</span> map1: Immutable.Map&lt;string, number&gt;;
+map1 = Immutable.Map({<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">b</span>:<span class="hljs-number">2</span>, <span class="hljs-attr">c</span>:<span class="hljs-number">3</span>});
+<span class="hljs-keyword">var</span> map2 = map1.set(<span class="hljs-string">'b'</span>, <span class="hljs-number">50</span>);
+map1.get(<span class="hljs-string">'b'</span>); <span class="hljs-comment">// 2</span>
+map2.get(<span class="hljs-string">'b'</span>); <span class="hljs-comment">// 50</span>
+</code></pre>
+<div class="pilwrap" id="the-case-for-immutability">
+  <h2>
+    <a href="#the-case-for-immutability" name="the-case-for-immutability" class="pilcrow"></a>
+The case for Immutability
+  </h2>
+</div>
+<p>Much of what makes application development difficult is tracking mutation and
+maintaining state. Developing with immutable data encourages you to think
+differently about how data flows through your application.</p>
+<p>Subscribing to data events throughout your application creates a huge overhead of
+book-keeping which can hurt performance, sometimes dramatically, and creates
+opportunities for areas of your application to get out of sync with each other
+due to easy to make programmer error. Since immutable data never changes,
+subscribing to changes throughout the model is a dead-end and new data can only
+ever be passed from above.</p>
+<p>This model of data flow aligns well with the architecture of <a href="http://facebook.github.io/react/">React</a>
+and especially well with an application designed using the ideas of <a href="http://facebook.github.io/flux/docs/overview.html">Flux</a>.</p>
+<p>When data is passed from above rather than being subscribed to, and you're only
+interested in doing work when something has changed, you can use equality.</p>
+<p>Immutable collections should be treated as <em>values</em> rather than <em>objects</em>. While
+objects represents some thing which could change over time, a value represents
+the state of that thing at a particular instance of time. This principle is most
+important to understanding the appropriate use of immutable data. In order to
+treat Immutable.js collections as values, it's important to use the
+<code>Immutable.is()</code> function or <code>.equals()</code> method to determine value equality
+instead of the <code>===</code> operator which determines object reference identity.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> map1 = Immutable.Map({<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">b</span>:<span class="hljs-number">2</span>, <span class="hljs-attr">c</span>:<span class="hljs-number">3</span>});
+<span class="hljs-keyword">var</span> map2 = map1.set(<span class="hljs-string">'b'</span>, <span class="hljs-number">2</span>);
+assert(map1.equals(map2) === <span class="hljs-literal">true</span>);
+<span class="hljs-keyword">var</span> map3 = map1.set(<span class="hljs-string">'b'</span>, <span class="hljs-number">50</span>);
+assert(map1.equals(map3) === <span class="hljs-literal">false</span>);
+</code></pre>
+<p>Note: As a performance optimization <code>Immutable</code> attempts to return the existing
+collection when an operation would result in an identical collection, allowing
+for using <code>===</code> reference equality to determine if something definitely has not
+changed. This can be extremely useful when used within memoization function
+which would prefer to re-run the function if a deeper equality check could
+potentially be more costly. The <code>===</code> equality check is also used internally by
+<code>Immutable.is</code> and <code>.equals()</code> as a performance optimization.</p>
+<p>If an object is immutable, it can be &quot;copied&quot; simply by making another reference
+to it instead of copying the entire object. Because a reference is much smaller
+than the object itself, this results in memory savings and a potential boost in
+execution speed for programs which rely on copies (such as an undo-stack).</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> map1 = Immutable.Map({<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">b</span>:<span class="hljs-number">2</span>, <span class="hljs-attr">c</span>:<span class="hljs-number">3</span>});
+<span class="hljs-keyword">var</span> clone = map1;
+</code></pre>
+<div class="pilwrap" id="javascript-first-api">
+  <h2>
+    <a href="#javascript-first-api" name="javascript-first-api" class="pilcrow"></a>
+JavaScript-first API
+  </h2>
+</div>
+<p>While <code>immutable</code> is inspired by Clojure, Scala, Haskell and other functional
+programming environments, it's designed to bring these powerful concepts to
+JavaScript, and therefore has an Object-Oriented API that closely mirrors that
+of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla">ES6</a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a>, and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">Set</a>.</p>
+<p>The difference for the immutable collections is that methods which would mutate
+the collection, like <code>push</code>, <code>set</code>, <code>unshift</code> or <code>splice</code> instead return a new
+immutable collection. Methods which return new arrays like <code>slice</code> or <code>concat</code>
+instead return new immutable collections.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> list1 = Immutable.List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
+<span class="hljs-keyword">var</span> list2 = list1.push(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>);
+<span class="hljs-keyword">var</span> list3 = list2.unshift(<span class="hljs-number">0</span>);
+<span class="hljs-keyword">var</span> list4 = list1.concat(list2, list3);
+assert(list1.size === <span class="hljs-number">2</span>);
+assert(list2.size === <span class="hljs-number">5</span>);
+assert(list3.size === <span class="hljs-number">6</span>);
+assert(list4.size === <span class="hljs-number">13</span>);
+assert(list4.get(<span class="hljs-number">0</span>) === <span class="hljs-number">1</span>);
+</code></pre>
+<p>Almost all of the methods on <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a> will be found in similar form on
+<code>Immutable.List</code>, those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a> found on <code>Immutable.Map</code>, and those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">Set</a>
+found on <code>Immutable.Set</code>, including collection operations like <code>forEach()</code>
+and <code>map()</code>.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> alpha = Immutable.Map({<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">b</span>:<span class="hljs-number">2</span>, <span class="hljs-attr">c</span>:<span class="hljs-number">3</span>, <span class="hljs-attr">d</span>:<span class="hljs-number">4</span>});
+alpha.map(<span class="hljs-function">(<span class="hljs-params">v, k</span>) =&gt;</span> k.toUpperCase()).join();
+<span class="hljs-comment">// 'A,B,C,D'</span>
+</code></pre>
+<div class="pilwrap" id="accepts-raw-javascript-objects">
+  <h3>
+    <a href="#accepts-raw-javascript-objects" name="accepts-raw-javascript-objects" class="pilcrow"></a>
+Accepts raw JavaScript objects.
+  </h3>
+</div>
+<p>Designed to inter-operate with your existing JavaScript, <code>immutable</code>
+accepts plain JavaScript Arrays and Objects anywhere a method expects an
+<code>Iterable</code> with no performance penalty.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> map1 = Immutable.Map({<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">b</span>:<span class="hljs-number">2</span>, <span class="hljs-attr">c</span>:<span class="hljs-number">3</span>, <span class="hljs-attr">d</span>:<span class="hljs-number">4</span>});
+<span class="hljs-keyword">var</span> map2 = Immutable.Map({<span class="hljs-attr">c</span>:<span class="hljs-number">10</span>, <span class="hljs-attr">a</span>:<span class="hljs-number">20</span>, <span class="hljs-attr">t</span>:<span class="hljs-number">30</span>});
+<span class="hljs-keyword">var</span> obj = {<span class="hljs-attr">d</span>:<span class="hljs-number">100</span>, <span class="hljs-attr">o</span>:<span class="hljs-number">200</span>, <span class="hljs-attr">g</span>:<span class="hljs-number">300</span>};
+<span class="hljs-keyword">var</span> map3 = map1.merge(map2, obj);
+<span class="hljs-comment">// Map { a: 20, b: 2, c: 10, d: 100, t: 30, o: 200, g: 300 }</span>
+</code></pre>
+<p>This is possible because <code>immutable</code> can treat any JavaScript Array or Object
+as an Iterable. You can take advantage of this in order to get sophisticated
+collection methods on JavaScript Objects, which otherwise have a very sparse
+native API. Because Seq evaluates lazily and does not cache intermediate
+results, these operations can be extremely efficient.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> myObject = {<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>,<span class="hljs-attr">b</span>:<span class="hljs-number">2</span>,<span class="hljs-attr">c</span>:<span class="hljs-number">3</span>};
+Immutable.Seq(myObject).map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x * x).toObject();
+<span class="hljs-comment">// { a: 1, b: 4, c: 9 }</span>
+</code></pre>
+<p>Keep in mind, when using JS objects to construct Immutable Maps, that
+JavaScript Object properties are always strings, even if written in a quote-less
+shorthand, while Immutable Maps accept keys of any type.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> obj = { <span class="hljs-number">1</span>: <span class="hljs-string">"one"</span> };
+<span class="hljs-built_in">Object</span>.keys(obj); <span class="hljs-comment">// [ "1" ]</span>
+obj[<span class="hljs-string">"1"</span>]; <span class="hljs-comment">// "one"</span>
+obj[<span class="hljs-number">1</span>];   <span class="hljs-comment">// "one"</span>
+
+<span class="hljs-keyword">var</span> map = Immutable.fromJS(obj);
+map.get(<span class="hljs-string">"1"</span>); <span class="hljs-comment">// "one"</span>
+map.get(<span class="hljs-number">1</span>);   <span class="hljs-comment">// undefined</span>
+</code></pre>
+<p>Property access for JavaScript Objects first converts the key to a string, but
+since Immutable Map keys can be of any type the argument to <code>get()</code> is
+not altered.</p>
+<div class="pilwrap" id="converts-back-to-raw-javascript-objects">
+  <h3>
+    <a href="#converts-back-to-raw-javascript-objects" name="converts-back-to-raw-javascript-objects" class="pilcrow"></a>
+Converts back to raw JavaScript objects.
+  </h3>
+</div>
+<p>All <code>immutable</code> Iterables can be converted to plain JavaScript Arrays and
+Objects shallowly with <code>toArray()</code> and <code>toObject()</code> or deeply with <code>toJS()</code>.
+All Immutable Iterables also implement <code>toJSON()</code> allowing them to be passed to
+<code>JSON.stringify</code> directly.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> deep = Immutable.Map({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">c</span>: Immutable.List.of(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>) });
+deep.toObject() <span class="hljs-comment">// { a: 1, b: 2, c: List [ 3, 4, 5 ] }</span>
+deep.toArray() <span class="hljs-comment">// [ 1, 2, List [ 3, 4, 5 ] ]</span>
+deep.toJS() <span class="hljs-comment">// { a: 1, b: 2, c: [ 3, 4, 5 ] }</span>
+<span class="hljs-built_in">JSON</span>.stringify(deep) <span class="hljs-comment">// '{"a":1,"b":2,"c":[3,4,5]}'</span>
+</code></pre>
+<div class="pilwrap" id="embraces-es6">
+  <h3>
+    <a href="#embraces-es6" name="embraces-es6" class="pilcrow"></a>
+Embraces ES6
+  </h3>
+</div>
+<p><code>Immutable</code> takes advantage of features added to JavaScript in <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla">ES6</a>,
+the latest standard version of ECMAScript (JavaScript), including <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/The_Iterator_protocol">Iterators</a>,
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions">Arrow Functions</a>, <a href="http://wiki.ecmascript.org/doku.php?id=strawman:maximally_minimal_classes">Classes</a>, and <a href="http://www.2ality.com/2014/09/es6-modules-final.html">Modules</a>. It's also inspired by the
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">Set</a> collections added to ES6. The library is &quot;transpiled&quot; to ES3
+in order to support all modern browsers.</p>
+<p>All examples are presented in ES6. To run in all browsers, they need to be
+translated to ES3.</p>
+<pre><code class="js"><span class="hljs-comment">// ES6</span>
+foo.map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x * x);
+<span class="hljs-comment">// ES3</span>
+foo.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) </span>{ <span class="hljs-keyword">return</span> x * x; });
+</code></pre>
+<div class="pilwrap" id="nested-structures">
+  <h2>
+    <a href="#nested-structures" name="nested-structures" class="pilcrow"></a>
+Nested Structures
+  </h2>
+</div>
+<p>The collections in <code>immutable</code> are intended to be nested, allowing for deep
+trees of data, similar to JSON.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> nested = Immutable.fromJS({<span class="hljs-attr">a</span>:{<span class="hljs-attr">b</span>:{<span class="hljs-attr">c</span>:[<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]}}});
+<span class="hljs-comment">// Map { a: Map { b: Map { c: List [ 3, 4, 5 ] } } }</span>
+</code></pre>
+<p>A few power-tools allow for reading and operating on nested data. The
+most useful are <code>mergeDeep</code>, <code>getIn</code>, <code>setIn</code>, and <code>updateIn</code>, found on <code>List</code>,
+<code>Map</code> and <code>OrderedMap</code>.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> nested2 = nested.mergeDeep({<span class="hljs-attr">a</span>:{<span class="hljs-attr">b</span>:{<span class="hljs-attr">d</span>:<span class="hljs-number">6</span>}}});
+<span class="hljs-comment">// Map { a: Map { b: Map { c: List [ 3, 4, 5 ], d: 6 } } }</span>
+</code></pre>
+<pre><code class="javascript">nested2.getIn([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'d'</span>]); <span class="hljs-comment">// 6</span>
+
+<span class="hljs-keyword">var</span> nested3 = nested2.updateIn([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'d'</span>], value =&gt; value + <span class="hljs-number">1</span>);
+<span class="hljs-comment">// Map { a: Map { b: Map { c: List [ 3, 4, 5 ], d: 7 } } }</span>
+
+<span class="hljs-keyword">var</span> nested4 = nested3.updateIn([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>], list =&gt; list.push(<span class="hljs-number">6</span>));
+<span class="hljs-comment">// Map { a: Map { b: Map { c: List [ 3, 4, 5, 6 ], d: 7 } } }</span>
+</code></pre>
+<div class="pilwrap" id="lazy-seq">
+  <h2>
+    <a href="#lazy-seq" name="lazy-seq" class="pilcrow"></a>
+Lazy Seq
+  </h2>
+</div>
+<p><code>Seq</code> describes a lazy operation, allowing them to efficiently chain
+use of all the Iterable methods (such as <code>map</code> and <code>filter</code>).</p>
+<p><strong>Seq is immutable</strong> — Once a Seq is created, it cannot be
+changed, appended to, rearranged or otherwise modified. Instead, any mutative
+method called on a Seq will return a new Seq.</p>
+<p><strong>Seq is lazy</strong> — Seq does as little work as necessary to respond to any
+method call.</p>
+<p>For example, the following does not perform any work, because the resulting
+Seq is never used:</p>
+<pre><code>var oddSquares = Immutable.Seq.of(1,2,3,4,5,6,7,8)
+  .filter(x =&gt; x % 2).map(x =&gt; x * x);
+</code></pre>
+<p>Once the Seq is used, it performs only the work necessary. In this
+example, no intermediate arrays are ever created, filter is called three times,
+and map is only called twice:</p>
+<pre><code>console.log(oddSquares.get(1)); // 9
+</code></pre>
+<p>Any collection can be converted to a lazy Seq with <code>.toSeq()</code>.</p>
+<pre><code>var seq = Immutable.Map({a:1, b:1, c:1}).toSeq();
+</code></pre>
+<p>Seq allow for the efficient chaining of sequence operations, especially when
+converting to a different concrete type (such as to a JS object):</p>
+<pre><code>seq.flip().map(key =&gt; key.toUpperCase()).flip().toObject();
+// Map { A: 1, B: 1, C: 1 }
+</code></pre>
+<p>As well as expressing logic that would otherwise seem memory-limited:</p>
+<pre><code>Immutable.Range(1, Infinity)
+  .skip(1000)
+  .map(n =&gt; -n)
+  .filter(n =&gt; n % 2 === 0)
+  .take(2)
+  .reduce((r, n) =&gt; r * n, 1);
+// 1006008
+</code></pre>
+<p>Note: An iterable is always iterated in the same order, however that order may
+not always be well defined, as is the case for the <code>Map</code>.</p>
+<div class="pilwrap" id="equality-treats-collections-as-data">
+  <h2>
+    <a href="#equality-treats-collections-as-data" name="equality-treats-collections-as-data" class="pilcrow"></a>
+Equality treats Collections as Data
+  </h2>
+</div>
+<p><code>Immutable</code> provides equality which treats immutable data structures as pure
+data, performing a deep equality check if necessary.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> map1 = Immutable.Map({<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">b</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">c</span>:<span class="hljs-number">1</span>});
+<span class="hljs-keyword">var</span> map2 = Immutable.Map({<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">b</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">c</span>:<span class="hljs-number">1</span>});
+assert(map1 !== map2); <span class="hljs-comment">// two different instances</span>
+assert(Immutable.is(map1, map2)); <span class="hljs-comment">// have equivalent values</span>
+assert(map1.equals(map2)); <span class="hljs-comment">// alternatively use the equals method</span>
+</code></pre>
+<p><code>Immutable.is()</code> uses the same measure of equality as <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is">Object.is</a>
+including if both are immutable and all keys and values are equal
+using the same measure of equality.</p>
+<div class="pilwrap" id="batching-mutations">
+  <h2>
+    <a href="#batching-mutations" name="batching-mutations" class="pilcrow"></a>
+Batching Mutations
+  </h2>
+</div>
+<blockquote>
+<p>If a tree falls in the woods, does it make a sound?</p>
+<p>If a pure function mutates some local data in order to produce an immutable
+return value, is that ok?</p>
+<p>— Rich Hickey, Clojure</p>
+</blockquote>
+<p>Applying a mutation to create a new immutable object results in some overhead,
+which can add up to a minor performance penalty. If you need to apply a series
+of mutations locally before returning, <code>Immutable</code> gives you the ability to
+create a temporary mutable (transient) copy of a collection and apply a batch of
+mutations in a performant manner by using <code>withMutations</code>. In fact, this is
+exactly how  <code>Immutable</code> applies complex mutations itself.</p>
+<p>As an example, building <code>list2</code> results in the creation of 1, not 3, new
+immutable Lists.</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> list1 = Immutable.List.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
+<span class="hljs-keyword">var</span> list2 = list1.withMutations(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">list</span>) </span>{
+  list.push(<span class="hljs-number">4</span>).push(<span class="hljs-number">5</span>).push(<span class="hljs-number">6</span>);
+});
+assert(list1.size === <span class="hljs-number">3</span>);
+assert(list2.size === <span class="hljs-number">6</span>);
+</code></pre>
+<p>Note: <code>immutable</code> also provides <code>asMutable</code> and <code>asImmutable</code>, but only
+encourages their use when <code>withMutations</code> will not suffice. Use caution to not
+return a mutable copy, which could result in undesired behavior.</p>
+<p><em>Important!</em>: Only a select few methods can be used in <code>withMutations</code> including
+<code>set</code>, <code>push</code> and <code>pop</code>. These methods can be applied directly against a
+persistent data-structure where other methods like <code>map</code>, <code>filter</code>, <code>sort</code>,
+and <code>splice</code> will always return new immutable data-structures and never mutate
+a mutable collection.</p>
+<div class="pilwrap" id="documentation">
+  <h2>
+    <a href="#documentation" name="documentation" class="pilcrow"></a>
+Documentation
+  </h2>
+</div>
+<p><a href="http://facebook.github.io/immutable-js/docs/">Read the docs</a> and eat your vegetables.</p>
+<p>Docs are automatically generated from <a href="https://github.com/facebook/immutable-js/blob/master/type-definitions/Immutable.d.ts">Immutable.d.ts</a>.
+Please contribute!</p>
+<p>Also, don't miss the <a href="https://github.com/facebook/immutable-js/wiki">Wiki</a> which
+contains articles on specific topics. Can't find something? Open an <a href="https://github.com/facebook/immutable-js/issues">issue</a>.</p>
+<div class="pilwrap" id="testing">
+  <h2>
+    <a href="#testing" name="testing" class="pilcrow"></a>
+Testing
+  </h2>
+</div>
+<p>If you are using the <a href="http://chaijs.com/">Chai Assertion Library</a>, <a href="https://github.com/astorije/chai-immutable">Chai Immutable</a> provides a set of assertions to use against <code>Immutable</code> collections.</p>
+<div class="pilwrap" id="contribution">
+  <h2>
+    <a href="#contribution" name="contribution" class="pilcrow"></a>
+Contribution
+  </h2>
+</div>
+<p>Use <a href="https://github.com/facebook/immutable-js/issues">Github issues</a> for requests.</p>
+<p>We actively welcome pull requests, learn how to <a href="./CONTRIBUTING.md.html">contribute</a>.</p>
+<div class="pilwrap" id="changelog">
+  <h2>
+    <a href="#changelog" name="changelog" class="pilcrow"></a>
+Changelog
+  </h2>
+</div>
+<p>Changes are tracked as <a href="https://github.com/facebook/immutable-js/releases">Github releases</a>.</p>
+<div class="pilwrap" id="thanks">
+  <h2>
+    <a href="#thanks" name="thanks" class="pilcrow"></a>
+Thanks
+  </h2>
+</div>
+<p><a href="https://www.youtube.com/watch?v=K2NYwP90bNs">Phil Bagwell</a>, for his inspiration
+and research in persistent data structures.</p>
+<p><a href="https://github.com/hughfdjackson/">Hugh Jackson</a>, for providing the npm package
+name. If you're looking for his unsupported package, see <a href="https://github.com/hughfdjackson/immutable">this repository</a>.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>Immutable.js is <a href="https://github.com/facebook/immutable-js/blob/master/LICENSE">MIT-licensed</a>.</p>
+</div>
+  </div>
+</body>
+</html>

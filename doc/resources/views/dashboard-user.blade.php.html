@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>dashboard-user.blade.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "resources\\views\\dashboard-user.blade.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>dashboard-user.blade.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">@extends('layouts.main')
+@section('title','Dashboard')
+@section('content')
+&lt;div class="row"&gt;
+    &lt;div class="col-12"&gt;
+        &lt;div class="hero text-white hero-bg-image"
+            data-background="{{ asset('assets/img/unsplash/eberhard-grossgasteiger-1207565-unsplash.jpg')}}"&gt;
+            &lt;div class="hero-inner"&gt;
+                &lt;h2&gt;Hai, Selamat Datang {{ auth()-&gt;user()-&gt;nama_lengkap }}!&lt;/h2&gt;
+                &lt;p class="lead"&gt;Yukk silahkan pastikan data profil Anda dapat terisi dengan lengkap, agar pendataan
+                    semakin akurat&lt;/p&gt;
+                &lt;div class="mt-4"&gt;
+                    &lt;a href="" class="btn btn-outline-white btn-lg btn-icon icon-left"&gt;&lt;i class="far fa-user"&gt;&lt;/i&gt; Cek
+                        Data&lt;/a&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row mt-3"&gt;
+    &lt;div class="col-12 mb-2"&gt;
+        &lt;div class="row justify-content-md-center"&gt;
+          &lt;div class="col-sm-12 col-lg-4"&gt;
+              &lt;select name="periode" class="form-control" required&gt;
+                  &lt;option value="" selected disabled&gt;Pilih Periode&lt;/option&gt;
+                  @foreach ($periodes as $p)
+                  &lt;option value="{{ $p-&gt;id }}"&gt;{{ $p-&gt;nama_periode }}&lt;/option&gt;
+                  @endforeach
+              &lt;/select&gt;
+          &lt;/div&gt;
+          &lt;div class="col-lg-3 col-sm-12"&gt;
+              &lt;button type="button" id="seleksi" class="btn btn-primary"&gt;&lt;i class="fas fa-tasks"&gt;&lt;/i&gt; PILIH&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    @foreach ($data as $item)
+    &lt;div class="col-12 col-md-6 col-lg-6"&gt;
+        &lt;div class="card"&gt;
+            &lt;div class="card-header"&gt;
+                &lt;h4&gt;{{ $item['nama_grafik'] }}&lt;/h4&gt;
+            &lt;/div&gt;
+            &lt;div class="card-body"&gt;
+                &lt;canvas id="{{ $item['id_grafik'] }}"&gt;&lt;/canvas&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    @endforeach
+&lt;/div&gt;
+@endsection
+@section('custom')
+&lt;script&gt;
+    var link = "{{ route('home') }}";
+    var periode;
+    var queryPeriode = "?periode=";
+    $('select[name=periode]').on('change', function () {
+        periode = $(this).children("option:selected").val()
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>console.log(periode);</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        queryPeriode = <span class="hljs-string">"?periode="</span> + periode;
+    });
+    $(<span class="hljs-string">'#seleksi'</span>).on(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">var</span> href = link + queryPeriode;
+        console.log(href);
+        window.location.href = href;
+    });
+    @<span class="hljs-keyword">foreach</span>($data <span class="hljs-keyword">as</span> $item)
+    <span class="hljs-keyword">var</span> ctx2 = document.getElementById(<span class="hljs-string">"{{ $item['id_grafik'] }}"</span>);
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>ctx.height = 175;</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-keyword">new</span> Chart(ctx2, {
+        type: <span class="hljs-string">'doughnut'</span>,
+        data: {
+            datasets: [{
+                data: @json($item[<span class="hljs-string">'label_total'</span>]),
+                backgroundColor: [
+                    <span class="hljs-string">"rgba(255,193,7,0.9)"</span>,
+                    <span class="hljs-string">"rgba(0,162,255,0.9)"</span>,
+                    <span class="hljs-string">"rgba(123,179,26,0.9)"</span>,
+                    <span class="hljs-string">"rgba(255,152,0,0.9)"</span>,
+                    <span class="hljs-string">"rgba(250,152,0,0.9)"</span>,
+                    <span class="hljs-string">"rgba(116, 7, 163,0.9)"</span>,
+                    <span class="hljs-string">"rgba(7, 69, 163,0.9)"</span>,
+                    <span class="hljs-string">"rgba(5, 163, 66,0.9)"</span>,
+                    <span class="hljs-string">"rgba(6, 156, 151,0.9)"</span>,
+                    <span class="hljs-string">"rgba(111, 145, 9,0.9)"</span>,
+                    <span class="hljs-string">"rgba(240, 58, 2,0.9)"</span>,
+                    <span class="hljs-string">"rgba(245, 171, 0,0.9)"</span>,
+                    <span class="hljs-string">"rgba(177, 145, 186,0.9)"</span>,
+
+                ],
+                hoverBackgroundColor: [
+                    <span class="hljs-string">"rgba(255,193,7,0.5)"</span>,
+                    <span class="hljs-string">"rgba(0,162,255,0.5)"</span>,
+                    <span class="hljs-string">"rgba(123,179,26,0.5)"</span>,
+                    <span class="hljs-string">"rgba(255,152,0,0.5)"</span>,
+                    <span class="hljs-string">"rgba(250,152,0,0.5)"</span>,
+                    <span class="hljs-string">"rgba(116, 7, 163,0.5)"</span>,
+                    <span class="hljs-string">"rgba(7, 69, 163,0.5)"</span>,
+                    <span class="hljs-string">"rgba(5, 163, 66,0.5)"</span>,
+                    <span class="hljs-string">"rgba(6, 156, 151,0.5)"</span>,
+                    <span class="hljs-string">"rgba(111, 145, 9,0.5)"</span>,
+                    <span class="hljs-string">"rgba(240, 58, 2,0.5)"</span>,
+                    <span class="hljs-string">"rgba(245, 171, 0,0.5)"</span>,
+                    <span class="hljs-string">"rgba(177, 145, 186,0.5)"</span>,
+                ]
+
+            }],
+            labels: @json($item[<span class="hljs-string">'label'</span>])
+        },
+        options: {
+            responsive: <span class="hljs-keyword">true</span>,
+            cutoutPercentage: <span class="hljs-number">60</span>,
+            maintainAspectRatio: <span class="hljs-keyword">false</span>,
+            animation: {
+                animateRotate: <span class="hljs-keyword">true</span>,
+                animateScale: <span class="hljs-keyword">true</span>,
+            },
+            legend: {
+                position: <span class="hljs-string">'right'</span>,
+                labels: {
+                    usePointStyle: <span class="hljs-keyword">true</span>,
+                    fontFamily: <span class="hljs-string">"Segoe UI"</span>,
+                    fontSize: <span class="hljs-number">14</span>,
+                    fontColor: <span class="hljs-string">'#464a53'</span>
+                },
+
+
+            },
+        }
+    });
+    @<span class="hljs-keyword">endforeach</span>
+&lt;/script&gt;
+@endsection
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

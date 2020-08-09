@@ -1,0 +1,3210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>slick.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\front_asset\\js\\slick.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>slick.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<hr>
+<p><em><em><em>| (</em>) <strong><em>| | __  (</em>)</strong></em>
+/ <strong>| | |/ <em><em>| |/ /  | / <em><em>|
+_</em> \ | | (</em></em>|   &lt; _ | _</em> <br>
+|</strong></em>/<em>|</em>|_<em><em>|</em>|_(</em>)/ |_<strong>/
+|</strong>/</p>
+<p>Version: 1.8.0
+Author: Ken Wheeler
+Website: http://kenwheeler.github.io
+Docs: http://kenwheeler.github.io/slick
+Repo: http://github.com/kenwheeler/slick
+Issues: http://github.com/kenwheeler/slick/issues</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/* global window, document, define, jQuery, setInterval, clearInterval */</span>
+;(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">factory</span>) </span>{<span class="hljs-meta">
+    'use strict'</span>;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">'function'</span> &amp;&amp; define.amd) {
+        define([<span class="hljs-string">'jquery'</span>], factory);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> exports !== <span class="hljs-string">'undefined'</span>) {
+        <span class="hljs-built_in">module</span>.exports = factory(<span class="hljs-built_in">require</span>(<span class="hljs-string">'jquery'</span>));
+    } <span class="hljs-keyword">else</span> {
+        factory(jQuery);
+    }
+
+}(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$</span>) </span>{<span class="hljs-meta">
+    'use strict'</span>;
+    <span class="hljs-keyword">var</span> Slick = <span class="hljs-built_in">window</span>.Slick || {};
+
+    Slick = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> instanceUid = <span class="hljs-number">0</span>;
+
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Slick</span>(<span class="hljs-params">element, settings</span>) </span>{
+
+            <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>, dataSettings;
+
+            _.defaults = {
+                <span class="hljs-attr">accessibility</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">adaptiveHeight</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">appendArrows</span>: $(element),
+                <span class="hljs-attr">appendDots</span>: $(element),
+                <span class="hljs-attr">arrows</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">asNavFor</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">prevArrow</span>: <span class="hljs-string">'&lt;button class="slick-prev" aria-label="Previous" type="button"&gt;Previous&lt;/button&gt;'</span>,
+                <span class="hljs-attr">nextArrow</span>: <span class="hljs-string">'&lt;button class="slick-next" aria-label="Next" type="button"&gt;Next&lt;/button&gt;'</span>,
+                <span class="hljs-attr">autoplay</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">autoplaySpeed</span>: <span class="hljs-number">3000</span>,
+                <span class="hljs-attr">centerMode</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">centerPadding</span>: <span class="hljs-string">'50px'</span>,
+                <span class="hljs-attr">cssEase</span>: <span class="hljs-string">'ease'</span>,
+                <span class="hljs-attr">customPaging</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">slider, i</span>) </span>{
+                    <span class="hljs-keyword">return</span> $(<span class="hljs-string">'&lt;button type="button" /&gt;'</span>).text(i + <span class="hljs-number">1</span>);
+                },
+                <span class="hljs-attr">dots</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">dotsClass</span>: <span class="hljs-string">'slick-dots'</span>,
+                <span class="hljs-attr">draggable</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">easing</span>: <span class="hljs-string">'linear'</span>,
+                <span class="hljs-attr">edgeFriction</span>: <span class="hljs-number">0.35</span>,
+                <span class="hljs-attr">fade</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">focusOnSelect</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">focusOnChange</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">infinite</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">initialSlide</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">lazyLoad</span>: <span class="hljs-string">'ondemand'</span>,
+                <span class="hljs-attr">mobileFirst</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">pauseOnHover</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">pauseOnFocus</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">pauseOnDotsHover</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">respondTo</span>: <span class="hljs-string">'window'</span>,
+                <span class="hljs-attr">responsive</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">rows</span>: <span class="hljs-number">1</span>,
+                <span class="hljs-attr">rtl</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">slide</span>: <span class="hljs-string">''</span>,
+                <span class="hljs-attr">slidesPerRow</span>: <span class="hljs-number">1</span>,
+                <span class="hljs-attr">slidesToShow</span>: <span class="hljs-number">1</span>,
+                <span class="hljs-attr">slidesToScroll</span>: <span class="hljs-number">1</span>,
+                <span class="hljs-attr">speed</span>: <span class="hljs-number">500</span>,
+                <span class="hljs-attr">swipe</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">swipeToSlide</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">touchMove</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">touchThreshold</span>: <span class="hljs-number">5</span>,
+                <span class="hljs-attr">useCSS</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">useTransform</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">variableWidth</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">vertical</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">verticalSwiping</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">waitForAnimate</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">zIndex</span>: <span class="hljs-number">1000</span>
+            };
+
+            _.initials = {
+                <span class="hljs-attr">animating</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">dragging</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">autoPlayTimer</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">currentDirection</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">currentLeft</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">currentSlide</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">direction</span>: <span class="hljs-number">1</span>,
+                <span class="hljs-attr">$dots</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">listWidth</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">listHeight</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">loadIndex</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">$nextArrow</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">$prevArrow</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">scrolling</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">slideCount</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">slideWidth</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">$slideTrack</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">$slides</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">sliding</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">slideOffset</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">swipeLeft</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">swiping</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">$list</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">touchObject</span>: {},
+                <span class="hljs-attr">transformsEnabled</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-attr">unslicked</span>: <span class="hljs-literal">false</span>
+            };
+
+            $.extend(_, _.initials);
+
+            _.activeBreakpoint = <span class="hljs-literal">null</span>;
+            _.animType = <span class="hljs-literal">null</span>;
+            _.animProp = <span class="hljs-literal">null</span>;
+            _.breakpoints = [];
+            _.breakpointSettings = [];
+            _.cssTransitions = <span class="hljs-literal">false</span>;
+            _.focussed = <span class="hljs-literal">false</span>;
+            _.interrupted = <span class="hljs-literal">false</span>;
+            _.hidden = <span class="hljs-string">'hidden'</span>;
+            _.paused = <span class="hljs-literal">true</span>;
+            _.positionProp = <span class="hljs-literal">null</span>;
+            _.respondTo = <span class="hljs-literal">null</span>;
+            _.rowCount = <span class="hljs-number">1</span>;
+            _.shouldClick = <span class="hljs-literal">true</span>;
+            _.$slider = $(element);
+            _.$slidesCache = <span class="hljs-literal">null</span>;
+            _.transformType = <span class="hljs-literal">null</span>;
+            _.transitionType = <span class="hljs-literal">null</span>;
+            _.visibilityChange = <span class="hljs-string">'visibilitychange'</span>;
+            _.windowWidth = <span class="hljs-number">0</span>;
+            _.windowTimer = <span class="hljs-literal">null</span>;
+
+            dataSettings = $(element).data(<span class="hljs-string">'slick'</span>) || {};
+
+            _.options = $.extend({}, _.defaults, settings, dataSettings);
+
+            _.currentSlide = _.options.initialSlide;
+
+            _.originalSettings = _.options;
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">document</span>.mozHidden !== <span class="hljs-string">'undefined'</span>) {
+                _.hidden = <span class="hljs-string">'mozHidden'</span>;
+                _.visibilityChange = <span class="hljs-string">'mozvisibilitychange'</span>;
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">document</span>.webkitHidden !== <span class="hljs-string">'undefined'</span>) {
+                _.hidden = <span class="hljs-string">'webkitHidden'</span>;
+                _.visibilityChange = <span class="hljs-string">'webkitvisibilitychange'</span>;
+            }
+
+            _.autoPlay = $.proxy(_.autoPlay, _);
+            _.autoPlayClear = $.proxy(_.autoPlayClear, _);
+            _.autoPlayIterator = $.proxy(_.autoPlayIterator, _);
+            _.changeSlide = $.proxy(_.changeSlide, _);
+            _.clickHandler = $.proxy(_.clickHandler, _);
+            _.selectHandler = $.proxy(_.selectHandler, _);
+            _.setPosition = $.proxy(_.setPosition, _);
+            _.swipeHandler = $.proxy(_.swipeHandler, _);
+            _.dragHandler = $.proxy(_.dragHandler, _);
+            _.keyHandler = $.proxy(_.keyHandler, _);
+
+            _.instanceUid = instanceUid++;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>A simple way to check for HTML strings
+Strict HTML recognition (must start with &lt;)
+Extracted from jQuery v1.11 source</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            _.htmlExpr = <span class="hljs-regexp">/^(?:\s*(&lt;[\w\W]+&gt;)[^&gt;]*)$/</span>;
+
+
+            _.registerBreakpoints();
+            _.init(<span class="hljs-literal">true</span>);
+
+        }
+
+        <span class="hljs-keyword">return</span> Slick;
+
+    }());
+
+    Slick.prototype.activateADA = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.$slideTrack.find(<span class="hljs-string">'.slick-active'</span>).attr({
+            <span class="hljs-string">'aria-hidden'</span>: <span class="hljs-string">'false'</span>
+        }).find(<span class="hljs-string">'a, input, button, select'</span>).attr({
+            <span class="hljs-string">'tabindex'</span>: <span class="hljs-string">'0'</span>
+        });
+
+    };
+
+    Slick.prototype.addSlide = Slick.prototype.slickAdd = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">markup, index, addBefore</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span>(index) === <span class="hljs-string">'boolean'</span>) {
+            addBefore = index;
+            index = <span class="hljs-literal">null</span>;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span> || (index &gt;= _.slideCount)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+
+        _.unload();
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span>(index) === <span class="hljs-string">'number'</span>) {
+            <span class="hljs-keyword">if</span> (index === <span class="hljs-number">0</span> &amp;&amp; _.$slides.length === <span class="hljs-number">0</span>) {
+                $(markup).appendTo(_.$slideTrack);
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (addBefore) {
+                $(markup).insertBefore(_.$slides.eq(index));
+            } <span class="hljs-keyword">else</span> {
+                $(markup).insertAfter(_.$slides.eq(index));
+            }
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">if</span> (addBefore === <span class="hljs-literal">true</span>) {
+                $(markup).prependTo(_.$slideTrack);
+            } <span class="hljs-keyword">else</span> {
+                $(markup).appendTo(_.$slideTrack);
+            }
+        }
+
+        _.$slides = _.$slideTrack.children(<span class="hljs-keyword">this</span>.options.slide);
+
+        _.$slideTrack.children(<span class="hljs-keyword">this</span>.options.slide).detach();
+
+        _.$slideTrack.append(_.$slides);
+
+        _.$slides.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, element</span>) </span>{
+            $(element).attr(<span class="hljs-string">'data-slick-index'</span>, index);
+        });
+
+        _.$slidesCache = _.$slides;
+
+        _.reinit();
+
+    };
+
+    Slick.prototype.animateHeight = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+        <span class="hljs-keyword">if</span> (_.options.slidesToShow === <span class="hljs-number">1</span> &amp;&amp; _.options.adaptiveHeight === <span class="hljs-literal">true</span> &amp;&amp; _.options.vertical === <span class="hljs-literal">false</span>) {
+            <span class="hljs-keyword">var</span> targetHeight = _.$slides.eq(_.currentSlide).outerHeight(<span class="hljs-literal">true</span>);
+            _.$list.animate({
+                <span class="hljs-attr">height</span>: targetHeight
+            }, _.options.speed);
+        }
+    };
+
+    Slick.prototype.animateSlide = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">targetLeft, callback</span>) </span>{
+
+        <span class="hljs-keyword">var</span> animProps = {},
+            _ = <span class="hljs-keyword">this</span>;
+
+        _.animateHeight();
+
+        <span class="hljs-keyword">if</span> (_.options.rtl === <span class="hljs-literal">true</span> &amp;&amp; _.options.vertical === <span class="hljs-literal">false</span>) {
+            targetLeft = -targetLeft;
+        }
+        <span class="hljs-keyword">if</span> (_.transformsEnabled === <span class="hljs-literal">false</span>) {
+            <span class="hljs-keyword">if</span> (_.options.vertical === <span class="hljs-literal">false</span>) {
+                _.$slideTrack.animate({
+                    <span class="hljs-attr">left</span>: targetLeft
+                }, _.options.speed, _.options.easing, callback);
+            } <span class="hljs-keyword">else</span> {
+                _.$slideTrack.animate({
+                    <span class="hljs-attr">top</span>: targetLeft
+                }, _.options.speed, _.options.easing, callback);
+            }
+
+        } <span class="hljs-keyword">else</span> {
+
+            <span class="hljs-keyword">if</span> (_.cssTransitions === <span class="hljs-literal">false</span>) {
+                <span class="hljs-keyword">if</span> (_.options.rtl === <span class="hljs-literal">true</span>) {
+                    _.currentLeft = -(_.currentLeft);
+                }
+                $({
+                    <span class="hljs-attr">animStart</span>: _.currentLeft
+                }).animate({
+                    <span class="hljs-attr">animStart</span>: targetLeft
+                }, {
+                    <span class="hljs-attr">duration</span>: _.options.speed,
+                    <span class="hljs-attr">easing</span>: _.options.easing,
+                    <span class="hljs-attr">step</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">now</span>) </span>{
+                        now = <span class="hljs-built_in">Math</span>.ceil(now);
+                        <span class="hljs-keyword">if</span> (_.options.vertical === <span class="hljs-literal">false</span>) {
+                            animProps[_.animType] = <span class="hljs-string">'translate('</span> +
+                                now + <span class="hljs-string">'px, 0px)'</span>;
+                            _.$slideTrack.css(animProps);
+                        } <span class="hljs-keyword">else</span> {
+                            animProps[_.animType] = <span class="hljs-string">'translate(0px,'</span> +
+                                now + <span class="hljs-string">'px)'</span>;
+                            _.$slideTrack.css(animProps);
+                        }
+                    },
+                    <span class="hljs-attr">complete</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                        <span class="hljs-keyword">if</span> (callback) {
+                            callback.call();
+                        }
+                    }
+                });
+
+            } <span class="hljs-keyword">else</span> {
+
+                _.applyTransition();
+                targetLeft = <span class="hljs-built_in">Math</span>.ceil(targetLeft);
+
+                <span class="hljs-keyword">if</span> (_.options.vertical === <span class="hljs-literal">false</span>) {
+                    animProps[_.animType] = <span class="hljs-string">'translate3d('</span> + targetLeft + <span class="hljs-string">'px, 0px, 0px)'</span>;
+                } <span class="hljs-keyword">else</span> {
+                    animProps[_.animType] = <span class="hljs-string">'translate3d(0px,'</span> + targetLeft + <span class="hljs-string">'px, 0px)'</span>;
+                }
+                _.$slideTrack.css(animProps);
+
+                <span class="hljs-keyword">if</span> (callback) {
+                    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+                        _.disableTransition();
+
+                        callback.call();
+                    }, _.options.speed);
+                }
+
+            }
+
+        }
+
+    };
+
+    Slick.prototype.getNavTarget = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            asNavFor = _.options.asNavFor;
+
+        <span class="hljs-keyword">if</span> ( asNavFor &amp;&amp; asNavFor !== <span class="hljs-literal">null</span> ) {
+            asNavFor = $(asNavFor).not(_.$slider);
+        }
+
+        <span class="hljs-keyword">return</span> asNavFor;
+
+    };
+
+    Slick.prototype.asNavFor = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            asNavFor = _.getNavTarget();
+
+        <span class="hljs-keyword">if</span> ( asNavFor !== <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-keyword">typeof</span> asNavFor === <span class="hljs-string">'object'</span> ) {
+            asNavFor.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                <span class="hljs-keyword">var</span> target = $(<span class="hljs-keyword">this</span>).slick(<span class="hljs-string">'getSlick'</span>);
+                <span class="hljs-keyword">if</span>(!target.unslicked) {
+                    target.slideHandler(index, <span class="hljs-literal">true</span>);
+                }
+            });
+        }
+
+    };
+
+    Slick.prototype.applyTransition = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">slide</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            transition = {};
+
+        <span class="hljs-keyword">if</span> (_.options.fade === <span class="hljs-literal">false</span>) {
+            transition[_.transitionType] = _.transformType + <span class="hljs-string">' '</span> + _.options.speed + <span class="hljs-string">'ms '</span> + _.options.cssEase;
+        } <span class="hljs-keyword">else</span> {
+            transition[_.transitionType] = <span class="hljs-string">'opacity '</span> + _.options.speed + <span class="hljs-string">'ms '</span> + _.options.cssEase;
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.fade === <span class="hljs-literal">false</span>) {
+            _.$slideTrack.css(transition);
+        } <span class="hljs-keyword">else</span> {
+            _.$slides.eq(slide).css(transition);
+        }
+
+    };
+
+    Slick.prototype.autoPlay = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.autoPlayClear();
+
+        <span class="hljs-keyword">if</span> ( _.slideCount &gt; _.options.slidesToShow ) {
+            _.autoPlayTimer = setInterval( _.autoPlayIterator, _.options.autoplaySpeed );
+        }
+
+    };
+
+    Slick.prototype.autoPlayClear = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.autoPlayTimer) {
+            clearInterval(_.autoPlayTimer);
+        }
+
+    };
+
+    Slick.prototype.autoPlayIterator = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            slideTo = _.currentSlide + _.options.slidesToScroll;
+
+        <span class="hljs-keyword">if</span> ( !_.paused &amp;&amp; !_.interrupted &amp;&amp; !_.focussed ) {
+
+            <span class="hljs-keyword">if</span> ( _.options.infinite === <span class="hljs-literal">false</span> ) {
+
+                <span class="hljs-keyword">if</span> ( _.direction === <span class="hljs-number">1</span> &amp;&amp; ( _.currentSlide + <span class="hljs-number">1</span> ) === ( _.slideCount - <span class="hljs-number">1</span> )) {
+                    _.direction = <span class="hljs-number">0</span>;
+                }
+
+                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( _.direction === <span class="hljs-number">0</span> ) {
+
+                    slideTo = _.currentSlide - _.options.slidesToScroll;
+
+                    <span class="hljs-keyword">if</span> ( _.currentSlide - <span class="hljs-number">1</span> === <span class="hljs-number">0</span> ) {
+                        _.direction = <span class="hljs-number">1</span>;
+                    }
+
+                }
+
+            }
+
+            _.slideHandler( slideTo );
+
+        }
+
+    };
+
+    Slick.prototype.buildArrows = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.options.arrows === <span class="hljs-literal">true</span> ) {
+
+            _.$prevArrow = $(_.options.prevArrow).addClass(<span class="hljs-string">'slick-arrow'</span>);
+            _.$nextArrow = $(_.options.nextArrow).addClass(<span class="hljs-string">'slick-arrow'</span>);
+
+            <span class="hljs-keyword">if</span>( _.slideCount &gt; _.options.slidesToShow ) {
+
+                _.$prevArrow.removeClass(<span class="hljs-string">'slick-hidden'</span>).removeAttr(<span class="hljs-string">'aria-hidden tabindex'</span>);
+                _.$nextArrow.removeClass(<span class="hljs-string">'slick-hidden'</span>).removeAttr(<span class="hljs-string">'aria-hidden tabindex'</span>);
+
+                <span class="hljs-keyword">if</span> (_.htmlExpr.test(_.options.prevArrow)) {
+                    _.$prevArrow.prependTo(_.options.appendArrows);
+                }
+
+                <span class="hljs-keyword">if</span> (_.htmlExpr.test(_.options.nextArrow)) {
+                    _.$nextArrow.appendTo(_.options.appendArrows);
+                }
+
+                <span class="hljs-keyword">if</span> (_.options.infinite !== <span class="hljs-literal">true</span>) {
+                    _.$prevArrow
+                        .addClass(<span class="hljs-string">'slick-disabled'</span>)
+                        .attr(<span class="hljs-string">'aria-disabled'</span>, <span class="hljs-string">'true'</span>);
+                }
+
+            } <span class="hljs-keyword">else</span> {
+
+                _.$prevArrow.add( _.$nextArrow )
+
+                    .addClass(<span class="hljs-string">'slick-hidden'</span>)
+                    .attr({
+                        <span class="hljs-string">'aria-disabled'</span>: <span class="hljs-string">'true'</span>,
+                        <span class="hljs-string">'tabindex'</span>: <span class="hljs-string">'-1'</span>
+                    });
+
+            }
+
+        }
+
+    };
+
+    Slick.prototype.buildDots = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            i, dot;
+
+        <span class="hljs-keyword">if</span> (_.options.dots === <span class="hljs-literal">true</span>) {
+
+            _.$slider.addClass(<span class="hljs-string">'slick-dotted'</span>);
+
+            dot = $(<span class="hljs-string">'&lt;ul /&gt;'</span>).addClass(_.options.dotsClass);
+
+            <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt;= _.getDotCount(); i += <span class="hljs-number">1</span>) {
+                dot.append($(<span class="hljs-string">'&lt;li /&gt;'</span>).append(_.options.customPaging.call(<span class="hljs-keyword">this</span>, _, i)));
+            }
+
+            _.$dots = dot.appendTo(_.options.appendDots);
+
+            _.$dots.find(<span class="hljs-string">'li'</span>).first().addClass(<span class="hljs-string">'slick-active'</span>);
+
+        }
+
+    };
+
+    Slick.prototype.buildOut = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.$slides =
+            _.$slider
+                .children( _.options.slide + <span class="hljs-string">':not(.slick-cloned)'</span>)
+                .addClass(<span class="hljs-string">'slick-slide'</span>);
+
+        _.slideCount = _.$slides.length;
+
+        _.$slides.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, element</span>) </span>{
+            $(element)
+                .attr(<span class="hljs-string">'data-slick-index'</span>, index)
+                .data(<span class="hljs-string">'originalStyling'</span>, $(element).attr(<span class="hljs-string">'style'</span>) || <span class="hljs-string">''</span>);
+        });
+
+        _.$slider.addClass(<span class="hljs-string">'slick-slider'</span>);
+
+        _.$slideTrack = (_.slideCount === <span class="hljs-number">0</span>) ?
+            $(<span class="hljs-string">'&lt;div class="slick-track"/&gt;'</span>).appendTo(_.$slider) :
+            _.$slides.wrapAll(<span class="hljs-string">'&lt;div class="slick-track"/&gt;'</span>).parent();
+
+        _.$list = _.$slideTrack.wrap(
+            <span class="hljs-string">'&lt;div class="slick-list"/&gt;'</span>).parent();
+        _.$slideTrack.css(<span class="hljs-string">'opacity'</span>, <span class="hljs-number">0</span>);
+
+        <span class="hljs-keyword">if</span> (_.options.centerMode === <span class="hljs-literal">true</span> || _.options.swipeToSlide === <span class="hljs-literal">true</span>) {
+            _.options.slidesToScroll = <span class="hljs-number">1</span>;
+        }
+
+        $(<span class="hljs-string">'img[data-lazy]'</span>, _.$slider).not(<span class="hljs-string">'[src]'</span>).addClass(<span class="hljs-string">'slick-loading'</span>);
+
+        _.setupInfinite();
+
+        _.buildArrows();
+
+        _.buildDots();
+
+        _.updateDots();
+
+
+        _.setSlideClasses(<span class="hljs-keyword">typeof</span> _.currentSlide === <span class="hljs-string">'number'</span> ? _.currentSlide : <span class="hljs-number">0</span>);
+
+        <span class="hljs-keyword">if</span> (_.options.draggable === <span class="hljs-literal">true</span>) {
+            _.$list.addClass(<span class="hljs-string">'draggable'</span>);
+        }
+
+    };
+
+    Slick.prototype.buildRows = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>, a, b, c, newSlides, numOfSlides, originalSlides,slidesPerSection;
+
+        newSlides = <span class="hljs-built_in">document</span>.createDocumentFragment();
+        originalSlides = _.$slider.children();
+
+        <span class="hljs-keyword">if</span>(_.options.rows &gt; <span class="hljs-number">1</span>) {
+
+            slidesPerSection = _.options.slidesPerRow * _.options.rows;
+            numOfSlides = <span class="hljs-built_in">Math</span>.ceil(
+                originalSlides.length / slidesPerSection
+            );
+
+            <span class="hljs-keyword">for</span>(a = <span class="hljs-number">0</span>; a &lt; numOfSlides; a++){
+                <span class="hljs-keyword">var</span> slide = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
+                <span class="hljs-keyword">for</span>(b = <span class="hljs-number">0</span>; b &lt; _.options.rows; b++) {
+                    <span class="hljs-keyword">var</span> row = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
+                    <span class="hljs-keyword">for</span>(c = <span class="hljs-number">0</span>; c &lt; _.options.slidesPerRow; c++) {
+                        <span class="hljs-keyword">var</span> target = (a * slidesPerSection + ((b * _.options.slidesPerRow) + c));
+                        <span class="hljs-keyword">if</span> (originalSlides.get(target)) {
+                            row.appendChild(originalSlides.get(target));
+                        }
+                    }
+                    slide.appendChild(row);
+                }
+                newSlides.appendChild(slide);
+            }
+
+            _.$slider.empty().append(newSlides);
+            _.$slider.children().children().children()
+                .css({
+                    <span class="hljs-string">'width'</span>:(<span class="hljs-number">100</span> / _.options.slidesPerRow) + <span class="hljs-string">'%'</span>,
+                    <span class="hljs-string">'display'</span>: <span class="hljs-string">'inline-block'</span>
+                });
+
+        }
+
+    };
+
+    Slick.prototype.checkResponsive = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">initial, forceUpdate</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            breakpoint, targetBreakpoint, respondToWidth, triggerBreakpoint = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">var</span> sliderWidth = _.$slider.width();
+        <span class="hljs-keyword">var</span> windowWidth = <span class="hljs-built_in">window</span>.innerWidth || $(<span class="hljs-built_in">window</span>).width();
+
+        <span class="hljs-keyword">if</span> (_.respondTo === <span class="hljs-string">'window'</span>) {
+            respondToWidth = windowWidth;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (_.respondTo === <span class="hljs-string">'slider'</span>) {
+            respondToWidth = sliderWidth;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (_.respondTo === <span class="hljs-string">'min'</span>) {
+            respondToWidth = <span class="hljs-built_in">Math</span>.min(windowWidth, sliderWidth);
+        }
+
+        <span class="hljs-keyword">if</span> ( _.options.responsive &amp;&amp;
+            _.options.responsive.length &amp;&amp;
+            _.options.responsive !== <span class="hljs-literal">null</span>) {
+
+            targetBreakpoint = <span class="hljs-literal">null</span>;
+
+            <span class="hljs-keyword">for</span> (breakpoint <span class="hljs-keyword">in</span> _.breakpoints) {
+                <span class="hljs-keyword">if</span> (_.breakpoints.hasOwnProperty(breakpoint)) {
+                    <span class="hljs-keyword">if</span> (_.originalSettings.mobileFirst === <span class="hljs-literal">false</span>) {
+                        <span class="hljs-keyword">if</span> (respondToWidth &lt; _.breakpoints[breakpoint]) {
+                            targetBreakpoint = _.breakpoints[breakpoint];
+                        }
+                    } <span class="hljs-keyword">else</span> {
+                        <span class="hljs-keyword">if</span> (respondToWidth &gt; _.breakpoints[breakpoint]) {
+                            targetBreakpoint = _.breakpoints[breakpoint];
+                        }
+                    }
+                }
+            }
+
+            <span class="hljs-keyword">if</span> (targetBreakpoint !== <span class="hljs-literal">null</span>) {
+                <span class="hljs-keyword">if</span> (_.activeBreakpoint !== <span class="hljs-literal">null</span>) {
+                    <span class="hljs-keyword">if</span> (targetBreakpoint !== _.activeBreakpoint || forceUpdate) {
+                        _.activeBreakpoint =
+                            targetBreakpoint;
+                        <span class="hljs-keyword">if</span> (_.breakpointSettings[targetBreakpoint] === <span class="hljs-string">'unslick'</span>) {
+                            _.unslick(targetBreakpoint);
+                        } <span class="hljs-keyword">else</span> {
+                            _.options = $.extend({}, _.originalSettings,
+                                _.breakpointSettings[
+                                    targetBreakpoint]);
+                            <span class="hljs-keyword">if</span> (initial === <span class="hljs-literal">true</span>) {
+                                _.currentSlide = _.options.initialSlide;
+                            }
+                            _.refresh(initial);
+                        }
+                        triggerBreakpoint = targetBreakpoint;
+                    }
+                } <span class="hljs-keyword">else</span> {
+                    _.activeBreakpoint = targetBreakpoint;
+                    <span class="hljs-keyword">if</span> (_.breakpointSettings[targetBreakpoint] === <span class="hljs-string">'unslick'</span>) {
+                        _.unslick(targetBreakpoint);
+                    } <span class="hljs-keyword">else</span> {
+                        _.options = $.extend({}, _.originalSettings,
+                            _.breakpointSettings[
+                                targetBreakpoint]);
+                        <span class="hljs-keyword">if</span> (initial === <span class="hljs-literal">true</span>) {
+                            _.currentSlide = _.options.initialSlide;
+                        }
+                        _.refresh(initial);
+                    }
+                    triggerBreakpoint = targetBreakpoint;
+                }
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">if</span> (_.activeBreakpoint !== <span class="hljs-literal">null</span>) {
+                    _.activeBreakpoint = <span class="hljs-literal">null</span>;
+                    _.options = _.originalSettings;
+                    <span class="hljs-keyword">if</span> (initial === <span class="hljs-literal">true</span>) {
+                        _.currentSlide = _.options.initialSlide;
+                    }
+                    _.refresh(initial);
+                    triggerBreakpoint = targetBreakpoint;
+                }
+            }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>only trigger breakpoints during an actual break. not on initialize.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">if</span>( !initial &amp;&amp; triggerBreakpoint !== <span class="hljs-literal">false</span> ) {
+                _.$slider.trigger(<span class="hljs-string">'breakpoint'</span>, [_, triggerBreakpoint]);
+            }
+        }
+
+    };
+
+    Slick.prototype.changeSlide = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event, dontAnimate</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            $target = $(event.currentTarget),
+            indexOffset, slideOffset, unevenOffset;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>If target is a link, prevent default action.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span>($target.is(<span class="hljs-string">'a'</span>)) {
+            event.preventDefault();
+        }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>If target is not the <li> element (ie: a child), find the <li>.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span>(!$target.is(<span class="hljs-string">'li'</span>)) {
+            $target = $target.closest(<span class="hljs-string">'li'</span>);
+        }
+
+        unevenOffset = (_.slideCount % _.options.slidesToScroll !== <span class="hljs-number">0</span>);
+        indexOffset = unevenOffset ? <span class="hljs-number">0</span> : (_.slideCount - _.currentSlide) % _.options.slidesToScroll;
+
+        <span class="hljs-keyword">switch</span> (event.data.message) {
+
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'previous'</span>:
+                slideOffset = indexOffset === <span class="hljs-number">0</span> ? _.options.slidesToScroll : _.options.slidesToShow - indexOffset;
+                <span class="hljs-keyword">if</span> (_.slideCount &gt; _.options.slidesToShow) {
+                    _.slideHandler(_.currentSlide - slideOffset, <span class="hljs-literal">false</span>, dontAnimate);
+                }
+                <span class="hljs-keyword">break</span>;
+
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'next'</span>:
+                slideOffset = indexOffset === <span class="hljs-number">0</span> ? _.options.slidesToScroll : indexOffset;
+                <span class="hljs-keyword">if</span> (_.slideCount &gt; _.options.slidesToShow) {
+                    _.slideHandler(_.currentSlide + slideOffset, <span class="hljs-literal">false</span>, dontAnimate);
+                }
+                <span class="hljs-keyword">break</span>;
+
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'index'</span>:
+                <span class="hljs-keyword">var</span> index = event.data.index === <span class="hljs-number">0</span> ? <span class="hljs-number">0</span> :
+                    event.data.index || $target.index() * _.options.slidesToScroll;
+
+                _.slideHandler(_.checkNavigable(index), <span class="hljs-literal">false</span>, dontAnimate);
+                $target.children().trigger(<span class="hljs-string">'focus'</span>);
+                <span class="hljs-keyword">break</span>;
+
+            <span class="hljs-keyword">default</span>:
+                <span class="hljs-keyword">return</span>;
+        }
+
+    };
+
+    Slick.prototype.checkNavigable = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            navigables, prevNavigable;
+
+        navigables = _.getNavigableIndexes();
+        prevNavigable = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span> (index &gt; navigables[navigables.length - <span class="hljs-number">1</span>]) {
+            index = navigables[navigables.length - <span class="hljs-number">1</span>];
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> n <span class="hljs-keyword">in</span> navigables) {
+                <span class="hljs-keyword">if</span> (index &lt; navigables[n]) {
+                    index = prevNavigable;
+                    <span class="hljs-keyword">break</span>;
+                }
+                prevNavigable = navigables[n];
+            }
+        }
+
+        <span class="hljs-keyword">return</span> index;
+    };
+
+    Slick.prototype.cleanUpEvents = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.options.dots &amp;&amp; _.$dots !== <span class="hljs-literal">null</span>) {
+
+            $(<span class="hljs-string">'li'</span>, _.$dots)
+                .off(<span class="hljs-string">'click.slick'</span>, _.changeSlide)
+                .off(<span class="hljs-string">'mouseenter.slick'</span>, $.proxy(_.interrupt, _, <span class="hljs-literal">true</span>))
+                .off(<span class="hljs-string">'mouseleave.slick'</span>, $.proxy(_.interrupt, _, <span class="hljs-literal">false</span>));
+
+            <span class="hljs-keyword">if</span> (_.options.accessibility === <span class="hljs-literal">true</span>) {
+                _.$dots.off(<span class="hljs-string">'keydown.slick'</span>, _.keyHandler);
+            }
+        }
+
+        _.$slider.off(<span class="hljs-string">'focus.slick blur.slick'</span>);
+
+        <span class="hljs-keyword">if</span> (_.options.arrows === <span class="hljs-literal">true</span> &amp;&amp; _.slideCount &gt; _.options.slidesToShow) {
+            _.$prevArrow &amp;&amp; _.$prevArrow.off(<span class="hljs-string">'click.slick'</span>, _.changeSlide);
+            _.$nextArrow &amp;&amp; _.$nextArrow.off(<span class="hljs-string">'click.slick'</span>, _.changeSlide);
+
+            <span class="hljs-keyword">if</span> (_.options.accessibility === <span class="hljs-literal">true</span>) {
+                _.$prevArrow &amp;&amp; _.$prevArrow.off(<span class="hljs-string">'keydown.slick'</span>, _.keyHandler);
+                _.$nextArrow &amp;&amp; _.$nextArrow.off(<span class="hljs-string">'keydown.slick'</span>, _.keyHandler);
+            }
+        }
+
+        _.$list.off(<span class="hljs-string">'touchstart.slick mousedown.slick'</span>, _.swipeHandler);
+        _.$list.off(<span class="hljs-string">'touchmove.slick mousemove.slick'</span>, _.swipeHandler);
+        _.$list.off(<span class="hljs-string">'touchend.slick mouseup.slick'</span>, _.swipeHandler);
+        _.$list.off(<span class="hljs-string">'touchcancel.slick mouseleave.slick'</span>, _.swipeHandler);
+
+        _.$list.off(<span class="hljs-string">'click.slick'</span>, _.clickHandler);
+
+        $(<span class="hljs-built_in">document</span>).off(_.visibilityChange, _.visibility);
+
+        _.cleanUpSlideEvents();
+
+        <span class="hljs-keyword">if</span> (_.options.accessibility === <span class="hljs-literal">true</span>) {
+            _.$list.off(<span class="hljs-string">'keydown.slick'</span>, _.keyHandler);
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.focusOnSelect === <span class="hljs-literal">true</span>) {
+            $(_.$slideTrack).children().off(<span class="hljs-string">'click.slick'</span>, _.selectHandler);
+        }
+
+        $(<span class="hljs-built_in">window</span>).off(<span class="hljs-string">'orientationchange.slick.slick-'</span> + _.instanceUid, _.orientationChange);
+
+        $(<span class="hljs-built_in">window</span>).off(<span class="hljs-string">'resize.slick.slick-'</span> + _.instanceUid, _.resize);
+
+        $(<span class="hljs-string">'[draggable!=true]'</span>, _.$slideTrack).off(<span class="hljs-string">'dragstart'</span>, _.preventDefault);
+
+        $(<span class="hljs-built_in">window</span>).off(<span class="hljs-string">'load.slick.slick-'</span> + _.instanceUid, _.setPosition);
+
+    };
+
+    Slick.prototype.cleanUpSlideEvents = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.$list.off(<span class="hljs-string">'mouseenter.slick'</span>, $.proxy(_.interrupt, _, <span class="hljs-literal">true</span>));
+        _.$list.off(<span class="hljs-string">'mouseleave.slick'</span>, $.proxy(_.interrupt, _, <span class="hljs-literal">false</span>));
+
+    };
+
+    Slick.prototype.cleanUpRows = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>, originalSlides;
+
+        <span class="hljs-keyword">if</span>(_.options.rows &gt; <span class="hljs-number">1</span>) {
+            originalSlides = _.$slides.children().children();
+            originalSlides.removeAttr(<span class="hljs-string">'style'</span>);
+            _.$slider.empty().append(originalSlides);
+        }
+
+    };
+
+    Slick.prototype.clickHandler = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.shouldClick === <span class="hljs-literal">false</span>) {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            event.preventDefault();
+        }
+
+    };
+
+    Slick.prototype.destroy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">refresh</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.autoPlayClear();
+
+        _.touchObject = {};
+
+        _.cleanUpEvents();
+
+        $(<span class="hljs-string">'.slick-cloned'</span>, _.$slider).detach();
+
+        <span class="hljs-keyword">if</span> (_.$dots) {
+            _.$dots.remove();
+        }
+
+        <span class="hljs-keyword">if</span> ( _.$prevArrow &amp;&amp; _.$prevArrow.length ) {
+
+            _.$prevArrow
+                .removeClass(<span class="hljs-string">'slick-disabled slick-arrow slick-hidden'</span>)
+                .removeAttr(<span class="hljs-string">'aria-hidden aria-disabled tabindex'</span>)
+                .css(<span class="hljs-string">'display'</span>,<span class="hljs-string">''</span>);
+
+            <span class="hljs-keyword">if</span> ( _.htmlExpr.test( _.options.prevArrow )) {
+                _.$prevArrow.remove();
+            }
+        }
+
+        <span class="hljs-keyword">if</span> ( _.$nextArrow &amp;&amp; _.$nextArrow.length ) {
+
+            _.$nextArrow
+                .removeClass(<span class="hljs-string">'slick-disabled slick-arrow slick-hidden'</span>)
+                .removeAttr(<span class="hljs-string">'aria-hidden aria-disabled tabindex'</span>)
+                .css(<span class="hljs-string">'display'</span>,<span class="hljs-string">''</span>);
+
+            <span class="hljs-keyword">if</span> ( _.htmlExpr.test( _.options.nextArrow )) {
+                _.$nextArrow.remove();
+            }
+        }
+
+
+        <span class="hljs-keyword">if</span> (_.$slides) {
+
+            _.$slides
+                .removeClass(<span class="hljs-string">'slick-slide slick-active slick-center slick-visible slick-current'</span>)
+                .removeAttr(<span class="hljs-string">'aria-hidden'</span>)
+                .removeAttr(<span class="hljs-string">'data-slick-index'</span>)
+                .each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+                    $(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'style'</span>, $(<span class="hljs-keyword">this</span>).data(<span class="hljs-string">'originalStyling'</span>));
+                });
+
+            _.$slideTrack.children(<span class="hljs-keyword">this</span>.options.slide).detach();
+
+            _.$slideTrack.detach();
+
+            _.$list.detach();
+
+            _.$slider.append(_.$slides);
+        }
+
+        _.cleanUpRows();
+
+        _.$slider.removeClass(<span class="hljs-string">'slick-slider'</span>);
+        _.$slider.removeClass(<span class="hljs-string">'slick-initialized'</span>);
+        _.$slider.removeClass(<span class="hljs-string">'slick-dotted'</span>);
+
+        _.unslicked = <span class="hljs-literal">true</span>;
+
+        <span class="hljs-keyword">if</span>(!refresh) {
+            _.$slider.trigger(<span class="hljs-string">'destroy'</span>, [_]);
+        }
+
+    };
+
+    Slick.prototype.disableTransition = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">slide</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            transition = {};
+
+        transition[_.transitionType] = <span class="hljs-string">''</span>;
+
+        <span class="hljs-keyword">if</span> (_.options.fade === <span class="hljs-literal">false</span>) {
+            _.$slideTrack.css(transition);
+        } <span class="hljs-keyword">else</span> {
+            _.$slides.eq(slide).css(transition);
+        }
+
+    };
+
+    Slick.prototype.fadeSlide = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">slideIndex, callback</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.cssTransitions === <span class="hljs-literal">false</span>) {
+
+            _.$slides.eq(slideIndex).css({
+                <span class="hljs-attr">zIndex</span>: _.options.zIndex
+            });
+
+            _.$slides.eq(slideIndex).animate({
+                <span class="hljs-attr">opacity</span>: <span class="hljs-number">1</span>
+            }, _.options.speed, _.options.easing, callback);
+
+        } <span class="hljs-keyword">else</span> {
+
+            _.applyTransition(slideIndex);
+
+            _.$slides.eq(slideIndex).css({
+                <span class="hljs-attr">opacity</span>: <span class="hljs-number">1</span>,
+                <span class="hljs-attr">zIndex</span>: _.options.zIndex
+            });
+
+            <span class="hljs-keyword">if</span> (callback) {
+                setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+                    _.disableTransition(slideIndex);
+
+                    callback.call();
+                }, _.options.speed);
+            }
+
+        }
+
+    };
+
+    Slick.prototype.fadeSlideOut = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">slideIndex</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.cssTransitions === <span class="hljs-literal">false</span>) {
+
+            _.$slides.eq(slideIndex).animate({
+                <span class="hljs-attr">opacity</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">zIndex</span>: _.options.zIndex - <span class="hljs-number">2</span>
+            }, _.options.speed, _.options.easing);
+
+        } <span class="hljs-keyword">else</span> {
+
+            _.applyTransition(slideIndex);
+
+            _.$slides.eq(slideIndex).css({
+                <span class="hljs-attr">opacity</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">zIndex</span>: _.options.zIndex - <span class="hljs-number">2</span>
+            });
+
+        }
+
+    };
+
+    Slick.prototype.filterSlides = Slick.prototype.slickFilter = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">filter</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (filter !== <span class="hljs-literal">null</span>) {
+
+            _.$slidesCache = _.$slides;
+
+            _.unload();
+
+            _.$slideTrack.children(<span class="hljs-keyword">this</span>.options.slide).detach();
+
+            _.$slidesCache.filter(filter).appendTo(_.$slideTrack);
+
+            _.reinit();
+
+        }
+
+    };
+
+    Slick.prototype.focusHandler = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.$slider
+            .off(<span class="hljs-string">'focus.slick blur.slick'</span>)
+            .on(<span class="hljs-string">'focus.slick blur.slick'</span>, <span class="hljs-string">'*'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+
+            event.stopImmediatePropagation();
+            <span class="hljs-keyword">var</span> $sf = $(<span class="hljs-keyword">this</span>);
+
+            setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+                <span class="hljs-keyword">if</span>( _.options.pauseOnFocus ) {
+                    _.focussed = $sf.is(<span class="hljs-string">':focus'</span>);
+                    _.autoPlay();
+                }
+
+            }, <span class="hljs-number">0</span>);
+
+        });
+    };
+
+    Slick.prototype.getCurrent = Slick.prototype.slickCurrentSlide = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+        <span class="hljs-keyword">return</span> _.currentSlide;
+
+    };
+
+    Slick.prototype.getDotCount = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">var</span> breakPoint = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">var</span> counter = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">var</span> pagerQty = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">if</span> (_.options.infinite === <span class="hljs-literal">true</span>) {
+            <span class="hljs-keyword">if</span> (_.slideCount &lt;= _.options.slidesToShow) {
+                 ++pagerQty;
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">while</span> (breakPoint &lt; _.slideCount) {
+                    ++pagerQty;
+                    breakPoint = counter + _.options.slidesToScroll;
+                    counter += _.options.slidesToScroll &lt;= _.options.slidesToShow ? _.options.slidesToScroll : _.options.slidesToShow;
+                }
+            }
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (_.options.centerMode === <span class="hljs-literal">true</span>) {
+            pagerQty = _.slideCount;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!_.options.asNavFor) {
+            pagerQty = <span class="hljs-number">1</span> + <span class="hljs-built_in">Math</span>.ceil((_.slideCount - _.options.slidesToShow) / _.options.slidesToScroll);
+        }<span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">while</span> (breakPoint &lt; _.slideCount) {
+                ++pagerQty;
+                breakPoint = counter + _.options.slidesToScroll;
+                counter += _.options.slidesToScroll &lt;= _.options.slidesToShow ? _.options.slidesToScroll : _.options.slidesToShow;
+            }
+        }
+
+        <span class="hljs-keyword">return</span> pagerQty - <span class="hljs-number">1</span>;
+
+    };
+
+    Slick.prototype.getLeft = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">slideIndex</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            targetLeft,
+            verticalHeight,
+            verticalOffset = <span class="hljs-number">0</span>,
+            targetSlide,
+            coef;
+
+        _.slideOffset = <span class="hljs-number">0</span>;
+        verticalHeight = _.$slides.first().outerHeight(<span class="hljs-literal">true</span>);
+
+        <span class="hljs-keyword">if</span> (_.options.infinite === <span class="hljs-literal">true</span>) {
+            <span class="hljs-keyword">if</span> (_.slideCount &gt; _.options.slidesToShow) {
+                _.slideOffset = (_.slideWidth * _.options.slidesToShow) * <span class="hljs-number">-1</span>;
+                coef = <span class="hljs-number">-1</span>
+
+                <span class="hljs-keyword">if</span> (_.options.vertical === <span class="hljs-literal">true</span> &amp;&amp; _.options.centerMode === <span class="hljs-literal">true</span>) {
+                    <span class="hljs-keyword">if</span> (_.options.slidesToShow === <span class="hljs-number">2</span>) {
+                        coef = <span class="hljs-number">-1.5</span>;
+                    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (_.options.slidesToShow === <span class="hljs-number">1</span>) {
+                        coef = <span class="hljs-number">-2</span>
+                    }
+                }
+                verticalOffset = (verticalHeight * _.options.slidesToShow) * coef;
+            }
+            <span class="hljs-keyword">if</span> (_.slideCount % _.options.slidesToScroll !== <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">if</span> (slideIndex + _.options.slidesToScroll &gt; _.slideCount &amp;&amp; _.slideCount &gt; _.options.slidesToShow) {
+                    <span class="hljs-keyword">if</span> (slideIndex &gt; _.slideCount) {
+                        _.slideOffset = ((_.options.slidesToShow - (slideIndex - _.slideCount)) * _.slideWidth) * <span class="hljs-number">-1</span>;
+                        verticalOffset = ((_.options.slidesToShow - (slideIndex - _.slideCount)) * verticalHeight) * <span class="hljs-number">-1</span>;
+                    } <span class="hljs-keyword">else</span> {
+                        _.slideOffset = ((_.slideCount % _.options.slidesToScroll) * _.slideWidth) * <span class="hljs-number">-1</span>;
+                        verticalOffset = ((_.slideCount % _.options.slidesToScroll) * verticalHeight) * <span class="hljs-number">-1</span>;
+                    }
+                }
+            }
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">if</span> (slideIndex + _.options.slidesToShow &gt; _.slideCount) {
+                _.slideOffset = ((slideIndex + _.options.slidesToShow) - _.slideCount) * _.slideWidth;
+                verticalOffset = ((slideIndex + _.options.slidesToShow) - _.slideCount) * verticalHeight;
+            }
+        }
+
+        <span class="hljs-keyword">if</span> (_.slideCount &lt;= _.options.slidesToShow) {
+            _.slideOffset = <span class="hljs-number">0</span>;
+            verticalOffset = <span class="hljs-number">0</span>;
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.centerMode === <span class="hljs-literal">true</span> &amp;&amp; _.slideCount &lt;= _.options.slidesToShow) {
+            _.slideOffset = ((_.slideWidth * <span class="hljs-built_in">Math</span>.floor(_.options.slidesToShow)) / <span class="hljs-number">2</span>) - ((_.slideWidth * _.slideCount) / <span class="hljs-number">2</span>);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (_.options.centerMode === <span class="hljs-literal">true</span> &amp;&amp; _.options.infinite === <span class="hljs-literal">true</span>) {
+            _.slideOffset += _.slideWidth * <span class="hljs-built_in">Math</span>.floor(_.options.slidesToShow / <span class="hljs-number">2</span>) - _.slideWidth;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (_.options.centerMode === <span class="hljs-literal">true</span>) {
+            _.slideOffset = <span class="hljs-number">0</span>;
+            _.slideOffset += _.slideWidth * <span class="hljs-built_in">Math</span>.floor(_.options.slidesToShow / <span class="hljs-number">2</span>);
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.vertical === <span class="hljs-literal">false</span>) {
+            targetLeft = ((slideIndex * _.slideWidth) * <span class="hljs-number">-1</span>) + _.slideOffset;
+        } <span class="hljs-keyword">else</span> {
+            targetLeft = ((slideIndex * verticalHeight) * <span class="hljs-number">-1</span>) + verticalOffset;
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.variableWidth === <span class="hljs-literal">true</span>) {
+
+            <span class="hljs-keyword">if</span> (_.slideCount &lt;= _.options.slidesToShow || _.options.infinite === <span class="hljs-literal">false</span>) {
+                targetSlide = _.$slideTrack.children(<span class="hljs-string">'.slick-slide'</span>).eq(slideIndex);
+            } <span class="hljs-keyword">else</span> {
+                targetSlide = _.$slideTrack.children(<span class="hljs-string">'.slick-slide'</span>).eq(slideIndex + _.options.slidesToShow);
+            }
+
+            <span class="hljs-keyword">if</span> (_.options.rtl === <span class="hljs-literal">true</span>) {
+                <span class="hljs-keyword">if</span> (targetSlide[<span class="hljs-number">0</span>]) {
+                    targetLeft = (_.$slideTrack.width() - targetSlide[<span class="hljs-number">0</span>].offsetLeft - targetSlide.width()) * <span class="hljs-number">-1</span>;
+                } <span class="hljs-keyword">else</span> {
+                    targetLeft =  <span class="hljs-number">0</span>;
+                }
+            } <span class="hljs-keyword">else</span> {
+                targetLeft = targetSlide[<span class="hljs-number">0</span>] ? targetSlide[<span class="hljs-number">0</span>].offsetLeft * <span class="hljs-number">-1</span> : <span class="hljs-number">0</span>;
+            }
+
+            <span class="hljs-keyword">if</span> (_.options.centerMode === <span class="hljs-literal">true</span>) {
+                <span class="hljs-keyword">if</span> (_.slideCount &lt;= _.options.slidesToShow || _.options.infinite === <span class="hljs-literal">false</span>) {
+                    targetSlide = _.$slideTrack.children(<span class="hljs-string">'.slick-slide'</span>).eq(slideIndex);
+                } <span class="hljs-keyword">else</span> {
+                    targetSlide = _.$slideTrack.children(<span class="hljs-string">'.slick-slide'</span>).eq(slideIndex + _.options.slidesToShow + <span class="hljs-number">1</span>);
+                }
+
+                <span class="hljs-keyword">if</span> (_.options.rtl === <span class="hljs-literal">true</span>) {
+                    <span class="hljs-keyword">if</span> (targetSlide[<span class="hljs-number">0</span>]) {
+                        targetLeft = (_.$slideTrack.width() - targetSlide[<span class="hljs-number">0</span>].offsetLeft - targetSlide.width()) * <span class="hljs-number">-1</span>;
+                    } <span class="hljs-keyword">else</span> {
+                        targetLeft =  <span class="hljs-number">0</span>;
+                    }
+                } <span class="hljs-keyword">else</span> {
+                    targetLeft = targetSlide[<span class="hljs-number">0</span>] ? targetSlide[<span class="hljs-number">0</span>].offsetLeft * <span class="hljs-number">-1</span> : <span class="hljs-number">0</span>;
+                }
+
+                targetLeft += (_.$list.width() - targetSlide.outerWidth()) / <span class="hljs-number">2</span>;
+            }
+        }
+
+        <span class="hljs-keyword">return</span> targetLeft;
+
+    };
+
+    Slick.prototype.getOption = Slick.prototype.slickGetOption = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">option</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">return</span> _.options[option];
+
+    };
+
+    Slick.prototype.getNavigableIndexes = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            breakPoint = <span class="hljs-number">0</span>,
+            counter = <span class="hljs-number">0</span>,
+            indexes = [],
+            max;
+
+        <span class="hljs-keyword">if</span> (_.options.infinite === <span class="hljs-literal">false</span>) {
+            max = _.slideCount;
+        } <span class="hljs-keyword">else</span> {
+            breakPoint = _.options.slidesToScroll * <span class="hljs-number">-1</span>;
+            counter = _.options.slidesToScroll * <span class="hljs-number">-1</span>;
+            max = _.slideCount * <span class="hljs-number">2</span>;
+        }
+
+        <span class="hljs-keyword">while</span> (breakPoint &lt; max) {
+            indexes.push(breakPoint);
+            breakPoint = counter + _.options.slidesToScroll;
+            counter += _.options.slidesToScroll &lt;= _.options.slidesToShow ? _.options.slidesToScroll : _.options.slidesToShow;
+        }
+
+        <span class="hljs-keyword">return</span> indexes;
+
+    };
+
+    Slick.prototype.getSlick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+
+    };
+
+    Slick.prototype.getSlideCount = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            slidesTraversed, swipedSlide, centerOffset;
+
+        centerOffset = _.options.centerMode === <span class="hljs-literal">true</span> ? _.slideWidth * <span class="hljs-built_in">Math</span>.floor(_.options.slidesToShow / <span class="hljs-number">2</span>) : <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">if</span> (_.options.swipeToSlide === <span class="hljs-literal">true</span>) {
+            _.$slideTrack.find(<span class="hljs-string">'.slick-slide'</span>).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, slide</span>) </span>{
+                <span class="hljs-keyword">if</span> (slide.offsetLeft - centerOffset + ($(slide).outerWidth() / <span class="hljs-number">2</span>) &gt; (_.swipeLeft * <span class="hljs-number">-1</span>)) {
+                    swipedSlide = slide;
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+                }
+            });
+
+            slidesTraversed = <span class="hljs-built_in">Math</span>.abs($(swipedSlide).attr(<span class="hljs-string">'data-slick-index'</span>) - _.currentSlide) || <span class="hljs-number">1</span>;
+
+            <span class="hljs-keyword">return</span> slidesTraversed;
+
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> _.options.slidesToScroll;
+        }
+
+    };
+
+    Slick.prototype.goTo = Slick.prototype.slickGoTo = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">slide, dontAnimate</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.changeSlide({
+            <span class="hljs-attr">data</span>: {
+                <span class="hljs-attr">message</span>: <span class="hljs-string">'index'</span>,
+                <span class="hljs-attr">index</span>: <span class="hljs-built_in">parseInt</span>(slide)
+            }
+        }, dontAnimate);
+
+    };
+
+    Slick.prototype.init = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">creation</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (!$(_.$slider).hasClass(<span class="hljs-string">'slick-initialized'</span>)) {
+
+            $(_.$slider).addClass(<span class="hljs-string">'slick-initialized'</span>);
+
+            _.buildRows();
+            _.buildOut();
+            _.setProps();
+            _.startLoad();
+            _.loadSlider();
+            _.initializeEvents();
+            _.updateArrows();
+            _.updateDots();
+            _.checkResponsive(<span class="hljs-literal">true</span>);
+            _.focusHandler();
+
+        }
+
+        <span class="hljs-keyword">if</span> (creation) {
+            _.$slider.trigger(<span class="hljs-string">'init'</span>, [_]);
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.accessibility === <span class="hljs-literal">true</span>) {
+            _.initADA();
+        }
+
+        <span class="hljs-keyword">if</span> ( _.options.autoplay ) {
+
+            _.paused = <span class="hljs-literal">false</span>;
+            _.autoPlay();
+
+        }
+
+    };
+
+    Slick.prototype.initADA = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+                numDotGroups = <span class="hljs-built_in">Math</span>.ceil(_.slideCount / _.options.slidesToShow),
+                tabControlIndexes = _.getNavigableIndexes().filter(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">val</span>) </span>{
+                    <span class="hljs-keyword">return</span> (val &gt;= <span class="hljs-number">0</span>) &amp;&amp; (val &lt; _.slideCount);
+                });
+
+        _.$slides.add(_.$slideTrack.find(<span class="hljs-string">'.slick-cloned'</span>)).attr({
+            <span class="hljs-string">'aria-hidden'</span>: <span class="hljs-string">'true'</span>,
+            <span class="hljs-string">'tabindex'</span>: <span class="hljs-string">'-1'</span>
+        }).find(<span class="hljs-string">'a, input, button, select'</span>).attr({
+            <span class="hljs-string">'tabindex'</span>: <span class="hljs-string">'-1'</span>
+        });
+
+        <span class="hljs-keyword">if</span> (_.$dots !== <span class="hljs-literal">null</span>) {
+            _.$slides.not(_.$slideTrack.find(<span class="hljs-string">'.slick-cloned'</span>)).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i</span>) </span>{
+                <span class="hljs-keyword">var</span> slideControlIndex = tabControlIndexes.indexOf(i);
+
+                $(<span class="hljs-keyword">this</span>).attr({
+                    <span class="hljs-string">'role'</span>: <span class="hljs-string">'tabpanel'</span>,
+                    <span class="hljs-string">'id'</span>: <span class="hljs-string">'slick-slide'</span> + _.instanceUid + i,
+                    <span class="hljs-string">'tabindex'</span>: <span class="hljs-number">-1</span>
+                });
+
+                <span class="hljs-keyword">if</span> (slideControlIndex !== <span class="hljs-number">-1</span>) {
+                    $(<span class="hljs-keyword">this</span>).attr({
+                        <span class="hljs-string">'aria-describedby'</span>: <span class="hljs-string">'slick-slide-control'</span> + _.instanceUid + slideControlIndex
+                    });
+                }
+            });
+
+            _.$dots.attr(<span class="hljs-string">'role'</span>, <span class="hljs-string">'tablist'</span>).find(<span class="hljs-string">'li'</span>).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i</span>) </span>{
+                <span class="hljs-keyword">var</span> mappedSlideIndex = tabControlIndexes[i];
+
+                $(<span class="hljs-keyword">this</span>).attr({
+                    <span class="hljs-string">'role'</span>: <span class="hljs-string">'presentation'</span>
+                });
+
+                $(<span class="hljs-keyword">this</span>).find(<span class="hljs-string">'button'</span>).first().attr({
+                    <span class="hljs-string">'role'</span>: <span class="hljs-string">'tab'</span>,
+                    <span class="hljs-string">'id'</span>: <span class="hljs-string">'slick-slide-control'</span> + _.instanceUid + i,
+                    <span class="hljs-string">'aria-controls'</span>: <span class="hljs-string">'slick-slide'</span> + _.instanceUid + mappedSlideIndex,
+                    <span class="hljs-string">'aria-label'</span>: (i + <span class="hljs-number">1</span>) + <span class="hljs-string">' of '</span> + numDotGroups,
+                    <span class="hljs-string">'aria-selected'</span>: <span class="hljs-literal">null</span>,
+                    <span class="hljs-string">'tabindex'</span>: <span class="hljs-string">'-1'</span>
+                });
+
+            }).eq(_.currentSlide).find(<span class="hljs-string">'button'</span>).attr({
+                <span class="hljs-string">'aria-selected'</span>: <span class="hljs-string">'true'</span>,
+                <span class="hljs-string">'tabindex'</span>: <span class="hljs-string">'0'</span>
+            }).end();
+        }
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i=_.currentSlide, max=i+_.options.slidesToShow; i &lt; max; i++) {
+            _.$slides.eq(i).attr(<span class="hljs-string">'tabindex'</span>, <span class="hljs-number">0</span>);
+        }
+
+        _.activateADA();
+
+    };
+
+    Slick.prototype.initArrowEvents = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.options.arrows === <span class="hljs-literal">true</span> &amp;&amp; _.slideCount &gt; _.options.slidesToShow) {
+            _.$prevArrow
+               .off(<span class="hljs-string">'click.slick'</span>)
+               .on(<span class="hljs-string">'click.slick'</span>, {
+                    <span class="hljs-attr">message</span>: <span class="hljs-string">'previous'</span>
+               }, _.changeSlide);
+            _.$nextArrow
+               .off(<span class="hljs-string">'click.slick'</span>)
+               .on(<span class="hljs-string">'click.slick'</span>, {
+                    <span class="hljs-attr">message</span>: <span class="hljs-string">'next'</span>
+               }, _.changeSlide);
+
+            <span class="hljs-keyword">if</span> (_.options.accessibility === <span class="hljs-literal">true</span>) {
+                _.$prevArrow.on(<span class="hljs-string">'keydown.slick'</span>, _.keyHandler);
+                _.$nextArrow.on(<span class="hljs-string">'keydown.slick'</span>, _.keyHandler);
+            }
+        }
+
+    };
+
+    Slick.prototype.initDotEvents = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.options.dots === <span class="hljs-literal">true</span>) {
+            $(<span class="hljs-string">'li'</span>, _.$dots).on(<span class="hljs-string">'click.slick'</span>, {
+                <span class="hljs-attr">message</span>: <span class="hljs-string">'index'</span>
+            }, _.changeSlide);
+
+            <span class="hljs-keyword">if</span> (_.options.accessibility === <span class="hljs-literal">true</span>) {
+                _.$dots.on(<span class="hljs-string">'keydown.slick'</span>, _.keyHandler);
+            }
+        }
+
+        <span class="hljs-keyword">if</span> ( _.options.dots === <span class="hljs-literal">true</span> &amp;&amp; _.options.pauseOnDotsHover === <span class="hljs-literal">true</span> ) {
+
+            $(<span class="hljs-string">'li'</span>, _.$dots)
+                .on(<span class="hljs-string">'mouseenter.slick'</span>, $.proxy(_.interrupt, _, <span class="hljs-literal">true</span>))
+                .on(<span class="hljs-string">'mouseleave.slick'</span>, $.proxy(_.interrupt, _, <span class="hljs-literal">false</span>));
+
+        }
+
+    };
+
+    Slick.prototype.initSlideEvents = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> ( _.options.pauseOnHover ) {
+
+            _.$list.on(<span class="hljs-string">'mouseenter.slick'</span>, $.proxy(_.interrupt, _, <span class="hljs-literal">true</span>));
+            _.$list.on(<span class="hljs-string">'mouseleave.slick'</span>, $.proxy(_.interrupt, _, <span class="hljs-literal">false</span>));
+
+        }
+
+    };
+
+    Slick.prototype.initializeEvents = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.initArrowEvents();
+
+        _.initDotEvents();
+        _.initSlideEvents();
+
+        _.$list.on(<span class="hljs-string">'touchstart.slick mousedown.slick'</span>, {
+            <span class="hljs-attr">action</span>: <span class="hljs-string">'start'</span>
+        }, _.swipeHandler);
+        _.$list.on(<span class="hljs-string">'touchmove.slick mousemove.slick'</span>, {
+            <span class="hljs-attr">action</span>: <span class="hljs-string">'move'</span>
+        }, _.swipeHandler);
+        _.$list.on(<span class="hljs-string">'touchend.slick mouseup.slick'</span>, {
+            <span class="hljs-attr">action</span>: <span class="hljs-string">'end'</span>
+        }, _.swipeHandler);
+        _.$list.on(<span class="hljs-string">'touchcancel.slick mouseleave.slick'</span>, {
+            <span class="hljs-attr">action</span>: <span class="hljs-string">'end'</span>
+        }, _.swipeHandler);
+
+        _.$list.on(<span class="hljs-string">'click.slick'</span>, _.clickHandler);
+
+        $(<span class="hljs-built_in">document</span>).on(_.visibilityChange, $.proxy(_.visibility, _));
+
+        <span class="hljs-keyword">if</span> (_.options.accessibility === <span class="hljs-literal">true</span>) {
+            _.$list.on(<span class="hljs-string">'keydown.slick'</span>, _.keyHandler);
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.focusOnSelect === <span class="hljs-literal">true</span>) {
+            $(_.$slideTrack).children().on(<span class="hljs-string">'click.slick'</span>, _.selectHandler);
+        }
+
+        $(<span class="hljs-built_in">window</span>).on(<span class="hljs-string">'orientationchange.slick.slick-'</span> + _.instanceUid, $.proxy(_.orientationChange, _));
+
+        $(<span class="hljs-built_in">window</span>).on(<span class="hljs-string">'resize.slick.slick-'</span> + _.instanceUid, $.proxy(_.resize, _));
+
+        $(<span class="hljs-string">'[draggable!=true]'</span>, _.$slideTrack).on(<span class="hljs-string">'dragstart'</span>, _.preventDefault);
+
+        $(<span class="hljs-built_in">window</span>).on(<span class="hljs-string">'load.slick.slick-'</span> + _.instanceUid, _.setPosition);
+        $(_.setPosition);
+
+    };
+
+    Slick.prototype.initUI = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.options.arrows === <span class="hljs-literal">true</span> &amp;&amp; _.slideCount &gt; _.options.slidesToShow) {
+
+            _.$prevArrow.show();
+            _.$nextArrow.show();
+
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.dots === <span class="hljs-literal">true</span> &amp;&amp; _.slideCount &gt; _.options.slidesToShow) {
+
+            _.$dots.show();
+
+        }
+
+    };
+
+    Slick.prototype.keyHandler = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>Dont slide if the cursor is inside the form fields and arrow keys are pressed</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span>(!event.target.tagName.match(<span class="hljs-string">'TEXTAREA|INPUT|SELECT'</span>)) {
+            <span class="hljs-keyword">if</span> (event.keyCode === <span class="hljs-number">37</span> &amp;&amp; _.options.accessibility === <span class="hljs-literal">true</span>) {
+                _.changeSlide({
+                    <span class="hljs-attr">data</span>: {
+                        <span class="hljs-attr">message</span>: _.options.rtl === <span class="hljs-literal">true</span> ? <span class="hljs-string">'next'</span> :  <span class="hljs-string">'previous'</span>
+                    }
+                });
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event.keyCode === <span class="hljs-number">39</span> &amp;&amp; _.options.accessibility === <span class="hljs-literal">true</span>) {
+                _.changeSlide({
+                    <span class="hljs-attr">data</span>: {
+                        <span class="hljs-attr">message</span>: _.options.rtl === <span class="hljs-literal">true</span> ? <span class="hljs-string">'previous'</span> : <span class="hljs-string">'next'</span>
+                    }
+                });
+            }
+        }
+
+    };
+
+    Slick.prototype.lazyLoad = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            loadRange, cloneRange, rangeStart, rangeEnd;
+
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadImages</span>(<span class="hljs-params">imagesScope</span>) </span>{
+
+            $(<span class="hljs-string">'img[data-lazy]'</span>, imagesScope).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+                <span class="hljs-keyword">var</span> image = $(<span class="hljs-keyword">this</span>),
+                    imageSource = $(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'data-lazy'</span>),
+                    imageSrcSet = $(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'data-srcset'</span>),
+                    imageSizes  = $(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'data-sizes'</span>) || _.$slider.attr(<span class="hljs-string">'data-sizes'</span>),
+                    imageToLoad = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'img'</span>);
+
+                imageToLoad.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+                    image
+                        .animate({ <span class="hljs-attr">opacity</span>: <span class="hljs-number">0</span> }, <span class="hljs-number">100</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+                            <span class="hljs-keyword">if</span> (imageSrcSet) {
+                                image
+                                    .attr(<span class="hljs-string">'srcset'</span>, imageSrcSet );
+
+                                <span class="hljs-keyword">if</span> (imageSizes) {
+                                    image
+                                        .attr(<span class="hljs-string">'sizes'</span>, imageSizes );
+                                }
+                            }
+
+                            image
+                                .attr(<span class="hljs-string">'src'</span>, imageSource)
+                                .animate({ <span class="hljs-attr">opacity</span>: <span class="hljs-number">1</span> }, <span class="hljs-number">200</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                                    image
+                                        .removeAttr(<span class="hljs-string">'data-lazy data-srcset data-sizes'</span>)
+                                        .removeClass(<span class="hljs-string">'slick-loading'</span>);
+                                });
+                            _.$slider.trigger(<span class="hljs-string">'lazyLoaded'</span>, [_, image, imageSource]);
+                        });
+
+                };
+
+                imageToLoad.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+                    image
+                        .removeAttr( <span class="hljs-string">'data-lazy'</span> )
+                        .removeClass( <span class="hljs-string">'slick-loading'</span> )
+                        .addClass( <span class="hljs-string">'slick-lazyload-error'</span> );
+
+                    _.$slider.trigger(<span class="hljs-string">'lazyLoadError'</span>, [ _, image, imageSource ]);
+
+                };
+
+                imageToLoad.src = imageSource;
+
+            });
+
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.centerMode === <span class="hljs-literal">true</span>) {
+            <span class="hljs-keyword">if</span> (_.options.infinite === <span class="hljs-literal">true</span>) {
+                rangeStart = _.currentSlide + (_.options.slidesToShow / <span class="hljs-number">2</span> + <span class="hljs-number">1</span>);
+                rangeEnd = rangeStart + _.options.slidesToShow + <span class="hljs-number">2</span>;
+            } <span class="hljs-keyword">else</span> {
+                rangeStart = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, _.currentSlide - (_.options.slidesToShow / <span class="hljs-number">2</span> + <span class="hljs-number">1</span>));
+                rangeEnd = <span class="hljs-number">2</span> + (_.options.slidesToShow / <span class="hljs-number">2</span> + <span class="hljs-number">1</span>) + _.currentSlide;
+            }
+        } <span class="hljs-keyword">else</span> {
+            rangeStart = _.options.infinite ? _.options.slidesToShow + _.currentSlide : _.currentSlide;
+            rangeEnd = <span class="hljs-built_in">Math</span>.ceil(rangeStart + _.options.slidesToShow);
+            <span class="hljs-keyword">if</span> (_.options.fade === <span class="hljs-literal">true</span>) {
+                <span class="hljs-keyword">if</span> (rangeStart &gt; <span class="hljs-number">0</span>) rangeStart--;
+                <span class="hljs-keyword">if</span> (rangeEnd &lt;= _.slideCount) rangeEnd++;
+            }
+        }
+
+        loadRange = _.$slider.find(<span class="hljs-string">'.slick-slide'</span>).slice(rangeStart, rangeEnd);
+
+        <span class="hljs-keyword">if</span> (_.options.lazyLoad === <span class="hljs-string">'anticipated'</span>) {
+            <span class="hljs-keyword">var</span> prevSlide = rangeStart - <span class="hljs-number">1</span>,
+                nextSlide = rangeEnd,
+                $slides = _.$slider.find(<span class="hljs-string">'.slick-slide'</span>);
+
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; _.options.slidesToScroll; i++) {
+                <span class="hljs-keyword">if</span> (prevSlide &lt; <span class="hljs-number">0</span>) prevSlide = _.slideCount - <span class="hljs-number">1</span>;
+                loadRange = loadRange.add($slides.eq(prevSlide));
+                loadRange = loadRange.add($slides.eq(nextSlide));
+                prevSlide--;
+                nextSlide++;
+            }
+        }
+
+        loadImages(loadRange);
+
+        <span class="hljs-keyword">if</span> (_.slideCount &lt;= _.options.slidesToShow) {
+            cloneRange = _.$slider.find(<span class="hljs-string">'.slick-slide'</span>);
+            loadImages(cloneRange);
+        } <span class="hljs-keyword">else</span>
+        <span class="hljs-keyword">if</span> (_.currentSlide &gt;= _.slideCount - _.options.slidesToShow) {
+            cloneRange = _.$slider.find(<span class="hljs-string">'.slick-cloned'</span>).slice(<span class="hljs-number">0</span>, _.options.slidesToShow);
+            loadImages(cloneRange);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (_.currentSlide === <span class="hljs-number">0</span>) {
+            cloneRange = _.$slider.find(<span class="hljs-string">'.slick-cloned'</span>).slice(_.options.slidesToShow * <span class="hljs-number">-1</span>);
+            loadImages(cloneRange);
+        }
+
+    };
+
+    Slick.prototype.loadSlider = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.setPosition();
+
+        _.$slideTrack.css({
+            <span class="hljs-attr">opacity</span>: <span class="hljs-number">1</span>
+        });
+
+        _.$slider.removeClass(<span class="hljs-string">'slick-loading'</span>);
+
+        _.initUI();
+
+        <span class="hljs-keyword">if</span> (_.options.lazyLoad === <span class="hljs-string">'progressive'</span>) {
+            _.progressiveLazyLoad();
+        }
+
+    };
+
+    Slick.prototype.next = Slick.prototype.slickNext = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.changeSlide({
+            <span class="hljs-attr">data</span>: {
+                <span class="hljs-attr">message</span>: <span class="hljs-string">'next'</span>
+            }
+        });
+
+    };
+
+    Slick.prototype.orientationChange = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.checkResponsive();
+        _.setPosition();
+
+    };
+
+    Slick.prototype.pause = Slick.prototype.slickPause = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.autoPlayClear();
+        _.paused = <span class="hljs-literal">true</span>;
+
+    };
+
+    Slick.prototype.play = Slick.prototype.slickPlay = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.autoPlay();
+        _.options.autoplay = <span class="hljs-literal">true</span>;
+        _.paused = <span class="hljs-literal">false</span>;
+        _.focussed = <span class="hljs-literal">false</span>;
+        _.interrupted = <span class="hljs-literal">false</span>;
+
+    };
+
+    Slick.prototype.postSlide = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span>( !_.unslicked ) {
+
+            _.$slider.trigger(<span class="hljs-string">'afterChange'</span>, [_, index]);
+
+            _.animating = <span class="hljs-literal">false</span>;
+
+            <span class="hljs-keyword">if</span> (_.slideCount &gt; _.options.slidesToShow) {
+                _.setPosition();
+            }
+
+            _.swipeLeft = <span class="hljs-literal">null</span>;
+
+            <span class="hljs-keyword">if</span> ( _.options.autoplay ) {
+                _.autoPlay();
+            }
+
+            <span class="hljs-keyword">if</span> (_.options.accessibility === <span class="hljs-literal">true</span>) {
+                _.initADA();
+                
+                <span class="hljs-keyword">if</span> (_.options.focusOnChange) {
+                    <span class="hljs-keyword">var</span> $currentSlide = $(_.$slides.get(_.currentSlide));
+                    $currentSlide.attr(<span class="hljs-string">'tabindex'</span>, <span class="hljs-number">0</span>).focus();
+                }
+            }
+
+        }
+
+    };
+
+    Slick.prototype.prev = Slick.prototype.slickPrev = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.changeSlide({
+            <span class="hljs-attr">data</span>: {
+                <span class="hljs-attr">message</span>: <span class="hljs-string">'previous'</span>
+            }
+        });
+
+    };
+
+    Slick.prototype.preventDefault = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+
+        event.preventDefault();
+
+    };
+
+    Slick.prototype.progressiveLazyLoad = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"> tryCount </span>) </span>{
+
+        tryCount = tryCount || <span class="hljs-number">1</span>;
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            $imgsToLoad = $( <span class="hljs-string">'img[data-lazy]'</span>, _.$slider ),
+            image,
+            imageSource,
+            imageSrcSet,
+            imageSizes,
+            imageToLoad;
+
+        <span class="hljs-keyword">if</span> ( $imgsToLoad.length ) {
+
+            image = $imgsToLoad.first();
+            imageSource = image.attr(<span class="hljs-string">'data-lazy'</span>);
+            imageSrcSet = image.attr(<span class="hljs-string">'data-srcset'</span>);
+            imageSizes  = image.attr(<span class="hljs-string">'data-sizes'</span>) || _.$slider.attr(<span class="hljs-string">'data-sizes'</span>);
+            imageToLoad = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'img'</span>);
+
+            imageToLoad.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+                <span class="hljs-keyword">if</span> (imageSrcSet) {
+                    image
+                        .attr(<span class="hljs-string">'srcset'</span>, imageSrcSet );
+
+                    <span class="hljs-keyword">if</span> (imageSizes) {
+                        image
+                            .attr(<span class="hljs-string">'sizes'</span>, imageSizes );
+                    }
+                }
+
+                image
+                    .attr( <span class="hljs-string">'src'</span>, imageSource )
+                    .removeAttr(<span class="hljs-string">'data-lazy data-srcset data-sizes'</span>)
+                    .removeClass(<span class="hljs-string">'slick-loading'</span>);
+
+                <span class="hljs-keyword">if</span> ( _.options.adaptiveHeight === <span class="hljs-literal">true</span> ) {
+                    _.setPosition();
+                }
+
+                _.$slider.trigger(<span class="hljs-string">'lazyLoaded'</span>, [ _, image, imageSource ]);
+                _.progressiveLazyLoad();
+
+            };
+
+            imageToLoad.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+                <span class="hljs-keyword">if</span> ( tryCount &lt; <span class="hljs-number">3</span> ) {
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>try to load the image 3 times,
+leave a slight delay so we don't get
+servers blocking the request.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    setTimeout( <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                        _.progressiveLazyLoad( tryCount + <span class="hljs-number">1</span> );
+                    }, <span class="hljs-number">500</span> );
+
+                } <span class="hljs-keyword">else</span> {
+
+                    image
+                        .removeAttr( <span class="hljs-string">'data-lazy'</span> )
+                        .removeClass( <span class="hljs-string">'slick-loading'</span> )
+                        .addClass( <span class="hljs-string">'slick-lazyload-error'</span> );
+
+                    _.$slider.trigger(<span class="hljs-string">'lazyLoadError'</span>, [ _, image, imageSource ]);
+
+                    _.progressiveLazyLoad();
+
+                }
+
+            };
+
+            imageToLoad.src = imageSource;
+
+        } <span class="hljs-keyword">else</span> {
+
+            _.$slider.trigger(<span class="hljs-string">'allImagesLoaded'</span>, [ _ ]);
+
+        }
+
+    };
+
+    Slick.prototype.refresh = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"> initializing </span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>, currentSlide, lastVisibleIndex;
+
+        lastVisibleIndex = _.slideCount - _.options.slidesToShow;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>in non-infinite sliders, we don't want to go past the
+last visible index.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span>( !_.options.infinite &amp;&amp; ( _.currentSlide &gt; lastVisibleIndex )) {
+            _.currentSlide = lastVisibleIndex;
+        }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>if less slides than to show, go to start.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> ( _.slideCount &lt;= _.options.slidesToShow ) {
+            _.currentSlide = <span class="hljs-number">0</span>;
+
+        }
+
+        currentSlide = _.currentSlide;
+
+        _.destroy(<span class="hljs-literal">true</span>);
+
+        $.extend(_, _.initials, { <span class="hljs-attr">currentSlide</span>: currentSlide });
+
+        _.init();
+
+        <span class="hljs-keyword">if</span>( !initializing ) {
+
+            _.changeSlide({
+                <span class="hljs-attr">data</span>: {
+                    <span class="hljs-attr">message</span>: <span class="hljs-string">'index'</span>,
+                    <span class="hljs-attr">index</span>: currentSlide
+                }
+            }, <span class="hljs-literal">false</span>);
+
+        }
+
+    };
+
+    Slick.prototype.registerBreakpoints = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>, breakpoint, currentBreakpoint, l,
+            responsiveSettings = _.options.responsive || <span class="hljs-literal">null</span>;
+
+        <span class="hljs-keyword">if</span> ( $.type(responsiveSettings) === <span class="hljs-string">'array'</span> &amp;&amp; responsiveSettings.length ) {
+
+            _.respondTo = _.options.respondTo || <span class="hljs-string">'window'</span>;
+
+            <span class="hljs-keyword">for</span> ( breakpoint <span class="hljs-keyword">in</span> responsiveSettings ) {
+
+                l = _.breakpoints.length<span class="hljs-number">-1</span>;
+
+                <span class="hljs-keyword">if</span> (responsiveSettings.hasOwnProperty(breakpoint)) {
+                    currentBreakpoint = responsiveSettings[breakpoint].breakpoint;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>loop through the breakpoints and cut out any existing
+ones with the same breakpoint number, we don't want dupes.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">while</span>( l &gt;= <span class="hljs-number">0</span> ) {
+                        <span class="hljs-keyword">if</span>( _.breakpoints[l] &amp;&amp; _.breakpoints[l] === currentBreakpoint ) {
+                            _.breakpoints.splice(l,<span class="hljs-number">1</span>);
+                        }
+                        l--;
+                    }
+
+                    _.breakpoints.push(currentBreakpoint);
+                    _.breakpointSettings[currentBreakpoint] = responsiveSettings[breakpoint].settings;
+
+                }
+
+            }
+
+            _.breakpoints.sort(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+                <span class="hljs-keyword">return</span> ( _.options.mobileFirst ) ? a-b : b-a;
+            });
+
+        }
+
+    };
+
+    Slick.prototype.reinit = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.$slides =
+            _.$slideTrack
+                .children(_.options.slide)
+                .addClass(<span class="hljs-string">'slick-slide'</span>);
+
+        _.slideCount = _.$slides.length;
+
+        <span class="hljs-keyword">if</span> (_.currentSlide &gt;= _.slideCount &amp;&amp; _.currentSlide !== <span class="hljs-number">0</span>) {
+            _.currentSlide = _.currentSlide - _.options.slidesToScroll;
+        }
+
+        <span class="hljs-keyword">if</span> (_.slideCount &lt;= _.options.slidesToShow) {
+            _.currentSlide = <span class="hljs-number">0</span>;
+        }
+
+        _.registerBreakpoints();
+
+        _.setProps();
+        _.setupInfinite();
+        _.buildArrows();
+        _.updateArrows();
+        _.initArrowEvents();
+        _.buildDots();
+        _.updateDots();
+        _.initDotEvents();
+        _.cleanUpSlideEvents();
+        _.initSlideEvents();
+
+        _.checkResponsive(<span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
+
+        <span class="hljs-keyword">if</span> (_.options.focusOnSelect === <span class="hljs-literal">true</span>) {
+            $(_.$slideTrack).children().on(<span class="hljs-string">'click.slick'</span>, _.selectHandler);
+        }
+
+        _.setSlideClasses(<span class="hljs-keyword">typeof</span> _.currentSlide === <span class="hljs-string">'number'</span> ? _.currentSlide : <span class="hljs-number">0</span>);
+
+        _.setPosition();
+        _.focusHandler();
+
+        _.paused = !_.options.autoplay;
+        _.autoPlay();
+
+        _.$slider.trigger(<span class="hljs-string">'reInit'</span>, [_]);
+
+    };
+
+    Slick.prototype.resize = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> ($(<span class="hljs-built_in">window</span>).width() !== _.windowWidth) {
+            clearTimeout(_.windowDelay);
+            _.windowDelay = <span class="hljs-built_in">window</span>.setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                _.windowWidth = $(<span class="hljs-built_in">window</span>).width();
+                _.checkResponsive();
+                <span class="hljs-keyword">if</span>( !_.unslicked ) { _.setPosition(); }
+            }, <span class="hljs-number">50</span>);
+        }
+    };
+
+    Slick.prototype.removeSlide = Slick.prototype.slickRemove = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, removeBefore, removeAll</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span>(index) === <span class="hljs-string">'boolean'</span>) {
+            removeBefore = index;
+            index = removeBefore === <span class="hljs-literal">true</span> ? <span class="hljs-number">0</span> : _.slideCount - <span class="hljs-number">1</span>;
+        } <span class="hljs-keyword">else</span> {
+            index = removeBefore === <span class="hljs-literal">true</span> ? --index : index;
+        }
+
+        <span class="hljs-keyword">if</span> (_.slideCount &lt; <span class="hljs-number">1</span> || index &lt; <span class="hljs-number">0</span> || index &gt; _.slideCount - <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+
+        _.unload();
+
+        <span class="hljs-keyword">if</span> (removeAll === <span class="hljs-literal">true</span>) {
+            _.$slideTrack.children().remove();
+        } <span class="hljs-keyword">else</span> {
+            _.$slideTrack.children(<span class="hljs-keyword">this</span>.options.slide).eq(index).remove();
+        }
+
+        _.$slides = _.$slideTrack.children(<span class="hljs-keyword">this</span>.options.slide);
+
+        _.$slideTrack.children(<span class="hljs-keyword">this</span>.options.slide).detach();
+
+        _.$slideTrack.append(_.$slides);
+
+        _.$slidesCache = _.$slides;
+
+        _.reinit();
+
+    };
+
+    Slick.prototype.setCSS = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">position</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            positionProps = {},
+            x, y;
+
+        <span class="hljs-keyword">if</span> (_.options.rtl === <span class="hljs-literal">true</span>) {
+            position = -position;
+        }
+        x = _.positionProp == <span class="hljs-string">'left'</span> ? <span class="hljs-built_in">Math</span>.ceil(position) + <span class="hljs-string">'px'</span> : <span class="hljs-string">'0px'</span>;
+        y = _.positionProp == <span class="hljs-string">'top'</span> ? <span class="hljs-built_in">Math</span>.ceil(position) + <span class="hljs-string">'px'</span> : <span class="hljs-string">'0px'</span>;
+
+        positionProps[_.positionProp] = position;
+
+        <span class="hljs-keyword">if</span> (_.transformsEnabled === <span class="hljs-literal">false</span>) {
+            _.$slideTrack.css(positionProps);
+        } <span class="hljs-keyword">else</span> {
+            positionProps = {};
+            <span class="hljs-keyword">if</span> (_.cssTransitions === <span class="hljs-literal">false</span>) {
+                positionProps[_.animType] = <span class="hljs-string">'translate('</span> + x + <span class="hljs-string">', '</span> + y + <span class="hljs-string">')'</span>;
+                _.$slideTrack.css(positionProps);
+            } <span class="hljs-keyword">else</span> {
+                positionProps[_.animType] = <span class="hljs-string">'translate3d('</span> + x + <span class="hljs-string">', '</span> + y + <span class="hljs-string">', 0px)'</span>;
+                _.$slideTrack.css(positionProps);
+            }
+        }
+
+    };
+
+    Slick.prototype.setDimensions = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.options.vertical === <span class="hljs-literal">false</span>) {
+            <span class="hljs-keyword">if</span> (_.options.centerMode === <span class="hljs-literal">true</span>) {
+                _.$list.css({
+                    <span class="hljs-attr">padding</span>: (<span class="hljs-string">'0px '</span> + _.options.centerPadding)
+                });
+            }
+        } <span class="hljs-keyword">else</span> {
+            _.$list.height(_.$slides.first().outerHeight(<span class="hljs-literal">true</span>) * _.options.slidesToShow);
+            <span class="hljs-keyword">if</span> (_.options.centerMode === <span class="hljs-literal">true</span>) {
+                _.$list.css({
+                    <span class="hljs-attr">padding</span>: (_.options.centerPadding + <span class="hljs-string">' 0px'</span>)
+                });
+            }
+        }
+
+        _.listWidth = _.$list.width();
+        _.listHeight = _.$list.height();
+
+
+        <span class="hljs-keyword">if</span> (_.options.vertical === <span class="hljs-literal">false</span> &amp;&amp; _.options.variableWidth === <span class="hljs-literal">false</span>) {
+            _.slideWidth = <span class="hljs-built_in">Math</span>.ceil(_.listWidth / _.options.slidesToShow);
+            _.$slideTrack.width(<span class="hljs-built_in">Math</span>.ceil((_.slideWidth * _.$slideTrack.children(<span class="hljs-string">'.slick-slide'</span>).length)));
+
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (_.options.variableWidth === <span class="hljs-literal">true</span>) {
+            _.$slideTrack.width(<span class="hljs-number">5000</span> * _.slideCount);
+        } <span class="hljs-keyword">else</span> {
+            _.slideWidth = <span class="hljs-built_in">Math</span>.ceil(_.listWidth);
+            _.$slideTrack.height(<span class="hljs-built_in">Math</span>.ceil((_.$slides.first().outerHeight(<span class="hljs-literal">true</span>) * _.$slideTrack.children(<span class="hljs-string">'.slick-slide'</span>).length)));
+        }
+
+        <span class="hljs-keyword">var</span> offset = _.$slides.first().outerWidth(<span class="hljs-literal">true</span>) - _.$slides.first().width();
+        <span class="hljs-keyword">if</span> (_.options.variableWidth === <span class="hljs-literal">false</span>) _.$slideTrack.children(<span class="hljs-string">'.slick-slide'</span>).width(_.slideWidth - offset);
+
+    };
+
+    Slick.prototype.setFade = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            targetLeft;
+
+        _.$slides.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, element</span>) </span>{
+            targetLeft = (_.slideWidth * index) * <span class="hljs-number">-1</span>;
+            <span class="hljs-keyword">if</span> (_.options.rtl === <span class="hljs-literal">true</span>) {
+                $(element).css({
+                    <span class="hljs-attr">position</span>: <span class="hljs-string">'relative'</span>,
+                    <span class="hljs-attr">right</span>: targetLeft,
+                    <span class="hljs-attr">top</span>: <span class="hljs-number">0</span>,
+                    <span class="hljs-attr">zIndex</span>: _.options.zIndex - <span class="hljs-number">2</span>,
+                    <span class="hljs-attr">opacity</span>: <span class="hljs-number">0</span>
+                });
+            } <span class="hljs-keyword">else</span> {
+                $(element).css({
+                    <span class="hljs-attr">position</span>: <span class="hljs-string">'relative'</span>,
+                    <span class="hljs-attr">left</span>: targetLeft,
+                    <span class="hljs-attr">top</span>: <span class="hljs-number">0</span>,
+                    <span class="hljs-attr">zIndex</span>: _.options.zIndex - <span class="hljs-number">2</span>,
+                    <span class="hljs-attr">opacity</span>: <span class="hljs-number">0</span>
+                });
+            }
+        });
+
+        _.$slides.eq(_.currentSlide).css({
+            <span class="hljs-attr">zIndex</span>: _.options.zIndex - <span class="hljs-number">1</span>,
+            <span class="hljs-attr">opacity</span>: <span class="hljs-number">1</span>
+        });
+
+    };
+
+    Slick.prototype.setHeight = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.options.slidesToShow === <span class="hljs-number">1</span> &amp;&amp; _.options.adaptiveHeight === <span class="hljs-literal">true</span> &amp;&amp; _.options.vertical === <span class="hljs-literal">false</span>) {
+            <span class="hljs-keyword">var</span> targetHeight = _.$slides.eq(_.currentSlide).outerHeight(<span class="hljs-literal">true</span>);
+            _.$list.css(<span class="hljs-string">'height'</span>, targetHeight);
+        }
+
+    };
+
+    Slick.prototype.setOption =
+    Slick.prototype.slickSetOption = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>accepts arguments in format of:</p>
+<ul>
+<li>
+<p>for changing a single option's value:
+.slick(&quot;setOption&quot;, option, value, refresh )</p>
+</li>
+<li>
+<p>for changing a set of responsive options:
+.slick(&quot;setOption&quot;, 'responsive', [{}, ...], refresh )</p>
+</li>
+<li>
+<p>for updating multiple values at once (not responsive)
+.slick(&quot;setOption&quot;, { 'option': value, ... }, refresh )</p>
+</li>
+</ul>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>, l, item, option, value, refresh = <span class="hljs-literal">false</span>, type;
+
+        <span class="hljs-keyword">if</span>( $.type( <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>] ) === <span class="hljs-string">'object'</span> ) {
+
+            option =  <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>];
+            refresh = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>];
+            type = <span class="hljs-string">'multiple'</span>;
+
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( $.type( <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>] ) === <span class="hljs-string">'string'</span> ) {
+
+            option =  <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>];
+            value = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>];
+            refresh = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">2</span>];
+
+            <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>] === <span class="hljs-string">'responsive'</span> &amp;&amp; $.type( <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] ) === <span class="hljs-string">'array'</span> ) {
+
+                type = <span class="hljs-string">'responsive'</span>;
+
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] !== <span class="hljs-string">'undefined'</span> ) {
+
+                type = <span class="hljs-string">'single'</span>;
+
+            }
+
+        }
+
+        <span class="hljs-keyword">if</span> ( type === <span class="hljs-string">'single'</span> ) {
+
+            _.options[option] = value;
+
+
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( type === <span class="hljs-string">'multiple'</span> ) {
+
+            $.each( option , <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"> opt, val </span>) </span>{
+
+                _.options[opt] = val;
+
+            });
+
+
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( type === <span class="hljs-string">'responsive'</span> ) {
+
+            <span class="hljs-keyword">for</span> ( item <span class="hljs-keyword">in</span> value ) {
+
+                <span class="hljs-keyword">if</span>( $.type( _.options.responsive ) !== <span class="hljs-string">'array'</span> ) {
+
+                    _.options.responsive = [ value[item] ];
+
+                } <span class="hljs-keyword">else</span> {
+
+                    l = _.options.responsive.length<span class="hljs-number">-1</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>loop through the responsive object and splice out duplicates.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">                    <span class="hljs-keyword">while</span>( l &gt;= <span class="hljs-number">0</span> ) {
+
+                        <span class="hljs-keyword">if</span>( _.options.responsive[l].breakpoint === value[item].breakpoint ) {
+
+                            _.options.responsive.splice(l,<span class="hljs-number">1</span>);
+
+                        }
+
+                        l--;
+
+                    }
+
+                    _.options.responsive.push( value[item] );
+
+                }
+
+            }
+
+        }
+
+        <span class="hljs-keyword">if</span> ( refresh ) {
+
+            _.unload();
+            _.reinit();
+
+        }
+
+    };
+
+    Slick.prototype.setPosition = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        _.setDimensions();
+
+        _.setHeight();
+
+        <span class="hljs-keyword">if</span> (_.options.fade === <span class="hljs-literal">false</span>) {
+            _.setCSS(_.getLeft(_.currentSlide));
+        } <span class="hljs-keyword">else</span> {
+            _.setFade();
+        }
+
+        _.$slider.trigger(<span class="hljs-string">'setPosition'</span>, [_]);
+
+    };
+
+    Slick.prototype.setProps = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            bodyStyle = <span class="hljs-built_in">document</span>.body.style;
+
+        _.positionProp = _.options.vertical === <span class="hljs-literal">true</span> ? <span class="hljs-string">'top'</span> : <span class="hljs-string">'left'</span>;
+
+        <span class="hljs-keyword">if</span> (_.positionProp === <span class="hljs-string">'top'</span>) {
+            _.$slider.addClass(<span class="hljs-string">'slick-vertical'</span>);
+        } <span class="hljs-keyword">else</span> {
+            _.$slider.removeClass(<span class="hljs-string">'slick-vertical'</span>);
+        }
+
+        <span class="hljs-keyword">if</span> (bodyStyle.WebkitTransition !== <span class="hljs-literal">undefined</span> ||
+            bodyStyle.MozTransition !== <span class="hljs-literal">undefined</span> ||
+            bodyStyle.msTransition !== <span class="hljs-literal">undefined</span>) {
+            <span class="hljs-keyword">if</span> (_.options.useCSS === <span class="hljs-literal">true</span>) {
+                _.cssTransitions = <span class="hljs-literal">true</span>;
+            }
+        }
+
+        <span class="hljs-keyword">if</span> ( _.options.fade ) {
+            <span class="hljs-keyword">if</span> ( <span class="hljs-keyword">typeof</span> _.options.zIndex === <span class="hljs-string">'number'</span> ) {
+                <span class="hljs-keyword">if</span>( _.options.zIndex &lt; <span class="hljs-number">3</span> ) {
+                    _.options.zIndex = <span class="hljs-number">3</span>;
+                }
+            } <span class="hljs-keyword">else</span> {
+                _.options.zIndex = _.defaults.zIndex;
+            }
+        }
+
+        <span class="hljs-keyword">if</span> (bodyStyle.OTransform !== <span class="hljs-literal">undefined</span>) {
+            _.animType = <span class="hljs-string">'OTransform'</span>;
+            _.transformType = <span class="hljs-string">'-o-transform'</span>;
+            _.transitionType = <span class="hljs-string">'OTransition'</span>;
+            <span class="hljs-keyword">if</span> (bodyStyle.perspectiveProperty === <span class="hljs-literal">undefined</span> &amp;&amp; bodyStyle.webkitPerspective === <span class="hljs-literal">undefined</span>) _.animType = <span class="hljs-literal">false</span>;
+        }
+        <span class="hljs-keyword">if</span> (bodyStyle.MozTransform !== <span class="hljs-literal">undefined</span>) {
+            _.animType = <span class="hljs-string">'MozTransform'</span>;
+            _.transformType = <span class="hljs-string">'-moz-transform'</span>;
+            _.transitionType = <span class="hljs-string">'MozTransition'</span>;
+            <span class="hljs-keyword">if</span> (bodyStyle.perspectiveProperty === <span class="hljs-literal">undefined</span> &amp;&amp; bodyStyle.MozPerspective === <span class="hljs-literal">undefined</span>) _.animType = <span class="hljs-literal">false</span>;
+        }
+        <span class="hljs-keyword">if</span> (bodyStyle.webkitTransform !== <span class="hljs-literal">undefined</span>) {
+            _.animType = <span class="hljs-string">'webkitTransform'</span>;
+            _.transformType = <span class="hljs-string">'-webkit-transform'</span>;
+            _.transitionType = <span class="hljs-string">'webkitTransition'</span>;
+            <span class="hljs-keyword">if</span> (bodyStyle.perspectiveProperty === <span class="hljs-literal">undefined</span> &amp;&amp; bodyStyle.webkitPerspective === <span class="hljs-literal">undefined</span>) _.animType = <span class="hljs-literal">false</span>;
+        }
+        <span class="hljs-keyword">if</span> (bodyStyle.msTransform !== <span class="hljs-literal">undefined</span>) {
+            _.animType = <span class="hljs-string">'msTransform'</span>;
+            _.transformType = <span class="hljs-string">'-ms-transform'</span>;
+            _.transitionType = <span class="hljs-string">'msTransition'</span>;
+            <span class="hljs-keyword">if</span> (bodyStyle.msTransform === <span class="hljs-literal">undefined</span>) _.animType = <span class="hljs-literal">false</span>;
+        }
+        <span class="hljs-keyword">if</span> (bodyStyle.transform !== <span class="hljs-literal">undefined</span> &amp;&amp; _.animType !== <span class="hljs-literal">false</span>) {
+            _.animType = <span class="hljs-string">'transform'</span>;
+            _.transformType = <span class="hljs-string">'transform'</span>;
+            _.transitionType = <span class="hljs-string">'transition'</span>;
+        }
+        _.transformsEnabled = _.options.useTransform &amp;&amp; (_.animType !== <span class="hljs-literal">null</span> &amp;&amp; _.animType !== <span class="hljs-literal">false</span>);
+    };
+
+
+    Slick.prototype.setSlideClasses = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            centerOffset, allSlides, indexOffset, remainder;
+
+        allSlides = _.$slider
+            .find(<span class="hljs-string">'.slick-slide'</span>)
+            .removeClass(<span class="hljs-string">'slick-active slick-center slick-current'</span>)
+            .attr(<span class="hljs-string">'aria-hidden'</span>, <span class="hljs-string">'true'</span>);
+
+        _.$slides
+            .eq(index)
+            .addClass(<span class="hljs-string">'slick-current'</span>);
+
+        <span class="hljs-keyword">if</span> (_.options.centerMode === <span class="hljs-literal">true</span>) {
+
+            <span class="hljs-keyword">var</span> evenCoef = _.options.slidesToShow % <span class="hljs-number">2</span> === <span class="hljs-number">0</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;
+
+            centerOffset = <span class="hljs-built_in">Math</span>.floor(_.options.slidesToShow / <span class="hljs-number">2</span>);
+
+            <span class="hljs-keyword">if</span> (_.options.infinite === <span class="hljs-literal">true</span>) {
+
+                <span class="hljs-keyword">if</span> (index &gt;= centerOffset &amp;&amp; index &lt;= (_.slideCount - <span class="hljs-number">1</span>) - centerOffset) {
+                    _.$slides
+                        .slice(index - centerOffset + evenCoef, index + centerOffset + <span class="hljs-number">1</span>)
+                        .addClass(<span class="hljs-string">'slick-active'</span>)
+                        .attr(<span class="hljs-string">'aria-hidden'</span>, <span class="hljs-string">'false'</span>);
+
+                } <span class="hljs-keyword">else</span> {
+
+                    indexOffset = _.options.slidesToShow + index;
+                    allSlides
+                        .slice(indexOffset - centerOffset + <span class="hljs-number">1</span> + evenCoef, indexOffset + centerOffset + <span class="hljs-number">2</span>)
+                        .addClass(<span class="hljs-string">'slick-active'</span>)
+                        .attr(<span class="hljs-string">'aria-hidden'</span>, <span class="hljs-string">'false'</span>);
+
+                }
+
+                <span class="hljs-keyword">if</span> (index === <span class="hljs-number">0</span>) {
+
+                    allSlides
+                        .eq(allSlides.length - <span class="hljs-number">1</span> - _.options.slidesToShow)
+                        .addClass(<span class="hljs-string">'slick-center'</span>);
+
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (index === _.slideCount - <span class="hljs-number">1</span>) {
+
+                    allSlides
+                        .eq(_.options.slidesToShow)
+                        .addClass(<span class="hljs-string">'slick-center'</span>);
+
+                }
+
+            }
+
+            _.$slides
+                .eq(index)
+                .addClass(<span class="hljs-string">'slick-center'</span>);
+
+        } <span class="hljs-keyword">else</span> {
+
+            <span class="hljs-keyword">if</span> (index &gt;= <span class="hljs-number">0</span> &amp;&amp; index &lt;= (_.slideCount - _.options.slidesToShow)) {
+
+                _.$slides
+                    .slice(index, index + _.options.slidesToShow)
+                    .addClass(<span class="hljs-string">'slick-active'</span>)
+                    .attr(<span class="hljs-string">'aria-hidden'</span>, <span class="hljs-string">'false'</span>);
+
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (allSlides.length &lt;= _.options.slidesToShow) {
+
+                allSlides
+                    .addClass(<span class="hljs-string">'slick-active'</span>)
+                    .attr(<span class="hljs-string">'aria-hidden'</span>, <span class="hljs-string">'false'</span>);
+
+            } <span class="hljs-keyword">else</span> {
+
+                remainder = _.slideCount % _.options.slidesToShow;
+                indexOffset = _.options.infinite === <span class="hljs-literal">true</span> ? _.options.slidesToShow + index : index;
+
+                <span class="hljs-keyword">if</span> (_.options.slidesToShow == _.options.slidesToScroll &amp;&amp; (_.slideCount - index) &lt; _.options.slidesToShow) {
+
+                    allSlides
+                        .slice(indexOffset - (_.options.slidesToShow - remainder), indexOffset + remainder)
+                        .addClass(<span class="hljs-string">'slick-active'</span>)
+                        .attr(<span class="hljs-string">'aria-hidden'</span>, <span class="hljs-string">'false'</span>);
+
+                } <span class="hljs-keyword">else</span> {
+
+                    allSlides
+                        .slice(indexOffset, indexOffset + _.options.slidesToShow)
+                        .addClass(<span class="hljs-string">'slick-active'</span>)
+                        .attr(<span class="hljs-string">'aria-hidden'</span>, <span class="hljs-string">'false'</span>);
+
+                }
+
+            }
+
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.lazyLoad === <span class="hljs-string">'ondemand'</span> || _.options.lazyLoad === <span class="hljs-string">'anticipated'</span>) {
+            _.lazyLoad();
+        }
+    };
+
+    Slick.prototype.setupInfinite = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            i, slideIndex, infiniteCount;
+
+        <span class="hljs-keyword">if</span> (_.options.fade === <span class="hljs-literal">true</span>) {
+            _.options.centerMode = <span class="hljs-literal">false</span>;
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.infinite === <span class="hljs-literal">true</span> &amp;&amp; _.options.fade === <span class="hljs-literal">false</span>) {
+
+            slideIndex = <span class="hljs-literal">null</span>;
+
+            <span class="hljs-keyword">if</span> (_.slideCount &gt; _.options.slidesToShow) {
+
+                <span class="hljs-keyword">if</span> (_.options.centerMode === <span class="hljs-literal">true</span>) {
+                    infiniteCount = _.options.slidesToShow + <span class="hljs-number">1</span>;
+                } <span class="hljs-keyword">else</span> {
+                    infiniteCount = _.options.slidesToShow;
+                }
+
+                <span class="hljs-keyword">for</span> (i = _.slideCount; i &gt; (_.slideCount -
+                        infiniteCount); i -= <span class="hljs-number">1</span>) {
+                    slideIndex = i - <span class="hljs-number">1</span>;
+                    $(_.$slides[slideIndex]).clone(<span class="hljs-literal">true</span>).attr(<span class="hljs-string">'id'</span>, <span class="hljs-string">''</span>)
+                        .attr(<span class="hljs-string">'data-slick-index'</span>, slideIndex - _.slideCount)
+                        .prependTo(_.$slideTrack).addClass(<span class="hljs-string">'slick-cloned'</span>);
+                }
+                <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; infiniteCount  + _.slideCount; i += <span class="hljs-number">1</span>) {
+                    slideIndex = i;
+                    $(_.$slides[slideIndex]).clone(<span class="hljs-literal">true</span>).attr(<span class="hljs-string">'id'</span>, <span class="hljs-string">''</span>)
+                        .attr(<span class="hljs-string">'data-slick-index'</span>, slideIndex + _.slideCount)
+                        .appendTo(_.$slideTrack).addClass(<span class="hljs-string">'slick-cloned'</span>);
+                }
+                _.$slideTrack.find(<span class="hljs-string">'.slick-cloned'</span>).find(<span class="hljs-string">'[id]'</span>).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    $(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'id'</span>, <span class="hljs-string">''</span>);
+                });
+
+            }
+
+        }
+
+    };
+
+    Slick.prototype.interrupt = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"> toggle </span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span>( !toggle ) {
+            _.autoPlay();
+        }
+        _.interrupted = toggle;
+
+    };
+
+    Slick.prototype.selectHandler = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">var</span> targetElement =
+            $(event.target).is(<span class="hljs-string">'.slick-slide'</span>) ?
+                $(event.target) :
+                $(event.target).parents(<span class="hljs-string">'.slick-slide'</span>);
+
+        <span class="hljs-keyword">var</span> index = <span class="hljs-built_in">parseInt</span>(targetElement.attr(<span class="hljs-string">'data-slick-index'</span>));
+
+        <span class="hljs-keyword">if</span> (!index) index = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">if</span> (_.slideCount &lt;= _.options.slidesToShow) {
+
+            _.slideHandler(index, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
+            <span class="hljs-keyword">return</span>;
+
+        }
+
+        _.slideHandler(index);
+
+    };
+
+    Slick.prototype.slideHandler = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, sync, dontAnimate</span>) </span>{
+
+        <span class="hljs-keyword">var</span> targetSlide, animSlide, oldSlide, slideLeft, targetLeft = <span class="hljs-literal">null</span>,
+            _ = <span class="hljs-keyword">this</span>, navTarget;
+
+        sync = sync || <span class="hljs-literal">false</span>;
+
+        <span class="hljs-keyword">if</span> (_.animating === <span class="hljs-literal">true</span> &amp;&amp; _.options.waitForAnimate === <span class="hljs-literal">true</span>) {
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.fade === <span class="hljs-literal">true</span> &amp;&amp; _.currentSlide === index) {
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">if</span> (sync === <span class="hljs-literal">false</span>) {
+            _.asNavFor(index);
+        }
+
+        targetSlide = index;
+        targetLeft = _.getLeft(targetSlide);
+        slideLeft = _.getLeft(_.currentSlide);
+
+        _.currentLeft = _.swipeLeft === <span class="hljs-literal">null</span> ? slideLeft : _.swipeLeft;
+
+        <span class="hljs-keyword">if</span> (_.options.infinite === <span class="hljs-literal">false</span> &amp;&amp; _.options.centerMode === <span class="hljs-literal">false</span> &amp;&amp; (index &lt; <span class="hljs-number">0</span> || index &gt; _.getDotCount() * _.options.slidesToScroll)) {
+            <span class="hljs-keyword">if</span> (_.options.fade === <span class="hljs-literal">false</span>) {
+                targetSlide = _.currentSlide;
+                <span class="hljs-keyword">if</span> (dontAnimate !== <span class="hljs-literal">true</span>) {
+                    _.animateSlide(slideLeft, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                        _.postSlide(targetSlide);
+                    });
+                } <span class="hljs-keyword">else</span> {
+                    _.postSlide(targetSlide);
+                }
+            }
+            <span class="hljs-keyword">return</span>;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (_.options.infinite === <span class="hljs-literal">false</span> &amp;&amp; _.options.centerMode === <span class="hljs-literal">true</span> &amp;&amp; (index &lt; <span class="hljs-number">0</span> || index &gt; (_.slideCount - _.options.slidesToScroll))) {
+            <span class="hljs-keyword">if</span> (_.options.fade === <span class="hljs-literal">false</span>) {
+                targetSlide = _.currentSlide;
+                <span class="hljs-keyword">if</span> (dontAnimate !== <span class="hljs-literal">true</span>) {
+                    _.animateSlide(slideLeft, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                        _.postSlide(targetSlide);
+                    });
+                } <span class="hljs-keyword">else</span> {
+                    _.postSlide(targetSlide);
+                }
+            }
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">if</span> ( _.options.autoplay ) {
+            clearInterval(_.autoPlayTimer);
+        }
+
+        <span class="hljs-keyword">if</span> (targetSlide &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">if</span> (_.slideCount % _.options.slidesToScroll !== <span class="hljs-number">0</span>) {
+                animSlide = _.slideCount - (_.slideCount % _.options.slidesToScroll);
+            } <span class="hljs-keyword">else</span> {
+                animSlide = _.slideCount + targetSlide;
+            }
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (targetSlide &gt;= _.slideCount) {
+            <span class="hljs-keyword">if</span> (_.slideCount % _.options.slidesToScroll !== <span class="hljs-number">0</span>) {
+                animSlide = <span class="hljs-number">0</span>;
+            } <span class="hljs-keyword">else</span> {
+                animSlide = targetSlide - _.slideCount;
+            }
+        } <span class="hljs-keyword">else</span> {
+            animSlide = targetSlide;
+        }
+
+        _.animating = <span class="hljs-literal">true</span>;
+
+        _.$slider.trigger(<span class="hljs-string">'beforeChange'</span>, [_, _.currentSlide, animSlide]);
+
+        oldSlide = _.currentSlide;
+        _.currentSlide = animSlide;
+
+        _.setSlideClasses(_.currentSlide);
+
+        <span class="hljs-keyword">if</span> ( _.options.asNavFor ) {
+
+            navTarget = _.getNavTarget();
+            navTarget = navTarget.slick(<span class="hljs-string">'getSlick'</span>);
+
+            <span class="hljs-keyword">if</span> ( navTarget.slideCount &lt;= navTarget.options.slidesToShow ) {
+                navTarget.setSlideClasses(_.currentSlide);
+            }
+
+        }
+
+        _.updateDots();
+        _.updateArrows();
+
+        <span class="hljs-keyword">if</span> (_.options.fade === <span class="hljs-literal">true</span>) {
+            <span class="hljs-keyword">if</span> (dontAnimate !== <span class="hljs-literal">true</span>) {
+
+                _.fadeSlideOut(oldSlide);
+
+                _.fadeSlide(animSlide, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    _.postSlide(animSlide);
+                });
+
+            } <span class="hljs-keyword">else</span> {
+                _.postSlide(animSlide);
+            }
+            _.animateHeight();
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">if</span> (dontAnimate !== <span class="hljs-literal">true</span>) {
+            _.animateSlide(targetLeft, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                _.postSlide(animSlide);
+            });
+        } <span class="hljs-keyword">else</span> {
+            _.postSlide(animSlide);
+        }
+
+    };
+
+    Slick.prototype.startLoad = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.options.arrows === <span class="hljs-literal">true</span> &amp;&amp; _.slideCount &gt; _.options.slidesToShow) {
+
+            _.$prevArrow.hide();
+            _.$nextArrow.hide();
+
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.dots === <span class="hljs-literal">true</span> &amp;&amp; _.slideCount &gt; _.options.slidesToShow) {
+
+            _.$dots.hide();
+
+        }
+
+        _.$slider.addClass(<span class="hljs-string">'slick-loading'</span>);
+
+    };
+
+    Slick.prototype.swipeDirection = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> xDist, yDist, r, swipeAngle, _ = <span class="hljs-keyword">this</span>;
+
+        xDist = _.touchObject.startX - _.touchObject.curX;
+        yDist = _.touchObject.startY - _.touchObject.curY;
+        r = <span class="hljs-built_in">Math</span>.atan2(yDist, xDist);
+
+        swipeAngle = <span class="hljs-built_in">Math</span>.round(r * <span class="hljs-number">180</span> / <span class="hljs-built_in">Math</span>.PI);
+        <span class="hljs-keyword">if</span> (swipeAngle &lt; <span class="hljs-number">0</span>) {
+            swipeAngle = <span class="hljs-number">360</span> - <span class="hljs-built_in">Math</span>.abs(swipeAngle);
+        }
+
+        <span class="hljs-keyword">if</span> ((swipeAngle &lt;= <span class="hljs-number">45</span>) &amp;&amp; (swipeAngle &gt;= <span class="hljs-number">0</span>)) {
+            <span class="hljs-keyword">return</span> (_.options.rtl === <span class="hljs-literal">false</span> ? <span class="hljs-string">'left'</span> : <span class="hljs-string">'right'</span>);
+        }
+        <span class="hljs-keyword">if</span> ((swipeAngle &lt;= <span class="hljs-number">360</span>) &amp;&amp; (swipeAngle &gt;= <span class="hljs-number">315</span>)) {
+            <span class="hljs-keyword">return</span> (_.options.rtl === <span class="hljs-literal">false</span> ? <span class="hljs-string">'left'</span> : <span class="hljs-string">'right'</span>);
+        }
+        <span class="hljs-keyword">if</span> ((swipeAngle &gt;= <span class="hljs-number">135</span>) &amp;&amp; (swipeAngle &lt;= <span class="hljs-number">225</span>)) {
+            <span class="hljs-keyword">return</span> (_.options.rtl === <span class="hljs-literal">false</span> ? <span class="hljs-string">'right'</span> : <span class="hljs-string">'left'</span>);
+        }
+        <span class="hljs-keyword">if</span> (_.options.verticalSwiping === <span class="hljs-literal">true</span>) {
+            <span class="hljs-keyword">if</span> ((swipeAngle &gt;= <span class="hljs-number">35</span>) &amp;&amp; (swipeAngle &lt;= <span class="hljs-number">135</span>)) {
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'down'</span>;
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'up'</span>;
+            }
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'vertical'</span>;
+
+    };
+
+    Slick.prototype.swipeEnd = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            slideCount,
+            direction;
+
+        _.dragging = <span class="hljs-literal">false</span>;
+        _.swiping = <span class="hljs-literal">false</span>;
+
+        <span class="hljs-keyword">if</span> (_.scrolling) {
+            _.scrolling = <span class="hljs-literal">false</span>;
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+
+        _.interrupted = <span class="hljs-literal">false</span>;
+        _.shouldClick = ( _.touchObject.swipeLength &gt; <span class="hljs-number">10</span> ) ? <span class="hljs-literal">false</span> : <span class="hljs-literal">true</span>;
+
+        <span class="hljs-keyword">if</span> ( _.touchObject.curX === <span class="hljs-literal">undefined</span> ) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+
+        <span class="hljs-keyword">if</span> ( _.touchObject.edgeHit === <span class="hljs-literal">true</span> ) {
+            _.$slider.trigger(<span class="hljs-string">'edge'</span>, [_, _.swipeDirection() ]);
+        }
+
+        <span class="hljs-keyword">if</span> ( _.touchObject.swipeLength &gt;= _.touchObject.minSwipe ) {
+
+            direction = _.swipeDirection();
+
+            <span class="hljs-keyword">switch</span> ( direction ) {
+
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'left'</span>:
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'down'</span>:
+
+                    slideCount =
+                        _.options.swipeToSlide ?
+                            _.checkNavigable( _.currentSlide + _.getSlideCount() ) :
+                            _.currentSlide + _.getSlideCount();
+
+                    _.currentDirection = <span class="hljs-number">0</span>;
+
+                    <span class="hljs-keyword">break</span>;
+
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'right'</span>:
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'up'</span>:
+
+                    slideCount =
+                        _.options.swipeToSlide ?
+                            _.checkNavigable( _.currentSlide - _.getSlideCount() ) :
+                            _.currentSlide - _.getSlideCount();
+
+                    _.currentDirection = <span class="hljs-number">1</span>;
+
+                    <span class="hljs-keyword">break</span>;
+
+                <span class="hljs-keyword">default</span>:
+
+
+            }
+
+            <span class="hljs-keyword">if</span>( direction != <span class="hljs-string">'vertical'</span> ) {
+
+                _.slideHandler( slideCount );
+                _.touchObject = {};
+                _.$slider.trigger(<span class="hljs-string">'swipe'</span>, [_, direction ]);
+
+            }
+
+        } <span class="hljs-keyword">else</span> {
+
+            <span class="hljs-keyword">if</span> ( _.touchObject.startX !== _.touchObject.curX ) {
+
+                _.slideHandler( _.currentSlide );
+                _.touchObject = {};
+
+            }
+
+        }
+
+    };
+
+    Slick.prototype.swipeHandler = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> ((_.options.swipe === <span class="hljs-literal">false</span>) || (<span class="hljs-string">'ontouchend'</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">document</span> &amp;&amp; _.options.swipe === <span class="hljs-literal">false</span>)) {
+            <span class="hljs-keyword">return</span>;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (_.options.draggable === <span class="hljs-literal">false</span> &amp;&amp; event.type.indexOf(<span class="hljs-string">'mouse'</span>) !== <span class="hljs-number">-1</span>) {
+            <span class="hljs-keyword">return</span>;
+        }
+
+        _.touchObject.fingerCount = event.originalEvent &amp;&amp; event.originalEvent.touches !== <span class="hljs-literal">undefined</span> ?
+            event.originalEvent.touches.length : <span class="hljs-number">1</span>;
+
+        _.touchObject.minSwipe = _.listWidth / _.options
+            .touchThreshold;
+
+        <span class="hljs-keyword">if</span> (_.options.verticalSwiping === <span class="hljs-literal">true</span>) {
+            _.touchObject.minSwipe = _.listHeight / _.options
+                .touchThreshold;
+        }
+
+        <span class="hljs-keyword">switch</span> (event.data.action) {
+
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'start'</span>:
+                _.swipeStart(event);
+                <span class="hljs-keyword">break</span>;
+
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'move'</span>:
+                _.swipeMove(event);
+                <span class="hljs-keyword">break</span>;
+
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'end'</span>:
+                _.swipeEnd(event);
+                <span class="hljs-keyword">break</span>;
+
+        }
+
+    };
+
+    Slick.prototype.swipeMove = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            edgeWasHit = <span class="hljs-literal">false</span>,
+            curLeft, swipeDirection, swipeLength, positionOffset, touches, verticalSwipeLength;
+
+        touches = event.originalEvent !== <span class="hljs-literal">undefined</span> ? event.originalEvent.touches : <span class="hljs-literal">null</span>;
+
+        <span class="hljs-keyword">if</span> (!_.dragging || _.scrolling || touches &amp;&amp; touches.length !== <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+
+        curLeft = _.getLeft(_.currentSlide);
+
+        _.touchObject.curX = touches !== <span class="hljs-literal">undefined</span> ? touches[<span class="hljs-number">0</span>].pageX : event.clientX;
+        _.touchObject.curY = touches !== <span class="hljs-literal">undefined</span> ? touches[<span class="hljs-number">0</span>].pageY : event.clientY;
+
+        _.touchObject.swipeLength = <span class="hljs-built_in">Math</span>.round(<span class="hljs-built_in">Math</span>.sqrt(
+            <span class="hljs-built_in">Math</span>.pow(_.touchObject.curX - _.touchObject.startX, <span class="hljs-number">2</span>)));
+
+        verticalSwipeLength = <span class="hljs-built_in">Math</span>.round(<span class="hljs-built_in">Math</span>.sqrt(
+            <span class="hljs-built_in">Math</span>.pow(_.touchObject.curY - _.touchObject.startY, <span class="hljs-number">2</span>)));
+
+        <span class="hljs-keyword">if</span> (!_.options.verticalSwiping &amp;&amp; !_.swiping &amp;&amp; verticalSwipeLength &gt; <span class="hljs-number">4</span>) {
+            _.scrolling = <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.verticalSwiping === <span class="hljs-literal">true</span>) {
+            _.touchObject.swipeLength = verticalSwipeLength;
+        }
+
+        swipeDirection = _.swipeDirection();
+
+        <span class="hljs-keyword">if</span> (event.originalEvent !== <span class="hljs-literal">undefined</span> &amp;&amp; _.touchObject.swipeLength &gt; <span class="hljs-number">4</span>) {
+            _.swiping = <span class="hljs-literal">true</span>;
+            event.preventDefault();
+        }
+
+        positionOffset = (_.options.rtl === <span class="hljs-literal">false</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">-1</span>) * (_.touchObject.curX &gt; _.touchObject.startX ? <span class="hljs-number">1</span> : <span class="hljs-number">-1</span>);
+        <span class="hljs-keyword">if</span> (_.options.verticalSwiping === <span class="hljs-literal">true</span>) {
+            positionOffset = _.touchObject.curY &gt; _.touchObject.startY ? <span class="hljs-number">1</span> : <span class="hljs-number">-1</span>;
+        }
+
+
+        swipeLength = _.touchObject.swipeLength;
+
+        _.touchObject.edgeHit = <span class="hljs-literal">false</span>;
+
+        <span class="hljs-keyword">if</span> (_.options.infinite === <span class="hljs-literal">false</span>) {
+            <span class="hljs-keyword">if</span> ((_.currentSlide === <span class="hljs-number">0</span> &amp;&amp; swipeDirection === <span class="hljs-string">'right'</span>) || (_.currentSlide &gt;= _.getDotCount() &amp;&amp; swipeDirection === <span class="hljs-string">'left'</span>)) {
+                swipeLength = _.touchObject.swipeLength * _.options.edgeFriction;
+                _.touchObject.edgeHit = <span class="hljs-literal">true</span>;
+            }
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.vertical === <span class="hljs-literal">false</span>) {
+            _.swipeLeft = curLeft + swipeLength * positionOffset;
+        } <span class="hljs-keyword">else</span> {
+            _.swipeLeft = curLeft + (swipeLength * (_.$list.height() / _.listWidth)) * positionOffset;
+        }
+        <span class="hljs-keyword">if</span> (_.options.verticalSwiping === <span class="hljs-literal">true</span>) {
+            _.swipeLeft = curLeft + swipeLength * positionOffset;
+        }
+
+        <span class="hljs-keyword">if</span> (_.options.fade === <span class="hljs-literal">true</span> || _.options.touchMove === <span class="hljs-literal">false</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+
+        <span class="hljs-keyword">if</span> (_.animating === <span class="hljs-literal">true</span>) {
+            _.swipeLeft = <span class="hljs-literal">null</span>;
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+
+        _.setCSS(_.swipeLeft);
+
+    };
+
+    Slick.prototype.swipeStart = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            touches;
+
+        _.interrupted = <span class="hljs-literal">true</span>;
+
+        <span class="hljs-keyword">if</span> (_.touchObject.fingerCount !== <span class="hljs-number">1</span> || _.slideCount &lt;= _.options.slidesToShow) {
+            _.touchObject = {};
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+
+        <span class="hljs-keyword">if</span> (event.originalEvent !== <span class="hljs-literal">undefined</span> &amp;&amp; event.originalEvent.touches !== <span class="hljs-literal">undefined</span>) {
+            touches = event.originalEvent.touches[<span class="hljs-number">0</span>];
+        }
+
+        _.touchObject.startX = _.touchObject.curX = touches !== <span class="hljs-literal">undefined</span> ? touches.pageX : event.clientX;
+        _.touchObject.startY = _.touchObject.curY = touches !== <span class="hljs-literal">undefined</span> ? touches.pageY : event.clientY;
+
+        _.dragging = <span class="hljs-literal">true</span>;
+
+    };
+
+    Slick.prototype.unfilterSlides = Slick.prototype.slickUnfilter = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.$slidesCache !== <span class="hljs-literal">null</span>) {
+
+            _.unload();
+
+            _.$slideTrack.children(<span class="hljs-keyword">this</span>.options.slide).detach();
+
+            _.$slidesCache.appendTo(_.$slideTrack);
+
+            _.reinit();
+
+        }
+
+    };
+
+    Slick.prototype.unload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        $(<span class="hljs-string">'.slick-cloned'</span>, _.$slider).remove();
+
+        <span class="hljs-keyword">if</span> (_.$dots) {
+            _.$dots.remove();
+        }
+
+        <span class="hljs-keyword">if</span> (_.$prevArrow &amp;&amp; _.htmlExpr.test(_.options.prevArrow)) {
+            _.$prevArrow.remove();
+        }
+
+        <span class="hljs-keyword">if</span> (_.$nextArrow &amp;&amp; _.htmlExpr.test(_.options.nextArrow)) {
+            _.$nextArrow.remove();
+        }
+
+        _.$slides
+            .removeClass(<span class="hljs-string">'slick-slide slick-active slick-visible slick-current'</span>)
+            .attr(<span class="hljs-string">'aria-hidden'</span>, <span class="hljs-string">'true'</span>)
+            .css(<span class="hljs-string">'width'</span>, <span class="hljs-string">''</span>);
+
+    };
+
+    Slick.prototype.unslick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fromBreakpoint</span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+        _.$slider.trigger(<span class="hljs-string">'unslick'</span>, [_, fromBreakpoint]);
+        _.destroy();
+
+    };
+
+    Slick.prototype.updateArrows = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            centerOffset;
+
+        centerOffset = <span class="hljs-built_in">Math</span>.floor(_.options.slidesToShow / <span class="hljs-number">2</span>);
+
+        <span class="hljs-keyword">if</span> ( _.options.arrows === <span class="hljs-literal">true</span> &amp;&amp;
+            _.slideCount &gt; _.options.slidesToShow &amp;&amp;
+            !_.options.infinite ) {
+
+            _.$prevArrow.removeClass(<span class="hljs-string">'slick-disabled'</span>).attr(<span class="hljs-string">'aria-disabled'</span>, <span class="hljs-string">'false'</span>);
+            _.$nextArrow.removeClass(<span class="hljs-string">'slick-disabled'</span>).attr(<span class="hljs-string">'aria-disabled'</span>, <span class="hljs-string">'false'</span>);
+
+            <span class="hljs-keyword">if</span> (_.currentSlide === <span class="hljs-number">0</span>) {
+
+                _.$prevArrow.addClass(<span class="hljs-string">'slick-disabled'</span>).attr(<span class="hljs-string">'aria-disabled'</span>, <span class="hljs-string">'true'</span>);
+                _.$nextArrow.removeClass(<span class="hljs-string">'slick-disabled'</span>).attr(<span class="hljs-string">'aria-disabled'</span>, <span class="hljs-string">'false'</span>);
+
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (_.currentSlide &gt;= _.slideCount - _.options.slidesToShow &amp;&amp; _.options.centerMode === <span class="hljs-literal">false</span>) {
+
+                _.$nextArrow.addClass(<span class="hljs-string">'slick-disabled'</span>).attr(<span class="hljs-string">'aria-disabled'</span>, <span class="hljs-string">'true'</span>);
+                _.$prevArrow.removeClass(<span class="hljs-string">'slick-disabled'</span>).attr(<span class="hljs-string">'aria-disabled'</span>, <span class="hljs-string">'false'</span>);
+
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (_.currentSlide &gt;= _.slideCount - <span class="hljs-number">1</span> &amp;&amp; _.options.centerMode === <span class="hljs-literal">true</span>) {
+
+                _.$nextArrow.addClass(<span class="hljs-string">'slick-disabled'</span>).attr(<span class="hljs-string">'aria-disabled'</span>, <span class="hljs-string">'true'</span>);
+                _.$prevArrow.removeClass(<span class="hljs-string">'slick-disabled'</span>).attr(<span class="hljs-string">'aria-disabled'</span>, <span class="hljs-string">'false'</span>);
+
+            }
+
+        }
+
+    };
+
+    Slick.prototype.updateDots = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> (_.$dots !== <span class="hljs-literal">null</span>) {
+
+            _.$dots
+                .find(<span class="hljs-string">'li'</span>)
+                    .removeClass(<span class="hljs-string">'slick-active'</span>)
+                    .end();
+
+            _.$dots
+                .find(<span class="hljs-string">'li'</span>)
+                .eq(<span class="hljs-built_in">Math</span>.floor(_.currentSlide / _.options.slidesToScroll))
+                .addClass(<span class="hljs-string">'slick-active'</span>);
+
+        }
+
+    };
+
+    Slick.prototype.visibility = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">if</span> ( _.options.autoplay ) {
+
+            <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">document</span>[_.hidden] ) {
+
+                _.interrupted = <span class="hljs-literal">true</span>;
+
+            } <span class="hljs-keyword">else</span> {
+
+                _.interrupted = <span class="hljs-literal">false</span>;
+
+            }
+
+        }
+
+    };
+
+    $.fn.slick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> _ = <span class="hljs-keyword">this</span>,
+            opt = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>],
+            args = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">1</span>),
+            l = _.length,
+            i,
+            ret;
+        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; l; i++) {
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opt == <span class="hljs-string">'object'</span> || <span class="hljs-keyword">typeof</span> opt == <span class="hljs-string">'undefined'</span>)
+                _[i].slick = <span class="hljs-keyword">new</span> Slick(_[i], opt);
+            <span class="hljs-keyword">else</span>
+                ret = _[i].slick[opt].apply(_[i].slick, args);
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> ret != <span class="hljs-string">'undefined'</span>) <span class="hljs-keyword">return</span> ret;
+        }
+        <span class="hljs-keyword">return</span> _;
+    };
+
+}));
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

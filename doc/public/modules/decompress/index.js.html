@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\decompress\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'graceful-fs'</span>);
+<span class="hljs-keyword">const</span> decompressTar = <span class="hljs-built_in">require</span>(<span class="hljs-string">'decompress-tar'</span>);
+<span class="hljs-keyword">const</span> decompressTarbz2 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'decompress-tarbz2'</span>);
+<span class="hljs-keyword">const</span> decompressTargz = <span class="hljs-built_in">require</span>(<span class="hljs-string">'decompress-targz'</span>);
+<span class="hljs-keyword">const</span> decompressUnzip = <span class="hljs-built_in">require</span>(<span class="hljs-string">'decompress-unzip'</span>);
+<span class="hljs-keyword">const</span> makeDir = <span class="hljs-built_in">require</span>(<span class="hljs-string">'make-dir'</span>);
+<span class="hljs-keyword">const</span> pify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pify'</span>);
+<span class="hljs-keyword">const</span> stripDirs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'strip-dirs'</span>);
+
+<span class="hljs-keyword">const</span> fsP = pify(fs);
+
+<span class="hljs-keyword">const</span> runPlugins = <span class="hljs-function">(<span class="hljs-params">input, opts</span>) =&gt;</span> {
+	<span class="hljs-keyword">if</span> (opts.plugins.length === <span class="hljs-number">0</span>) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve([]);
+	}
+
+	<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(opts.plugins.map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x(input, opts))).then(<span class="hljs-function"><span class="hljs-params">files</span> =&gt;</span> files.reduce(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a.concat(b)));
+};
+
+<span class="hljs-keyword">const</span> extractFile = <span class="hljs-function">(<span class="hljs-params">input, output, opts</span>) =&gt;</span> runPlugins(input, opts).then(<span class="hljs-function"><span class="hljs-params">files</span> =&gt;</span> {
+	<span class="hljs-keyword">if</span> (opts.strip &gt; <span class="hljs-number">0</span>) {
+		files = files
+			.map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> {
+				x.path = stripDirs(x.path, opts.strip);
+				<span class="hljs-keyword">return</span> x;
+			})
+			.filter(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x.path !== <span class="hljs-string">'.'</span>);
+	}
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opts.filter === <span class="hljs-string">'function'</span>) {
+		files = files.filter(opts.filter);
+	}
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opts.map === <span class="hljs-string">'function'</span>) {
+		files = files.map(opts.map);
+	}
+
+	<span class="hljs-keyword">if</span> (!output) {
+		<span class="hljs-keyword">return</span> files;
+	}
+
+	<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(files.map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> {
+		<span class="hljs-keyword">const</span> dest = path.join(output, x.path);
+		<span class="hljs-keyword">const</span> mode = x.mode &amp; ~process.umask();
+		<span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+
+		<span class="hljs-keyword">if</span> (x.type === <span class="hljs-string">'directory'</span>) {
+			<span class="hljs-keyword">return</span> makeDir(dest)
+				.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> fsP.utimes(dest, now, x.mtime))
+				.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> x);
+		}
+
+		<span class="hljs-keyword">return</span> makeDir(path.dirname(dest))
+			.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+				<span class="hljs-keyword">if</span> (x.type === <span class="hljs-string">'link'</span>) {
+					<span class="hljs-keyword">return</span> fsP.link(x.linkname, dest);
+				}
+
+				<span class="hljs-keyword">if</span> (x.type === <span class="hljs-string">'symlink'</span> &amp;&amp; process.platform === <span class="hljs-string">'win32'</span>) {
+					<span class="hljs-keyword">return</span> fsP.link(x.linkname, dest);
+				}
+
+				<span class="hljs-keyword">if</span> (x.type === <span class="hljs-string">'symlink'</span>) {
+					<span class="hljs-keyword">return</span> fsP.symlink(x.linkname, dest);
+				}
+
+				<span class="hljs-keyword">return</span> fsP.writeFile(dest, x.data, {mode});
+			})
+			.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> x.type === <span class="hljs-string">'file'</span> &amp;&amp; fsP.utimes(dest, now, x.mtime))
+			.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> x);
+	}));
+});
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">input, output, opts</span>) =&gt;</span> {
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> input !== <span class="hljs-string">'string'</span> &amp;&amp; !Buffer.isBuffer(input)) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Input file required'</span>));
+	}
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> output === <span class="hljs-string">'object'</span>) {
+		opts = output;
+		output = <span class="hljs-literal">null</span>;
+	}
+
+	opts = <span class="hljs-built_in">Object</span>.assign({<span class="hljs-attr">plugins</span>: [
+		decompressTar(),
+		decompressTarbz2(),
+		decompressTargz(),
+		decompressUnzip()
+	]}, opts);
+
+	<span class="hljs-keyword">const</span> read = <span class="hljs-keyword">typeof</span> input === <span class="hljs-string">'string'</span> ? fsP.readFile(input) : <span class="hljs-built_in">Promise</span>.resolve(input);
+
+	<span class="hljs-keyword">return</span> read.then(<span class="hljs-function"><span class="hljs-params">buf</span> =&gt;</span> extractFile(buf, output, opts));
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

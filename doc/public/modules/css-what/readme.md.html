@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\css-what\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#css-what">css-what </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#example">Example</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="css-what">
+  <h1>
+    <a href="#css-what" name="css-what" class="pilcrow"></a>
+css-what <a href="http://travis-ci.org/fb55/css-what"><img src="https://secure.travis-ci.org/fb55/css-what.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<p>a CSS selector parser</p>
+<div class="pilwrap" id="example">
+  <h2>
+    <a href="#example" name="example" class="pilcrow"></a>
+Example
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-built_in">require</span>(<span class="hljs-string">'css-what'</span>)(<span class="hljs-string">'foo[bar]:baz'</span>)
+
+~&gt; [ [ { <span class="hljs-attr">type</span>: <span class="hljs-string">'tag'</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'foo'</span> },
+    { <span class="hljs-attr">type</span>: <span class="hljs-string">'attribute'</span>,
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'bar'</span>,
+      <span class="hljs-attr">action</span>: <span class="hljs-string">'exists'</span>,
+      <span class="hljs-attr">value</span>: <span class="hljs-string">''</span>,
+      <span class="hljs-attr">ignoreCase</span>: <span class="hljs-literal">false</span> },
+    { <span class="hljs-attr">type</span>: <span class="hljs-string">'pseudo'</span>,
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'baz'</span>,
+      <span class="hljs-attr">data</span>: <span class="hljs-literal">null</span> } ] ]
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<p><strong><code>CSSwhat(selector, options)</code> - Parses <code>str</code>, with the passed <code>options</code>.</strong></p>
+<p>The function returns a two-dimensional array. The first array represents selectors separated by commas (eg. <code>sub1, sub2</code>), the second contains the relevant tokens for that selector. Possible token types are:</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>attributes</th>
+<th>example</th>
+<th>output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tag</code></td>
+<td><code>name</code></td>
+<td><code>div</code></td>
+<td><code>{ type: 'tag', name: 'div' }</code></td>
+</tr>
+<tr>
+<td><code>universal</code></td>
+<td>-</td>
+<td><code>*</code></td>
+<td><code>{ type: 'universal' }</code></td>
+</tr>
+<tr>
+<td><code>pseudo</code></td>
+<td><code>name</code>, <code>data</code></td>
+<td><code>:name(data)</code></td>
+<td><code>{ type: 'pseudo', name: 'name', data: 'data' }</code></td>
+</tr>
+<tr>
+<td><code>pseudo</code></td>
+<td><code>name</code>, <code>data</code></td>
+<td><code>:name</code></td>
+<td><code>{ type: 'pseudo', name: 'name', data: null }</code></td>
+</tr>
+<tr>
+<td><code>pseudo-element</code></td>
+<td><code>name</code></td>
+<td><code>::name</code></td>
+<td><code>{ type: 'pseudo-element', name: 'name' }</code></td>
+</tr>
+<tr>
+<td><code>attribute</code></td>
+<td><code>name</code>, <code>action</code>, <code>value</code>, <code>ignoreCase</code></td>
+<td><code>[attr]</code></td>
+<td><code>{ type: 'attribute', name: 'attr', action: 'exists', value: '', ignoreCase: false }</code></td>
+</tr>
+<tr>
+<td><code>attribute</code></td>
+<td><code>name</code>, <code>action</code>, <code>value</code>, <code>ignoreCase</code></td>
+<td><code>[attr=val]</code></td>
+<td><code>{ type: 'attribute', name: 'attr', action: 'equals', value: 'val', ignoreCase: false }</code></td>
+</tr>
+<tr>
+<td><code>attribute</code></td>
+<td><code>name</code>, <code>action</code>, <code>value</code>, <code>ignoreCase</code></td>
+<td><code>[attr^=val]</code></td>
+<td><code>{ type: 'attribute', name: 'attr', action: 'start', value: 'val', ignoreCase: false }</code></td>
+</tr>
+<tr>
+<td><code>attribute</code></td>
+<td><code>name</code>, <code>action</code>, <code>value</code>, <code>ignoreCase</code></td>
+<td><code>[attr$=val]</code></td>
+<td><code>{ type: 'attribute', name: 'attr', action: 'end', value: 'val', ignoreCase: false }</code></td>
+</tr>
+<tr>
+<td><code>child</code></td>
+<td>-</td>
+<td><code>&gt;</code></td>
+<td><code>{ type: 'child' }</code></td>
+</tr>
+<tr>
+<td><code>parent</code></td>
+<td>-</td>
+<td><code>&lt;</code></td>
+<td><code>{ type: 'parent' }</code></td>
+</tr>
+<tr>
+<td><code>sibling</code></td>
+<td>-</td>
+<td><code>~</code></td>
+<td><code>{ type: 'sibling' }</code></td>
+</tr>
+<tr>
+<td><code>adjacent</code></td>
+<td>-</td>
+<td><code>+</code></td>
+<td><code>{ type: 'adjacent' }</code></td>
+</tr>
+<tr>
+<td><code>descendant</code></td>
+<td>-</td>
+<td></td>
+<td><code>{ type: 'descendant' }</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Options:</strong></p>
+<ul>
+<li><code>xmlMode</code>: When enabled, tag names will be case-sensitive (meaning they won't be lowercased).</li>
+</ul>
+<hr>
+<p>License: BSD-2-Clause</p>
+</div>
+  </div>
+</body>
+</html>

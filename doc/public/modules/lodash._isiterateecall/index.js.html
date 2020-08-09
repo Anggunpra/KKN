@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\lodash._isiterateecall\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>lodash 3.0.9 (Custom Build) <a href="https://lodash.com/">https://lodash.com/</a>
+Build: <code>lodash modern modularize exports=&quot;npm&quot; -o ./</code>
+Copyright 2012-2015 The Dojo Foundation <a href="http://dojofoundation.org/">http://dojofoundation.org/</a>
+Based on Underscore.js 1.8.3 <a href="http://underscorejs.org/LICENSE">http://underscorejs.org/LICENSE</a>
+Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters &amp; Editors
+Available under MIT license <a href="https://lodash.com/license">https://lodash.com/license</a></p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-comment">/** Used to detect unsigned integer values. */</span>
+<span class="hljs-keyword">var</span> reIsUint = <span class="hljs-regexp">/^\d+$/</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Used as the <a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.max_safe_integer">maximum length</a>
+of an array-like value.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> MAX_SAFE_INTEGER = <span class="hljs-number">9007199254740991</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.property</code> without support for deep paths.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the property to get.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseProperty</span>(<span class="hljs-params">key</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object</span>) </span>{
+    <span class="hljs-keyword">return</span> object == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : object[key];
+  };
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the &quot;length&quot; property value of <code>object</code>.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> This function is used to avoid a <a href="https://bugs.webkit.org/show_bug.cgi?id=142792">JIT bug</a>
+that affects Safari on at least iOS 8.1-8.3 ARM64.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> getLength = baseProperty(<span class="hljs-string">'length'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is array-like.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isArrayLike</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> value != <span class="hljs-literal">null</span> &amp;&amp; isLength(getLength(value));
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a valid array-like index.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[length=MAX_SAFE_INTEGER]</span>
+<span class="dox_type">number</span>
+<span>The upper bounds of a valid index.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isIndex</span>(<span class="hljs-params">value, length</span>) </span>{
+  value = (<span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'number'</span> || reIsUint.test(value)) ? +value : <span class="hljs-number">-1</span>;
+  length = length == <span class="hljs-literal">null</span> ? MAX_SAFE_INTEGER : length;
+  <span class="hljs-keyword">return</span> value &gt; <span class="hljs-number">-1</span> &amp;&amp; value % <span class="hljs-number">1</span> == <span class="hljs-number">0</span> &amp;&amp; value &lt; length;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if the provided arguments are from an iteratee call.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The potential iteratee value argument.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">index</span>
+<span>The potential iteratee index or key argument.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span>The potential iteratee object argument.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isIterateeCall</span>(<span class="hljs-params">value, index, object</span>) </span>{
+  <span class="hljs-keyword">if</span> (!isObject(object)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+  <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> index;
+  <span class="hljs-keyword">if</span> (type == <span class="hljs-string">'number'</span>
+      ? (isArrayLike(object) &amp;&amp; isIndex(index, object.length))
+      : (type == <span class="hljs-string">'string'</span> &amp;&amp; index <span class="hljs-keyword">in</span> object)) {
+    <span class="hljs-keyword">var</span> other = object[index];
+    <span class="hljs-keyword">return</span> value === value ? (value === other) : (other !== other);
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a valid array-like length.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> This function is based on <a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength"><code>ToLength</code></a>.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isLength</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'number'</span> &amp;&amp; value &gt; <span class="hljs-number">-1</span> &amp;&amp; value % <span class="hljs-number">1</span> == <span class="hljs-number">0</span> &amp;&amp; value &lt;= MAX_SAFE_INTEGER;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is the <a href="https://es5.github.io/#x8">language type</a> of <code>Object</code>.
+(e.g. arrays, functions, objects, regexes, <code>new Number(0)</code>, and <code>new String('')</code>)</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">value</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>Avoid a V8 JIT bug in Chrome 19-20.
+See https://code.google.com/p/v8/issues/detail?id=2291 for more details.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> value;
+  <span class="hljs-keyword">return</span> !!value &amp;&amp; (type == <span class="hljs-string">'object'</span> || type == <span class="hljs-string">'function'</span>);
+}
+
+<span class="hljs-built_in">module</span>.exports = isIterateeCall;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

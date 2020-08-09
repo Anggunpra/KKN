@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\imagemin-optipng\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#imagemin-optipng">imagemin-optipng  </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#imageminoptipng-options-buffer">imageminOptipng([options])(buffer)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#optimizationlevel">optimizationLevel</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#bitdepthreduction">bitDepthReduction</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#colortypereduction">colorTypeReduction</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#palettereduction">paletteReduction</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#buffer">buffer</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="imagemin-optipng">
+  <h1>
+    <a href="#imagemin-optipng" name="imagemin-optipng" class="pilcrow"></a>
+imagemin-optipng <a href="https://travis-ci.org/imagemin/imagemin-optipng"><img src="http://img.shields.io/travis/imagemin/imagemin-optipng.svg?style=flat" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/ShinnosukeWatanabe/imagemin-optipng"><img src="https://ci.appveyor.com/api/projects/status/4e5msglic4m7yxst?svg=true" alt="Build status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>optipng image-min plugin</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save imagemin-optipng
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> imagemin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin'</span>);
+<span class="hljs-keyword">const</span> imageminOptipng = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin-optipng'</span>);
+
+imagemin([<span class="hljs-string">'images/*.png'</span>], <span class="hljs-string">'build/images'</span>, {<span class="hljs-attr">use</span>: [imageminOptipng()]}).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Images optimized'</span>);
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="imageminoptipng-options-buffer">
+  <h3>
+    <a href="#imageminoptipng-options-buffer" name="imageminoptipng-options-buffer" class="pilcrow"></a>
+imageminOptipng([options])(buffer)
+  </h3>
+</div>
+<p>Returns a <code>Promise</code> for a <code>Buffer</code>.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<div class="pilwrap" id="optimizationlevel">
+  <h5>
+    <a href="#optimizationlevel" name="optimizationlevel" class="pilcrow"></a>
+optimizationLevel
+  </h5>
+</div>
+<p>Type: <code>number</code><br>
+Default: <code>3</code></p>
+<p>Select an optimization level between <code>0</code> and <code>7</code>.</p>
+<blockquote>
+<p>The optimization level 0 enables a set of optimization operations that require minimal effort. There will be no changes to image attributes like bit depth or color type, and no recompression of existing IDAT datastreams. The optimization level 1 enables a single IDAT compression trial. The trial chosen is what. OptiPNG thinks it’s probably the most effective. The optimization levels 2 and higher enable multiple IDAT compression trials; the higher the level, the more trials.</p>
+</blockquote>
+<p>Level and trials:</p>
+<ol>
+<li>1 trial</li>
+<li>8 trials</li>
+<li>16 trials</li>
+<li>24 trials</li>
+<li>48 trials</li>
+<li>120 trials</li>
+<li>240 trials</li>
+</ol>
+<div class="pilwrap" id="bitdepthreduction">
+  <h5>
+    <a href="#bitdepthreduction" name="bitdepthreduction" class="pilcrow"></a>
+bitDepthReduction
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>true</code></p>
+<p>Apply bit depth reduction.</p>
+<div class="pilwrap" id="colortypereduction">
+  <h5>
+    <a href="#colortypereduction" name="colortypereduction" class="pilcrow"></a>
+colorTypeReduction
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>true</code></p>
+<p>Apply color type reduction.</p>
+<div class="pilwrap" id="palettereduction">
+  <h5>
+    <a href="#palettereduction" name="palettereduction" class="pilcrow"></a>
+paletteReduction
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>true</code></p>
+<p>Apply palette reduction.</p>
+<div class="pilwrap" id="buffer">
+  <h4>
+    <a href="#buffer" name="buffer" class="pilcrow"></a>
+buffer
+  </h4>
+</div>
+<p>Type: <code>Buffer</code></p>
+<p>Buffer to optimize.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/imagemin">imagemin</a></p>
+</div>
+  </div>
+</body>
+</html>

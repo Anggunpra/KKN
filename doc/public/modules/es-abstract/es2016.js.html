@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>es2016.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es-abstract\\es2016.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>es2016.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> GetIntrinsic = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./GetIntrinsic'</span>);
+
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">Array</span> = GetIntrinsic(<span class="hljs-string">'%Array%'</span>);
+
+<span class="hljs-keyword">var</span> hasSymbols = <span class="hljs-built_in">require</span>(<span class="hljs-string">'has-symbols'</span>)();
+
+<span class="hljs-keyword">var</span> ES2015 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./es2015'</span>);
+<span class="hljs-keyword">var</span> assign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/assign'</span>);
+<span class="hljs-keyword">var</span> callBind = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/callBind'</span>);
+
+<span class="hljs-keyword">var</span> $arrayPush = callBind($<span class="hljs-built_in">Array</span>.prototype.push);
+<span class="hljs-keyword">var</span> $arraySlice = callBind($<span class="hljs-built_in">Array</span>.prototype.slice);
+<span class="hljs-keyword">var</span> $arrayJoin = callBind($<span class="hljs-built_in">Array</span>.prototype.join);
+
+<span class="hljs-keyword">var</span> ES2016 = assign(assign({}, ES2015), {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/7.0/#sec-samevaluenonnumber</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	SameValueNonNumber: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SameValueNonNumber</span>(<span class="hljs-params">x, y</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">'number'</span> || <span class="hljs-keyword">typeof</span> x !== <span class="hljs-keyword">typeof</span> y) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'SameValueNonNumber requires two non-number values of the same type.'</span>);
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.SameValue(x, y);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/7.0/#sec-iterabletoarraylike</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IterableToArrayLike: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IterableToArrayLike</span>(<span class="hljs-params">items</span>) </span>{
+		<span class="hljs-keyword">var</span> usingIterator;
+		<span class="hljs-keyword">if</span> (hasSymbols) {
+			usingIterator = <span class="hljs-keyword">this</span>.GetMethod(items, <span class="hljs-built_in">Symbol</span>.iterator);
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.IsArray(items)) {
+			usingIterator = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">var</span> i = <span class="hljs-number">-1</span>;
+				<span class="hljs-keyword">var</span> arr = <span class="hljs-keyword">this</span>; <span class="hljs-comment">// eslint-disable-line no-invalid-this</span>
+				<span class="hljs-keyword">return</span> {
+					<span class="hljs-attr">next</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+						i += <span class="hljs-number">1</span>;
+						<span class="hljs-keyword">return</span> {
+							<span class="hljs-attr">done</span>: i &gt;= arr.length,
+							<span class="hljs-attr">value</span>: arr[i]
+						};
+					}
+				};
+			};
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(items) === <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">var</span> ES = <span class="hljs-keyword">this</span>;
+			usingIterator = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;
+				<span class="hljs-keyword">return</span> {
+					<span class="hljs-attr">next</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+						<span class="hljs-keyword">var</span> nextIndex = ES.AdvanceStringIndex(items, i, <span class="hljs-literal">true</span>);
+						<span class="hljs-keyword">var</span> value = $arrayJoin($arraySlice(items, i, nextIndex), <span class="hljs-string">''</span>);
+						i = nextIndex;
+						<span class="hljs-keyword">return</span> {
+							<span class="hljs-attr">done</span>: nextIndex &gt; items.length,
+							<span class="hljs-attr">value</span>: value
+						};
+					}
+				};
+			};
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> usingIterator !== <span class="hljs-string">'undefined'</span>) {
+			<span class="hljs-keyword">var</span> iterator = <span class="hljs-keyword">this</span>.GetIterator(items, usingIterator);
+			<span class="hljs-keyword">var</span> values = [];
+			<span class="hljs-keyword">var</span> next = <span class="hljs-literal">true</span>;
+			<span class="hljs-keyword">while</span> (next) {
+				next = <span class="hljs-keyword">this</span>.IteratorStep(iterator);
+				<span class="hljs-keyword">if</span> (next) {
+					<span class="hljs-keyword">var</span> nextValue = <span class="hljs-keyword">this</span>.IteratorValue(next);
+					$arrayPush(values, nextValue);
+				}
+			}
+			<span class="hljs-keyword">return</span> values;
+		}
+
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ToObject(items);
+	}
+});
+
+<span class="hljs-built_in">module</span>.exports = ES2016;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

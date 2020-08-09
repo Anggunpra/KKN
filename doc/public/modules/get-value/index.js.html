@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\get-value\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>!
+get-value <a href="https://github.com/jonschlinkert/get-value">https://github.com/jonschlinkert/get-value</a></p>
+</div>
+<div class="body">
+<p>Copyright (c) 2014-2015, Jon Schlinkert.
+Licensed under the MIT License.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj, prop, a, b, c</span>) </span>{
+  <span class="hljs-keyword">if</span> (!isObject(obj) || !prop) {
+    <span class="hljs-keyword">return</span> obj;
+  }
+
+  prop = toString(prop);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>allowing for multiple properties to be passed as
+a string or array, but much faster (3-4x) than doing
+<code>[].slice.call(arguments)</code></p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (a) prop += <span class="hljs-string">'.'</span> + toString(a);
+  <span class="hljs-keyword">if</span> (b) prop += <span class="hljs-string">'.'</span> + toString(b);
+  <span class="hljs-keyword">if</span> (c) prop += <span class="hljs-string">'.'</span> + toString(c);
+
+  <span class="hljs-keyword">if</span> (prop <span class="hljs-keyword">in</span> obj) {
+    <span class="hljs-keyword">return</span> obj[prop];
+  }
+
+  <span class="hljs-keyword">var</span> segs = prop.split(<span class="hljs-string">'.'</span>);
+  <span class="hljs-keyword">var</span> len = segs.length;
+  <span class="hljs-keyword">var</span> i = <span class="hljs-number">-1</span>;
+
+  <span class="hljs-keyword">while</span> (obj &amp;&amp; (++i &lt; len)) {
+    <span class="hljs-keyword">var</span> key = segs[i];
+    <span class="hljs-keyword">while</span> (key[key.length - <span class="hljs-number">1</span>] === <span class="hljs-string">'\\'</span>) {
+      key = key.slice(<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>) + <span class="hljs-string">'.'</span> + segs[++i];
+    }
+    obj = obj[key];
+  }
+  <span class="hljs-keyword">return</span> obj;
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">return</span> val !== <span class="hljs-literal">null</span> &amp;&amp; (<span class="hljs-keyword">typeof</span> val === <span class="hljs-string">'object'</span> || <span class="hljs-keyword">typeof</span> val === <span class="hljs-string">'function'</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toString</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">if</span> (!val) <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(val)) {
+    <span class="hljs-keyword">return</span> val.join(<span class="hljs-string">'.'</span>);
+  }
+  <span class="hljs-keyword">return</span> val;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

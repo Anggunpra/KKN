@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\got\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>).EventEmitter;
+<span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
+<span class="hljs-keyword">var</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">'https'</span>);
+<span class="hljs-keyword">var</span> urlLib = <span class="hljs-built_in">require</span>(<span class="hljs-string">'url'</span>);
+<span class="hljs-keyword">var</span> querystring = <span class="hljs-built_in">require</span>(<span class="hljs-string">'querystring'</span>);
+<span class="hljs-keyword">var</span> objectAssign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'object-assign'</span>);
+<span class="hljs-keyword">var</span> PassThrough = <span class="hljs-built_in">require</span>(<span class="hljs-string">'readable-stream'</span>).PassThrough;
+<span class="hljs-keyword">var</span> duplexer2 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'duplexer2'</span>);
+<span class="hljs-keyword">var</span> isStream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-stream'</span>);
+<span class="hljs-keyword">var</span> readAllStream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'read-all-stream'</span>);
+<span class="hljs-keyword">var</span> timedOut = <span class="hljs-built_in">require</span>(<span class="hljs-string">'timed-out'</span>);
+<span class="hljs-keyword">var</span> urlParseLax = <span class="hljs-built_in">require</span>(<span class="hljs-string">'url-parse-lax'</span>);
+<span class="hljs-keyword">var</span> lowercaseKeys = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lowercase-keys'</span>);
+<span class="hljs-keyword">var</span> isRedirect = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-redirect'</span>);
+<span class="hljs-keyword">var</span> PinkiePromise = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pinkie-promise'</span>);
+<span class="hljs-keyword">var</span> unzipResponse = <span class="hljs-built_in">require</span>(<span class="hljs-string">'unzip-response'</span>);
+<span class="hljs-keyword">var</span> createErrorClass = <span class="hljs-built_in">require</span>(<span class="hljs-string">'create-error-class'</span>);
+<span class="hljs-keyword">var</span> nodeStatusCodes = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-status-codes'</span>);
+<span class="hljs-keyword">var</span> parseJson = <span class="hljs-built_in">require</span>(<span class="hljs-string">'parse-json'</span>);
+<span class="hljs-keyword">var</span> isRetryAllowed = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-retry-allowed'</span>);
+<span class="hljs-keyword">var</span> pkg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./package.json'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">requestAsEventEmitter</span>(<span class="hljs-params">opts</span>) </span>{
+	opts = opts || {};
+
+	<span class="hljs-keyword">var</span> ee = <span class="hljs-keyword">new</span> EventEmitter();
+	<span class="hljs-keyword">var</span> requestUrl = opts.href || urlLib.resolve(urlLib.format(opts), opts.path);
+	<span class="hljs-keyword">var</span> redirectCount = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">var</span> retryCount = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">var</span> redirectUrl;
+
+	<span class="hljs-keyword">var</span> <span class="hljs-keyword">get</span> = function (opts) {
+		<span class="hljs-keyword">var</span> fn = opts.protocol === <span class="hljs-string">'https:'</span> ? https : http;
+
+		<span class="hljs-keyword">var</span> req = fn.request(opts, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+			<span class="hljs-keyword">var</span> statusCode = res.statusCode;
+
+			<span class="hljs-keyword">if</span> (isRedirect(statusCode) &amp;&amp; opts.followRedirect &amp;&amp; <span class="hljs-string">'location'</span> <span class="hljs-keyword">in</span> res.headers &amp;&amp; (opts.method === <span class="hljs-string">'GET'</span> || opts.method === <span class="hljs-string">'HEAD'</span>)) {
+				res.resume();
+
+				<span class="hljs-keyword">if</span> (++redirectCount &gt; <span class="hljs-number">10</span>) {
+					ee.emit(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">new</span> got.MaxRedirectsError(statusCode, opts), <span class="hljs-literal">null</span>, res);
+					<span class="hljs-keyword">return</span>;
+				}
+
+				redirectUrl = urlLib.resolve(urlLib.format(opts), res.headers.location);
+				<span class="hljs-keyword">var</span> redirectOpts = objectAssign({}, opts, urlLib.parse(redirectUrl));
+
+				ee.emit(<span class="hljs-string">'redirect'</span>, res, redirectOpts);
+
+				<span class="hljs-keyword">get</span>(redirectOpts);
+				return;
+			}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>do not write ee.bind(...) instead of function - it will break gzip in Node.js 0.10</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			setImmediate(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">var</span> response = <span class="hljs-keyword">typeof</span> unzipResponse === <span class="hljs-string">'function'</span> &amp;&amp; req.method !== <span class="hljs-string">'HEAD'</span> ? unzipResponse(res) : res;
+				response.url = redirectUrl || requestUrl;
+				response.requestUrl = requestUrl;
+
+				ee.emit(<span class="hljs-string">'response'</span>, response);
+			});
+		});
+
+		req.once(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+			<span class="hljs-keyword">var</span> backoff = opts.retries(++retryCount, err);
+			<span class="hljs-keyword">if</span> (backoff) {
+				setTimeout(<span class="hljs-keyword">get</span>, backoff, opts);
+				return;
+			}
+
+			ee.emit('error', new got.RequestError(err, opts));
+		});
+
+		if (opts.timeout) {
+			timedOut(req, opts.timeout);
+		}
+
+		setImmediate(ee.emit.bind(ee), <span class="hljs-string">'request'</span>, req);
+	};
+
+	<span class="hljs-keyword">get</span>(opts);
+	return ee;
+}
+
+function asCallback(opts, cb) {
+	<span class="hljs-keyword">var</span> ee = requestAsEventEmitter(opts);
+
+	ee.on(<span class="hljs-string">'request'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req</span>) </span>{
+		<span class="hljs-keyword">if</span> (isStream(opts.body)) {
+			opts.body.pipe(req);
+			opts.body = <span class="hljs-literal">undefined</span>;
+			<span class="hljs-keyword">return</span>;
+		}
+
+		req.end(opts.body);
+	});
+
+	ee.on(<span class="hljs-string">'response'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+		readAllStream(res, opts.encoding, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error, data</span>) </span>{
+			<span class="hljs-keyword">var</span> statusCode = res.statusCode;
+			<span class="hljs-keyword">var</span> limitStatusCode = opts.followRedirect ? <span class="hljs-number">299</span> : <span class="hljs-number">399</span>;
+
+			<span class="hljs-keyword">if</span> (error) {
+				cb(<span class="hljs-keyword">new</span> got.ReadError(error, opts), <span class="hljs-literal">null</span>, res);
+				<span class="hljs-keyword">return</span>;
+			}
+
+			<span class="hljs-keyword">if</span> (statusCode &lt; <span class="hljs-number">200</span> || statusCode &gt; limitStatusCode) {
+				error = <span class="hljs-keyword">new</span> got.HTTPError(statusCode, opts);
+			}
+
+			<span class="hljs-keyword">if</span> (opts.json &amp;&amp; data) {
+				<span class="hljs-keyword">try</span> {
+					data = parseJson(data);
+				} <span class="hljs-keyword">catch</span> (err) {
+					err.fileName = urlLib.format(opts);
+					error = <span class="hljs-keyword">new</span> got.ParseError(err, statusCode, opts);
+				}
+			}
+
+			cb(error, data, res);
+		});
+	});
+
+	ee.on(<span class="hljs-string">'error'</span>, cb);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">asPromise</span>(<span class="hljs-params">opts</span>) </span>{
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PinkiePromise(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+		asCallback(opts, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, data, response</span>) </span>{
+			<span class="hljs-keyword">if</span> (response) {
+				response.body = data;
+			}
+
+			<span class="hljs-keyword">if</span> (err) {
+				<span class="hljs-built_in">Object</span>.defineProperty(err, <span class="hljs-string">'response'</span>, {
+					<span class="hljs-attr">value</span>: response,
+					<span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>
+				});
+				reject(err);
+				<span class="hljs-keyword">return</span>;
+			}
+
+			resolve(response);
+		});
+	});
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">asStream</span>(<span class="hljs-params">opts</span>) </span>{
+	<span class="hljs-keyword">var</span> input = <span class="hljs-keyword">new</span> PassThrough();
+	<span class="hljs-keyword">var</span> output = <span class="hljs-keyword">new</span> PassThrough();
+	<span class="hljs-keyword">var</span> proxy = duplexer2(input, output);
+
+	<span class="hljs-keyword">if</span> (opts.json) {
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'got can not be used as stream when options.json is used'</span>);
+	}
+
+	<span class="hljs-keyword">if</span> (opts.body) {
+		proxy.write = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'got\'s stream is not writable when options.body is used'</span>);
+		};
+	}
+
+	<span class="hljs-keyword">var</span> ee = requestAsEventEmitter(opts);
+
+	ee.on(<span class="hljs-string">'request'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req</span>) </span>{
+		proxy.emit(<span class="hljs-string">'request'</span>, req);
+
+		<span class="hljs-keyword">if</span> (isStream(opts.body)) {
+			opts.body.pipe(req);
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">if</span> (opts.body) {
+			req.end(opts.body);
+			<span class="hljs-keyword">return</span>;
+		}
+
+		<span class="hljs-keyword">if</span> (opts.method === <span class="hljs-string">'POST'</span> || opts.method === <span class="hljs-string">'PUT'</span> || opts.method === <span class="hljs-string">'PATCH'</span>) {
+			input.pipe(req);
+			<span class="hljs-keyword">return</span>;
+		}
+
+		req.end();
+	});
+
+	ee.on(<span class="hljs-string">'response'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+		<span class="hljs-keyword">var</span> statusCode = res.statusCode;
+		<span class="hljs-keyword">var</span> limitStatusCode = opts.followRedirect ? <span class="hljs-number">299</span> : <span class="hljs-number">399</span>;
+
+		res.pipe(output);
+
+		<span class="hljs-keyword">if</span> (statusCode &lt; <span class="hljs-number">200</span> || statusCode &gt; limitStatusCode) {
+			proxy.emit(<span class="hljs-string">'error'</span>, <span class="hljs-keyword">new</span> got.HTTPError(statusCode, opts), <span class="hljs-literal">null</span>, res);
+			<span class="hljs-keyword">return</span>;
+		}
+
+		proxy.emit(<span class="hljs-string">'response'</span>, res);
+	});
+
+	ee.on(<span class="hljs-string">'redirect'</span>, proxy.emit.bind(proxy, <span class="hljs-string">'redirect'</span>));
+
+	ee.on(<span class="hljs-string">'error'</span>, proxy.emit.bind(proxy, <span class="hljs-string">'error'</span>));
+
+	<span class="hljs-keyword">return</span> proxy;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">normalizeArguments</span>(<span class="hljs-params">url, opts</span>) </span>{
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> url !== <span class="hljs-string">'string'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> url !== <span class="hljs-string">'object'</span>) {
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Parameter `url` must be a string or object, not '</span> + <span class="hljs-keyword">typeof</span> url);
+	}
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> url === <span class="hljs-string">'string'</span>) {
+		url = url.replace(<span class="hljs-regexp">/^unix:/</span>, <span class="hljs-string">'http://$&amp;'</span>);
+		url = urlParseLax(url);
+
+		<span class="hljs-keyword">if</span> (url.auth) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Basic authentication must be done with auth option'</span>);
+		}
+	}
+
+	opts = objectAssign(
+		{<span class="hljs-attr">protocol</span>: <span class="hljs-string">'http:'</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">''</span>, <span class="hljs-attr">retries</span>: <span class="hljs-number">5</span>},
+		url,
+		opts
+	);
+
+	opts.headers = objectAssign({
+		<span class="hljs-string">'user-agent'</span>: pkg.name + <span class="hljs-string">'/'</span> + pkg.version + <span class="hljs-string">' (https://github.com/sindresorhus/got)'</span>,
+		<span class="hljs-string">'accept-encoding'</span>: <span class="hljs-string">'gzip,deflate'</span>
+	}, lowercaseKeys(opts.headers));
+
+	<span class="hljs-keyword">var</span> query = opts.query;
+
+	<span class="hljs-keyword">if</span> (query) {
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> query !== <span class="hljs-string">'string'</span>) {
+			opts.query = querystring.stringify(query);
+		}
+
+		opts.path = opts.path.split(<span class="hljs-string">'?'</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'?'</span> + opts.query;
+		<span class="hljs-keyword">delete</span> opts.query;
+	}
+
+	<span class="hljs-keyword">if</span> (opts.json &amp;&amp; opts.headers.accept === <span class="hljs-literal">undefined</span>) {
+		opts.headers.accept = <span class="hljs-string">'application/json'</span>;
+	}
+
+	<span class="hljs-keyword">var</span> body = opts.body;
+
+	<span class="hljs-keyword">if</span> (body) {
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> body !== <span class="hljs-string">'string'</span> &amp;&amp; !(body !== <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-keyword">typeof</span> body === <span class="hljs-string">'object'</span>)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'options.body must be a ReadableStream, string, Buffer or plain Object'</span>);
+		}
+
+		opts.method = opts.method || <span class="hljs-string">'POST'</span>;
+
+		<span class="hljs-keyword">if</span> (isStream(body) &amp;&amp; <span class="hljs-keyword">typeof</span> body.getBoundary === <span class="hljs-string">'function'</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>Special case for https://github.com/form-data/form-data</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			opts.headers[<span class="hljs-string">'content-type'</span>] = opts.headers[<span class="hljs-string">'content-type'</span>] || <span class="hljs-string">'multipart/form-data; boundary='</span> + body.getBoundary();
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (body !== <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-keyword">typeof</span> body === <span class="hljs-string">'object'</span> &amp;&amp; !Buffer.isBuffer(body) &amp;&amp; !isStream(body)) {
+			opts.headers[<span class="hljs-string">'content-type'</span>] = opts.headers[<span class="hljs-string">'content-type'</span>] || <span class="hljs-string">'application/x-www-form-urlencoded'</span>;
+			body = opts.body = querystring.stringify(body);
+		}
+
+		<span class="hljs-keyword">if</span> (opts.headers[<span class="hljs-string">'content-length'</span>] === <span class="hljs-literal">undefined</span> &amp;&amp; opts.headers[<span class="hljs-string">'transfer-encoding'</span>] === <span class="hljs-literal">undefined</span> &amp;&amp; !isStream(body)) {
+			<span class="hljs-keyword">var</span> length = <span class="hljs-keyword">typeof</span> body === <span class="hljs-string">'string'</span> ? Buffer.byteLength(body) : body.length;
+			opts.headers[<span class="hljs-string">'content-length'</span>] = length;
+		}
+	}
+
+	opts.method = opts.method || <span class="hljs-string">'GET'</span>;
+
+	opts.method = opts.method.toUpperCase();
+
+	<span class="hljs-keyword">if</span> (opts.hostname === <span class="hljs-string">'unix'</span>) {
+		<span class="hljs-keyword">var</span> matches = <span class="hljs-regexp">/(.+):(.+)/</span>.exec(opts.path);
+
+		<span class="hljs-keyword">if</span> (matches) {
+			opts.socketPath = matches[<span class="hljs-number">1</span>];
+			opts.path = matches[<span class="hljs-number">2</span>];
+			opts.host = <span class="hljs-literal">null</span>;
+		}
+	}
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opts.retries !== <span class="hljs-string">'function'</span>) {
+		<span class="hljs-keyword">var</span> retries = opts.retries;
+		opts.retries = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">backoff</span>(<span class="hljs-params">iter, err</span>) </span>{
+			<span class="hljs-keyword">if</span> (iter &gt; retries || !isRetryAllowed(err)) {
+				<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+			}
+
+			<span class="hljs-keyword">var</span> noise = <span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">100</span>;
+			<span class="hljs-keyword">return</span> ((<span class="hljs-number">1</span> &lt;&lt; iter) * <span class="hljs-number">1000</span>) + noise;
+		};
+	}
+
+	<span class="hljs-keyword">if</span> (opts.followRedirect === <span class="hljs-literal">undefined</span>) {
+		opts.followRedirect = <span class="hljs-literal">true</span>;
+	}
+
+	<span class="hljs-keyword">return</span> opts;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">got</span>(<span class="hljs-params">url, opts, cb</span>) </span>{
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opts === <span class="hljs-string">'function'</span>) {
+		cb = opts;
+		opts = {};
+	}
+
+	<span class="hljs-keyword">if</span> (cb) {
+		asCallback(normalizeArguments(url, opts), cb);
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+	}
+
+	<span class="hljs-keyword">try</span> {
+		<span class="hljs-keyword">return</span> asPromise(normalizeArguments(url, opts));
+	} <span class="hljs-keyword">catch</span> (err) {
+		<span class="hljs-keyword">return</span> PinkiePromise.reject(err);
+	}
+}
+
+<span class="hljs-keyword">var</span> helpers = [
+	<span class="hljs-string">'get'</span>,
+	<span class="hljs-string">'post'</span>,
+	<span class="hljs-string">'put'</span>,
+	<span class="hljs-string">'patch'</span>,
+	<span class="hljs-string">'head'</span>,
+	<span class="hljs-string">'delete'</span>
+];
+
+helpers.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el</span>) </span>{
+	got[el] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">url, opts, cb</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opts === <span class="hljs-string">'function'</span>) {
+			cb = opts;
+			opts = {};
+		}
+
+		<span class="hljs-keyword">return</span> got(url, objectAssign({}, opts, {<span class="hljs-attr">method</span>: el}), cb);
+	};
+});
+
+got.stream = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">url, opts, cb</span>) </span>{
+	<span class="hljs-keyword">if</span> (cb || <span class="hljs-keyword">typeof</span> opts === <span class="hljs-string">'function'</span>) {
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'callback can not be used with stream mode'</span>);
+	}
+
+	<span class="hljs-keyword">return</span> asStream(normalizeArguments(url, opts));
+};
+
+helpers.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el</span>) </span>{
+	got.stream[el] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">url, opts, cb</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opts === <span class="hljs-string">'function'</span>) {
+			cb = opts;
+			opts = {};
+		}
+
+		<span class="hljs-keyword">return</span> got.stream(url, objectAssign({}, opts, {<span class="hljs-attr">method</span>: el}), cb);
+	};
+});
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stdError</span>(<span class="hljs-params">error, opts</span>) </span>{
+	<span class="hljs-keyword">if</span> (error.code !== <span class="hljs-literal">undefined</span>) {
+		<span class="hljs-keyword">this</span>.code = error.code;
+	}
+
+	objectAssign(<span class="hljs-keyword">this</span>, {
+		<span class="hljs-attr">message</span>: error.message,
+		<span class="hljs-attr">host</span>: opts.host,
+		<span class="hljs-attr">hostname</span>: opts.hostname,
+		<span class="hljs-attr">method</span>: opts.method,
+		<span class="hljs-attr">path</span>: opts.path
+	});
+}
+
+got.RequestError = createErrorClass(<span class="hljs-string">'RequestError'</span>, stdError);
+got.ReadError = createErrorClass(<span class="hljs-string">'ReadError'</span>, stdError);
+
+got.ParseError = createErrorClass(<span class="hljs-string">'ParseError'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e, statusCode, opts</span>) </span>{
+	stdError.call(<span class="hljs-keyword">this</span>, e, opts);
+	<span class="hljs-keyword">this</span>.statusCode = statusCode;
+	<span class="hljs-keyword">this</span>.statusMessage = nodeStatusCodes[<span class="hljs-keyword">this</span>.statusCode];
+});
+
+got.HTTPError = createErrorClass(<span class="hljs-string">'HTTPError'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">statusCode, opts</span>) </span>{
+	stdError.call(<span class="hljs-keyword">this</span>, {}, opts);
+	<span class="hljs-keyword">this</span>.statusCode = statusCode;
+	<span class="hljs-keyword">this</span>.statusMessage = nodeStatusCodes[<span class="hljs-keyword">this</span>.statusCode];
+	<span class="hljs-keyword">this</span>.message = <span class="hljs-string">'Response code '</span> + <span class="hljs-keyword">this</span>.statusCode + <span class="hljs-string">' ('</span> + <span class="hljs-keyword">this</span>.statusMessage + <span class="hljs-string">')'</span>;
+});
+
+got.MaxRedirectsError = createErrorClass(<span class="hljs-string">'MaxRedirectsError'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">statusCode, opts</span>) </span>{
+	stdError.call(<span class="hljs-keyword">this</span>, {}, opts);
+	<span class="hljs-keyword">this</span>.statusCode = statusCode;
+	<span class="hljs-keyword">this</span>.statusMessage = nodeStatusCodes[<span class="hljs-keyword">this</span>.statusCode];
+	<span class="hljs-keyword">this</span>.message = <span class="hljs-string">'Redirected 10 times. Aborting.'</span>;
+});
+
+<span class="hljs-built_in">module</span>.exports = got;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

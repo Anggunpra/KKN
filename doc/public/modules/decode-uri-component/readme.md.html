@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\decode-uri-component\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#decode-uri-component">decode-uri-component</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#why">Why?</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#decodeuricomponent-encodeduri">decodeUriComponent(encodedURI)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#encodeduri">encodedURI</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="decode-uri-component">
+  <h1>
+    <a href="#decode-uri-component" name="decode-uri-component" class="pilcrow"></a>
+decode-uri-component
+  </h1>
+</div>
+<p><a href="https://travis-ci.org/SamVerschueren/decode-uri-component"><img src="https://travis-ci.org/SamVerschueren/decode-uri-component.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/SamVerschueren/decode-uri-component?branch=master"><img src="https://coveralls.io/repos/SamVerschueren/decode-uri-component/badge.svg?branch=master&amp;service=github" alt="Coverage Status"></a></p>
+<blockquote>
+<p>A better <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent</a></p>
+</blockquote>
+<div class="pilwrap" id="why">
+  <h2>
+    <a href="#why" name="why" class="pilcrow"></a>
+Why?
+  </h2>
+</div>
+<ul>
+<li>Decodes <code>+</code> to a space.</li>
+<li>Converts the <a href="https://en.wikipedia.org/wiki/Byte_order_mark">BOM</a> to a <a href="https://en.wikipedia.org/wiki/Specials_(Unicode_block)#Replacement_character">replacement character</a> <code>�</code>.</li>
+<li>Does not throw with invalid encoded input.</li>
+<li>Decodes as much of the string as possible.</li>
+</ul>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save decode-uri-component
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> decodeUriComponent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'decode-uri-component'</span>);
+
+decodeUriComponent(<span class="hljs-string">'%25'</span>);
+<span class="hljs-comment">//=&gt; '%'</span>
+
+decodeUriComponent(<span class="hljs-string">'%'</span>);
+<span class="hljs-comment">//=&gt; '%'</span>
+
+decodeUriComponent(<span class="hljs-string">'st%C3%A5le'</span>);
+<span class="hljs-comment">//=&gt; 'ståle'</span>
+
+decodeUriComponent(<span class="hljs-string">'%st%C3%A5le%'</span>);
+<span class="hljs-comment">//=&gt; '%ståle%'</span>
+
+decodeUriComponent(<span class="hljs-string">'%%7Bst%C3%A5le%7D%'</span>);
+<span class="hljs-comment">//=&gt; '%{ståle}%'</span>
+
+decodeUriComponent(<span class="hljs-string">'%7B%ab%%7C%de%%7D'</span>);
+<span class="hljs-comment">//=&gt; '{%ab%|%de%}'</span>
+
+decodeUriComponent(<span class="hljs-string">'%FE%FF'</span>);
+<span class="hljs-comment">//=&gt; '\uFFFD\uFFFD'</span>
+
+decodeUriComponent(<span class="hljs-string">'%C2'</span>);
+<span class="hljs-comment">//=&gt; '\uFFFD'</span>
+
+decodeUriComponent(<span class="hljs-string">'%C2%B5'</span>);
+<span class="hljs-comment">//=&gt; 'µ'</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="decodeuricomponent-encodeduri">
+  <h3>
+    <a href="#decodeuricomponent-encodeduri" name="decodeuricomponent-encodeduri" class="pilcrow"></a>
+decodeUriComponent(encodedURI)
+  </h3>
+</div>
+<div class="pilwrap" id="encodeduri">
+  <h4>
+    <a href="#encodeduri" name="encodeduri" class="pilcrow"></a>
+encodedURI
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>An encoded component of a Uniform Resource Identifier.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/SamVerschueren">Sam Verschueren</a></p>
+</div>
+  </div>
+</body>
+</html>

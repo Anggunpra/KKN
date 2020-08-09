@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>changelog.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\expand-brackets\\changelog.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#changelog">Changelog</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#v2.0.0">v2.0.0</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#v0.2.0">v0.2.0</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="changelog">
+  <h2>
+    <a href="#changelog" name="changelog" class="pilcrow"></a>
+Changelog
+  </h2>
+</div>
+<div class="pilwrap" id="v2.0.0">
+  <h3>
+    <a href="#v2.0.0" name="v2.0.0" class="pilcrow"></a>
+v2.0.0
+  </h3>
+</div>
+<p><strong>Breaking changes</strong></p>
+<ul>
+<li>The main export now returns the compiled string, instead of the object returned from the compiler</li>
+</ul>
+<p><strong>Added features</strong></p>
+<ul>
+<li>Adds a <code>.create</code> method to do what the main function did before v2.0.0</li>
+</ul>
+<div class="pilwrap" id="v0.2.0">
+  <h3>
+    <a href="#v0.2.0" name="v0.2.0" class="pilcrow"></a>
+v0.2.0
+  </h3>
+</div>
+<p>In addition to performance and matching improvements, the v0.2.0 refactor adds complete POSIX character class support, with the exception of equivalence classes and POSIX.2 collating symbols which are not relevant to node.js usage.</p>
+<p><strong>Added features</strong></p>
+<ul>
+<li>parser is exposed, so that expand-brackets parsers can be used by upstream parsers (like [micromatch][])</li>
+<li>compiler is exposed, so that expand-brackets compilers can be used by upstream compilers</li>
+<li>source maps</li>
+</ul>
+<p><strong>source map example</strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> brackets = <span class="hljs-built_in">require</span>(<span class="hljs-string">'expand-brackets'</span>);
+<span class="hljs-keyword">var</span> res = brackets(<span class="hljs-string">'[:alpha:]'</span>);
+<span class="hljs-built_in">console</span>.log(res.map);
+
+{ <span class="hljs-attr">version</span>: <span class="hljs-number">3</span>,
+     <span class="hljs-attr">sources</span>: [ <span class="hljs-string">'brackets'</span> ],
+     <span class="hljs-attr">names</span>: [],
+     <span class="hljs-attr">mappings</span>: <span class="hljs-string">'AAAA,MAAS'</span>,
+     <span class="hljs-attr">sourcesContent</span>: [ <span class="hljs-string">'[:alpha:]'</span> ] }
+</code></pre>
+</div>
+  </div>
+</body>
+</html>

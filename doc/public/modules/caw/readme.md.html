@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\caw\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#caw">caw </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#caw-proxy-options">caw([proxy], [options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#proxy">proxy</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#protocol">protocol</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="caw">
+  <h1>
+    <a href="#caw" name="caw" class="pilcrow"></a>
+caw <a href="https://travis-ci.org/kevva/caw"><img src="https://travis-ci.org/kevva/caw.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Construct HTTP/HTTPS agents for tunneling proxies</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install caw
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> caw = <span class="hljs-built_in">require</span>(<span class="hljs-string">'caw'</span>);
+<span class="hljs-keyword">const</span> got = <span class="hljs-built_in">require</span>(<span class="hljs-string">'got'</span>);
+
+got(<span class="hljs-string">'todomvc.com'</span>, {
+	<span class="hljs-attr">agent</span>: caw()
+}, () =&gt; {});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="caw-proxy-options">
+  <h3>
+    <a href="#caw-proxy-options" name="caw-proxy-options" class="pilcrow"></a>
+caw([proxy], [options])
+  </h3>
+</div>
+<div class="pilwrap" id="proxy">
+  <h4>
+    <a href="#proxy" name="proxy" class="pilcrow"></a>
+proxy
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Proxy URL. If not set, it'll try getting it using <a href="https://github.com/kevva/get-proxy"><code>get-proxy</code></a>.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>Object</code></p>
+<p>Besides the options below, you can pass in options allowed in <a href="https://github.com/request/tunnel-agent">tunnel-agent</a>.</p>
+<div class="pilwrap" id="protocol">
+  <h5>
+    <a href="#protocol" name="protocol" class="pilcrow"></a>
+protocol
+  </h5>
+</div>
+<p>Type: <code>string</code><br>
+Default: <code>http</code></p>
+<p>Endpoint protocol.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/kevva">Kevin Mårtensson</a></p>
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>es2018.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es-abstract\\es2018.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>es2018.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> GetIntrinsic = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./GetIntrinsic'</span>);
+
+<span class="hljs-keyword">var</span> keys = <span class="hljs-built_in">require</span>(<span class="hljs-string">'object-keys'</span>);
+<span class="hljs-keyword">var</span> inspect = <span class="hljs-built_in">require</span>(<span class="hljs-string">'object-inspect'</span>);
+
+<span class="hljs-keyword">var</span> ES2017 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./es2017'</span>);
+<span class="hljs-keyword">var</span> assign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/assign'</span>);
+<span class="hljs-keyword">var</span> forEach = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/forEach'</span>);
+<span class="hljs-keyword">var</span> callBind = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/callBind'</span>);
+<span class="hljs-keyword">var</span> every = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/every'</span>);
+
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">String</span> = GetIntrinsic(<span class="hljs-string">'%String%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">Object</span> = GetIntrinsic(<span class="hljs-string">'%Object%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">TypeError</span> = GetIntrinsic(<span class="hljs-string">'%TypeError%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">RegExp</span> = GetIntrinsic(<span class="hljs-string">'%RegExp%'</span>);
+
+<span class="hljs-keyword">var</span> $SymbolProto = GetIntrinsic(<span class="hljs-string">'%SymbolPrototype%'</span>, <span class="hljs-literal">true</span>);
+<span class="hljs-keyword">var</span> $SymbolValueOf = $SymbolProto ? callBind($SymbolProto.valueOf) : <span class="hljs-literal">null</span>;
+<span class="hljs-keyword">var</span> $StringProto = GetIntrinsic(<span class="hljs-string">'%StringPrototype%'</span>);
+<span class="hljs-keyword">var</span> $charAt = callBind($StringProto.charAt);
+<span class="hljs-keyword">var</span> strSlice = callBind($StringProto.slice);
+<span class="hljs-keyword">var</span> $indexOf = callBind($StringProto.indexOf);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">parseInt</span> = <span class="hljs-built_in">parseInt</span>;
+<span class="hljs-keyword">var</span> isDigit = callBind($<span class="hljs-built_in">RegExp</span>.prototype.test, /^[<span class="hljs-number">0</span><span class="hljs-number">-9</span>]$/);
+
+<span class="hljs-keyword">var</span> $PromiseResolveOrig = GetIntrinsic(<span class="hljs-string">'%Promise_resolve%'</span>, <span class="hljs-literal">true</span>);
+<span class="hljs-keyword">var</span> $PromiseResolve = $PromiseResolveOrig ? callBind($PromiseResolveOrig) : <span class="hljs-literal">null</span>;
+
+<span class="hljs-keyword">var</span> $isEnumerable = callBind(GetIntrinsic(<span class="hljs-string">'%ObjectPrototype%'</span>).propertyIsEnumerable);
+<span class="hljs-keyword">var</span> $pushApply = callBind.apply(GetIntrinsic(<span class="hljs-string">'%ArrayPrototype%'</span>).push);
+<span class="hljs-keyword">var</span> $gOPS = $SymbolValueOf ? $<span class="hljs-built_in">Object</span>.getOwnPropertySymbols : <span class="hljs-literal">null</span>;
+
+<span class="hljs-keyword">var</span> OwnPropertyKeys = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">OwnPropertyKeys</span>(<span class="hljs-params">ES, source</span>) </span>{
+	<span class="hljs-keyword">var</span> ownKeys = keys(source);
+	<span class="hljs-keyword">if</span> ($gOPS) {
+		$pushApply(ownKeys, $gOPS(source));
+	}
+	<span class="hljs-keyword">return</span> ownKeys;
+};
+
+<span class="hljs-keyword">var</span> ES2018 = assign(assign({}, ES2017), {
+	<span class="hljs-attr">EnumerableOwnPropertyNames</span>: ES2017.EnumerableOwnProperties,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/9.0/#sec-thissymbolvalue</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	thisSymbolValue: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thisSymbolValue</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">if</span> (!$SymbolValueOf) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">'Symbols are not supported; thisSymbolValue requires that `value` be a Symbol or a Symbol object'</span>);
+		}
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(value) === <span class="hljs-string">'Symbol'</span>) {
+			<span class="hljs-keyword">return</span> value;
+		}
+		<span class="hljs-keyword">return</span> $SymbolValueOf(value);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/9.0/#sec-isstringprefix</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IsStringPrefix: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IsStringPrefix</span>(<span class="hljs-params">p, q</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(p) !== <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: "p" must be a String'</span>);
+		}
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(q) !== <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: "q" must be a String'</span>);
+		}
+
+		<span class="hljs-keyword">if</span> (p === q || p === <span class="hljs-string">''</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		}
+
+		<span class="hljs-keyword">var</span> pLength = p.length;
+		<span class="hljs-keyword">var</span> qLength = q.length;
+		<span class="hljs-keyword">if</span> (pLength &gt;= qLength) {
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>assert: pLength &lt; qLength</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; pLength; i += <span class="hljs-number">1</span>) {
+			<span class="hljs-keyword">if</span> ($charAt(p, i) !== $charAt(q, i)) {
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+			}
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/9.0/#sec-tostring-applied-to-the-number-type</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	NumberToString: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">NumberToString</span>(<span class="hljs-params">m</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(m) !== <span class="hljs-string">'Number'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: "m" must be a String'</span>);
+		}
+
+		<span class="hljs-keyword">return</span> $<span class="hljs-built_in">String</span>(m);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/9.0/#sec-copydataproperties</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	CopyDataProperties: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CopyDataProperties</span>(<span class="hljs-params">target, source, excludedItems</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(target) !== <span class="hljs-string">'Object'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: "target" must be an Object'</span>);
+		}
+
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsArray(excludedItems)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: "excludedItems" must be a List of Property Keys'</span>);
+		}
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; excludedItems.length; i += <span class="hljs-number">1</span>) {
+			<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsPropertyKey(excludedItems[i])) {
+				<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: "excludedItems" must be a List of Property Keys'</span>);
+			}
+		}
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> source === <span class="hljs-string">'undefined'</span> || source === <span class="hljs-literal">null</span>) {
+			<span class="hljs-keyword">return</span> target;
+		}
+
+		<span class="hljs-keyword">var</span> ES = <span class="hljs-keyword">this</span>;
+
+		<span class="hljs-keyword">var</span> fromObj = ES.ToObject(source);
+
+		<span class="hljs-keyword">var</span> sourceKeys = OwnPropertyKeys(ES, fromObj);
+		forEach(sourceKeys, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">nextKey</span>) </span>{
+			<span class="hljs-keyword">var</span> excluded = <span class="hljs-literal">false</span>;
+
+			forEach(excludedItems, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+				<span class="hljs-keyword">if</span> (ES.SameValue(e, nextKey) === <span class="hljs-literal">true</span>) {
+					excluded = <span class="hljs-literal">true</span>;
+				}
+			});
+
+			<span class="hljs-keyword">var</span> enumerable = $isEnumerable(fromObj, nextKey) || (
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>this is to handle string keys being non-enumerable in older engines</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">				<span class="hljs-keyword">typeof</span> source === <span class="hljs-string">'string'</span>
+				&amp;&amp; nextKey &gt;= <span class="hljs-number">0</span>
+				&amp;&amp; ES.IsInteger(ES.ToNumber(nextKey))
+			);
+			<span class="hljs-keyword">if</span> (excluded === <span class="hljs-literal">false</span> &amp;&amp; enumerable) {
+				<span class="hljs-keyword">var</span> propValue = ES.Get(fromObj, nextKey);
+				ES.CreateDataProperty(target, nextKey, propValue);
+			}
+		});
+
+		<span class="hljs-keyword">return</span> target;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>https://ecma-international.org/ecma-262/9.0/#sec-promise-resolve</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	PromiseResolve: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PromiseResolve</span>(<span class="hljs-params">C, x</span>) </span>{
+		<span class="hljs-keyword">if</span> (!$PromiseResolve) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">SyntaxError</span>(<span class="hljs-string">'This environment does not support Promises.'</span>);
+		}
+		<span class="hljs-keyword">return</span> $PromiseResolve(C, x);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>http://www.ecma-international.org/ecma-262/9.0/#sec-getsubstitution
+eslint-disable-next-line max-statements, max-params, max-lines-per-function</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	GetSubstitution: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">GetSubstitution</span>(<span class="hljs-params">matched, str, position, captures, namedCaptures, replacement</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(matched) !== <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `matched` must be a String'</span>);
+		}
+		<span class="hljs-keyword">var</span> matchLength = matched.length;
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(str) !== <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `str` must be a String'</span>);
+		}
+		<span class="hljs-keyword">var</span> stringLength = str.length;
+
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsInteger(position) || position &lt; <span class="hljs-number">0</span> || position &gt; stringLength) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `position` must be a nonnegative integer, and less than or equal to the length of `string`, got '</span> + inspect(position));
+		}
+
+		<span class="hljs-keyword">var</span> ES = <span class="hljs-keyword">this</span>;
+		<span class="hljs-keyword">var</span> isStringOrHole = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">capture, index, arr</span>) </span>{ <span class="hljs-keyword">return</span> ES.Type(capture) === <span class="hljs-string">'String'</span> || !(index <span class="hljs-keyword">in</span> arr); };
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.IsArray(captures) || !every(captures, isStringOrHole)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `captures` must be a List of Strings, got '</span> + inspect(captures));
+		}
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(replacement) !== <span class="hljs-string">'String'</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: `replacement` must be a String'</span>);
+		}
+
+		<span class="hljs-keyword">var</span> tailPos = position + matchLength;
+		<span class="hljs-keyword">var</span> m = captures.length;
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(namedCaptures) !== <span class="hljs-string">'Undefined'</span>) {
+			namedCaptures = <span class="hljs-keyword">this</span>.ToObject(namedCaptures); <span class="hljs-comment">// eslint-disable-line no-param-reassign</span>
+		}
+
+		<span class="hljs-keyword">var</span> result = <span class="hljs-string">''</span>;
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; replacement.length; i += <span class="hljs-number">1</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>if this is a $, and it's not the end of the replacement</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">			<span class="hljs-keyword">var</span> current = replacement[i];
+			<span class="hljs-keyword">var</span> isLast = (i + <span class="hljs-number">1</span>) &gt;= replacement.length;
+			<span class="hljs-keyword">var</span> nextIsLast = (i + <span class="hljs-number">2</span>) &gt;= replacement.length;
+			<span class="hljs-keyword">if</span> (current === <span class="hljs-string">'$'</span> &amp;&amp; !isLast) {
+				<span class="hljs-keyword">var</span> next = replacement[i + <span class="hljs-number">1</span>];
+				<span class="hljs-keyword">if</span> (next === <span class="hljs-string">'$'</span>) {
+					result += <span class="hljs-string">'$'</span>;
+					i += <span class="hljs-number">1</span>;
+				} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (next === <span class="hljs-string">'&amp;'</span>) {
+					result += matched;
+					i += <span class="hljs-number">1</span>;
+				} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (next === <span class="hljs-string">'`'</span>) {
+					result += position === <span class="hljs-number">0</span> ? <span class="hljs-string">''</span> : strSlice(str, <span class="hljs-number">0</span>, position - <span class="hljs-number">1</span>);
+					i += <span class="hljs-number">1</span>;
+				} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (next === <span class="hljs-string">"'"</span>) {
+					result += tailPos &gt;= stringLength ? <span class="hljs-string">''</span> : strSlice(str, tailPos);
+					i += <span class="hljs-number">1</span>;
+				} <span class="hljs-keyword">else</span> {
+					<span class="hljs-keyword">var</span> nextNext = nextIsLast ? <span class="hljs-literal">null</span> : replacement[i + <span class="hljs-number">2</span>];
+					<span class="hljs-keyword">if</span> (isDigit(next) &amp;&amp; next !== <span class="hljs-string">'0'</span> &amp;&amp; (nextIsLast || !isDigit(nextNext))) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>$1 through $9, and not followed by a digit</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">						<span class="hljs-keyword">var</span> n = $<span class="hljs-built_in">parseInt</span>(next, <span class="hljs-number">10</span>);
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>if (n &gt; m, impl-defined)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">						result += (n &lt;= m &amp;&amp; <span class="hljs-keyword">this</span>.Type(captures[n - <span class="hljs-number">1</span>]) === <span class="hljs-string">'Undefined'</span>) ? <span class="hljs-string">''</span> : captures[n - <span class="hljs-number">1</span>];
+						i += <span class="hljs-number">1</span>;
+					} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isDigit(next) &amp;&amp; (nextIsLast || isDigit(nextNext))) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>$00 through $99</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">						<span class="hljs-keyword">var</span> nn = next + nextNext;
+						<span class="hljs-keyword">var</span> nnI = $<span class="hljs-built_in">parseInt</span>(nn, <span class="hljs-number">10</span>) - <span class="hljs-number">1</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>if nn === '00' or nn &gt; m, impl-defined</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">						result += (nn &lt;= m &amp;&amp; <span class="hljs-keyword">this</span>.Type(captures[nnI]) === <span class="hljs-string">'Undefined'</span>) ? <span class="hljs-string">''</span> : captures[nnI];
+						i += <span class="hljs-number">2</span>;
+					} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (next === <span class="hljs-string">'&lt;'</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>eslint-disable-next-line max-depth</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">						<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(namedCaptures) === <span class="hljs-string">'Undefined'</span>) {
+							result += <span class="hljs-string">'$&lt;'</span>;
+							i += <span class="hljs-number">2</span>;
+						} <span class="hljs-keyword">else</span> {
+							<span class="hljs-keyword">var</span> endIndex = $indexOf(replacement, <span class="hljs-string">'&gt;'</span>, i);
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>eslint-disable-next-line max-depth</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">							<span class="hljs-keyword">if</span> (endIndex &gt; <span class="hljs-number">-1</span>) {
+								<span class="hljs-keyword">var</span> groupName = strSlice(replacement, i, endIndex);
+								<span class="hljs-keyword">var</span> capture = <span class="hljs-keyword">this</span>.Get(namedCaptures, groupName);
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<p>eslint-disable-next-line max-depth</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">								<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Type(capture) !== <span class="hljs-string">'Undefined'</span>) {
+									result += <span class="hljs-keyword">this</span>.ToString(capture);
+								}
+								i += <span class="hljs-string">'$&lt;'</span> + groupName + <span class="hljs-string">'&gt;'</span>.length;
+							}
+						}
+					} <span class="hljs-keyword">else</span> {
+						result += <span class="hljs-string">'$'</span>;
+					}
+				}
+			} <span class="hljs-keyword">else</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>the final $, or else not a $</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">				result += replacement[i];
+			}
+		}
+		<span class="hljs-keyword">return</span> result;
+	}
+});
+
+<span class="hljs-keyword">delete</span> ES2018.EnumerableOwnProperties; <span class="hljs-comment">// replaced with EnumerableOwnPropertyNames</span>
+
+<span class="hljs-keyword">delete</span> ES2018.IsPropertyDescriptor; <span class="hljs-comment">// not an actual abstract operation</span>
+
+<span class="hljs-built_in">module</span>.exports = ES2018;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

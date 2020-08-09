@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\decompress-tar\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+<span class="hljs-keyword">const</span> fileType = <span class="hljs-built_in">require</span>(<span class="hljs-string">'file-type'</span>);
+<span class="hljs-keyword">const</span> isStream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-stream'</span>);
+<span class="hljs-keyword">const</span> tarStream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tar-stream'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">input</span> =&gt;</span> {
+	<span class="hljs-keyword">if</span> (!Buffer.isBuffer(input) &amp;&amp; !isStream(input)) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">`Expected a Buffer or Stream, got <span class="hljs-subst">${<span class="hljs-keyword">typeof</span> input}</span>`</span>));
+	}
+
+	<span class="hljs-keyword">if</span> (Buffer.isBuffer(input) &amp;&amp; (!fileType(input) || fileType(input).ext !== <span class="hljs-string">'tar'</span>)) {
+		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve([]);
+	}
+
+	<span class="hljs-keyword">const</span> extract = tarStream.extract();
+	<span class="hljs-keyword">const</span> files = [];
+
+	extract.on(<span class="hljs-string">'entry'</span>, (header, stream, cb) =&gt; {
+		<span class="hljs-keyword">const</span> chunk = [];
+
+		stream.on(<span class="hljs-string">'data'</span>, data =&gt; chunk.push(data));
+		stream.on(<span class="hljs-string">'end'</span>, () =&gt; {
+			<span class="hljs-keyword">const</span> file = {
+				<span class="hljs-attr">data</span>: Buffer.concat(chunk),
+				<span class="hljs-attr">mode</span>: header.mode,
+				<span class="hljs-attr">mtime</span>: header.mtime,
+				<span class="hljs-attr">path</span>: header.name,
+				<span class="hljs-attr">type</span>: header.type
+			};
+
+			<span class="hljs-keyword">if</span> (header.type === <span class="hljs-string">'symlink'</span> || header.type === <span class="hljs-string">'link'</span>) {
+				file.linkname = header.linkname;
+			}
+
+			files.push(file);
+			cb();
+		});
+	});
+
+	<span class="hljs-keyword">const</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+		<span class="hljs-keyword">if</span> (!Buffer.isBuffer(input)) {
+			input.on(<span class="hljs-string">'error'</span>, reject);
+		}
+
+		extract.on(<span class="hljs-string">'finish'</span>, () =&gt; resolve(files));
+		extract.on(<span class="hljs-string">'error'</span>, reject);
+	});
+
+	extract.then = promise.then.bind(promise);
+	extract.catch = promise.catch.bind(promise);
+
+	<span class="hljs-keyword">if</span> (Buffer.isBuffer(input)) {
+		extract.end(input);
+	} <span class="hljs-keyword">else</span> {
+		input.pipe(extract);
+	}
+
+	<span class="hljs-keyword">return</span> extract;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

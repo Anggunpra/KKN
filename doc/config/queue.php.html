@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>queue.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "config\\queue.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>queue.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">return</span> [
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Default Queue Connection Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Laravel's queue API supports an assortment of back-ends via a single</td>
+</tr>
+<tr>
+<td>API, giving you convenient access to each back-end using the same</td>
+</tr>
+<tr>
+<td>syntax for every one. Here you may define a default connection.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'default'</span> =&gt; env(<span class="hljs-string">'QUEUE_CONNECTION'</span>, <span class="hljs-string">'sync'</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Queue Connections</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here you may configure the connection information for each server that</td>
+</tr>
+<tr>
+<td>is used by your application. A default configuration has been added</td>
+</tr>
+<tr>
+<td>for each back-end shipped with Laravel. You are free to add more.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Drivers: &quot;sync&quot;, &quot;database&quot;, &quot;beanstalkd&quot;, &quot;sqs&quot;, &quot;redis&quot;, &quot;null&quot;</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'connections'</span> =&gt; [
+
+        <span class="hljs-string">'sync'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'sync'</span>,
+        ],
+
+        <span class="hljs-string">'database'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'database'</span>,
+            <span class="hljs-string">'table'</span> =&gt; <span class="hljs-string">'jobs'</span>,
+            <span class="hljs-string">'queue'</span> =&gt; <span class="hljs-string">'default'</span>,
+            <span class="hljs-string">'retry_after'</span> =&gt; <span class="hljs-number">90</span>,
+        ],
+
+        <span class="hljs-string">'beanstalkd'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'beanstalkd'</span>,
+            <span class="hljs-string">'host'</span> =&gt; <span class="hljs-string">'localhost'</span>,
+            <span class="hljs-string">'queue'</span> =&gt; <span class="hljs-string">'default'</span>,
+            <span class="hljs-string">'retry_after'</span> =&gt; <span class="hljs-number">90</span>,
+            <span class="hljs-string">'block_for'</span> =&gt; <span class="hljs-number">0</span>,
+        ],
+
+        <span class="hljs-string">'sqs'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'sqs'</span>,
+            <span class="hljs-string">'key'</span> =&gt; env(<span class="hljs-string">'AWS_ACCESS_KEY_ID'</span>),
+            <span class="hljs-string">'secret'</span> =&gt; env(<span class="hljs-string">'AWS_SECRET_ACCESS_KEY'</span>),
+            <span class="hljs-string">'prefix'</span> =&gt; env(<span class="hljs-string">'SQS_PREFIX'</span>, <span class="hljs-string">'https://sqs.us-east-1.amazonaws.com/your-account-id'</span>),
+            <span class="hljs-string">'queue'</span> =&gt; env(<span class="hljs-string">'SQS_QUEUE'</span>, <span class="hljs-string">'your-queue-name'</span>),
+            <span class="hljs-string">'suffix'</span> =&gt; env(<span class="hljs-string">'SQS_SUFFIX'</span>),
+            <span class="hljs-string">'region'</span> =&gt; env(<span class="hljs-string">'AWS_DEFAULT_REGION'</span>, <span class="hljs-string">'us-east-1'</span>),
+        ],
+
+        <span class="hljs-string">'redis'</span> =&gt; [
+            <span class="hljs-string">'driver'</span> =&gt; <span class="hljs-string">'redis'</span>,
+            <span class="hljs-string">'connection'</span> =&gt; <span class="hljs-string">'default'</span>,
+            <span class="hljs-string">'queue'</span> =&gt; env(<span class="hljs-string">'REDIS_QUEUE'</span>, <span class="hljs-string">'default'</span>),
+            <span class="hljs-string">'retry_after'</span> =&gt; <span class="hljs-number">90</span>,
+            <span class="hljs-string">'block_for'</span> =&gt; <span class="hljs-keyword">null</span>,
+        ],
+
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Failed Queue Jobs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>These options configure the behavior of failed queue job logging so you</td>
+</tr>
+<tr>
+<td>can control which database and table are used to store the jobs that</td>
+</tr>
+<tr>
+<td>have failed. You may change them to any database / table you wish.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+    <span class="hljs-string">'failed'</span> =&gt; [
+        <span class="hljs-string">'driver'</span> =&gt; env(<span class="hljs-string">'QUEUE_FAILED_DRIVER'</span>, <span class="hljs-string">'database'</span>),
+        <span class="hljs-string">'database'</span> =&gt; env(<span class="hljs-string">'DB_CONNECTION'</span>, <span class="hljs-string">'mysql'</span>),
+        <span class="hljs-string">'table'</span> =&gt; <span class="hljs-string">'failed_jobs'</span>,
+    ],
+
+];
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

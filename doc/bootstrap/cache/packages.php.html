@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>packages.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "bootstrap\\cache\\packages.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>packages.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">return</span> <span class="hljs-keyword">array</span> (
+  <span class="hljs-string">'facade/ignition'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Facade\\Ignition\\IgnitionServiceProvider'</span>,
+    ),
+    <span class="hljs-string">'aliases'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-string">'Flare'</span> =&gt; <span class="hljs-string">'Facade\\Ignition\\Facades\\Flare'</span>,
+    ),
+  ),
+  <span class="hljs-string">'fideloper/proxy'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Fideloper\\Proxy\\TrustedProxyServiceProvider'</span>,
+    ),
+  ),
+  <span class="hljs-string">'fruitcake/laravel-cors'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Fruitcake\\Cors\\CorsServiceProvider'</span>,
+    ),
+  ),
+  <span class="hljs-string">'laravel/tinker'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Laravel\\Tinker\\TinkerServiceProvider'</span>,
+    ),
+  ),
+  <span class="hljs-string">'laravel/ui'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Laravel\\Ui\\UiServiceProvider'</span>,
+    ),
+  ),
+  <span class="hljs-string">'laravelcollective/html'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Collective\\Html\\HtmlServiceProvider'</span>,
+    ),
+    <span class="hljs-string">'aliases'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-string">'Form'</span> =&gt; <span class="hljs-string">'Collective\\Html\\FormFacade'</span>,
+      <span class="hljs-string">'Html'</span> =&gt; <span class="hljs-string">'Collective\\Html\\HtmlFacade'</span>,
+    ),
+  ),
+  <span class="hljs-string">'maatwebsite/excel'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Maatwebsite\\Excel\\ExcelServiceProvider'</span>,
+    ),
+    <span class="hljs-string">'aliases'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-string">'Excel'</span> =&gt; <span class="hljs-string">'Maatwebsite\\Excel\\Facades\\Excel'</span>,
+    ),
+  ),
+  <span class="hljs-string">'nesbot/carbon'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Carbon\\Laravel\\ServiceProvider'</span>,
+    ),
+  ),
+  <span class="hljs-string">'nunomaduro/collision'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider'</span>,
+    ),
+  ),
+  <span class="hljs-string">'spatie/laravel-permission'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Spatie\\Permission\\PermissionServiceProvider'</span>,
+    ),
+  ),
+  <span class="hljs-string">'yajra/laravel-datatables-buttons'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\ButtonsServiceProvider'</span>,
+    ),
+  ),
+  <span class="hljs-string">'yajra/laravel-datatables-editor'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\EditorServiceProvider'</span>,
+    ),
+  ),
+  <span class="hljs-string">'yajra/laravel-datatables-fractal'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\FractalServiceProvider'</span>,
+    ),
+  ),
+  <span class="hljs-string">'yajra/laravel-datatables-html'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\HtmlServiceProvider'</span>,
+    ),
+  ),
+  <span class="hljs-string">'yajra/laravel-datatables-oracle'</span> =&gt; 
+  <span class="hljs-keyword">array</span> (
+    <span class="hljs-string">'providers'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-number">0</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\DataTablesServiceProvider'</span>,
+    ),
+    <span class="hljs-string">'aliases'</span> =&gt; 
+    <span class="hljs-keyword">array</span> (
+      <span class="hljs-string">'DataTables'</span> =&gt; <span class="hljs-string">'Yajra\\DataTables\\Facades\\DataTables'</span>,
+    ),
+  ),
+);
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

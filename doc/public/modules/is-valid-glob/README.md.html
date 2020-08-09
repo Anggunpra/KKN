@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\is-valid-glob\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#is-valid-glob">is-valid-glob </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#running-tests">Running tests</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="is-valid-glob">
+  <h1>
+    <a href="#is-valid-glob" name="is-valid-glob" class="pilcrow"></a>
+is-valid-glob <a href="http://badge.fury.io/js/is-valid-glob"><img src="https://badge.fury.io/js/is-valid-glob.svg" alt="NPM version"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Return true if a value is a valid glob pattern or patterns.</p>
+</blockquote>
+<p>This really just checks to make sure that a pattern is either a string or array, and if it's an array it's either empty or consists of only strings.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://www.npmjs.com/">npm</a></p>
+<pre><code class="sh">$ npm i is-valid-glob --save
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> isValidGlob = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-valid-glob'</span>);
+
+isValidGlob(<span class="hljs-string">'foo/*.js'</span>);
+<span class="hljs-comment">//=&gt; true</span>
+</code></pre>
+<p><strong>Valid patterns</strong></p>
+<pre><code class="js">isValidGlob(<span class="hljs-string">'a'</span>);
+isValidGlob(<span class="hljs-string">'a.js'</span>);
+isValidGlob(<span class="hljs-string">'*.js'</span>);
+isValidGlob([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>]);
+<span class="hljs-comment">//=&gt; all true</span>
+</code></pre>
+<p><strong>Invalid patterns</strong></p>
+<pre><code class="js">isValidGlob();
+isValidGlob(<span class="hljs-string">''</span>);
+isValidGlob(<span class="hljs-literal">null</span>);
+isValidGlob(<span class="hljs-literal">undefined</span>);
+isValidGlob(<span class="hljs-keyword">new</span> Buffer(<span class="hljs-string">'foo'</span>));
+isValidGlob([<span class="hljs-string">'foo'</span>, [[]]]);
+isValidGlob([<span class="hljs-string">'foo'</span>, [[<span class="hljs-string">'bar'</span>]]]);
+isValidGlob([<span class="hljs-string">'foo'</span>, {}]);
+isValidGlob({});
+isValidGlob([]);
+isValidGlob([<span class="hljs-string">''</span>]);
+<span class="hljs-comment">//=&gt; all false</span>
+</code></pre>
+<div class="pilwrap" id="related-projects">
+  <h2>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/jonschlinkert/braces">braces</a>: Fastest brace expansion for node.js, with the most complete support for the Bash 4.3 braces… <a href="https://github.com/jonschlinkert/braces">more</a></li>
+<li><a href="https://github.com/jonschlinkert/expand-range">expand-range</a>: Fast, bash-like range expansion. Expand a range of numbers or letters, uppercase or lowercase. See… <a href="https://github.com/jonschlinkert/expand-range">more</a></li>
+<li><a href="https://github.com/jonschlinkert/fill-range">fill-range</a>: Fill in a range of numbers or letters, optionally passing an increment or multiplier to… <a href="https://github.com/jonschlinkert/fill-range">more</a></li>
+<li><a href="http://gulpjs.com">gulp</a>: The streaming build system</li>
+<li><a href="https://github.com/jonschlinkert/glob-fs">glob-fs</a>: file globbing for node.js. speedy and powerful alternative to node-glob.</li>
+<li><a href="https://github.com/jonschlinkert/is-glob">is-glob</a>: Returns <code>true</code> if the given string looks like a glob pattern.</li>
+<li><a href="https://github.com/jonschlinkert/micromatch">micromatch</a>: Glob matching for javascript/node.js. A drop-in replacement and faster alternative to minimatch and multimatch. Just… <a href="https://github.com/jonschlinkert/micromatch">more</a></li>
+<li><a href="http://github.com/wearefractal/vinyl-fs">vinyl-fs</a>: Vinyl adapter for the file system</li>
+</ul>
+<div class="pilwrap" id="running-tests">
+  <h2>
+    <a href="#running-tests" name="running-tests" class="pilcrow"></a>
+Running tests
+  </h2>
+</div>
+<p>Install dev dependencies:</p>
+<pre><code class="sh">$ npm i -d &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="contributing">
+  <h2>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h2>
+</div>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="https://github.com/jonschlinkert/is-valid-glob/issues/new">please create an issue</a></p>
+<div class="pilwrap" id="author">
+  <h2>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h2>
+</div>
+<p><strong>Jon Schlinkert</strong></p>
+<ul>
+<li><a href="https://github.com/jonschlinkert">github/jonschlinkert</a></li>
+<li><a href="http://twitter.com/jonschlinkert">twitter/jonschlinkert</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>Copyright © 2015 Jon Schlinkert
+Released under the MIT license.</p>
+<hr>
+<p><em>This file was generated by <a href="https://github.com/assemble/verb-cli">verb-cli</a> on July 11, 2015.</em></p>
+</div>
+  </div>
+</body>
+</html>

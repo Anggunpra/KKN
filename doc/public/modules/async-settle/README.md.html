@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\async-settle\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#async-settle">async-settle</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#successful-completion">Successful completion</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#failed-completion">Failed completion</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#asyncsettle-fn-callback">asyncSettle(fn, callback)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#fn-done">fn([done])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#callback-error-result">callback(error, result)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#settled-object">Settled Object</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p align="center">
+  <a href="http://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+</p>
+<div class="pilwrap" id="async-settle">
+  <h1>
+    <a href="#async-settle" name="async-settle" class="pilcrow"></a>
+async-settle
+  </h1>
+</div>
+<p><a href="https://www.npmjs.com/package/async-settle"><img src="http://img.shields.io/npm/v/async-settle.svg" alt="NPM version"></a> <a href="https://www.npmjs.com/package/async-settle"><img src="http://img.shields.io/npm/dm/async-settle.svg" alt="Downloads"></a> <a href="https://travis-ci.org/gulpjs/async-settle"><img src="http://img.shields.io/travis/gulpjs/async-settle.svg?label=travis-ci" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/gulpjs/async-settle"><img src="https://img.shields.io/appveyor/ci/gulpjs/async-settle.svg?label=appveyor" alt="AppVeyor Build Status"></a> <a href="https://coveralls.io/r/gulpjs/async-settle"><img src="http://img.shields.io/coveralls/gulpjs/async-settle/master.svg" alt="Coveralls Status"></a> <a href="https://gitter.im/gulpjs/gulp"><img src="https://badges.gitter.im/gulpjs/gulp.svg" alt="Gitter chat"></a></p>
+<p>Settle an async function. It will always complete successfully with an object of the resulting state.</p>
+<p>Handles completion and errors for callbacks, promises, observables and streams.</p>
+<p>Will run call the function on <code>nextTick</code>. This will cause all functions to be async.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<div class="pilwrap" id="successful-completion">
+  <h3>
+    <a href="#successful-completion" name="successful-completion" class="pilcrow"></a>
+Successful completion
+  </h3>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> asyncSettle = <span class="hljs-built_in">require</span>(<span class="hljs-string">'async-settle'</span>);
+
+asyncSettle(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+  <span class="hljs-comment">// do async things</span>
+  done(<span class="hljs-literal">null</span>, <span class="hljs-number">2</span>);
+}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, result</span>)</span>{
+  <span class="hljs-comment">// `error` will ALWAYS be null on execution of the first function.</span>
+  <span class="hljs-comment">// `result` will ALWAYS be a settled object with the result or error of the first function.</span>
+});
+</code></pre>
+<div class="pilwrap" id="failed-completion">
+  <h3>
+    <a href="#failed-completion" name="failed-completion" class="pilcrow"></a>
+Failed completion
+  </h3>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> asyncSettle = <span class="hljs-built_in">require</span>(<span class="hljs-string">'async-settle'</span>);
+
+asyncSettle(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+  <span class="hljs-comment">// do async things</span>
+  done(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Some Error Occurred'</span>));
+}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, result</span>)</span>{
+  <span class="hljs-comment">// `error` will ALWAYS be null on execution of the first function.</span>
+  <span class="hljs-comment">// `result` will ALWAYS be a settled object with the result or error of the first function.</span>
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="asyncsettle-fn-callback">
+  <h3>
+    <a href="#asyncsettle-fn-callback" name="asyncsettle-fn-callback" class="pilcrow"></a>
+<code>asyncSettle(fn, callback)</code>
+  </h3>
+</div>
+<p>Takes a function to execute (<code>fn</code>) and a function to call on completion (<code>callback</code>).</p>
+<div class="pilwrap" id="fn-done">
+  <h4>
+    <a href="#fn-done" name="fn-done" class="pilcrow"></a>
+<code>fn([done])</code>
+  </h4>
+</div>
+<p>Optionally takes a callback (<code>done</code>) to call when async tasks are complete.</p>
+<p>Executed in the context of <a href="https://github.com/gulpjs/async-done"><code>async-done</code></a>, with all errors and results being settled.</p>
+<p>Completion is handled by <a href="https://github.com/gulpjs/async-done#completion-and-error-resolution"><code>async-done</code> completion and error resolution</a>.</p>
+<div class="pilwrap" id="callback-error-result">
+  <h4>
+    <a href="#callback-error-result" name="callback-error-result" class="pilcrow"></a>
+<code>callback(error, result)</code>
+  </h4>
+</div>
+<p>Called on completion of <code>fn</code> and recieves a settled object as the <code>result</code> argument.</p>
+<p>The <code>error</code> argument will always be <code>null</code>.</p>
+<div class="pilwrap" id="settled-object">
+  <h4>
+    <a href="#settled-object" name="settled-object" class="pilcrow"></a>
+Settled Object
+  </h4>
+</div>
+<p>Settled values have two properties, <code>state</code> and <code>value</code>.</p>
+<p><code>state</code> has two possible options <code>'error'</code> and <code>'success'</code>.</p>
+<p><code>value</code> will be the value passed to original callback.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

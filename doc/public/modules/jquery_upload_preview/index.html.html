@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.html</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\jquery_upload_preview\\index.html";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.html</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Upload Preview jQuery Plugin<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"assets/js/jquery-2.0.3.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"assets/js/jquery.uploadPreview.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
+    $(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      $.uploadPreview({
+        <span class="hljs-attr">input_field</span>: <span class="hljs-string">"#image-upload"</span>,
+        <span class="hljs-attr">preview_box</span>: <span class="hljs-string">"#image-preview"</span>,
+        <span class="hljs-attr">label_field</span>: <span class="hljs-string">"#image-label"</span>
+      });
+
+      $.uploadPreview({
+        <span class="hljs-attr">input_field</span>: <span class="hljs-string">"#audio-upload"</span>,
+        <span class="hljs-attr">preview_box</span>: <span class="hljs-string">"#audio-preview"</span>,
+        <span class="hljs-attr">no_label</span>: <span class="hljs-literal">true</span>
+      });
+
+      $.uploadPreview({
+        <span class="hljs-attr">input_field</span>: <span class="hljs-string">"#callback-upload"</span>,
+        <span class="hljs-attr">preview_box</span>: <span class="hljs-string">"#callback-preview"</span>,
+        <span class="hljs-attr">label_field</span>: <span class="hljs-string">"#callback-label"</span>,
+        <span class="hljs-attr">success_callback</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+          alert(<span class="hljs-string">"File will now be previewed"</span>);
+        }
+      });
+    });
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"assets/css/application.css"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, minimum-scale=1, maximum-scale=1"</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://github.com/opoloo/jquery_upload_preview"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"position: absolute; top: 0; right: 0; border: 0;"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Fork me on GitHub"</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Upload Preview jQuery Plugin<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>What is that?<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>This jQuery plugin provides an easy way to preview your uploads before they're actually uploaded to the server. So if you selected an image or audio file from your hard drive, it will generate a live preview of the selected image or audio player for the audio file.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>How it works?<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>To get access to the not uploaded data, we can use the HTML5 file reader api. This api provides reading local files. This step is pretty important, because we need to this data in order to show it in the browser window. To get more information about the file reader, you can read the <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"http://www.w3.org/TR/FileAPI/"</span> <span class="hljs-attr">target</span>=<span class="hljs-string">"_blank"</span>&gt;</span>offical documentation<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Download<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"assets/js/jquery.uploadPreview.js"</span>&gt;</span>jquery.uploadPreview.js (2.5 kb)<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"assets/js/jquery.uploadPreview.min.js"</span>&gt;</span>jquery.uploadPreview.min.js (1.3 kb)<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Installation<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>1. Copy jQuery <span class="hljs-symbol">&amp;amp;</span> plugin:<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>
+<span class="hljs-symbol">&amp;lt;</span>script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"<span class="hljs-symbol">&amp;gt;</span><span class="hljs-symbol">&amp;lt;</span>/script<span class="hljs-symbol">&amp;gt;</span>
+<span class="hljs-symbol">&amp;lt;</span>script type="text/javascript" src="assets/js/jquery.uploadPreview.min.js"<span class="hljs-symbol">&amp;gt;</span><span class="hljs-symbol">&amp;lt;</span>/script<span class="hljs-symbol">&amp;gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>2. Set up your upload form e.g.:<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>
+<span class="hljs-symbol">&amp;lt;</span>div id="image-preview"<span class="hljs-symbol">&amp;gt;</span>
+  <span class="hljs-symbol">&amp;lt;</span>label for="image-upload" id="image-label"<span class="hljs-symbol">&amp;gt;</span>Choose File<span class="hljs-symbol">&amp;lt;</span>/label<span class="hljs-symbol">&amp;gt;</span>
+  <span class="hljs-symbol">&amp;lt;</span>input type="file" name="image" id="image-upload" /<span class="hljs-symbol">&amp;gt;</span>
+<span class="hljs-symbol">&amp;lt;</span>/div<span class="hljs-symbol">&amp;gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>3. Load the plugin function as often as you need and fill it with the parameters:<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>
+<span class="hljs-symbol">&amp;lt;</span>script type="text/javascript"<span class="hljs-symbol">&amp;gt;</span>
+$(document).ready(function() {
+  $.uploadPreview({
+    input_field: "#image-upload",   // Default: .image-upload
+    preview_box: "#image-preview",  // Default: .image-preview
+    label_field: "#image-label",    // Default: .image-label
+    label_default: "Choose File",   // Default: Choose File
+    label_selected: "Change File",  // Default: Change File
+    no_label: false                 // Default: false
+  });
+});
+<span class="hljs-symbol">&amp;lt;</span>/script<span class="hljs-symbol">&amp;gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Customization<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>You're free to customize the CSS and HTML for the input, preview <span class="hljs-symbol">&amp;amp;</span> label fields. Feel free to change it as you wish. There's no need that you put it all together as you can see in step 2. The preview box might be located somewhere else on your page as the input field is.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Image File Example<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>
+<span class="hljs-symbol">&amp;lt;</span>style type="text/css"<span class="hljs-symbol">&amp;gt;</span>
+#image-preview {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff;
+  color: #ecf0f1;
+}
+#image-preview input {
+  line-height: 200px;
+  font-size: 200px;
+  position: absolute;
+  opacity: 0;
+  z-index: 10;
+}
+#image-preview label {
+  position: absolute;
+  z-index: 5;
+  opacity: 0.8;
+  cursor: pointer;
+  background-color: #bdc3c7;
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  line-height: 50px;
+  text-transform: uppercase;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  text-align: center;
+}
+<span class="hljs-symbol">&amp;lt;</span>/style<span class="hljs-symbol">&amp;gt;</span>
+
+<span class="hljs-symbol">&amp;lt;</span>script type="text/javascript"<span class="hljs-symbol">&amp;gt;</span>
+$(document).ready(function() {
+  $.uploadPreview({
+    input_field: "#image-upload",
+    preview_box: "#image-preview",
+    label_field: "#image-label"
+  });
+});
+<span class="hljs-symbol">&amp;lt;</span>/script<span class="hljs-symbol">&amp;gt;</span>
+
+<span class="hljs-symbol">&amp;lt;</span>div id="image-preview"<span class="hljs-symbol">&amp;gt;</span>
+  <span class="hljs-symbol">&amp;lt;</span>label for="image-upload" id="image-label"<span class="hljs-symbol">&amp;gt;</span>Choose File<span class="hljs-symbol">&amp;lt;</span>/label<span class="hljs-symbol">&amp;gt;</span>
+  <span class="hljs-symbol">&amp;lt;</span>input type="file" name="image" id="image-upload" /<span class="hljs-symbol">&amp;gt;</span>
+<span class="hljs-symbol">&amp;lt;</span>/div<span class="hljs-symbol">&amp;gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"image-preview"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"image-upload"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"image-label"</span>&gt;</span>Choose File<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"file"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"image"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"image-upload"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Callback Example<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>
+<span class="hljs-symbol">&amp;lt;</span>script type="text/javascript"<span class="hljs-symbol">&amp;gt;</span>
+$(document).ready(function() {
+  $.uploadPreview({
+    input_field: "#callback-upload",
+    preview_box: "#callback-preview",
+    label_field: "#callback-label",
+    success_callback: function() {
+      alert("File will now be previewed");
+    }
+  });
+});
+<span class="hljs-symbol">&amp;lt;</span>/script<span class="hljs-symbol">&amp;gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"callback-preview"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"callback-upload"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"callback-label"</span>&gt;</span>Choose File<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"file"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"image"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"callback-upload"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Audio File Example<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>
+<span class="hljs-symbol">&amp;lt;</span>style type="text/css"<span class="hljs-symbol">&amp;gt;</span>
+#audio-preview {
+  background: #ffffff;
+  width: auto;
+  padding: 20px;
+  display: inline-block;
+}
+
+#audio-upload {
+  cursor: pointer;
+  background-color: #bdc3c7;
+  color: #ecf0f1;
+  padding: 20px;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+<span class="hljs-symbol">&amp;lt;</span>/style<span class="hljs-symbol">&amp;gt;</span>
+
+<span class="hljs-symbol">&amp;lt;</span>script type="text/javascript"<span class="hljs-symbol">&amp;gt;</span>
+$(document).ready(function() {
+  $.uploadPreview({
+    input_field: "#audio-upload",
+    preview_box: "#audio-preview",
+    no_label: true
+  });
+});
+<span class="hljs-symbol">&amp;lt;</span>/script<span class="hljs-symbol">&amp;gt;</span>
+
+<span class="hljs-symbol">&amp;lt;</span>div id="audio-preview"<span class="hljs-symbol">&amp;gt;</span>No file selected<span class="hljs-symbol">&amp;lt;</span>/div<span class="hljs-symbol">&amp;gt;</span><span class="hljs-symbol">&amp;lt;</span>br /<span class="hljs-symbol">&amp;gt;</span>
+<span class="hljs-symbol">&amp;lt;</span>input type="file" name="audio" id="audio-upload" /<span class="hljs-symbol">&amp;gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"audio-preview"</span>&gt;</span>No file selected<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"file"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"audio"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"audio-upload"</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>License<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>The MIT License (MIT)<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Copyright (c) 2013 Opoloo GbR<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Permission is hereby granted, free of charge, to any person obtaining a copy<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    of this software and associated documentation files (the "Software"), to deal<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    in the Software without restriction, including without limitation the rights<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    copies of the Software, and to permit persons to whom the Software is<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    furnished to do so, subject to the following conditions:<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>The above copyright notice and this permission notice shall be included in<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    all copies or substantial portions of the Software.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    THE SOFTWARE.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

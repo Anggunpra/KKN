@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\expand-brackets\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Local dependencies</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">var</span> compilers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/compilers'</span>);
+<span class="hljs-keyword">var</span> parsers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/parsers'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Module dependencies</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">var</span> debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'expand-brackets'</span>);
+<span class="hljs-keyword">var</span> extend = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extend-shallow'</span>);
+<span class="hljs-keyword">var</span> Snapdragon = <span class="hljs-built_in">require</span>(<span class="hljs-string">'snapdragon'</span>);
+<span class="hljs-keyword">var</span> toRegex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'to-regex'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Parses the given POSIX character class <code>pattern</code> and returns a
+string that can be used for creating regular expressions for matching.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">brackets</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  debug(<span class="hljs-string">'initializing from &lt;%s&gt;'</span>, __filename);
+  <span class="hljs-keyword">var</span> res = brackets.create(pattern, options);
+  <span class="hljs-keyword">return</span> res.output;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Takes an array of strings and a POSIX character class pattern, and returns a new
+array with only the strings that matched the pattern.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> brackets = <span class="hljs-built_in">require</span>(<span class="hljs-string">'expand-brackets'</span>);
+<span class="hljs-built_in">console</span>.log(brackets.match([<span class="hljs-string">'1'</span>, <span class="hljs-string">'a'</span>, <span class="hljs-string">'ab'</span>], <span class="hljs-string">'[[:alpha:]]'</span>));
+<span class="hljs-comment">//=&gt; ['a']</span>
+<p><span class="hljs-built_in">console</span>.log(brackets.match([<span class="hljs-string">'1'</span>, <span class="hljs-string">'a'</span>, <span class="hljs-string">'ab'</span>], <span class="hljs-string">'[[:alpha:]]+'</span>));
+<span class="hljs-comment">//=&gt; ['a', 'ab']</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`arr`</span>
+<span class="dox_type">Array</span>
+<span>Array of strings to match
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>POSIX character class pattern(s)
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Array</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+brackets.match = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arr, pattern, options</span>) </span>{
+  arr = [].concat(arr);
+  <span class="hljs-keyword">var</span> opts = extend({}, options);
+  <span class="hljs-keyword">var</span> isMatch = brackets.matcher(pattern, opts);
+  <span class="hljs-keyword">var</span> len = arr.length;
+  <span class="hljs-keyword">var</span> idx = <span class="hljs-number">-1</span>;
+  <span class="hljs-keyword">var</span> res = [];
+
+  <span class="hljs-keyword">while</span> (++idx &lt; len) {
+    <span class="hljs-keyword">var</span> ele = arr[idx];
+    <span class="hljs-keyword">if</span> (isMatch(ele)) {
+      res.push(ele);
+    }
+  }
+
+  <span class="hljs-keyword">if</span> (res.length === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">if</span> (opts.failglob === <span class="hljs-literal">true</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'no matches found for "'</span> + pattern + <span class="hljs-string">'"'</span>);
+    }
+
+    <span class="hljs-keyword">if</span> (opts.nonull === <span class="hljs-literal">true</span> || opts.nullglob === <span class="hljs-literal">true</span>) {
+      <span class="hljs-keyword">return</span> [pattern.split(<span class="hljs-string">'\\'</span>).join(<span class="hljs-string">''</span>)];
+    }
+  }
+  <span class="hljs-keyword">return</span> res;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns true if the specified <code>string</code> matches the given
+brackets <code>pattern</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> brackets = <span class="hljs-built_in">require</span>(<span class="hljs-string">'expand-brackets'</span>);
+<p><span class="hljs-built_in">console</span>.log(brackets.isMatch(<span class="hljs-string">'a.a'</span>, <span class="hljs-string">'[[:alpha:]].[[:alpha:]]'</span>));
+<span class="hljs-comment">//=&gt; true</span>
+<span class="hljs-built_in">console</span>.log(brackets.isMatch(<span class="hljs-string">'1.2'</span>, <span class="hljs-string">'[[:alpha:]].[[:alpha:]]'</span>));
+<span class="hljs-comment">//=&gt; false</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`string`</span>
+<span class="dox_type">String</span>
+<span>String to match
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>Poxis pattern
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+brackets.isMatch = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">str, pattern, options</span>) </span>{
+  <span class="hljs-keyword">return</span> brackets.matcher(pattern, options)(str);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Takes a POSIX character class pattern and returns a matcher function. The returned
+function takes the string to match as its only argument.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> brackets = <span class="hljs-built_in">require</span>(<span class="hljs-string">'expand-brackets'</span>);
+<span class="hljs-keyword">var</span> isMatch = brackets.matcher(<span class="hljs-string">'[[:lower:]].[[:upper:]]'</span>);
+<p><span class="hljs-built_in">console</span>.log(isMatch(<span class="hljs-string">'a.a'</span>));
+<span class="hljs-comment">//=&gt; false</span>
+<span class="hljs-built_in">console</span>.log(isMatch(<span class="hljs-string">'a.A'</span>));
+<span class="hljs-comment">//=&gt; true</span>
+</code></pre></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>Poxis pattern
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Boolean</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+brackets.matcher = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">var</span> re = brackets.makeRe(pattern, options);
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">str</span>) </span>{
+    <span class="hljs-keyword">return</span> re.test(str);
+  };
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Create a regular expression from the given <code>pattern</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> brackets = <span class="hljs-built_in">require</span>(<span class="hljs-string">'expand-brackets'</span>);
+<span class="hljs-keyword">var</span> re = brackets.makeRe(<span class="hljs-string">'[[:alpha:]]'</span>);
+<span class="hljs-built_in">console</span>.log(re);
+<span class="hljs-comment">//=&gt; /^(?:[a-zA-Z])$/</span>
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+<span>The pattern to convert to regex.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">RegExp</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+brackets.makeRe = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">var</span> res = brackets.create(pattern, options);
+  <span class="hljs-keyword">var</span> opts = extend({<span class="hljs-attr">strictErrors</span>: <span class="hljs-literal">false</span>}, options);
+  <span class="hljs-keyword">return</span> toRegex(res.output, opts);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Parses the given POSIX character class <code>pattern</code> and returns an object
+with the compiled <code>output</code> and optional source <code>map</code>.</p>
+</div>
+<div class="body">
+<pre><code class="js"><span class="hljs-keyword">var</span> brackets = <span class="hljs-built_in">require</span>(<span class="hljs-string">'expand-brackets'</span>);
+<span class="hljs-built_in">console</span>.log(brackets(<span class="hljs-string">'[[:alpha:]]'</span>));
+<span class="hljs-comment">// { options: { source: 'string' },</span>
+<span class="hljs-comment">//   input: '[[:alpha:]]',</span>
+<span class="hljs-comment">//   state: {},</span>
+<span class="hljs-comment">//   compilers:</span>
+<span class="hljs-comment">//    { eos: [Function],</span>
+<span class="hljs-comment">//      noop: [Function],</span>
+<span class="hljs-comment">//      bos: [Function],</span>
+<span class="hljs-comment">//      not: [Function],</span>
+<span class="hljs-comment">//      escape: [Function],</span>
+<span class="hljs-comment">//      text: [Function],</span>
+<span class="hljs-comment">//      posix: [Function],</span>
+<span class="hljs-comment">//      bracket: [Function],</span>
+<span class="hljs-comment">//      'bracket.open': [Function],</span>
+<span class="hljs-comment">//      'bracket.inner': [Function],</span>
+<span class="hljs-comment">//      'bracket.literal': [Function],</span>
+<span class="hljs-comment">//      'bracket.close': [Function] },</span>
+<span class="hljs-comment">//   output: '[a-zA-Z]',</span>
+<span class="hljs-comment">//   ast:</span>
+<span class="hljs-comment">//    { type: 'root',</span>
+<span class="hljs-comment">//      errors: [],</span>
+<span class="hljs-comment">//      nodes: [ [Object], [Object], [Object] ] },</span>
+<span class="hljs-comment">//   parsingErrors: [] }</span>
+</code></pre>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`pattern`</span>
+<span class="dox_type">String</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`options`</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_title">API</div>
+<div class="dox_tag_detail">
+<span class="dox_type">public</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+brackets.create = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pattern, options</span>) </span>{
+  <span class="hljs-keyword">var</span> snapdragon = (options &amp;&amp; options.snapdragon) || <span class="hljs-keyword">new</span> Snapdragon(options);
+  compilers(snapdragon);
+  parsers(snapdragon);
+
+  <span class="hljs-keyword">var</span> ast = snapdragon.parse(pattern, options);
+  ast.input = pattern;
+  <span class="hljs-keyword">var</span> res = snapdragon.compile(ast, options);
+  res.input = pattern;
+  <span class="hljs-keyword">return</span> res;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose <code>brackets</code> constructor, parsers and compilers</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+brackets.compilers = compilers;
+brackets.parsers = parsers;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Expose <code>brackets</code></p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">Function</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">module</span>.exports = brackets;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

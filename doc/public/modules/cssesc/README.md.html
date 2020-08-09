@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\cssesc\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#cssesc">cssesc  </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#cssesc-value-options">cssesc(value, options)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#isidentifier">isIdentifier</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#quotes">quotes</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#wrap">wrap</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#escapeeverything">escapeEverything</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#overriding-the-default-options-globally">Overriding the default options globally</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#cssesc.version">cssesc.version</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#using-the-cssesc-binary">Using the cssesc binary</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#support">Support</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="cssesc">
+  <h1>
+    <a href="#cssesc" name="cssesc" class="pilcrow"></a>
+cssesc <a href="https://travis-ci.org/mathiasbynens/cssesc"><img src="https://travis-ci.org/mathiasbynens/cssesc.svg?branch=master" alt="Build status"></a> <a href="https://codecov.io/gh/mathiasbynens/cssesc"><img src="https://img.shields.io/codecov/c/github/mathiasbynens/cssesc.svg" alt="Code coverage status"></a>
+  </h1>
+</div>
+<p>A JavaScript library for escaping CSS strings and identifiers while generating the shortest possible ASCII-only output.</p>
+<p>This is a JavaScript library for <a href="https://mathiasbynens.be/notes/css-escapes">escaping text for use in CSS strings or identifiers</a> while generating the shortest possible valid ASCII-only output. <a href="https://mothereff.in/css-escapes">Here’s an online demo.</a></p>
+<p><a href="https://mths.be/cssescape">A polyfill for the CSSOM <code>CSS.escape()</code> method is available in a separate repository.</a> (In comparison, <em>cssesc</em> is much more powerful.)</p>
+<p>Feel free to fork if you see possible improvements!</p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<p>Via <a href="https://www.npmjs.com/">npm</a>:</p>
+<pre><code class="bash">npm install cssesc
+</code></pre>
+<p>In a browser:</p>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"cssesc.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>In <a href="https://nodejs.org/">Node.js</a>:</p>
+<pre><code class="js"><span class="hljs-keyword">const</span> cssesc = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cssesc'</span>);
+</code></pre>
+<p>In Ruby using <a href="https://github.com/borodean/ruby-cssesc">the <code>ruby-cssesc</code> wrapper gem</a>:</p>
+<pre><code class="bash">gem install ruby-cssesc
+</code></pre>
+<pre><code class="ruby"><span class="hljs-keyword">require</span> <span class="hljs-string">'ruby-cssesc'</span>
+CSSEsc.escape(<span class="hljs-string">'I ♥ Ruby'</span>, <span class="hljs-symbol">is_identifier:</span> <span class="hljs-literal">true</span>)
+</code></pre>
+<p>In Sass using <a href="https://github.com/borodean/sassy-escape"><code>sassy-escape</code></a>:</p>
+<pre><code class="bash">gem install sassy-escape
+</code></pre>
+<pre><code class="scss"><span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">content</span>: escape(<span class="hljs-string">'I ♥ Sass'</span>, <span class="hljs-variable">$is-identifier</span>: true);
+}
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="cssesc-value-options">
+  <h3>
+    <a href="#cssesc-value-options" name="cssesc-value-options" class="pilcrow"></a>
+<code>cssesc(value, options)</code>
+  </h3>
+</div>
+<p>This function takes a value and returns an escaped version of the value where any characters that are not printable ASCII symbols are escaped using the shortest possible (but valid) <a href="https://mathiasbynens.be/notes/css-escapes">escape sequences for use in CSS strings or identifiers</a>.</p>
+<pre><code class="js">cssesc(<span class="hljs-string">'Ich ♥ Bücher'</span>);
+<span class="hljs-comment">// → 'Ich \\2665  B\\FC cher'</span>
+
+cssesc(<span class="hljs-string">'foo 𝌆 bar'</span>);
+<span class="hljs-comment">// → 'foo \\1D306  bar'</span>
+</code></pre>
+<p>By default, <code>cssesc</code> returns a string that can be used as part of a CSS string. If the target is a CSS identifier rather than a CSS string, use the <code>isIdentifier: true</code> setting (see below).</p>
+<p>The optional <code>options</code> argument accepts an object with the following options:</p>
+<div class="pilwrap" id="isidentifier">
+  <h4>
+    <a href="#isidentifier" name="isidentifier" class="pilcrow"></a>
+<code>isIdentifier</code>
+  </h4>
+</div>
+<p>The default value for the <code>isIdentifier</code> option is <code>false</code>. This means that the input text will be escaped for use in a CSS string literal. If you want to use the result as a CSS identifier instead (in a selector, for example), set this option to <code>true</code>.</p>
+<pre><code class="js">cssesc(<span class="hljs-string">'123a2b'</span>);
+<span class="hljs-comment">// → '123a2b'</span>
+
+cssesc(<span class="hljs-string">'123a2b'</span>, {
+  <span class="hljs-string">'isIdentifier'</span>: <span class="hljs-literal">true</span>
+});
+<span class="hljs-comment">// → '\\31 23a2b'</span>
+</code></pre>
+<div class="pilwrap" id="quotes">
+  <h4>
+    <a href="#quotes" name="quotes" class="pilcrow"></a>
+<code>quotes</code>
+  </h4>
+</div>
+<p>The default value for the <code>quotes</code> option is <code>'single'</code>. This means that any occurences of <code>'</code> in the input text will be escaped as <code>\'</code>, so that the output can be used in a CSS string literal wrapped in single quotes.</p>
+<pre><code class="js">cssesc(<span class="hljs-string">'Lorem ipsum "dolor" sit \'amet\' etc.'</span>);
+<span class="hljs-comment">// → 'Lorem ipsum "dolor" sit \\\'amet\\\' etc.'</span>
+<span class="hljs-comment">// → "Lorem ipsum \"dolor\" sit \\'amet\\' etc."</span>
+
+cssesc(<span class="hljs-string">'Lorem ipsum "dolor" sit \'amet\' etc.'</span>, {
+  <span class="hljs-string">'quotes'</span>: <span class="hljs-string">'single'</span>
+});
+<span class="hljs-comment">// → 'Lorem ipsum "dolor" sit \\\'amet\\\' etc.'</span>
+<span class="hljs-comment">// → "Lorem ipsum \"dolor\" sit \\'amet\\' etc."</span>
+</code></pre>
+<p>If you want to use the output as part of a CSS string literal wrapped in double quotes, set the <code>quotes</code> option to <code>'double'</code>.</p>
+<pre><code class="js">cssesc(<span class="hljs-string">'Lorem ipsum "dolor" sit \'amet\' etc.'</span>, {
+  <span class="hljs-string">'quotes'</span>: <span class="hljs-string">'double'</span>
+});
+<span class="hljs-comment">// → 'Lorem ipsum \\"dolor\\" sit \'amet\' etc.'</span>
+<span class="hljs-comment">// → "Lorem ipsum \\\"dolor\\\" sit 'amet' etc."</span>
+</code></pre>
+<div class="pilwrap" id="wrap">
+  <h4>
+    <a href="#wrap" name="wrap" class="pilcrow"></a>
+<code>wrap</code>
+  </h4>
+</div>
+<p>The <code>wrap</code> option takes a boolean value (<code>true</code> or <code>false</code>), and defaults to <code>false</code> (disabled). When enabled, the output will be a valid CSS string literal wrapped in quotes. The type of quotes can be specified through the <code>quotes</code> setting.</p>
+<pre><code class="js">cssesc(<span class="hljs-string">'Lorem ipsum "dolor" sit \'amet\' etc.'</span>, {
+  <span class="hljs-string">'quotes'</span>: <span class="hljs-string">'single'</span>,
+  <span class="hljs-string">'wrap'</span>: <span class="hljs-literal">true</span>
+});
+<span class="hljs-comment">// → '\'Lorem ipsum "dolor" sit \\\'amet\\\' etc.\''</span>
+<span class="hljs-comment">// → "\'Lorem ipsum \"dolor\" sit \\\'amet\\\' etc.\'"</span>
+
+cssesc(<span class="hljs-string">'Lorem ipsum "dolor" sit \'amet\' etc.'</span>, {
+  <span class="hljs-string">'quotes'</span>: <span class="hljs-string">'double'</span>,
+  <span class="hljs-string">'wrap'</span>: <span class="hljs-literal">true</span>
+});
+<span class="hljs-comment">// → '"Lorem ipsum \\"dolor\\" sit \'amet\' etc."'</span>
+<span class="hljs-comment">// → "\"Lorem ipsum \\\"dolor\\\" sit \'amet\' etc.\""</span>
+</code></pre>
+<div class="pilwrap" id="escapeeverything">
+  <h4>
+    <a href="#escapeeverything" name="escapeeverything" class="pilcrow"></a>
+<code>escapeEverything</code>
+  </h4>
+</div>
+<p>The <code>escapeEverything</code> option takes a boolean value (<code>true</code> or <code>false</code>), and defaults to <code>false</code> (disabled). When enabled, all the symbols in the output will be escaped, even printable ASCII symbols.</p>
+<pre><code class="js">cssesc(<span class="hljs-string">'lolwat"foo\'bar'</span>, {
+  <span class="hljs-string">'escapeEverything'</span>: <span class="hljs-literal">true</span>
+});
+<span class="hljs-comment">// → '\\6C\\6F\\6C\\77\\61\\74\\"\\66\\6F\\6F\\\'\\62\\61\\72'</span>
+<span class="hljs-comment">// → "\\6C\\6F\\6C\\77\\61\\74\\\"\\66\\6F\\6F\\'\\62\\61\\72"</span>
+</code></pre>
+<div class="pilwrap" id="overriding-the-default-options-globally">
+  <h4>
+    <a href="#overriding-the-default-options-globally" name="overriding-the-default-options-globally" class="pilcrow"></a>
+Overriding the default options globally
+  </h4>
+</div>
+<p>The global default settings can be overridden by modifying the <code>css.options</code> object. This saves you from passing in an <code>options</code> object for every call to <code>encode</code> if you want to use the non-default setting.</p>
+<pre><code class="js"><span class="hljs-comment">// Read the global default setting for `escapeEverything`:</span>
+cssesc.options.escapeEverything;
+<span class="hljs-comment">// → `false` by default</span>
+
+<span class="hljs-comment">// Override the global default setting for `escapeEverything`:</span>
+cssesc.options.escapeEverything = <span class="hljs-literal">true</span>;
+
+<span class="hljs-comment">// Using the global default setting for `escapeEverything`, which is now `true`:</span>
+cssesc(<span class="hljs-string">'foo © bar ≠ baz 𝌆 qux'</span>);
+<span class="hljs-comment">// → '\\66\\6F\\6F\\ \\A9\\ \\62\\61\\72\\ \\2260\\ \\62\\61\\7A\\ \\1D306\\ \\71\\75\\78'</span>
+</code></pre>
+<div class="pilwrap" id="cssesc.version">
+  <h3>
+    <a href="#cssesc.version" name="cssesc.version" class="pilcrow"></a>
+<code>cssesc.version</code>
+  </h3>
+</div>
+<p>A string representing the semantic version number.</p>
+<div class="pilwrap" id="using-the-cssesc-binary">
+  <h3>
+    <a href="#using-the-cssesc-binary" name="using-the-cssesc-binary" class="pilcrow"></a>
+Using the <code>cssesc</code> binary
+  </h3>
+</div>
+<p>To use the <code>cssesc</code> binary in your shell, simply install cssesc globally using npm:</p>
+<pre><code class="bash">npm install -g cssesc
+</code></pre>
+<p>After that you will be able to escape text for use in CSS strings or identifiers from the command line:</p>
+<pre><code class="bash">$ cssesc <span class="hljs-string">'föo ♥ bår 𝌆 baz'</span>
+f\F6o \2665  b\E5r \1D306  baz
+</code></pre>
+<p>If the output needs to be a CSS identifier rather than part of a string literal, use the <code>-i</code>/<code>--identifier</code> option:</p>
+<pre><code class="bash">$ cssesc --identifier <span class="hljs-string">'föo ♥ bår 𝌆 baz'</span>
+f\F6o\ \2665\ b\E5r\ \1D306\ baz
+</code></pre>
+<p>See <code>cssesc --help</code> for the full list of options.</p>
+<div class="pilwrap" id="support">
+  <h2>
+    <a href="#support" name="support" class="pilcrow"></a>
+Support
+  </h2>
+</div>
+<p>This library supports the Node.js and browser versions mentioned in <a href="https://github.com/mathiasbynens/cssesc/blob/master/.babelrc"><code>.babelrc</code></a>. For a version that supports a wider variety of legacy browsers and environments out-of-the-box, <a href="https://github.com/mathiasbynens/cssesc/releases/tag/v0.1.0">see v0.1.0</a>.</p>
+<div class="pilwrap" id="author">
+  <h2>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h2>
+</div>
+<table>
+<thead>
+<tr>
+<th><a href="https://twitter.com/mathias" title="Follow @mathias on Twitter"><img src="https://gravatar.com/avatar/24e08a9ea84deb17ae121074d0f17125?s=70" alt="twitter/mathias"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://mathiasbynens.be/">Mathias Bynens</a></td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>This library is available under the <a href="https://mths.be/mit">MIT</a> license.</p>
+</div>
+  </div>
+</body>
+</html>

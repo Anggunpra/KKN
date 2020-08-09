@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\currently-unhandled\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#currently-unhandled">currently-unhandled  </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#currentlyunhandled">currentlyUnhandled()</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#browser-support">Browser Support</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="currently-unhandled">
+  <h1>
+    <a href="#currently-unhandled" name="currently-unhandled" class="pilcrow"></a>
+currently-unhandled <a href="https://travis-ci.org/jamestalmage/currently-unhandled"><img src="https://travis-ci.org/jamestalmage/currently-unhandled.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/jamestalmage/currently-unhandled?branch=master"><img src="https://coveralls.io/repos/github/jamestalmage/currently-unhandled/badge.svg?branch=master" alt="Coverage Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Track the list of currently unhandled promise rejections.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save currently-unhandled
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> currentlyUnhandled = <span class="hljs-built_in">require</span>(<span class="hljs-string">'currently-unhandled'</span>)(); <span class="hljs-comment">// &lt;- note the invocation</span>
+
+<span class="hljs-keyword">var</span> fooError = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'foo'</span>);
+<span class="hljs-keyword">var</span> p = <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'foo'</span>));
+
+<span class="hljs-comment">// on the next tick - unhandled rejected promise is added to the list:</span>
+currentlyUnhandled();
+<span class="hljs-comment">//=&gt; [{promise: p, reason: fooError}]'</span>
+
+p.catch(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {});
+
+<span class="hljs-comment">// on the next tick - handled promise is now removed from the list:</span>
+currentlyUnhandled();
+<span class="hljs-comment">//=&gt; [];</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="currentlyunhandled">
+  <h3>
+    <a href="#currentlyunhandled" name="currentlyunhandled" class="pilcrow"></a>
+currentlyUnhandled()
+  </h3>
+</div>
+<p>Returns an array of objects with <code>promise</code> and <code>reason</code> properties representing the rejected promises that currently do not have a rejection handler. The list grows and shrinks as unhandledRejections are published, and later handled.</p>
+<div class="pilwrap" id="browser-support">
+  <h2>
+    <a href="#browser-support" name="browser-support" class="pilcrow"></a>
+Browser Support
+  </h2>
+</div>
+<p>This module can be bundled with <code>browserify</code>. At time of writing, it will work with native Promises in the Chrome browser only. For best cross-browser support, use <code>bluebird</code> instead of native Promise support in browsers.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://github.com/jamestalmage">James Talmage</a></p>
+</div>
+  </div>
+</body>
+</html>

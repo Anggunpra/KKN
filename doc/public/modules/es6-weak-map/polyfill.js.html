@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>polyfill.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es6-weak-map\\polyfill.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>polyfill.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">"use strict"</span>;
+
+<span class="hljs-keyword">var</span> isValue           = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/object/is-value"</span>)
+  , setPrototypeOf    = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/object/set-prototype-of"</span>)
+  , object            = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/object/valid-object"</span>)
+  , ensureValue       = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/object/valid-value"</span>)
+  , randomUniq        = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es5-ext/string/random-uniq"</span>)
+  , d                 = <span class="hljs-built_in">require</span>(<span class="hljs-string">"d"</span>)
+  , getIterator       = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es6-iterator/get"</span>)
+  , forOf             = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es6-iterator/for-of"</span>)
+  , toStringTagSymbol = <span class="hljs-built_in">require</span>(<span class="hljs-string">"es6-symbol"</span>).toStringTag
+  , isNative          = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./is-native-implemented"</span>)
+
+  , isArray = <span class="hljs-built_in">Array</span>.isArray, defineProperty = <span class="hljs-built_in">Object</span>.defineProperty
+  , objHasOwnProperty = <span class="hljs-built_in">Object</span>.prototype.hasOwnProperty, getPrototypeOf = <span class="hljs-built_in">Object</span>.getPrototypeOf
+  , WeakMapPoly;
+
+<span class="hljs-built_in">module</span>.exports = WeakMapPoly = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-regexp">/* Iterable*/</span></span>) </span>{
+	<span class="hljs-keyword">var</span> iterable = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>], self;
+
+	<span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> WeakMapPoly)) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Constructor requires 'new'"</span>);
+	self = isNative &amp;&amp; setPrototypeOf &amp;&amp; (<span class="hljs-built_in">WeakMap</span> !== WeakMapPoly)
+		? setPrototypeOf(<span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>(), getPrototypeOf(<span class="hljs-keyword">this</span>)) : <span class="hljs-keyword">this</span>;
+
+	<span class="hljs-keyword">if</span> (isValue(iterable)) {
+		<span class="hljs-keyword">if</span> (!isArray(iterable)) iterable = getIterator(iterable);
+	}
+	defineProperty(self, <span class="hljs-string">"__weakMapData__"</span>, d(<span class="hljs-string">"c"</span>, <span class="hljs-string">"$weakMap$"</span> + randomUniq()));
+	<span class="hljs-keyword">if</span> (!iterable) <span class="hljs-keyword">return</span> self;
+	forOf(iterable, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val</span>) </span>{
+		ensureValue(val);
+		self.set(val[<span class="hljs-number">0</span>], val[<span class="hljs-number">1</span>]);
+	});
+	<span class="hljs-keyword">return</span> self;
+};
+
+<span class="hljs-keyword">if</span> (isNative) {
+	<span class="hljs-keyword">if</span> (setPrototypeOf) setPrototypeOf(WeakMapPoly, <span class="hljs-built_in">WeakMap</span>);
+	WeakMapPoly.prototype = <span class="hljs-built_in">Object</span>.create(<span class="hljs-built_in">WeakMap</span>.prototype, { <span class="hljs-attr">constructor</span>: d(WeakMapPoly) });
+}
+
+<span class="hljs-built_in">Object</span>.defineProperties(WeakMapPoly.prototype, {
+	<span class="hljs-attr">delete</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>{
+		<span class="hljs-keyword">if</span> (objHasOwnProperty.call(object(key), <span class="hljs-keyword">this</span>.__weakMapData__)) {
+			<span class="hljs-keyword">delete</span> key[<span class="hljs-keyword">this</span>.__weakMapData__];
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	}),
+	<span class="hljs-attr">get</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>{
+		<span class="hljs-keyword">if</span> (!objHasOwnProperty.call(object(key), <span class="hljs-keyword">this</span>.__weakMapData__)) <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+		<span class="hljs-keyword">return</span> key[<span class="hljs-keyword">this</span>.__weakMapData__];
+	}),
+	<span class="hljs-attr">has</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>{
+		<span class="hljs-keyword">return</span> objHasOwnProperty.call(object(key), <span class="hljs-keyword">this</span>.__weakMapData__);
+	}),
+	<span class="hljs-attr">set</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key, value</span>) </span>{
+		defineProperty(object(key), <span class="hljs-keyword">this</span>.__weakMapData__, d(<span class="hljs-string">"c"</span>, value));
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+	}),
+	<span class="hljs-attr">toString</span>: d(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-string">"[object WeakMap]"</span>;
+	})
+});
+defineProperty(WeakMapPoly.prototype, toStringTagSymbol, d(<span class="hljs-string">"c"</span>, <span class="hljs-string">"WeakMap"</span>));
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

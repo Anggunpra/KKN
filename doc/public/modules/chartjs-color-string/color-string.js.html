@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>color-string.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\chartjs-color-string\\color-string.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>color-string.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/* MIT license */</span>
+<span class="hljs-keyword">var</span> colorNames = <span class="hljs-built_in">require</span>(<span class="hljs-string">'color-name'</span>);
+
+<span class="hljs-built_in">module</span>.exports = {
+   <span class="hljs-attr">getRgba</span>: getRgba,
+   <span class="hljs-attr">getHsla</span>: getHsla,
+   <span class="hljs-attr">getRgb</span>: getRgb,
+   <span class="hljs-attr">getHsl</span>: getHsl,
+   <span class="hljs-attr">getHwb</span>: getHwb,
+   <span class="hljs-attr">getAlpha</span>: getAlpha,
+
+   <span class="hljs-attr">hexString</span>: hexString,
+   <span class="hljs-attr">rgbString</span>: rgbString,
+   <span class="hljs-attr">rgbaString</span>: rgbaString,
+   <span class="hljs-attr">percentString</span>: percentString,
+   <span class="hljs-attr">percentaString</span>: percentaString,
+   <span class="hljs-attr">hslString</span>: hslString,
+   <span class="hljs-attr">hslaString</span>: hslaString,
+   <span class="hljs-attr">hwbString</span>: hwbString,
+   <span class="hljs-attr">keyword</span>: keyword
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getRgba</span>(<span class="hljs-params">string</span>) </span>{
+   <span class="hljs-keyword">if</span> (!string) {
+      <span class="hljs-keyword">return</span>;
+   }
+   <span class="hljs-keyword">var</span> abbr =  <span class="hljs-regexp">/^#([a-fA-F0-9]{3,4})$/i</span>,
+       hex =  <span class="hljs-regexp">/^#([a-fA-F0-9]{6}([a-fA-F0-9]{2})?)$/i</span>,
+       rgba = <span class="hljs-regexp">/^rgba?\(\s*([+-]?\d+)\s*,\s*([+-]?\d+)\s*,\s*([+-]?\d+)\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)$/i</span>,
+       per = <span class="hljs-regexp">/^rgba?\(\s*([+-]?[\d\.]+)\%\s*,\s*([+-]?[\d\.]+)\%\s*,\s*([+-]?[\d\.]+)\%\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)$/i</span>,
+       keyword = <span class="hljs-regexp">/(\w+)/</span>;
+
+   <span class="hljs-keyword">var</span> rgb = [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+       a = <span class="hljs-number">1</span>,
+       match = string.match(abbr),
+       hexAlpha = <span class="hljs-string">""</span>;
+   <span class="hljs-keyword">if</span> (match) {
+      match = match[<span class="hljs-number">1</span>];
+      hexAlpha = match[<span class="hljs-number">3</span>];
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; rgb.length; i++) {
+         rgb[i] = <span class="hljs-built_in">parseInt</span>(match[i] + match[i], <span class="hljs-number">16</span>);
+      }
+      <span class="hljs-keyword">if</span> (hexAlpha) {
+         a = <span class="hljs-built_in">Math</span>.round((<span class="hljs-built_in">parseInt</span>(hexAlpha + hexAlpha, <span class="hljs-number">16</span>) / <span class="hljs-number">255</span>) * <span class="hljs-number">100</span>) / <span class="hljs-number">100</span>;
+      }
+   }
+   <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (match = string.match(hex)) {
+      hexAlpha = match[<span class="hljs-number">2</span>];
+      match = match[<span class="hljs-number">1</span>];
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; rgb.length; i++) {
+         rgb[i] = <span class="hljs-built_in">parseInt</span>(match.slice(i * <span class="hljs-number">2</span>, i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>), <span class="hljs-number">16</span>);
+      }
+      <span class="hljs-keyword">if</span> (hexAlpha) {
+         a = <span class="hljs-built_in">Math</span>.round((<span class="hljs-built_in">parseInt</span>(hexAlpha, <span class="hljs-number">16</span>) / <span class="hljs-number">255</span>) * <span class="hljs-number">100</span>) / <span class="hljs-number">100</span>;
+      }
+   }
+   <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (match = string.match(rgba)) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; rgb.length; i++) {
+         rgb[i] = <span class="hljs-built_in">parseInt</span>(match[i + <span class="hljs-number">1</span>]);
+      }
+      a = <span class="hljs-built_in">parseFloat</span>(match[<span class="hljs-number">4</span>]);
+   }
+   <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (match = string.match(per)) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; rgb.length; i++) {
+         rgb[i] = <span class="hljs-built_in">Math</span>.round(<span class="hljs-built_in">parseFloat</span>(match[i + <span class="hljs-number">1</span>]) * <span class="hljs-number">2.55</span>);
+      }
+      a = <span class="hljs-built_in">parseFloat</span>(match[<span class="hljs-number">4</span>]);
+   }
+   <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (match = string.match(keyword)) {
+      <span class="hljs-keyword">if</span> (match[<span class="hljs-number">1</span>] == <span class="hljs-string">"transparent"</span>) {
+         <span class="hljs-keyword">return</span> [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>];
+      }
+      rgb = colorNames[match[<span class="hljs-number">1</span>]];
+      <span class="hljs-keyword">if</span> (!rgb) {
+         <span class="hljs-keyword">return</span>;
+      }
+   }
+
+   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; rgb.length; i++) {
+      rgb[i] = scale(rgb[i], <span class="hljs-number">0</span>, <span class="hljs-number">255</span>);
+   }
+   <span class="hljs-keyword">if</span> (!a &amp;&amp; a != <span class="hljs-number">0</span>) {
+      a = <span class="hljs-number">1</span>;
+   }
+   <span class="hljs-keyword">else</span> {
+      a = scale(a, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+   }
+   rgb[<span class="hljs-number">3</span>] = a;
+   <span class="hljs-keyword">return</span> rgb;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getHsla</span>(<span class="hljs-params">string</span>) </span>{
+   <span class="hljs-keyword">if</span> (!string) {
+      <span class="hljs-keyword">return</span>;
+   }
+   <span class="hljs-keyword">var</span> hsl = <span class="hljs-regexp">/^hsla?\(\s*([+-]?\d+)(?:deg)?\s*,\s*([+-]?[\d\.]+)%\s*,\s*([+-]?[\d\.]+)%\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)/</span>;
+   <span class="hljs-keyword">var</span> match = string.match(hsl);
+   <span class="hljs-keyword">if</span> (match) {
+      <span class="hljs-keyword">var</span> alpha = <span class="hljs-built_in">parseFloat</span>(match[<span class="hljs-number">4</span>]);
+      <span class="hljs-keyword">var</span> h = scale(<span class="hljs-built_in">parseInt</span>(match[<span class="hljs-number">1</span>]), <span class="hljs-number">0</span>, <span class="hljs-number">360</span>),
+          s = scale(<span class="hljs-built_in">parseFloat</span>(match[<span class="hljs-number">2</span>]), <span class="hljs-number">0</span>, <span class="hljs-number">100</span>),
+          l = scale(<span class="hljs-built_in">parseFloat</span>(match[<span class="hljs-number">3</span>]), <span class="hljs-number">0</span>, <span class="hljs-number">100</span>),
+          a = scale(<span class="hljs-built_in">isNaN</span>(alpha) ? <span class="hljs-number">1</span> : alpha, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+      <span class="hljs-keyword">return</span> [h, s, l, a];
+   }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getHwb</span>(<span class="hljs-params">string</span>) </span>{
+   <span class="hljs-keyword">if</span> (!string) {
+      <span class="hljs-keyword">return</span>;
+   }
+   <span class="hljs-keyword">var</span> hwb = <span class="hljs-regexp">/^hwb\(\s*([+-]?\d+)(?:deg)?\s*,\s*([+-]?[\d\.]+)%\s*,\s*([+-]?[\d\.]+)%\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)/</span>;
+   <span class="hljs-keyword">var</span> match = string.match(hwb);
+   <span class="hljs-keyword">if</span> (match) {
+    <span class="hljs-keyword">var</span> alpha = <span class="hljs-built_in">parseFloat</span>(match[<span class="hljs-number">4</span>]);
+      <span class="hljs-keyword">var</span> h = scale(<span class="hljs-built_in">parseInt</span>(match[<span class="hljs-number">1</span>]), <span class="hljs-number">0</span>, <span class="hljs-number">360</span>),
+          w = scale(<span class="hljs-built_in">parseFloat</span>(match[<span class="hljs-number">2</span>]), <span class="hljs-number">0</span>, <span class="hljs-number">100</span>),
+          b = scale(<span class="hljs-built_in">parseFloat</span>(match[<span class="hljs-number">3</span>]), <span class="hljs-number">0</span>, <span class="hljs-number">100</span>),
+          a = scale(<span class="hljs-built_in">isNaN</span>(alpha) ? <span class="hljs-number">1</span> : alpha, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+      <span class="hljs-keyword">return</span> [h, w, b, a];
+   }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getRgb</span>(<span class="hljs-params">string</span>) </span>{
+   <span class="hljs-keyword">var</span> rgba = getRgba(string);
+   <span class="hljs-keyword">return</span> rgba &amp;&amp; rgba.slice(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getHsl</span>(<span class="hljs-params">string</span>) </span>{
+  <span class="hljs-keyword">var</span> hsla = getHsla(string);
+  <span class="hljs-keyword">return</span> hsla &amp;&amp; hsla.slice(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAlpha</span>(<span class="hljs-params">string</span>) </span>{
+   <span class="hljs-keyword">var</span> vals = getRgba(string);
+   <span class="hljs-keyword">if</span> (vals) {
+      <span class="hljs-keyword">return</span> vals[<span class="hljs-number">3</span>];
+   }
+   <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (vals = getHsla(string)) {
+      <span class="hljs-keyword">return</span> vals[<span class="hljs-number">3</span>];
+   }
+   <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (vals = getHwb(string)) {
+      <span class="hljs-keyword">return</span> vals[<span class="hljs-number">3</span>];
+   }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>generators</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hexString</span>(<span class="hljs-params">rgba, a</span>) </span>{
+   <span class="hljs-keyword">var</span> a = (a !== <span class="hljs-literal">undefined</span> &amp;&amp; rgba.length === <span class="hljs-number">3</span>) ? a : rgba[<span class="hljs-number">3</span>];
+   <span class="hljs-keyword">return</span> <span class="hljs-string">"#"</span> + hexDouble(rgba[<span class="hljs-number">0</span>]) 
+              + hexDouble(rgba[<span class="hljs-number">1</span>])
+              + hexDouble(rgba[<span class="hljs-number">2</span>])
+              + (
+                 (a &gt;= <span class="hljs-number">0</span> &amp;&amp; a &lt; <span class="hljs-number">1</span>)
+                 ? hexDouble(<span class="hljs-built_in">Math</span>.round(a * <span class="hljs-number">255</span>))
+                 : <span class="hljs-string">""</span>
+              );
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rgbString</span>(<span class="hljs-params">rgba, alpha</span>) </span>{
+   <span class="hljs-keyword">if</span> (alpha &lt; <span class="hljs-number">1</span> || (rgba[<span class="hljs-number">3</span>] &amp;&amp; rgba[<span class="hljs-number">3</span>] &lt; <span class="hljs-number">1</span>)) {
+      <span class="hljs-keyword">return</span> rgbaString(rgba, alpha);
+   }
+   <span class="hljs-keyword">return</span> <span class="hljs-string">"rgb("</span> + rgba[<span class="hljs-number">0</span>] + <span class="hljs-string">", "</span> + rgba[<span class="hljs-number">1</span>] + <span class="hljs-string">", "</span> + rgba[<span class="hljs-number">2</span>] + <span class="hljs-string">")"</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rgbaString</span>(<span class="hljs-params">rgba, alpha</span>) </span>{
+   <span class="hljs-keyword">if</span> (alpha === <span class="hljs-literal">undefined</span>) {
+      alpha = (rgba[<span class="hljs-number">3</span>] !== <span class="hljs-literal">undefined</span> ? rgba[<span class="hljs-number">3</span>] : <span class="hljs-number">1</span>);
+   }
+   <span class="hljs-keyword">return</span> <span class="hljs-string">"rgba("</span> + rgba[<span class="hljs-number">0</span>] + <span class="hljs-string">", "</span> + rgba[<span class="hljs-number">1</span>] + <span class="hljs-string">", "</span> + rgba[<span class="hljs-number">2</span>]
+           + <span class="hljs-string">", "</span> + alpha + <span class="hljs-string">")"</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">percentString</span>(<span class="hljs-params">rgba, alpha</span>) </span>{
+   <span class="hljs-keyword">if</span> (alpha &lt; <span class="hljs-number">1</span> || (rgba[<span class="hljs-number">3</span>] &amp;&amp; rgba[<span class="hljs-number">3</span>] &lt; <span class="hljs-number">1</span>)) {
+      <span class="hljs-keyword">return</span> percentaString(rgba, alpha);
+   }
+   <span class="hljs-keyword">var</span> r = <span class="hljs-built_in">Math</span>.round(rgba[<span class="hljs-number">0</span>]/<span class="hljs-number">255</span> * <span class="hljs-number">100</span>),
+       g = <span class="hljs-built_in">Math</span>.round(rgba[<span class="hljs-number">1</span>]/<span class="hljs-number">255</span> * <span class="hljs-number">100</span>),
+       b = <span class="hljs-built_in">Math</span>.round(rgba[<span class="hljs-number">2</span>]/<span class="hljs-number">255</span> * <span class="hljs-number">100</span>);
+
+   <span class="hljs-keyword">return</span> <span class="hljs-string">"rgb("</span> + r + <span class="hljs-string">"%, "</span> + g + <span class="hljs-string">"%, "</span> + b + <span class="hljs-string">"%)"</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">percentaString</span>(<span class="hljs-params">rgba, alpha</span>) </span>{
+   <span class="hljs-keyword">var</span> r = <span class="hljs-built_in">Math</span>.round(rgba[<span class="hljs-number">0</span>]/<span class="hljs-number">255</span> * <span class="hljs-number">100</span>),
+       g = <span class="hljs-built_in">Math</span>.round(rgba[<span class="hljs-number">1</span>]/<span class="hljs-number">255</span> * <span class="hljs-number">100</span>),
+       b = <span class="hljs-built_in">Math</span>.round(rgba[<span class="hljs-number">2</span>]/<span class="hljs-number">255</span> * <span class="hljs-number">100</span>);
+   <span class="hljs-keyword">return</span> <span class="hljs-string">"rgba("</span> + r + <span class="hljs-string">"%, "</span> + g + <span class="hljs-string">"%, "</span> + b + <span class="hljs-string">"%, "</span> + (alpha || rgba[<span class="hljs-number">3</span>] || <span class="hljs-number">1</span>) + <span class="hljs-string">")"</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hslString</span>(<span class="hljs-params">hsla, alpha</span>) </span>{
+   <span class="hljs-keyword">if</span> (alpha &lt; <span class="hljs-number">1</span> || (hsla[<span class="hljs-number">3</span>] &amp;&amp; hsla[<span class="hljs-number">3</span>] &lt; <span class="hljs-number">1</span>)) {
+      <span class="hljs-keyword">return</span> hslaString(hsla, alpha);
+   }
+   <span class="hljs-keyword">return</span> <span class="hljs-string">"hsl("</span> + hsla[<span class="hljs-number">0</span>] + <span class="hljs-string">", "</span> + hsla[<span class="hljs-number">1</span>] + <span class="hljs-string">"%, "</span> + hsla[<span class="hljs-number">2</span>] + <span class="hljs-string">"%)"</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hslaString</span>(<span class="hljs-params">hsla, alpha</span>) </span>{
+   <span class="hljs-keyword">if</span> (alpha === <span class="hljs-literal">undefined</span>) {
+      alpha = (hsla[<span class="hljs-number">3</span>] !== <span class="hljs-literal">undefined</span> ? hsla[<span class="hljs-number">3</span>] : <span class="hljs-number">1</span>);
+   }
+   <span class="hljs-keyword">return</span> <span class="hljs-string">"hsla("</span> + hsla[<span class="hljs-number">0</span>] + <span class="hljs-string">", "</span> + hsla[<span class="hljs-number">1</span>] + <span class="hljs-string">"%, "</span> + hsla[<span class="hljs-number">2</span>] + <span class="hljs-string">"%, "</span>
+           + alpha + <span class="hljs-string">")"</span>;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>hwb is a bit different than rgb(a) &amp; hsl(a) since there is no alpha specific syntax
+(hwb have alpha optional &amp; 1 is default value)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hwbString</span>(<span class="hljs-params">hwb, alpha</span>) </span>{
+   <span class="hljs-keyword">if</span> (alpha === <span class="hljs-literal">undefined</span>) {
+      alpha = (hwb[<span class="hljs-number">3</span>] !== <span class="hljs-literal">undefined</span> ? hwb[<span class="hljs-number">3</span>] : <span class="hljs-number">1</span>);
+   }
+   <span class="hljs-keyword">return</span> <span class="hljs-string">"hwb("</span> + hwb[<span class="hljs-number">0</span>] + <span class="hljs-string">", "</span> + hwb[<span class="hljs-number">1</span>] + <span class="hljs-string">"%, "</span> + hwb[<span class="hljs-number">2</span>] + <span class="hljs-string">"%"</span>
+           + (alpha !== <span class="hljs-literal">undefined</span> &amp;&amp; alpha !== <span class="hljs-number">1</span> ? <span class="hljs-string">", "</span> + alpha : <span class="hljs-string">""</span>) + <span class="hljs-string">")"</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keyword</span>(<span class="hljs-params">rgb</span>) </span>{
+  <span class="hljs-keyword">return</span> reverseNames[rgb.slice(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>)];
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>helpers</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">scale</span>(<span class="hljs-params">num, min, max</span>) </span>{
+   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.min(<span class="hljs-built_in">Math</span>.max(min, num), max);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hexDouble</span>(<span class="hljs-params">num</span>) </span>{
+  <span class="hljs-keyword">var</span> str = num.toString(<span class="hljs-number">16</span>).toUpperCase();
+  <span class="hljs-keyword">return</span> (str.length &lt; <span class="hljs-number">2</span>) ? <span class="hljs-string">"0"</span> + str : str;
+}
+
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>create a list of reverse color names</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> reverseNames = {};
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> name <span class="hljs-keyword">in</span> colorNames) {
+   reverseNames[colorNames[name]] = name;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

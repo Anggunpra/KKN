@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\jquery.nicescroll\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#jquery.nicescroll">jQuery.NiceScroll</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#the-best-nicescroll-release-ever-extremely-smooth-and-consistent-in-modern-browsers-and-mobile-devices-with-low-resource-usage">The best nicescroll release ever - extremely smooth and consistent in modern browsers and mobile devices, with low resource usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#features">FEATURES</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#dependencies">DEPENDENCIES</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#configuration-parameters">CONFIGURATION PARAMETERS</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#copyright-2011-17-inuyaksa">Copyright 2011-17 InuYaksa</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#licensed-under-the-mit-license-http-www.opensource.orglicensesmit-license.php">Licensed under the MIT License, http://www.opensource.org/licenses/mit-license.php</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#images-used-for-zoom-icons-have-derived-from-olpc-interface-http-laptop.org8.2.0manualbrowse_changingview.html">Images used for zoom icons have derived from OLPC interface, http://laptop.org/8.2.0/manual/Browse_ChangingView.html</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="jquery.nicescroll">
+  <h1>
+    <a href="#jquery.nicescroll" name="jquery.nicescroll" class="pilcrow"></a>
+jQuery.NiceScroll
+  </h1>
+</div>
+<p>v. 3.7.6</p>
+<div class="pilwrap" id="the-best-nicescroll-release-ever-extremely-smooth-and-consistent-in-modern-browsers-and-mobile-devices-with-low-resource-usage">
+  <h2>
+    <a href="#the-best-nicescroll-release-ever-extremely-smooth-and-consistent-in-modern-browsers-and-mobile-devices-with-low-resource-usage" name="the-best-nicescroll-release-ever-extremely-smooth-and-consistent-in-modern-browsers-and-mobile-devices-with-low-resource-usage" class="pilcrow"></a>
+The best nicescroll release ever - extremely smooth and consistent in modern browsers and mobile devices, with low resource usage
+  </h2>
+</div>
+<ul>
+<li><a href="https://nicescroll.areaaperta.com">Web Site: nicescroll.areaaperta.com</a></li>
+<li><a href="https://github.com/inuyaksa/jquery.nicescroll">Repo: github.com/inuyaksa/jquery.nicescroll</a></li>
+<li><a href="https://twitter.com/nicescroll">Twitter: @nicescroll</a></li>
+</ul>
+<p><a href="https://gitter.im/inuyaksa/jquery.nicescroll?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/inuyaksa/jquery.nicescroll.svg" alt="Join the chat at https://gitter.im/inuyaksa/jquery.nicescroll"></a></p>
+<blockquote>
+<p>Nicescroll as a Greasemonkey plugin: http://userscripts.org/scripts/show/119910 (freezed)</p>
+</blockquote>
+<blockquote>
+<p>Nicescroll is a jquery plugin, for nice scrollbars with a very similar ios/mobile style.</p>
+</blockquote>
+<ul>
+<li>HORIZONAL scrollbar support!</li>
+<li>It supports DIVs, IFrames, textarea, and document page (body) scrollbars.</li>
+<li>Compatible with all recent desktop browser and older: Chrome, Firefox, Edge, IE8+, Safari (win/mac), Opera. (all A-grade browsers)</li>
+<li>Compatible with mobile device: iPad/iPhone/iPod, Android 4+, Blackberry phones and Playbook (WebWorks/Table OS), Windows Phone 8 and 10.</li>
+<li>Compatible with all touch devices: iPad, Android tablets, Window Surface.</li>
+<li>Compabible with multi-input device (mouse with touch or pen): Window Surface, Chrome Desktop on touch notebook.</li>
+<li>Compatible with 2 directions mice: Apple Magic Mouse, Apple Mouser with 2-dir wheel, PC mouse with 2-dir wheel (if browser support it).</li>
+</ul>
+<p>So you have customizable and scrollable divs with momentum for iPad and you have consistent scrollable areas for all desktop and mobile platforms.</p>
+<p>Sexy zoom feature, you can &quot;zoom-in&quot; the content of any nicescroll'ed div.
+Nice to use and nice to see, all the content of the div in fullscreen mode.
+It works on desktop (double click on div) either in mobile/touch devices using pinch gesture.</p>
+<p>On modern browsers hardware accelerated scrolling has implemented.
+Using animationFrame for a smoothest and cpu-saving scrolling. (when browser supports)</p>
+<p>&quot;Use strict&quot; tested script for maximum code quality.
+Bower and AMD ready.</p>
+<p>Warning for IE6/7 users (why do you uses yet? Please updgrade to a more stable and modern browser), support for your browser has deprecated.</p>
+<div class="pilwrap" id="features">
+  <h2>
+    <a href="#features" name="features" class="pilcrow"></a>
+FEATURES
+  </h2>
+</div>
+<ul>
+<li>simple installation and activation, it works with NO modification of your code. (some exceptions can happen, so you can write to me)</li>
+<li>very stylish scrollbars, with no occupation on your window (original browser scrollbars need some of page space and reduces window/div usable width)</li>
+<li>you can style main document scrollbar (body) too!! (not all device/browser support this feature)</li>
+<li>on all browsers you can scroll: dragging the cursor, mouse wheel (speed customizable), keyboard navigation (cursor keys, pagup/down keys, home/end keys)</li>
+<li>scroll is smooth (as modern tablet browsing), speed is customizable</li>
+<li>zoom feature</li>
+<li>hardware accelerated scroll (where available)</li>
+<li>animation frame support for smoth scrolling and cpu-saving</li>
+<li>dragging scroll mode with scrolling momentum (as touch device)</li>
+<li>tested for all major browsers desktop and mobile versions</li>
+<li>support for touch devices</li>
+<li>support for multi-input devices (MSPointer/Pointer support)</li>
+<li>compatible with many other browsers and webkit derivated!</li>
+<li>scrollbar has a lot a customizable features</li>
+<li>native scroll events are working yet</li>
+<li>fully integrated with jQuery</li>
+<li>compatibile with jQuery UI, jQuery Touch, jQuery Mobile</li>
+</ul>
+<div class="pilwrap" id="dependencies">
+  <h2>
+    <a href="#dependencies" name="dependencies" class="pilcrow"></a>
+DEPENDENCIES
+  </h2>
+</div>
+<blockquote>
+<blockquote>
+<p>It's a plugin for the jquery framework, you need to include jquery in your scripts.
+it works with jQuery 1.x / 2.x / 3.x branch (slim version don't works)</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>INSTALLATION
+Put loading script tag after jquery script tag and loading the zoom image in the same folder of the script:</li>
+</ul>
+<script src="jquery.nicescroll.js"></script>
+<p>When you use zoom feature, copy image &quot;zoomico.png&quot; in the same folder of jquery.nicescroll.js.</p>
+<ul>
+<li>HOW TO USE</li>
+</ul>
+<p>Initialize nicescroll ALWAYS in (document) ready statement.</p>
+<pre><code class="javascript"><span class="hljs-comment">// 1. Simple mode, it styles document scrollbar:</span>
+$(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{  
+    $(<span class="hljs-string">"body"</span>).niceScroll();
+});
+
+<span class="hljs-comment">// 2. Instance with object returned:</span>
+<span class="hljs-keyword">var</span> nice = <span class="hljs-literal">false</span>;
+$(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{  
+    nice = $(<span class="hljs-string">"body"</span>).niceScroll();
+});
+
+<span class="hljs-comment">// 3. Style a DIV and chage cursor color:</span>
+$(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{  
+    $(<span class="hljs-string">"#thisdiv"</span>).niceScroll({<span class="hljs-attr">cursorcolor</span>:<span class="hljs-string">"#00F"</span>});
+});
+
+<span class="hljs-comment">// 4. DIV with "wrapper", formed by two divs, the first is the vieport, the latter is the content:</span>
+$(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    $(<span class="hljs-string">"#viewportdiv"</span>).niceScroll(<span class="hljs-string">"#wrapperdiv"</span>,{<span class="hljs-attr">cursorcolor</span>:<span class="hljs-string">"#00F"</span>});
+});
+
+<span class="hljs-comment">// 5. Get nicescroll object:</span>
+<span class="hljs-keyword">var</span> nice = $(<span class="hljs-string">"#mydiv"</span>).getNiceScroll();
+
+<span class="hljs-comment">// 6. Hide scrollbars:</span>
+$(<span class="hljs-string">"#mydiv"</span>).getNiceScroll().hide();
+
+<span class="hljs-comment">// 7. Check for scrollbars resize (when content or position have changed):</span>
+$(<span class="hljs-string">"#mydiv"</span>).getNiceScroll().resize();
+
+<span class="hljs-comment">// 8. Scrolling to a position:</span>
+$(<span class="hljs-string">"#mydiv"</span>).getNiceScroll(<span class="hljs-number">0</span>).doScrollLeft(x, duration); <span class="hljs-comment">// Scroll X Axis</span>
+$(<span class="hljs-string">"#mydiv"</span>).getNiceScroll(<span class="hljs-number">0</span>).doScrollTop(y, duration); <span class="hljs-comment">// Scroll Y Axis</span>
+</code></pre>
+<div class="pilwrap" id="configuration-parameters">
+  <h2>
+    <a href="#configuration-parameters" name="configuration-parameters" class="pilcrow"></a>
+CONFIGURATION PARAMETERS
+  </h2>
+</div>
+<p>When you call &quot;niceScroll&quot; you can pass some parameters to custom visual aspects:</p>
+<pre><code class="javascript">$(<span class="hljs-string">"#thisdiv"</span>).niceScroll({
+    <span class="hljs-attr">cursorcolor</span>: <span class="hljs-string">"#424242"</span>, <span class="hljs-comment">// change cursor color in hex</span>
+    <span class="hljs-attr">cursoropacitymin</span>: <span class="hljs-number">0</span>, <span class="hljs-comment">// change opacity when cursor is inactive (scrollabar "hidden" state), range from 1 to 0</span>
+    <span class="hljs-attr">cursoropacitymax</span>: <span class="hljs-number">1</span>, <span class="hljs-comment">// change opacity when cursor is active (scrollabar "visible" state), range from 1 to 0</span>
+    <span class="hljs-attr">cursorwidth</span>: <span class="hljs-string">"5px"</span>, <span class="hljs-comment">// cursor width in pixel (you can also write "5px")</span>
+    <span class="hljs-attr">cursorborder</span>: <span class="hljs-string">"1px solid #fff"</span>, <span class="hljs-comment">// css definition for cursor border</span>
+    <span class="hljs-attr">cursorborderradius</span>: <span class="hljs-string">"5px"</span>, <span class="hljs-comment">// border radius in pixel for cursor</span>
+    <span class="hljs-attr">zindex</span>: <span class="hljs-string">"auto"</span> | [number], <span class="hljs-comment">// change z-index for scrollbar div</span>
+    <span class="hljs-attr">scrollspeed</span>: <span class="hljs-number">60</span>, <span class="hljs-comment">// scrolling speed</span>
+    <span class="hljs-attr">mousescrollstep</span>: <span class="hljs-number">40</span>, <span class="hljs-comment">// scrolling speed with mouse wheel (pixel)</span>
+    <span class="hljs-attr">touchbehavior</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// DEPRECATED!! use "touchemulate"</span>
+    <span class="hljs-attr">emulatetouch</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// enable cursor-drag scrolling like touch devices in desktop computer</span>
+    <span class="hljs-attr">hwacceleration</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// use hardware accelerated scroll when supported</span>
+    <span class="hljs-attr">boxzoom</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// enable zoom for box content</span>
+    <span class="hljs-attr">dblclickzoom</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// (only when boxzoom=true) zoom activated when double click on box</span>
+    <span class="hljs-attr">gesturezoom</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// (only when boxzoom=true and with touch devices) zoom activated when pinch out/in on box</span>
+    <span class="hljs-attr">grabcursorenabled</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// (only when touchbehavior=true) display "grab" icon</span>
+    <span class="hljs-attr">autohidemode</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// how hide the scrollbar works, possible values: </span>
+      <span class="hljs-literal">true</span> | <span class="hljs-comment">// hide when no scrolling</span>
+      <span class="hljs-string">"cursor"</span> | <span class="hljs-comment">// only cursor hidden</span>
+      <span class="hljs-literal">false</span> | <span class="hljs-comment">// do not hide,</span>
+      <span class="hljs-string">"leave"</span> | <span class="hljs-comment">// hide only if pointer leaves content</span>
+      <span class="hljs-string">"hidden"</span> | <span class="hljs-comment">// hide always</span>
+      <span class="hljs-string">"scroll"</span>, <span class="hljs-comment">// show only on scroll          </span>
+    <span class="hljs-attr">background</span>: <span class="hljs-string">""</span>, <span class="hljs-comment">// change css for rail background</span>
+    <span class="hljs-attr">iframeautoresize</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// autoresize iframe on load event</span>
+    <span class="hljs-attr">cursorminheight</span>: <span class="hljs-number">32</span>, <span class="hljs-comment">// set the minimum cursor height (pixel)</span>
+    <span class="hljs-attr">preservenativescrolling</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// you can scroll native scrollable areas with mouse, bubbling mouse wheel event</span>
+    <span class="hljs-attr">railoffset</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// you can add offset top/left for rail position</span>
+    <span class="hljs-attr">bouncescroll</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// (only hw accell) enable scroll bouncing at the end of content as mobile-like </span>
+    <span class="hljs-attr">spacebarenabled</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// enable page down scrolling when space bar has pressed</span>
+    <span class="hljs-attr">railpadding</span>: { <span class="hljs-attr">top</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">right</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">left</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">bottom</span>: <span class="hljs-number">0</span> }, <span class="hljs-comment">// set padding for rail bar</span>
+    <span class="hljs-attr">disableoutline</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// for chrome browser, disable outline (orange highlight) when selecting a div with nicescroll</span>
+    <span class="hljs-attr">horizrailenabled</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// nicescroll can manage horizontal scroll</span>
+    <span class="hljs-attr">railalign</span>: right, <span class="hljs-comment">// alignment of vertical rail</span>
+    <span class="hljs-attr">railvalign</span>: bottom, <span class="hljs-comment">// alignment of horizontal rail</span>
+    <span class="hljs-attr">enabletranslate3d</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// nicescroll can use css translate to scroll content</span>
+    <span class="hljs-attr">enablemousewheel</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// nicescroll can manage mouse wheel events</span>
+    <span class="hljs-attr">enablekeyboard</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// nicescroll can manage keyboard events</span>
+    <span class="hljs-attr">smoothscroll</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// scroll with ease movement</span>
+    <span class="hljs-attr">sensitiverail</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// click on rail make a scroll</span>
+    <span class="hljs-attr">enablemouselockapi</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// can use mouse caption lock API (same issue on object dragging)</span>
+    <span class="hljs-attr">cursorfixedheight</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// set fixed height for cursor in pixel</span>
+    <span class="hljs-attr">hidecursordelay</span>: <span class="hljs-number">400</span>, <span class="hljs-comment">// set the delay in microseconds to fading out scrollbars</span>
+    <span class="hljs-attr">directionlockdeadzone</span>: <span class="hljs-number">6</span>, <span class="hljs-comment">// dead zone in pixels for direction lock activation</span>
+    <span class="hljs-attr">nativeparentscrolling</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// detect bottom of content and let parent to scroll, as native scroll does</span>
+    <span class="hljs-attr">enablescrollonselection</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// enable auto-scrolling of content when selection text</span>
+    <span class="hljs-attr">cursordragspeed</span>: <span class="hljs-number">0.3</span>, <span class="hljs-comment">// speed of selection when dragged with cursor</span>
+    <span class="hljs-attr">rtlmode</span>: <span class="hljs-string">"auto"</span>, <span class="hljs-comment">// horizontal div scrolling starts at left side</span>
+    <span class="hljs-attr">cursordragontouch</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// drag cursor in touch / touchbehavior mode also</span>
+    <span class="hljs-attr">oneaxismousemode</span>: <span class="hljs-string">"auto"</span>, <span class="hljs-comment">// it permits horizontal scrolling with mousewheel on horizontal only content, if false (vertical-only) mousewheel don't scroll horizontally, if value is auto detects two-axis mouse</span>
+    <span class="hljs-attr">scriptpath</span>: <span class="hljs-string">""</span> <span class="hljs-comment">// define custom path for boxmode icons ("" =&gt; same script path)</span>
+    <span class="hljs-attr">preventmultitouchscrolling</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// prevent scrolling on multitouch events</span>
+    <span class="hljs-attr">disablemutationobserver</span>: <span class="hljs-literal">false</span> <span class="hljs-comment">// force MutationObserver disabled,</span>
+    <span class="hljs-attr">enableobserver</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// enable DOM changing observer, it tries to resize/hide/show when parent or content div had changed</span>
+    <span class="hljs-attr">scrollbarid</span>: <span class="hljs-literal">false</span> <span class="hljs-comment">// set a custom ID for nicescroll bars </span>
+});
+</code></pre>
+<div class="pilwrap" id="related-projects">
+  <h2>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h2>
+</div>
+<ul>
+<li>
+<p><a href="https://github.com/tushariscoolster/angular-nicescroll">Nicescroll for Angular</a></p>
+</li>
+<li>
+<p>LICENSE</p>
+</li>
+</ul>
+<div class="pilwrap" id="copyright-2011-17-inuyaksa">
+  <h2>
+    <a href="#copyright-2011-17-inuyaksa" name="copyright-2011-17-inuyaksa" class="pilcrow"></a>
+Copyright 2011-17 InuYaksa
+  </h2>
+</div>
+<div class="pilwrap" id="licensed-under-the-mit-license-http-www.opensource.orglicensesmit-license.php">
+  <h6>
+    <a href="#licensed-under-the-mit-license-http-www.opensource.orglicensesmit-license.php" name="licensed-under-the-mit-license-http-www.opensource.orglicensesmit-license.php" class="pilcrow"></a>
+Licensed under the MIT License, http://www.opensource.org/licenses/mit-license.php
+  </h6>
+</div>
+<div class="pilwrap" id="images-used-for-zoom-icons-have-derived-from-olpc-interface-http-laptop.org8.2.0manualbrowse_changingview.html">
+  <h6>
+    <a href="#images-used-for-zoom-icons-have-derived-from-olpc-interface-http-laptop.org8.2.0manualbrowse_changingview.html" name="images-used-for-zoom-icons-have-derived-from-olpc-interface-http-laptop.org8.2.0manualbrowse_changingview.html" class="pilcrow"></a>
+Images used for zoom icons have derived from OLPC interface, http://laptop.org/8.2.0/manual/Browse_ChangingView.html
+  </h6>
+</div>
+</div>
+  </div>
+</body>
+</html>

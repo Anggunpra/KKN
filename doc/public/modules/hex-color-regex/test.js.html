@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\hex-color-regex\\test.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>test.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>!
+hex-color-regex <a href="https://github.com/regexps/hex-color-regex">https://github.com/regexps/hex-color-regex</a></p>
+</div>
+<div class="body">
+<p>Copyright (c) 2015 Charlike Mike Reagent &lt;@tunnckoCore&gt; (http://www.tunnckocore.tk)
+Released under the MIT license.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-comment">/* jshint asi:true */</span>
+
+<span class="hljs-meta">'use strict'</span>
+
+<span class="hljs-keyword">var</span> test = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mukla'</span>)
+<span class="hljs-keyword">var</span> hexColorRegex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./index'</span>)
+
+<span class="hljs-keyword">var</span> sixDigits = {
+  <span class="hljs-attr">pass</span>: [
+    <span class="hljs-string">'#afebe3'</span>,
+    <span class="hljs-string">'#AFEBE3'</span>,
+    <span class="hljs-string">'#3cb371'</span>,
+    <span class="hljs-string">'#3CB371'</span>,
+    <span class="hljs-string">'#556b2f'</span>,
+    <span class="hljs-string">'#556B2F'</span>,
+    <span class="hljs-string">'#708090'</span>,
+    <span class="hljs-string">'#7b68ee'</span>,
+    <span class="hljs-string">'#7B68EE'</span>,
+    <span class="hljs-string">'#eeeeee'</span>,
+    <span class="hljs-string">'#ffffff'</span>,
+    <span class="hljs-string">'#123fff}'</span>,
+    <span class="hljs-string">'#111111'</span>
+  ],
+  <span class="hljs-attr">fail</span>: [
+    <span class="hljs-string">'afebe3'</span>,
+    <span class="hljs-string">'AFEBE3'</span>,
+    <span class="hljs-string">'3cb371'</span>,
+    <span class="hljs-string">'ABC371'</span>,
+    <span class="hljs-string">'556b2f'</span>,
+    <span class="hljs-string">'5A6B2F'</span>,
+    <span class="hljs-string">'708090'</span>,
+    <span class="hljs-string">'7b68ee'</span>,
+    <span class="hljs-string">'7B68EE'</span>,
+    <span class="hljs-string">'eeeeee'</span>,
+    <span class="hljs-string">'ffffff'</span>,
+    <span class="hljs-string">'111111'</span>,
+    <span class="hljs-string">'afebef'</span>,
+    <span class="hljs-string">'3c537f'</span>,
+    <span class="hljs-string">'556B2f'</span>,
+    <span class="hljs-string">'708135'</span>,
+    <span class="hljs-string">'EE3EF1'</span>,
+    <span class="hljs-string">'7f68ZY'</span>,
+    <span class="hljs-string">'#7f68ZY'</span>,
+    <span class="hljs-string">'#7z68ZY'</span>,
+    <span class="hljs-string">'#GR68'</span>,
+    <span class="hljs-string">'#Z68'</span>,
+    <span class="hljs-string">'#666EFR'</span>
+  ]
+}
+
+<span class="hljs-keyword">var</span> threeDigits = {
+  <span class="hljs-attr">pass</span>: [
+    <span class="hljs-string">'#afe'</span>,
+    <span class="hljs-string">'#AF3'</span>,
+    <span class="hljs-string">'#3cb'</span>,
+    <span class="hljs-string">'#3CB'</span>,
+    <span class="hljs-string">'#b2f'</span>,
+    <span class="hljs-string">'#5B2'</span>,
+    <span class="hljs-string">'#708'</span>,
+    <span class="hljs-string">'#68e'</span>,
+    <span class="hljs-string">'#7AF'</span>,
+    <span class="hljs-string">'#777'</span>,
+    <span class="hljs-string">'#FFF'</span>,
+    <span class="hljs-string">'#fff'</span>,
+    <span class="hljs-string">'#f3f}'</span>,
+    <span class="hljs-string">'#111'</span>
+  ],
+  <span class="hljs-attr">fail</span>: [
+    <span class="hljs-string">'fff'</span>,
+    <span class="hljs-string">'4zy'</span>,
+    <span class="hljs-string">'4g1'</span>,
+    <span class="hljs-string">'111'</span>,
+    <span class="hljs-string">'Ge3'</span>,
+    <span class="hljs-string">'zY1'</span>,
+    <span class="hljs-string">'#ggg'</span>,
+    <span class="hljs-string">'#4zy'</span>,
+    <span class="hljs-string">'#4g1'</span>,
+    <span class="hljs-string">'#Ge3'</span>,
+    <span class="hljs-string">'#zY1'</span>
+  ]
+}
+
+<span class="hljs-keyword">var</span> fourDigits = {
+  <span class="hljs-attr">pass</span>: [<span class="hljs-string">'#afe0'</span>, <span class="hljs-string">'#AF31'</span>, <span class="hljs-string">'#3cba'</span>, <span class="hljs-string">'#3CBA'</span>, <span class="hljs-string">'#b2ff'</span>, <span class="hljs-string">'#5B2F'</span>],
+  <span class="hljs-attr">fail</span>: [<span class="hljs-string">'afe0'</span>, <span class="hljs-string">'AF31'</span>, <span class="hljs-string">'#3cbg'</span>, <span class="hljs-string">'#3CBy'</span>, <span class="hljs-string">'#b2fz'</span>]
+}
+
+<span class="hljs-keyword">var</span> eightDigits = {
+  <span class="hljs-attr">pass</span>: [<span class="hljs-string">'#afebe300'</span>, <span class="hljs-string">'#AFEBE3AA'</span>, <span class="hljs-string">'#3cb371ff'</span>, <span class="hljs-string">'#3CB371CC'</span>, <span class="hljs-string">'#556b2f55'</span>],
+  <span class="hljs-attr">fail</span>: [<span class="hljs-string">'afebe300'</span>, <span class="hljs-string">'AFEBE3AA'</span>, <span class="hljs-string">'#3cb371fg'</span>, <span class="hljs-string">'#3CB371xy'</span>, <span class="hljs-string">'#556b2fz9'</span>]
+}
+
+test(<span class="hljs-string">'hex-color-regex:'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  test(<span class="hljs-string">'in no strict mode'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    test(<span class="hljs-string">'six digit hex'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      test(<span class="hljs-string">'should be `true`'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        sixDigits.pass.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hex</span>) </span>{
+          test(<span class="hljs-string">'when `'</span> + hex + <span class="hljs-string">'` value'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            test.equal(hexColorRegex().test(hex), <span class="hljs-literal">true</span>)
+          })
+        })
+        test(<span class="hljs-string">'when `foo #ae3f4c bar` value'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+          test.equal(hexColorRegex().test(<span class="hljs-string">'foo #ae3f4c bar'</span>), <span class="hljs-literal">true</span>)
+        })
+      })
+      test(<span class="hljs-string">'should be `false`'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        sixDigits.fail.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hex</span>) </span>{
+          test(<span class="hljs-string">'when `'</span> + hex + <span class="hljs-string">'` value'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            test.equal(hexColorRegex().test(hex), <span class="hljs-literal">false</span>)
+          })
+        })
+      })
+    })
+    test(<span class="hljs-string">'three digit hex'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      test(<span class="hljs-string">'should be `true`'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        threeDigits.pass.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hex</span>) </span>{
+          test(<span class="hljs-string">'when `'</span> + hex + <span class="hljs-string">'` value'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            test.equal(hexColorRegex().test(hex), <span class="hljs-literal">true</span>)
+          })
+        })
+        test(<span class="hljs-string">'when `foo #e4f bar` value'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+          test.equal(hexColorRegex().test(<span class="hljs-string">'foo #e4f bar'</span>), <span class="hljs-literal">true</span>)
+        })
+      })
+      test(<span class="hljs-string">'should be `false`'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        threeDigits.fail.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hex</span>) </span>{
+          test(<span class="hljs-string">'when `'</span> + hex + <span class="hljs-string">'` value'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            test.equal(hexColorRegex().test(hex), <span class="hljs-literal">false</span>)
+          })
+        })
+      })
+    })
+    test(<span class="hljs-string">'eight digit alpha channel hex'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      test(<span class="hljs-string">'should be `true`'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        eightDigits.pass.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hex</span>) </span>{
+          test(<span class="hljs-string">'when `'</span> + hex + <span class="hljs-string">'` value'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            test.equal(hexColorRegex().test(hex), <span class="hljs-literal">true</span>)
+          })
+        })
+        test(<span class="hljs-string">'when `foo #ae3f4c bar` value'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+          test.equal(hexColorRegex().test(<span class="hljs-string">'foo #ae3f4c00 bar'</span>), <span class="hljs-literal">true</span>)
+        })
+      })
+      test(<span class="hljs-string">'should be `false`'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        eightDigits.fail.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hex</span>) </span>{
+          test(<span class="hljs-string">'when `'</span> + hex + <span class="hljs-string">'` value'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            test.equal(hexColorRegex().test(hex), <span class="hljs-literal">false</span>)
+          })
+        })
+      })
+    })
+    test(<span class="hljs-string">'four digit alpha channel hex'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      test(<span class="hljs-string">'should be `true`'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        fourDigits.pass.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hex</span>) </span>{
+          test(<span class="hljs-string">'when `'</span> + hex + <span class="hljs-string">'` value'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            test.equal(hexColorRegex().test(hex), <span class="hljs-literal">true</span>)
+          })
+        })
+        test(<span class="hljs-string">'when `foo #ae3f4c bar` value'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+          test.equal(hexColorRegex().test(<span class="hljs-string">'foo #ae3f bar'</span>), <span class="hljs-literal">true</span>)
+        })
+      })
+      test(<span class="hljs-string">'should be `false`'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        fourDigits.fail.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hex</span>) </span>{
+          test(<span class="hljs-string">'when `'</span> + hex + <span class="hljs-string">'` value'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            test.equal(hexColorRegex().test(hex), <span class="hljs-literal">false</span>)
+          })
+        })
+      })
+    })
+    test(<span class="hljs-string">'using regex().exec(hex)'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      sixDigits.pass.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hex</span>) </span>{
+        <span class="hljs-keyword">var</span> hexed = hex.replace(<span class="hljs-string">'}'</span>, <span class="hljs-string">''</span>)
+        test(<span class="hljs-string">'should match `'</span> + hexed + <span class="hljs-string">'` when `'</span> + hex + <span class="hljs-string">'` hex'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+          <span class="hljs-keyword">var</span> actual = hexColorRegex().exec(hex)[<span class="hljs-number">0</span>]
+          <span class="hljs-keyword">var</span> expected = hexed
+
+          test.equal(actual, expected)
+        })
+      })
+      test(<span class="hljs-string">'should match `#ae3f4c` when `foo #ae3f4c bar` string'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> actual = hexColorRegex().exec(<span class="hljs-string">'foo #ae3f4c bar'</span>)[<span class="hljs-number">0</span>]
+        <span class="hljs-keyword">var</span> expected = <span class="hljs-string">'#ae3f4c'</span>
+
+        test.equal(actual, expected)
+      })
+      threeDigits.pass.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hex</span>) </span>{
+        <span class="hljs-keyword">var</span> hexed = hex.replace(<span class="hljs-string">'}'</span>, <span class="hljs-string">''</span>)
+        test(<span class="hljs-string">'should match `'</span> + hexed + <span class="hljs-string">'` when `'</span> + hex + <span class="hljs-string">'` hex'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+          <span class="hljs-keyword">var</span> actual = hexColorRegex().exec(hex)[<span class="hljs-number">0</span>]
+          <span class="hljs-keyword">var</span> expected = hexed
+
+          test.equal(actual, expected)
+        })
+      })
+      test(<span class="hljs-string">'should match `#e7f` when `foo #e7f bar` string'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> actual = hexColorRegex().exec(<span class="hljs-string">'foo #e7f bar'</span>)[<span class="hljs-number">0</span>]
+        <span class="hljs-keyword">var</span> expected = <span class="hljs-string">'#e7f'</span>
+
+        test.equal(actual, expected)
+      })
+      eightDigits.pass.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hex</span>) </span>{
+        <span class="hljs-keyword">var</span> hexed = hex.replace(<span class="hljs-string">'}'</span>, <span class="hljs-string">''</span>)
+        test(<span class="hljs-string">'should match `'</span> + hexed + <span class="hljs-string">'` when `'</span> + hex + <span class="hljs-string">'` hex'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+          <span class="hljs-keyword">var</span> actual = hexColorRegex().exec(hex)[<span class="hljs-number">0</span>]
+          <span class="hljs-keyword">var</span> expected = hexed
+
+          test.equal(actual, expected)
+        })
+      })
+      test(<span class="hljs-string">'should match `#ae3f4c00` when `foo #ae3f4c00 bar` string'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> actual = hexColorRegex().exec(<span class="hljs-string">'foo #ae3f4c00 bar'</span>)[<span class="hljs-number">0</span>]
+        <span class="hljs-keyword">var</span> expected = <span class="hljs-string">'#ae3f4c00'</span>
+
+        test.equal(actual, expected)
+      })
+      fourDigits.pass.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hex</span>) </span>{
+        <span class="hljs-keyword">var</span> hexed = hex.replace(<span class="hljs-string">'}'</span>, <span class="hljs-string">''</span>)
+        test(<span class="hljs-string">'should match `'</span> + hexed + <span class="hljs-string">'` when `'</span> + hex + <span class="hljs-string">'` hex'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+          <span class="hljs-keyword">var</span> actual = hexColorRegex().exec(hex)[<span class="hljs-number">0</span>]
+          <span class="hljs-keyword">var</span> expected = hexed
+
+          test.equal(actual, expected)
+        })
+      })
+      test(<span class="hljs-string">'should match `#e7f0` when `foo #e7f0 bar` string'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> actual = hexColorRegex().exec(<span class="hljs-string">'foo #e7f0 bar'</span>)[<span class="hljs-number">0</span>]
+        <span class="hljs-keyword">var</span> expected = <span class="hljs-string">'#e7f0'</span>
+
+        test.equal(actual, expected)
+      })
+    })
+  })
+  test(<span class="hljs-string">'in strict mode'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    test(<span class="hljs-string">'six digit hex `#123fff}` should return false'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      test.equal(hexColorRegex({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> }).test(<span class="hljs-string">'#123fff}'</span>), <span class="hljs-literal">false</span>)
+    })
+    test(<span class="hljs-string">'string contain six digit hex `foo #ae3f4c bar` return false'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      test.equal(hexColorRegex({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> }).test(<span class="hljs-string">'foo #ae3f4c bar'</span>), <span class="hljs-literal">false</span>)
+    })
+    test(<span class="hljs-string">'three digit hex `#f3f}` should return false'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      test.equal(hexColorRegex({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> }).test(<span class="hljs-string">'#f3f}'</span>), <span class="hljs-literal">false</span>)
+    })
+    test(<span class="hljs-string">'string contain three digit hex `foo #e7f bar` return false'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      test.equal(hexColorRegex({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> }).test(<span class="hljs-string">'foo #e7f bar'</span>), <span class="hljs-literal">false</span>)
+    })
+    test(<span class="hljs-string">'eight digit alpha channel hex `#123fff00}` should return false'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      test.equal(hexColorRegex({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> }).test(<span class="hljs-string">'#123fff00}'</span>), <span class="hljs-literal">false</span>)
+    })
+    test(<span class="hljs-string">'string contain eight digit alpha channel hex `foo #ae3f4cff bar` return false'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      test.equal(
+        hexColorRegex({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> }).test(<span class="hljs-string">'foo #ae3f4cff bar'</span>),
+        <span class="hljs-literal">false</span>
+      )
+    })
+    test(<span class="hljs-string">'four digit alpha channel hex `#f3f0}` should return false'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      test.equal(hexColorRegex({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> }).test(<span class="hljs-string">'#f3f0}'</span>), <span class="hljs-literal">false</span>)
+    })
+    test(<span class="hljs-string">'string contain four digit alpha channel hex `foo #e7ff bar` return false'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      test.equal(hexColorRegex({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> }).test(<span class="hljs-string">'foo #e7ff bar'</span>), <span class="hljs-literal">false</span>)
+    })
+    test(<span class="hljs-string">'should not match when `foo #ae3f4c bar` string'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> actual = hexColorRegex({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> }).exec(<span class="hljs-string">'foo #ae3f4c bar'</span>)
+      <span class="hljs-keyword">var</span> expected = <span class="hljs-literal">null</span>
+
+      test.equal(actual, expected)
+    })
+    test(<span class="hljs-string">'should not match when `foo #e7f bar` string'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> actual = hexColorRegex({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> }).exec(<span class="hljs-string">'foo #e7f bar'</span>)
+      <span class="hljs-keyword">var</span> expected = <span class="hljs-literal">null</span>
+
+      test.equal(actual, expected)
+    })
+    test(<span class="hljs-string">'should not match when `foo #ae3f4cff bar` string'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> actual = hexColorRegex({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> }).exec(<span class="hljs-string">'foo #ae3f4cff bar'</span>)
+      <span class="hljs-keyword">var</span> expected = <span class="hljs-literal">null</span>
+
+      test.equal(actual, expected)
+    })
+    test(<span class="hljs-string">'should not match when `foo #e7ff bar` string'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> actual = hexColorRegex({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> }).exec(<span class="hljs-string">'foo #e7ff bar'</span>)
+      <span class="hljs-keyword">var</span> expected = <span class="hljs-literal">null</span>
+
+      test.equal(actual, expected)
+    })
+  })
+})
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

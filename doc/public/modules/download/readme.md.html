@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\download\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#download">download </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#new-download-options">new Download(options)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#options.extract">options.extract</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#options.mode">options.mode</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#options.strip">options.strip</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.get-url-dest">.get(url, [dest])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#url">url</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#dest">dest</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.dest-dir">.dest(dir)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#dir">dir</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.rename-name">.rename(name)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#name">name</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.use-plugin">.use(plugin)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#plugin-response-url">plugin(response, url)</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#response">response</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#url-1">url</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#.run-callback">.run(callback)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#callback-err-files">callback(err, files)</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#files">files</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="download">
+  <h1>
+    <a href="#download" name="download" class="pilcrow"></a>
+download <a href="https://travis-ci.org/kevva/download"><img src="https://travis-ci.org/kevva/download.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Download and extract files</p>
+</blockquote>
+<p><em>See <a href="https://github.com/kevva/download-cli">download-cli</a> for the command-line version.</em></p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save download
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>If you're fetching an archive you can set <code>extract: true</code> in options and
+it'll extract it for you.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> Download = <span class="hljs-built_in">require</span>(<span class="hljs-string">'download'</span>);
+
+<span class="hljs-keyword">new</span> Download({<span class="hljs-attr">mode</span>: <span class="hljs-string">'755'</span>})
+    .get(<span class="hljs-string">'http://example.com/foo.zip'</span>)
+    .get(<span class="hljs-string">'http://example.com/cat.jpg'</span>)
+    .dest(<span class="hljs-string">'dest'</span>)
+    .run();
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="new-download-options">
+  <h3>
+    <a href="#new-download-options" name="new-download-options" class="pilcrow"></a>
+new Download(options)
+  </h3>
+</div>
+<p>Creates a new <code>Download</code> instance.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>object</code></p>
+<p>Options for <a href="https://github.com/sindresorhus/got"><code>got</code></a> or the underlying <a href="https://nodejs.org/api/http.html#http_http_request_options_callback"><code>http</code></a>/<a href="https://nodejs.org/api/https.html#https_https_request_options_callback"><code>https</code></a> request can be specified,
+as well as options specific to the <code>download</code> module as described below.</p>
+<div class="pilwrap" id="options.extract">
+  <h5>
+    <a href="#options.extract" name="options.extract" class="pilcrow"></a>
+options.extract
+  </h5>
+</div>
+<p>Type: <code>boolean</code><br>
+Default: <code>false</code></p>
+<p>If set to <code>true</code>, try extracting the file using <a href="https://github.com/kevva/decompress/">decompress</a>.</p>
+<div class="pilwrap" id="options.mode">
+  <h5>
+    <a href="#options.mode" name="options.mode" class="pilcrow"></a>
+options.mode
+  </h5>
+</div>
+<p>Type: <code>string</code></p>
+<p>Set mode on the downloaded file, i.e <code>{mode: '755'}</code>.</p>
+<div class="pilwrap" id="options.strip">
+  <h5>
+    <a href="#options.strip" name="options.strip" class="pilcrow"></a>
+options.strip
+  </h5>
+</div>
+<p>Type: <code>number</code><br>
+Default: <code>0</code></p>
+<p>Remove leading directory components from extracted files.</p>
+<div class="pilwrap" id=".get-url-dest">
+  <h3>
+    <a href="#.get-url-dest" name=".get-url-dest" class="pilcrow"></a>
+.get(url, [dest])
+  </h3>
+</div>
+<div class="pilwrap" id="url">
+  <h4>
+    <a href="#url" name="url" class="pilcrow"></a>
+url
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Add a URL to download.</p>
+<div class="pilwrap" id="dest">
+  <h4>
+    <a href="#dest" name="dest" class="pilcrow"></a>
+dest
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Set an optional destination folder that will take precedence over the one set in
+<code>.dest()</code>.</p>
+<div class="pilwrap" id=".dest-dir">
+  <h3>
+    <a href="#.dest-dir" name=".dest-dir" class="pilcrow"></a>
+.dest(dir)
+  </h3>
+</div>
+<div class="pilwrap" id="dir">
+  <h4>
+    <a href="#dir" name="dir" class="pilcrow"></a>
+dir
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Set the destination folder to where your files will be downloaded.</p>
+<div class="pilwrap" id=".rename-name">
+  <h3>
+    <a href="#.rename-name" name=".rename-name" class="pilcrow"></a>
+.rename(name)
+  </h3>
+</div>
+<div class="pilwrap" id="name">
+  <h4>
+    <a href="#name" name="name" class="pilcrow"></a>
+name
+  </h4>
+</div>
+<p>Type: <code>function</code> or <code>string</code></p>
+<p>Rename your files using <a href="https://github.com/hparra/gulp-rename">gulp-rename</a>.</p>
+<div class="pilwrap" id=".use-plugin">
+  <h3>
+    <a href="#.use-plugin" name=".use-plugin" class="pilcrow"></a>
+.use(plugin)
+  </h3>
+</div>
+<div class="pilwrap" id="plugin-response-url">
+  <h4>
+    <a href="#plugin-response-url" name="plugin-response-url" class="pilcrow"></a>
+plugin(response, url)
+  </h4>
+</div>
+<p>Type: <code>function</code></p>
+<p>Add a plugin to the middleware stack.</p>
+<div class="pilwrap" id="response">
+  <h5>
+    <a href="#response" name="response" class="pilcrow"></a>
+response
+  </h5>
+</div>
+<p>The <a href="http://nodejs.org/api/http.html#http_http_incomingmessage">response object</a>.</p>
+<div class="pilwrap" id="url-1">
+  <h5>
+    <a href="#url-1" name="url-1" class="pilcrow"></a>
+url
+  </h5>
+</div>
+<p>The requested URL.</p>
+<div class="pilwrap" id=".run-callback">
+  <h3>
+    <a href="#.run-callback" name=".run-callback" class="pilcrow"></a>
+.run(callback)
+  </h3>
+</div>
+<div class="pilwrap" id="callback-err-files">
+  <h4>
+    <a href="#callback-err-files" name="callback-err-files" class="pilcrow"></a>
+callback(err, files)
+  </h4>
+</div>
+<p>Type: <code>function</code></p>
+<div class="pilwrap" id="files">
+  <h5>
+    <a href="#files" name="files" class="pilcrow"></a>
+files
+  </h5>
+</div>
+<p>Contains an array of vinyl files.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://github.com/kevva">Kevin Mårtensson</a></p>
+</div>
+  </div>
+</body>
+</html>

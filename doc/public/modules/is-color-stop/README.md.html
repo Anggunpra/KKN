@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\is-color-stop\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#is-color-stop">is-color-stop</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="is-color-stop">
+  <h1>
+    <a href="#is-color-stop" name="is-color-stop" class="pilcrow"></a>
+is-color-stop
+  </h1>
+</div>
+<p>Check if a string is CSS color stop</p>
+<p><a href="https://npmjs.org/package/is-color-stop"><img src="https://img.shields.io/npm/v/is-color-stop.svg?style=flat" alt="NPM version"></a>
+<a href="https://travis-ci.org/pigcan/is-color-stop"><img src="https://img.shields.io/travis/pigcan/is-color-stop.svg?style=flat" alt="Build Status"></a>
+<a href="https://coveralls.io/r/pigcan/is-color-stop"><img src="https://img.shields.io/coveralls/pigcan/is-color-stop.svg?style=flat" alt="Coverage Status"></a>
+<a href="https://npmjs.org/package/is-color-stop"><img src="http://img.shields.io/npm/dm/is-color-stop.svg?style=flat" alt="NPM downloads"></a>
+<a href="https://david-dm.org/pigcan/is-color-stop"><img src="https://david-dm.org/pigcan/is-color-stop.svg" alt="Dependency Status"></a></p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code class="shell"><span class="hljs-meta">$</span><span class="bash"> npm install is-color-stop</span>
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> isColorStop = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-color-stop'</span>);
+
+isColorStop(<span class="hljs-string">'yellow'</span>) <span class="hljs-comment">// true</span>
+isColorStop(<span class="hljs-string">'yellow'</span>, <span class="hljs-string">'12px'</span>) <span class="hljs-comment">// true</span>
+isColorStop(<span class="hljs-string">'yellow'</span>, <span class="hljs-string">'calc(100%)'</span>) <span class="hljs-comment">// true</span>
+isColorStop(<span class="hljs-string">'yellow'</span>, <span class="hljs-string">'px'</span>) <span class="hljs-comment">// false</span>
+
+isColorStop.isColor(<span class="hljs-string">'red'</span>) <span class="hljs-comment">// true</span>
+isColorStop.isColor(<span class="hljs-string">'rgb(255)'</span>) <span class="hljs-comment">// false</span>
+
+isColorStop.isRGB(<span class="hljs-string">'rgb(255, 0, 0)'</span>) <span class="hljs-comment">// true</span>
+isColorStop.isRGB(<span class="hljs-string">'rgb(255)'</span>) <span class="hljs-comment">// false</span>
+
+isColorStop.isRGBA(<span class="hljs-string">'rgba(255, 0, 0, .8)'</span>) <span class="hljs-comment">// true</span>
+isColorStop.isRGBA(<span class="hljs-string">'rgba(255, 0, 0)'</span>) <span class="hljs-comment">// false</span>
+
+isColorStop.isHSL(<span class="hljs-string">'hsl(123, 45%, 67%)'</span>) <span class="hljs-comment">// true</span>
+isColorStop.isHSL(<span class="hljs-string">'hsl(123, 45%)'</span>) <span class="hljs-comment">// false</span>
+
+isColorStop.isHSLA(<span class="hljs-string">'hsla(123, 45%, 67%, 0.4)'</span>) <span class="hljs-comment">// true</span>
+isColorStop.isHSLA(<span class="hljs-string">'hsla(123, 45%, 67%)'</span>) <span class="hljs-comment">// false</span>
+
+isColorStop.isHex(<span class="hljs-string">'#fff'</span>) <span class="hljs-comment">// true</span>
+isColorStop.isHex(<span class="hljs-string">'#ff'</span>) <span class="hljs-comment">// false</span>
+
+isColorStop.isCSSColorName(<span class="hljs-string">'tomato'</span>) <span class="hljs-comment">// true</span>
+isColorStop.isCSSColorName(<span class="hljs-string">'hoge'</span>) <span class="hljs-comment">// false</span>
+
+isColorStop.isCSSLengthUnit(<span class="hljs-string">'px'</span>) <span class="hljs-comment">// true</span>
+isColorStop.isCSSLengthUnit(<span class="hljs-string">'x'</span>) <span class="hljs-comment">// false</span>
+
+isColorStop.isTransparent(<span class="hljs-string">'transparent'</span>) <span class="hljs-comment">// true</span>
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>The MIT License (MIT)</p>
+<p>Copyright (c) 2017 Pigcan</p>
+</div>
+  </div>
+</body>
+</html>

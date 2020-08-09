@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\hsla-regex\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#hsla-regex">hsla-regex</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="hsla-regex">
+  <h1>
+    <a href="#hsla-regex" name="hsla-regex" class="pilcrow"></a>
+hsla-regex
+  </h1>
+</div>
+<p><a href="https://travis-ci.org/regexps/hsla-regex"><img src="https://secure.travis-ci.org/regexps/hsla-regex.png?branch=master" alt="Build Status"></a></p>
+<p>Regex for matching HSLA colors.</p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<pre><code class="bash">npm install --save hsla-regex
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> hslaRegex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'hsla-regex'</span>);
+
+hslaRegex({ <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span> }).test(<span class="hljs-string">'hsla(123, 45%, 67%, .8)'</span>);  <span class="hljs-comment">// =&gt; true</span>
+hslaRegex({ <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span> }).test(<span class="hljs-string">'foo bar'</span>);  <span class="hljs-comment">// =&gt; false</span>
+
+hslaRegex({ <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span> }).exec(<span class="hljs-string">'hsla(1, 1.111%, 1.1111%, .8)'</span>);
+<span class="hljs-comment">// =&gt; [</span>
+<span class="hljs-comment">//  'hsla(1, 1.111%, 1.1111%, .8)',</span>
+<span class="hljs-comment">//  '1',</span>
+<span class="hljs-comment">//  '1.111%',</span>
+<span class="hljs-comment">//  '1.1111%',</span>
+<span class="hljs-comment">//  '.8'</span>
+<span class="hljs-comment">//  index: 0,</span>
+<span class="hljs-comment">//  input: 'hsla(1, 1.111%, 1.1111%, .8)'</span>
+<span class="hljs-comment">// ]</span>
+
+<span class="hljs-string">'hsla(123, 45%, 67%, .8) cats and dogs'</span>.match(hslaRegex());
+<span class="hljs-comment">// = ['hsla(123, 45%, 67%, .8)']</span>
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+<div class="pilwrap" id="contributing">
+  <h2>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h2>
+</div>
+<ol>
+<li>Fork it</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol>
+<p>Crafted with &lt;3 by John Otander (<a href="https://twitter.com/4lpine">@4lpine</a>).</p>
+<hr>
+<blockquote>
+<p>This package was initially generated with <a href="http://yeoman.io">yeoman</a> and the <a href="https://github.com/johnotander/generator-p.git">p generator</a>.</p>
+</blockquote>
+</div>
+  </div>
+</body>
+</html>

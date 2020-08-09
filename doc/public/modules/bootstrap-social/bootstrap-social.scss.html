@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>bootstrap-social.scss</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\bootstrap-social\\bootstrap-social.scss";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>bootstrap-social.scss</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Social Buttons for Bootstrap</p>
+</div>
+<div class="body">
+<p>Copyright 2013-2016 Panayiotis Lipiridis
+Licensed under the MIT License</p>
+<p>https://github.com/lipis/bootstrap-social</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="scss">
+<span class="hljs-variable">$bs-height-base</span>: (<span class="hljs-variable">$line-height-computed</span> + <span class="hljs-variable">$padding-base-vertical</span> * <span class="hljs-number">2</span>) !default;
+<span class="hljs-variable">$bs-height-lg</span>:   (floor(<span class="hljs-variable">$font-size-large</span> * <span class="hljs-variable">$line-height-base</span>) + <span class="hljs-variable">$padding-large-vertical</span> * <span class="hljs-number">2</span>) !default;
+<span class="hljs-variable">$bs-height-sm</span>:   (floor(<span class="hljs-variable">$font-size-small</span> * <span class="hljs-number">1.5</span>) + <span class="hljs-variable">$padding-small-vertical</span> * <span class="hljs-number">2</span>) !default;
+<span class="hljs-variable">$bs-height-xs</span>:   (floor(<span class="hljs-variable">$font-size-small</span> * <span class="hljs-number">1.2</span>) + <span class="hljs-variable">$padding-small-vertical</span> + <span class="hljs-number">1</span>) !default;
+
+<span class="hljs-selector-class">.btn-social</span> {
+  <span class="hljs-attribute">position</span>: relative;
+  <span class="hljs-attribute">padding-left</span>: (<span class="hljs-variable">$bs-height-base</span> + <span class="hljs-variable">$padding-base-horizontal</span>);
+  <span class="hljs-attribute">text-align</span>: left;
+  <span class="hljs-attribute">white-space</span>: nowrap;
+  <span class="hljs-attribute">overflow</span>: hidden;
+  <span class="hljs-attribute">text-overflow</span>: ellipsis;
+  &gt; <span class="hljs-selector-pseudo">:first-child</span> {
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">width</span>: <span class="hljs-variable">$bs-height-base</span>;
+    <span class="hljs-attribute">line-height</span>: (<span class="hljs-variable">$bs-height-base</span> + <span class="hljs-number">2</span>);
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.6em</span>;
+    <span class="hljs-attribute">text-align</span>: center;
+    <span class="hljs-attribute">border-right</span>: <span class="hljs-number">1px</span> solid rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.2</span>);
+  }
+  &amp;<span class="hljs-selector-class">.btn-lg</span> {
+    <span class="hljs-attribute">padding-left</span>: (<span class="hljs-variable">$bs-height-lg</span> + <span class="hljs-variable">$padding-large-horizontal</span>);
+    &gt; <span class="hljs-selector-pseudo">:first-child</span> {
+      <span class="hljs-attribute">line-height</span>: <span class="hljs-variable">$bs-height-lg</span>;
+      <span class="hljs-attribute">width</span>: <span class="hljs-variable">$bs-height-lg</span>;
+      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.8em</span>;
+    }
+  }
+  &amp;<span class="hljs-selector-class">.btn-sm</span> {
+    <span class="hljs-attribute">padding-left</span>: (<span class="hljs-variable">$bs-height-sm</span> + <span class="hljs-variable">$padding-small-horizontal</span>);
+    &gt; <span class="hljs-selector-pseudo">:first-child</span> {
+      <span class="hljs-attribute">line-height</span>: <span class="hljs-variable">$bs-height-sm</span>;
+      <span class="hljs-attribute">width</span>: <span class="hljs-variable">$bs-height-sm</span>;
+      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.4em</span>;
+    }
+  }
+  &amp;<span class="hljs-selector-class">.btn-xs</span> {
+    <span class="hljs-attribute">padding-left</span>: (<span class="hljs-variable">$bs-height-xs</span> + <span class="hljs-variable">$padding-small-horizontal</span>);
+    &gt; <span class="hljs-selector-pseudo">:first-child</span> {
+      <span class="hljs-attribute">line-height</span>: <span class="hljs-variable">$bs-height-xs</span>;
+      <span class="hljs-attribute">width</span>: <span class="hljs-variable">$bs-height-xs</span>;
+      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.2em</span>;
+    }
+  }
+}
+
+<span class="hljs-selector-class">.btn-social-icon</span> {
+  <span class="hljs-keyword">@extend</span> .btn-social;
+  <span class="hljs-attribute">height</span>: (<span class="hljs-variable">$bs-height-base</span> + <span class="hljs-number">2</span>);
+  <span class="hljs-attribute">width</span>: (<span class="hljs-variable">$bs-height-base</span> + <span class="hljs-number">2</span>);
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+  &gt; <span class="hljs-selector-pseudo">:first-child</span> {
+    <span class="hljs-attribute">border</span>: none;
+    <span class="hljs-attribute">text-align</span>: center;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span><span class="hljs-meta">!important</span>;
+  }
+  &amp;<span class="hljs-selector-class">.btn-lg</span> {
+    <span class="hljs-attribute">height</span>: <span class="hljs-variable">$bs-height-lg</span>;
+    <span class="hljs-attribute">width</span>: <span class="hljs-variable">$bs-height-lg</span>;
+    <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">0</span>;
+  }
+  &amp;<span class="hljs-selector-class">.btn-sm</span> {
+    <span class="hljs-attribute">height</span>: (<span class="hljs-variable">$bs-height-sm</span> + <span class="hljs-number">2</span>);
+    <span class="hljs-attribute">width</span>: (<span class="hljs-variable">$bs-height-sm</span> + <span class="hljs-number">2</span>);
+    <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">0</span>;
+  }
+  &amp;<span class="hljs-selector-class">.btn-xs</span> {
+    <span class="hljs-attribute">height</span>: (<span class="hljs-variable">$bs-height-xs</span> + <span class="hljs-number">2</span>);
+    <span class="hljs-attribute">width</span>: (<span class="hljs-variable">$bs-height-xs</span> + <span class="hljs-number">2</span>);
+    <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">0</span>;
+  }
+}
+
+<span class="hljs-keyword">@mixin</span> btn-social(<span class="hljs-variable">$color-bg</span>, <span class="hljs-variable">$color</span>: <span class="hljs-number">#fff</span>) {
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-variable">$color-bg</span>;
+  <span class="hljs-keyword">@include</span> button-variant(<span class="hljs-variable">$color</span>, <span class="hljs-variable">$color-bg</span>, rgba(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,.<span class="hljs-number">2</span>));
+}
+
+
+<span class="hljs-selector-class">.btn-adn</span>           { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#d87a68</span>); }
+<span class="hljs-selector-class">.btn-bitbucket</span>     { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#205081</span>); }
+<span class="hljs-selector-class">.btn-dropbox</span>       { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#1087dd</span>); }
+<span class="hljs-selector-class">.btn-facebook</span>      { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#3b5998</span>); }
+<span class="hljs-selector-class">.btn-flickr</span>        { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#ff0084</span>); }
+<span class="hljs-selector-class">.btn-foursquare</span>    { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#f94877</span>); }
+<span class="hljs-selector-class">.btn-github</span>        { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#444444</span>); }
+<span class="hljs-selector-class">.btn-google</span>        { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#dd4b39</span>); }
+<span class="hljs-selector-class">.btn-instagram</span>     { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#3f729b</span>); }
+<span class="hljs-selector-class">.btn-linkedin</span>      { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#007bb6</span>); }
+<span class="hljs-selector-class">.btn-microsoft</span>     { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#2672ec</span>); }
+<span class="hljs-selector-class">.btn-odnoklassniki</span> { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#f4731c</span>); }
+<span class="hljs-selector-class">.btn-openid</span>        { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#f7931e</span>); }
+<span class="hljs-selector-class">.btn-pinterest</span>     { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#cb2027</span>); }
+<span class="hljs-selector-class">.btn-reddit</span>        { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#eff7ff</span>, <span class="hljs-number">#000</span>); }
+<span class="hljs-selector-class">.btn-soundcloud</span>    { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#ff5500</span>); }
+<span class="hljs-selector-class">.btn-tumblr</span>        { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#2c4762</span>); }
+<span class="hljs-selector-class">.btn-twitter</span>       { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#55acee</span>); }
+<span class="hljs-selector-class">.btn-vimeo</span>         { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#1ab7ea</span>); }
+<span class="hljs-selector-class">.btn-vk</span>            { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#587ea3</span>); }
+<span class="hljs-selector-class">.btn-yahoo</span>         { <span class="hljs-keyword">@include</span> btn-social(<span class="hljs-number">#720e9e</span>); }
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

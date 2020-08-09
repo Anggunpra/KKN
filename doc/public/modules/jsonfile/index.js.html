@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\jsonfile\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> _fs
+<span class="hljs-keyword">try</span> {
+  _fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'graceful-fs'</span>)
+} <span class="hljs-keyword">catch</span> (_) {
+  _fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readFile</span> (<span class="hljs-params">file, options, callback</span>) </span>{
+  <span class="hljs-keyword">if</span> (callback == <span class="hljs-literal">null</span>) {
+    callback = options
+    options = {}
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options === <span class="hljs-string">'string'</span>) {
+    options = {<span class="hljs-attr">encoding</span>: options}
+  }
+
+  options = options || {}
+  <span class="hljs-keyword">var</span> fs = options.fs || _fs
+
+  <span class="hljs-keyword">var</span> shouldThrow = <span class="hljs-literal">true</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>DO NOT USE 'passParsingErrors' THE NAME WILL CHANGE!!!, use 'throws' instead</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (<span class="hljs-string">'passParsingErrors'</span> <span class="hljs-keyword">in</span> options) {
+    shouldThrow = options.passParsingErrors
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">'throws'</span> <span class="hljs-keyword">in</span> options) {
+    shouldThrow = options.throws
+  }
+
+  fs.readFile(file, options, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, data</span>) </span>{
+    <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> callback(err)
+
+    data = stripBom(data)
+
+    <span class="hljs-keyword">var</span> obj
+    <span class="hljs-keyword">try</span> {
+      obj = <span class="hljs-built_in">JSON</span>.parse(data, options ? options.reviver : <span class="hljs-literal">null</span>)
+    } <span class="hljs-keyword">catch</span> (err2) {
+      <span class="hljs-keyword">if</span> (shouldThrow) {
+        err2.message = file + <span class="hljs-string">': '</span> + err2.message
+        <span class="hljs-keyword">return</span> callback(err2)
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> callback(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>)
+      }
+    }
+
+    callback(<span class="hljs-literal">null</span>, obj)
+  })
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readFileSync</span> (<span class="hljs-params">file, options</span>) </span>{
+  options = options || {}
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options === <span class="hljs-string">'string'</span>) {
+    options = {<span class="hljs-attr">encoding</span>: options}
+  }
+
+  <span class="hljs-keyword">var</span> fs = options.fs || _fs
+
+  <span class="hljs-keyword">var</span> shouldThrow = <span class="hljs-literal">true</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>DO NOT USE 'passParsingErrors' THE NAME WILL CHANGE!!!, use 'throws' instead</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (<span class="hljs-string">'passParsingErrors'</span> <span class="hljs-keyword">in</span> options) {
+    shouldThrow = options.passParsingErrors
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">'throws'</span> <span class="hljs-keyword">in</span> options) {
+    shouldThrow = options.throws
+  }
+
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">var</span> content = fs.readFileSync(file, options)
+    content = stripBom(content)
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(content, options.reviver)
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-keyword">if</span> (shouldThrow) {
+      err.message = file + <span class="hljs-string">': '</span> + err.message
+      <span class="hljs-keyword">throw</span> err
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
+    }
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">writeFile</span> (<span class="hljs-params">file, obj, options, callback</span>) </span>{
+  <span class="hljs-keyword">if</span> (callback == <span class="hljs-literal">null</span>) {
+    callback = options
+    options = {}
+  }
+  options = options || {}
+  <span class="hljs-keyword">var</span> fs = options.fs || _fs
+
+  <span class="hljs-keyword">var</span> spaces = <span class="hljs-keyword">typeof</span> options === <span class="hljs-string">'object'</span> &amp;&amp; options !== <span class="hljs-literal">null</span>
+    ? <span class="hljs-string">'spaces'</span> <span class="hljs-keyword">in</span> options
+    ? options.spaces : <span class="hljs-keyword">this</span>.spaces
+    : <span class="hljs-keyword">this</span>.spaces
+
+  <span class="hljs-keyword">var</span> str = <span class="hljs-string">''</span>
+  <span class="hljs-keyword">try</span> {
+    str = <span class="hljs-built_in">JSON</span>.stringify(obj, options ? options.replacer : <span class="hljs-literal">null</span>, spaces) + <span class="hljs-string">'\n'</span>
+  } <span class="hljs-keyword">catch</span> (err) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Need to return whether a callback was passed or not</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (callback) callback(err, <span class="hljs-literal">null</span>)
+    <span class="hljs-keyword">return</span>
+  }
+
+  fs.writeFile(file, str, options, callback)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">writeFileSync</span> (<span class="hljs-params">file, obj, options</span>) </span>{
+  options = options || {}
+  <span class="hljs-keyword">var</span> fs = options.fs || _fs
+
+  <span class="hljs-keyword">var</span> spaces = <span class="hljs-keyword">typeof</span> options === <span class="hljs-string">'object'</span> &amp;&amp; options !== <span class="hljs-literal">null</span>
+    ? <span class="hljs-string">'spaces'</span> <span class="hljs-keyword">in</span> options
+    ? options.spaces : <span class="hljs-keyword">this</span>.spaces
+    : <span class="hljs-keyword">this</span>.spaces
+
+  <span class="hljs-keyword">var</span> str = <span class="hljs-built_in">JSON</span>.stringify(obj, options.replacer, spaces) + <span class="hljs-string">'\n'</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>not sure if fs.writeFileSync returns anything, but just in case</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">return</span> fs.writeFileSync(file, str, options)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stripBom</span> (<span class="hljs-params">content</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>we do this because JSON.parse would convert it to a utf8 string if encoding wasn't specified</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (Buffer.isBuffer(content)) content = content.toString(<span class="hljs-string">'utf8'</span>)
+  content = content.replace(<span class="hljs-regexp">/^\uFEFF/</span>, <span class="hljs-string">''</span>)
+  <span class="hljs-keyword">return</span> content
+}
+
+<span class="hljs-keyword">var</span> jsonfile = {
+  <span class="hljs-attr">spaces</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">readFile</span>: readFile,
+  <span class="hljs-attr">readFileSync</span>: readFileSync,
+  <span class="hljs-attr">writeFile</span>: writeFile,
+  <span class="hljs-attr">writeFileSync</span>: writeFileSync
+}
+
+<span class="hljs-built_in">module</span>.exports = jsonfile
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

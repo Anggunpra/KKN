@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gauge\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+<span class="hljs-keyword">var</span> Plumbing = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./plumbing.js'</span>)
+<span class="hljs-keyword">var</span> hasUnicode = <span class="hljs-built_in">require</span>(<span class="hljs-string">'has-unicode'</span>)
+<span class="hljs-keyword">var</span> hasColor = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./has-color.js'</span>)
+<span class="hljs-keyword">var</span> onExit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'signal-exit'</span>)
+<span class="hljs-keyword">var</span> defaultThemes = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./themes'</span>)
+<span class="hljs-keyword">var</span> setInterval = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./set-interval.js'</span>)
+<span class="hljs-keyword">var</span> process = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./process.js'</span>)
+<span class="hljs-keyword">var</span> setImmediate = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./set-immediate'</span>)
+
+<span class="hljs-built_in">module</span>.exports = Gauge
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">callWith</span> (<span class="hljs-params">obj, method</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> method.call(obj)
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Gauge</span> (<span class="hljs-params">arg1, arg2</span>) </span>{
+  <span class="hljs-keyword">var</span> options, writeTo
+  <span class="hljs-keyword">if</span> (arg1 &amp;&amp; arg1.write) {
+    writeTo = arg1
+    options = arg2 || {}
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (arg2 &amp;&amp; arg2.write) {
+    writeTo = arg2
+    options = arg1 || {}
+  } <span class="hljs-keyword">else</span> {
+    writeTo = process.stderr
+    options = arg1 || arg2 || {}
+  }
+
+  <span class="hljs-keyword">this</span>._status = {
+    <span class="hljs-attr">spun</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">section</span>: <span class="hljs-string">''</span>,
+    <span class="hljs-attr">subsection</span>: <span class="hljs-string">''</span>
+  }
+  <span class="hljs-keyword">this</span>._paused = <span class="hljs-literal">false</span> <span class="hljs-comment">// are we paused for back pressure?</span>
+  <span class="hljs-keyword">this</span>._disabled = <span class="hljs-literal">true</span> <span class="hljs-comment">// are all progress bar updates disabled?</span>
+  <span class="hljs-keyword">this</span>._showing = <span class="hljs-literal">false</span> <span class="hljs-comment">// do we WANT the progress bar on screen</span>
+  <span class="hljs-keyword">this</span>._onScreen = <span class="hljs-literal">false</span> <span class="hljs-comment">// IS the progress bar on screen</span>
+  <span class="hljs-keyword">this</span>._needsRedraw = <span class="hljs-literal">false</span> <span class="hljs-comment">// should we print something at next tick?</span>
+  <span class="hljs-keyword">this</span>._hideCursor = options.hideCursor == <span class="hljs-literal">null</span> ? <span class="hljs-literal">true</span> : options.hideCursor
+  <span class="hljs-keyword">this</span>._fixedFramerate = options.fixedFramerate == <span class="hljs-literal">null</span>
+    ? !(<span class="hljs-regexp">/^v0\.8\./</span>.test(process.version))
+    : options.fixedFramerate
+  <span class="hljs-keyword">this</span>._lastUpdateAt = <span class="hljs-literal">null</span>
+  <span class="hljs-keyword">this</span>._updateInterval = options.updateInterval == <span class="hljs-literal">null</span> ? <span class="hljs-number">50</span> : options.updateInterval
+
+  <span class="hljs-keyword">this</span>._themes = options.themes || defaultThemes
+  <span class="hljs-keyword">this</span>._theme = options.theme
+  <span class="hljs-keyword">var</span> theme = <span class="hljs-keyword">this</span>._computeTheme(options.theme)
+  <span class="hljs-keyword">var</span> template = options.template || [
+    {<span class="hljs-attr">type</span>: <span class="hljs-string">'progressbar'</span>, <span class="hljs-attr">length</span>: <span class="hljs-number">20</span>},
+    {<span class="hljs-attr">type</span>: <span class="hljs-string">'activityIndicator'</span>, <span class="hljs-attr">kerning</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">length</span>: <span class="hljs-number">1</span>},
+    {<span class="hljs-attr">type</span>: <span class="hljs-string">'section'</span>, <span class="hljs-attr">kerning</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">default</span>: <span class="hljs-string">''</span>},
+    {<span class="hljs-attr">type</span>: <span class="hljs-string">'subsection'</span>, <span class="hljs-attr">kerning</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">default</span>: <span class="hljs-string">''</span>}
+  ]
+  <span class="hljs-keyword">this</span>.setWriteTo(writeTo, options.tty)
+  <span class="hljs-keyword">var</span> PlumbingClass = options.Plumbing || Plumbing
+  <span class="hljs-keyword">this</span>._gauge = <span class="hljs-keyword">new</span> PlumbingClass(theme, template, <span class="hljs-keyword">this</span>.getWidth())
+
+  <span class="hljs-keyword">this</span>._$$doRedraw = callWith(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">this</span>._doRedraw)
+  <span class="hljs-keyword">this</span>._$$handleSizeChange = callWith(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">this</span>._handleSizeChange)
+
+  <span class="hljs-keyword">this</span>._cleanupOnExit = options.cleanupOnExit == <span class="hljs-literal">null</span> || options.cleanupOnExit
+  <span class="hljs-keyword">this</span>._removeOnExit = <span class="hljs-literal">null</span>
+
+  <span class="hljs-keyword">if</span> (options.enabled || (options.enabled == <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-keyword">this</span>._tty &amp;&amp; <span class="hljs-keyword">this</span>._tty.isTTY)) {
+    <span class="hljs-keyword">this</span>.enable()
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">this</span>.disable()
+  }
+}
+Gauge.prototype = {}
+
+Gauge.prototype.isEnabled = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> !<span class="hljs-keyword">this</span>._disabled
+}
+
+Gauge.prototype.setTemplate = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">template</span>) </span>{
+  <span class="hljs-keyword">this</span>._gauge.setTemplate(template)
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._showing) <span class="hljs-keyword">this</span>._requestRedraw()
+}
+
+Gauge.prototype._computeTheme = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">theme</span>) </span>{
+  <span class="hljs-keyword">if</span> (!theme) theme = {}
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> theme === <span class="hljs-string">'string'</span>) {
+    theme = <span class="hljs-keyword">this</span>._themes.getTheme(theme)
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (theme &amp;&amp; (<span class="hljs-built_in">Object</span>.keys(theme).length === <span class="hljs-number">0</span> || theme.hasUnicode != <span class="hljs-literal">null</span> || theme.hasColor != <span class="hljs-literal">null</span>)) {
+    <span class="hljs-keyword">var</span> useUnicode = theme.hasUnicode == <span class="hljs-literal">null</span> ? hasUnicode() : theme.hasUnicode
+    <span class="hljs-keyword">var</span> useColor = theme.hasColor == <span class="hljs-literal">null</span> ? hasColor : theme.hasColor
+    theme = <span class="hljs-keyword">this</span>._themes.getDefault({<span class="hljs-attr">hasUnicode</span>: useUnicode, <span class="hljs-attr">hasColor</span>: useColor, <span class="hljs-attr">platform</span>: theme.platform})
+  }
+  <span class="hljs-keyword">return</span> theme
+}
+
+Gauge.prototype.setThemeset = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">themes</span>) </span>{
+  <span class="hljs-keyword">this</span>._themes = themes
+  <span class="hljs-keyword">this</span>.setTheme(<span class="hljs-keyword">this</span>._theme)
+}
+
+Gauge.prototype.setTheme = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">theme</span>) </span>{
+  <span class="hljs-keyword">this</span>._gauge.setTheme(<span class="hljs-keyword">this</span>._computeTheme(theme))
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._showing) <span class="hljs-keyword">this</span>._requestRedraw()
+  <span class="hljs-keyword">this</span>._theme = theme
+}
+
+Gauge.prototype._requestRedraw = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>._needsRedraw = <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._fixedFramerate) <span class="hljs-keyword">this</span>._doRedraw()
+}
+
+Gauge.prototype.getWidth = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> ((<span class="hljs-keyword">this</span>._tty &amp;&amp; <span class="hljs-keyword">this</span>._tty.columns) || <span class="hljs-number">80</span>) - <span class="hljs-number">1</span>
+}
+
+Gauge.prototype.setWriteTo = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">writeTo, tty</span>) </span>{
+  <span class="hljs-keyword">var</span> enabled = !<span class="hljs-keyword">this</span>._disabled
+  <span class="hljs-keyword">if</span> (enabled) <span class="hljs-keyword">this</span>.disable()
+  <span class="hljs-keyword">this</span>._writeTo = writeTo
+  <span class="hljs-keyword">this</span>._tty = tty ||
+    (writeTo === process.stderr &amp;&amp; process.stdout.isTTY &amp;&amp; process.stdout) ||
+    (writeTo.isTTY &amp;&amp; writeTo) ||
+    <span class="hljs-keyword">this</span>._tty
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._gauge) <span class="hljs-keyword">this</span>._gauge.setWidth(<span class="hljs-keyword">this</span>.getWidth())
+  <span class="hljs-keyword">if</span> (enabled) <span class="hljs-keyword">this</span>.enable()
+}
+
+Gauge.prototype.enable = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._disabled) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">this</span>._disabled = <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._tty) <span class="hljs-keyword">this</span>._enableEvents()
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._showing) <span class="hljs-keyword">this</span>.show()
+}
+
+Gauge.prototype.disable = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._disabled) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._showing) {
+    <span class="hljs-keyword">this</span>._lastUpdateAt = <span class="hljs-literal">null</span>
+    <span class="hljs-keyword">this</span>._showing = <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">this</span>._doRedraw()
+    <span class="hljs-keyword">this</span>._showing = <span class="hljs-literal">true</span>
+  }
+  <span class="hljs-keyword">this</span>._disabled = <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._tty) <span class="hljs-keyword">this</span>._disableEvents()
+}
+
+Gauge.prototype._enableEvents = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._cleanupOnExit) {
+    <span class="hljs-keyword">this</span>._removeOnExit = onExit(callWith(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">this</span>.disable))
+  }
+  <span class="hljs-keyword">this</span>._tty.on(<span class="hljs-string">'resize'</span>, <span class="hljs-keyword">this</span>._$$handleSizeChange)
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._fixedFramerate) {
+    <span class="hljs-keyword">this</span>.redrawTracker = setInterval(<span class="hljs-keyword">this</span>._$$doRedraw, <span class="hljs-keyword">this</span>._updateInterval)
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.redrawTracker.unref) <span class="hljs-keyword">this</span>.redrawTracker.unref()
+  }
+}
+
+Gauge.prototype._disableEvents = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>._tty.removeListener(<span class="hljs-string">'resize'</span>, <span class="hljs-keyword">this</span>._$$handleSizeChange)
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._fixedFramerate) clearInterval(<span class="hljs-keyword">this</span>.redrawTracker)
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._removeOnExit) <span class="hljs-keyword">this</span>._removeOnExit()
+}
+
+Gauge.prototype.hide = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">cb</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._disabled) <span class="hljs-keyword">return</span> cb &amp;&amp; process.nextTick(cb)
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._showing) <span class="hljs-keyword">return</span> cb &amp;&amp; process.nextTick(cb)
+  <span class="hljs-keyword">this</span>._showing = <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">this</span>._doRedraw()
+  cb &amp;&amp; setImmediate(cb)
+}
+
+Gauge.prototype.show = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">section, completed</span>) </span>{
+  <span class="hljs-keyword">this</span>._showing = <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> section === <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">this</span>._status.section = section
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> section === <span class="hljs-string">'object'</span>) {
+    <span class="hljs-keyword">var</span> sectionKeys = <span class="hljs-built_in">Object</span>.keys(section)
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ii = <span class="hljs-number">0</span>; ii &lt; sectionKeys.length; ++ii) {
+      <span class="hljs-keyword">var</span> key = sectionKeys[ii]
+      <span class="hljs-keyword">this</span>._status[key] = section[key]
+    }
+  }
+  <span class="hljs-keyword">if</span> (completed != <span class="hljs-literal">null</span>) <span class="hljs-keyword">this</span>._status.completed = completed
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._disabled) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">this</span>._requestRedraw()
+}
+
+Gauge.prototype.pulse = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">subsection</span>) </span>{
+  <span class="hljs-keyword">this</span>._status.subsection = subsection || <span class="hljs-string">''</span>
+  <span class="hljs-keyword">this</span>._status.spun ++
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._disabled) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._showing) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">this</span>._requestRedraw()
+}
+
+Gauge.prototype._handleSizeChange = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>._gauge.setWidth(<span class="hljs-keyword">this</span>._tty.columns - <span class="hljs-number">1</span>)
+  <span class="hljs-keyword">this</span>._requestRedraw()
+}
+
+Gauge.prototype._doRedraw = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._disabled || <span class="hljs-keyword">this</span>._paused) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._fixedFramerate) {
+    <span class="hljs-keyword">var</span> now = <span class="hljs-built_in">Date</span>.now()
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._lastUpdateAt &amp;&amp; now - <span class="hljs-keyword">this</span>._lastUpdateAt &lt; <span class="hljs-keyword">this</span>._updateInterval) <span class="hljs-keyword">return</span>
+    <span class="hljs-keyword">this</span>._lastUpdateAt = now
+  }
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._showing &amp;&amp; <span class="hljs-keyword">this</span>._onScreen) {
+    <span class="hljs-keyword">this</span>._onScreen = <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">this</span>._gauge.hide()
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._hideCursor) {
+      result += <span class="hljs-keyword">this</span>._gauge.showCursor()
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._writeTo.write(result)
+  }
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._showing &amp;&amp; !<span class="hljs-keyword">this</span>._onScreen) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._showing &amp;&amp; !<span class="hljs-keyword">this</span>._onScreen) {
+    <span class="hljs-keyword">this</span>._onScreen = <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">this</span>._needsRedraw = <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._hideCursor) {
+      <span class="hljs-keyword">this</span>._writeTo.write(<span class="hljs-keyword">this</span>._gauge.hideCursor())
+    }
+  }
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._needsRedraw) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._writeTo.write(<span class="hljs-keyword">this</span>._gauge.show(<span class="hljs-keyword">this</span>._status))) {
+    <span class="hljs-keyword">this</span>._paused = <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">this</span>._writeTo.on(<span class="hljs-string">'drain'</span>, callWith(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">this</span>._paused = <span class="hljs-literal">false</span>
+      <span class="hljs-keyword">this</span>._doRedraw()
+    }))
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

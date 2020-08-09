@@ -1,0 +1,3255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>gmaps.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gmaps\\gmaps.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>gmaps.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">"use strict"</span>;
+(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">root, factory</span>) </span>{
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> exports === <span class="hljs-string">'object'</span>) {
+    <span class="hljs-built_in">module</span>.exports = factory();
+  }
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">'function'</span> &amp;&amp; define.amd) {
+    define([<span class="hljs-string">'jquery'</span>, <span class="hljs-string">'googlemaps!'</span>], factory);
+  }
+  <span class="hljs-keyword">else</span> {
+    root.GMaps = factory();
+  }
+
+
+}(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>!
+GMaps.js v0.4.24
+http://hpneo.github.com/gmaps/</p>
+</div>
+<div class="body">
+<p>Copyright 2016, Gustavo Leon
+Released under the MIT License.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-keyword">var</span> extend_object = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj, new_obj</span>) </span>{
+  <span class="hljs-keyword">var</span> name;
+
+  <span class="hljs-keyword">if</span> (obj === new_obj) {
+    <span class="hljs-keyword">return</span> obj;
+  }
+
+  <span class="hljs-keyword">for</span> (name <span class="hljs-keyword">in</span> new_obj) {
+    <span class="hljs-keyword">if</span> (new_obj[name] !== <span class="hljs-literal">undefined</span>) {
+      obj[name] = new_obj[name];
+    }
+  }
+
+  <span class="hljs-keyword">return</span> obj;
+};
+
+<span class="hljs-keyword">var</span> replace_object = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj, replace</span>) </span>{
+  <span class="hljs-keyword">var</span> name;
+
+  <span class="hljs-keyword">if</span> (obj === replace) {
+    <span class="hljs-keyword">return</span> obj;
+  }
+
+  <span class="hljs-keyword">for</span> (name <span class="hljs-keyword">in</span> replace) {
+    <span class="hljs-keyword">if</span> (obj[name] != <span class="hljs-literal">undefined</span>) {
+      obj[name] = replace[name];
+    }
+  }
+
+  <span class="hljs-keyword">return</span> obj;
+};
+
+<span class="hljs-keyword">var</span> array_map = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">array, callback</span>) </span>{
+  <span class="hljs-keyword">var</span> original_callback_params = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">2</span>),
+      array_return = [],
+      array_length = array.length,
+      i;
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.prototype.map &amp;&amp; array.map === <span class="hljs-built_in">Array</span>.prototype.map) {
+    array_return = <span class="hljs-built_in">Array</span>.prototype.map.call(array, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">item</span>) </span>{
+      <span class="hljs-keyword">var</span> callback_params = original_callback_params.slice(<span class="hljs-number">0</span>);
+      callback_params.splice(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, item);
+
+      <span class="hljs-keyword">return</span> callback.apply(<span class="hljs-keyword">this</span>, callback_params);
+    });
+  }
+  <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; array_length; i++) {
+      callback_params = original_callback_params;
+      callback_params.splice(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, array[i]);
+      array_return.push(callback.apply(<span class="hljs-keyword">this</span>, callback_params));
+    }
+  }
+
+  <span class="hljs-keyword">return</span> array_return;
+};
+
+<span class="hljs-keyword">var</span> array_flat = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">array</span>) </span>{
+  <span class="hljs-keyword">var</span> new_array = [],
+      i;
+
+  <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; array.length; i++) {
+    new_array = new_array.concat(array[i]);
+  }
+
+  <span class="hljs-keyword">return</span> new_array;
+};
+
+<span class="hljs-keyword">var</span> coordsToLatLngs = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">coords, useGeoJSON</span>) </span>{
+  <span class="hljs-keyword">var</span> first_coord = coords[<span class="hljs-number">0</span>],
+      second_coord = coords[<span class="hljs-number">1</span>];
+
+  <span class="hljs-keyword">if</span> (useGeoJSON) {
+    first_coord = coords[<span class="hljs-number">1</span>];
+    second_coord = coords[<span class="hljs-number">0</span>];
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> google.maps.LatLng(first_coord, second_coord);
+};
+
+<span class="hljs-keyword">var</span> arrayToLatLng = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">coords, useGeoJSON</span>) </span>{
+  <span class="hljs-keyword">var</span> i;
+
+  <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; coords.length; i++) {
+    <span class="hljs-keyword">if</span> (!(coords[i] <span class="hljs-keyword">instanceof</span> google.maps.LatLng)) {
+      <span class="hljs-keyword">if</span> (coords[i].length &gt; <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-keyword">typeof</span>(coords[i][<span class="hljs-number">0</span>]) === <span class="hljs-string">"object"</span>) {
+        coords[i] = arrayToLatLng(coords[i], useGeoJSON);
+      }
+      <span class="hljs-keyword">else</span> {
+        coords[i] = coordsToLatLngs(coords[i], useGeoJSON);
+      }
+    }
+  }
+
+  <span class="hljs-keyword">return</span> coords;
+};
+
+<span class="hljs-keyword">var</span> getElementsByClassName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">class_name, context</span>) </span>{
+    <span class="hljs-keyword">var</span> element,
+        _class = class_name.replace(<span class="hljs-string">'.'</span>, <span class="hljs-string">''</span>);
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-string">'jQuery'</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span> &amp;&amp; context) {
+        element = $(<span class="hljs-string">"."</span> + _class, context)[<span class="hljs-number">0</span>];
+    } <span class="hljs-keyword">else</span> {
+        element = <span class="hljs-built_in">document</span>.getElementsByClassName(_class)[<span class="hljs-number">0</span>];
+    }
+    <span class="hljs-keyword">return</span> element;
+
+};
+
+<span class="hljs-keyword">var</span> getElementById = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">id, context</span>) </span>{
+  <span class="hljs-keyword">var</span> element,
+  id = id.replace(<span class="hljs-string">'#'</span>, <span class="hljs-string">''</span>);
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-string">'jQuery'</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">window</span> &amp;&amp; context) {
+    element = $(<span class="hljs-string">'#'</span> + id, context)[<span class="hljs-number">0</span>];
+  } <span class="hljs-keyword">else</span> {
+    element = <span class="hljs-built_in">document</span>.getElementById(id);
+  };
+
+  <span class="hljs-keyword">return</span> element;
+};
+
+<span class="hljs-keyword">var</span> findAbsolutePosition = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj</span>)  </span>{
+  <span class="hljs-keyword">var</span> curleft = <span class="hljs-number">0</span>,
+      curtop = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">if</span> (obj.offsetParent) {
+    <span class="hljs-keyword">do</span> {
+      curleft += obj.offsetLeft;
+      curtop += obj.offsetTop;
+    } <span class="hljs-keyword">while</span> (obj = obj.offsetParent);
+  }
+
+  <span class="hljs-keyword">return</span> [curleft, curtop];
+};
+
+<span class="hljs-keyword">var</span> GMaps = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">global</span>) </span>{
+  <span class="hljs-string">"use strict"</span>;
+
+  <span class="hljs-keyword">var</span> doc = <span class="hljs-built_in">document</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a new GMaps instance, including a Google Maps map.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">options</span>
+<span class="dox_type">object</span>
+<span><ul>
+<li><code>options</code> accepts all the <a href="https://developers.google.com/maps/documentation/javascript/reference#MapOptions">MapOptions</a> and <a href="https://developers.google.com/maps/documentation/javascript/reference#Map">events</a> listed in the Google Maps API. Also accepts: * <code>lat</code> (number): Latitude of the map's center</li>
+</ul>
+<ul>
+<li><code>lng</code> (number): Longitude of the map's center</li>
+<li><code>el</code> (string or HTMLElement): container where the map will be rendered</li>
+<li><code>markerClusterer</code> (function): A function to create a marker cluster. You can use MarkerClusterer or MarkerClustererPlus.</li>
+</ul>
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> GMaps = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+
+    <span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span>.google === <span class="hljs-string">'object'</span> &amp;&amp; <span class="hljs-built_in">window</span>.google.maps)) {
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span>.console === <span class="hljs-string">'object'</span> &amp;&amp; <span class="hljs-built_in">window</span>.console.error) {
+        <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'Google Maps API is required. Please register the following JavaScript library https://maps.googleapis.com/maps/api/js.'</span>);
+      }
+
+      <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{};
+    }
+
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> GMaps(options);
+
+    options.zoom = options.zoom || <span class="hljs-number">15</span>;
+    options.mapType = options.mapType || <span class="hljs-string">'roadmap'</span>;
+
+    <span class="hljs-keyword">var</span> valueOrDefault = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value, defaultValue</span>) </span>{
+      <span class="hljs-keyword">return</span> value === <span class="hljs-literal">undefined</span> ? defaultValue : value;
+    };
+
+    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>,
+        i,
+        events_that_hide_context_menu = [
+          <span class="hljs-string">'bounds_changed'</span>, <span class="hljs-string">'center_changed'</span>, <span class="hljs-string">'click'</span>, <span class="hljs-string">'dblclick'</span>, <span class="hljs-string">'drag'</span>,
+          <span class="hljs-string">'dragend'</span>, <span class="hljs-string">'dragstart'</span>, <span class="hljs-string">'idle'</span>, <span class="hljs-string">'maptypeid_changed'</span>, <span class="hljs-string">'projection_changed'</span>,
+          <span class="hljs-string">'resize'</span>, <span class="hljs-string">'tilesloaded'</span>, <span class="hljs-string">'zoom_changed'</span>
+        ],
+        events_that_doesnt_hide_context_menu = [<span class="hljs-string">'mousemove'</span>, <span class="hljs-string">'mouseout'</span>, <span class="hljs-string">'mouseover'</span>],
+        options_to_be_deleted = [<span class="hljs-string">'el'</span>, <span class="hljs-string">'lat'</span>, <span class="hljs-string">'lng'</span>, <span class="hljs-string">'mapType'</span>, <span class="hljs-string">'width'</span>, <span class="hljs-string">'height'</span>, <span class="hljs-string">'markerClusterer'</span>, <span class="hljs-string">'enableNewStyle'</span>],
+        identifier = options.el || options.div,
+        markerClustererFunction = options.markerClusterer,
+        mapType = google.maps.MapTypeId[options.mapType.toUpperCase()],
+        map_center = <span class="hljs-keyword">new</span> google.maps.LatLng(options.lat, options.lng),
+        zoomControl = valueOrDefault(options.zoomControl, <span class="hljs-literal">true</span>),
+        zoomControlOpt = options.zoomControlOpt || {
+          <span class="hljs-attr">style</span>: <span class="hljs-string">'DEFAULT'</span>,
+          <span class="hljs-attr">position</span>: <span class="hljs-string">'TOP_LEFT'</span>
+        },
+        zoomControlStyle = zoomControlOpt.style || <span class="hljs-string">'DEFAULT'</span>,
+        zoomControlPosition = zoomControlOpt.position || <span class="hljs-string">'TOP_LEFT'</span>,
+        panControl = valueOrDefault(options.panControl, <span class="hljs-literal">true</span>),
+        mapTypeControl = valueOrDefault(options.mapTypeControl, <span class="hljs-literal">true</span>),
+        scaleControl = valueOrDefault(options.scaleControl, <span class="hljs-literal">true</span>),
+        streetViewControl = valueOrDefault(options.streetViewControl, <span class="hljs-literal">true</span>),
+        overviewMapControl = valueOrDefault(overviewMapControl, <span class="hljs-literal">true</span>),
+        map_options = {},
+        map_base_options = {
+          <span class="hljs-attr">zoom</span>: <span class="hljs-keyword">this</span>.zoom,
+          <span class="hljs-attr">center</span>: map_center,
+          <span class="hljs-attr">mapTypeId</span>: mapType
+        },
+        map_controls_options = {
+          <span class="hljs-attr">panControl</span>: panControl,
+          <span class="hljs-attr">zoomControl</span>: zoomControl,
+          <span class="hljs-attr">zoomControlOptions</span>: {
+            <span class="hljs-attr">style</span>: google.maps.ZoomControlStyle[zoomControlStyle],
+            <span class="hljs-attr">position</span>: google.maps.ControlPosition[zoomControlPosition]
+          },
+          <span class="hljs-attr">mapTypeControl</span>: mapTypeControl,
+          <span class="hljs-attr">scaleControl</span>: scaleControl,
+          <span class="hljs-attr">streetViewControl</span>: streetViewControl,
+          <span class="hljs-attr">overviewMapControl</span>: overviewMapControl
+        };
+
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span>(options.el) === <span class="hljs-string">'string'</span> || <span class="hljs-keyword">typeof</span>(options.div) === <span class="hljs-string">'string'</span>) {
+        <span class="hljs-keyword">if</span> (identifier.indexOf(<span class="hljs-string">"#"</span>) &gt; <span class="hljs-number">-1</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Container element</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">HTMLElement</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            <span class="hljs-keyword">this</span>.el = getElementById(identifier, options.context);
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">this</span>.el = getElementsByClassName.apply(<span class="hljs-keyword">this</span>, [identifier, options.context]);
+        }
+      } <span class="hljs-keyword">else</span> {
+          <span class="hljs-keyword">this</span>.el = identifier;
+      }
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span>(<span class="hljs-keyword">this</span>.el) === <span class="hljs-string">'undefined'</span> || <span class="hljs-keyword">this</span>.el === <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-string">'No element defined.'</span>;
+    }
+
+    <span class="hljs-built_in">window</span>.context_menu = <span class="hljs-built_in">window</span>.context_menu || {};
+    <span class="hljs-built_in">window</span>.context_menu[self.el.id] = {};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Collection of custom controls in the map UI</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">array</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.controls = [];
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Collection of map's overlays</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">array</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.overlays = [];
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Collection of KML/GeoRSS and FusionTable layers</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">array</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.layers = [];
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Collection of data layers (See {@link GMaps#addLayer})</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">object</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.singleLayers = {};
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Collection of map's markers</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">array</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.markers = [];
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Collection of map's lines</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">array</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.polylines = [];
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Collection of map's routes requested by {@link GMaps#getRoutes}, {@link GMaps#renderRoute}, {@link GMaps#drawRoute}, {@link GMaps#travelRoute} or {@link GMaps#drawSteppedRoute}</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">array</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.routes = [];
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Collection of map's polygons</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">array</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.polygons = [];
+    <span class="hljs-keyword">this</span>.infoWindow = <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">this</span>.overlay_el = <span class="hljs-literal">null</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Current map's zoom</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">number</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.zoom = options.zoom;
+    <span class="hljs-keyword">this</span>.registered_events = {};
+
+    <span class="hljs-keyword">this</span>.el.style.width = options.width || <span class="hljs-keyword">this</span>.el.scrollWidth || <span class="hljs-keyword">this</span>.el.offsetWidth;
+    <span class="hljs-keyword">this</span>.el.style.height = options.height || <span class="hljs-keyword">this</span>.el.scrollHeight || <span class="hljs-keyword">this</span>.el.offsetHeight;
+
+    google.maps.visualRefresh = options.enableNewStyle;
+
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; options_to_be_deleted.length; i++) {
+      <span class="hljs-keyword">delete</span> options[options_to_be_deleted[i]];
+    }
+
+    <span class="hljs-keyword">if</span>(options.disableDefaultUI != <span class="hljs-literal">true</span>) {
+      map_base_options = extend_object(map_base_options, map_controls_options);
+    }
+
+    map_options = extend_object(map_base_options, options);
+
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; events_that_hide_context_menu.length; i++) {
+      <span class="hljs-keyword">delete</span> map_options[events_that_hide_context_menu[i]];
+    }
+
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; events_that_doesnt_hide_context_menu.length; i++) {
+      <span class="hljs-keyword">delete</span> map_options[events_that_doesnt_hide_context_menu[i]];
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Google Maps map instance</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">google.maps.Map</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.map = <span class="hljs-keyword">new</span> google.maps.Map(<span class="hljs-keyword">this</span>.el, map_options);
+
+    <span class="hljs-keyword">if</span> (markerClustererFunction) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Marker Clusterer instance</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">object</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">this</span>.markerClusterer = markerClustererFunction.apply(<span class="hljs-keyword">this</span>, [<span class="hljs-keyword">this</span>.map]);
+    }
+
+    <span class="hljs-keyword">var</span> buildContextMenuHTML = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">control, e</span>) </span>{
+      <span class="hljs-keyword">var</span> html = <span class="hljs-string">''</span>,
+          options = <span class="hljs-built_in">window</span>.context_menu[self.el.id][control];
+
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> options){
+        <span class="hljs-keyword">if</span> (options.hasOwnProperty(i)) {
+          <span class="hljs-keyword">var</span> option = options[i];
+
+          html += <span class="hljs-string">'&lt;li&gt;&lt;a id="'</span> + control + <span class="hljs-string">'_'</span> + i + <span class="hljs-string">'" href="#"&gt;'</span> + option.title + <span class="hljs-string">'&lt;/a&gt;&lt;/li&gt;'</span>;
+        }
+      }
+
+      <span class="hljs-keyword">if</span> (!getElementById(<span class="hljs-string">'gmaps_context_menu'</span>)) <span class="hljs-keyword">return</span>;
+
+      <span class="hljs-keyword">var</span> context_menu_element = getElementById(<span class="hljs-string">'gmaps_context_menu'</span>);
+
+      context_menu_element.innerHTML = html;
+
+      <span class="hljs-keyword">var</span> context_menu_items = context_menu_element.getElementsByTagName(<span class="hljs-string">'a'</span>),
+          context_menu_items_count = context_menu_items.length,
+          i;
+
+      <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; context_menu_items_count; i++) {
+        <span class="hljs-keyword">var</span> context_menu_item = context_menu_items[i];
+
+        <span class="hljs-keyword">var</span> assign_menu_item_action = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ev</span>)</span>{
+          ev.preventDefault();
+
+          options[<span class="hljs-keyword">this</span>.id.replace(control + <span class="hljs-string">'_'</span>, <span class="hljs-string">''</span>)].action.apply(self, [e]);
+          self.hideContextMenu();
+        };
+
+        google.maps.event.clearListeners(context_menu_item, <span class="hljs-string">'click'</span>);
+        google.maps.event.addDomListenerOnce(context_menu_item, <span class="hljs-string">'click'</span>, assign_menu_item_action, <span class="hljs-literal">false</span>);
+      }
+
+      <span class="hljs-keyword">var</span> position = findAbsolutePosition.apply(<span class="hljs-keyword">this</span>, [self.el]),
+          left = position[<span class="hljs-number">0</span>] + e.pixel.x - <span class="hljs-number">15</span>,
+          top = position[<span class="hljs-number">1</span>] + e.pixel.y- <span class="hljs-number">15</span>;
+
+      context_menu_element.style.left = left + <span class="hljs-string">"px"</span>;
+      context_menu_element.style.top = top + <span class="hljs-string">"px"</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>context_menu_element.style.display = 'block';</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    };
+
+    <span class="hljs-keyword">this</span>.buildContextMenu = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">control, e</span>) </span>{
+      <span class="hljs-keyword">if</span> (control === <span class="hljs-string">'marker'</span>) {
+        e.pixel = {};
+
+        <span class="hljs-keyword">var</span> overlay = <span class="hljs-keyword">new</span> google.maps.OverlayView();
+        overlay.setMap(self.map);
+
+        overlay.draw = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+          <span class="hljs-keyword">var</span> projection = overlay.getProjection(),
+              position = e.marker.getPosition();
+
+          e.pixel = projection.fromLatLngToContainerPixel(position);
+
+          buildContextMenuHTML(control, e);
+        };
+      }
+      <span class="hljs-keyword">else</span> {
+        buildContextMenuHTML(control, e);
+      }
+
+      <span class="hljs-keyword">var</span> context_menu_element = getElementById(<span class="hljs-string">'gmaps_context_menu'</span>);
+
+      setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        context_menu_element.style.display = <span class="hljs-string">'block'</span>;
+      }, <span class="hljs-number">0</span>);
+    };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Add a context menu for a map or a marker.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">options</span>
+<span class="dox_type">object</span>
+<span><ul>
+<li>The <code>options</code> object should contain: * <code>control</code> (string): Kind of control the context menu will be attached. Can be &quot;map&quot; or &quot;marker&quot;.</li>
+</ul>
+<ul>
+<li><code>options</code> (array): A collection of context menu items:
+<ul>
+<li><code>title</code> (string): Item's title shown in the context menu.</li>
+<li><code>name</code> (string): Item's identifier.</li>
+<li><code>action</code> (function): Function triggered after selecting the context menu item.</li>
+</ul>
+</li>
+</ul>
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.setContextMenu = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+      <span class="hljs-built_in">window</span>.context_menu[self.el.id][options.control] = {};
+
+      <span class="hljs-keyword">var</span> i,
+          ul = doc.createElement(<span class="hljs-string">'ul'</span>);
+
+      <span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> options.options) {
+        <span class="hljs-keyword">if</span> (options.options.hasOwnProperty(i)) {
+          <span class="hljs-keyword">var</span> option = options.options[i];
+
+          <span class="hljs-built_in">window</span>.context_menu[self.el.id][options.control][option.name] = {
+            <span class="hljs-attr">title</span>: option.title,
+            <span class="hljs-attr">action</span>: option.action
+          };
+        }
+      }
+
+      ul.id = <span class="hljs-string">'gmaps_context_menu'</span>;
+      ul.style.display = <span class="hljs-string">'none'</span>;
+      ul.style.position = <span class="hljs-string">'absolute'</span>;
+      ul.style.minWidth = <span class="hljs-string">'100px'</span>;
+      ul.style.background = <span class="hljs-string">'white'</span>;
+      ul.style.listStyle = <span class="hljs-string">'none'</span>;
+      ul.style.padding = <span class="hljs-string">'8px'</span>;
+      ul.style.boxShadow = <span class="hljs-string">'2px 2px 6px #ccc'</span>;
+
+      <span class="hljs-keyword">if</span> (!getElementById(<span class="hljs-string">'gmaps_context_menu'</span>)) {
+        doc.body.appendChild(ul);
+      }
+
+      <span class="hljs-keyword">var</span> context_menu_element = getElementById(<span class="hljs-string">'gmaps_context_menu'</span>);
+
+      google.maps.event.addDomListener(context_menu_element, <span class="hljs-string">'mouseout'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ev</span>) </span>{
+        <span class="hljs-keyword">if</span> (!ev.relatedTarget || !<span class="hljs-keyword">this</span>.contains(ev.relatedTarget)) {
+          <span class="hljs-built_in">window</span>.setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+            context_menu_element.style.display = <span class="hljs-string">'none'</span>;
+          }, <span class="hljs-number">400</span>);
+        }
+      }, <span class="hljs-literal">false</span>);
+    };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Hide the current context menu</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.hideContextMenu = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> context_menu_element = getElementById(<span class="hljs-string">'gmaps_context_menu'</span>);
+
+      <span class="hljs-keyword">if</span> (context_menu_element) {
+        context_menu_element.style.display = <span class="hljs-string">'none'</span>;
+      }
+    };
+
+    <span class="hljs-keyword">var</span> setupListener = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, name</span>) </span>{
+      google.maps.event.addListener(object, name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{
+        <span class="hljs-keyword">if</span> (e == <span class="hljs-literal">undefined</span>) {
+          e = <span class="hljs-keyword">this</span>;
+        }
+
+        options[name].apply(<span class="hljs-keyword">this</span>, [e]);
+
+        self.hideContextMenu();
+      });
+    };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>google.maps.event.addListener(this.map, 'idle', this.hideContextMenu);</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    google.maps.event.addListener(<span class="hljs-keyword">this</span>.map, <span class="hljs-string">'zoom_changed'</span>, <span class="hljs-keyword">this</span>.hideContextMenu);
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ev = <span class="hljs-number">0</span>; ev &lt; events_that_hide_context_menu.length; ev++) {
+      <span class="hljs-keyword">var</span> name = events_that_hide_context_menu[ev];
+
+      <span class="hljs-keyword">if</span> (name <span class="hljs-keyword">in</span> options) {
+        setupListener(<span class="hljs-keyword">this</span>.map, name);
+      }
+    }
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ev = <span class="hljs-number">0</span>; ev &lt; events_that_doesnt_hide_context_menu.length; ev++) {
+      <span class="hljs-keyword">var</span> name = events_that_doesnt_hide_context_menu[ev];
+
+      <span class="hljs-keyword">if</span> (name <span class="hljs-keyword">in</span> options) {
+        setupListener(<span class="hljs-keyword">this</span>.map, name);
+      }
+    }
+
+    google.maps.event.addListener(<span class="hljs-keyword">this</span>.map, <span class="hljs-string">'rightclick'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+      <span class="hljs-keyword">if</span> (options.rightclick) {
+        options.rightclick.apply(<span class="hljs-keyword">this</span>, [e]);
+      }
+
+      <span class="hljs-keyword">if</span>(<span class="hljs-built_in">window</span>.context_menu[self.el.id][<span class="hljs-string">'map'</span>] != <span class="hljs-literal">undefined</span>) {
+        self.buildContextMenu(<span class="hljs-string">'map'</span>, e);
+      }
+    });
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Trigger a <code>resize</code> event, useful if you need to repaint the current map (for changes in the viewport or display / hide actions).</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.refresh = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      google.maps.event.trigger(<span class="hljs-keyword">this</span>.map, <span class="hljs-string">'resize'</span>);
+    };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Adjust the map zoom to include all the markers added in the map.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.fitZoom = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> latLngs = [],
+          markers_length = <span class="hljs-keyword">this</span>.markers.length,
+          i;
+
+      <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; markers_length; i++) {
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span>(<span class="hljs-keyword">this</span>.markers[i].visible) === <span class="hljs-string">'boolean'</span> &amp;&amp; <span class="hljs-keyword">this</span>.markers[i].visible) {
+          latLngs.push(<span class="hljs-keyword">this</span>.markers[i].getPosition());
+        }
+      }
+
+      <span class="hljs-keyword">this</span>.fitLatLngBounds(latLngs);
+    };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Adjust the map zoom to include all the coordinates in the <code>latLngs</code> array.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">latLngs</span>
+<span class="dox_type">array</span>
+<span><ul>
+<li>Collection of <code>google.maps.LatLng</code> objects.</li>
+</ul>
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.fitLatLngBounds = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">latLngs</span>) </span>{
+      <span class="hljs-keyword">var</span> total = latLngs.length,
+          bounds = <span class="hljs-keyword">new</span> google.maps.LatLngBounds(),
+          i;
+
+      <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; total; i++) {
+        bounds.extend(latLngs[i]);
+      }
+
+      <span class="hljs-keyword">this</span>.map.fitBounds(bounds);
+    };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Center the map using the <code>lat</code> and <code>lng</code> coordinates.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">lat</span>
+<span class="dox_type">number</span>
+<span><ul>
+<li>Latitude of the coordinate.</li>
+</ul>
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">lng</span>
+<span class="dox_type">number</span>
+<span><ul>
+<li>Longitude of the coordinate.</li>
+</ul>
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[callback]</span>
+<span class="dox_type">function</span>
+<span><ul>
+<li>Callback that will be executed after the map is centered.</li>
+</ul>
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.setCenter = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lat, lng, callback</span>) </span>{
+      <span class="hljs-keyword">this</span>.map.panTo(<span class="hljs-keyword">new</span> google.maps.LatLng(lat, lng));
+
+      <span class="hljs-keyword">if</span> (callback) {
+        callback();
+      }
+    };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Return the HTML element container of the map.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.getElement = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.el;
+    };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Increase the map's zoom.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[magnitude]</span>
+<span class="dox_type">number</span>
+<span><ul>
+<li>The number of times the map will be zoomed in.</li>
+</ul>
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.zoomIn = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+      value = value || <span class="hljs-number">1</span>;
+
+      <span class="hljs-keyword">this</span>.zoom = <span class="hljs-keyword">this</span>.map.getZoom() + value;
+      <span class="hljs-keyword">this</span>.map.setZoom(<span class="hljs-keyword">this</span>.zoom);
+    };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Decrease the map's zoom.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[magnitude]</span>
+<span class="dox_type">number</span>
+<span><ul>
+<li>The number of times the map will be zoomed out.</li>
+</ul>
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>.zoomOut = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+      value = value || <span class="hljs-number">1</span>;
+
+      <span class="hljs-keyword">this</span>.zoom = <span class="hljs-keyword">this</span>.map.getZoom() - value;
+      <span class="hljs-keyword">this</span>.map.setZoom(<span class="hljs-keyword">this</span>.zoom);
+    };
+
+    <span class="hljs-keyword">var</span> native_methods = [],
+        method;
+
+    <span class="hljs-keyword">for</span> (method <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span>.map) {
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span>(<span class="hljs-keyword">this</span>.map[method]) == <span class="hljs-string">'function'</span> &amp;&amp; !<span class="hljs-keyword">this</span>[method]) {
+        native_methods.push(method);
+      }
+    }
+
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; native_methods.length; i++) {
+      (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">gmaps, scope, method_name</span>) </span>{
+        gmaps[method_name] = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+          <span class="hljs-keyword">return</span> scope[method_name].apply(scope, <span class="hljs-built_in">arguments</span>);
+        };
+      })(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">this</span>.map, native_methods[i]);
+    }
+  };
+
+  <span class="hljs-keyword">return</span> GMaps;
+})(<span class="hljs-keyword">this</span>);
+
+GMaps.prototype.createControl = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> control = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
+
+  control.style.cursor = <span class="hljs-string">'pointer'</span>;
+
+  <span class="hljs-keyword">if</span> (options.disableDefaultStyles !== <span class="hljs-literal">true</span>) {
+    control.style.fontFamily = <span class="hljs-string">'Roboto, Arial, sans-serif'</span>;
+    control.style.fontSize = <span class="hljs-string">'11px'</span>;
+    control.style.boxShadow = <span class="hljs-string">'rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px'</span>;
+  }
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> option <span class="hljs-keyword">in</span> options.style) {
+    control.style[option] = options.style[option];
+  }
+
+  <span class="hljs-keyword">if</span> (options.id) {
+    control.id = options.id;
+  }
+
+  <span class="hljs-keyword">if</span> (options.title) {
+    control.title = options.title;
+  }
+
+  <span class="hljs-keyword">if</span> (options.classes) {
+    control.className = options.classes;
+  }
+
+  <span class="hljs-keyword">if</span> (options.content) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.content === <span class="hljs-string">'string'</span>) {
+      control.innerHTML = options.content;
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (options.content <span class="hljs-keyword">instanceof</span> HTMLElement) {
+      control.appendChild(options.content);
+    }
+  }
+
+  <span class="hljs-keyword">if</span> (options.position) {
+    control.position = google.maps.ControlPosition[options.position.toUpperCase()];
+  }
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ev <span class="hljs-keyword">in</span> options.events) {
+    (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, name</span>) </span>{
+      google.maps.event.addDomListener(object, name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+        options.events[name].apply(<span class="hljs-keyword">this</span>, [<span class="hljs-keyword">this</span>]);
+      });
+    })(control, ev);
+  }
+
+  control.index = <span class="hljs-number">1</span>;
+
+  <span class="hljs-keyword">return</span> control;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Add a custom control to the map UI.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">options</span>
+<span class="dox_type">object</span>
+<span><ul>
+<li>The <code>options</code> object should contain: * <code>style</code> (object): The keys and values of this object should be valid CSS properties and values.</li>
+</ul>
+<ul>
+<li><code>id</code> (string): The HTML id for the custom control.</li>
+<li><code>classes</code> (string): A string containing all the HTML classes for the custom control.</li>
+<li><code>content</code> (string or HTML element): The content of the custom control.</li>
+<li><code>position</code> (string): Any valid <a href="https://developers.google.com/maps/documentation/javascript/controls#ControlPositioning"><code>google.maps.ControlPosition</code></a> value, in lower or upper case.</li>
+<li><code>events</code> (object): The keys of this object should be valid DOM events. The values should be functions.</li>
+<li><code>disableDefaultStyles</code> (boolean): If false, removes the default styles for the controls like font (family and size), and box shadow.</li>
+</ul>
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">GMaps.prototype.addControl = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> control = <span class="hljs-keyword">this</span>.createControl(options);
+
+  <span class="hljs-keyword">this</span>.controls.push(control);
+  <span class="hljs-keyword">this</span>.map.controls[control.position].push(control);
+
+  <span class="hljs-keyword">return</span> control;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Remove a control from the map. <code>control</code> should be a control returned by <code>addControl()</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">control</span>
+<span class="dox_type">HTMLElement</span>
+<span><ul>
+<li>One of the controls returned by <code>addControl()</code>.</li>
+</ul>
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">GMaps.prototype.removeControl = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">control</span>) </span>{
+  <span class="hljs-keyword">var</span> position = <span class="hljs-literal">null</span>,
+      i;
+
+  <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.controls.length; i++) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.controls[i] == control) {
+      position = <span class="hljs-keyword">this</span>.controls[i].position;
+      <span class="hljs-keyword">this</span>.controls.splice(i, <span class="hljs-number">1</span>);
+    }
+  }
+
+  <span class="hljs-keyword">if</span> (position) {
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.map.controls.length; i++) {
+      <span class="hljs-keyword">var</span> controlsForPosition = <span class="hljs-keyword">this</span>.map.controls[control.position];
+
+      <span class="hljs-keyword">if</span> (controlsForPosition.getAt(i) == control) {
+        controlsForPosition.removeAt(i);
+
+        <span class="hljs-keyword">break</span>;
+      }
+    }
+  }
+
+  <span class="hljs-keyword">return</span> control;
+};
+
+GMaps.prototype.createMarker = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">if</span> (options.lat == <span class="hljs-literal">undefined</span> &amp;&amp; options.lng == <span class="hljs-literal">undefined</span> &amp;&amp; options.position == <span class="hljs-literal">undefined</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-string">'No latitude or longitude defined.'</span>;
+  }
+
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>,
+      details = options.details,
+      fences = options.fences,
+      outside = options.outside,
+      base_options = {
+        <span class="hljs-attr">position</span>: <span class="hljs-keyword">new</span> google.maps.LatLng(options.lat, options.lng),
+        <span class="hljs-attr">map</span>: <span class="hljs-literal">null</span>
+      },
+      marker_options = extend_object(base_options, options);
+
+  <span class="hljs-keyword">delete</span> marker_options.lat;
+  <span class="hljs-keyword">delete</span> marker_options.lng;
+  <span class="hljs-keyword">delete</span> marker_options.fences;
+  <span class="hljs-keyword">delete</span> marker_options.outside;
+
+  <span class="hljs-keyword">var</span> marker = <span class="hljs-keyword">new</span> google.maps.Marker(marker_options);
+
+  marker.fences = fences;
+
+  <span class="hljs-keyword">if</span> (options.infoWindow) {
+    marker.infoWindow = <span class="hljs-keyword">new</span> google.maps.InfoWindow(options.infoWindow);
+
+    <span class="hljs-keyword">var</span> info_window_events = [<span class="hljs-string">'closeclick'</span>, <span class="hljs-string">'content_changed'</span>, <span class="hljs-string">'domready'</span>, <span class="hljs-string">'position_changed'</span>, <span class="hljs-string">'zindex_changed'</span>];
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ev = <span class="hljs-number">0</span>; ev &lt; info_window_events.length; ev++) {
+      (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, name</span>) </span>{
+        <span class="hljs-keyword">if</span> (options.infoWindow[name]) {
+          google.maps.event.addListener(object, name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{
+            options.infoWindow[name].apply(<span class="hljs-keyword">this</span>, [e]);
+          });
+        }
+      })(marker.infoWindow, info_window_events[ev]);
+    }
+  }
+
+  <span class="hljs-keyword">var</span> marker_events = [<span class="hljs-string">'animation_changed'</span>, <span class="hljs-string">'clickable_changed'</span>, <span class="hljs-string">'cursor_changed'</span>, <span class="hljs-string">'draggable_changed'</span>, <span class="hljs-string">'flat_changed'</span>, <span class="hljs-string">'icon_changed'</span>, <span class="hljs-string">'position_changed'</span>, <span class="hljs-string">'shadow_changed'</span>, <span class="hljs-string">'shape_changed'</span>, <span class="hljs-string">'title_changed'</span>, <span class="hljs-string">'visible_changed'</span>, <span class="hljs-string">'zindex_changed'</span>];
+
+  <span class="hljs-keyword">var</span> marker_events_with_mouse = [<span class="hljs-string">'dblclick'</span>, <span class="hljs-string">'drag'</span>, <span class="hljs-string">'dragend'</span>, <span class="hljs-string">'dragstart'</span>, <span class="hljs-string">'mousedown'</span>, <span class="hljs-string">'mouseout'</span>, <span class="hljs-string">'mouseover'</span>, <span class="hljs-string">'mouseup'</span>];
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ev = <span class="hljs-number">0</span>; ev &lt; marker_events.length; ev++) {
+    (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, name</span>) </span>{
+      <span class="hljs-keyword">if</span> (options[name]) {
+        google.maps.event.addListener(object, name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+          options[name].apply(<span class="hljs-keyword">this</span>, [<span class="hljs-keyword">this</span>]);
+        });
+      }
+    })(marker, marker_events[ev]);
+  }
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ev = <span class="hljs-number">0</span>; ev &lt; marker_events_with_mouse.length; ev++) {
+    (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">map, object, name</span>) </span>{
+      <span class="hljs-keyword">if</span> (options[name]) {
+        google.maps.event.addListener(object, name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">me</span>)</span>{
+          <span class="hljs-keyword">if</span>(!me.pixel){
+            me.pixel = map.getProjection().fromLatLngToPoint(me.latLng)
+          }
+
+          options[name].apply(<span class="hljs-keyword">this</span>, [me]);
+        });
+      }
+    })(<span class="hljs-keyword">this</span>.map, marker, marker_events_with_mouse[ev]);
+  }
+
+  google.maps.event.addListener(marker, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.details = details;
+
+    <span class="hljs-keyword">if</span> (options.click) {
+      options.click.apply(<span class="hljs-keyword">this</span>, [<span class="hljs-keyword">this</span>]);
+    }
+
+    <span class="hljs-keyword">if</span> (marker.infoWindow) {
+      self.hideInfoWindows();
+      marker.infoWindow.open(self.map, marker);
+    }
+  });
+
+  google.maps.event.addListener(marker, <span class="hljs-string">'rightclick'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+    e.marker = <span class="hljs-keyword">this</span>;
+
+    <span class="hljs-keyword">if</span> (options.rightclick) {
+      options.rightclick.apply(<span class="hljs-keyword">this</span>, [e]);
+    }
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.context_menu[self.el.id][<span class="hljs-string">'marker'</span>] != <span class="hljs-literal">undefined</span>) {
+      self.buildContextMenu(<span class="hljs-string">'marker'</span>, e);
+    }
+  });
+
+  <span class="hljs-keyword">if</span> (marker.fences) {
+    google.maps.event.addListener(marker, <span class="hljs-string">'dragend'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      self.checkMarkerGeofence(marker, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">m, f</span>) </span>{
+        outside(m, f);
+      });
+    });
+  }
+
+  <span class="hljs-keyword">return</span> marker;
+};
+
+GMaps.prototype.addMarker = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> marker;
+  <span class="hljs-keyword">if</span>(options.hasOwnProperty(<span class="hljs-string">'gm_accessors_'</span>)) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
+</div>
+<p>Native google.maps.Marker object</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    marker = options;
+  }
+  <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">if</span> ((options.hasOwnProperty(<span class="hljs-string">'lat'</span>) &amp;&amp; options.hasOwnProperty(<span class="hljs-string">'lng'</span>)) || options.position) {
+      marker = <span class="hljs-keyword">this</span>.createMarker(options);
+    }
+    <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">throw</span> <span class="hljs-string">'No latitude or longitude defined.'</span>;
+    }
+  }
+
+  marker.setMap(<span class="hljs-keyword">this</span>.map);
+
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.markerClusterer) {
+    <span class="hljs-keyword">this</span>.markerClusterer.addMarker(marker);
+  }
+
+  <span class="hljs-keyword">this</span>.markers.push(marker);
+
+  GMaps.fire(<span class="hljs-string">'marker_added'</span>, marker, <span class="hljs-keyword">this</span>);
+
+  <span class="hljs-keyword">return</span> marker;
+};
+
+GMaps.prototype.addMarkers = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">array</span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, marker; marker=array[i]; i++) {
+    <span class="hljs-keyword">this</span>.addMarker(marker);
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.markers;
+};
+
+GMaps.prototype.hideInfoWindows = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, marker; marker = <span class="hljs-keyword">this</span>.markers[i]; i++){
+    <span class="hljs-keyword">if</span> (marker.infoWindow) {
+      marker.infoWindow.close();
+    }
+  }
+};
+
+GMaps.prototype.removeMarker = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">marker</span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.markers.length; i++) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.markers[i] === marker) {
+      <span class="hljs-keyword">this</span>.markers[i].setMap(<span class="hljs-literal">null</span>);
+      <span class="hljs-keyword">this</span>.markers.splice(i, <span class="hljs-number">1</span>);
+
+      <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.markerClusterer) {
+        <span class="hljs-keyword">this</span>.markerClusterer.removeMarker(marker);
+      }
+
+      GMaps.fire(<span class="hljs-string">'marker_removed'</span>, marker, <span class="hljs-keyword">this</span>);
+
+      <span class="hljs-keyword">break</span>;
+    }
+  }
+
+  <span class="hljs-keyword">return</span> marker;
+};
+
+GMaps.prototype.removeMarkers = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">collection</span>) </span>{
+  <span class="hljs-keyword">var</span> new_markers = [];
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> collection == <span class="hljs-string">'undefined'</span>) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.markers.length; i++) {
+      <span class="hljs-keyword">var</span> marker = <span class="hljs-keyword">this</span>.markers[i];
+      marker.setMap(<span class="hljs-literal">null</span>);
+
+      GMaps.fire(<span class="hljs-string">'marker_removed'</span>, marker, <span class="hljs-keyword">this</span>);
+    }
+
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.markerClusterer &amp;&amp; <span class="hljs-keyword">this</span>.markerClusterer.clearMarkers) {
+      <span class="hljs-keyword">this</span>.markerClusterer.clearMarkers();
+    }
+
+    <span class="hljs-keyword">this</span>.markers = new_markers;
+  }
+  <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; collection.length; i++) {
+      <span class="hljs-keyword">var</span> index = <span class="hljs-keyword">this</span>.markers.indexOf(collection[i]);
+
+      <span class="hljs-keyword">if</span> (index &gt; <span class="hljs-number">-1</span>) {
+        <span class="hljs-keyword">var</span> marker = <span class="hljs-keyword">this</span>.markers[index];
+        marker.setMap(<span class="hljs-literal">null</span>);
+
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.markerClusterer) {
+          <span class="hljs-keyword">this</span>.markerClusterer.removeMarker(marker);
+        }
+
+        GMaps.fire(<span class="hljs-string">'marker_removed'</span>, marker, <span class="hljs-keyword">this</span>);
+      }
+    }
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.markers.length; i++) {
+      <span class="hljs-keyword">var</span> marker = <span class="hljs-keyword">this</span>.markers[i];
+      <span class="hljs-keyword">if</span> (marker.getMap() != <span class="hljs-literal">null</span>) {
+        new_markers.push(marker);
+      }
+    }
+
+    <span class="hljs-keyword">this</span>.markers = new_markers;
+  }
+};
+
+GMaps.prototype.drawOverlay = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> overlay = <span class="hljs-keyword">new</span> google.maps.OverlayView(),
+      auto_show = <span class="hljs-literal">true</span>;
+
+  overlay.setMap(<span class="hljs-keyword">this</span>.map);
+
+  <span class="hljs-keyword">if</span> (options.auto_show != <span class="hljs-literal">null</span>) {
+    auto_show = options.auto_show;
+  }
+
+  overlay.onAdd = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> el = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
+
+    el.style.borderStyle = <span class="hljs-string">"none"</span>;
+    el.style.borderWidth = <span class="hljs-string">"0px"</span>;
+    el.style.position = <span class="hljs-string">"absolute"</span>;
+    el.style.zIndex = <span class="hljs-number">100</span>;
+    el.innerHTML = options.content;
+
+    overlay.el = el;
+
+    <span class="hljs-keyword">if</span> (!options.layer) {
+      options.layer = <span class="hljs-string">'overlayLayer'</span>;
+    }
+    
+    <span class="hljs-keyword">var</span> panes = <span class="hljs-keyword">this</span>.getPanes(),
+        overlayLayer = panes[options.layer],
+        stop_overlay_events = [<span class="hljs-string">'contextmenu'</span>, <span class="hljs-string">'DOMMouseScroll'</span>, <span class="hljs-string">'dblclick'</span>, <span class="hljs-string">'mousedown'</span>];
+
+    overlayLayer.appendChild(el);
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ev = <span class="hljs-number">0</span>; ev &lt; stop_overlay_events.length; ev++) {
+      (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, name</span>) </span>{
+        google.maps.event.addDomListener(object, name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{
+          <span class="hljs-keyword">if</span> (navigator.userAgent.toLowerCase().indexOf(<span class="hljs-string">'msie'</span>) != <span class="hljs-number">-1</span> &amp;&amp; <span class="hljs-built_in">document</span>.all) {
+            e.cancelBubble = <span class="hljs-literal">true</span>;
+            e.returnValue = <span class="hljs-literal">false</span>;
+          }
+          <span class="hljs-keyword">else</span> {
+            e.stopPropagation();
+          }
+        });
+      })(el, stop_overlay_events[ev]);
+    }
+
+    <span class="hljs-keyword">if</span> (options.click) {
+      panes.overlayMouseTarget.appendChild(overlay.el);
+      google.maps.event.addDomListener(overlay.el, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        options.click.apply(overlay, [overlay]);
+      });
+    }
+
+    google.maps.event.trigger(<span class="hljs-keyword">this</span>, <span class="hljs-string">'ready'</span>);
+  };
+
+  overlay.draw = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> projection = <span class="hljs-keyword">this</span>.getProjection(),
+        pixel = projection.fromLatLngToDivPixel(<span class="hljs-keyword">new</span> google.maps.LatLng(options.lat, options.lng));
+
+    options.horizontalOffset = options.horizontalOffset || <span class="hljs-number">0</span>;
+    options.verticalOffset = options.verticalOffset || <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">var</span> el = overlay.el,
+        content = el.children[<span class="hljs-number">0</span>],
+        content_height = content.clientHeight,
+        content_width = content.clientWidth;
+
+    <span class="hljs-keyword">switch</span> (options.verticalAlign) {
+      <span class="hljs-keyword">case</span> <span class="hljs-string">'top'</span>:
+        el.style.top = (pixel.y - content_height + options.verticalOffset) + <span class="hljs-string">'px'</span>;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">default</span>:
+      <span class="hljs-keyword">case</span> <span class="hljs-string">'middle'</span>:
+        el.style.top = (pixel.y - (content_height / <span class="hljs-number">2</span>) + options.verticalOffset) + <span class="hljs-string">'px'</span>;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">'bottom'</span>:
+        el.style.top = (pixel.y + options.verticalOffset) + <span class="hljs-string">'px'</span>;
+        <span class="hljs-keyword">break</span>;
+    }
+
+    <span class="hljs-keyword">switch</span> (options.horizontalAlign) {
+      <span class="hljs-keyword">case</span> <span class="hljs-string">'left'</span>:
+        el.style.left = (pixel.x - content_width + options.horizontalOffset) + <span class="hljs-string">'px'</span>;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">default</span>:
+      <span class="hljs-keyword">case</span> <span class="hljs-string">'center'</span>:
+        el.style.left = (pixel.x - (content_width / <span class="hljs-number">2</span>) + options.horizontalOffset) + <span class="hljs-string">'px'</span>;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">'right'</span>:
+        el.style.left = (pixel.x + options.horizontalOffset) + <span class="hljs-string">'px'</span>;
+        <span class="hljs-keyword">break</span>;
+    }
+
+    el.style.display = auto_show ? <span class="hljs-string">'block'</span> : <span class="hljs-string">'none'</span>;
+
+    <span class="hljs-keyword">if</span> (!auto_show) {
+      options.show.apply(<span class="hljs-keyword">this</span>, [el]);
+    }
+  };
+
+  overlay.onRemove = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> el = overlay.el;
+
+    <span class="hljs-keyword">if</span> (options.remove) {
+      options.remove.apply(<span class="hljs-keyword">this</span>, [el]);
+    }
+    <span class="hljs-keyword">else</span> {
+      overlay.el.parentNode.removeChild(overlay.el);
+      overlay.el = <span class="hljs-literal">null</span>;
+    }
+  };
+
+  <span class="hljs-keyword">this</span>.overlays.push(overlay);
+  <span class="hljs-keyword">return</span> overlay;
+};
+
+GMaps.prototype.removeOverlay = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">overlay</span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.overlays.length; i++) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.overlays[i] === overlay) {
+      <span class="hljs-keyword">this</span>.overlays[i].setMap(<span class="hljs-literal">null</span>);
+      <span class="hljs-keyword">this</span>.overlays.splice(i, <span class="hljs-number">1</span>);
+
+      <span class="hljs-keyword">break</span>;
+    }
+  }
+};
+
+GMaps.prototype.removeOverlays = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, item; item = <span class="hljs-keyword">this</span>.overlays[i]; i++) {
+    item.setMap(<span class="hljs-literal">null</span>);
+  }
+
+  <span class="hljs-keyword">this</span>.overlays = [];
+};
+
+GMaps.prototype.drawPolyline = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> path = [],
+      points = options.path;
+
+  <span class="hljs-keyword">if</span> (points.length) {
+    <span class="hljs-keyword">if</span> (points[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] === <span class="hljs-literal">undefined</span>) {
+      path = points;
+    }
+    <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, latlng; latlng = points[i]; i++) {
+        path.push(<span class="hljs-keyword">new</span> google.maps.LatLng(latlng[<span class="hljs-number">0</span>], latlng[<span class="hljs-number">1</span>]));
+      }
+    }
+  }
+
+  <span class="hljs-keyword">var</span> polyline_options = {
+    <span class="hljs-attr">map</span>: <span class="hljs-keyword">this</span>.map,
+    <span class="hljs-attr">path</span>: path,
+    <span class="hljs-attr">strokeColor</span>: options.strokeColor,
+    <span class="hljs-attr">strokeOpacity</span>: options.strokeOpacity,
+    <span class="hljs-attr">strokeWeight</span>: options.strokeWeight,
+    <span class="hljs-attr">geodesic</span>: options.geodesic,
+    <span class="hljs-attr">clickable</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">editable</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">visible</span>: <span class="hljs-literal">true</span>
+  };
+
+  <span class="hljs-keyword">if</span> (options.hasOwnProperty(<span class="hljs-string">"clickable"</span>)) {
+    polyline_options.clickable = options.clickable;
+  }
+
+  <span class="hljs-keyword">if</span> (options.hasOwnProperty(<span class="hljs-string">"editable"</span>)) {
+    polyline_options.editable = options.editable;
+  }
+
+  <span class="hljs-keyword">if</span> (options.hasOwnProperty(<span class="hljs-string">"icons"</span>)) {
+    polyline_options.icons = options.icons;
+  }
+
+  <span class="hljs-keyword">if</span> (options.hasOwnProperty(<span class="hljs-string">"zIndex"</span>)) {
+    polyline_options.zIndex = options.zIndex;
+  }
+
+  <span class="hljs-keyword">var</span> polyline = <span class="hljs-keyword">new</span> google.maps.Polyline(polyline_options);
+
+  <span class="hljs-keyword">var</span> polyline_events = [<span class="hljs-string">'click'</span>, <span class="hljs-string">'dblclick'</span>, <span class="hljs-string">'mousedown'</span>, <span class="hljs-string">'mousemove'</span>, <span class="hljs-string">'mouseout'</span>, <span class="hljs-string">'mouseover'</span>, <span class="hljs-string">'mouseup'</span>, <span class="hljs-string">'rightclick'</span>];
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ev = <span class="hljs-number">0</span>; ev &lt; polyline_events.length; ev++) {
+    (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, name</span>) </span>{
+      <span class="hljs-keyword">if</span> (options[name]) {
+        google.maps.event.addListener(object, name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{
+          options[name].apply(<span class="hljs-keyword">this</span>, [e]);
+        });
+      }
+    })(polyline, polyline_events[ev]);
+  }
+
+  <span class="hljs-keyword">this</span>.polylines.push(polyline);
+
+  GMaps.fire(<span class="hljs-string">'polyline_added'</span>, polyline, <span class="hljs-keyword">this</span>);
+
+  <span class="hljs-keyword">return</span> polyline;
+};
+
+GMaps.prototype.removePolyline = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">polyline</span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.polylines.length; i++) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.polylines[i] === polyline) {
+      <span class="hljs-keyword">this</span>.polylines[i].setMap(<span class="hljs-literal">null</span>);
+      <span class="hljs-keyword">this</span>.polylines.splice(i, <span class="hljs-number">1</span>);
+
+      GMaps.fire(<span class="hljs-string">'polyline_removed'</span>, polyline, <span class="hljs-keyword">this</span>);
+
+      <span class="hljs-keyword">break</span>;
+    }
+  }
+};
+
+GMaps.prototype.removePolylines = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, item; item = <span class="hljs-keyword">this</span>.polylines[i]; i++) {
+    item.setMap(<span class="hljs-literal">null</span>);
+  }
+
+  <span class="hljs-keyword">this</span>.polylines = [];
+};
+
+GMaps.prototype.drawCircle = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  options =  extend_object({
+    <span class="hljs-attr">map</span>: <span class="hljs-keyword">this</span>.map,
+    <span class="hljs-attr">center</span>: <span class="hljs-keyword">new</span> google.maps.LatLng(options.lat, options.lng)
+  }, options);
+
+  <span class="hljs-keyword">delete</span> options.lat;
+  <span class="hljs-keyword">delete</span> options.lng;
+
+  <span class="hljs-keyword">var</span> polygon = <span class="hljs-keyword">new</span> google.maps.Circle(options),
+      polygon_events = [<span class="hljs-string">'click'</span>, <span class="hljs-string">'dblclick'</span>, <span class="hljs-string">'mousedown'</span>, <span class="hljs-string">'mousemove'</span>, <span class="hljs-string">'mouseout'</span>, <span class="hljs-string">'mouseover'</span>, <span class="hljs-string">'mouseup'</span>, <span class="hljs-string">'rightclick'</span>];
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ev = <span class="hljs-number">0</span>; ev &lt; polygon_events.length; ev++) {
+    (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, name</span>) </span>{
+      <span class="hljs-keyword">if</span> (options[name]) {
+        google.maps.event.addListener(object, name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{
+          options[name].apply(<span class="hljs-keyword">this</span>, [e]);
+        });
+      }
+    })(polygon, polygon_events[ev]);
+  }
+
+  <span class="hljs-keyword">this</span>.polygons.push(polygon);
+
+  <span class="hljs-keyword">return</span> polygon;
+};
+
+GMaps.prototype.drawRectangle = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  options = extend_object({
+    <span class="hljs-attr">map</span>: <span class="hljs-keyword">this</span>.map
+  }, options);
+
+  <span class="hljs-keyword">var</span> latLngBounds = <span class="hljs-keyword">new</span> google.maps.LatLngBounds(
+    <span class="hljs-keyword">new</span> google.maps.LatLng(options.bounds[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], options.bounds[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]),
+    <span class="hljs-keyword">new</span> google.maps.LatLng(options.bounds[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>], options.bounds[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>])
+  );
+
+  options.bounds = latLngBounds;
+
+  <span class="hljs-keyword">var</span> polygon = <span class="hljs-keyword">new</span> google.maps.Rectangle(options),
+      polygon_events = [<span class="hljs-string">'click'</span>, <span class="hljs-string">'dblclick'</span>, <span class="hljs-string">'mousedown'</span>, <span class="hljs-string">'mousemove'</span>, <span class="hljs-string">'mouseout'</span>, <span class="hljs-string">'mouseover'</span>, <span class="hljs-string">'mouseup'</span>, <span class="hljs-string">'rightclick'</span>];
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ev = <span class="hljs-number">0</span>; ev &lt; polygon_events.length; ev++) {
+    (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, name</span>) </span>{
+      <span class="hljs-keyword">if</span> (options[name]) {
+        google.maps.event.addListener(object, name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{
+          options[name].apply(<span class="hljs-keyword">this</span>, [e]);
+        });
+      }
+    })(polygon, polygon_events[ev]);
+  }
+
+  <span class="hljs-keyword">this</span>.polygons.push(polygon);
+
+  <span class="hljs-keyword">return</span> polygon;
+};
+
+GMaps.prototype.drawPolygon = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> useGeoJSON = <span class="hljs-literal">false</span>;
+
+  <span class="hljs-keyword">if</span>(options.hasOwnProperty(<span class="hljs-string">"useGeoJSON"</span>)) {
+    useGeoJSON = options.useGeoJSON;
+  }
+
+  <span class="hljs-keyword">delete</span> options.useGeoJSON;
+
+  options = extend_object({
+    <span class="hljs-attr">map</span>: <span class="hljs-keyword">this</span>.map
+  }, options);
+
+  <span class="hljs-keyword">if</span> (useGeoJSON == <span class="hljs-literal">false</span>) {
+    options.paths = [options.paths.slice(<span class="hljs-number">0</span>)];
+  }
+
+  <span class="hljs-keyword">if</span> (options.paths.length &gt; <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">if</span> (options.paths[<span class="hljs-number">0</span>].length &gt; <span class="hljs-number">0</span>) {
+      options.paths = array_flat(array_map(options.paths, arrayToLatLng, useGeoJSON));
+    }
+  }
+
+  <span class="hljs-keyword">var</span> polygon = <span class="hljs-keyword">new</span> google.maps.Polygon(options),
+      polygon_events = [<span class="hljs-string">'click'</span>, <span class="hljs-string">'dblclick'</span>, <span class="hljs-string">'mousedown'</span>, <span class="hljs-string">'mousemove'</span>, <span class="hljs-string">'mouseout'</span>, <span class="hljs-string">'mouseover'</span>, <span class="hljs-string">'mouseup'</span>, <span class="hljs-string">'rightclick'</span>];
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ev = <span class="hljs-number">0</span>; ev &lt; polygon_events.length; ev++) {
+    (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, name</span>) </span>{
+      <span class="hljs-keyword">if</span> (options[name]) {
+        google.maps.event.addListener(object, name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{
+          options[name].apply(<span class="hljs-keyword">this</span>, [e]);
+        });
+      }
+    })(polygon, polygon_events[ev]);
+  }
+
+  <span class="hljs-keyword">this</span>.polygons.push(polygon);
+
+  GMaps.fire(<span class="hljs-string">'polygon_added'</span>, polygon, <span class="hljs-keyword">this</span>);
+
+  <span class="hljs-keyword">return</span> polygon;
+};
+
+GMaps.prototype.removePolygon = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">polygon</span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.polygons.length; i++) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.polygons[i] === polygon) {
+      <span class="hljs-keyword">this</span>.polygons[i].setMap(<span class="hljs-literal">null</span>);
+      <span class="hljs-keyword">this</span>.polygons.splice(i, <span class="hljs-number">1</span>);
+
+      GMaps.fire(<span class="hljs-string">'polygon_removed'</span>, polygon, <span class="hljs-keyword">this</span>);
+
+      <span class="hljs-keyword">break</span>;
+    }
+  }
+};
+
+GMaps.prototype.removePolygons = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, item; item = <span class="hljs-keyword">this</span>.polygons[i]; i++) {
+    item.setMap(<span class="hljs-literal">null</span>);
+  }
+
+  <span class="hljs-keyword">this</span>.polygons = [];
+};
+
+GMaps.prototype.getFromFusionTables = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> events = options.events;
+
+  <span class="hljs-keyword">delete</span> options.events;
+
+  <span class="hljs-keyword">var</span> fusion_tables_options = options,
+      layer = <span class="hljs-keyword">new</span> google.maps.FusionTablesLayer(fusion_tables_options);
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ev <span class="hljs-keyword">in</span> events) {
+    (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, name</span>) </span>{
+      google.maps.event.addListener(object, name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+        events[name].apply(<span class="hljs-keyword">this</span>, [e]);
+      });
+    })(layer, ev);
+  }
+
+  <span class="hljs-keyword">this</span>.layers.push(layer);
+
+  <span class="hljs-keyword">return</span> layer;
+};
+
+GMaps.prototype.loadFromFusionTables = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> layer = <span class="hljs-keyword">this</span>.getFromFusionTables(options);
+  layer.setMap(<span class="hljs-keyword">this</span>.map);
+
+  <span class="hljs-keyword">return</span> layer;
+};
+
+GMaps.prototype.getFromKML = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> url = options.url,
+      events = options.events;
+
+  <span class="hljs-keyword">delete</span> options.url;
+  <span class="hljs-keyword">delete</span> options.events;
+
+  <span class="hljs-keyword">var</span> kml_options = options,
+      layer = <span class="hljs-keyword">new</span> google.maps.KmlLayer(url, kml_options);
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> ev <span class="hljs-keyword">in</span> events) {
+    (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, name</span>) </span>{
+      google.maps.event.addListener(object, name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+        events[name].apply(<span class="hljs-keyword">this</span>, [e]);
+      });
+    })(layer, ev);
+  }
+
+  <span class="hljs-keyword">this</span>.layers.push(layer);
+
+  <span class="hljs-keyword">return</span> layer;
+};
+
+GMaps.prototype.loadFromKML = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> layer = <span class="hljs-keyword">this</span>.getFromKML(options);
+  layer.setMap(<span class="hljs-keyword">this</span>.map);
+
+  <span class="hljs-keyword">return</span> layer;
+};
+
+GMaps.prototype.addLayer = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">layerName, options</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30"></a>
+</div>
+<p>var default_layers = ['weather', 'clouds', 'traffic', 'transit', 'bicycling', 'panoramio', 'places'];</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  options = options || {};
+  <span class="hljs-keyword">var</span> layer;
+
+  <span class="hljs-keyword">switch</span>(layerName) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'weather'</span>: <span class="hljs-keyword">this</span>.singleLayers.weather = layer = <span class="hljs-keyword">new</span> google.maps.weather.WeatherLayer();
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'clouds'</span>: <span class="hljs-keyword">this</span>.singleLayers.clouds = layer = <span class="hljs-keyword">new</span> google.maps.weather.CloudLayer();
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'traffic'</span>: <span class="hljs-keyword">this</span>.singleLayers.traffic = layer = <span class="hljs-keyword">new</span> google.maps.TrafficLayer();
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'transit'</span>: <span class="hljs-keyword">this</span>.singleLayers.transit = layer = <span class="hljs-keyword">new</span> google.maps.TransitLayer();
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'bicycling'</span>: <span class="hljs-keyword">this</span>.singleLayers.bicycling = layer = <span class="hljs-keyword">new</span> google.maps.BicyclingLayer();
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'panoramio'</span>:
+        <span class="hljs-keyword">this</span>.singleLayers.panoramio = layer = <span class="hljs-keyword">new</span> google.maps.panoramio.PanoramioLayer();
+        layer.setTag(options.filter);
+        <span class="hljs-keyword">delete</span> options.filter;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
+</div>
+<p>click event</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (options.click) {
+          google.maps.event.addListener(layer, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+            options.click(event);
+            <span class="hljs-keyword">delete</span> options.click;
+          });
+        }
+      <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">'places'</span>:
+        <span class="hljs-keyword">this</span>.singleLayers.places = layer = <span class="hljs-keyword">new</span> google.maps.places.PlacesService(<span class="hljs-keyword">this</span>.map);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
+</div>
+<p>search, nearbySearch, radarSearch callback, Both are the same</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (options.search || options.nearbySearch || options.radarSearch) {
+          <span class="hljs-keyword">var</span> placeSearchRequest  = {
+            <span class="hljs-attr">bounds</span> : options.bounds || <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">keyword</span> : options.keyword || <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">location</span> : options.location || <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">name</span> : options.name || <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">radius</span> : options.radius || <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">rankBy</span> : options.rankBy || <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">types</span> : options.types || <span class="hljs-literal">null</span>
+          };
+
+          <span class="hljs-keyword">if</span> (options.radarSearch) {
+            layer.radarSearch(placeSearchRequest, options.radarSearch);
+          }
+
+          <span class="hljs-keyword">if</span> (options.search) {
+            layer.search(placeSearchRequest, options.search);
+          }
+
+          <span class="hljs-keyword">if</span> (options.nearbySearch) {
+            layer.nearbySearch(placeSearchRequest, options.nearbySearch);
+          }
+        }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
+</div>
+<p>textSearch callback</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (options.textSearch) {
+          <span class="hljs-keyword">var</span> textSearchRequest  = {
+            <span class="hljs-attr">bounds</span> : options.bounds || <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">location</span> : options.location || <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">query</span> : options.query || <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">radius</span> : options.radius || <span class="hljs-literal">null</span>
+          };
+
+          layer.textSearch(textSearchRequest, options.textSearch);
+        }
+      <span class="hljs-keyword">break</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (layer !== <span class="hljs-literal">undefined</span>) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> layer.setOptions == <span class="hljs-string">'function'</span>) {
+      layer.setOptions(options);
+    }
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> layer.setMap == <span class="hljs-string">'function'</span>) {
+      layer.setMap(<span class="hljs-keyword">this</span>.map);
+    }
+
+    <span class="hljs-keyword">return</span> layer;
+  }
+};
+
+GMaps.prototype.removeLayer = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">layer</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span>(layer) == <span class="hljs-string">"string"</span> &amp;&amp; <span class="hljs-keyword">this</span>.singleLayers[layer] !== <span class="hljs-literal">undefined</span>) {
+     <span class="hljs-keyword">this</span>.singleLayers[layer].setMap(<span class="hljs-literal">null</span>);
+
+     <span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>.singleLayers[layer];
+  }
+  <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.layers.length; i++) {
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.layers[i] === layer) {
+        <span class="hljs-keyword">this</span>.layers[i].setMap(<span class="hljs-literal">null</span>);
+        <span class="hljs-keyword">this</span>.layers.splice(i, <span class="hljs-number">1</span>);
+
+        <span class="hljs-keyword">break</span>;
+      }
+    }
+  }
+};
+
+<span class="hljs-keyword">var</span> travelMode, unitSystem;
+
+GMaps.prototype.getRoutes = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">switch</span> (options.travelMode) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'bicycling'</span>:
+      travelMode = google.maps.TravelMode.BICYCLING;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'transit'</span>:
+      travelMode = google.maps.TravelMode.TRANSIT;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'driving'</span>:
+      travelMode = google.maps.TravelMode.DRIVING;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">default</span>:
+      travelMode = google.maps.TravelMode.WALKING;
+      <span class="hljs-keyword">break</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (options.unitSystem === <span class="hljs-string">'imperial'</span>) {
+    unitSystem = google.maps.UnitSystem.IMPERIAL;
+  }
+  <span class="hljs-keyword">else</span> {
+    unitSystem = google.maps.UnitSystem.METRIC;
+  }
+
+  <span class="hljs-keyword">var</span> base_options = {
+        <span class="hljs-attr">avoidHighways</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">avoidTolls</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">optimizeWaypoints</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">waypoints</span>: []
+      },
+      request_options =  extend_object(base_options, options);
+
+  request_options.origin = <span class="hljs-regexp">/string/</span>.test(<span class="hljs-keyword">typeof</span> options.origin) ? options.origin : <span class="hljs-keyword">new</span> google.maps.LatLng(options.origin[<span class="hljs-number">0</span>], options.origin[<span class="hljs-number">1</span>]);
+  request_options.destination = <span class="hljs-regexp">/string/</span>.test(<span class="hljs-keyword">typeof</span> options.destination) ? options.destination : <span class="hljs-keyword">new</span> google.maps.LatLng(options.destination[<span class="hljs-number">0</span>], options.destination[<span class="hljs-number">1</span>]);
+  request_options.travelMode = travelMode;
+  request_options.unitSystem = unitSystem;
+
+  <span class="hljs-keyword">delete</span> request_options.callback;
+  <span class="hljs-keyword">delete</span> request_options.error;
+
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>,
+      routes = [],
+      service = <span class="hljs-keyword">new</span> google.maps.DirectionsService();
+
+  service.route(request_options, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">result, status</span>) </span>{
+    <span class="hljs-keyword">if</span> (status === google.maps.DirectionsStatus.OK) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> r <span class="hljs-keyword">in</span> result.routes) {
+        <span class="hljs-keyword">if</span> (result.routes.hasOwnProperty(r)) {
+          routes.push(result.routes[r]);
+        }
+      }
+
+      <span class="hljs-keyword">if</span> (options.callback) {
+        options.callback(routes, result, status);
+      }
+    }
+    <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">if</span> (options.error) {
+        options.error(result, status);
+      }
+    }
+  });
+};
+
+GMaps.prototype.removeRoutes = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.routes.length = <span class="hljs-number">0</span>;
+};
+
+GMaps.prototype.getElevations = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  options = extend_object({
+    <span class="hljs-attr">locations</span>: [],
+    <span class="hljs-attr">path</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">samples</span> : <span class="hljs-number">256</span>
+  }, options);
+
+  <span class="hljs-keyword">if</span> (options.locations.length &gt; <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">if</span> (options.locations[<span class="hljs-number">0</span>].length &gt; <span class="hljs-number">0</span>) {
+      options.locations = array_flat(array_map([options.locations], arrayToLatLng,  <span class="hljs-literal">false</span>));
+    }
+  }
+
+  <span class="hljs-keyword">var</span> callback = options.callback;
+  <span class="hljs-keyword">delete</span> options.callback;
+
+  <span class="hljs-keyword">var</span> service = <span class="hljs-keyword">new</span> google.maps.ElevationService();
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
+</div>
+<p>location request</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (!options.path) {
+    <span class="hljs-keyword">delete</span> options.path;
+    <span class="hljs-keyword">delete</span> options.samples;
+
+    service.getElevationForLocations(options, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">result, status</span>) </span>{
+      <span class="hljs-keyword">if</span> (callback &amp;&amp; <span class="hljs-keyword">typeof</span>(callback) === <span class="hljs-string">"function"</span>) {
+        callback(result, status);
+      }
+    });
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35"></a>
+</div>
+<p>path request</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">var</span> pathRequest = {
+      <span class="hljs-attr">path</span> : options.locations,
+      <span class="hljs-attr">samples</span> : options.samples
+    };
+
+    service.getElevationAlongPath(pathRequest, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">result, status</span>) </span>{
+     <span class="hljs-keyword">if</span> (callback &amp;&amp; <span class="hljs-keyword">typeof</span>(callback) === <span class="hljs-string">"function"</span>) {
+        callback(result, status);
+      }
+    });
+  }
+};
+
+GMaps.prototype.cleanRoute = GMaps.prototype.removePolylines;
+
+GMaps.prototype.renderRoute = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options, renderOptions</span>) </span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>,
+      panel = ((<span class="hljs-keyword">typeof</span> renderOptions.panel === <span class="hljs-string">'string'</span>) ? <span class="hljs-built_in">document</span>.getElementById(renderOptions.panel.replace(<span class="hljs-string">'#'</span>, <span class="hljs-string">''</span>)) : renderOptions.panel),
+      display;
+
+  renderOptions.panel = panel;
+  renderOptions = extend_object({
+    <span class="hljs-attr">map</span>: <span class="hljs-keyword">this</span>.map
+  }, renderOptions);
+  display = <span class="hljs-keyword">new</span> google.maps.DirectionsRenderer(renderOptions);
+
+  <span class="hljs-keyword">this</span>.getRoutes({
+    <span class="hljs-attr">origin</span>: options.origin,
+    <span class="hljs-attr">destination</span>: options.destination,
+    <span class="hljs-attr">travelMode</span>: options.travelMode,
+    <span class="hljs-attr">waypoints</span>: options.waypoints,
+    <span class="hljs-attr">unitSystem</span>: options.unitSystem,
+    <span class="hljs-attr">error</span>: options.error,
+    <span class="hljs-attr">avoidHighways</span>: options.avoidHighways,
+    <span class="hljs-attr">avoidTolls</span>: options.avoidTolls,
+    <span class="hljs-attr">optimizeWaypoints</span>: options.optimizeWaypoints,
+    <span class="hljs-attr">callback</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">routes, response, status</span>) </span>{
+      <span class="hljs-keyword">if</span> (status === google.maps.DirectionsStatus.OK) {
+        display.setDirections(response);
+      }
+    }
+  });
+};
+
+GMaps.prototype.drawRoute = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">this</span>.getRoutes({
+    <span class="hljs-attr">origin</span>: options.origin,
+    <span class="hljs-attr">destination</span>: options.destination,
+    <span class="hljs-attr">travelMode</span>: options.travelMode,
+    <span class="hljs-attr">waypoints</span>: options.waypoints,
+    <span class="hljs-attr">unitSystem</span>: options.unitSystem,
+    <span class="hljs-attr">error</span>: options.error,
+    <span class="hljs-attr">avoidHighways</span>: options.avoidHighways,
+    <span class="hljs-attr">avoidTolls</span>: options.avoidTolls,
+    <span class="hljs-attr">optimizeWaypoints</span>: options.optimizeWaypoints,
+    <span class="hljs-attr">callback</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">routes</span>) </span>{
+      <span class="hljs-keyword">if</span> (routes.length &gt; <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">var</span> polyline_options = {
+          <span class="hljs-attr">path</span>: routes[routes.length - <span class="hljs-number">1</span>].overview_path,
+          <span class="hljs-attr">strokeColor</span>: options.strokeColor,
+          <span class="hljs-attr">strokeOpacity</span>: options.strokeOpacity,
+          <span class="hljs-attr">strokeWeight</span>: options.strokeWeight
+        };
+
+        <span class="hljs-keyword">if</span> (options.hasOwnProperty(<span class="hljs-string">"icons"</span>)) {
+          polyline_options.icons = options.icons;
+        }
+
+        self.drawPolyline(polyline_options);
+
+        <span class="hljs-keyword">if</span> (options.callback) {
+          options.callback(routes[routes.length - <span class="hljs-number">1</span>]);
+        }
+      }
+    }
+  });
+};
+
+GMaps.prototype.travelRoute = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">if</span> (options.origin &amp;&amp; options.destination) {
+    <span class="hljs-keyword">this</span>.getRoutes({
+      <span class="hljs-attr">origin</span>: options.origin,
+      <span class="hljs-attr">destination</span>: options.destination,
+      <span class="hljs-attr">travelMode</span>: options.travelMode,
+      <span class="hljs-attr">waypoints</span> : options.waypoints,
+      <span class="hljs-attr">unitSystem</span>: options.unitSystem,
+      <span class="hljs-attr">error</span>: options.error,
+      <span class="hljs-attr">callback</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36"></a>
+</div>
+<p>start callback</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (e.length &gt; <span class="hljs-number">0</span> &amp;&amp; options.start) {
+          options.start(e[e.length - <span class="hljs-number">1</span>]);
+        }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37"></a>
+</div>
+<p>step callback</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (e.length &gt; <span class="hljs-number">0</span> &amp;&amp; options.step) {
+          <span class="hljs-keyword">var</span> route = e[e.length - <span class="hljs-number">1</span>];
+          <span class="hljs-keyword">if</span> (route.legs.length &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">var</span> steps = route.legs[<span class="hljs-number">0</span>].steps;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, step; step = steps[i]; i++) {
+              step.step_number = i;
+              options.step(step, (route.legs[<span class="hljs-number">0</span>].steps.length - <span class="hljs-number">1</span>));
+            }
+          }
+        }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38"></a>
+</div>
+<p>end callback</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (e.length &gt; <span class="hljs-number">0</span> &amp;&amp; options.end) {
+           options.end(e[e.length - <span class="hljs-number">1</span>]);
+        }
+      }
+    });
+  }
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (options.route) {
+    <span class="hljs-keyword">if</span> (options.route.legs.length &gt; <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">var</span> steps = options.route.legs[<span class="hljs-number">0</span>].steps;
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, step; step = steps[i]; i++) {
+        step.step_number = i;
+        options.step(step);
+      }
+    }
+  }
+};
+
+GMaps.prototype.drawSteppedRoute = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">if</span> (options.origin &amp;&amp; options.destination) {
+    <span class="hljs-keyword">this</span>.getRoutes({
+      <span class="hljs-attr">origin</span>: options.origin,
+      <span class="hljs-attr">destination</span>: options.destination,
+      <span class="hljs-attr">travelMode</span>: options.travelMode,
+      <span class="hljs-attr">waypoints</span> : options.waypoints,
+      <span class="hljs-attr">error</span>: options.error,
+      <span class="hljs-attr">callback</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-39" id="section-39"></a>
+</div>
+<p>start callback</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (e.length &gt; <span class="hljs-number">0</span> &amp;&amp; options.start) {
+          options.start(e[e.length - <span class="hljs-number">1</span>]);
+        }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-40" id="section-40"></a>
+</div>
+<p>step callback</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (e.length &gt; <span class="hljs-number">0</span> &amp;&amp; options.step) {
+          <span class="hljs-keyword">var</span> route = e[e.length - <span class="hljs-number">1</span>];
+          <span class="hljs-keyword">if</span> (route.legs.length &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">var</span> steps = route.legs[<span class="hljs-number">0</span>].steps;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, step; step = steps[i]; i++) {
+              step.step_number = i;
+              <span class="hljs-keyword">var</span> polyline_options = {
+                <span class="hljs-attr">path</span>: step.path,
+                <span class="hljs-attr">strokeColor</span>: options.strokeColor,
+                <span class="hljs-attr">strokeOpacity</span>: options.strokeOpacity,
+                <span class="hljs-attr">strokeWeight</span>: options.strokeWeight
+              };
+
+              <span class="hljs-keyword">if</span> (options.hasOwnProperty(<span class="hljs-string">"icons"</span>)) {
+                polyline_options.icons = options.icons;
+              }
+
+              self.drawPolyline(polyline_options);
+              options.step(step, (route.legs[<span class="hljs-number">0</span>].steps.length - <span class="hljs-number">1</span>));
+            }
+          }
+        }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-41" id="section-41"></a>
+</div>
+<p>end callback</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">if</span> (e.length &gt; <span class="hljs-number">0</span> &amp;&amp; options.end) {
+           options.end(e[e.length - <span class="hljs-number">1</span>]);
+        }
+      }
+    });
+  }
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (options.route) {
+    <span class="hljs-keyword">if</span> (options.route.legs.length &gt; <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">var</span> steps = options.route.legs[<span class="hljs-number">0</span>].steps;
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, step; step = steps[i]; i++) {
+        step.step_number = i;
+        <span class="hljs-keyword">var</span> polyline_options = {
+          <span class="hljs-attr">path</span>: step.path,
+          <span class="hljs-attr">strokeColor</span>: options.strokeColor,
+          <span class="hljs-attr">strokeOpacity</span>: options.strokeOpacity,
+          <span class="hljs-attr">strokeWeight</span>: options.strokeWeight
+        };
+
+        <span class="hljs-keyword">if</span> (options.hasOwnProperty(<span class="hljs-string">"icons"</span>)) {
+          polyline_options.icons = options.icons;
+        }
+
+        self.drawPolyline(polyline_options);
+        options.step(step);
+      }
+    }
+  }
+};
+
+GMaps.Route = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">this</span>.origin = options.origin;
+  <span class="hljs-keyword">this</span>.destination = options.destination;
+  <span class="hljs-keyword">this</span>.waypoints = options.waypoints;
+
+  <span class="hljs-keyword">this</span>.map = options.map;
+  <span class="hljs-keyword">this</span>.route = options.route;
+  <span class="hljs-keyword">this</span>.step_count = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>.steps = <span class="hljs-keyword">this</span>.route.legs[<span class="hljs-number">0</span>].steps;
+  <span class="hljs-keyword">this</span>.steps_length = <span class="hljs-keyword">this</span>.steps.length;
+
+  <span class="hljs-keyword">var</span> polyline_options = {
+    <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> google.maps.MVCArray(),
+    <span class="hljs-attr">strokeColor</span>: options.strokeColor,
+    <span class="hljs-attr">strokeOpacity</span>: options.strokeOpacity,
+    <span class="hljs-attr">strokeWeight</span>: options.strokeWeight
+  };
+
+  <span class="hljs-keyword">if</span> (options.hasOwnProperty(<span class="hljs-string">"icons"</span>)) {
+    polyline_options.icons = options.icons;
+  }
+
+  <span class="hljs-keyword">this</span>.polyline = <span class="hljs-keyword">this</span>.map.drawPolyline(polyline_options).getPath();
+};
+
+GMaps.Route.prototype.getRoute = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">this</span>.map.getRoutes({
+    <span class="hljs-attr">origin</span> : <span class="hljs-keyword">this</span>.origin,
+    <span class="hljs-attr">destination</span> : <span class="hljs-keyword">this</span>.destination,
+    <span class="hljs-attr">travelMode</span> : options.travelMode,
+    <span class="hljs-attr">waypoints</span> : <span class="hljs-keyword">this</span>.waypoints || [],
+    <span class="hljs-attr">error</span>: options.error,
+    <span class="hljs-attr">callback</span> : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      self.route = e[<span class="hljs-number">0</span>];
+
+      <span class="hljs-keyword">if</span> (options.callback) {
+        options.callback.call(self);
+      }
+    }
+  });
+};
+
+GMaps.Route.prototype.back = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.step_count &gt; <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">this</span>.step_count--;
+    <span class="hljs-keyword">var</span> path = <span class="hljs-keyword">this</span>.route.legs[<span class="hljs-number">0</span>].steps[<span class="hljs-keyword">this</span>.step_count].path;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> p <span class="hljs-keyword">in</span> path){
+      <span class="hljs-keyword">if</span> (path.hasOwnProperty(p)){
+        <span class="hljs-keyword">this</span>.polyline.pop();
+      }
+    }
+  }
+};
+
+GMaps.Route.prototype.forward = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.step_count &lt; <span class="hljs-keyword">this</span>.steps_length) {
+    <span class="hljs-keyword">var</span> path = <span class="hljs-keyword">this</span>.route.legs[<span class="hljs-number">0</span>].steps[<span class="hljs-keyword">this</span>.step_count].path;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> p <span class="hljs-keyword">in</span> path){
+      <span class="hljs-keyword">if</span> (path.hasOwnProperty(p)){
+        <span class="hljs-keyword">this</span>.polyline.push(path[p]);
+      }
+    }
+    <span class="hljs-keyword">this</span>.step_count++;
+  }
+};
+
+GMaps.prototype.checkGeofence = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lat, lng, fence</span>) </span>{
+  <span class="hljs-keyword">return</span> fence.containsLatLng(<span class="hljs-keyword">new</span> google.maps.LatLng(lat, lng));
+};
+
+GMaps.prototype.checkMarkerGeofence = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">marker, outside_callback</span>) </span>{
+  <span class="hljs-keyword">if</span> (marker.fences) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, fence; fence = marker.fences[i]; i++) {
+      <span class="hljs-keyword">var</span> pos = marker.getPosition();
+      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.checkGeofence(pos.lat(), pos.lng(), fence)) {
+        outside_callback(marker, fence);
+      }
+    }
+  }
+};
+
+GMaps.prototype.toImage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> options = options || {},
+      static_map_options = {};
+
+  static_map_options[<span class="hljs-string">'size'</span>] = options[<span class="hljs-string">'size'</span>] || [<span class="hljs-keyword">this</span>.el.clientWidth, <span class="hljs-keyword">this</span>.el.clientHeight];
+  static_map_options[<span class="hljs-string">'lat'</span>] = <span class="hljs-keyword">this</span>.getCenter().lat();
+  static_map_options[<span class="hljs-string">'lng'</span>] = <span class="hljs-keyword">this</span>.getCenter().lng();
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.markers.length &gt; <span class="hljs-number">0</span>) {
+    static_map_options[<span class="hljs-string">'markers'</span>] = [];
+    
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.markers.length; i++) {
+      static_map_options[<span class="hljs-string">'markers'</span>].push({
+        <span class="hljs-attr">lat</span>: <span class="hljs-keyword">this</span>.markers[i].getPosition().lat(),
+        <span class="hljs-attr">lng</span>: <span class="hljs-keyword">this</span>.markers[i].getPosition().lng()
+      });
+    }
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.polylines.length &gt; <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">var</span> polyline = <span class="hljs-keyword">this</span>.polylines[<span class="hljs-number">0</span>];
+    
+    static_map_options[<span class="hljs-string">'polyline'</span>] = {};
+    static_map_options[<span class="hljs-string">'polyline'</span>][<span class="hljs-string">'path'</span>] = google.maps.geometry.encoding.encodePath(polyline.getPath());
+    static_map_options[<span class="hljs-string">'polyline'</span>][<span class="hljs-string">'strokeColor'</span>] = polyline.strokeColor
+    static_map_options[<span class="hljs-string">'polyline'</span>][<span class="hljs-string">'strokeOpacity'</span>] = polyline.strokeOpacity
+    static_map_options[<span class="hljs-string">'polyline'</span>][<span class="hljs-string">'strokeWeight'</span>] = polyline.strokeWeight
+  }
+
+  <span class="hljs-keyword">return</span> GMaps.staticMapURL(static_map_options);
+};
+
+GMaps.staticMapURL = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>)</span>{
+  <span class="hljs-keyword">var</span> parameters = [],
+      data,
+      static_root = (location.protocol === <span class="hljs-string">'file:'</span> ? <span class="hljs-string">'http:'</span> : location.protocol ) + <span class="hljs-string">'//maps.googleapis.com/maps/api/staticmap'</span>;
+
+  <span class="hljs-keyword">if</span> (options.url) {
+    static_root = options.url;
+    <span class="hljs-keyword">delete</span> options.url;
+  }
+
+  static_root += <span class="hljs-string">'?'</span>;
+
+  <span class="hljs-keyword">var</span> markers = options.markers;
+  
+  <span class="hljs-keyword">delete</span> options.markers;
+
+  <span class="hljs-keyword">if</span> (!markers &amp;&amp; options.marker) {
+    markers = [options.marker];
+    <span class="hljs-keyword">delete</span> options.marker;
+  }
+
+  <span class="hljs-keyword">var</span> styles = options.styles;
+
+  <span class="hljs-keyword">delete</span> options.styles;
+
+  <span class="hljs-keyword">var</span> polyline = options.polyline;
+  <span class="hljs-keyword">delete</span> options.polyline;
+
+  <span class="hljs-comment">/** Map options **/</span>
+  <span class="hljs-keyword">if</span> (options.center) {
+    parameters.push(<span class="hljs-string">'center='</span> + options.center);
+    <span class="hljs-keyword">delete</span> options.center;
+  }
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (options.address) {
+    parameters.push(<span class="hljs-string">'center='</span> + options.address);
+    <span class="hljs-keyword">delete</span> options.address;
+  }
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (options.lat) {
+    parameters.push([<span class="hljs-string">'center='</span>, options.lat, <span class="hljs-string">','</span>, options.lng].join(<span class="hljs-string">''</span>));
+    <span class="hljs-keyword">delete</span> options.lat;
+    <span class="hljs-keyword">delete</span> options.lng;
+  }
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (options.visible) {
+    <span class="hljs-keyword">var</span> visible = <span class="hljs-built_in">encodeURI</span>(options.visible.join(<span class="hljs-string">'|'</span>));
+    parameters.push(<span class="hljs-string">'visible='</span> + visible);
+  }
+
+  <span class="hljs-keyword">var</span> size = options.size;
+  <span class="hljs-keyword">if</span> (size) {
+    <span class="hljs-keyword">if</span> (size.join) {
+      size = size.join(<span class="hljs-string">'x'</span>);
+    }
+    <span class="hljs-keyword">delete</span> options.size;
+  }
+  <span class="hljs-keyword">else</span> {
+    size = <span class="hljs-string">'630x300'</span>;
+  }
+  parameters.push(<span class="hljs-string">'size='</span> + size);
+
+  <span class="hljs-keyword">if</span> (!options.zoom &amp;&amp; options.zoom !== <span class="hljs-literal">false</span>) {
+    options.zoom = <span class="hljs-number">15</span>;
+  }
+
+  <span class="hljs-keyword">var</span> sensor = options.hasOwnProperty(<span class="hljs-string">'sensor'</span>) ? !!options.sensor : <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">delete</span> options.sensor;
+  parameters.push(<span class="hljs-string">'sensor='</span> + sensor);
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> param <span class="hljs-keyword">in</span> options) {
+    <span class="hljs-keyword">if</span> (options.hasOwnProperty(param)) {
+      parameters.push(param + <span class="hljs-string">'='</span> + options[param]);
+    }
+  }
+
+  <span class="hljs-comment">/** Markers **/</span>
+  <span class="hljs-keyword">if</span> (markers) {
+    <span class="hljs-keyword">var</span> marker, loc;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; data = markers[i]; i++) {
+      marker = [];
+
+      <span class="hljs-keyword">if</span> (data.size &amp;&amp; data.size !== <span class="hljs-string">'normal'</span>) {
+        marker.push(<span class="hljs-string">'size:'</span> + data.size);
+        <span class="hljs-keyword">delete</span> data.size;
+      }
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.icon) {
+        marker.push(<span class="hljs-string">'icon:'</span> + <span class="hljs-built_in">encodeURI</span>(data.icon));
+        <span class="hljs-keyword">delete</span> data.icon;
+      }
+
+      <span class="hljs-keyword">if</span> (data.color) {
+        marker.push(<span class="hljs-string">'color:'</span> + data.color.replace(<span class="hljs-string">'#'</span>, <span class="hljs-string">'0x'</span>));
+        <span class="hljs-keyword">delete</span> data.color;
+      }
+
+      <span class="hljs-keyword">if</span> (data.label) {
+        marker.push(<span class="hljs-string">'label:'</span> + data.label[<span class="hljs-number">0</span>].toUpperCase());
+        <span class="hljs-keyword">delete</span> data.label;
+      }
+
+      loc = (data.address ? data.address : data.lat + <span class="hljs-string">','</span> + data.lng);
+      <span class="hljs-keyword">delete</span> data.address;
+      <span class="hljs-keyword">delete</span> data.lat;
+      <span class="hljs-keyword">delete</span> data.lng;
+
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> param <span class="hljs-keyword">in</span> data){
+        <span class="hljs-keyword">if</span> (data.hasOwnProperty(param)) {
+          marker.push(param + <span class="hljs-string">':'</span> + data[param]);
+        }
+      }
+
+      <span class="hljs-keyword">if</span> (marker.length || i === <span class="hljs-number">0</span>) {
+        marker.push(loc);
+        marker = marker.join(<span class="hljs-string">'|'</span>);
+        parameters.push(<span class="hljs-string">'markers='</span> + <span class="hljs-built_in">encodeURI</span>(marker));
+      }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-42" id="section-42"></a>
+</div>
+<p>New marker without styles</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">else</span> {
+        marker = parameters.pop() + <span class="hljs-built_in">encodeURI</span>(<span class="hljs-string">'|'</span> + loc);
+        parameters.push(marker);
+      }
+    }
+  }
+
+  <span class="hljs-comment">/** Map Styles **/</span>
+  <span class="hljs-keyword">if</span> (styles) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; styles.length; i++) {
+      <span class="hljs-keyword">var</span> styleRule = [];
+      <span class="hljs-keyword">if</span> (styles[i].featureType){
+        styleRule.push(<span class="hljs-string">'feature:'</span> + styles[i].featureType.toLowerCase());
+      }
+
+      <span class="hljs-keyword">if</span> (styles[i].elementType) {
+        styleRule.push(<span class="hljs-string">'element:'</span> + styles[i].elementType.toLowerCase());
+      }
+
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; styles[i].stylers.length; j++) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> p <span class="hljs-keyword">in</span> styles[i].stylers[j]) {
+          <span class="hljs-keyword">var</span> ruleArg = styles[i].stylers[j][p];
+          <span class="hljs-keyword">if</span> (p == <span class="hljs-string">'hue'</span> || p == <span class="hljs-string">'color'</span>) {
+            ruleArg = <span class="hljs-string">'0x'</span> + ruleArg.substring(<span class="hljs-number">1</span>);
+          }
+          styleRule.push(p + <span class="hljs-string">':'</span> + ruleArg);
+        }
+      }
+
+      <span class="hljs-keyword">var</span> rule = styleRule.join(<span class="hljs-string">'|'</span>);
+      <span class="hljs-keyword">if</span> (rule != <span class="hljs-string">''</span>) {
+        parameters.push(<span class="hljs-string">'style='</span> + rule);
+      }
+    }
+  }
+
+  <span class="hljs-comment">/** Polylines **/</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parseColor</span>(<span class="hljs-params">color, opacity</span>) </span>{
+    <span class="hljs-keyword">if</span> (color[<span class="hljs-number">0</span>] === <span class="hljs-string">'#'</span>){
+      color = color.replace(<span class="hljs-string">'#'</span>, <span class="hljs-string">'0x'</span>);
+
+      <span class="hljs-keyword">if</span> (opacity) {
+        opacity = <span class="hljs-built_in">parseFloat</span>(opacity);
+        opacity = <span class="hljs-built_in">Math</span>.min(<span class="hljs-number">1</span>, <span class="hljs-built_in">Math</span>.max(opacity, <span class="hljs-number">0</span>));
+        <span class="hljs-keyword">if</span> (opacity === <span class="hljs-number">0</span>) {
+          <span class="hljs-keyword">return</span> <span class="hljs-string">'0x00000000'</span>;
+        }
+        opacity = (opacity * <span class="hljs-number">255</span>).toString(<span class="hljs-number">16</span>);
+        <span class="hljs-keyword">if</span> (opacity.length === <span class="hljs-number">1</span>) {
+          opacity += opacity;
+        }
+
+        color = color.slice(<span class="hljs-number">0</span>,<span class="hljs-number">8</span>) + opacity;
+      }
+    }
+    <span class="hljs-keyword">return</span> color;
+  }
+
+  <span class="hljs-keyword">if</span> (polyline) {
+    data = polyline;
+    polyline = [];
+
+    <span class="hljs-keyword">if</span> (data.strokeWeight) {
+      polyline.push(<span class="hljs-string">'weight:'</span> + <span class="hljs-built_in">parseInt</span>(data.strokeWeight, <span class="hljs-number">10</span>));
+    }
+
+    <span class="hljs-keyword">if</span> (data.strokeColor) {
+      <span class="hljs-keyword">var</span> color = parseColor(data.strokeColor, data.strokeOpacity);
+      polyline.push(<span class="hljs-string">'color:'</span> + color);
+    }
+
+    <span class="hljs-keyword">if</span> (data.fillColor) {
+      <span class="hljs-keyword">var</span> fillcolor = parseColor(data.fillColor, data.fillOpacity);
+      polyline.push(<span class="hljs-string">'fillcolor:'</span> + fillcolor);
+    }
+
+    <span class="hljs-keyword">var</span> path = data.path;
+    <span class="hljs-keyword">if</span> (path.join) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j=<span class="hljs-number">0</span>, pos; pos=path[j]; j++) {
+        polyline.push(pos.join(<span class="hljs-string">','</span>));
+      }
+    }
+    <span class="hljs-keyword">else</span> {
+      polyline.push(<span class="hljs-string">'enc:'</span> + path);
+    }
+
+    polyline = polyline.join(<span class="hljs-string">'|'</span>);
+    parameters.push(<span class="hljs-string">'path='</span> + <span class="hljs-built_in">encodeURI</span>(polyline));
+  }
+
+  <span class="hljs-comment">/** Retina support **/</span>
+  <span class="hljs-keyword">var</span> dpi = <span class="hljs-built_in">window</span>.devicePixelRatio || <span class="hljs-number">1</span>;
+  parameters.push(<span class="hljs-string">'scale='</span> + dpi);
+
+  parameters = parameters.join(<span class="hljs-string">'&amp;'</span>);
+  <span class="hljs-keyword">return</span> static_root + parameters;
+};
+
+GMaps.prototype.addMapType = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">mapTypeId, options</span>) </span>{
+  <span class="hljs-keyword">if</span> (options.hasOwnProperty(<span class="hljs-string">"getTileUrl"</span>) &amp;&amp; <span class="hljs-keyword">typeof</span>(options[<span class="hljs-string">"getTileUrl"</span>]) == <span class="hljs-string">"function"</span>) {
+    options.tileSize = options.tileSize || <span class="hljs-keyword">new</span> google.maps.Size(<span class="hljs-number">256</span>, <span class="hljs-number">256</span>);
+
+    <span class="hljs-keyword">var</span> mapType = <span class="hljs-keyword">new</span> google.maps.ImageMapType(options);
+
+    <span class="hljs-keyword">this</span>.map.mapTypes.set(mapTypeId, mapType);
+  }
+  <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">throw</span> <span class="hljs-string">"'getTileUrl' function required."</span>;
+  }
+};
+
+GMaps.prototype.addOverlayMapType = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">if</span> (options.hasOwnProperty(<span class="hljs-string">"getTile"</span>) &amp;&amp; <span class="hljs-keyword">typeof</span>(options[<span class="hljs-string">"getTile"</span>]) == <span class="hljs-string">"function"</span>) {
+    <span class="hljs-keyword">var</span> overlayMapTypeIndex = options.index;
+
+    <span class="hljs-keyword">delete</span> options.index;
+
+    <span class="hljs-keyword">this</span>.map.overlayMapTypes.insertAt(overlayMapTypeIndex, options);
+  }
+  <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">throw</span> <span class="hljs-string">"'getTile' function required."</span>;
+  }
+};
+
+GMaps.prototype.removeOverlayMapType = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">overlayMapTypeIndex</span>) </span>{
+  <span class="hljs-keyword">this</span>.map.overlayMapTypes.removeAt(overlayMapTypeIndex);
+};
+
+GMaps.prototype.addStyle = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> styledMapType = <span class="hljs-keyword">new</span> google.maps.StyledMapType(options.styles, { <span class="hljs-attr">name</span>: options.styledMapName });
+
+  <span class="hljs-keyword">this</span>.map.mapTypes.set(options.mapTypeId, styledMapType);
+};
+
+GMaps.prototype.setStyle = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">mapTypeId</span>) </span>{
+  <span class="hljs-keyword">this</span>.map.setMapTypeId(mapTypeId);
+};
+
+GMaps.prototype.createPanorama = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">streetview_options</span>) </span>{
+  <span class="hljs-keyword">if</span> (!streetview_options.hasOwnProperty(<span class="hljs-string">'lat'</span>) || !streetview_options.hasOwnProperty(<span class="hljs-string">'lng'</span>)) {
+    streetview_options.lat = <span class="hljs-keyword">this</span>.getCenter().lat();
+    streetview_options.lng = <span class="hljs-keyword">this</span>.getCenter().lng();
+  }
+
+  <span class="hljs-keyword">this</span>.panorama = GMaps.createPanorama(streetview_options);
+
+  <span class="hljs-keyword">this</span>.map.setStreetView(<span class="hljs-keyword">this</span>.panorama);
+
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.panorama;
+};
+
+GMaps.createPanorama = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> el = getElementById(options.el, options.context);
+
+  options.position = <span class="hljs-keyword">new</span> google.maps.LatLng(options.lat, options.lng);
+
+  <span class="hljs-keyword">delete</span> options.el;
+  <span class="hljs-keyword">delete</span> options.context;
+  <span class="hljs-keyword">delete</span> options.lat;
+  <span class="hljs-keyword">delete</span> options.lng;
+
+  <span class="hljs-keyword">var</span> streetview_events = [<span class="hljs-string">'closeclick'</span>, <span class="hljs-string">'links_changed'</span>, <span class="hljs-string">'pano_changed'</span>, <span class="hljs-string">'position_changed'</span>, <span class="hljs-string">'pov_changed'</span>, <span class="hljs-string">'resize'</span>, <span class="hljs-string">'visible_changed'</span>],
+      streetview_options = extend_object({<span class="hljs-attr">visible</span> : <span class="hljs-literal">true</span>}, options);
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; streetview_events.length; i++) {
+    <span class="hljs-keyword">delete</span> streetview_options[streetview_events[i]];
+  }
+
+  <span class="hljs-keyword">var</span> panorama = <span class="hljs-keyword">new</span> google.maps.StreetViewPanorama(el, streetview_options);
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; streetview_events.length; i++) {
+    (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, name</span>) </span>{
+      <span class="hljs-keyword">if</span> (options[name]) {
+        google.maps.event.addListener(object, name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+          options[name].apply(<span class="hljs-keyword">this</span>);
+        });
+      }
+    })(panorama, streetview_events[i]);
+  }
+
+  <span class="hljs-keyword">return</span> panorama;
+};
+
+GMaps.prototype.on = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event_name, handler</span>) </span>{
+  <span class="hljs-keyword">return</span> GMaps.on(event_name, <span class="hljs-keyword">this</span>, handler);
+};
+
+GMaps.prototype.off = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event_name</span>) </span>{
+  GMaps.off(event_name, <span class="hljs-keyword">this</span>);
+};
+
+GMaps.prototype.once = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event_name, handler</span>) </span>{
+  <span class="hljs-keyword">return</span> GMaps.once(event_name, <span class="hljs-keyword">this</span>, handler);
+};
+
+GMaps.custom_events = [<span class="hljs-string">'marker_added'</span>, <span class="hljs-string">'marker_removed'</span>, <span class="hljs-string">'polyline_added'</span>, <span class="hljs-string">'polyline_removed'</span>, <span class="hljs-string">'polygon_added'</span>, <span class="hljs-string">'polygon_removed'</span>, <span class="hljs-string">'geolocated'</span>, <span class="hljs-string">'geolocation_failed'</span>];
+
+GMaps.on = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event_name, object, handler</span>) </span>{
+  <span class="hljs-keyword">if</span> (GMaps.custom_events.indexOf(event_name) == <span class="hljs-number">-1</span>) {
+    <span class="hljs-keyword">if</span>(object <span class="hljs-keyword">instanceof</span> GMaps) object = object.map; 
+    <span class="hljs-keyword">return</span> google.maps.event.addListener(object, event_name, handler);
+  }
+  <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">var</span> registered_event = {
+      <span class="hljs-attr">handler</span> : handler,
+      <span class="hljs-attr">eventName</span> : event_name
+    };
+
+    object.registered_events[event_name] = object.registered_events[event_name] || [];
+    object.registered_events[event_name].push(registered_event);
+
+    <span class="hljs-keyword">return</span> registered_event;
+  }
+};
+
+GMaps.off = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event_name, object</span>) </span>{
+  <span class="hljs-keyword">if</span> (GMaps.custom_events.indexOf(event_name) == <span class="hljs-number">-1</span>) {
+    <span class="hljs-keyword">if</span>(object <span class="hljs-keyword">instanceof</span> GMaps) object = object.map; 
+    google.maps.event.clearListeners(object, event_name);
+  }
+  <span class="hljs-keyword">else</span> {
+    object.registered_events[event_name] = [];
+  }
+};
+
+GMaps.once = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event_name, object, handler</span>) </span>{
+  <span class="hljs-keyword">if</span> (GMaps.custom_events.indexOf(event_name) == <span class="hljs-number">-1</span>) {
+    <span class="hljs-keyword">if</span>(object <span class="hljs-keyword">instanceof</span> GMaps) object = object.map;
+    <span class="hljs-keyword">return</span> google.maps.event.addListenerOnce(object, event_name, handler);
+  }
+};
+
+GMaps.fire = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event_name, object, scope</span>) </span>{
+  <span class="hljs-keyword">if</span> (GMaps.custom_events.indexOf(event_name) == <span class="hljs-number">-1</span>) {
+    google.maps.event.trigger(object, event_name, <span class="hljs-built_in">Array</span>.prototype.slice.apply(<span class="hljs-built_in">arguments</span>).slice(<span class="hljs-number">2</span>));
+  }
+  <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">if</span>(event_name <span class="hljs-keyword">in</span> scope.registered_events) {
+      <span class="hljs-keyword">var</span> firing_events = scope.registered_events[event_name];
+
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; firing_events.length; i++) {
+        (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">handler, scope, object</span>) </span>{
+          handler.apply(scope, [object]);
+        })(firing_events[i][<span class="hljs-string">'handler'</span>], scope, object);
+      }
+    }
+  }
+};
+
+GMaps.geolocate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">var</span> complete_callback = options.always || options.complete;
+
+  <span class="hljs-keyword">if</span> (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">position</span>) </span>{
+      options.success(position);
+
+      <span class="hljs-keyword">if</span> (complete_callback) {
+        complete_callback();
+      }
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+      options.error(error);
+
+      <span class="hljs-keyword">if</span> (complete_callback) {
+        complete_callback();
+      }
+    }, options.options);
+  }
+  <span class="hljs-keyword">else</span> {
+    options.not_supported();
+
+    <span class="hljs-keyword">if</span> (complete_callback) {
+      complete_callback();
+    }
+  }
+};
+
+GMaps.geocode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">this</span>.geocoder = <span class="hljs-keyword">new</span> google.maps.Geocoder();
+  <span class="hljs-keyword">var</span> callback = options.callback;
+  <span class="hljs-keyword">if</span> (options.hasOwnProperty(<span class="hljs-string">'lat'</span>) &amp;&amp; options.hasOwnProperty(<span class="hljs-string">'lng'</span>)) {
+    options.latLng = <span class="hljs-keyword">new</span> google.maps.LatLng(options.lat, options.lng);
+  }
+
+  <span class="hljs-keyword">delete</span> options.lat;
+  <span class="hljs-keyword">delete</span> options.lng;
+  <span class="hljs-keyword">delete</span> options.callback;
+  
+  <span class="hljs-keyword">this</span>.geocoder.geocode(options, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">results, status</span>) </span>{
+    callback(results, status);
+  });
+};
+
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span>.google === <span class="hljs-string">'object'</span> &amp;&amp; <span class="hljs-built_in">window</span>.google.maps) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43"></a>
+</div>
+<p>Polygon containsLatLng
+https://github.com/tparkin/Google-Maps-Point-in-Polygon
+Poygon getBounds extension - google-maps-extensions
+http://code.google.com/p/google-maps-extensions/source/browse/google.maps.Polygon.getBounds.js</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (!google.maps.Polygon.prototype.getBounds) {
+    google.maps.Polygon.prototype.getBounds = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">latLng</span>) </span>{
+      <span class="hljs-keyword">var</span> bounds = <span class="hljs-keyword">new</span> google.maps.LatLngBounds();
+      <span class="hljs-keyword">var</span> paths = <span class="hljs-keyword">this</span>.getPaths();
+      <span class="hljs-keyword">var</span> path;
+
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> p = <span class="hljs-number">0</span>; p &lt; paths.getLength(); p++) {
+        path = paths.getAt(p);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; path.getLength(); i++) {
+          bounds.extend(path.getAt(i));
+        }
+      }
+
+      <span class="hljs-keyword">return</span> bounds;
+    };
+  }
+
+  <span class="hljs-keyword">if</span> (!google.maps.Polygon.prototype.containsLatLng) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44"></a>
+</div>
+<p>Polygon containsLatLng - method to determine if a latLng is within a polygon</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    google.maps.Polygon.prototype.containsLatLng = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">latLng</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45"></a>
+</div>
+<p>Exclude points outside of bounds as there is no way they are in the poly</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">var</span> bounds = <span class="hljs-keyword">this</span>.getBounds();
+
+      <span class="hljs-keyword">if</span> (bounds !== <span class="hljs-literal">null</span> &amp;&amp; !bounds.contains(latLng)) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-46" id="section-46"></a>
+</div>
+<p>Raycast point in polygon method</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">var</span> inPoly = <span class="hljs-literal">false</span>;
+
+      <span class="hljs-keyword">var</span> numPaths = <span class="hljs-keyword">this</span>.getPaths().getLength();
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> p = <span class="hljs-number">0</span>; p &lt; numPaths; p++) {
+        <span class="hljs-keyword">var</span> path = <span class="hljs-keyword">this</span>.getPaths().getAt(p);
+        <span class="hljs-keyword">var</span> numPoints = path.getLength();
+        <span class="hljs-keyword">var</span> j = numPoints - <span class="hljs-number">1</span>;
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; numPoints; i++) {
+          <span class="hljs-keyword">var</span> vertex1 = path.getAt(i);
+          <span class="hljs-keyword">var</span> vertex2 = path.getAt(j);
+
+          <span class="hljs-keyword">if</span> (vertex1.lng() &lt; latLng.lng() &amp;&amp; vertex2.lng() &gt;= latLng.lng() || vertex2.lng() &lt; latLng.lng() &amp;&amp; vertex1.lng() &gt;= latLng.lng()) {
+            <span class="hljs-keyword">if</span> (vertex1.lat() + (latLng.lng() - vertex1.lng()) / (vertex2.lng() - vertex1.lng()) * (vertex2.lat() - vertex1.lat()) &lt; latLng.lat()) {
+              inPoly = !inPoly;
+            }
+          }
+
+          j = i;
+        }
+      }
+
+      <span class="hljs-keyword">return</span> inPoly;
+    };
+  }
+
+  <span class="hljs-keyword">if</span> (!google.maps.Circle.prototype.containsLatLng) {
+    google.maps.Circle.prototype.containsLatLng = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">latLng</span>) </span>{
+      <span class="hljs-keyword">if</span> (google.maps.geometry) {
+        <span class="hljs-keyword">return</span> google.maps.geometry.spherical.computeDistanceBetween(<span class="hljs-keyword">this</span>.getCenter(), latLng) &lt;= <span class="hljs-keyword">this</span>.getRadius();
+      }
+      <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      }
+    };
+  }
+
+  google.maps.Rectangle.prototype.containsLatLng = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">latLng</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.getBounds().contains(latLng);
+  };
+
+  google.maps.LatLngBounds.prototype.containsLatLng = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">latLng</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.contains(latLng);
+  };
+
+  google.maps.Marker.prototype.setFences = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fences</span>) </span>{
+    <span class="hljs-keyword">this</span>.fences = fences;
+  };
+
+  google.maps.Marker.prototype.addFence = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fence</span>) </span>{
+    <span class="hljs-keyword">this</span>.fences.push(fence);
+  };
+
+  google.maps.Marker.prototype.getId = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-string">'__gm_id'</span>];
+  };
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-47" id="section-47"></a>
+</div>
+<p>Array indexOf
+https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.prototype.indexOf) {
+  <span class="hljs-built_in">Array</span>.prototype.indexOf = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">searchElement <span class="hljs-regexp">/*, fromIndex */</span> </span>) </span>{
+      <span class="hljs-string">"use strict"</span>;
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> == <span class="hljs-literal">null</span>) {
+          <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>();
+      }
+      <span class="hljs-keyword">var</span> t = <span class="hljs-built_in">Object</span>(<span class="hljs-keyword">this</span>);
+      <span class="hljs-keyword">var</span> len = t.length &gt;&gt;&gt; <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">if</span> (len === <span class="hljs-number">0</span>) {
+          <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+      }
+      <span class="hljs-keyword">var</span> n = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">1</span>) {
+          n = <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>]);
+          <span class="hljs-keyword">if</span> (n != n) { <span class="hljs-comment">// shortcut for verifying if it's NaN</span>
+              n = <span class="hljs-number">0</span>;
+          } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (n != <span class="hljs-number">0</span> &amp;&amp; n != <span class="hljs-literal">Infinity</span> &amp;&amp; n != -<span class="hljs-literal">Infinity</span>) {
+              n = (n &gt; <span class="hljs-number">0</span> || <span class="hljs-number">-1</span>) * <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.abs(n));
+          }
+      }
+      <span class="hljs-keyword">if</span> (n &gt;= len) {
+          <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+      }
+      <span class="hljs-keyword">var</span> k = n &gt;= <span class="hljs-number">0</span> ? n : <span class="hljs-built_in">Math</span>.max(len - <span class="hljs-built_in">Math</span>.abs(n), <span class="hljs-number">0</span>);
+      <span class="hljs-keyword">for</span> (; k &lt; len; k++) {
+          <span class="hljs-keyword">if</span> (k <span class="hljs-keyword">in</span> t &amp;&amp; t[k] === searchElement) {
+              <span class="hljs-keyword">return</span> k;
+          }
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+  }
+}
+
+<span class="hljs-keyword">return</span> GMaps;
+}));
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

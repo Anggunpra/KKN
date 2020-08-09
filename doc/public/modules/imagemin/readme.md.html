@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\imagemin\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#imagemin">imagemin  </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#imagemin-input-output-options">imagemin(input, output, [options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#input">input</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#output">output</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#plugins">plugins</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#imagemin.buffer-buffer-options">imagemin.buffer(buffer, [options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#buffer">buffer</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#options-1">options</a>
+      </div>
+
+      <div class="heading h5">
+        <a href="#plugins-1">plugins</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#related">Related</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="imagemin">
+  <h1>
+    <a href="#imagemin" name="imagemin" class="pilcrow"></a>
+imagemin <a href="https://travis-ci.org/imagemin/imagemin"><img src="https://img.shields.io/travis/imagemin/imagemin.svg" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/ShinnosukeWatanabe/imagemin"><img src="https://ci.appveyor.com/api/projects/status/wlnem7wef63k4n1t?svg=true" alt="Build status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Minify images seamlessly</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save imagemin
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">const</span> imagemin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin'</span>);
+<span class="hljs-keyword">const</span> imageminJpegtran = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin-jpegtran'</span>);
+<span class="hljs-keyword">const</span> imageminPngquant = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin-pngquant'</span>);
+
+imagemin([<span class="hljs-string">'images/*.{jpg,png}'</span>], <span class="hljs-string">'build/images'</span>, {
+	<span class="hljs-attr">plugins</span>: [
+		imageminJpegtran(),
+		imageminPngquant({<span class="hljs-attr">quality</span>: <span class="hljs-string">'65-80'</span>})
+	]
+}).then(<span class="hljs-function"><span class="hljs-params">files</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log(files);
+	<span class="hljs-comment">//=&gt; [{data: &lt;Buffer 89 50 4e …&gt;, path: 'build/images/foo.jpg'}, …]</span>
+});
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="imagemin-input-output-options">
+  <h3>
+    <a href="#imagemin-input-output-options" name="imagemin-input-output-options" class="pilcrow"></a>
+imagemin(input, output, [options])
+  </h3>
+</div>
+<p>Returns <code>Promise&lt;Object[]&gt;</code> in the format <code>{data: Buffer, path: String}</code>.</p>
+<div class="pilwrap" id="input">
+  <h4>
+    <a href="#input" name="input" class="pilcrow"></a>
+input
+  </h4>
+</div>
+<p>Type: <code>Array</code></p>
+<p>Files to be optimized. See supported <code>minimatch</code> <a href="https://github.com/isaacs/minimatch#usage">patterns</a>.</p>
+<div class="pilwrap" id="output">
+  <h4>
+    <a href="#output" name="output" class="pilcrow"></a>
+output
+  </h4>
+</div>
+<p>Type: <code>string</code></p>
+<p>Set the destination folder to where your files will be written. If no destination is specified no files will be written.</p>
+<div class="pilwrap" id="options">
+  <h4>
+    <a href="#options" name="options" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>Object</code></p>
+<div class="pilwrap" id="plugins">
+  <h5>
+    <a href="#plugins" name="plugins" class="pilcrow"></a>
+plugins
+  </h5>
+</div>
+<p>Type: <code>Array</code></p>
+<p><a href="https://www.npmjs.com/browse/keyword/imageminplugin">Plugins</a> to use.</p>
+<div class="pilwrap" id="imagemin.buffer-buffer-options">
+  <h3>
+    <a href="#imagemin.buffer-buffer-options" name="imagemin.buffer-buffer-options" class="pilcrow"></a>
+imagemin.buffer(buffer, [options])
+  </h3>
+</div>
+<p>Returns <code>Promise&lt;Buffer&gt;</code>.</p>
+<div class="pilwrap" id="buffer">
+  <h4>
+    <a href="#buffer" name="buffer" class="pilcrow"></a>
+buffer
+  </h4>
+</div>
+<p>Type: <code>Buffer</code></p>
+<p>Buffer to optimize.</p>
+<div class="pilwrap" id="options-1">
+  <h4>
+    <a href="#options-1" name="options-1" class="pilcrow"></a>
+options
+  </h4>
+</div>
+<p>Type: <code>Object</code></p>
+<div class="pilwrap" id="plugins-1">
+  <h5>
+    <a href="#plugins-1" name="plugins-1" class="pilcrow"></a>
+plugins
+  </h5>
+</div>
+<p>Type: <code>Array</code></p>
+<p><a href="https://www.npmjs.com/browse/keyword/imageminplugin">Plugins</a> to use.</p>
+<div class="pilwrap" id="related">
+  <h2>
+    <a href="#related" name="related" class="pilcrow"></a>
+Related
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/imagemin/imagemin-cli">imagemin-cli</a> - CLI for this module</li>
+<li><a href="https://github.com/imagemin/imagemin-app">imagemin-app</a> - GUI app for this module</li>
+<li><a href="https://github.com/sindresorhus/gulp-imagemin">gulp-imagemin</a> - Gulp plugin</li>
+<li><a href="https://github.com/gruntjs/grunt-contrib-imagemin">grunt-contrib-imagemin</a> - Grunt plugin</li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/imagemin">imagemin</a></p>
+</div>
+  </div>
+</body>
+</html>

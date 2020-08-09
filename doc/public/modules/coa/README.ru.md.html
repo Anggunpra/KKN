@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.ru.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\coa\\README.ru.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#command-option-argument">Command-Option-Argument</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chto-eto">Что это?</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#prochie-vozmozhnosti">Прочие возможности</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#primery">Примеры</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#cmd">Cmd</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.api">Cmd.api</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.name">Cmd.name</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.title">Cmd.title</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.cmd">Cmd.cmd</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.opt">Cmd.opt</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.arg">Cmd.arg</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.act">Cmd.act</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.apply">Cmd.apply</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.comp">Cmd.comp</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.helpful">Cmd.helpful</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.completable">Cmd.completable</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.usage">Cmd.usage</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.run">Cmd.run</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.invoke">Cmd.invoke</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.reject">Cmd.reject</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#cmd.end">Cmd.end</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#opt">Opt</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.name">Opt.name</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.title">Opt.title</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.short">Opt.short</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.long">Opt.long</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.flag">Opt.flag</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.arr">Opt.arr</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.req">Opt.req</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.only">Opt.only</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.val">Opt.val</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.def">Opt.def</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.input">Opt.input</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.output">Opt.output</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.act">Opt.act</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.comp">Opt.comp</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#opt.end">Opt.end</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#arg">Arg</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.name">Arg.name</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.title">Arg.title</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.arr">Arg.arr</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.req">Arg.req</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.val">Arg.val</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.def">Arg.def</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.output">Arg.output</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.comp">Arg.comp</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#arg.end">Arg.end</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="command-option-argument">
+  <h1>
+    <a href="#command-option-argument" name="command-option-argument" class="pilcrow"></a>
+Command-Option-Argument
+  </h1>
+</div>
+<p><a href="http://travis-ci.org/veged/coa"><img src="https://secure.travis-ci.org/veged/coa.png" alt="build status"></a></p>
+<div class="pilwrap" id="chto-eto">
+  <h2>
+    <a href="#chto-eto" name="chto-eto" class="pilcrow"></a>
+Что это?
+  </h2>
+</div>
+<p>COA — парсер параметров командной строки, позволяющий извлечь максимум пользы от формального API вашей программы.
+Как только вы опишете определение в терминах команд, параметров и аргументов, вы автоматически получите:</p>
+<ul>
+<li>Справку для командной строки</li>
+<li>API для использования программы как модуля в COA-совместимых программах</li>
+<li>Автодополнение для командной строки</li>
+</ul>
+<div class="pilwrap" id="prochie-vozmozhnosti">
+  <h3>
+    <a href="#prochie-vozmozhnosti" name="prochie-vozmozhnosti" class="pilcrow"></a>
+Прочие возможности
+  </h3>
+</div>
+<ul>
+<li>Широкий выбор настроек для параметров и аргументов, включая множественные значения, логические значения и обязательность параметров</li>
+<li>Возможность асинхронного исполнения команд, используя промисы (используется библиотека <a href="https://github.com/kriskowal/q">Q</a>)</li>
+<li>Простота использования существующих команд как подмодулей для новых команд</li>
+<li>Комбинированная валидация и анализ сложных значений</li>
+</ul>
+<div class="pilwrap" id="primery">
+  <h2>
+    <a href="#primery" name="primery" class="pilcrow"></a>
+Примеры
+  </h2>
+</div>
+<pre><code class="javascript"><span class="hljs-built_in">require</span>(<span class="hljs-string">'coa'</span>).Cmd() <span class="hljs-comment">// декларация команды верхнего уровня</span>
+    .name(process.argv[<span class="hljs-number">1</span>]) <span class="hljs-comment">// имя команды верхнего уровня, берем из имени программы</span>
+    .title(<span class="hljs-string">'Жутко полезная утилита для командной строки'</span>) <span class="hljs-comment">// название для использования в справке и сообщениях</span>
+    .helpful() <span class="hljs-comment">// добавляем поддержку справки командной строки (-h, --help)</span>
+    .opt() <span class="hljs-comment">// добавляем параметр</span>
+        .name(<span class="hljs-string">'version'</span>) <span class="hljs-comment">// имя параметра для использования в API</span>
+        .title(<span class="hljs-string">'Version'</span>) <span class="hljs-comment">// текст для вывода в сообщениях</span>
+        .short(<span class="hljs-string">'v'</span>) <span class="hljs-comment">// короткое имя параметра: -v</span>
+        .long(<span class="hljs-string">'version'</span>) <span class="hljs-comment">// длинное имя параметра: --version</span>
+        .flag() <span class="hljs-comment">// параметр не требует ввода значения</span>
+        .act(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">opts</span>) </span>{  <span class="hljs-comment">// действия при вызове аргумента</span>
+            <span class="hljs-comment">// результатом является вывод текстового сообщения</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).readFileSync(__dirname + <span class="hljs-string">'/package.json'</span>))
+                .version;
+        })
+        .end() <span class="hljs-comment">// завершаем определение параметра и возвращаемся к определению верхнего уровня</span>
+    .cmd().name(<span class="hljs-string">'subcommand'</span>).apply(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./subcommand'</span>).COA).end() <span class="hljs-comment">// загрузка подкоманды из модуля</span>
+    .cmd() <span class="hljs-comment">// добавляем еще одну подкоманду</span>
+        .name(<span class="hljs-string">'othercommand'</span>).title(<span class="hljs-string">'Еще одна полезная подпрограмма'</span>).helpful()
+        .opt()
+            .name(<span class="hljs-string">'input'</span>).title(<span class="hljs-string">'input file, required'</span>)
+            .short(<span class="hljs-string">'i'</span>).long(<span class="hljs-string">'input'</span>)
+            .val(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{ <span class="hljs-comment">// функция-валидатор, также может использоваться для трансформации значений параметров</span>
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).createReadStream(v) })
+            .req() <span class="hljs-comment">// параметр является обязательным</span>
+            .end() <span class="hljs-comment">// завершаем определение параметра и возвращаемся к определению команды</span>
+        .end() <span class="hljs-comment">// завершаем определение подкоманды и возвращаемся к определению команды верхнего уровня</span>
+    .run(process.argv.slice(<span class="hljs-number">2</span>)); <span class="hljs-comment">// разбираем process.argv и запускаем</span>
+</code></pre>
+<pre><code class="javascript"><span class="hljs-comment">// subcommand.js</span>
+exports.COA = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>
+        .title(<span class="hljs-string">'Полезная подпрограмма'</span>).helpful()
+        .opt()
+            .name(<span class="hljs-string">'output'</span>).title(<span class="hljs-string">'output file'</span>)
+            .short(<span class="hljs-string">'o'</span>).long(<span class="hljs-string">'output'</span>)
+            .output() <span class="hljs-comment">// использовать стандартную настройку для параметра вывода</span>
+            .end()
+};
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="cmd">
+  <h3>
+    <a href="#cmd" name="cmd" class="pilcrow"></a>
+Cmd
+  </h3>
+</div>
+<p>Команда — сущность верхнего уровня. У команды могут быть определены параметры и аргументы.</p>
+<div class="pilwrap" id="cmd.api">
+  <h4>
+    <a href="#cmd.api" name="cmd.api" class="pilcrow"></a>
+Cmd.api
+  </h4>
+</div>
+<p>Возвращает объект, который можно использовать в других программах. Подкоманды являются методами этого объекта.<br>
+<strong>@returns</strong> <em>{Object}</em></p>
+<div class="pilwrap" id="cmd.name">
+  <h4>
+    <a href="#cmd.name" name="cmd.name" class="pilcrow"></a>
+Cmd.name
+  </h4>
+</div>
+<p>Определяет канонический идентификатор команды, используемый в вызовах API.<br>
+<strong>@param</strong> <em>String</em> <code>_name</code> имя команды<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> экземпляр команды (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="cmd.title">
+  <h4>
+    <a href="#cmd.title" name="cmd.title" class="pilcrow"></a>
+Cmd.title
+  </h4>
+</div>
+<p>Определяет название команды, используемый в текстовых сообщениях.<br>
+<strong>@param</strong> <em>String</em> <code>_title</code> название команды<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> экземпляр команды (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="cmd.cmd">
+  <h4>
+    <a href="#cmd.cmd" name="cmd.cmd" class="pilcrow"></a>
+Cmd.cmd
+  </h4>
+</div>
+<p>Создает новую подкоманду или добавляет ранее определенную подкоманду к текущей команде.<br>
+<strong>@param</strong> <em>COA.Cmd</em> <code>[cmd]</code> экземпляр ранее определенной подкоманды<br>
+<strong>@returns</strong> <em>COA.Cmd</em> экземпляр новой или ранее определенной подкоманды</p>
+<div class="pilwrap" id="cmd.opt">
+  <h4>
+    <a href="#cmd.opt" name="cmd.opt" class="pilcrow"></a>
+Cmd.opt
+  </h4>
+</div>
+<p>Создает параметр для текущей команды.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>new</code> экземпляр параметра</p>
+<div class="pilwrap" id="cmd.arg">
+  <h4>
+    <a href="#cmd.arg" name="cmd.arg" class="pilcrow"></a>
+Cmd.arg
+  </h4>
+</div>
+<p>Создает аргумент для текущей команды.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>new</code> экземпляр аргумента</p>
+<div class="pilwrap" id="cmd.act">
+  <h4>
+    <a href="#cmd.act" name="cmd.act" class="pilcrow"></a>
+Cmd.act
+  </h4>
+</div>
+<p>Добавляет (или создает) действие для текущей команды.<br>
+<strong>@param</strong> <em>Function</em> <code>act</code> функция,
+выполняемая в контексте экземпляра текущей команды
+и принимающая следующие параметры:<br>
+- <em>Object</em> <code>opts</code> параметры команды<br>
+- <em>Array</em> <code>args</code> аргументы команды<br>
+- <em>Object</em> <code>res</code> объект-аккумулятор результатов<br>
+Функция может вернуть проваленный промис из Cmd.reject (в случае ошибки)
+или любое другое значение, рассматриваемое как результат.<br>
+<strong>@param</strong> <em>{Boolean}</em> [force=false] флаг, назначающий немедленное исполнение вместо добавления к списку существующих действий<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> экземпляр команды (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="cmd.apply">
+  <h4>
+    <a href="#cmd.apply" name="cmd.apply" class="pilcrow"></a>
+Cmd.apply
+  </h4>
+</div>
+<p>Исполняет функцию с переданными аргументами в контексте экземпляра текущей команды.<br>
+<strong>@param</strong> <em>Function</em> <code>fn</code><br>
+<strong>@param</strong> <em>Array</em> <code>args</code><br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> экземпляр команды (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="cmd.comp">
+  <h4>
+    <a href="#cmd.comp" name="cmd.comp" class="pilcrow"></a>
+Cmd.comp
+  </h4>
+</div>
+<p>Назначает кастомную функцию автодополнения для текущей команды.<br>
+<strong>@param</strong> <em>Function</em> <code>fn</code> функция-генератор автодополнения,
+исполняемая в контексте текущей команды.
+Принимает параметры:<br>
+- <em>Object</em> <code>opts</code> параметры<br>
+Может возвращать промис или любое другое значение, рассматриваемое как результат исполнения команды.<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> экземпляр команды (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="cmd.helpful">
+  <h4>
+    <a href="#cmd.helpful" name="cmd.helpful" class="pilcrow"></a>
+Cmd.helpful
+  </h4>
+</div>
+<p>Ставит флаг поддержки справки командной строки, т.е. вызов команды с параметрами -h --help выводит справку по работе с командой.<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> экземпляр команды (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="cmd.completable">
+  <h4>
+    <a href="#cmd.completable" name="cmd.completable" class="pilcrow"></a>
+Cmd.completable
+  </h4>
+</div>
+<p>Добавляет поддержку автодополнения командной строки. Добавляется подкоманда &quot;completion&quot;, которая выполняет все необходимые действия.<br>
+Может быть добавлен только для главной команды.<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> экземпляр команды (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="cmd.usage">
+  <h4>
+    <a href="#cmd.usage" name="cmd.usage" class="pilcrow"></a>
+Cmd.usage
+  </h4>
+</div>
+<p>Возвращает текст справки по использованию команды для текущего экземпляра.<br>
+<strong>@returns</strong> <em>String</em> <code>usage</code> Текст справки по использованию</p>
+<div class="pilwrap" id="cmd.run">
+  <h4>
+    <a href="#cmd.run" name="cmd.run" class="pilcrow"></a>
+Cmd.run
+  </h4>
+</div>
+<p>Разбирает аргументы из значения, возвращаемого NodeJS process.argv,
+и запускает текущую программу, т.е. вызывает process.exit после завершения
+всех действий.<br>
+<strong>@param</strong> <em>Array</em> <code>argv</code><br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>this</code> экземпляр команды (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="cmd.invoke">
+  <h4>
+    <a href="#cmd.invoke" name="cmd.invoke" class="pilcrow"></a>
+Cmd.invoke
+  </h4>
+</div>
+<p>Исполняет переданную (или текущую) команду с указанными параметрами и аргументами.<br>
+<strong>@param</strong> <em>String|Array</em> <code>cmds</code>  подкоманда для исполнения (необязательно)<br>
+<strong>@param</strong> <em>Object</em> <code>opts</code>  параметры, передаваемые команде (необязательно)<br>
+<strong>@param</strong> <em>Object</em> <code>args</code>  аргументы, передаваемые команде (необязательно)<br>
+<strong>@returns</strong> <em>Q.Promise</em></p>
+<div class="pilwrap" id="cmd.reject">
+  <h4>
+    <a href="#cmd.reject" name="cmd.reject" class="pilcrow"></a>
+Cmd.reject
+  </h4>
+</div>
+<p>Проваливает промисы, возращенные в действиях.<br>
+Используется в .act() для возврата с ошибкой.<br>
+<strong>@param</strong> <em>Object</em> <code>reason</code> причина провала<br>
+Вы можете определить метод toString() и свойство toString()
+объекта причины провала.<br>
+<strong>@returns</strong> <em>Q.promise</em> проваленный промис</p>
+<div class="pilwrap" id="cmd.end">
+  <h4>
+    <a href="#cmd.end" name="cmd.end" class="pilcrow"></a>
+Cmd.end
+  </h4>
+</div>
+<p>Завершает цепочку методов текущей подкоманды и возвращает экземпляр родительской команды.<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>parent</code> родительская команда</p>
+<div class="pilwrap" id="opt">
+  <h3>
+    <a href="#opt" name="opt" class="pilcrow"></a>
+Opt
+  </h3>
+</div>
+<p>Параметр — именованная сущность. У параметра может быть определено короткое или длинное имя для использования из командной строки.<br>
+<strong>@namespace</strong><br>
+<strong>@class</strong> Переданный параметр</p>
+<div class="pilwrap" id="opt.name">
+  <h4>
+    <a href="#opt.name" name="opt.name" class="pilcrow"></a>
+Opt.name
+  </h4>
+</div>
+<p>Определяет канонический идентификатор параметра, используемый в вызовах API.<br>
+<strong>@param</strong> <em>String</em> <code>_name</code> имя параметра<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.title">
+  <h4>
+    <a href="#opt.title" name="opt.title" class="pilcrow"></a>
+Opt.title
+  </h4>
+</div>
+<p>Определяет описание для параметра, используемое в текстовых сообщениях.<br>
+<strong>@param</strong> <em>String</em> <code>_title</code> название параметра<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.short">
+  <h4>
+    <a href="#opt.short" name="opt.short" class="pilcrow"></a>
+Opt.short
+  </h4>
+</div>
+<p>Назначает ключ для короткого имени параметра, передаваемого из командной строки с одинарным дефисом (например, <code>-v</code>).<br>
+<strong>@param</strong> <em>String</em> <code>_short</code><br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.long">
+  <h4>
+    <a href="#opt.long" name="opt.long" class="pilcrow"></a>
+Opt.long
+  </h4>
+</div>
+<p>Назначает ключ для длинного имени параметра, передаваемого из командной строки с двойным дефисом (например, <code>--version</code>).<br>
+<strong>@param</strong> <em>String</em> <code>_long</code><br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.flag">
+  <h4>
+    <a href="#opt.flag" name="opt.flag" class="pilcrow"></a>
+Opt.flag
+  </h4>
+</div>
+<p>Помечает параметр как логический, т.е. параметр не имеющий значения.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.arr">
+  <h4>
+    <a href="#opt.arr" name="opt.arr" class="pilcrow"></a>
+Opt.arr
+  </h4>
+</div>
+<p>Помечает параметр как принимающий множественные значения.<br>
+Иначе будет использовано последнее переданное значение параметра.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.req">
+  <h4>
+    <a href="#opt.req" name="opt.req" class="pilcrow"></a>
+Opt.req
+  </h4>
+</div>
+<p>Помечает параметр как обязательный.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.only">
+  <h4>
+    <a href="#opt.only" name="opt.only" class="pilcrow"></a>
+Opt.only
+  </h4>
+</div>
+<p>Интерпретирует параметр как команду,
+т.е. программа будет завершена сразу после выполнения параметра.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.val">
+  <h4>
+    <a href="#opt.val" name="opt.val" class="pilcrow"></a>
+Opt.val
+  </h4>
+</div>
+<p>Назначает функцию валидации (или трансформации значения) для значения параметра.<br>
+Значение, полученное из командной строки, передается в функцию-валидатор прежде чем оно станет доступно из API.<br>
+Используется для валидации и трансформации введенных данных.<br>
+<strong>@param</strong> <em>Function</em> <code>_val</code> функция валидации,
+исполняемая в контексте экземпляра параметра
+и принимающая в качестве единственного параметра значение, полученное
+из командной строки<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.def">
+  <h4>
+    <a href="#opt.def" name="opt.def" class="pilcrow"></a>
+Opt.def
+  </h4>
+</div>
+<p>Назначает значение параметра по умолчанию. Это значение также передается
+в функцию валидации как обычное значение.<br>
+<strong>@param</strong> <em>Object</em> <code>_def</code><br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.input">
+  <h4>
+    <a href="#opt.input" name="opt.input" class="pilcrow"></a>
+Opt.input
+  </h4>
+</div>
+<p>Помечает параметр как принимающий ввод пользователя. <br>
+Позволяет использовать валидацию для STDIN.<br>
+<strong>@returns</strong> <em>{COA.Opt}</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.output">
+  <h4>
+    <a href="#opt.output" name="opt.output" class="pilcrow"></a>
+Opt.output
+  </h4>
+</div>
+<p>Помечает параметр как вывод.<br>
+Позволяет использовать валидацию для STDOUT.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.act">
+  <h4>
+    <a href="#opt.act" name="opt.act" class="pilcrow"></a>
+Opt.act
+  </h4>
+</div>
+<p>Добавляет (или создает) действие для текущего параметра команды.
+Это действие будет выполнено, если текущий параметр есть
+в списке полученных параметров (с любым значением).<br>
+<strong>@param</strong> <em>Function</em> <code>act</code> функция, выполняемая в контексте
+экземпляра текущей команды и принимающая следующие параметры:<br>
+- <em>Object</em> <code>opts</code> параметры команды<br>
+- <em>Array</em> <code>args</code> аргументы команды<br>
+- <em>Object</em> <code>res</code> объект-аккумулятор результатов<br>
+Функция может вернуть проваленный промис из Cmd.reject (в случае ошибки)
+или любое другое значение, рассматриваемое как результат.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.comp">
+  <h4>
+    <a href="#opt.comp" name="opt.comp" class="pilcrow"></a>
+Opt.comp
+  </h4>
+</div>
+<p>Назначает кастомную функцию автодополнения для текущей команды.<br>
+<strong>@param</strong> <em>Function</em> <code>fn</code> функция-генератор автодоплнения, исполняемая в
+контексте экземпляра команды.
+Принимает параметры:<br>
+- <em>Object</em> <code>opts</code> параметры автодополнения<br>
+Может возвращать промис или любое другое значение, рассматриваемое как результат исполнения команды.<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр параметра (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="opt.end">
+  <h4>
+    <a href="#opt.end" name="opt.end" class="pilcrow"></a>
+Opt.end
+  </h4>
+</div>
+<p>Завершает цепочку методов текущего параметра и возвращает экземпляр родительской команды.<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>parent</code> родительская команда</p>
+<div class="pilwrap" id="arg">
+  <h3>
+    <a href="#arg" name="arg" class="pilcrow"></a>
+Arg
+  </h3>
+</div>
+<p>Аргумент — неименованная сущность.<br>
+Аргументы передаются из командной строки как список неименованных значений.</p>
+<div class="pilwrap" id="arg.name">
+  <h4>
+    <a href="#arg.name" name="arg.name" class="pilcrow"></a>
+Arg.name
+  </h4>
+</div>
+<p>Определяет канонический идентификатор аргумента, используемый в вызовах API.<br>
+<strong>@param</strong> <em>String</em> <code>_name</code> имя аргумента<br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> экземпляр аргумента (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="arg.title">
+  <h4>
+    <a href="#arg.title" name="arg.title" class="pilcrow"></a>
+Arg.title
+  </h4>
+</div>
+<p>Определяет описание для аргумента, используемое в текстовых сообщениях.<br>
+<strong>@param</strong> <em>String</em> <code>_title</code> описание аргумента<br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> экземпляр аргумента (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="arg.arr">
+  <h4>
+    <a href="#arg.arr" name="arg.arr" class="pilcrow"></a>
+Arg.arr
+  </h4>
+</div>
+<p>Помечает аргумент как принимающий множественные значения.<br>
+Иначе будет использовано последнее переданное значение аргумента.<br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> экземпляр аргумента (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="arg.req">
+  <h4>
+    <a href="#arg.req" name="arg.req" class="pilcrow"></a>
+Arg.req
+  </h4>
+</div>
+<p>Помечает аргумент как обязательный.<br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> экземпляр аргумента (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="arg.val">
+  <h4>
+    <a href="#arg.val" name="arg.val" class="pilcrow"></a>
+Arg.val
+  </h4>
+</div>
+<p>Назначает функцию валидации (или трансформации значения) для аргумента.<br>
+Значение, полученное из командной строки, передается в функцию-валидатор прежде чем оно станет доступно из API.<br>
+Используется для валидации и трансформации введенных данных.<br>
+<strong>@param</strong> <em>Function</em> <code>_val</code> функция валидации,
+исполняемая в контексте экземпляра аргумента
+и принимающая в качестве единственного параметра значение, полученное
+из командной строки<br>
+<strong>@returns</strong> <em>COA.Opt</em> <code>this</code> экземпляр аргумента (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="arg.def">
+  <h4>
+    <a href="#arg.def" name="arg.def" class="pilcrow"></a>
+Arg.def
+  </h4>
+</div>
+<p>Назначает дефолтное значение для аргумента. Дефолтное значение передается
+в функцию валидации как обычное значение.<br>
+<strong>@param</strong> <em>Object</em> <code>_def</code><br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> экземпляр аргумента (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="arg.output">
+  <h4>
+    <a href="#arg.output" name="arg.output" class="pilcrow"></a>
+Arg.output
+  </h4>
+</div>
+<p>Помечает параметр как вывод.<br>
+Позволяет назначить валидацию для STDOUT.<br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> экземпляр аргумента (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="arg.comp">
+  <h4>
+    <a href="#arg.comp" name="arg.comp" class="pilcrow"></a>
+Arg.comp
+  </h4>
+</div>
+<p>Назначает кастомную функцию автодополнения для текущего аргумента.<br>
+<strong>@param</strong> <em>Function</em> <code>fn</code> функция-генератор автодоплнения,
+исполняемая в контексте текущей команды.
+Принимает параметры:<br>
+- <em>Object</em> <code>opts</code> параметры
+Может возвращать промис или любое другое значение, рассматриваемое как результат исполнения команды.<br>
+<strong>@returns</strong> <em>COA.Arg</em> <code>this</code> экземпляр аргумента (для поддержки цепочки методов)</p>
+<div class="pilwrap" id="arg.end">
+  <h4>
+    <a href="#arg.end" name="arg.end" class="pilcrow"></a>
+Arg.end
+  </h4>
+</div>
+<p>Завершает цепочку методов текущего аргумента и возвращает экземпляр родительской команды.<br>
+<strong>@returns</strong> <em>COA.Cmd</em> <code>parent</code> родительская команда</p>
+</div>
+  </div>
+</body>
+</html>

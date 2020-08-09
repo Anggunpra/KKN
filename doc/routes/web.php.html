@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>web.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "routes\\web.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>web.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Route</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>|--------------------------------------------------------------------------</p>
+<table>
+<thead>
+<tr>
+<th>Web Routes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>Here is where you can register web routes for your application. These</td>
+</tr>
+<tr>
+<td>routes are loaded by the RouteServiceProvider within a group which</td>
+</tr>
+<tr>
+<td>contains the &quot;web&quot; middleware group. Now create something great!</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">
+Route::get(<span class="hljs-string">'/'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> view(<span class="hljs-string">'front.landing'</span>);
+});
+Route::group([<span class="hljs-string">'as'</span> =&gt; <span class="hljs-string">'front.'</span>,<span class="hljs-string">'prefix'</span> =&gt; <span class="hljs-string">'page'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    Route::get(<span class="hljs-string">'/sejarah'</span>, <span class="hljs-string">'PageController@history'</span>)-&gt;name(<span class="hljs-string">'history'</span>);
+
+});
+
+Auth::routes();
+
+Route::get(<span class="hljs-string">'/home'</span>, <span class="hljs-string">'HomeController@index'</span>)-&gt;name(<span class="hljs-string">'home'</span>);
+Route::group([<span class="hljs-string">'as'</span> =&gt; <span class="hljs-string">'user.'</span>,<span class="hljs-string">'prefix'</span> =&gt; <span class="hljs-string">'pengguna'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    Route::get(<span class="hljs-string">'/'</span>, <span class="hljs-string">'UserController@index'</span>)-&gt;name(<span class="hljs-string">'main'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::get(<span class="hljs-string">'/tambah'</span>, <span class="hljs-string">'UserController@create'</span>)-&gt;name(<span class="hljs-string">'create'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::post(<span class="hljs-string">'/tambah'</span>, <span class="hljs-string">'UserController@store'</span>)-&gt;name(<span class="hljs-string">'store'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::get(<span class="hljs-string">'/{id}/edit'</span>, <span class="hljs-string">'UserController@edit'</span>)-&gt;name(<span class="hljs-string">'edit'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::patch(<span class="hljs-string">'/{id}/edit'</span>, <span class="hljs-string">'UserController@update'</span>)-&gt;name(<span class="hljs-string">'update'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::delete(<span class="hljs-string">'/{id}/hapus'</span>, <span class="hljs-string">'UserController@destroy'</span>)-&gt;name(<span class="hljs-string">'delete'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+});
+Route::group([<span class="hljs-string">'as'</span> =&gt; <span class="hljs-string">'category.'</span>,<span class="hljs-string">'prefix'</span> =&gt; <span class="hljs-string">'kategori-informasi'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    Route::get(<span class="hljs-string">'/'</span>, <span class="hljs-string">'CategoryController@index'</span>)-&gt;name(<span class="hljs-string">'main'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::get(<span class="hljs-string">'/tambah'</span>, <span class="hljs-string">'CategoryController@create'</span>)-&gt;name(<span class="hljs-string">'create'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::post(<span class="hljs-string">'/tambah'</span>, <span class="hljs-string">'CategoryController@store'</span>)-&gt;name(<span class="hljs-string">'store'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::get(<span class="hljs-string">'/{id}/edit'</span>, <span class="hljs-string">'CategoryController@edit'</span>)-&gt;name(<span class="hljs-string">'edit'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::patch(<span class="hljs-string">'/{id}/edit'</span>, <span class="hljs-string">'CategoryController@update'</span>)-&gt;name(<span class="hljs-string">'update'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::delete(<span class="hljs-string">'/{id}/hapus'</span>, <span class="hljs-string">'CategoryController@destroy'</span>)-&gt;name(<span class="hljs-string">'delete'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+});
+Route::group([<span class="hljs-string">'as'</span> =&gt; <span class="hljs-string">'information.'</span>,<span class="hljs-string">'prefix'</span> =&gt; <span class="hljs-string">'informasi'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    Route::get(<span class="hljs-string">'/'</span>, <span class="hljs-string">'InformationController@index'</span>)-&gt;name(<span class="hljs-string">'main'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::get(<span class="hljs-string">'/tambah'</span>, <span class="hljs-string">'InformationController@create'</span>)-&gt;name(<span class="hljs-string">'create'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::post(<span class="hljs-string">'/tambah'</span>, <span class="hljs-string">'InformationController@store'</span>)-&gt;name(<span class="hljs-string">'store'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::get(<span class="hljs-string">'/{id}/edit'</span>, <span class="hljs-string">'InformationController@edit'</span>)-&gt;name(<span class="hljs-string">'edit'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::patch(<span class="hljs-string">'/{id}/edit'</span>, <span class="hljs-string">'InformationController@update'</span>)-&gt;name(<span class="hljs-string">'update'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::delete(<span class="hljs-string">'/{id}/hapus'</span>, <span class="hljs-string">'InformationController@destroy'</span>)-&gt;name(<span class="hljs-string">'delete'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+});
+Route::group([<span class="hljs-string">'as'</span> =&gt; <span class="hljs-string">'atribute.'</span>,<span class="hljs-string">'prefix'</span> =&gt; <span class="hljs-string">'atribut'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    Route::get(<span class="hljs-string">'/'</span>, <span class="hljs-string">'AtributeController@index'</span>)-&gt;name(<span class="hljs-string">'main'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::get(<span class="hljs-string">'/tambah'</span>, <span class="hljs-string">'AtributeController@create'</span>)-&gt;name(<span class="hljs-string">'create'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::post(<span class="hljs-string">'/tambah'</span>, <span class="hljs-string">'AtributeController@store'</span>)-&gt;name(<span class="hljs-string">'store'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::get(<span class="hljs-string">'/{id}/edit'</span>, <span class="hljs-string">'AtributeController@edit'</span>)-&gt;name(<span class="hljs-string">'edit'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::patch(<span class="hljs-string">'/{id}/edit'</span>, <span class="hljs-string">'AtributeController@update'</span>)-&gt;name(<span class="hljs-string">'update'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::delete(<span class="hljs-string">'/{id}/hapus'</span>, <span class="hljs-string">'AtributeController@destroy'</span>)-&gt;name(<span class="hljs-string">'delete'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+});
+Route::group([<span class="hljs-string">'as'</span> =&gt; <span class="hljs-string">'periode.'</span>,<span class="hljs-string">'prefix'</span> =&gt; <span class="hljs-string">'periode'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    Route::get(<span class="hljs-string">'/'</span>, <span class="hljs-string">'PeriodeController@index'</span>)-&gt;name(<span class="hljs-string">'main'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::get(<span class="hljs-string">'/tambah'</span>, <span class="hljs-string">'PeriodeController@create'</span>)-&gt;name(<span class="hljs-string">'create'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::post(<span class="hljs-string">'/tambah'</span>, <span class="hljs-string">'PeriodeController@store'</span>)-&gt;name(<span class="hljs-string">'store'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::get(<span class="hljs-string">'/{id}/edit'</span>, <span class="hljs-string">'PeriodeController@edit'</span>)-&gt;name(<span class="hljs-string">'edit'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::patch(<span class="hljs-string">'/{id}/edit'</span>, <span class="hljs-string">'PeriodeController@update'</span>)-&gt;name(<span class="hljs-string">'update'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+    Route::delete(<span class="hljs-string">'/{id}/hapus'</span>, <span class="hljs-string">'PeriodeController@destroy'</span>)-&gt;name(<span class="hljs-string">'delete'</span>)-&gt;middleware(<span class="hljs-string">'role:Perangkat Desa'</span>);
+});
+Route::group([<span class="hljs-string">'as'</span> =&gt; <span class="hljs-string">'survey.'</span>,<span class="hljs-string">'prefix'</span> =&gt; <span class="hljs-string">'survey'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    Route::get(<span class="hljs-string">'/'</span>, <span class="hljs-string">'SurveyController@index'</span>)-&gt;name(<span class="hljs-string">'main'</span>);
+    Route::get(<span class="hljs-string">'/tambah'</span>, <span class="hljs-string">'SurveyController@create'</span>)-&gt;name(<span class="hljs-string">'create'</span>);
+    Route::post(<span class="hljs-string">'/tambah'</span>, <span class="hljs-string">'SurveyController@store'</span>)-&gt;name(<span class="hljs-string">'store'</span>);
+});
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

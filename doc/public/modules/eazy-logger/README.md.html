@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\eazy-logger\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<p>##eazy-logger <a href="https://travis-ci.org/shakyShane/easy-logger"><img src="https://travis-ci.org/shakyShane/easy-logger.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/r/shakyShane/easy-logger?branch=master"><img src="https://img.shields.io/coveralls/shakyShane/easy-logger.svg" alt="Coverage Status"></a></p>
+<p><a href="https://github.com/shakyShane/tfunk">tFunk</a> + <a href="http://nodejs.org/docs/latest/api/console.html#console_console_log_data">String Substitution</a></p>
+<p><img src="http://cl.ly/image/3K2E2d111l15/Screen%20Shot%202014-09-17%20at%2020.49.17.png" alt="preview"></p>
+<p>##Install</p>
+<pre><code>$ npm install eazy-logger --save
+</code></pre>
+<p>##Usage</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> logger  = <span class="hljs-built_in">require</span>(<span class="hljs-string">"eazy-logger"</span>).Logger({
+    <span class="hljs-attr">prefix</span>: <span class="hljs-string">"{blue:[}{magenta:easy-logger}{blue:] }"</span>,
+    <span class="hljs-attr">useLevelPrefixes</span>: <span class="hljs-literal">true</span>
+});
+</code></pre>
+<pre><code class="js"><span class="hljs-comment">/**
+ * Standard loggers + prefixes
+ */</span>
+logger.debug(<span class="hljs-string">"Debugging Msg"</span>);
+logger.info(<span class="hljs-string">"Info statement"</span>);
+logger.warn(<span class="hljs-string">"A little warning with string %s"</span>, <span class="hljs-string">"substitution"</span>);
+logger.error(<span class="hljs-string">"an error occurred in file: {red:%s}"</span>, <span class="hljs-string">"/users/awesomedev/file.js"</span>);
+</code></pre>
+<pre><code class="js"><span class="hljs-comment">/**
+ * Use string substitution + colours
+ */</span>
+logger.log(<span class="hljs-string">"error"</span>, <span class="hljs-string">"Use {green:built-in} %s"</span>, <span class="hljs-string">"String substitution"</span>);
+</code></pre>
+<pre><code class="js"><span class="hljs-comment">/**
+ * Set an option for the next log statement only
+ */</span>
+logger.setOnce(<span class="hljs-string">"useLevelPrefixes"</span>, <span class="hljs-literal">true</span>).warn(<span class="hljs-string">"Use {green:built-in} %s"</span>, <span class="hljs-string">"String substitution"</span>);
+</code></pre>
+</div>
+  </div>
+</body>
+</html>

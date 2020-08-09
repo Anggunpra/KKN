@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\good-listener\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#good-listener">good-listener</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#setup">Setup</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#node-browserify">Node (Browserify)</a>
+      </div>
+
+      <div class="heading h6">
+        <a href="#browser-standalone">Browser (Standalone)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#add-an-event-listener">Add an event listener</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#remove-an-event-listener">Remove an event listener</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#browser-support">Browser Support</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="good-listener">
+  <h1>
+    <a href="#good-listener" name="good-listener" class="pilcrow"></a>
+good-listener
+  </h1>
+</div>
+<p><a href="https://travis-ci.org/zenorocha/good-listener"><img src="http://img.shields.io/travis/zenorocha/good-listener/master.svg?style=flat" alt="Build Status"></a></p>
+<blockquote>
+<p>A more versatile way of adding &amp; removing event listeners.</p>
+</blockquote>
+<p><img src="https://cloud.githubusercontent.com/assets/398893/10718224/dfc25f6c-7b2a-11e5-9d3d-75b35e8603c8.jpg" alt="good listener"></p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>You can get it on npm.</p>
+<pre><code>npm install good-listener --save
+</code></pre>
+<p>Or bower, too.</p>
+<pre><code>bower install good-listener --save
+</code></pre>
+<p>If you're not into package management, just <a href="https://github.com/zenorocha/good-listener/archive/master.zip">download a ZIP</a> file.</p>
+<div class="pilwrap" id="setup">
+  <h2>
+    <a href="#setup" name="setup" class="pilcrow"></a>
+Setup
+  </h2>
+</div>
+<div class="pilwrap" id="node-browserify">
+  <h6>
+    <a href="#node-browserify" name="node-browserify" class="pilcrow"></a>
+Node (Browserify)
+  </h6>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> listen = <span class="hljs-built_in">require</span>(<span class="hljs-string">'good-listener'</span>);
+</code></pre>
+<div class="pilwrap" id="browser-standalone">
+  <h6>
+    <a href="#browser-standalone" name="browser-standalone" class="pilcrow"></a>
+Browser (Standalone)
+  </h6>
+</div>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dist/good-listener.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<div class="pilwrap" id="add-an-event-listener">
+  <h3>
+    <a href="#add-an-event-listener" name="add-an-event-listener" class="pilcrow"></a>
+Add an event listener
+  </h3>
+</div>
+<p>By passing a string selector <a href="https://github.com/zenorocha/good-listener/blob/master/demo/selector.html">(see full demo)</a>.</p>
+<pre><code class="js">listen(<span class="hljs-string">'.btn'</span>, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(e);
+});
+</code></pre>
+<p>Or by passing a HTML element <a href="https://github.com/zenorocha/good-listener/blob/master/demo/node.html">(see full demo)</a>.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> logo = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'logo'</span>);
+
+listen(logo, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(e);
+});
+</code></pre>
+<p>Or by passing a list of HTML elements <a href="https://github.com/zenorocha/good-listener/blob/master/demo/nodelist.html">(see full demo)</a>.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> anchors = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'a'</span>);
+
+listen(anchors, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(e);
+});
+</code></pre>
+<div class="pilwrap" id="remove-an-event-listener">
+  <h3>
+    <a href="#remove-an-event-listener" name="remove-an-event-listener" class="pilcrow"></a>
+Remove an event listener
+  </h3>
+</div>
+<p>By calling the <code>destroy</code> function that returned from previous operation <a href="https://github.com/zenorocha/good-listener/blob/master/demo/destroy.html">(see full demo)</a>.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> listener = listen(<span class="hljs-string">'.btn'</span>, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(e);
+});
+
+listener.destroy();
+</code></pre>
+<div class="pilwrap" id="browser-support">
+  <h2>
+    <a href="#browser-support" name="browser-support" class="pilcrow"></a>
+Browser Support
+  </h2>
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="https://clipboardjs.com/assets/images/chrome.png" width="48px" height="48px" alt="Chrome logo"></th>
+<th style="text-align:center"><img src="https://clipboardjs.com/assets/images/edge.png" width="48px" height="48px" alt="Edge logo"></th>
+<th style="text-align:center"><img src="https://clipboardjs.com/assets/images/firefox.png" width="48px" height="48px" alt="Firefox logo"></th>
+<th style="text-align:center"><img src="https://clipboardjs.com/assets/images/ie.png" width="48px" height="48px" alt="Internet Explorer logo"></th>
+<th style="text-align:center"><img src="https://clipboardjs.com/assets/images/opera.png" width="48px" height="48px" alt="Opera logo"></th>
+<th style="text-align:center"><img src="https://clipboardjs.com/assets/images/safari.png" width="48px" height="48px" alt="Safari logo"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Latest ✔</td>
+<td style="text-align:center">Latest ✔</td>
+<td style="text-align:center">Latest ✔</td>
+<td style="text-align:center">9+ ✔</td>
+<td style="text-align:center">Latest ✔</td>
+<td style="text-align:center">Latest ✔</td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p><a href="http://zenorocha.mit-license.org/">MIT License</a> © Zeno Rocha</p>
+</div>
+  </div>
+</body>
+</html>

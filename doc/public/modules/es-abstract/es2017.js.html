@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>es2017.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\es-abstract\\es2017.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>es2017.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> GetIntrinsic = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./GetIntrinsic'</span>);
+
+<span class="hljs-keyword">var</span> ES2016 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./es2016'</span>);
+<span class="hljs-keyword">var</span> assign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/assign'</span>);
+<span class="hljs-keyword">var</span> forEach = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/forEach'</span>);
+<span class="hljs-keyword">var</span> callBind = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helpers/callBind'</span>);
+
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">TypeError</span> = GetIntrinsic(<span class="hljs-string">'%TypeError%'</span>);
+<span class="hljs-keyword">var</span> $<span class="hljs-built_in">Array</span> = GetIntrinsic(<span class="hljs-string">'%Array%'</span>);
+<span class="hljs-keyword">var</span> $isEnumerable = callBind(GetIntrinsic(<span class="hljs-string">'%ObjectPrototype%'</span>).propertyIsEnumerable);
+<span class="hljs-keyword">var</span> $pushApply = callBind.apply(GetIntrinsic(<span class="hljs-string">'%ArrayPrototype%'</span>).push);
+<span class="hljs-keyword">var</span> $arrayPush = callBind($<span class="hljs-built_in">Array</span>.prototype.push);
+
+<span class="hljs-keyword">var</span> ES2017 = assign(assign({}, ES2016), {
+	<span class="hljs-attr">ToIndex</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ToIndex</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'undefined'</span>) {
+			<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+		}
+		<span class="hljs-keyword">var</span> integerIndex = <span class="hljs-keyword">this</span>.ToInteger(value);
+		<span class="hljs-keyword">if</span> (integerIndex &lt; <span class="hljs-number">0</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RangeError</span>(<span class="hljs-string">'index must be &gt;= 0'</span>);
+		}
+		<span class="hljs-keyword">var</span> index = <span class="hljs-keyword">this</span>.ToLength(integerIndex);
+		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.SameValueZero(integerIndex, index)) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RangeError</span>(<span class="hljs-string">'index must be &gt;= 0 and &lt; 2 ** 53 - 1'</span>);
+		}
+		<span class="hljs-keyword">return</span> index;
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/8.0/#sec-enumerableownproperties</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	EnumerableOwnProperties: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">EnumerableOwnProperties</span>(<span class="hljs-params">O, kind</span>) </span>{
+		<span class="hljs-keyword">var</span> keys = ES2016.EnumerableOwnNames(O);
+		<span class="hljs-keyword">if</span> (kind === <span class="hljs-string">'key'</span>) {
+			<span class="hljs-keyword">return</span> keys;
+		}
+		<span class="hljs-keyword">if</span> (kind === <span class="hljs-string">'value'</span> || kind === <span class="hljs-string">'key+value'</span>) {
+			<span class="hljs-keyword">var</span> results = [];
+			forEach(keys, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>{
+				<span class="hljs-keyword">if</span> ($isEnumerable(O, key)) {
+					$pushApply(results, [
+						kind === <span class="hljs-string">'value'</span> ? O[key] : [key, O[key]]
+					]);
+				}
+			});
+			<span class="hljs-keyword">return</span> results;
+		}
+		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> $<span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Assertion failed: "kind" is not "key", "value", or "key+value": '</span> + kind);
+	},
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>https://www.ecma-international.org/ecma-262/8.0/#sec-iterabletolist</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">	IterableToList: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">IterableToList</span>(<span class="hljs-params">items, method</span>) </span>{
+		<span class="hljs-keyword">var</span> iterator = <span class="hljs-keyword">this</span>.GetIterator(items, method);
+		<span class="hljs-keyword">var</span> values = [];
+		<span class="hljs-keyword">var</span> next = <span class="hljs-literal">true</span>;
+		<span class="hljs-keyword">while</span> (next) {
+			next = <span class="hljs-keyword">this</span>.IteratorStep(iterator);
+			<span class="hljs-keyword">if</span> (next) {
+				<span class="hljs-keyword">var</span> nextValue = <span class="hljs-keyword">this</span>.IteratorValue(next);
+				$arrayPush(values, nextValue);
+			}
+		}
+		<span class="hljs-keyword">return</span> values;
+	}
+});
+
+<span class="hljs-keyword">delete</span> ES2017.EnumerableOwnNames; <span class="hljs-comment">// replaced with EnumerableOwnProperties</span>
+<span class="hljs-keyword">delete</span> ES2017.IterableToArrayLike; <span class="hljs-comment">// replaced with IterableToList</span>
+
+<span class="hljs-built_in">module</span>.exports = ES2017;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

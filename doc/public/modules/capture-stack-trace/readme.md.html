@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\capture-stack-trace\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#capture-stack-trace">capture-stack-trace </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#capturestacktrace-error">captureStackTrace(error)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#error">error</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="capture-stack-trace">
+  <h1>
+    <a href="#capture-stack-trace" name="capture-stack-trace" class="pilcrow"></a>
+capture-stack-trace <a href="https://travis-ci.org/floatdrop/capture-stack-trace"><img src="https://travis-ci.org/floatdrop/capture-stack-trace.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Ponyfill for Error.captureStackTrace</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save capture-stack-trace
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> captureStackTrace = <span class="hljs-built_in">require</span>(<span class="hljs-string">'capture-stack-trace'</span>);
+
+captureStackTrace({});
+<span class="hljs-comment">// =&gt; {stack: ...}</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="capturestacktrace-error">
+  <h3>
+    <a href="#capturestacktrace-error" name="capturestacktrace-error" class="pilcrow"></a>
+captureStackTrace(error)
+  </h3>
+</div>
+<div class="pilwrap" id="error">
+  <h4>
+    <a href="#error" name="error" class="pilcrow"></a>
+error
+  </h4>
+</div>
+<p><em>Required</em><br>
+Type: <code>Object</code></p>
+<p>Target Object, that will recieve stack property.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://github.com/floatdrop">Vsevolod Strukchinsky</a></p>
+</div>
+  </div>
+</body>
+</html>

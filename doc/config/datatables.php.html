@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>datatables.php</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "config\\datatables.php";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>datatables.php</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">return</span> [
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>DataTables search options.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-string">'search'</span>         =&gt; [
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Smart search will enclose search keyword with wildcard string &quot;%keyword%&quot;.
+SQL: column LIKE &quot;%keyword%&quot;</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        <span class="hljs-string">'smart'</span>            =&gt; <span class="hljs-keyword">true</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Multi-term search will explode search keyword using spaces resulting into multiple term search.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        <span class="hljs-string">'multi_term'</span>       =&gt; <span class="hljs-keyword">true</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Case insensitive will search the keyword in lower case format.
+SQL: LOWER(column) LIKE LOWER(keyword)</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        <span class="hljs-string">'case_insensitive'</span> =&gt; <span class="hljs-keyword">true</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Wild card will add &quot;%&quot; in between every characters of the keyword.
+SQL: column LIKE &quot;%k%e%y%w%o%r%d%&quot;</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        <span class="hljs-string">'use_wildcards'</span>    =&gt; <span class="hljs-keyword">false</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Perform a search which starts with the given keyword.
+SQL: column LIKE &quot;keyword%&quot;</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        <span class="hljs-string">'starts_with'</span>      =&gt; <span class="hljs-keyword">false</span>,
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>DataTables internal index id response column name.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-string">'index_column'</span>   =&gt; <span class="hljs-string">'DT_RowIndex'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>List of available builders for DataTables.
+This is where you can register your custom dataTables builder.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-string">'engines'</span>        =&gt; [
+        <span class="hljs-string">'eloquent'</span>   =&gt; Yajra\DataTables\EloquentDataTable::class,
+        <span class="hljs-string">'query'</span>      =&gt; Yajra\DataTables\QueryDataTable::class,
+        <span class="hljs-string">'collection'</span> =&gt; Yajra\DataTables\CollectionDataTable::class,
+        <span class="hljs-string">'resource'</span>   =&gt; Yajra\DataTables\ApiResourceDataTable::class,
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>DataTables accepted builder to engine mapping.
+This is where you can override which engine a builder should use
+Note, only change this if you know what you are doing!</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-string">'builders'</span>       =&gt; [
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>Illuminate\Database\Eloquent\Relations\Relation::class =&gt; 'eloquent',
+Illuminate\Database\Eloquent\Builder::class            =&gt; 'eloquent',
+Illuminate\Database\Query\Builder::class               =&gt; 'query',
+Illuminate\Support\Collection::class                   =&gt; 'collection',</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Nulls last sql pattern for PostgreSQL &amp; Oracle.
+For MySQL, use 'CASE WHEN :column IS NULL THEN 1 ELSE 0 END, :column :direction'</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-string">'nulls_last_sql'</span> =&gt; <span class="hljs-string">':column :direction NULLS LAST'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>User friendly message to be displayed on user if error occurs.
+Possible values:
+null             - The exception message will be used on error response.
+'throw'          - Throws a \Yajra\DataTables\Exceptions\Exception. Use your custom error handler if needed.
+'custom message' - Any friendly message to be displayed to the user. You can also use translation key.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-string">'error'</span>          =&gt; env(<span class="hljs-string">'DATATABLES_ERROR'</span>, <span class="hljs-keyword">null</span>),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Default columns definition of dataTable utility functions.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-string">'columns'</span>        =&gt; [
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>List of columns hidden/removed on json response.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        <span class="hljs-string">'excess'</span>    =&gt; [<span class="hljs-string">'rn'</span>, <span class="hljs-string">'row_num'</span>],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>List of columns to be escaped. If set to *, all columns are escape.
+Note: You can set the value to empty array to disable XSS protection.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        <span class="hljs-string">'escape'</span>    =&gt; <span class="hljs-string">'*'</span>,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>List of columns that are allowed to display html content.
+Note: Adding columns to list will make us available to XSS attacks.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        <span class="hljs-string">'raw'</span>       =&gt; [<span class="hljs-string">'action'</span>],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>List of columns are are forbidden from being searched/sorted.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        <span class="hljs-string">'blacklist'</span> =&gt; [<span class="hljs-string">'password'</span>, <span class="hljs-string">'remember_token'</span>],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>List of columns that are only allowed fo search/sort.
+If set to *, all columns are allowed.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">        <span class="hljs-string">'whitelist'</span> =&gt; <span class="hljs-string">'*'</span>,
+    ],
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>JsonResponse header and options config.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="php">    <span class="hljs-string">'json'</span>           =&gt; [
+        <span class="hljs-string">'header'</span>  =&gt; [],
+        <span class="hljs-string">'options'</span> =&gt; <span class="hljs-number">0</span>,
+    ],
+
+];
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

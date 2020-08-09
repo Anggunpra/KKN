@@ -1,0 +1,2661 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>fontawesome.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\assets\\js\\fontawesome.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#reduce">Reduce</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>fontawesome.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-string">'use strict'</span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_typeof</span>(<span class="hljs-params">obj</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Symbol</span> === <span class="hljs-string">"function"</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Symbol</span>.iterator === <span class="hljs-string">"symbol"</span>) {
+      _typeof = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">obj</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> obj;
+      };
+    } <span class="hljs-keyword">else</span> {
+      _typeof = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">obj</span>) </span>{
+        <span class="hljs-keyword">return</span> obj &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Symbol</span> === <span class="hljs-string">"function"</span> &amp;&amp; obj.constructor === <span class="hljs-built_in">Symbol</span> &amp;&amp; obj !== <span class="hljs-built_in">Symbol</span>.prototype ? <span class="hljs-string">"symbol"</span> : <span class="hljs-keyword">typeof</span> obj;
+      };
+    }
+
+    <span class="hljs-keyword">return</span> _typeof(obj);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_classCallCheck</span>(<span class="hljs-params">instance, Constructor</span>) </span>{
+    <span class="hljs-keyword">if</span> (!(instance <span class="hljs-keyword">instanceof</span> Constructor)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Cannot call a class as a function"</span>);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_defineProperties</span>(<span class="hljs-params">target, props</span>) </span>{
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; props.length; i++) {
+      <span class="hljs-keyword">var</span> descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || <span class="hljs-literal">false</span>;
+      descriptor.configurable = <span class="hljs-literal">true</span>;
+      <span class="hljs-keyword">if</span> (<span class="hljs-string">"value"</span> <span class="hljs-keyword">in</span> descriptor) descriptor.writable = <span class="hljs-literal">true</span>;
+      <span class="hljs-built_in">Object</span>.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_createClass</span>(<span class="hljs-params">Constructor, protoProps, staticProps</span>) </span>{
+    <span class="hljs-keyword">if</span> (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    <span class="hljs-keyword">if</span> (staticProps) _defineProperties(Constructor, staticProps);
+    <span class="hljs-keyword">return</span> Constructor;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_defineProperty</span>(<span class="hljs-params">obj, key, value</span>) </span>{
+    <span class="hljs-keyword">if</span> (key <span class="hljs-keyword">in</span> obj) {
+      <span class="hljs-built_in">Object</span>.defineProperty(obj, key, {
+        <span class="hljs-attr">value</span>: value,
+        <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span>
+      });
+    } <span class="hljs-keyword">else</span> {
+      obj[key] = value;
+    }
+
+    <span class="hljs-keyword">return</span> obj;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_objectSpread</span>(<span class="hljs-params">target</span>) </span>{
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-built_in">arguments</span>.length; i++) {
+      <span class="hljs-keyword">var</span> source = <span class="hljs-built_in">arguments</span>[i] != <span class="hljs-literal">null</span> ? <span class="hljs-built_in">arguments</span>[i] : {};
+      <span class="hljs-keyword">var</span> ownKeys = <span class="hljs-built_in">Object</span>.keys(source);
+
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Object</span>.getOwnPropertySymbols === <span class="hljs-string">'function'</span>) {
+        ownKeys = ownKeys.concat(<span class="hljs-built_in">Object</span>.getOwnPropertySymbols(source).filter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">sym</span>) </span>{
+          <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(source, sym).enumerable;
+        }));
+      }
+
+      ownKeys.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>{
+        _defineProperty(target, key, source[key]);
+      });
+    }
+
+    <span class="hljs-keyword">return</span> target;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_slicedToArray</span>(<span class="hljs-params">arr, i</span>) </span>{
+    <span class="hljs-keyword">return</span> _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_toConsumableArray</span>(<span class="hljs-params">arr</span>) </span>{
+    <span class="hljs-keyword">return</span> _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_arrayWithoutHoles</span>(<span class="hljs-params">arr</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(arr)) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, arr2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(arr.length); i &lt; arr.length; i++) arr2[i] = arr[i];
+
+      <span class="hljs-keyword">return</span> arr2;
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_arrayWithHoles</span>(<span class="hljs-params">arr</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(arr)) <span class="hljs-keyword">return</span> arr;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_iterableToArray</span>(<span class="hljs-params">iter</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Symbol</span>.iterator <span class="hljs-keyword">in</span> <span class="hljs-built_in">Object</span>(iter) || <span class="hljs-built_in">Object</span>.prototype.toString.call(iter) === <span class="hljs-string">"[object Arguments]"</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from(iter);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_iterableToArrayLimit</span>(<span class="hljs-params">arr, i</span>) </span>{
+    <span class="hljs-keyword">var</span> _arr = [];
+    <span class="hljs-keyword">var</span> _n = <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">var</span> _d = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">var</span> _e = <span class="hljs-literal">undefined</span>;
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> _i = arr[<span class="hljs-built_in">Symbol</span>.iterator](), _s; !(_n = (_s = _i.next()).done); _n = <span class="hljs-literal">true</span>) {
+        _arr.push(_s.value);
+
+        <span class="hljs-keyword">if</span> (i &amp;&amp; _arr.length === i) <span class="hljs-keyword">break</span>;
+      }
+    } <span class="hljs-keyword">catch</span> (err) {
+      _d = <span class="hljs-literal">true</span>;
+      _e = err;
+    } <span class="hljs-keyword">finally</span> {
+      <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">if</span> (!_n &amp;&amp; _i[<span class="hljs-string">"return"</span>] != <span class="hljs-literal">null</span>) _i[<span class="hljs-string">"return"</span>]();
+      } <span class="hljs-keyword">finally</span> {
+        <span class="hljs-keyword">if</span> (_d) <span class="hljs-keyword">throw</span> _e;
+      }
+    }
+
+    <span class="hljs-keyword">return</span> _arr;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_nonIterableSpread</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Invalid attempt to spread non-iterable instance"</span>);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_nonIterableRest</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Invalid attempt to destructure non-iterable instance"</span>);
+  }
+
+  <span class="hljs-keyword">var</span> noop = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">noop</span>(<span class="hljs-params"></span>) </span>{};
+
+  <span class="hljs-keyword">var</span> _WINDOW = {};
+  <span class="hljs-keyword">var</span> _DOCUMENT = {};
+  <span class="hljs-keyword">var</span> _MUTATION_OBSERVER = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">var</span> _PERFORMANCE = {
+    <span class="hljs-attr">mark</span>: noop,
+    <span class="hljs-attr">measure</span>: noop
+  };
+
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span> !== <span class="hljs-string">'undefined'</span>) _WINDOW = <span class="hljs-built_in">window</span>;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">document</span> !== <span class="hljs-string">'undefined'</span>) _DOCUMENT = <span class="hljs-built_in">document</span>;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> MutationObserver !== <span class="hljs-string">'undefined'</span>) _MUTATION_OBSERVER = MutationObserver;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> performance !== <span class="hljs-string">'undefined'</span>) _PERFORMANCE = performance;
+  } <span class="hljs-keyword">catch</span> (e) {}
+
+  <span class="hljs-keyword">var</span> _ref = _WINDOW.navigator || {},
+      _ref$userAgent = _ref.userAgent,
+      userAgent = _ref$userAgent === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? <span class="hljs-string">''</span> : _ref$userAgent;
+
+  <span class="hljs-keyword">var</span> WINDOW = _WINDOW;
+  <span class="hljs-keyword">var</span> DOCUMENT = _DOCUMENT;
+  <span class="hljs-keyword">var</span> MUTATION_OBSERVER = _MUTATION_OBSERVER;
+  <span class="hljs-keyword">var</span> PERFORMANCE = _PERFORMANCE;
+  <span class="hljs-keyword">var</span> IS_BROWSER = !!WINDOW.document;
+  <span class="hljs-keyword">var</span> IS_DOM = !!DOCUMENT.documentElement &amp;&amp; !!DOCUMENT.head &amp;&amp; <span class="hljs-keyword">typeof</span> DOCUMENT.addEventListener === <span class="hljs-string">'function'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> DOCUMENT.createElement === <span class="hljs-string">'function'</span>;
+  <span class="hljs-keyword">var</span> IS_IE = ~userAgent.indexOf(<span class="hljs-string">'MSIE'</span>) || ~userAgent.indexOf(<span class="hljs-string">'Trident/'</span>);
+
+  <span class="hljs-keyword">var</span> NAMESPACE_IDENTIFIER = <span class="hljs-string">'___FONT_AWESOME___'</span>;
+  <span class="hljs-keyword">var</span> UNITS_IN_GRID = <span class="hljs-number">16</span>;
+  <span class="hljs-keyword">var</span> DEFAULT_FAMILY_PREFIX = <span class="hljs-string">'fa'</span>;
+  <span class="hljs-keyword">var</span> DEFAULT_REPLACEMENT_CLASS = <span class="hljs-string">'svg-inline--fa'</span>;
+  <span class="hljs-keyword">var</span> DATA_FA_I2SVG = <span class="hljs-string">'data-fa-i2svg'</span>;
+  <span class="hljs-keyword">var</span> DATA_FA_PSEUDO_ELEMENT = <span class="hljs-string">'data-fa-pseudo-element'</span>;
+  <span class="hljs-keyword">var</span> DATA_FA_PSEUDO_ELEMENT_PENDING = <span class="hljs-string">'data-fa-pseudo-element-pending'</span>;
+  <span class="hljs-keyword">var</span> DATA_PREFIX = <span class="hljs-string">'data-prefix'</span>;
+  <span class="hljs-keyword">var</span> DATA_ICON = <span class="hljs-string">'data-icon'</span>;
+  <span class="hljs-keyword">var</span> HTML_CLASS_I2SVG_BASE_CLASS = <span class="hljs-string">'fontawesome-i2svg'</span>;
+  <span class="hljs-keyword">var</span> TAGNAMES_TO_SKIP_FOR_PSEUDOELEMENTS = [<span class="hljs-string">'HTML'</span>, <span class="hljs-string">'HEAD'</span>, <span class="hljs-string">'STYLE'</span>, <span class="hljs-string">'SCRIPT'</span>];
+  <span class="hljs-keyword">var</span> PRODUCTION = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-string">"production"</span> === <span class="hljs-string">'production'</span>;
+    } <span class="hljs-keyword">catch</span> (e) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+  }();
+  <span class="hljs-keyword">var</span> PREFIX_TO_STYLE = {
+    <span class="hljs-string">'fas'</span>: <span class="hljs-string">'solid'</span>,
+    <span class="hljs-string">'far'</span>: <span class="hljs-string">'regular'</span>,
+    <span class="hljs-string">'fal'</span>: <span class="hljs-string">'light'</span>,
+    <span class="hljs-string">'fab'</span>: <span class="hljs-string">'brands'</span>,
+    <span class="hljs-string">'fa'</span>: <span class="hljs-string">'solid'</span>
+  };
+  <span class="hljs-keyword">var</span> STYLE_TO_PREFIX = {
+    <span class="hljs-string">'solid'</span>: <span class="hljs-string">'fas'</span>,
+    <span class="hljs-string">'regular'</span>: <span class="hljs-string">'far'</span>,
+    <span class="hljs-string">'light'</span>: <span class="hljs-string">'fal'</span>,
+    <span class="hljs-string">'brands'</span>: <span class="hljs-string">'fab'</span>
+  };
+  <span class="hljs-keyword">var</span> LAYERS_TEXT_CLASSNAME = <span class="hljs-string">'fa-layers-text'</span>;
+  <span class="hljs-keyword">var</span> FONT_FAMILY_PATTERN = <span class="hljs-regexp">/Font Awesome 5 (Solid|Regular|Light|Brands|Free|Pro)/</span>;
+  <span class="hljs-keyword">var</span> FONT_WEIGHT_TO_PREFIX = {
+    <span class="hljs-string">'900'</span>: <span class="hljs-string">'fas'</span>,
+    <span class="hljs-string">'400'</span>: <span class="hljs-string">'far'</span>,
+    <span class="hljs-string">'normal'</span>: <span class="hljs-string">'far'</span>,
+    <span class="hljs-string">'300'</span>: <span class="hljs-string">'fal'</span>
+  };
+  <span class="hljs-keyword">var</span> oneToTen = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>];
+  <span class="hljs-keyword">var</span> oneToTwenty = oneToTen.concat([<span class="hljs-number">11</span>, <span class="hljs-number">12</span>, <span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>, <span class="hljs-number">16</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>, <span class="hljs-number">19</span>, <span class="hljs-number">20</span>]);
+  <span class="hljs-keyword">var</span> ATTRIBUTES_WATCHED_FOR_MUTATION = [<span class="hljs-string">'class'</span>, <span class="hljs-string">'data-prefix'</span>, <span class="hljs-string">'data-icon'</span>, <span class="hljs-string">'data-fa-transform'</span>, <span class="hljs-string">'data-fa-mask'</span>];
+  <span class="hljs-keyword">var</span> RESERVED_CLASSES = [<span class="hljs-string">'xs'</span>, <span class="hljs-string">'sm'</span>, <span class="hljs-string">'lg'</span>, <span class="hljs-string">'fw'</span>, <span class="hljs-string">'ul'</span>, <span class="hljs-string">'li'</span>, <span class="hljs-string">'border'</span>, <span class="hljs-string">'pull-left'</span>, <span class="hljs-string">'pull-right'</span>, <span class="hljs-string">'spin'</span>, <span class="hljs-string">'pulse'</span>, <span class="hljs-string">'rotate-90'</span>, <span class="hljs-string">'rotate-180'</span>, <span class="hljs-string">'rotate-270'</span>, <span class="hljs-string">'flip-horizontal'</span>, <span class="hljs-string">'flip-vertical'</span>, <span class="hljs-string">'stack'</span>, <span class="hljs-string">'stack-1x'</span>, <span class="hljs-string">'stack-2x'</span>, <span class="hljs-string">'inverse'</span>, <span class="hljs-string">'layers'</span>, <span class="hljs-string">'layers-text'</span>, <span class="hljs-string">'layers-counter'</span>].concat(oneToTen.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>.concat(n, <span class="hljs-string">"x"</span>);
+  })).concat(oneToTwenty.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"w-"</span>.concat(n);
+  }));
+
+  <span class="hljs-keyword">var</span> initial = WINDOW.FontAwesomeConfig || {};
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAttrConfig</span>(<span class="hljs-params">attr</span>) </span>{
+    <span class="hljs-keyword">var</span> element = DOCUMENT.querySelector(<span class="hljs-string">'script['</span> + attr + <span class="hljs-string">']'</span>);
+
+    <span class="hljs-keyword">if</span> (element) {
+      <span class="hljs-keyword">return</span> element.getAttribute(attr);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">coerce</span>(<span class="hljs-params">val</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Getting an empty string will occur if the attribute is set on the HTML tag but without a value
+We'll assume that this is an indication that it should be toggled to true
+For example <script data-search-pseudo-elements src="..."></script></p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (val === <span class="hljs-string">''</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">if</span> (val === <span class="hljs-string">'false'</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">if</span> (val === <span class="hljs-string">'true'</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">return</span> val;
+  }
+
+  <span class="hljs-keyword">if</span> (DOCUMENT &amp;&amp; <span class="hljs-keyword">typeof</span> DOCUMENT.querySelector === <span class="hljs-string">'function'</span>) {
+    <span class="hljs-keyword">var</span> attrs = [[<span class="hljs-string">'data-family-prefix'</span>, <span class="hljs-string">'familyPrefix'</span>], [<span class="hljs-string">'data-replacement-class'</span>, <span class="hljs-string">'replacementClass'</span>], [<span class="hljs-string">'data-auto-replace-svg'</span>, <span class="hljs-string">'autoReplaceSvg'</span>], [<span class="hljs-string">'data-auto-add-css'</span>, <span class="hljs-string">'autoAddCss'</span>], [<span class="hljs-string">'data-auto-a11y'</span>, <span class="hljs-string">'autoA11y'</span>], [<span class="hljs-string">'data-search-pseudo-elements'</span>, <span class="hljs-string">'searchPseudoElements'</span>], [<span class="hljs-string">'data-observe-mutations'</span>, <span class="hljs-string">'observeMutations'</span>], [<span class="hljs-string">'data-keep-original-source'</span>, <span class="hljs-string">'keepOriginalSource'</span>], [<span class="hljs-string">'data-measure-performance'</span>, <span class="hljs-string">'measurePerformance'</span>], [<span class="hljs-string">'data-show-missing-icons'</span>, <span class="hljs-string">'showMissingIcons'</span>]];
+    attrs.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">_ref</span>) </span>{
+      <span class="hljs-keyword">var</span> _ref2 = _slicedToArray(_ref, <span class="hljs-number">2</span>),
+          attr = _ref2[<span class="hljs-number">0</span>],
+          key = _ref2[<span class="hljs-number">1</span>];
+
+      <span class="hljs-keyword">var</span> val = coerce(getAttrConfig(attr));
+
+      <span class="hljs-keyword">if</span> (val !== <span class="hljs-literal">undefined</span> &amp;&amp; val !== <span class="hljs-literal">null</span>) {
+        initial[key] = val;
+      }
+    });
+  }
+
+  <span class="hljs-keyword">var</span> _default = {
+    <span class="hljs-attr">familyPrefix</span>: DEFAULT_FAMILY_PREFIX,
+    <span class="hljs-attr">replacementClass</span>: DEFAULT_REPLACEMENT_CLASS,
+    <span class="hljs-attr">autoReplaceSvg</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">autoAddCss</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">autoA11y</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">searchPseudoElements</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">observeMutations</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">keepOriginalSource</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">measurePerformance</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">showMissingIcons</span>: <span class="hljs-literal">true</span>
+  };
+
+  <span class="hljs-keyword">var</span> _config = _objectSpread({}, _default, initial);
+
+  <span class="hljs-keyword">if</span> (!_config.autoReplaceSvg) _config.observeMutations = <span class="hljs-literal">false</span>;
+
+  <span class="hljs-keyword">var</span> config = _objectSpread({}, _config);
+
+  WINDOW.FontAwesomeConfig = config;
+
+  <span class="hljs-keyword">var</span> w = WINDOW || {};
+  <span class="hljs-keyword">if</span> (!w[NAMESPACE_IDENTIFIER]) w[NAMESPACE_IDENTIFIER] = {};
+  <span class="hljs-keyword">if</span> (!w[NAMESPACE_IDENTIFIER].styles) w[NAMESPACE_IDENTIFIER].styles = {};
+  <span class="hljs-keyword">if</span> (!w[NAMESPACE_IDENTIFIER].hooks) w[NAMESPACE_IDENTIFIER].hooks = {};
+  <span class="hljs-keyword">if</span> (!w[NAMESPACE_IDENTIFIER].shims) w[NAMESPACE_IDENTIFIER].shims = [];
+  <span class="hljs-keyword">var</span> namespace = w[NAMESPACE_IDENTIFIER];
+
+  <span class="hljs-keyword">var</span> functions = [];
+
+  <span class="hljs-keyword">var</span> listener = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">listener</span>(<span class="hljs-params"></span>) </span>{
+    DOCUMENT.removeEventListener(<span class="hljs-string">'DOMContentLoaded'</span>, listener);
+    loaded = <span class="hljs-number">1</span>;
+    functions.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) </span>{
+      <span class="hljs-keyword">return</span> fn();
+    });
+  };
+
+  <span class="hljs-keyword">var</span> loaded = <span class="hljs-literal">false</span>;
+
+  <span class="hljs-keyword">if</span> (IS_DOM) {
+    loaded = (DOCUMENT.documentElement.doScroll ? <span class="hljs-regexp">/^loaded|^c/</span> : <span class="hljs-regexp">/^loaded|^i|^c/</span>).test(DOCUMENT.readyState);
+    <span class="hljs-keyword">if</span> (!loaded) DOCUMENT.addEventListener(<span class="hljs-string">'DOMContentLoaded'</span>, listener);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">domready</span> (<span class="hljs-params">fn</span>) </span>{
+    <span class="hljs-keyword">if</span> (!IS_DOM) <span class="hljs-keyword">return</span>;
+    loaded ? setTimeout(fn, <span class="hljs-number">0</span>) : functions.push(fn);
+  }
+
+  <span class="hljs-keyword">var</span> PENDING = <span class="hljs-string">'pending'</span>;
+  <span class="hljs-keyword">var</span> SETTLED = <span class="hljs-string">'settled'</span>;
+  <span class="hljs-keyword">var</span> FULFILLED = <span class="hljs-string">'fulfilled'</span>;
+  <span class="hljs-keyword">var</span> REJECTED = <span class="hljs-string">'rejected'</span>;
+
+  <span class="hljs-keyword">var</span> NOOP = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">NOOP</span>(<span class="hljs-params"></span>) </span>{};
+
+  <span class="hljs-keyword">var</span> isNode = <span class="hljs-keyword">typeof</span> global !== <span class="hljs-string">'undefined'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> global.process !== <span class="hljs-string">'undefined'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> global.process.emit === <span class="hljs-string">'function'</span>;
+  <span class="hljs-keyword">var</span> asyncSetTimer = <span class="hljs-keyword">typeof</span> setImmediate === <span class="hljs-string">'undefined'</span> ? setTimeout : setImmediate;
+  <span class="hljs-keyword">var</span> asyncQueue = [];
+  <span class="hljs-keyword">var</span> asyncTimer;
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">asyncFlush</span>(<span class="hljs-params"></span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>run promise callbacks</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; asyncQueue.length; i++) {
+      asyncQueue[i][<span class="hljs-number">0</span>](asyncQueue[i][<span class="hljs-number">1</span>]);
+    } <span class="hljs-comment">// reset async asyncQueue</span>
+
+
+    asyncQueue = [];
+    asyncTimer = <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">asyncCall</span>(<span class="hljs-params">callback, arg</span>) </span>{
+    asyncQueue.push([callback, arg]);
+
+    <span class="hljs-keyword">if</span> (!asyncTimer) {
+      asyncTimer = <span class="hljs-literal">true</span>;
+      asyncSetTimer(asyncFlush, <span class="hljs-number">0</span>);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">invokeResolver</span>(<span class="hljs-params">resolver, promise</span>) </span>{
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resolvePromise</span>(<span class="hljs-params">value</span>) </span>{
+      resolve(promise, value);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rejectPromise</span>(<span class="hljs-params">reason</span>) </span>{
+      reject(promise, reason);
+    }
+
+    <span class="hljs-keyword">try</span> {
+      resolver(resolvePromise, rejectPromise);
+    } <span class="hljs-keyword">catch</span> (e) {
+      rejectPromise(e);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">invokeCallback</span>(<span class="hljs-params">subscriber</span>) </span>{
+    <span class="hljs-keyword">var</span> owner = subscriber.owner;
+    <span class="hljs-keyword">var</span> settled = owner._state;
+    <span class="hljs-keyword">var</span> value = owner._data;
+    <span class="hljs-keyword">var</span> callback = subscriber[settled];
+    <span class="hljs-keyword">var</span> promise = subscriber.then;
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> callback === <span class="hljs-string">'function'</span>) {
+      settled = FULFILLED;
+
+      <span class="hljs-keyword">try</span> {
+        value = callback(value);
+      } <span class="hljs-keyword">catch</span> (e) {
+        reject(promise, e);
+      }
+    }
+
+    <span class="hljs-keyword">if</span> (!handleThenable(promise, value)) {
+      <span class="hljs-keyword">if</span> (settled === FULFILLED) {
+        resolve(promise, value);
+      }
+
+      <span class="hljs-keyword">if</span> (settled === REJECTED) {
+        reject(promise, value);
+      }
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleThenable</span>(<span class="hljs-params">promise, value</span>) </span>{
+    <span class="hljs-keyword">var</span> resolved;
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">if</span> (promise === value) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'A promises callback cannot return that same promise.'</span>);
+      }
+
+      <span class="hljs-keyword">if</span> (value &amp;&amp; (<span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'function'</span> || _typeof(value) === <span class="hljs-string">'object'</span>)) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>then should be retrieved only once</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">var</span> then = value.then;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> then === <span class="hljs-string">'function'</span>) {
+          then.call(value, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val</span>) </span>{
+            <span class="hljs-keyword">if</span> (!resolved) {
+              resolved = <span class="hljs-literal">true</span>;
+
+              <span class="hljs-keyword">if</span> (value === val) {
+                fulfill(promise, val);
+              } <span class="hljs-keyword">else</span> {
+                resolve(promise, val);
+              }
+            }
+          }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">reason</span>) </span>{
+            <span class="hljs-keyword">if</span> (!resolved) {
+              resolved = <span class="hljs-literal">true</span>;
+              reject(promise, reason);
+            }
+          });
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        }
+      }
+    } <span class="hljs-keyword">catch</span> (e) {
+      <span class="hljs-keyword">if</span> (!resolved) {
+        reject(promise, e);
+      }
+
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resolve</span>(<span class="hljs-params">promise, value</span>) </span>{
+    <span class="hljs-keyword">if</span> (promise === value || !handleThenable(promise, value)) {
+      fulfill(promise, value);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fulfill</span>(<span class="hljs-params">promise, value</span>) </span>{
+    <span class="hljs-keyword">if</span> (promise._state === PENDING) {
+      promise._state = SETTLED;
+      promise._data = value;
+      asyncCall(publishFulfillment, promise);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reject</span>(<span class="hljs-params">promise, reason</span>) </span>{
+    <span class="hljs-keyword">if</span> (promise._state === PENDING) {
+      promise._state = SETTLED;
+      promise._data = reason;
+      asyncCall(publishRejection, promise);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">publish</span>(<span class="hljs-params">promise</span>) </span>{
+    promise._then = promise._then.forEach(invokeCallback);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">publishFulfillment</span>(<span class="hljs-params">promise</span>) </span>{
+    promise._state = FULFILLED;
+    publish(promise);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">publishRejection</span>(<span class="hljs-params">promise</span>) </span>{
+    promise._state = REJECTED;
+    publish(promise);
+
+    <span class="hljs-keyword">if</span> (!promise._handled &amp;&amp; isNode) {
+      global.process.emit(<span class="hljs-string">'unhandledRejection'</span>, promise._data, promise);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">notifyRejectionHandled</span>(<span class="hljs-params">promise</span>) </span>{
+    global.process.emit(<span class="hljs-string">'rejectionHandled'</span>, promise);
+  }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">P</span>(<span class="hljs-params">resolver</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> resolver !== <span class="hljs-string">'function'</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Promise resolver '</span> + resolver + <span class="hljs-string">' is not a function'</span>);
+    }
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> P === <span class="hljs-literal">false</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Failed to construct \'Promise\': Please use the \'new\' operator, this object constructor cannot be called as a function.'</span>);
+    }
+
+    <span class="hljs-keyword">this</span>._then = [];
+    invokeResolver(resolver, <span class="hljs-keyword">this</span>);
+  }
+
+  P.prototype = {
+    <span class="hljs-attr">constructor</span>: P,
+    <span class="hljs-attr">_state</span>: PENDING,
+    <span class="hljs-attr">_then</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">_data</span>: <span class="hljs-literal">undefined</span>,
+    <span class="hljs-attr">_handled</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">then</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">then</span>(<span class="hljs-params">onFulfillment, onRejection</span>) </span>{
+      <span class="hljs-keyword">var</span> subscriber = {
+        <span class="hljs-attr">owner</span>: <span class="hljs-keyword">this</span>,
+        <span class="hljs-attr">then</span>: <span class="hljs-keyword">new</span> <span class="hljs-keyword">this</span>.constructor(NOOP),
+        <span class="hljs-attr">fulfilled</span>: onFulfillment,
+        <span class="hljs-attr">rejected</span>: onRejection
+      };
+
+      <span class="hljs-keyword">if</span> ((onRejection || onFulfillment) &amp;&amp; !<span class="hljs-keyword">this</span>._handled) {
+        <span class="hljs-keyword">this</span>._handled = <span class="hljs-literal">true</span>;
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._state === REJECTED &amp;&amp; isNode) {
+          asyncCall(notifyRejectionHandled, <span class="hljs-keyword">this</span>);
+        }
+      }
+
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._state === FULFILLED || <span class="hljs-keyword">this</span>._state === REJECTED) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>already resolved, call callback async</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        asyncCall(invokeCallback, subscriber);
+      } <span class="hljs-keyword">else</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>subscribe</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">this</span>._then.push(subscriber);
+      }
+
+      <span class="hljs-keyword">return</span> subscriber.then;
+    },
+    <span class="hljs-attr">catch</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_catch</span>(<span class="hljs-params">onRejection</span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.then(<span class="hljs-literal">null</span>, onRejection);
+    }
+  };
+
+  P.all = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">promises</span>) </span>{
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(promises)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'You must pass an array to Promise.all().'</span>);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> P(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+      <span class="hljs-keyword">var</span> results = [];
+      <span class="hljs-keyword">var</span> remaining = <span class="hljs-number">0</span>;
+
+      <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resolver</span>(<span class="hljs-params">index</span>) </span>{
+        remaining++;
+        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+          results[index] = value;
+
+          <span class="hljs-keyword">if</span> (! --remaining) {
+            resolve(results);
+          }
+        };
+      }
+
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, promise; i &lt; promises.length; i++) {
+        promise = promises[i];
+
+        <span class="hljs-keyword">if</span> (promise &amp;&amp; <span class="hljs-keyword">typeof</span> promise.then === <span class="hljs-string">'function'</span>) {
+          promise.then(resolver(i), reject);
+        } <span class="hljs-keyword">else</span> {
+          results[i] = promise;
+        }
+      }
+
+      <span class="hljs-keyword">if</span> (!remaining) {
+        resolve(results);
+      }
+    });
+  };
+
+  P.race = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">promises</span>) </span>{
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(promises)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'You must pass an array to Promise.race().'</span>);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> P(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, promise; i &lt; promises.length; i++) {
+        promise = promises[i];
+
+        <span class="hljs-keyword">if</span> (promise &amp;&amp; <span class="hljs-keyword">typeof</span> promise.then === <span class="hljs-string">'function'</span>) {
+          promise.then(resolve, reject);
+        } <span class="hljs-keyword">else</span> {
+          resolve(promise);
+        }
+      }
+    });
+  };
+
+  P.resolve = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">if</span> (value &amp;&amp; _typeof(value) === <span class="hljs-string">'object'</span> &amp;&amp; value.constructor === P) {
+      <span class="hljs-keyword">return</span> value;
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> P(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve</span>) </span>{
+      resolve(value);
+    });
+  };
+
+  P.reject = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">reason</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> P(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+      reject(reason);
+    });
+  };
+
+  <span class="hljs-keyword">var</span> picked = <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Promise</span> === <span class="hljs-string">'function'</span> ? <span class="hljs-built_in">Promise</span> : P;
+
+  <span class="hljs-keyword">var</span> d = UNITS_IN_GRID;
+  <span class="hljs-keyword">var</span> meaninglessTransform = {
+    <span class="hljs-attr">size</span>: <span class="hljs-number">16</span>,
+    <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">rotate</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">flipX</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">flipY</span>: <span class="hljs-literal">false</span>
+  };
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isReserved</span>(<span class="hljs-params">name</span>) </span>{
+    <span class="hljs-keyword">return</span> ~RESERVED_CLASSES.indexOf(name);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bunker</span>(<span class="hljs-params">fn</span>) </span>{
+    <span class="hljs-keyword">try</span> {
+      fn();
+    } <span class="hljs-keyword">catch</span> (e) {
+      <span class="hljs-keyword">if</span> (!PRODUCTION) {
+        <span class="hljs-keyword">throw</span> e;
+      }
+    }
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insertCss</span>(<span class="hljs-params">css</span>) </span>{
+    <span class="hljs-keyword">if</span> (!css || !IS_DOM) {
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">var</span> style = DOCUMENT.createElement(<span class="hljs-string">'style'</span>);
+    style.setAttribute(<span class="hljs-string">'type'</span>, <span class="hljs-string">'text/css'</span>);
+    style.innerHTML = css;
+    <span class="hljs-keyword">var</span> headChildren = DOCUMENT.head.childNodes;
+    <span class="hljs-keyword">var</span> beforeChild = <span class="hljs-literal">null</span>;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = headChildren.length - <span class="hljs-number">1</span>; i &gt; <span class="hljs-number">-1</span>; i--) {
+      <span class="hljs-keyword">var</span> child = headChildren[i];
+      <span class="hljs-keyword">var</span> tagName = (child.tagName || <span class="hljs-string">''</span>).toUpperCase();
+
+      <span class="hljs-keyword">if</span> ([<span class="hljs-string">'STYLE'</span>, <span class="hljs-string">'LINK'</span>].indexOf(tagName) &gt; <span class="hljs-number">-1</span>) {
+        beforeChild = child;
+      }
+    }
+
+    DOCUMENT.head.insertBefore(style, beforeChild);
+    <span class="hljs-keyword">return</span> css;
+  }
+  <span class="hljs-keyword">var</span> idPool = <span class="hljs-string">'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'</span>;
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nextUniqueId</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> size = <span class="hljs-number">12</span>;
+    <span class="hljs-keyword">var</span> id = <span class="hljs-string">''</span>;
+
+    <span class="hljs-keyword">while</span> (size-- &gt; <span class="hljs-number">0</span>) {
+      id += idPool[<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">62</span> | <span class="hljs-number">0</span>];
+    }
+
+    <span class="hljs-keyword">return</span> id;
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toArray</span>(<span class="hljs-params">obj</span>) </span>{
+    <span class="hljs-keyword">var</span> array = [];
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = (obj || []).length &gt;&gt;&gt; <span class="hljs-number">0</span>; i--;) {
+      array[i] = obj[i];
+    }
+
+    <span class="hljs-keyword">return</span> array;
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">classArray</span>(<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">if</span> (node.classList) {
+      <span class="hljs-keyword">return</span> toArray(node.classList);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> (node.getAttribute(<span class="hljs-string">'class'</span>) || <span class="hljs-string">''</span>).split(<span class="hljs-string">' '</span>).filter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i</span>) </span>{
+        <span class="hljs-keyword">return</span> i;
+      });
+    }
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getIconName</span>(<span class="hljs-params">familyPrefix, cls</span>) </span>{
+    <span class="hljs-keyword">var</span> parts = cls.split(<span class="hljs-string">'-'</span>);
+    <span class="hljs-keyword">var</span> prefix = parts[<span class="hljs-number">0</span>];
+    <span class="hljs-keyword">var</span> iconName = parts.slice(<span class="hljs-number">1</span>).join(<span class="hljs-string">'-'</span>);
+
+    <span class="hljs-keyword">if</span> (prefix === familyPrefix &amp;&amp; iconName !== <span class="hljs-string">''</span> &amp;&amp; !isReserved(iconName)) {
+      <span class="hljs-keyword">return</span> iconName;
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    }
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">htmlEscape</span>(<span class="hljs-params">str</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>.concat(str).replace(<span class="hljs-regexp">/&amp;/g</span>, <span class="hljs-string">'&amp;amp;'</span>).replace(<span class="hljs-regexp">/"/g</span>, <span class="hljs-string">'&amp;quot;'</span>).replace(<span class="hljs-regexp">/'/g</span>, <span class="hljs-string">'&amp;#39;'</span>).replace(<span class="hljs-regexp">/&lt;/g</span>, <span class="hljs-string">'&amp;lt;'</span>).replace(<span class="hljs-regexp">/&gt;/g</span>, <span class="hljs-string">'&amp;gt;'</span>);
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">joinAttributes</span>(<span class="hljs-params">attributes</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(attributes || {}).reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acc, attributeName</span>) </span>{
+      <span class="hljs-keyword">return</span> acc + <span class="hljs-string">""</span>.concat(attributeName, <span class="hljs-string">"=\""</span>).concat(htmlEscape(attributes[attributeName]), <span class="hljs-string">"\" "</span>);
+    }, <span class="hljs-string">''</span>).trim();
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">joinStyles</span>(<span class="hljs-params">styles</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(styles || {}).reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acc, styleName</span>) </span>{
+      <span class="hljs-keyword">return</span> acc + <span class="hljs-string">""</span>.concat(styleName, <span class="hljs-string">": "</span>).concat(styles[styleName], <span class="hljs-string">";"</span>);
+    }, <span class="hljs-string">''</span>);
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transformIsMeaningful</span>(<span class="hljs-params">transform</span>) </span>{
+    <span class="hljs-keyword">return</span> transform.size !== meaninglessTransform.size || transform.x !== meaninglessTransform.x || transform.y !== meaninglessTransform.y || transform.rotate !== meaninglessTransform.rotate || transform.flipX || transform.flipY;
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transformForSvg</span>(<span class="hljs-params">_ref</span>) </span>{
+    <span class="hljs-keyword">var</span> transform = _ref.transform,
+        containerWidth = _ref.containerWidth,
+        iconWidth = _ref.iconWidth;
+    <span class="hljs-keyword">var</span> outer = {
+      <span class="hljs-attr">transform</span>: <span class="hljs-string">"translate("</span>.concat(containerWidth / <span class="hljs-number">2</span>, <span class="hljs-string">" 256)"</span>)
+    };
+    <span class="hljs-keyword">var</span> innerTranslate = <span class="hljs-string">"translate("</span>.concat(transform.x * <span class="hljs-number">32</span>, <span class="hljs-string">", "</span>).concat(transform.y * <span class="hljs-number">32</span>, <span class="hljs-string">") "</span>);
+    <span class="hljs-keyword">var</span> innerScale = <span class="hljs-string">"scale("</span>.concat(transform.size / <span class="hljs-number">16</span> * (transform.flipX ? <span class="hljs-number">-1</span> : <span class="hljs-number">1</span>), <span class="hljs-string">", "</span>).concat(transform.size / <span class="hljs-number">16</span> * (transform.flipY ? <span class="hljs-number">-1</span> : <span class="hljs-number">1</span>), <span class="hljs-string">") "</span>);
+    <span class="hljs-keyword">var</span> innerRotate = <span class="hljs-string">"rotate("</span>.concat(transform.rotate, <span class="hljs-string">" 0 0)"</span>);
+    <span class="hljs-keyword">var</span> inner = {
+      <span class="hljs-attr">transform</span>: <span class="hljs-string">""</span>.concat(innerTranslate, <span class="hljs-string">" "</span>).concat(innerScale, <span class="hljs-string">" "</span>).concat(innerRotate)
+    };
+    <span class="hljs-keyword">var</span> path = {
+      <span class="hljs-attr">transform</span>: <span class="hljs-string">"translate("</span>.concat(iconWidth / <span class="hljs-number">2</span> * <span class="hljs-number">-1</span>, <span class="hljs-string">" -256)"</span>)
+    };
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">outer</span>: outer,
+      <span class="hljs-attr">inner</span>: inner,
+      <span class="hljs-attr">path</span>: path
+    };
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transformForCss</span>(<span class="hljs-params">_ref2</span>) </span>{
+    <span class="hljs-keyword">var</span> transform = _ref2.transform,
+        _ref2$width = _ref2.width,
+        width = _ref2$width === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? UNITS_IN_GRID : _ref2$width,
+        _ref2$height = _ref2.height,
+        height = _ref2$height === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? UNITS_IN_GRID : _ref2$height,
+        _ref2$startCentered = _ref2.startCentered,
+        startCentered = _ref2$startCentered === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? <span class="hljs-literal">false</span> : _ref2$startCentered;
+    <span class="hljs-keyword">var</span> val = <span class="hljs-string">''</span>;
+
+    <span class="hljs-keyword">if</span> (startCentered &amp;&amp; IS_IE) {
+      val += <span class="hljs-string">"translate("</span>.concat(transform.x / d - width / <span class="hljs-number">2</span>, <span class="hljs-string">"em, "</span>).concat(transform.y / d - height / <span class="hljs-number">2</span>, <span class="hljs-string">"em) "</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (startCentered) {
+      val += <span class="hljs-string">"translate(calc(-50% + "</span>.concat(transform.x / d, <span class="hljs-string">"em), calc(-50% + "</span>).concat(transform.y / d, <span class="hljs-string">"em)) "</span>);
+    } <span class="hljs-keyword">else</span> {
+      val += <span class="hljs-string">"translate("</span>.concat(transform.x / d, <span class="hljs-string">"em, "</span>).concat(transform.y / d, <span class="hljs-string">"em) "</span>);
+    }
+
+    val += <span class="hljs-string">"scale("</span>.concat(transform.size / d * (transform.flipX ? <span class="hljs-number">-1</span> : <span class="hljs-number">1</span>), <span class="hljs-string">", "</span>).concat(transform.size / d * (transform.flipY ? <span class="hljs-number">-1</span> : <span class="hljs-number">1</span>), <span class="hljs-string">") "</span>);
+    val += <span class="hljs-string">"rotate("</span>.concat(transform.rotate, <span class="hljs-string">"deg) "</span>);
+    <span class="hljs-keyword">return</span> val;
+  }
+
+  <span class="hljs-keyword">var</span> ALL_SPACE = {
+    <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">width</span>: <span class="hljs-string">'100%'</span>,
+    <span class="hljs-attr">height</span>: <span class="hljs-string">'100%'</span>
+  };
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeIconMasking</span> (<span class="hljs-params">_ref</span>) </span>{
+    <span class="hljs-keyword">var</span> children = _ref.children,
+        attributes = _ref.attributes,
+        main = _ref.main,
+        mask = _ref.mask,
+        transform = _ref.transform;
+    <span class="hljs-keyword">var</span> mainWidth = main.width,
+        mainPath = main.icon;
+    <span class="hljs-keyword">var</span> maskWidth = mask.width,
+        maskPath = mask.icon;
+    <span class="hljs-keyword">var</span> trans = transformForSvg({
+      <span class="hljs-attr">transform</span>: transform,
+      <span class="hljs-attr">containerWidth</span>: maskWidth,
+      <span class="hljs-attr">iconWidth</span>: mainWidth
+    });
+    <span class="hljs-keyword">var</span> maskRect = {
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'rect'</span>,
+      <span class="hljs-attr">attributes</span>: _objectSpread({}, ALL_SPACE, {
+        <span class="hljs-attr">fill</span>: <span class="hljs-string">'white'</span>
+      })
+    };
+    <span class="hljs-keyword">var</span> maskInnerGroup = {
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'g'</span>,
+      <span class="hljs-attr">attributes</span>: _objectSpread({}, trans.inner),
+      <span class="hljs-attr">children</span>: [{
+        <span class="hljs-attr">tag</span>: <span class="hljs-string">'path'</span>,
+        <span class="hljs-attr">attributes</span>: _objectSpread({}, mainPath.attributes, trans.path, {
+          <span class="hljs-attr">fill</span>: <span class="hljs-string">'black'</span>
+        })
+      }]
+    };
+    <span class="hljs-keyword">var</span> maskOuterGroup = {
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'g'</span>,
+      <span class="hljs-attr">attributes</span>: _objectSpread({}, trans.outer),
+      <span class="hljs-attr">children</span>: [maskInnerGroup]
+    };
+    <span class="hljs-keyword">var</span> maskId = <span class="hljs-string">"mask-"</span>.concat(nextUniqueId());
+    <span class="hljs-keyword">var</span> clipId = <span class="hljs-string">"clip-"</span>.concat(nextUniqueId());
+    <span class="hljs-keyword">var</span> maskTag = {
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'mask'</span>,
+      <span class="hljs-attr">attributes</span>: _objectSpread({}, ALL_SPACE, {
+        <span class="hljs-attr">id</span>: maskId,
+        <span class="hljs-attr">maskUnits</span>: <span class="hljs-string">'userSpaceOnUse'</span>,
+        <span class="hljs-attr">maskContentUnits</span>: <span class="hljs-string">'userSpaceOnUse'</span>
+      }),
+      <span class="hljs-attr">children</span>: [maskRect, maskOuterGroup]
+    };
+    <span class="hljs-keyword">var</span> defs = {
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'defs'</span>,
+      <span class="hljs-attr">children</span>: [{
+        <span class="hljs-attr">tag</span>: <span class="hljs-string">'clipPath'</span>,
+        <span class="hljs-attr">attributes</span>: {
+          <span class="hljs-attr">id</span>: clipId
+        },
+        <span class="hljs-attr">children</span>: [maskPath]
+      }, maskTag]
+    };
+    children.push(defs, {
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'rect'</span>,
+      <span class="hljs-attr">attributes</span>: _objectSpread({
+        <span class="hljs-attr">fill</span>: <span class="hljs-string">'currentColor'</span>,
+        <span class="hljs-string">'clip-path'</span>: <span class="hljs-string">"url(#"</span>.concat(clipId, <span class="hljs-string">")"</span>),
+        <span class="hljs-attr">mask</span>: <span class="hljs-string">"url(#"</span>.concat(maskId, <span class="hljs-string">")"</span>)
+      }, ALL_SPACE)
+    });
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">children</span>: children,
+      <span class="hljs-attr">attributes</span>: attributes
+    };
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeIconStandard</span> (<span class="hljs-params">_ref</span>) </span>{
+    <span class="hljs-keyword">var</span> children = _ref.children,
+        attributes = _ref.attributes,
+        main = _ref.main,
+        transform = _ref.transform,
+        styles = _ref.styles;
+    <span class="hljs-keyword">var</span> styleString = joinStyles(styles);
+
+    <span class="hljs-keyword">if</span> (styleString.length &gt; <span class="hljs-number">0</span>) {
+      attributes[<span class="hljs-string">'style'</span>] = styleString;
+    }
+
+    <span class="hljs-keyword">if</span> (transformIsMeaningful(transform)) {
+      <span class="hljs-keyword">var</span> trans = transformForSvg({
+        <span class="hljs-attr">transform</span>: transform,
+        <span class="hljs-attr">containerWidth</span>: main.width,
+        <span class="hljs-attr">iconWidth</span>: main.width
+      });
+      children.push({
+        <span class="hljs-attr">tag</span>: <span class="hljs-string">'g'</span>,
+        <span class="hljs-attr">attributes</span>: _objectSpread({}, trans.outer),
+        <span class="hljs-attr">children</span>: [{
+          <span class="hljs-attr">tag</span>: <span class="hljs-string">'g'</span>,
+          <span class="hljs-attr">attributes</span>: _objectSpread({}, trans.inner),
+          <span class="hljs-attr">children</span>: [{
+            <span class="hljs-attr">tag</span>: main.icon.tag,
+            <span class="hljs-attr">children</span>: main.icon.children,
+            <span class="hljs-attr">attributes</span>: _objectSpread({}, main.icon.attributes, trans.path)
+          }]
+        }]
+      });
+    } <span class="hljs-keyword">else</span> {
+      children.push(main.icon);
+    }
+
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">children</span>: children,
+      <span class="hljs-attr">attributes</span>: attributes
+    };
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">asIcon</span> (<span class="hljs-params">_ref</span>) </span>{
+    <span class="hljs-keyword">var</span> children = _ref.children,
+        main = _ref.main,
+        mask = _ref.mask,
+        attributes = _ref.attributes,
+        styles = _ref.styles,
+        transform = _ref.transform;
+
+    <span class="hljs-keyword">if</span> (transformIsMeaningful(transform) &amp;&amp; main.found &amp;&amp; !mask.found) {
+      <span class="hljs-keyword">var</span> width = main.width,
+          height = main.height;
+      <span class="hljs-keyword">var</span> offset = {
+        <span class="hljs-attr">x</span>: width / height / <span class="hljs-number">2</span>,
+        <span class="hljs-attr">y</span>: <span class="hljs-number">0.5</span>
+      };
+      attributes[<span class="hljs-string">'style'</span>] = joinStyles(_objectSpread({}, styles, {
+        <span class="hljs-string">'transform-origin'</span>: <span class="hljs-string">""</span>.concat(offset.x + transform.x / <span class="hljs-number">16</span>, <span class="hljs-string">"em "</span>).concat(offset.y + transform.y / <span class="hljs-number">16</span>, <span class="hljs-string">"em"</span>)
+      }));
+    }
+
+    <span class="hljs-keyword">return</span> [{
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'svg'</span>,
+      <span class="hljs-attr">attributes</span>: attributes,
+      <span class="hljs-attr">children</span>: children
+    }];
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">asSymbol</span> (<span class="hljs-params">_ref</span>) </span>{
+    <span class="hljs-keyword">var</span> prefix = _ref.prefix,
+        iconName = _ref.iconName,
+        children = _ref.children,
+        attributes = _ref.attributes,
+        symbol = _ref.symbol;
+    <span class="hljs-keyword">var</span> id = symbol === <span class="hljs-literal">true</span> ? <span class="hljs-string">""</span>.concat(prefix, <span class="hljs-string">"-"</span>).concat(config.familyPrefix, <span class="hljs-string">"-"</span>).concat(iconName) : symbol;
+    <span class="hljs-keyword">return</span> [{
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'svg'</span>,
+      <span class="hljs-attr">attributes</span>: {
+        <span class="hljs-attr">style</span>: <span class="hljs-string">'display: none;'</span>
+      },
+      <span class="hljs-attr">children</span>: [{
+        <span class="hljs-attr">tag</span>: <span class="hljs-string">'symbol'</span>,
+        <span class="hljs-attr">attributes</span>: _objectSpread({}, attributes, {
+          <span class="hljs-attr">id</span>: id
+        }),
+        <span class="hljs-attr">children</span>: children
+      }]
+    }];
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeInlineSvgAbstract</span>(<span class="hljs-params">params</span>) </span>{
+    <span class="hljs-keyword">var</span> _params$icons = params.icons,
+        main = _params$icons.main,
+        mask = _params$icons.mask,
+        prefix = params.prefix,
+        iconName = params.iconName,
+        transform = params.transform,
+        symbol = params.symbol,
+        title = params.title,
+        extra = params.extra,
+        _params$watchable = params.watchable,
+        watchable = _params$watchable === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? <span class="hljs-literal">false</span> : _params$watchable;
+
+    <span class="hljs-keyword">var</span> _ref = mask.found ? mask : main,
+        width = _ref.width,
+        height = _ref.height;
+
+    <span class="hljs-keyword">var</span> widthClass = <span class="hljs-string">"fa-w-"</span>.concat(<span class="hljs-built_in">Math</span>.ceil(width / height * <span class="hljs-number">16</span>));
+    <span class="hljs-keyword">var</span> attrClass = [config.replacementClass, iconName ? <span class="hljs-string">""</span>.concat(config.familyPrefix, <span class="hljs-string">"-"</span>).concat(iconName) : <span class="hljs-string">''</span>, widthClass].filter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">c</span>) </span>{
+      <span class="hljs-keyword">return</span> extra.classes.indexOf(c) === <span class="hljs-number">-1</span>;
+    }).concat(extra.classes).join(<span class="hljs-string">' '</span>);
+    <span class="hljs-keyword">var</span> content = {
+      <span class="hljs-attr">children</span>: [],
+      <span class="hljs-attr">attributes</span>: _objectSpread({}, extra.attributes, {
+        <span class="hljs-string">'data-prefix'</span>: prefix,
+        <span class="hljs-string">'data-icon'</span>: iconName,
+        <span class="hljs-string">'class'</span>: attrClass,
+        <span class="hljs-string">'role'</span>: <span class="hljs-string">'img'</span>,
+        <span class="hljs-string">'xmlns'</span>: <span class="hljs-string">'http://www.w3.org/2000/svg'</span>,
+        <span class="hljs-string">'viewBox'</span>: <span class="hljs-string">"0 0 "</span>.concat(width, <span class="hljs-string">" "</span>).concat(height)
+      })
+    };
+
+    <span class="hljs-keyword">if</span> (watchable) {
+      content.attributes[DATA_FA_I2SVG] = <span class="hljs-string">''</span>;
+    }
+
+    <span class="hljs-keyword">if</span> (title) content.children.push({
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'title'</span>,
+      <span class="hljs-attr">attributes</span>: {
+        <span class="hljs-attr">id</span>: content.attributes[<span class="hljs-string">'aria-labelledby'</span>] || <span class="hljs-string">"title-"</span>.concat(nextUniqueId())
+      },
+      <span class="hljs-attr">children</span>: [title]
+    });
+
+    <span class="hljs-keyword">var</span> args = _objectSpread({}, content, {
+      <span class="hljs-attr">prefix</span>: prefix,
+      <span class="hljs-attr">iconName</span>: iconName,
+      <span class="hljs-attr">main</span>: main,
+      <span class="hljs-attr">mask</span>: mask,
+      <span class="hljs-attr">transform</span>: transform,
+      <span class="hljs-attr">symbol</span>: symbol,
+      <span class="hljs-attr">styles</span>: extra.styles
+    });
+
+    <span class="hljs-keyword">var</span> _ref2 = mask.found &amp;&amp; main.found ? makeIconMasking(args) : makeIconStandard(args),
+        children = _ref2.children,
+        attributes = _ref2.attributes;
+
+    args.children = children;
+    args.attributes = attributes;
+
+    <span class="hljs-keyword">if</span> (symbol) {
+      <span class="hljs-keyword">return</span> asSymbol(args);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> asIcon(args);
+    }
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeLayersTextAbstract</span>(<span class="hljs-params">params</span>) </span>{
+    <span class="hljs-keyword">var</span> content = params.content,
+        width = params.width,
+        height = params.height,
+        transform = params.transform,
+        title = params.title,
+        extra = params.extra,
+        _params$watchable2 = params.watchable,
+        watchable = _params$watchable2 === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? <span class="hljs-literal">false</span> : _params$watchable2;
+
+    <span class="hljs-keyword">var</span> attributes = _objectSpread({}, extra.attributes, title ? {
+      <span class="hljs-string">'title'</span>: title
+    } : {}, {
+      <span class="hljs-string">'class'</span>: extra.classes.join(<span class="hljs-string">' '</span>)
+    });
+
+    <span class="hljs-keyword">if</span> (watchable) {
+      attributes[DATA_FA_I2SVG] = <span class="hljs-string">''</span>;
+    }
+
+    <span class="hljs-keyword">var</span> styles = _objectSpread({}, extra.styles);
+
+    <span class="hljs-keyword">if</span> (transformIsMeaningful(transform)) {
+      styles[<span class="hljs-string">'transform'</span>] = transformForCss({
+        <span class="hljs-attr">transform</span>: transform,
+        <span class="hljs-attr">startCentered</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">width</span>: width,
+        <span class="hljs-attr">height</span>: height
+      });
+      styles[<span class="hljs-string">'-webkit-transform'</span>] = styles[<span class="hljs-string">'transform'</span>];
+    }
+
+    <span class="hljs-keyword">var</span> styleString = joinStyles(styles);
+
+    <span class="hljs-keyword">if</span> (styleString.length &gt; <span class="hljs-number">0</span>) {
+      attributes[<span class="hljs-string">'style'</span>] = styleString;
+    }
+
+    <span class="hljs-keyword">var</span> val = [];
+    val.push({
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'span'</span>,
+      <span class="hljs-attr">attributes</span>: attributes,
+      <span class="hljs-attr">children</span>: [content]
+    });
+
+    <span class="hljs-keyword">if</span> (title) {
+      val.push({
+        <span class="hljs-attr">tag</span>: <span class="hljs-string">'span'</span>,
+        <span class="hljs-attr">attributes</span>: {
+          <span class="hljs-attr">class</span>: <span class="hljs-string">'sr-only'</span>
+        },
+        <span class="hljs-attr">children</span>: [title]
+      });
+    }
+
+    <span class="hljs-keyword">return</span> val;
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeLayersCounterAbstract</span>(<span class="hljs-params">params</span>) </span>{
+    <span class="hljs-keyword">var</span> content = params.content,
+        title = params.title,
+        extra = params.extra;
+
+    <span class="hljs-keyword">var</span> attributes = _objectSpread({}, extra.attributes, title ? {
+      <span class="hljs-string">'title'</span>: title
+    } : {}, {
+      <span class="hljs-string">'class'</span>: extra.classes.join(<span class="hljs-string">' '</span>)
+    });
+
+    <span class="hljs-keyword">var</span> styleString = joinStyles(extra.styles);
+
+    <span class="hljs-keyword">if</span> (styleString.length &gt; <span class="hljs-number">0</span>) {
+      attributes[<span class="hljs-string">'style'</span>] = styleString;
+    }
+
+    <span class="hljs-keyword">var</span> val = [];
+    val.push({
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'span'</span>,
+      <span class="hljs-attr">attributes</span>: attributes,
+      <span class="hljs-attr">children</span>: [content]
+    });
+
+    <span class="hljs-keyword">if</span> (title) {
+      val.push({
+        <span class="hljs-attr">tag</span>: <span class="hljs-string">'span'</span>,
+        <span class="hljs-attr">attributes</span>: {
+          <span class="hljs-attr">class</span>: <span class="hljs-string">'sr-only'</span>
+        },
+        <span class="hljs-attr">children</span>: [title]
+      });
+    }
+
+    <span class="hljs-keyword">return</span> val;
+  }
+
+  <span class="hljs-keyword">var</span> noop$<span class="hljs-number">1</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">noop</span>(<span class="hljs-params"></span>) </span>{};
+
+  <span class="hljs-keyword">var</span> p = config.measurePerformance &amp;&amp; PERFORMANCE &amp;&amp; PERFORMANCE.mark &amp;&amp; PERFORMANCE.measure ? PERFORMANCE : {
+    <span class="hljs-attr">mark</span>: noop$<span class="hljs-number">1</span>,
+    <span class="hljs-attr">measure</span>: noop$<span class="hljs-number">1</span>
+  };
+  <span class="hljs-keyword">var</span> preamble = <span class="hljs-string">"FA \"5.7.2\""</span>;
+
+  <span class="hljs-keyword">var</span> begin = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">begin</span>(<span class="hljs-params">name</span>) </span>{
+    p.mark(<span class="hljs-string">""</span>.concat(preamble, <span class="hljs-string">" "</span>).concat(name, <span class="hljs-string">" begins"</span>));
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> end(name);
+    };
+  };
+
+  <span class="hljs-keyword">var</span> end = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">end</span>(<span class="hljs-params">name</span>) </span>{
+    p.mark(<span class="hljs-string">""</span>.concat(preamble, <span class="hljs-string">" "</span>).concat(name, <span class="hljs-string">" ends"</span>));
+    p.measure(<span class="hljs-string">""</span>.concat(preamble, <span class="hljs-string">" "</span>).concat(name), <span class="hljs-string">""</span>.concat(preamble, <span class="hljs-string">" "</span>).concat(name, <span class="hljs-string">" begins"</span>), <span class="hljs-string">""</span>.concat(preamble, <span class="hljs-string">" "</span>).concat(name, <span class="hljs-string">" ends"</span>));
+  };
+
+  <span class="hljs-keyword">var</span> perf = {
+    <span class="hljs-attr">begin</span>: begin,
+    <span class="hljs-attr">end</span>: end
+  };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Internal helper to bind a function known to have 4 arguments
+to a given context.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+  <span class="hljs-keyword">var</span> bindInternal4 = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bindInternal4</span>(<span class="hljs-params">func, thisContext</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b, c, d</span>) </span>{
+      <span class="hljs-keyword">return</span> func.call(thisContext, a, b, c, d);
+    };
+  };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="dox">
+<div class="summary">
+<div class="pilwrap" id="reduce">
+  <h1>
+    <a href="#reduce" name="reduce" class="pilcrow"></a>
+Reduce
+  </h1>
+</div>
+</div>
+<div class="body">
+<p>A fast object <code>.reduce()</code> implementation.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">subject</span>
+<span class="dox_type">Object</span>
+<span>The object to reduce over.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">fn</span>
+<span class="dox_type">Function</span>
+<span>The reducer function.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">initialValue</span>
+<span class="dox_type">mixed</span>
+<span>The initial value for the reducer, defaults to subject[0].
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">thisContext</span>
+<span class="dox_type">Object</span>
+<span>The context for the reducer.
+</span>
+</div>
+<div class="dox_tag_title">Returns</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name"></span>
+<span class="dox_type">mixed</span>
+<span>The final result.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+
+  <span class="hljs-keyword">var</span> reduce = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fastReduceObject</span>(<span class="hljs-params">subject, fn, initialValue, thisContext</span>) </span>{
+    <span class="hljs-keyword">var</span> keys = <span class="hljs-built_in">Object</span>.keys(subject),
+        length = keys.length,
+        iterator = thisContext !== <span class="hljs-literal">undefined</span> ? bindInternal4(fn, thisContext) : fn,
+        i,
+        key,
+        result;
+
+    <span class="hljs-keyword">if</span> (initialValue === <span class="hljs-literal">undefined</span>) {
+      i = <span class="hljs-number">1</span>;
+      result = subject[keys[<span class="hljs-number">0</span>]];
+    } <span class="hljs-keyword">else</span> {
+      i = <span class="hljs-number">0</span>;
+      result = initialValue;
+    }
+
+    <span class="hljs-keyword">for</span> (; i &lt; length; i++) {
+      key = keys[i];
+      result = iterator(result, subject[key], key, subject);
+    }
+
+    <span class="hljs-keyword">return</span> result;
+  };
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">defineIcons</span>(<span class="hljs-params">prefix, icons</span>) </span>{
+    <span class="hljs-keyword">var</span> params = <span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">2</span> &amp;&amp; <span class="hljs-built_in">arguments</span>[<span class="hljs-number">2</span>] !== <span class="hljs-literal">undefined</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">2</span>] : {};
+    <span class="hljs-keyword">var</span> _params$skipHooks = params.skipHooks,
+        skipHooks = _params$skipHooks === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? <span class="hljs-literal">false</span> : _params$skipHooks;
+    <span class="hljs-keyword">var</span> normalized = <span class="hljs-built_in">Object</span>.keys(icons).reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acc, iconName</span>) </span>{
+      <span class="hljs-keyword">var</span> icon = icons[iconName];
+      <span class="hljs-keyword">var</span> expanded = !!icon.icon;
+
+      <span class="hljs-keyword">if</span> (expanded) {
+        acc[icon.iconName] = icon.icon;
+      } <span class="hljs-keyword">else</span> {
+        acc[iconName] = icon;
+      }
+
+      <span class="hljs-keyword">return</span> acc;
+    }, {});
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> namespace.hooks.addPack === <span class="hljs-string">'function'</span> &amp;&amp; !skipHooks) {
+      namespace.hooks.addPack(prefix, normalized);
+    } <span class="hljs-keyword">else</span> {
+      namespace.styles[prefix] = _objectSpread({}, namespace.styles[prefix] || {}, normalized);
+    }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Font Awesome 4 used the prefix of <code>fa</code> for all icons. With the introduction
+of new styles we needed to differentiate between them. Prefix <code>fa</code> is now an alias
+for <code>fas</code> so we'll easy the upgrade process for our users by automatically defining
+this as well.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+
+    <span class="hljs-keyword">if</span> (prefix === <span class="hljs-string">'fas'</span>) {
+      defineIcons(<span class="hljs-string">'fa'</span>, icons);
+    }
+  }
+
+  <span class="hljs-keyword">var</span> styles = namespace.styles,
+      shims = namespace.shims;
+  <span class="hljs-keyword">var</span> _byUnicode = {};
+  <span class="hljs-keyword">var</span> _byLigature = {};
+  <span class="hljs-keyword">var</span> _byOldName = {};
+  <span class="hljs-keyword">var</span> build = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">build</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> lookup = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">lookup</span>(<span class="hljs-params">reducer</span>) </span>{
+      <span class="hljs-keyword">return</span> reduce(styles, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">o, style, prefix</span>) </span>{
+        o[prefix] = reduce(style, reducer, {});
+        <span class="hljs-keyword">return</span> o;
+      }, {});
+    };
+
+    _byUnicode = lookup(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acc, icon, iconName</span>) </span>{
+      <span class="hljs-keyword">if</span> (icon[<span class="hljs-number">3</span>]) {
+        acc[icon[<span class="hljs-number">3</span>]] = iconName;
+      }
+
+      <span class="hljs-keyword">return</span> acc;
+    });
+    _byLigature = lookup(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acc, icon, iconName</span>) </span>{
+      <span class="hljs-keyword">var</span> ligatures = icon[<span class="hljs-number">2</span>];
+      acc[iconName] = iconName;
+      ligatures.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ligature</span>) </span>{
+        acc[ligature] = iconName;
+      });
+      <span class="hljs-keyword">return</span> acc;
+    });
+    <span class="hljs-keyword">var</span> hasRegular = <span class="hljs-string">'far'</span> <span class="hljs-keyword">in</span> styles;
+    _byOldName = reduce(shims, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acc, shim</span>) </span>{
+      <span class="hljs-keyword">var</span> oldName = shim[<span class="hljs-number">0</span>];
+      <span class="hljs-keyword">var</span> prefix = shim[<span class="hljs-number">1</span>];
+      <span class="hljs-keyword">var</span> iconName = shim[<span class="hljs-number">2</span>];
+
+      <span class="hljs-keyword">if</span> (prefix === <span class="hljs-string">'far'</span> &amp;&amp; !hasRegular) {
+        prefix = <span class="hljs-string">'fas'</span>;
+      }
+
+      acc[oldName] = {
+        <span class="hljs-attr">prefix</span>: prefix,
+        <span class="hljs-attr">iconName</span>: iconName
+      };
+      <span class="hljs-keyword">return</span> acc;
+    }, {});
+  };
+  build();
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">byUnicode</span>(<span class="hljs-params">prefix, unicode</span>) </span>{
+    <span class="hljs-keyword">return</span> _byUnicode[prefix][unicode];
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">byLigature</span>(<span class="hljs-params">prefix, ligature</span>) </span>{
+    <span class="hljs-keyword">return</span> _byLigature[prefix][ligature];
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">byOldName</span>(<span class="hljs-params">name</span>) </span>{
+    <span class="hljs-keyword">return</span> _byOldName[name] || {
+      <span class="hljs-attr">prefix</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">iconName</span>: <span class="hljs-literal">null</span>
+    };
+  }
+
+  <span class="hljs-keyword">var</span> styles$<span class="hljs-number">1</span> = namespace.styles;
+  <span class="hljs-keyword">var</span> emptyCanonicalIcon = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">emptyCanonicalIcon</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">prefix</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">iconName</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">rest</span>: []
+    };
+  };
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getCanonicalIcon</span>(<span class="hljs-params">values</span>) </span>{
+    <span class="hljs-keyword">return</span> values.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acc, cls</span>) </span>{
+      <span class="hljs-keyword">var</span> iconName = getIconName(config.familyPrefix, cls);
+
+      <span class="hljs-keyword">if</span> (styles$<span class="hljs-number">1</span>[cls]) {
+        acc.prefix = cls;
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (config.autoFetchSvg &amp;&amp; [<span class="hljs-string">'fas'</span>, <span class="hljs-string">'far'</span>, <span class="hljs-string">'fal'</span>, <span class="hljs-string">'fab'</span>, <span class="hljs-string">'fa'</span>].indexOf(cls) &gt; <span class="hljs-number">-1</span>) {
+        acc.prefix = cls;
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (iconName) {
+        <span class="hljs-keyword">var</span> shim = acc.prefix === <span class="hljs-string">'fa'</span> ? byOldName(iconName) : {};
+        acc.iconName = shim.iconName || iconName;
+        acc.prefix = shim.prefix || acc.prefix;
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (cls !== config.replacementClass &amp;&amp; cls.indexOf(<span class="hljs-string">'fa-w-'</span>) !== <span class="hljs-number">0</span>) {
+        acc.rest.push(cls);
+      }
+
+      <span class="hljs-keyword">return</span> acc;
+    }, emptyCanonicalIcon());
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">iconFromMapping</span>(<span class="hljs-params">mapping, prefix, iconName</span>) </span>{
+    <span class="hljs-keyword">if</span> (mapping &amp;&amp; mapping[prefix] &amp;&amp; mapping[prefix][iconName]) {
+      <span class="hljs-keyword">return</span> {
+        <span class="hljs-attr">prefix</span>: prefix,
+        <span class="hljs-attr">iconName</span>: iconName,
+        <span class="hljs-attr">icon</span>: mapping[prefix][iconName]
+      };
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toHtml</span>(<span class="hljs-params">abstractNodes</span>) </span>{
+    <span class="hljs-keyword">var</span> tag = abstractNodes.tag,
+        _abstractNodes$attrib = abstractNodes.attributes,
+        attributes = _abstractNodes$attrib === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? {} : _abstractNodes$attrib,
+        _abstractNodes$childr = abstractNodes.children,
+        children = _abstractNodes$childr === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? [] : _abstractNodes$childr;
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> abstractNodes === <span class="hljs-string">'string'</span>) {
+      <span class="hljs-keyword">return</span> htmlEscape(abstractNodes);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-string">"&lt;"</span>.concat(tag, <span class="hljs-string">" "</span>).concat(joinAttributes(attributes), <span class="hljs-string">"&gt;"</span>).concat(children.map(toHtml).join(<span class="hljs-string">''</span>), <span class="hljs-string">"&lt;/"</span>).concat(tag, <span class="hljs-string">"&gt;"</span>);
+    }
+  }
+
+  <span class="hljs-keyword">var</span> noop$<span class="hljs-number">2</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">noop</span>(<span class="hljs-params"></span>) </span>{};
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isWatched</span>(<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">var</span> i2svg = node.getAttribute ? node.getAttribute(DATA_FA_I2SVG) : <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> i2svg === <span class="hljs-string">'string'</span>;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getMutator</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (config.autoReplaceSvg === <span class="hljs-literal">true</span>) {
+      <span class="hljs-keyword">return</span> mutators.replace;
+    }
+
+    <span class="hljs-keyword">var</span> mutator = mutators[config.autoReplaceSvg];
+    <span class="hljs-keyword">return</span> mutator || mutators.replace;
+  }
+
+  <span class="hljs-keyword">var</span> mutators = {
+    <span class="hljs-attr">replace</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">replace</span>(<span class="hljs-params">mutation</span>) </span>{
+      <span class="hljs-keyword">var</span> node = mutation[<span class="hljs-number">0</span>];
+      <span class="hljs-keyword">var</span> abstract = mutation[<span class="hljs-number">1</span>];
+      <span class="hljs-keyword">var</span> newOuterHTML = abstract.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) </span>{
+        <span class="hljs-keyword">return</span> toHtml(a);
+      }).join(<span class="hljs-string">'\n'</span>);
+
+      <span class="hljs-keyword">if</span> (node.parentNode &amp;&amp; node.outerHTML) {
+        node.outerHTML = newOuterHTML + (config.keepOriginalSource &amp;&amp; node.tagName.toLowerCase() !== <span class="hljs-string">'svg'</span> ? <span class="hljs-string">"&lt;!-- "</span>.concat(node.outerHTML, <span class="hljs-string">" --&gt;"</span>) : <span class="hljs-string">''</span>);
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (node.parentNode) {
+        <span class="hljs-keyword">var</span> newNode = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'span'</span>);
+        node.parentNode.replaceChild(newNode, node);
+        newNode.outerHTML = newOuterHTML;
+      }
+    },
+    <span class="hljs-attr">nest</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nest</span>(<span class="hljs-params">mutation</span>) </span>{
+      <span class="hljs-keyword">var</span> node = mutation[<span class="hljs-number">0</span>];
+      <span class="hljs-keyword">var</span> abstract = mutation[<span class="hljs-number">1</span>]; <span class="hljs-comment">// If we already have a replaced node we do not want to continue nesting within it.</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>Short-circuit to the standard replacement</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+      <span class="hljs-keyword">if</span> (~classArray(node).indexOf(config.replacementClass)) {
+        <span class="hljs-keyword">return</span> mutators.replace(mutation);
+      }
+
+      <span class="hljs-keyword">var</span> forSvg = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">""</span>.concat(config.familyPrefix, <span class="hljs-string">"-.*"</span>));
+      <span class="hljs-keyword">delete</span> abstract[<span class="hljs-number">0</span>].attributes.style;
+      <span class="hljs-keyword">var</span> splitClasses = abstract[<span class="hljs-number">0</span>].attributes.class.split(<span class="hljs-string">' '</span>).reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acc, cls</span>) </span>{
+        <span class="hljs-keyword">if</span> (cls === config.replacementClass || cls.match(forSvg)) {
+          acc.toSvg.push(cls);
+        } <span class="hljs-keyword">else</span> {
+          acc.toNode.push(cls);
+        }
+
+        <span class="hljs-keyword">return</span> acc;
+      }, {
+        <span class="hljs-attr">toNode</span>: [],
+        <span class="hljs-attr">toSvg</span>: []
+      });
+      abstract[<span class="hljs-number">0</span>].attributes.class = splitClasses.toSvg.join(<span class="hljs-string">' '</span>);
+      <span class="hljs-keyword">var</span> newInnerHTML = abstract.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) </span>{
+        <span class="hljs-keyword">return</span> toHtml(a);
+      }).join(<span class="hljs-string">'\n'</span>);
+      node.setAttribute(<span class="hljs-string">'class'</span>, splitClasses.toNode.join(<span class="hljs-string">' '</span>));
+      node.setAttribute(DATA_FA_I2SVG, <span class="hljs-string">''</span>);
+      node.innerHTML = newInnerHTML;
+    }
+  };
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">perform</span>(<span class="hljs-params">mutations, callback</span>) </span>{
+    <span class="hljs-keyword">var</span> callbackFunction = <span class="hljs-keyword">typeof</span> callback === <span class="hljs-string">'function'</span> ? callback : noop$<span class="hljs-number">2</span>;
+
+    <span class="hljs-keyword">if</span> (mutations.length === <span class="hljs-number">0</span>) {
+      callbackFunction();
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">var</span> frame = WINDOW.requestAnimationFrame || <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">op</span>) </span>{
+        <span class="hljs-keyword">return</span> op();
+      };
+
+      frame(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> mutator = getMutator();
+        <span class="hljs-keyword">var</span> mark = perf.begin(<span class="hljs-string">'mutate'</span>);
+        mutations.map(mutator);
+        mark();
+        callbackFunction();
+      });
+    }
+  }
+  <span class="hljs-keyword">var</span> disabled = <span class="hljs-literal">false</span>;
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">disableObservation</span>(<span class="hljs-params"></span>) </span>{
+    disabled = <span class="hljs-literal">true</span>;
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">enableObservation</span>(<span class="hljs-params"></span>) </span>{
+    disabled = <span class="hljs-literal">false</span>;
+  }
+  <span class="hljs-keyword">var</span> mo = <span class="hljs-literal">null</span>;
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">observe</span>(<span class="hljs-params">options</span>) </span>{
+    <span class="hljs-keyword">if</span> (!MUTATION_OBSERVER) {
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">if</span> (!config.observeMutations) {
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">var</span> treeCallback = options.treeCallback,
+        nodeCallback = options.nodeCallback,
+        pseudoElementsCallback = options.pseudoElementsCallback,
+        _options$observeMutat = options.observeMutationsRoot,
+        observeMutationsRoot = _options$observeMutat === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? DOCUMENT : _options$observeMutat;
+    mo = <span class="hljs-keyword">new</span> MUTATION_OBSERVER(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">objects</span>) </span>{
+      <span class="hljs-keyword">if</span> (disabled) <span class="hljs-keyword">return</span>;
+      toArray(objects).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">mutationRecord</span>) </span>{
+        <span class="hljs-keyword">if</span> (mutationRecord.type === <span class="hljs-string">'childList'</span> &amp;&amp; mutationRecord.addedNodes.length &gt; <span class="hljs-number">0</span> &amp;&amp; !isWatched(mutationRecord.addedNodes[<span class="hljs-number">0</span>])) {
+          <span class="hljs-keyword">if</span> (config.searchPseudoElements) {
+            pseudoElementsCallback(mutationRecord.target);
+          }
+
+          treeCallback(mutationRecord.target);
+        }
+
+        <span class="hljs-keyword">if</span> (mutationRecord.type === <span class="hljs-string">'attributes'</span> &amp;&amp; mutationRecord.target.parentNode &amp;&amp; config.searchPseudoElements) {
+          pseudoElementsCallback(mutationRecord.target.parentNode);
+        }
+
+        <span class="hljs-keyword">if</span> (mutationRecord.type === <span class="hljs-string">'attributes'</span> &amp;&amp; isWatched(mutationRecord.target) &amp;&amp; ~ATTRIBUTES_WATCHED_FOR_MUTATION.indexOf(mutationRecord.attributeName)) {
+          <span class="hljs-keyword">if</span> (mutationRecord.attributeName === <span class="hljs-string">'class'</span>) {
+            <span class="hljs-keyword">var</span> _getCanonicalIcon = getCanonicalIcon(classArray(mutationRecord.target)),
+                prefix = _getCanonicalIcon.prefix,
+                iconName = _getCanonicalIcon.iconName;
+
+            <span class="hljs-keyword">if</span> (prefix) mutationRecord.target.setAttribute(<span class="hljs-string">'data-prefix'</span>, prefix);
+            <span class="hljs-keyword">if</span> (iconName) mutationRecord.target.setAttribute(<span class="hljs-string">'data-icon'</span>, iconName);
+          } <span class="hljs-keyword">else</span> {
+            nodeCallback(mutationRecord.target);
+          }
+        }
+      });
+    });
+    <span class="hljs-keyword">if</span> (!IS_DOM) <span class="hljs-keyword">return</span>;
+    mo.observe(observeMutationsRoot, {
+      <span class="hljs-attr">childList</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">attributes</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">characterData</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">subtree</span>: <span class="hljs-literal">true</span>
+    });
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">disconnect</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (!mo) <span class="hljs-keyword">return</span>;
+    mo.disconnect();
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">styleParser</span> (<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">var</span> style = node.getAttribute(<span class="hljs-string">'style'</span>);
+    <span class="hljs-keyword">var</span> val = [];
+
+    <span class="hljs-keyword">if</span> (style) {
+      val = style.split(<span class="hljs-string">';'</span>).reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acc, style</span>) </span>{
+        <span class="hljs-keyword">var</span> styles = style.split(<span class="hljs-string">':'</span>);
+        <span class="hljs-keyword">var</span> prop = styles[<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">var</span> value = styles.slice(<span class="hljs-number">1</span>);
+
+        <span class="hljs-keyword">if</span> (prop &amp;&amp; value.length &gt; <span class="hljs-number">0</span>) {
+          acc[prop] = value.join(<span class="hljs-string">':'</span>).trim();
+        }
+
+        <span class="hljs-keyword">return</span> acc;
+      }, {});
+    }
+
+    <span class="hljs-keyword">return</span> val;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toHex</span>(<span class="hljs-params">unicode</span>) </span>{
+    <span class="hljs-keyword">var</span> result = <span class="hljs-string">''</span>;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; unicode.length; i++) {
+      <span class="hljs-keyword">var</span> hex = unicode.charCodeAt(i).toString(<span class="hljs-number">16</span>);
+      result += (<span class="hljs-string">'000'</span> + hex).slice(<span class="hljs-number">-4</span>);
+    }
+
+    <span class="hljs-keyword">return</span> result;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">classParser</span> (<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">var</span> existingPrefix = node.getAttribute(<span class="hljs-string">'data-prefix'</span>);
+    <span class="hljs-keyword">var</span> existingIconName = node.getAttribute(<span class="hljs-string">'data-icon'</span>);
+    <span class="hljs-keyword">var</span> innerText = node.innerText !== <span class="hljs-literal">undefined</span> ? node.innerText.trim() : <span class="hljs-string">''</span>;
+    <span class="hljs-keyword">var</span> val = getCanonicalIcon(classArray(node));
+
+    <span class="hljs-keyword">if</span> (existingPrefix &amp;&amp; existingIconName) {
+      val.prefix = existingPrefix;
+      val.iconName = existingIconName;
+    }
+
+    <span class="hljs-keyword">if</span> (val.prefix &amp;&amp; innerText.length &gt; <span class="hljs-number">1</span>) {
+      val.iconName = byLigature(val.prefix, node.innerText);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (val.prefix &amp;&amp; innerText.length === <span class="hljs-number">1</span>) {
+      val.iconName = byUnicode(val.prefix, toHex(node.innerText));
+    }
+
+    <span class="hljs-keyword">return</span> val;
+  }
+
+  <span class="hljs-keyword">var</span> parseTransformString = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parseTransformString</span>(<span class="hljs-params">transformString</span>) </span>{
+    <span class="hljs-keyword">var</span> transform = {
+      <span class="hljs-attr">size</span>: <span class="hljs-number">16</span>,
+      <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-attr">flipX</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">flipY</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">rotate</span>: <span class="hljs-number">0</span>
+    };
+
+    <span class="hljs-keyword">if</span> (!transformString) {
+      <span class="hljs-keyword">return</span> transform;
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> transformString.toLowerCase().split(<span class="hljs-string">' '</span>).reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acc, n</span>) </span>{
+        <span class="hljs-keyword">var</span> parts = n.toLowerCase().split(<span class="hljs-string">'-'</span>);
+        <span class="hljs-keyword">var</span> first = parts[<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">var</span> rest = parts.slice(<span class="hljs-number">1</span>).join(<span class="hljs-string">'-'</span>);
+
+        <span class="hljs-keyword">if</span> (first &amp;&amp; rest === <span class="hljs-string">'h'</span>) {
+          acc.flipX = <span class="hljs-literal">true</span>;
+          <span class="hljs-keyword">return</span> acc;
+        }
+
+        <span class="hljs-keyword">if</span> (first &amp;&amp; rest === <span class="hljs-string">'v'</span>) {
+          acc.flipY = <span class="hljs-literal">true</span>;
+          <span class="hljs-keyword">return</span> acc;
+        }
+
+        rest = <span class="hljs-built_in">parseFloat</span>(rest);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(rest)) {
+          <span class="hljs-keyword">return</span> acc;
+        }
+
+        <span class="hljs-keyword">switch</span> (first) {
+          <span class="hljs-keyword">case</span> <span class="hljs-string">'grow'</span>:
+            acc.size = acc.size + rest;
+            <span class="hljs-keyword">break</span>;
+
+          <span class="hljs-keyword">case</span> <span class="hljs-string">'shrink'</span>:
+            acc.size = acc.size - rest;
+            <span class="hljs-keyword">break</span>;
+
+          <span class="hljs-keyword">case</span> <span class="hljs-string">'left'</span>:
+            acc.x = acc.x - rest;
+            <span class="hljs-keyword">break</span>;
+
+          <span class="hljs-keyword">case</span> <span class="hljs-string">'right'</span>:
+            acc.x = acc.x + rest;
+            <span class="hljs-keyword">break</span>;
+
+          <span class="hljs-keyword">case</span> <span class="hljs-string">'up'</span>:
+            acc.y = acc.y - rest;
+            <span class="hljs-keyword">break</span>;
+
+          <span class="hljs-keyword">case</span> <span class="hljs-string">'down'</span>:
+            acc.y = acc.y + rest;
+            <span class="hljs-keyword">break</span>;
+
+          <span class="hljs-keyword">case</span> <span class="hljs-string">'rotate'</span>:
+            acc.rotate = acc.rotate + rest;
+            <span class="hljs-keyword">break</span>;
+        }
+
+        <span class="hljs-keyword">return</span> acc;
+      }, transform);
+    }
+  };
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transformParser</span> (<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">return</span> parseTransformString(node.getAttribute(<span class="hljs-string">'data-fa-transform'</span>));
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">symbolParser</span> (<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">var</span> symbol = node.getAttribute(<span class="hljs-string">'data-fa-symbol'</span>);
+    <span class="hljs-keyword">return</span> symbol === <span class="hljs-literal">null</span> ? <span class="hljs-literal">false</span> : symbol === <span class="hljs-string">''</span> ? <span class="hljs-literal">true</span> : symbol;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">attributesParser</span> (<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">var</span> extraAttributes = toArray(node.attributes).reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acc, attr</span>) </span>{
+      <span class="hljs-keyword">if</span> (acc.name !== <span class="hljs-string">'class'</span> &amp;&amp; acc.name !== <span class="hljs-string">'style'</span>) {
+        acc[attr.name] = attr.value;
+      }
+
+      <span class="hljs-keyword">return</span> acc;
+    }, {});
+    <span class="hljs-keyword">var</span> title = node.getAttribute(<span class="hljs-string">'title'</span>);
+
+    <span class="hljs-keyword">if</span> (config.autoA11y) {
+      <span class="hljs-keyword">if</span> (title) {
+        extraAttributes[<span class="hljs-string">'aria-labelledby'</span>] = <span class="hljs-string">""</span>.concat(config.replacementClass, <span class="hljs-string">"-title-"</span>).concat(nextUniqueId());
+      } <span class="hljs-keyword">else</span> {
+        extraAttributes[<span class="hljs-string">'aria-hidden'</span>] = <span class="hljs-string">'true'</span>;
+        extraAttributes[<span class="hljs-string">'focusable'</span>] = <span class="hljs-string">'false'</span>;
+      }
+    }
+
+    <span class="hljs-keyword">return</span> extraAttributes;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">maskParser</span> (<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">var</span> mask = node.getAttribute(<span class="hljs-string">'data-fa-mask'</span>);
+
+    <span class="hljs-keyword">if</span> (!mask) {
+      <span class="hljs-keyword">return</span> emptyCanonicalIcon();
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> getCanonicalIcon(mask.split(<span class="hljs-string">' '</span>).map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i</span>) </span>{
+        <span class="hljs-keyword">return</span> i.trim();
+      }));
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">blankMeta</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">iconName</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">title</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">prefix</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">transform</span>: meaninglessTransform,
+      <span class="hljs-attr">symbol</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">mask</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">extra</span>: {
+        <span class="hljs-attr">classes</span>: [],
+        <span class="hljs-attr">styles</span>: {},
+        <span class="hljs-attr">attributes</span>: {}
+      }
+    };
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parseMeta</span>(<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">var</span> _classParser = classParser(node),
+        iconName = _classParser.iconName,
+        prefix = _classParser.prefix,
+        extraClasses = _classParser.rest;
+
+    <span class="hljs-keyword">var</span> extraStyles = styleParser(node);
+    <span class="hljs-keyword">var</span> transform = transformParser(node);
+    <span class="hljs-keyword">var</span> symbol = symbolParser(node);
+    <span class="hljs-keyword">var</span> extraAttributes = attributesParser(node);
+    <span class="hljs-keyword">var</span> mask = maskParser(node);
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">iconName</span>: iconName,
+      <span class="hljs-attr">title</span>: node.getAttribute(<span class="hljs-string">'title'</span>),
+      <span class="hljs-attr">prefix</span>: prefix,
+      <span class="hljs-attr">transform</span>: transform,
+      <span class="hljs-attr">symbol</span>: symbol,
+      <span class="hljs-attr">mask</span>: mask,
+      <span class="hljs-attr">extra</span>: {
+        <span class="hljs-attr">classes</span>: extraClasses,
+        <span class="hljs-attr">styles</span>: extraStyles,
+        <span class="hljs-attr">attributes</span>: extraAttributes
+      }
+    };
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MissingIcon</span>(<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-keyword">this</span>.name = <span class="hljs-string">'MissingIcon'</span>;
+    <span class="hljs-keyword">this</span>.message = error || <span class="hljs-string">'Icon unavailable'</span>;
+    <span class="hljs-keyword">this</span>.stack = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>().stack;
+  }
+  MissingIcon.prototype = <span class="hljs-built_in">Object</span>.create(<span class="hljs-built_in">Error</span>.prototype);
+  MissingIcon.prototype.constructor = MissingIcon;
+
+  <span class="hljs-keyword">var</span> FILL = {
+    <span class="hljs-attr">fill</span>: <span class="hljs-string">'currentColor'</span>
+  };
+  <span class="hljs-keyword">var</span> ANIMATION_BASE = {
+    <span class="hljs-attr">attributeType</span>: <span class="hljs-string">'XML'</span>,
+    <span class="hljs-attr">repeatCount</span>: <span class="hljs-string">'indefinite'</span>,
+    <span class="hljs-attr">dur</span>: <span class="hljs-string">'2s'</span>
+  };
+  <span class="hljs-keyword">var</span> RING = {
+    <span class="hljs-attr">tag</span>: <span class="hljs-string">'path'</span>,
+    <span class="hljs-attr">attributes</span>: _objectSpread({}, FILL, {
+      <span class="hljs-attr">d</span>: <span class="hljs-string">'M156.5,447.7l-12.6,29.5c-18.7-9.5-35.9-21.2-51.5-34.9l22.7-22.7C127.6,430.5,141.5,440,156.5,447.7z M40.6,272H8.5 c1.4,21.2,5.4,41.7,11.7,61.1L50,321.2C45.1,305.5,41.8,289,40.6,272z M40.6,240c1.4-18.8,5.2-37,11.1-54.1l-29.5-12.6 C14.7,194.3,10,216.7,8.5,240H40.6z M64.3,156.5c7.8-14.9,17.2-28.8,28.1-41.5L69.7,92.3c-13.7,15.6-25.5,32.8-34.9,51.5 L64.3,156.5z M397,419.6c-13.9,12-29.4,22.3-46.1,30.4l11.9,29.8c20.7-9.9,39.8-22.6,56.9-37.6L397,419.6z M115,92.4 c13.9-12,29.4-22.3,46.1-30.4l-11.9-29.8c-20.7,9.9-39.8,22.6-56.8,37.6L115,92.4z M447.7,355.5c-7.8,14.9-17.2,28.8-28.1,41.5 l22.7,22.7c13.7-15.6,25.5-32.9,34.9-51.5L447.7,355.5z M471.4,272c-1.4,18.8-5.2,37-11.1,54.1l29.5,12.6 c7.5-21.1,12.2-43.5,13.6-66.8H471.4z M321.2,462c-15.7,5-32.2,8.2-49.2,9.4v32.1c21.2-1.4,41.7-5.4,61.1-11.7L321.2,462z M240,471.4c-18.8-1.4-37-5.2-54.1-11.1l-12.6,29.5c21.1,7.5,43.5,12.2,66.8,13.6V471.4z M462,190.8c5,15.7,8.2,32.2,9.4,49.2h32.1 c-1.4-21.2-5.4-41.7-11.7-61.1L462,190.8z M92.4,397c-12-13.9-22.3-29.4-30.4-46.1l-29.8,11.9c9.9,20.7,22.6,39.8,37.6,56.9 L92.4,397z M272,40.6c18.8,1.4,36.9,5.2,54.1,11.1l12.6-29.5C317.7,14.7,295.3,10,272,8.5V40.6z M190.8,50 c15.7-5,32.2-8.2,49.2-9.4V8.5c-21.2,1.4-41.7,5.4-61.1,11.7L190.8,50z M442.3,92.3L419.6,115c12,13.9,22.3,29.4,30.5,46.1 l29.8-11.9C470,128.5,457.3,109.4,442.3,92.3z M397,92.4l22.7-22.7c-15.6-13.7-32.8-25.5-51.5-34.9l-12.6,29.5 C370.4,72.1,384.4,81.5,397,92.4z'</span>
+    })
+  };
+
+  <span class="hljs-keyword">var</span> OPACITY_ANIMATE = _objectSpread({}, ANIMATION_BASE, {
+    <span class="hljs-attr">attributeName</span>: <span class="hljs-string">'opacity'</span>
+  });
+
+  <span class="hljs-keyword">var</span> DOT = {
+    <span class="hljs-attr">tag</span>: <span class="hljs-string">'circle'</span>,
+    <span class="hljs-attr">attributes</span>: _objectSpread({}, FILL, {
+      <span class="hljs-attr">cx</span>: <span class="hljs-string">'256'</span>,
+      <span class="hljs-attr">cy</span>: <span class="hljs-string">'364'</span>,
+      <span class="hljs-attr">r</span>: <span class="hljs-string">'28'</span>
+    }),
+    <span class="hljs-attr">children</span>: [{
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'animate'</span>,
+      <span class="hljs-attr">attributes</span>: _objectSpread({}, ANIMATION_BASE, {
+        <span class="hljs-attr">attributeName</span>: <span class="hljs-string">'r'</span>,
+        <span class="hljs-attr">values</span>: <span class="hljs-string">'28;14;28;28;14;28;'</span>
+      })
+    }, {
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'animate'</span>,
+      <span class="hljs-attr">attributes</span>: _objectSpread({}, OPACITY_ANIMATE, {
+        <span class="hljs-attr">values</span>: <span class="hljs-string">'1;0;1;1;0;1;'</span>
+      })
+    }]
+  };
+  <span class="hljs-keyword">var</span> QUESTION = {
+    <span class="hljs-attr">tag</span>: <span class="hljs-string">'path'</span>,
+    <span class="hljs-attr">attributes</span>: _objectSpread({}, FILL, {
+      <span class="hljs-attr">opacity</span>: <span class="hljs-string">'1'</span>,
+      <span class="hljs-attr">d</span>: <span class="hljs-string">'M263.7,312h-16c-6.6,0-12-5.4-12-12c0-71,77.4-63.9,77.4-107.8c0-20-17.8-40.2-57.4-40.2c-29.1,0-44.3,9.6-59.2,28.7 c-3.9,5-11.1,6-16.2,2.4l-13.1-9.2c-5.6-3.9-6.9-11.8-2.6-17.2c21.2-27.2,46.4-44.7,91.2-44.7c52.3,0,97.4,29.8,97.4,80.2 c0,67.6-77.4,63.5-77.4,107.8C275.7,306.6,270.3,312,263.7,312z'</span>
+    }),
+    <span class="hljs-attr">children</span>: [{
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'animate'</span>,
+      <span class="hljs-attr">attributes</span>: _objectSpread({}, OPACITY_ANIMATE, {
+        <span class="hljs-attr">values</span>: <span class="hljs-string">'1;0;0;0;0;1;'</span>
+      })
+    }]
+  };
+  <span class="hljs-keyword">var</span> EXCLAMATION = {
+    <span class="hljs-attr">tag</span>: <span class="hljs-string">'path'</span>,
+    <span class="hljs-attr">attributes</span>: _objectSpread({}, FILL, {
+      <span class="hljs-attr">opacity</span>: <span class="hljs-string">'0'</span>,
+      <span class="hljs-attr">d</span>: <span class="hljs-string">'M232.5,134.5l7,168c0.3,6.4,5.6,11.5,12,11.5h9c6.4,0,11.7-5.1,12-11.5l7-168c0.3-6.8-5.2-12.5-12-12.5h-23 C237.7,122,232.2,127.7,232.5,134.5z'</span>
+    }),
+    <span class="hljs-attr">children</span>: [{
+      <span class="hljs-attr">tag</span>: <span class="hljs-string">'animate'</span>,
+      <span class="hljs-attr">attributes</span>: _objectSpread({}, OPACITY_ANIMATE, {
+        <span class="hljs-attr">values</span>: <span class="hljs-string">'0;0;1;1;0;0;'</span>
+      })
+    }]
+  };
+  <span class="hljs-keyword">var</span> missing = {
+    <span class="hljs-attr">tag</span>: <span class="hljs-string">'g'</span>,
+    <span class="hljs-attr">children</span>: [RING, DOT, QUESTION, EXCLAMATION]
+  };
+
+  <span class="hljs-keyword">var</span> styles$<span class="hljs-number">2</span> = namespace.styles;
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findIcon</span>(<span class="hljs-params">iconName, prefix</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> picked(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+      <span class="hljs-keyword">var</span> val = {
+        <span class="hljs-attr">found</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">width</span>: <span class="hljs-number">512</span>,
+        <span class="hljs-attr">height</span>: <span class="hljs-number">512</span>,
+        <span class="hljs-attr">icon</span>: missing
+      };
+
+      <span class="hljs-keyword">if</span> (iconName &amp;&amp; prefix &amp;&amp; styles$<span class="hljs-number">2</span>[prefix] &amp;&amp; styles$<span class="hljs-number">2</span>[prefix][iconName]) {
+        <span class="hljs-keyword">var</span> icon = styles$<span class="hljs-number">2</span>[prefix][iconName];
+        <span class="hljs-keyword">var</span> width = icon[<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">var</span> height = icon[<span class="hljs-number">1</span>];
+        <span class="hljs-keyword">var</span> vectorData = icon.slice(<span class="hljs-number">4</span>);
+        val = {
+          <span class="hljs-attr">found</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">width</span>: width,
+          <span class="hljs-attr">height</span>: height,
+          <span class="hljs-attr">icon</span>: {
+            <span class="hljs-attr">tag</span>: <span class="hljs-string">'path'</span>,
+            <span class="hljs-attr">attributes</span>: {
+              <span class="hljs-attr">fill</span>: <span class="hljs-string">'currentColor'</span>,
+              <span class="hljs-attr">d</span>: vectorData[<span class="hljs-number">0</span>]
+            }
+          }
+        };
+        <span class="hljs-keyword">return</span> resolve(val);
+      }
+
+      <span class="hljs-keyword">if</span> (iconName &amp;&amp; prefix &amp;&amp; !config.showMissingIcons) {
+        reject(<span class="hljs-keyword">new</span> MissingIcon(<span class="hljs-string">"Icon is missing for prefix "</span>.concat(prefix, <span class="hljs-string">" with icon name "</span>).concat(iconName)));
+      } <span class="hljs-keyword">else</span> {
+        resolve(val);
+      }
+    });
+  }
+
+  <span class="hljs-keyword">var</span> styles$<span class="hljs-number">3</span> = namespace.styles;
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateSvgReplacementMutation</span>(<span class="hljs-params">node, nodeMeta</span>) </span>{
+    <span class="hljs-keyword">var</span> iconName = nodeMeta.iconName,
+        title = nodeMeta.title,
+        prefix = nodeMeta.prefix,
+        transform = nodeMeta.transform,
+        symbol = nodeMeta.symbol,
+        mask = nodeMeta.mask,
+        extra = nodeMeta.extra;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> picked(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+      picked.all([findIcon(iconName, prefix), findIcon(mask.iconName, mask.prefix)]).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">_ref</span>) </span>{
+        <span class="hljs-keyword">var</span> _ref2 = _slicedToArray(_ref, <span class="hljs-number">2</span>),
+            main = _ref2[<span class="hljs-number">0</span>],
+            mask = _ref2[<span class="hljs-number">1</span>];
+
+        resolve([node, makeInlineSvgAbstract({
+          <span class="hljs-attr">icons</span>: {
+            <span class="hljs-attr">main</span>: main,
+            <span class="hljs-attr">mask</span>: mask
+          },
+          <span class="hljs-attr">prefix</span>: prefix,
+          <span class="hljs-attr">iconName</span>: iconName,
+          <span class="hljs-attr">transform</span>: transform,
+          <span class="hljs-attr">symbol</span>: symbol,
+          <span class="hljs-attr">mask</span>: mask,
+          <span class="hljs-attr">title</span>: title,
+          <span class="hljs-attr">extra</span>: extra,
+          <span class="hljs-attr">watchable</span>: <span class="hljs-literal">true</span>
+        })]);
+      });
+    });
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateLayersText</span>(<span class="hljs-params">node, nodeMeta</span>) </span>{
+    <span class="hljs-keyword">var</span> title = nodeMeta.title,
+        transform = nodeMeta.transform,
+        extra = nodeMeta.extra;
+    <span class="hljs-keyword">var</span> width = <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">var</span> height = <span class="hljs-literal">null</span>;
+
+    <span class="hljs-keyword">if</span> (IS_IE) {
+      <span class="hljs-keyword">var</span> computedFontSize = <span class="hljs-built_in">parseInt</span>(getComputedStyle(node).fontSize, <span class="hljs-number">10</span>);
+      <span class="hljs-keyword">var</span> boundingClientRect = node.getBoundingClientRect();
+      width = boundingClientRect.width / computedFontSize;
+      height = boundingClientRect.height / computedFontSize;
+    }
+
+    <span class="hljs-keyword">if</span> (config.autoA11y &amp;&amp; !title) {
+      extra.attributes[<span class="hljs-string">'aria-hidden'</span>] = <span class="hljs-string">'true'</span>;
+    }
+
+    <span class="hljs-keyword">return</span> picked.resolve([node, makeLayersTextAbstract({
+      <span class="hljs-attr">content</span>: node.innerHTML,
+      <span class="hljs-attr">width</span>: width,
+      <span class="hljs-attr">height</span>: height,
+      <span class="hljs-attr">transform</span>: transform,
+      <span class="hljs-attr">title</span>: title,
+      <span class="hljs-attr">extra</span>: extra,
+      <span class="hljs-attr">watchable</span>: <span class="hljs-literal">true</span>
+    })]);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateMutation</span>(<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">var</span> nodeMeta = parseMeta(node);
+
+    <span class="hljs-keyword">if</span> (~nodeMeta.extra.classes.indexOf(LAYERS_TEXT_CLASSNAME)) {
+      <span class="hljs-keyword">return</span> generateLayersText(node, nodeMeta);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> generateSvgReplacementMutation(node, nodeMeta);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onTree</span>(<span class="hljs-params">root</span>) </span>{
+    <span class="hljs-keyword">var</span> callback = <span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">1</span> &amp;&amp; <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] !== <span class="hljs-literal">undefined</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] : <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">if</span> (!IS_DOM) <span class="hljs-keyword">return</span>;
+    <span class="hljs-keyword">var</span> htmlClassList = DOCUMENT.documentElement.classList;
+
+    <span class="hljs-keyword">var</span> hclAdd = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hclAdd</span>(<span class="hljs-params">suffix</span>) </span>{
+      <span class="hljs-keyword">return</span> htmlClassList.add(<span class="hljs-string">""</span>.concat(HTML_CLASS_I2SVG_BASE_CLASS, <span class="hljs-string">"-"</span>).concat(suffix));
+    };
+
+    <span class="hljs-keyword">var</span> hclRemove = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hclRemove</span>(<span class="hljs-params">suffix</span>) </span>{
+      <span class="hljs-keyword">return</span> htmlClassList.remove(<span class="hljs-string">""</span>.concat(HTML_CLASS_I2SVG_BASE_CLASS, <span class="hljs-string">"-"</span>).concat(suffix));
+    };
+
+    <span class="hljs-keyword">var</span> prefixes = config.autoFetchSvg ? <span class="hljs-built_in">Object</span>.keys(PREFIX_TO_STYLE) : <span class="hljs-built_in">Object</span>.keys(styles$<span class="hljs-number">3</span>);
+    <span class="hljs-keyword">var</span> prefixesDomQuery = [<span class="hljs-string">"."</span>.concat(LAYERS_TEXT_CLASSNAME, <span class="hljs-string">":not(["</span>).concat(DATA_FA_I2SVG, <span class="hljs-string">"])"</span>)].concat(prefixes.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">p</span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-string">"."</span>.concat(p, <span class="hljs-string">":not(["</span>).concat(DATA_FA_I2SVG, <span class="hljs-string">"])"</span>);
+    })).join(<span class="hljs-string">', '</span>);
+
+    <span class="hljs-keyword">if</span> (prefixesDomQuery.length === <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">var</span> candidates = toArray(root.querySelectorAll(prefixesDomQuery));
+
+    <span class="hljs-keyword">if</span> (candidates.length &gt; <span class="hljs-number">0</span>) {
+      hclAdd(<span class="hljs-string">'pending'</span>);
+      hclRemove(<span class="hljs-string">'complete'</span>);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">var</span> mark = perf.begin(<span class="hljs-string">'onTree'</span>);
+    <span class="hljs-keyword">var</span> mutations = candidates.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acc, node</span>) </span>{
+      <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">var</span> mutation = generateMutation(node);
+
+        <span class="hljs-keyword">if</span> (mutation) {
+          acc.push(mutation);
+        }
+      } <span class="hljs-keyword">catch</span> (e) {
+        <span class="hljs-keyword">if</span> (!PRODUCTION) {
+          <span class="hljs-keyword">if</span> (e <span class="hljs-keyword">instanceof</span> MissingIcon) {
+            <span class="hljs-built_in">console</span>.error(e);
+          }
+        }
+      }
+
+      <span class="hljs-keyword">return</span> acc;
+    }, []);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> picked(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+      picked.all(mutations).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolvedMutations</span>) </span>{
+        perform(resolvedMutations, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+          hclAdd(<span class="hljs-string">'active'</span>);
+          hclAdd(<span class="hljs-string">'complete'</span>);
+          hclRemove(<span class="hljs-string">'pending'</span>);
+          <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> callback === <span class="hljs-string">'function'</span>) callback();
+          mark();
+          resolve();
+        });
+      }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        mark();
+        reject();
+      });
+    });
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onNode</span>(<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">var</span> callback = <span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">1</span> &amp;&amp; <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] !== <span class="hljs-literal">undefined</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] : <span class="hljs-literal">null</span>;
+    generateMutation(node).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">mutation</span>) </span>{
+      <span class="hljs-keyword">if</span> (mutation) {
+        perform([mutation], callback);
+      }
+    });
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">replaceForPosition</span>(<span class="hljs-params">node, position</span>) </span>{
+    <span class="hljs-keyword">var</span> pendingAttribute = <span class="hljs-string">""</span>.concat(DATA_FA_PSEUDO_ELEMENT_PENDING).concat(position.replace(<span class="hljs-string">':'</span>, <span class="hljs-string">'-'</span>));
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> picked(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+      <span class="hljs-keyword">if</span> (node.getAttribute(pendingAttribute) !== <span class="hljs-literal">null</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>This node is already being processed</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">return</span> resolve();
+      }
+
+      <span class="hljs-keyword">var</span> children = toArray(node.children);
+      <span class="hljs-keyword">var</span> alreadyProcessedPseudoElement = children.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">c</span>) </span>{
+        <span class="hljs-keyword">return</span> c.getAttribute(DATA_FA_PSEUDO_ELEMENT) === position;
+      })[<span class="hljs-number">0</span>];
+      <span class="hljs-keyword">var</span> styles = WINDOW.getComputedStyle(node, position);
+      <span class="hljs-keyword">var</span> fontFamily = styles.getPropertyValue(<span class="hljs-string">'font-family'</span>).match(FONT_FAMILY_PATTERN);
+      <span class="hljs-keyword">var</span> fontWeight = styles.getPropertyValue(<span class="hljs-string">'font-weight'</span>);
+
+      <span class="hljs-keyword">if</span> (alreadyProcessedPseudoElement &amp;&amp; !fontFamily) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>If we've already processed it but the current computed style does not result in a font-family,
+that probably means that a class name that was previously present to make the icon has been
+removed. So we now should delete the icon.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        node.removeChild(alreadyProcessedPseudoElement);
+        <span class="hljs-keyword">return</span> resolve();
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (fontFamily) {
+        <span class="hljs-keyword">var</span> content = styles.getPropertyValue(<span class="hljs-string">'content'</span>);
+        <span class="hljs-keyword">var</span> prefix = ~[<span class="hljs-string">'Light'</span>, <span class="hljs-string">'Regular'</span>, <span class="hljs-string">'Solid'</span>, <span class="hljs-string">'Brands'</span>].indexOf(fontFamily[<span class="hljs-number">1</span>]) ? STYLE_TO_PREFIX[fontFamily[<span class="hljs-number">1</span>].toLowerCase()] : FONT_WEIGHT_TO_PREFIX[fontWeight];
+        <span class="hljs-keyword">var</span> iconName = byUnicode(prefix, toHex(content.length === <span class="hljs-number">3</span> ? content.substr(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>) : content)); <span class="hljs-comment">// Only convert the pseudo element in this :before/:after position into an icon if we haven't</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>already done so with the same prefix and iconName</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+        <span class="hljs-keyword">if</span> (!alreadyProcessedPseudoElement || alreadyProcessedPseudoElement.getAttribute(DATA_PREFIX) !== prefix || alreadyProcessedPseudoElement.getAttribute(DATA_ICON) !== iconName) {
+          node.setAttribute(pendingAttribute, iconName);
+
+          <span class="hljs-keyword">if</span> (alreadyProcessedPseudoElement) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>Delete the old one, since we're replacing it with a new one</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">            node.removeChild(alreadyProcessedPseudoElement);
+          }
+
+          <span class="hljs-keyword">var</span> meta = blankMeta();
+          <span class="hljs-keyword">var</span> extra = meta.extra;
+          extra.attributes[DATA_FA_PSEUDO_ELEMENT] = position;
+          findIcon(iconName, prefix).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">main</span>) </span>{
+            <span class="hljs-keyword">var</span> abstract = makeInlineSvgAbstract(_objectSpread({}, meta, {
+              <span class="hljs-attr">icons</span>: {
+                <span class="hljs-attr">main</span>: main,
+                <span class="hljs-attr">mask</span>: emptyCanonicalIcon()
+              },
+              <span class="hljs-attr">prefix</span>: prefix,
+              <span class="hljs-attr">iconName</span>: iconName,
+              <span class="hljs-attr">extra</span>: extra,
+              <span class="hljs-attr">watchable</span>: <span class="hljs-literal">true</span>
+            }));
+            <span class="hljs-keyword">var</span> element = DOCUMENT.createElement(<span class="hljs-string">'svg'</span>);
+
+            <span class="hljs-keyword">if</span> (position === <span class="hljs-string">':before'</span>) {
+              node.insertBefore(element, node.firstChild);
+            } <span class="hljs-keyword">else</span> {
+              node.appendChild(element);
+            }
+
+            element.outerHTML = abstract.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) </span>{
+              <span class="hljs-keyword">return</span> toHtml(a);
+            }).join(<span class="hljs-string">'\n'</span>);
+            node.removeAttribute(pendingAttribute);
+            resolve();
+          }).catch(reject);
+        } <span class="hljs-keyword">else</span> {
+          resolve();
+        }
+      } <span class="hljs-keyword">else</span> {
+        resolve();
+      }
+    });
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">replace</span>(<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">return</span> picked.all([replaceForPosition(node, <span class="hljs-string">':before'</span>), replaceForPosition(node, <span class="hljs-string">':after'</span>)]);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">processable</span>(<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">return</span> node.parentNode !== <span class="hljs-built_in">document</span>.head &amp;&amp; !~TAGNAMES_TO_SKIP_FOR_PSEUDOELEMENTS.indexOf(node.tagName.toUpperCase()) &amp;&amp; !node.getAttribute(DATA_FA_PSEUDO_ELEMENT) &amp;&amp; (!node.parentNode || node.parentNode.tagName !== <span class="hljs-string">'svg'</span>);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">searchPseudoElements</span> (<span class="hljs-params">root</span>) </span>{
+    <span class="hljs-keyword">if</span> (!IS_DOM) <span class="hljs-keyword">return</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> picked(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>{
+      <span class="hljs-keyword">var</span> operations = toArray(root.querySelectorAll(<span class="hljs-string">'*'</span>)).filter(processable).map(replace);
+      <span class="hljs-keyword">var</span> end = perf.begin(<span class="hljs-string">'searchPseudoElements'</span>);
+      disableObservation();
+      picked.all(operations).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        end();
+        enableObservation();
+        resolve();
+      }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        end();
+        enableObservation();
+        reject();
+      });
+    });
+  }
+
+  <span class="hljs-keyword">var</span> baseStyles = <span class="hljs-string">"svg:not(:root).svg-inline--fa{overflow:visible}.svg-inline--fa{display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em}.svg-inline--fa.fa-lg{vertical-align:-.225em}.svg-inline--fa.fa-w-1{width:.0625em}.svg-inline--fa.fa-w-2{width:.125em}.svg-inline--fa.fa-w-3{width:.1875em}.svg-inline--fa.fa-w-4{width:.25em}.svg-inline--fa.fa-w-5{width:.3125em}.svg-inline--fa.fa-w-6{width:.375em}.svg-inline--fa.fa-w-7{width:.4375em}.svg-inline--fa.fa-w-8{width:.5em}.svg-inline--fa.fa-w-9{width:.5625em}.svg-inline--fa.fa-w-10{width:.625em}.svg-inline--fa.fa-w-11{width:.6875em}.svg-inline--fa.fa-w-12{width:.75em}.svg-inline--fa.fa-w-13{width:.8125em}.svg-inline--fa.fa-w-14{width:.875em}.svg-inline--fa.fa-w-15{width:.9375em}.svg-inline--fa.fa-w-16{width:1em}.svg-inline--fa.fa-w-17{width:1.0625em}.svg-inline--fa.fa-w-18{width:1.125em}.svg-inline--fa.fa-w-19{width:1.1875em}.svg-inline--fa.fa-w-20{width:1.25em}.svg-inline--fa.fa-pull-left{margin-right:.3em;width:auto}.svg-inline--fa.fa-pull-right{margin-left:.3em;width:auto}.svg-inline--fa.fa-border{height:1.5em}.svg-inline--fa.fa-li{width:2em}.svg-inline--fa.fa-fw{width:1.25em}.fa-layers svg.svg-inline--fa{bottom:0;left:0;margin:auto;position:absolute;right:0;top:0}.fa-layers{display:inline-block;height:1em;position:relative;text-align:center;vertical-align:-.125em;width:1em}.fa-layers svg.svg-inline--fa{-webkit-transform-origin:center center;transform-origin:center center}.fa-layers-counter,.fa-layers-text{display:inline-block;position:absolute;text-align:center}.fa-layers-text{left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);-webkit-transform-origin:center center;transform-origin:center center}.fa-layers-counter{background-color:#ff253a;border-radius:1em;-webkit-box-sizing:border-box;box-sizing:border-box;color:#fff;height:1.5em;line-height:1;max-width:5em;min-width:1.5em;overflow:hidden;padding:.25em;right:0;text-overflow:ellipsis;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top right;transform-origin:top right}.fa-layers-bottom-right{bottom:0;right:0;top:auto;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:bottom right;transform-origin:bottom right}.fa-layers-bottom-left{bottom:0;left:0;right:auto;top:auto;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:bottom left;transform-origin:bottom left}.fa-layers-top-right{right:0;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top right;transform-origin:top right}.fa-layers-top-left{left:0;right:auto;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top left;transform-origin:top left}.fa-lg{font-size:1.3333333333em;line-height:.75em;vertical-align:-.0667em}.fa-xs{font-size:.75em}.fa-sm{font-size:.875em}.fa-1x{font-size:1em}.fa-2x{font-size:2em}.fa-3x{font-size:3em}.fa-4x{font-size:4em}.fa-5x{font-size:5em}.fa-6x{font-size:6em}.fa-7x{font-size:7em}.fa-8x{font-size:8em}.fa-9x{font-size:9em}.fa-10x{font-size:10em}.fa-fw{text-align:center;width:1.25em}.fa-ul{list-style-type:none;margin-left:2.5em;padding-left:0}.fa-ul&gt;li{position:relative}.fa-li{left:-2em;position:absolute;text-align:center;width:2em;line-height:inherit}.fa-border{border:solid .08em #eee;border-radius:.1em;padding:.2em .25em .15em}.fa-pull-left{float:left}.fa-pull-right{float:right}.fa.fa-pull-left,.fab.fa-pull-left,.fal.fa-pull-left,.far.fa-pull-left,.fas.fa-pull-left{margin-right:.3em}.fa.fa-pull-right,.fab.fa-pull-right,.fal.fa-pull-right,.far.fa-pull-right,.fas.fa-pull-right{margin-left:.3em}.fa-spin{-webkit-animation:fa-spin 2s infinite linear;animation:fa-spin 2s infinite linear}.fa-pulse{-webkit-animation:fa-spin 1s infinite steps(8);animation:fa-spin 1s infinite steps(8)}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.fa-rotate-90{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.fa-rotate-180{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.fa-rotate-270{-webkit-transform:rotate(270deg);transform:rotate(270deg)}.fa-flip-horizontal{-webkit-transform:scale(-1,1);transform:scale(-1,1)}.fa-flip-vertical{-webkit-transform:scale(1,-1);transform:scale(1,-1)}.fa-flip-both,.fa-flip-horizontal.fa-flip-vertical{-webkit-transform:scale(-1,-1);transform:scale(-1,-1)}:root .fa-flip-both,:root .fa-flip-horizontal,:root .fa-flip-vertical,:root .fa-rotate-180,:root .fa-rotate-270,:root .fa-rotate-90{-webkit-filter:none;filter:none}.fa-stack{display:inline-block;height:2em;position:relative;width:2.5em}.fa-stack-1x,.fa-stack-2x{bottom:0;left:0;margin:auto;position:absolute;right:0;top:0}.svg-inline--fa.fa-stack-1x{height:1em;width:1.25em}.svg-inline--fa.fa-stack-2x{height:2em;width:2.5em}.fa-inverse{color:#fff}.sr-only{border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.sr-only-focusable:active,.sr-only-focusable:focus{clip:auto;height:auto;margin:0;overflow:visible;position:static;width:auto}"</span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">css</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> dfp = DEFAULT_FAMILY_PREFIX;
+    <span class="hljs-keyword">var</span> drc = DEFAULT_REPLACEMENT_CLASS;
+    <span class="hljs-keyword">var</span> fp = config.familyPrefix;
+    <span class="hljs-keyword">var</span> rc = config.replacementClass;
+    <span class="hljs-keyword">var</span> s = baseStyles;
+
+    <span class="hljs-keyword">if</span> (fp !== dfp || rc !== drc) {
+      <span class="hljs-keyword">var</span> dPatt = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">"\\."</span>.concat(dfp, <span class="hljs-string">"\\-"</span>), <span class="hljs-string">'g'</span>);
+      <span class="hljs-keyword">var</span> rPatt = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">"\\."</span>.concat(drc), <span class="hljs-string">'g'</span>);
+      s = s.replace(dPatt, <span class="hljs-string">"."</span>.concat(fp, <span class="hljs-string">"-"</span>)).replace(rPatt, <span class="hljs-string">"."</span>.concat(rc));
+    }
+
+    <span class="hljs-keyword">return</span> s;
+  }
+
+  <span class="hljs-keyword">var</span> Library =
+  <span class="hljs-comment">/*#__PURE__*/</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Library</span>(<span class="hljs-params"></span>) </span>{
+      _classCallCheck(<span class="hljs-keyword">this</span>, Library);
+
+      <span class="hljs-keyword">this</span>.definitions = {};
+    }
+
+    _createClass(Library, [{
+      <span class="hljs-attr">key</span>: <span class="hljs-string">"add"</span>,
+      <span class="hljs-attr">value</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> _this = <span class="hljs-keyword">this</span>;
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> _len = <span class="hljs-built_in">arguments</span>.length, definitions = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(_len), _key = <span class="hljs-number">0</span>; _key &lt; _len; _key++) {
+          definitions[_key] = <span class="hljs-built_in">arguments</span>[_key];
+        }
+
+        <span class="hljs-keyword">var</span> additions = definitions.reduce(<span class="hljs-keyword">this</span>._pullDefinitions, {});
+        <span class="hljs-built_in">Object</span>.keys(additions).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>{
+          _this.definitions[key] = _objectSpread({}, _this.definitions[key] || {}, additions[key]);
+          defineIcons(key, additions[key]);
+          build();
+        });
+      }
+    }, {
+      <span class="hljs-attr">key</span>: <span class="hljs-string">"reset"</span>,
+      <span class="hljs-attr">value</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reset</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.definitions = {};
+      }
+    }, {
+      <span class="hljs-attr">key</span>: <span class="hljs-string">"_pullDefinitions"</span>,
+      <span class="hljs-attr">value</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_pullDefinitions</span>(<span class="hljs-params">additions, definition</span>) </span>{
+        <span class="hljs-keyword">var</span> normalized = definition.prefix &amp;&amp; definition.iconName &amp;&amp; definition.icon ? {
+          <span class="hljs-number">0</span>: definition
+        } : definition;
+        <span class="hljs-built_in">Object</span>.keys(normalized).map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>{
+          <span class="hljs-keyword">var</span> _normalized$key = normalized[key],
+              prefix = _normalized$key.prefix,
+              iconName = _normalized$key.iconName,
+              icon = _normalized$key.icon;
+          <span class="hljs-keyword">if</span> (!additions[prefix]) additions[prefix] = {};
+          additions[prefix][iconName] = icon;
+        });
+        <span class="hljs-keyword">return</span> additions;
+      }
+    }]);
+
+    <span class="hljs-keyword">return</span> Library;
+  }();
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">prepIcon</span>(<span class="hljs-params">icon</span>) </span>{
+    <span class="hljs-keyword">var</span> width = icon[<span class="hljs-number">0</span>];
+    <span class="hljs-keyword">var</span> height = icon[<span class="hljs-number">1</span>];
+    <span class="hljs-keyword">var</span> vectorData = icon.slice(<span class="hljs-number">4</span>);
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">found</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">width</span>: width,
+      <span class="hljs-attr">height</span>: height,
+      <span class="hljs-attr">icon</span>: {
+        <span class="hljs-attr">tag</span>: <span class="hljs-string">'path'</span>,
+        <span class="hljs-attr">attributes</span>: {
+          <span class="hljs-attr">fill</span>: <span class="hljs-string">'currentColor'</span>,
+          <span class="hljs-attr">d</span>: vectorData[<span class="hljs-number">0</span>]
+        }
+      }
+    };
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ensureCss</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (config.autoAddCss &amp;&amp; !_cssInserted) {
+      insertCss(css());
+
+      _cssInserted = <span class="hljs-literal">true</span>;
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">apiObject</span>(<span class="hljs-params">val, abstractCreator</span>) </span>{
+    <span class="hljs-built_in">Object</span>.defineProperty(val, <span class="hljs-string">'abstract'</span>, {
+      <span class="hljs-attr">get</span>: abstractCreator
+    });
+    <span class="hljs-built_in">Object</span>.defineProperty(val, <span class="hljs-string">'html'</span>, {
+      <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> val.abstract.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) </span>{
+          <span class="hljs-keyword">return</span> toHtml(a);
+        });
+      }
+    });
+    <span class="hljs-built_in">Object</span>.defineProperty(val, <span class="hljs-string">'node'</span>, {
+      <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">if</span> (!IS_DOM) <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">var</span> container = DOCUMENT.createElement(<span class="hljs-string">'div'</span>);
+        container.innerHTML = val.html;
+        <span class="hljs-keyword">return</span> container.children;
+      }
+    });
+    <span class="hljs-keyword">return</span> val;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findIconDefinition</span>(<span class="hljs-params">iconLookup</span>) </span>{
+    <span class="hljs-keyword">var</span> _iconLookup$prefix = iconLookup.prefix,
+        prefix = _iconLookup$prefix === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? <span class="hljs-string">'fa'</span> : _iconLookup$prefix,
+        iconName = iconLookup.iconName;
+    <span class="hljs-keyword">if</span> (!iconName) <span class="hljs-keyword">return</span>;
+    <span class="hljs-keyword">return</span> iconFromMapping(library.definitions, prefix, iconName) || iconFromMapping(namespace.styles, prefix, iconName);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resolveIcons</span>(<span class="hljs-params">next</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">maybeIconDefinition</span>) </span>{
+      <span class="hljs-keyword">var</span> params = <span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">1</span> &amp;&amp; <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] !== <span class="hljs-literal">undefined</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] : {};
+      <span class="hljs-keyword">var</span> iconDefinition = (maybeIconDefinition || {}).icon ? maybeIconDefinition : findIconDefinition(maybeIconDefinition || {});
+      <span class="hljs-keyword">var</span> mask = params.mask;
+
+      <span class="hljs-keyword">if</span> (mask) {
+        mask = (mask || {}).icon ? mask : findIconDefinition(mask || {});
+      }
+
+      <span class="hljs-keyword">return</span> next(iconDefinition, _objectSpread({}, params, {
+        <span class="hljs-attr">mask</span>: mask
+      }));
+    };
+  }
+
+  <span class="hljs-keyword">var</span> library = <span class="hljs-keyword">new</span> Library();
+  <span class="hljs-keyword">var</span> noAuto = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">noAuto</span>(<span class="hljs-params"></span>) </span>{
+    config.autoReplaceSvg = <span class="hljs-literal">false</span>;
+    config.observeMutations = <span class="hljs-literal">false</span>;
+    disconnect();
+  };
+  <span class="hljs-keyword">var</span> _cssInserted = <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">var</span> dom = {
+    <span class="hljs-attr">i2svg</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">i2svg</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> params = <span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>] !== <span class="hljs-literal">undefined</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>] : {};
+
+      <span class="hljs-keyword">if</span> (IS_DOM) {
+        ensureCss();
+        <span class="hljs-keyword">var</span> _params$node = params.node,
+            node = _params$node === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? DOCUMENT : _params$node,
+            _params$callback = params.callback,
+            callback = _params$callback === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{} : _params$callback;
+
+        <span class="hljs-keyword">if</span> (config.searchPseudoElements) {
+          searchPseudoElements(node);
+        }
+
+        <span class="hljs-keyword">return</span> onTree(node, callback);
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> picked.reject(<span class="hljs-string">'Operation requires a DOM of some kind.'</span>);
+      }
+    },
+    <span class="hljs-attr">css</span>: css,
+    <span class="hljs-attr">insertCss</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insertCss$$1</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">if</span> (!_cssInserted) {
+        insertCss(css());
+
+        _cssInserted = <span class="hljs-literal">true</span>;
+      }
+    },
+    <span class="hljs-attr">watch</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">watch</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> params = <span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>] !== <span class="hljs-literal">undefined</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>] : {};
+      <span class="hljs-keyword">var</span> autoReplaceSvgRoot = params.autoReplaceSvgRoot,
+          observeMutationsRoot = params.observeMutationsRoot;
+
+      <span class="hljs-keyword">if</span> (config.autoReplaceSvg === <span class="hljs-literal">false</span>) {
+        config.autoReplaceSvg = <span class="hljs-literal">true</span>;
+      }
+
+      config.observeMutations = <span class="hljs-literal">true</span>;
+      domready(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        autoReplace({
+          <span class="hljs-attr">autoReplaceSvgRoot</span>: autoReplaceSvgRoot
+        });
+        observe({
+          <span class="hljs-attr">treeCallback</span>: onTree,
+          <span class="hljs-attr">nodeCallback</span>: onNode,
+          <span class="hljs-attr">pseudoElementsCallback</span>: searchPseudoElements,
+          <span class="hljs-attr">observeMutationsRoot</span>: observeMutationsRoot
+        });
+      });
+    }
+  };
+  <span class="hljs-keyword">var</span> parse = {
+    <span class="hljs-attr">transform</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transform</span>(<span class="hljs-params">transformString</span>) </span>{
+      <span class="hljs-keyword">return</span> parseTransformString(transformString);
+    }
+  };
+  <span class="hljs-keyword">var</span> icon = resolveIcons(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">iconDefinition</span>) </span>{
+    <span class="hljs-keyword">var</span> params = <span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">1</span> &amp;&amp; <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] !== <span class="hljs-literal">undefined</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] : {};
+    <span class="hljs-keyword">var</span> _params$transform = params.transform,
+        transform = _params$transform === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? meaninglessTransform : _params$transform,
+        _params$symbol = params.symbol,
+        symbol = _params$symbol === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? <span class="hljs-literal">false</span> : _params$symbol,
+        _params$mask = params.mask,
+        mask = _params$mask === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? <span class="hljs-literal">null</span> : _params$mask,
+        _params$title = params.title,
+        title = _params$title === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? <span class="hljs-literal">null</span> : _params$title,
+        _params$classes = params.classes,
+        classes = _params$classes === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? [] : _params$classes,
+        _params$attributes = params.attributes,
+        attributes = _params$attributes === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? {} : _params$attributes,
+        _params$styles = params.styles,
+        styles = _params$styles === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? {} : _params$styles;
+    <span class="hljs-keyword">if</span> (!iconDefinition) <span class="hljs-keyword">return</span>;
+    <span class="hljs-keyword">var</span> prefix = iconDefinition.prefix,
+        iconName = iconDefinition.iconName,
+        icon = iconDefinition.icon;
+    <span class="hljs-keyword">return</span> apiObject(_objectSpread({
+      <span class="hljs-attr">type</span>: <span class="hljs-string">'icon'</span>
+    }, iconDefinition), <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      ensureCss();
+
+      <span class="hljs-keyword">if</span> (config.autoA11y) {
+        <span class="hljs-keyword">if</span> (title) {
+          attributes[<span class="hljs-string">'aria-labelledby'</span>] = <span class="hljs-string">""</span>.concat(config.replacementClass, <span class="hljs-string">"-title-"</span>).concat(nextUniqueId());
+        } <span class="hljs-keyword">else</span> {
+          attributes[<span class="hljs-string">'aria-hidden'</span>] = <span class="hljs-string">'true'</span>;
+          attributes[<span class="hljs-string">'focusable'</span>] = <span class="hljs-string">'false'</span>;
+        }
+      }
+
+      <span class="hljs-keyword">return</span> makeInlineSvgAbstract({
+        <span class="hljs-attr">icons</span>: {
+          <span class="hljs-attr">main</span>: prepIcon(icon),
+          <span class="hljs-attr">mask</span>: mask ? prepIcon(mask.icon) : {
+            <span class="hljs-attr">found</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">width</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">height</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">icon</span>: {}
+          }
+        },
+        <span class="hljs-attr">prefix</span>: prefix,
+        <span class="hljs-attr">iconName</span>: iconName,
+        <span class="hljs-attr">transform</span>: _objectSpread({}, meaninglessTransform, transform),
+        <span class="hljs-attr">symbol</span>: symbol,
+        <span class="hljs-attr">title</span>: title,
+        <span class="hljs-attr">extra</span>: {
+          <span class="hljs-attr">attributes</span>: attributes,
+          <span class="hljs-attr">styles</span>: styles,
+          <span class="hljs-attr">classes</span>: classes
+        }
+      });
+    });
+  });
+  <span class="hljs-keyword">var</span> text = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">text</span>(<span class="hljs-params">content</span>) </span>{
+    <span class="hljs-keyword">var</span> params = <span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">1</span> &amp;&amp; <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] !== <span class="hljs-literal">undefined</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] : {};
+    <span class="hljs-keyword">var</span> _params$transform2 = params.transform,
+        transform = _params$transform2 === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? meaninglessTransform : _params$transform2,
+        _params$title2 = params.title,
+        title = _params$title2 === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? <span class="hljs-literal">null</span> : _params$title2,
+        _params$classes2 = params.classes,
+        classes = _params$classes2 === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? [] : _params$classes2,
+        _params$attributes2 = params.attributes,
+        attributes = _params$attributes2 === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? {} : _params$attributes2,
+        _params$styles2 = params.styles,
+        styles = _params$styles2 === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? {} : _params$styles2;
+    <span class="hljs-keyword">return</span> apiObject({
+      <span class="hljs-attr">type</span>: <span class="hljs-string">'text'</span>,
+      <span class="hljs-attr">content</span>: content
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      ensureCss();
+      <span class="hljs-keyword">return</span> makeLayersTextAbstract({
+        <span class="hljs-attr">content</span>: content,
+        <span class="hljs-attr">transform</span>: _objectSpread({}, meaninglessTransform, transform),
+        <span class="hljs-attr">title</span>: title,
+        <span class="hljs-attr">extra</span>: {
+          <span class="hljs-attr">attributes</span>: attributes,
+          <span class="hljs-attr">styles</span>: styles,
+          <span class="hljs-attr">classes</span>: [<span class="hljs-string">""</span>.concat(config.familyPrefix, <span class="hljs-string">"-layers-text"</span>)].concat(_toConsumableArray(classes))
+        }
+      });
+    });
+  };
+  <span class="hljs-keyword">var</span> counter = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">counter</span>(<span class="hljs-params">content</span>) </span>{
+    <span class="hljs-keyword">var</span> params = <span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">1</span> &amp;&amp; <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] !== <span class="hljs-literal">undefined</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] : {};
+    <span class="hljs-keyword">var</span> _params$title3 = params.title,
+        title = _params$title3 === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? <span class="hljs-literal">null</span> : _params$title3,
+        _params$classes3 = params.classes,
+        classes = _params$classes3 === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? [] : _params$classes3,
+        _params$attributes3 = params.attributes,
+        attributes = _params$attributes3 === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? {} : _params$attributes3,
+        _params$styles3 = params.styles,
+        styles = _params$styles3 === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? {} : _params$styles3;
+    <span class="hljs-keyword">return</span> apiObject({
+      <span class="hljs-attr">type</span>: <span class="hljs-string">'counter'</span>,
+      <span class="hljs-attr">content</span>: content
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      ensureCss();
+      <span class="hljs-keyword">return</span> makeLayersCounterAbstract({
+        <span class="hljs-attr">content</span>: content.toString(),
+        <span class="hljs-attr">title</span>: title,
+        <span class="hljs-attr">extra</span>: {
+          <span class="hljs-attr">attributes</span>: attributes,
+          <span class="hljs-attr">styles</span>: styles,
+          <span class="hljs-attr">classes</span>: [<span class="hljs-string">""</span>.concat(config.familyPrefix, <span class="hljs-string">"-layers-counter"</span>)].concat(_toConsumableArray(classes))
+        }
+      });
+    });
+  };
+  <span class="hljs-keyword">var</span> layer = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">layer</span>(<span class="hljs-params">assembler</span>) </span>{
+    <span class="hljs-keyword">return</span> apiObject({
+      <span class="hljs-attr">type</span>: <span class="hljs-string">'layer'</span>
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      ensureCss();
+      <span class="hljs-keyword">var</span> children = [];
+      assembler(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">args</span>) </span>{
+        <span class="hljs-built_in">Array</span>.isArray(args) ? args.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) </span>{
+          children = children.concat(a.abstract);
+        }) : children = children.concat(args.abstract);
+      });
+      <span class="hljs-keyword">return</span> [{
+        <span class="hljs-attr">tag</span>: <span class="hljs-string">'span'</span>,
+        <span class="hljs-attr">attributes</span>: {
+          <span class="hljs-attr">class</span>: <span class="hljs-string">""</span>.concat(config.familyPrefix, <span class="hljs-string">"-layers"</span>)
+        },
+        <span class="hljs-attr">children</span>: children
+      }];
+    });
+  };
+  <span class="hljs-keyword">var</span> api = {
+    <span class="hljs-attr">noAuto</span>: noAuto,
+    <span class="hljs-attr">config</span>: config,
+    <span class="hljs-attr">dom</span>: dom,
+    <span class="hljs-attr">library</span>: library,
+    <span class="hljs-attr">parse</span>: parse,
+    <span class="hljs-attr">findIconDefinition</span>: findIconDefinition,
+    <span class="hljs-attr">icon</span>: icon,
+    <span class="hljs-attr">text</span>: text,
+    <span class="hljs-attr">counter</span>: counter,
+    <span class="hljs-attr">layer</span>: layer,
+    <span class="hljs-attr">toHtml</span>: toHtml
+  };
+
+  <span class="hljs-keyword">var</span> autoReplace = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">autoReplace</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> params = <span class="hljs-built_in">arguments</span>.length &gt; <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>] !== <span class="hljs-literal">undefined</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>] : {};
+    <span class="hljs-keyword">var</span> _params$autoReplaceSv = params.autoReplaceSvgRoot,
+        autoReplaceSvgRoot = _params$autoReplaceSv === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> ? DOCUMENT : _params$autoReplaceSv;
+    <span class="hljs-keyword">if</span> ((<span class="hljs-built_in">Object</span>.keys(namespace.styles).length &gt; <span class="hljs-number">0</span> || config.autoFetchSvg) &amp;&amp; IS_DOM &amp;&amp; config.autoReplaceSvg) api.dom.i2svg({
+      <span class="hljs-attr">node</span>: autoReplaceSvgRoot
+    });
+  };
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bootstrap</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (IS_BROWSER) {
+      <span class="hljs-keyword">if</span> (!WINDOW.FontAwesome) {
+        WINDOW.FontAwesome = api;
+      }
+
+      domready(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        autoReplace();
+        observe({
+          <span class="hljs-attr">treeCallback</span>: onTree,
+          <span class="hljs-attr">nodeCallback</span>: onNode,
+          <span class="hljs-attr">pseudoElementsCallback</span>: searchPseudoElements
+        });
+      });
+    }
+
+    namespace.hooks = _objectSpread({}, namespace.hooks, {
+      <span class="hljs-attr">addPack</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addPack</span>(<span class="hljs-params">prefix, icons</span>) </span>{
+        namespace.styles[prefix] = _objectSpread({}, namespace.styles[prefix] || {}, icons);
+        build();
+        autoReplace();
+      },
+      <span class="hljs-attr">addShims</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addShims</span>(<span class="hljs-params">shims</span>) </span>{
+        <span class="hljs-keyword">var</span> _namespace$shims;
+
+        (_namespace$shims = namespace.shims).push.apply(_namespace$shims, _toConsumableArray(shims));
+
+        build();
+        autoReplace();
+      }
+    });
+  }
+
+  bunker(bootstrap);
+
+}());
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

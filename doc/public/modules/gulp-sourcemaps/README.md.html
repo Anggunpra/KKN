@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-sourcemaps\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#gulp-sourcemaps">gulp-sourcemaps    </a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#write-inline-source-maps">Write inline source maps</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#write-external-source-map-files">Write external source map files</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#load-existing-source-maps">Load existing source maps</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#handle-source-files-from-different-directories">Handle source files from different directories</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#init-options">Init Options</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#write-options">Write Options</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#plugin-developers-only-how-to-add-source-map-support-to-plugins">Plugin developers only: How to add source map support to plugins</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#example">Example:</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="gulp-sourcemaps">
+  <h2>
+    <a href="#gulp-sourcemaps" name="gulp-sourcemaps" class="pilcrow"></a>
+gulp-sourcemaps  <a href="https://www.npmjs.com/package/gulp-sourcemaps"><img src="https://img.shields.io/npm/v/gulp-sourcemaps.svg" alt="NPM version"></a> <a href="https://travis-ci.org/floridoo/gulp-sourcemaps"><img src="https://img.shields.io/travis/floridoo/gulp-sourcemaps.svg" alt="build status"></a> <a href="https://coveralls.io/r/floridoo/gulp-sourcemaps?branch=master"><img src="https://img.shields.io/coveralls/floridoo/gulp-sourcemaps.svg" alt="Test coverage"></a>
+  </h2>
+</div>
+<div class="pilwrap" id="usage">
+  <h3>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h3>
+</div>
+<div class="pilwrap" id="write-inline-source-maps">
+  <h4>
+    <a href="#write-inline-source-maps" name="write-inline-source-maps" class="pilcrow"></a>
+Write inline source maps
+  </h4>
+</div>
+<p>Inline source maps are embedded in the source file.</p>
+<p>Example:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> plugin1 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-plugin1'</span>);
+<span class="hljs-keyword">var</span> plugin2 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-plugin2'</span>);
+<span class="hljs-keyword">var</span> sourcemaps = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-sourcemaps'</span>);
+
+gulp.task(<span class="hljs-string">'javascript'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  gulp.src(<span class="hljs-string">'src/**/*.js'</span>)
+    .pipe(sourcemaps.init())
+      .pipe(plugin1())
+      .pipe(plugin2())
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(<span class="hljs-string">'dist'</span>));
+});
+</code></pre>
+<p>All plugins between <code>sourcemaps.init()</code> and <code>sourcemaps.write()</code> need to have support for <code>gulp-sourcemaps</code>. You can find a list of such plugins in the <a href="https://github.com/floridoo/gulp-sourcemaps/wiki/Plugins-with-gulp-sourcemaps-support">wiki</a>.</p>
+<div class="pilwrap" id="write-external-source-map-files">
+  <h4>
+    <a href="#write-external-source-map-files" name="write-external-source-map-files" class="pilcrow"></a>
+Write external source map files
+  </h4>
+</div>
+<p>To write external source map files, pass a path relative to the destination to <code>sourcemaps.write()</code>.</p>
+<p>Example:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> plugin1 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-plugin1'</span>);
+<span class="hljs-keyword">var</span> plugin2 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-plugin2'</span>);
+<span class="hljs-keyword">var</span> sourcemaps = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-sourcemaps'</span>);
+
+gulp.task(<span class="hljs-string">'javascript'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  gulp.src(<span class="hljs-string">'src/**/*.js'</span>)
+    .pipe(sourcemaps.init())
+      .pipe(plugin1())
+      .pipe(plugin2())
+    .pipe(sourcemaps.write(<span class="hljs-string">'../maps'</span>))
+    .pipe(gulp.dest(<span class="hljs-string">'dist'</span>));
+});
+</code></pre>
+<div class="pilwrap" id="load-existing-source-maps">
+  <h4>
+    <a href="#load-existing-source-maps" name="load-existing-source-maps" class="pilcrow"></a>
+Load existing source maps
+  </h4>
+</div>
+<p>To load existing source maps, pass the option <code>loadMaps: true</code> to <code>sourcemaps.init()</code>.</p>
+<p>Example:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> plugin1 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-plugin1'</span>);
+<span class="hljs-keyword">var</span> plugin2 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-plugin2'</span>);
+<span class="hljs-keyword">var</span> sourcemaps = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-sourcemaps'</span>);
+
+gulp.task(<span class="hljs-string">'javascript'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  gulp.src(<span class="hljs-string">'src/**/*.js'</span>)
+    .pipe(sourcemaps.init({<span class="hljs-attr">loadMaps</span>: <span class="hljs-literal">true</span>}))
+      .pipe(plugin1())
+      .pipe(plugin2())
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(<span class="hljs-string">'dist'</span>));
+});
+</code></pre>
+<div class="pilwrap" id="handle-source-files-from-different-directories">
+  <h4>
+    <a href="#handle-source-files-from-different-directories" name="handle-source-files-from-different-directories" class="pilcrow"></a>
+Handle source files from different directories
+  </h4>
+</div>
+<p>Use the <code>base</code> option on <code>gulp.src</code> to make sure all files are relative to a common base directory.</p>
+<p>Example:</p>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+<span class="hljs-keyword">var</span> plugin1 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-plugin1'</span>);
+<span class="hljs-keyword">var</span> plugin2 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-plugin2'</span>);
+<span class="hljs-keyword">var</span> sourcemaps = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-sourcemaps'</span>);
+
+gulp.task(<span class="hljs-string">'javascript'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+gulp.src([<span class="hljs-string">'src/test.js'</span>, <span class="hljs-string">'src/testdir/test2.js'</span>], { <span class="hljs-attr">base</span>: <span class="hljs-string">'src'</span> })
+    .pipe(sourcemaps.init())
+      .pipe(plugin1())
+      .pipe(plugin2())
+    .pipe(sourcemaps.write(<span class="hljs-string">'../maps'</span>))
+    .pipe(gulp.dest(<span class="hljs-string">'dist'</span>));
+});
+</code></pre>
+<div class="pilwrap" id="init-options">
+  <h3>
+    <a href="#init-options" name="init-options" class="pilcrow"></a>
+Init Options
+  </h3>
+</div>
+<ul>
+<li>
+<p><code>loadMaps</code>
+Set to true to load existing maps for source files. Supports the following:</p>
+<ul>
+<li>inline source maps</li>
+<li>source map files referenced by a <code>sourceMappingURL=</code> comment</li>
+<li>source map files with the same name (plus .map) in the same directory</li>
+</ul>
+</li>
+<li>
+<p><code>debug</code>
+Set this to <code>true</code> to output debug messages (e.g. about missing source content).</p>
+</li>
+</ul>
+<div class="pilwrap" id="write-options">
+  <h3>
+    <a href="#write-options" name="write-options" class="pilcrow"></a>
+Write Options
+  </h3>
+</div>
+<ul>
+<li>
+<p><code>addComment</code></p>
+<p>By default a comment containing / referencing the source map is added. Set this to <code>false</code> to disable the comment (e.g. if you want to load the source maps by header).</p>
+<p>Example:</p>
+<pre><code class="javascript">gulp.task(<span class="hljs-string">'javascript'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> stream = gulp.src(<span class="hljs-string">'src/**/*.js'</span>)
+    .pipe(sourcemaps.init())
+      .pipe(plugin1())
+      .pipe(plugin2())
+    .pipe(sourcemaps.write(<span class="hljs-string">'../maps'</span>, {<span class="hljs-attr">addComment</span>: <span class="hljs-literal">false</span>}))
+    .pipe(gulp.dest(<span class="hljs-string">'dist'</span>));
+});
+</code></pre>
+</li>
+<li>
+<p><code>includeContent</code></p>
+<p>By default the source maps include the source code. Pass <code>false</code> to use the original files.</p>
+<p>Including the content is the recommended way, because it &quot;just works&quot;. When setting this to <code>false</code> you have to host the source files and set the correct <code>sourceRoot</code>.</p>
+</li>
+<li>
+<p><code>sourceRoot</code></p>
+<p>Set the path where the source files are hosted (use this when <code>includeContent</code> is set to <code>false</code>). This is an URL (or subpath) relative to the source map, not a local file system path. If you have sources in different subpaths, an absolute path (from the domain root) pointing to the source file root is recommended, or define it with a function.</p>
+<p>Example:</p>
+<pre><code class="javascript">gulp.task(<span class="hljs-string">'javascript'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> stream = gulp.src(<span class="hljs-string">'src/**/*.js'</span>)
+    .pipe(sourcemaps.init())
+      .pipe(plugin1())
+      .pipe(plugin2())
+    .pipe(sourcemaps.write({<span class="hljs-attr">includeContent</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">sourceRoot</span>: <span class="hljs-string">'/src'</span>}))
+    .pipe(gulp.dest(<span class="hljs-string">'dist'</span>));
+});
+</code></pre>
+<p>Example (using a function):</p>
+<pre><code class="javascript">gulp.task(<span class="hljs-string">'javascript'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> stream = gulp.src(<span class="hljs-string">'src/**/*.js'</span>)
+    .pipe(sourcemaps.init())
+      .pipe(plugin1())
+      .pipe(plugin2())
+    .pipe(sourcemaps.write({
+      <span class="hljs-attr">includeContent</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">sourceRoot</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">file</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'/src'</span>;
+      }
+     }))
+    .pipe(gulp.dest(<span class="hljs-string">'dist'</span>));
+});
+</code></pre>
+</li>
+<li>
+<p><code>sourceMappingURLPrefix</code></p>
+<p>Specify a prefix to be prepended onto the source map URL when writing external source maps. Relative paths will have their leading dots stripped.</p>
+<p>Example:</p>
+<pre><code class="javascript">gulp.task(<span class="hljs-string">'javascript'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> stream = gulp.src(<span class="hljs-string">'src/**/*.js'</span>)
+    .pipe(sourcemaps.init())
+      .pipe(plugin1())
+      .pipe(plugin2())
+    .pipe(sourcemaps.write(<span class="hljs-string">'../maps'</span>, {
+      <span class="hljs-attr">sourceMappingURLPrefix</span>: <span class="hljs-string">'https://asset-host.example.com/assets'</span>
+    }))
+    .pipe(gulp.dest(<span class="hljs-string">'public/scripts'</span>));
+});
+</code></pre>
+<p>This will result in a source mapping URL comment like <code>sourceMappingURL=https://asset-host.example.com/assets/maps/helloworld.js.map</code>.</p>
+</li>
+<li>
+<p><code>sourceMappingURL</code></p>
+<p>If you need full control over the source map URL you can pass a function to this option. The output of the function must be the full URL to the source map (in function of the output file).</p>
+<p>Example:</p>
+<pre><code class="javascript">gulp.task(<span class="hljs-string">'javascript'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> stream = gulp.src(<span class="hljs-string">'src/**/*.js'</span>)
+    .pipe(sourcemaps.init())
+      .pipe(plugin1())
+      .pipe(plugin2())
+    .pipe(sourcemaps.write(<span class="hljs-string">'../maps'</span>, {
+      <span class="hljs-attr">sourceMappingURL</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">file</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'https://asset-host.example.com/'</span> + file.relative + <span class="hljs-string">'.map'</span>;
+      }
+    }))
+    .pipe(gulp.dest(<span class="hljs-string">'public/scripts'</span>));
+});
+</code></pre>
+<p>This will result in a source mapping URL comment like <code>sourceMappingURL=https://asset-host.example.com/helloworld.js.map</code>.</p>
+</li>
+<li>
+<p><code>debug</code></p>
+<p>Set this to <code>true</code> to output debug messages (e.g. about missing source content).</p>
+</li>
+</ul>
+<div class="pilwrap" id="plugin-developers-only-how-to-add-source-map-support-to-plugins">
+  <h3>
+    <a href="#plugin-developers-only-how-to-add-source-map-support-to-plugins" name="plugin-developers-only-how-to-add-source-map-support-to-plugins" class="pilcrow"></a>
+Plugin developers only: How to add source map support to plugins
+  </h3>
+</div>
+<ul>
+<li>Generate a source map for the transformation the plugin is applying</li>
+<li><strong>Important</strong>: Make sure the paths in the generated source map (<code>file</code> and <code>sources</code>) are relative to <code>file.base</code> (e.g. use <code>file.relative</code>).</li>
+<li>Apply this source map to the vinyl <code>file</code>. E.g. by using <a href="https://github.com/floridoo/vinyl-sourcemaps-apply">vinyl-sourcemaps-apply</a>.
+This combines the source map of this plugin with the source maps coming from plugins further up the chain.</li>
+<li>Add your plugin to the <a href="https://github.com/floridoo/gulp-sourcemaps/wiki/Plugins-with-gulp-sourcemaps-support">wiki page</a></li>
+</ul>
+<div class="pilwrap" id="example">
+  <h4>
+    <a href="#example" name="example" class="pilcrow"></a>
+Example:
+  </h4>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">var</span> through = <span class="hljs-built_in">require</span>(<span class="hljs-string">'through2'</span>);
+<span class="hljs-keyword">var</span> applySourceMap = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vinyl-sourcemaps-apply'</span>);
+<span class="hljs-keyword">var</span> myTransform = <span class="hljs-built_in">require</span>(<span class="hljs-string">'myTransform'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transform</span>(<span class="hljs-params">file, encoding, callback</span>) </span>{
+    <span class="hljs-comment">// generate source maps if plugin source-map present</span>
+    <span class="hljs-keyword">if</span> (file.sourceMap) {
+      options.makeSourceMaps = <span class="hljs-literal">true</span>;
+    }
+
+    <span class="hljs-comment">// do normal plugin logic</span>
+    <span class="hljs-keyword">var</span> result = myTransform(file.contents, options);
+    file.contents = <span class="hljs-keyword">new</span> Buffer(result.code);
+
+    <span class="hljs-comment">// apply source map to the chain</span>
+    <span class="hljs-keyword">if</span> (file.sourceMap) {
+      applySourceMap(file, result.map);
+    }
+
+    <span class="hljs-keyword">this</span>.push(file);
+    callback();
+  }
+
+  <span class="hljs-keyword">return</span> through.obj(transform);
+};
+</code></pre>
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\arr-filter\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#arr-filter">arr-filter     </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#why-another-array-filter">Why another array filter?</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#about">About</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#related-projects">Related projects</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#contributing">Contributing</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#building-docs">Building docs</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#running-tests">Running tests</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#author">Author</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="arr-filter">
+  <h1>
+    <a href="#arr-filter" name="arr-filter" class="pilcrow"></a>
+arr-filter <a href="https://www.npmjs.com/package/arr-filter"><img src="https://img.shields.io/npm/v/arr-filter.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.org/package/arr-filter"><img src="https://img.shields.io/npm/dm/arr-filter.svg?style=flat" alt="NPM monthly downloads"></a>  <a href="https://npmjs.org/package/arr-filter"><img src="https://img.shields.io/npm/dt/arr-filter.svg?style=flat" alt="NPM total downloads"></a> <a href="https://travis-ci.org/jonschlinkert/arr-filter"><img src="https://img.shields.io/travis/jonschlinkert/arr-filter.svg?style=flat&amp;label=Travis" alt="Linux Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Faster alternative to javascript's native filter method.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p>Install with <a href="https://www.npmjs.com/">npm</a>:</p>
+<pre><code class="sh">$ npm install --save arr-filter
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> filter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'arr-filter'</span>);
+
+filter([<span class="hljs-string">'a'</span>, {<span class="hljs-attr">a</span>: <span class="hljs-string">'b'</span>}, <span class="hljs-number">1</span>, <span class="hljs-string">'b'</span>, <span class="hljs-number">2</span>, {<span class="hljs-attr">c</span>: <span class="hljs-string">'d'</span>}, <span class="hljs-string">'c'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ele</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> ele === <span class="hljs-string">'string'</span>;
+});
+<span class="hljs-comment">//=&gt; ['a', 'b', 'c']</span>
+</code></pre>
+<div class="pilwrap" id="why-another-array-filter">
+  <h2>
+    <a href="#why-another-array-filter" name="why-another-array-filter" class="pilcrow"></a>
+Why another array filter?
+  </h2>
+</div>
+<p><a href="https://github.com/juliangruber/array-filter">array-filter</a> is pretty popular, but it's tuned to be used in older browsers and it falls back on native <code>.filter()</code> when available, which is much slower. See <a href="http://jsperf.com/array-filter-while-vs-for/2">jsperf results</a>. The functions used in the benchmarks are the top performers from a dozen or so other functions.</p>
+<div class="pilwrap" id="about">
+  <h2>
+    <a href="#about" name="about" class="pilcrow"></a>
+About
+  </h2>
+</div>
+<div class="pilwrap" id="related-projects">
+  <h3>
+    <a href="#related-projects" name="related-projects" class="pilcrow"></a>
+Related projects
+  </h3>
+</div>
+<ul>
+<li><a href="https://www.npmjs.com/package/arr-map">arr-map</a>: Faster, node.js focused alternative to JavaScript's native array map. | <a href="https://github.com/jonschlinkert/arr-map" title="Faster, node.js focused alternative to JavaScript's native array map.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/array-each">array-each</a>: Loop over each item in an array and call the given function on every element. | <a href="https://github.com/jonschlinkert/array-each" title="Loop over each item in an array and call the given function on every element.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/collection-map">collection-map</a>: Returns an array of mapped values from an array or object. | <a href="https://github.com/jonschlinkert/collection-map" title="Returns an array of mapped values from an array or object.">homepage</a></li>
+</ul>
+<div class="pilwrap" id="contributing">
+  <h3>
+    <a href="#contributing" name="contributing" class="pilcrow"></a>
+Contributing
+  </h3>
+</div>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="../../issues/new.html">please create an issue</a>.</p>
+<div class="pilwrap" id="building-docs">
+  <h3>
+    <a href="#building-docs" name="building-docs" class="pilcrow"></a>
+Building docs
+  </h3>
+</div>
+<p><em>(This project's readme.md is generated by <a href="https://github.com/verbose/verb-generate-readme">verb</a>, please don't edit the readme directly. Any changes to the readme must be made in the <a href=".verb.md.html">.verb.md</a> readme template.)</em></p>
+<p>To generate the readme, run the following command:</p>
+<pre><code class="sh">$ npm install -g verbose/verb<span class="hljs-comment">#dev verb-generate-readme &amp;&amp; verb</span>
+</code></pre>
+<div class="pilwrap" id="running-tests">
+  <h3>
+    <a href="#running-tests" name="running-tests" class="pilcrow"></a>
+Running tests
+  </h3>
+</div>
+<p>Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:</p>
+<pre><code class="sh">$ npm install &amp;&amp; npm <span class="hljs-built_in">test</span>
+</code></pre>
+<div class="pilwrap" id="author">
+  <h3>
+    <a href="#author" name="author" class="pilcrow"></a>
+Author
+  </h3>
+</div>
+<p><strong>Jon Schlinkert</strong></p>
+<ul>
+<li><a href="https://github.com/jonschlinkert">github/jonschlinkert</a></li>
+<li><a href="https://twitter.com/jonschlinkert">twitter/jonschlinkert</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h3>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h3>
+</div>
+<p>Copyright © 2017, <a href="https://github.com/jonschlinkert">Jon Schlinkert</a>.
+Released under the <a href="LICENSE.html">MIT License</a>.</p>
+<hr>
+<p><em>This file was generated by <a href="https://github.com/verbose/verb-generate-readme">verb-generate-readme</a>, v0.4.2, on February 26, 2017.</em></p>
+</div>
+  </div>
+</body>
+</html>

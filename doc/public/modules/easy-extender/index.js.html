@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\easy-extender\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">"lodash"</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> EasyExtender = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">plugins, hooks</span>) </span>{
+
+    <span class="hljs-keyword">this</span>.plugins        = {};
+    <span class="hljs-keyword">this</span>.pluginOptions  = {};
+    <span class="hljs-keyword">this</span>.returnValues   = {};
+
+    <span class="hljs-keyword">this</span>.hooks          = hooks;
+    <span class="hljs-keyword">this</span>.defaultPlugins = plugins;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">EasyExtender.prototype.init = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.defaultPlugins) {
+        <span class="hljs-keyword">var</span> required = <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.defaultPlugins);
+        required.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) </span>{
+            <span class="hljs-keyword">if</span> (_.isUndefined(<span class="hljs-keyword">this</span>.plugins[name])) {
+                <span class="hljs-keyword">this</span>.plugins[name] = <span class="hljs-keyword">this</span>.defaultPlugins[name];
+            }
+        }, <span class="hljs-keyword">this</span>);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Call the '.plugin()' method of all registered plugins</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">EasyExtender.prototype.initUserPlugins = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">var</span> args = _.toArray(<span class="hljs-built_in">arguments</span>);
+
+    <span class="hljs-keyword">var</span> userPlugins = _.difference(<span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.plugins), <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.defaultPlugins));
+
+    <span class="hljs-keyword">if</span> (userPlugins.length) {
+
+        userPlugins.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">plugin</span>) </span>{
+
+            <span class="hljs-keyword">var</span> pluginOptions = {};
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.pluginOptions) {
+                pluginOptions = <span class="hljs-keyword">this</span>.pluginOptions[plugin];
+            }
+
+            <span class="hljs-keyword">this</span>.returnValues[plugin].push({
+                <span class="hljs-attr">value</span>: <span class="hljs-keyword">this</span>.get(plugin).apply(<span class="hljs-literal">null</span>, [pluginOptions].concat(args))
+            });
+
+            <span class="hljs-keyword">if</span> (!_.isUndefined(pluginOptions) &amp;&amp; !_.isUndefined(pluginOptions.enabled)) {
+                <span class="hljs-keyword">if</span> (pluginOptions.enabled) {
+                    <span class="hljs-keyword">this</span>.enablePlugin(plugin);
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">this</span>.disablePlugin(plugin);
+                }
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.enablePlugin(plugin);
+            }
+
+        }, <span class="hljs-keyword">this</span>);
+    }
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Wrap a module in East Extender pattern</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">module</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">localName</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">EasyExtender.prototype.wrap = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">module, localName</span>) </span>{
+    <span class="hljs-keyword">this</span>.registerPlugin({
+        <span class="hljs-string">"plugin:name"</span>: localName,
+        <span class="hljs-string">"plugin"</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">module</span>;
+        }
+    });
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">name</span>
+<span class="dox_type">String</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">EasyExtender.prototype.get = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) </span>{
+
+    <span class="hljs-keyword">if</span> (!_.isUndefined(<span class="hljs-keyword">this</span>.plugins[name])) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.plugins[name].plugin || <span class="hljs-literal">false</span>;
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">module</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[opts]</span>
+<span class="dox_type">Object</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[cb]</span>
+<span class="dox_type">Function</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">EasyExtender.prototype.registerPlugin = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">module, opts, cb</span>) </span>{
+
+    <span class="hljs-keyword">var</span> pluginOptions;
+
+    <span class="hljs-keyword">if</span> (!_.isFunction(<span class="hljs-built_in">module</span>.plugin)) {
+        <span class="hljs-keyword">return</span> _.isFunction(cb) ? cb(<span class="hljs-string">"Module must implement a .plugin() method"</span>) : <span class="hljs-literal">false</span>;
+    }
+
+    <span class="hljs-keyword">if</span> (!cb &amp;&amp; opts) {
+        <span class="hljs-keyword">if</span> (_.isFunction(opts)) {
+            cb = opts;
+        } <span class="hljs-keyword">else</span> {
+            pluginOptions = opts;
+        }
+    }
+
+    <span class="hljs-keyword">var</span> name = _.isUndefined(<span class="hljs-built_in">module</span>[<span class="hljs-string">"plugin:name"</span>]) ? _.uniqueId() : <span class="hljs-built_in">module</span>[<span class="hljs-string">"plugin:name"</span>];
+
+    <span class="hljs-keyword">this</span>.pluginOptions[name] = pluginOptions;
+    <span class="hljs-keyword">this</span>.returnValues[name]  = [];
+
+    <span class="hljs-keyword">this</span>.plugins[name] = <span class="hljs-built_in">module</span>;
+
+    <span class="hljs-keyword">if</span> (_.isFunction(cb)) {
+        cb(<span class="hljs-literal">null</span>);
+    }
+
+    <span class="hljs-keyword">this</span>.disablePlugin(name);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">name</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">EasyExtender.prototype.getPlugin = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">module</span>) </span>{
+
+    <span class="hljs-keyword">if</span> (_.isString(<span class="hljs-built_in">module</span>)) {
+        <span class="hljs-built_in">module</span> = <span class="hljs-keyword">this</span>.plugins[<span class="hljs-built_in">module</span>];
+    }
+
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">module</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">module</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">name</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">EasyExtender.prototype.disablePlugin = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">module</span>) </span>{
+
+    <span class="hljs-built_in">module</span> = <span class="hljs-keyword">this</span>.getPlugin(<span class="hljs-built_in">module</span>);
+    <span class="hljs-built_in">module</span>._enabled = <span class="hljs-literal">false</span>;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">module</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">name</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">EasyExtender.prototype.enablePlugin = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">module</span>) </span>{
+
+    <span class="hljs-built_in">module</span> = <span class="hljs-keyword">this</span>.getPlugin(<span class="hljs-built_in">module</span>);
+    <span class="hljs-built_in">module</span>._enabled = <span class="hljs-literal">true</span>;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">module</span>;
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">name</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">EasyExtender.prototype.hook = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) </span>{
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>Get any extra args</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">var</span> args  = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">1</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>build a list of hook funcs</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">var</span> funcs = [];
+
+    _.each(<span class="hljs-keyword">this</span>.plugins, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">plugin</span>) </span>{
+        <span class="hljs-keyword">if</span> (plugin.hooks) {
+            <span class="hljs-keyword">if</span> (!_.isUndefined(plugin.hooks[name])) {
+                funcs.push(plugin.hooks[name]);
+            }
+        }
+    });
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.hooks[name].apply(<span class="hljs-keyword">this</span>, [funcs].concat(args));
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">name</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">EasyExtender.prototype.getReturnValues = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.returnValues[name] || [];
+};
+
+<span class="hljs-built_in">module</span>.exports = EasyExtender;
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

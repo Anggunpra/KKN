@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\map-visit\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
+<span class="hljs-keyword">var</span> visit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'object-visit'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Map <code>visit</code> over an array of objects.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`collection`</span>
+<span class="dox_type">Object</span>
+<span>The context in which to invoke <code>method</code>
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`method`</span>
+<span class="dox_type">String</span>
+<span>Name of the method to call on <code>collection</code>
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">`arr`</span>
+<span class="dox_type">Object</span>
+<span>Array of objects.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapVisit</span>(<span class="hljs-params">collection, method, val</span>) </span>{
+  <span class="hljs-keyword">if</span> (isObject(val)) {
+    <span class="hljs-keyword">return</span> visit.apply(<span class="hljs-literal">null</span>, <span class="hljs-built_in">arguments</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(val)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'expected an array: '</span> + util.inspect(val));
+  }
+
+  <span class="hljs-keyword">var</span> args = [].slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">3</span>);
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; val.length; i++) {
+    <span class="hljs-keyword">var</span> ele = val[i];
+    <span class="hljs-keyword">if</span> (isObject(ele)) {
+      visit.apply(<span class="hljs-literal">null</span>, [collection, method, ele].concat(args));
+    } <span class="hljs-keyword">else</span> {
+      collection[method].apply(collection, [ele].concat(args));
+    }
+  }
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">return</span> val &amp;&amp; (<span class="hljs-keyword">typeof</span> val === <span class="hljs-string">'function'</span> || (!<span class="hljs-built_in">Array</span>.isArray(val) &amp;&amp; <span class="hljs-keyword">typeof</span> val === <span class="hljs-string">'object'</span>));
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

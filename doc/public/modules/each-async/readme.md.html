@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\each-async\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#each-async">each-async </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#eachasync-array-callback-finishedcallback">eachAsync(array, callback, finishedCallback)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#array">array</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#callback-item-index-done">callback(item, index, done)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#finishedcallback-error">finishedCallback(error)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="each-async">
+  <h1>
+    <a href="#each-async" name="each-async" class="pilcrow"></a>
+each-async <a href="https://travis-ci.org/sindresorhus/each-async"><img src="https://travis-ci.org/sindresorhus/each-async.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Async concurrent iterator (async forEach)</p>
+</blockquote>
+<p>Like <a href="https://github.com/caolan/async#eacharr-iterator-callback">async.each()</a>, but tiny.</p>
+<p>I often use <code>async.each()</code> for doing async operations when iterating, but I almost never use the other gadzillion methods in <code>async</code>.</p>
+<p>Async iteration is one of the most used async control flow patterns.</p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code class="sh">$ npm install --save each-async
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> eachAsync = <span class="hljs-built_in">require</span>(<span class="hljs-string">'each-async'</span>);
+
+eachAsync([<span class="hljs-string">'foo'</span>,<span class="hljs-string">'bar'</span>,<span class="hljs-string">'baz'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item, index, done</span>) </span>{
+	<span class="hljs-built_in">console</span>.log(item, index);
+	done();
+}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'finished'</span>);
+});
+<span class="hljs-comment">//=&gt; foo 0</span>
+<span class="hljs-comment">//=&gt; bar 1</span>
+<span class="hljs-comment">//=&gt; baz 2</span>
+<span class="hljs-comment">//=&gt; finished</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="eachasync-array-callback-finishedcallback">
+  <h3>
+    <a href="#eachasync-array-callback-finishedcallback" name="eachasync-array-callback-finishedcallback" class="pilcrow"></a>
+eachAsync(array, callback, finishedCallback)
+  </h3>
+</div>
+<div class="pilwrap" id="array">
+  <h4>
+    <a href="#array" name="array" class="pilcrow"></a>
+array
+  </h4>
+</div>
+<p>The array you want to iterate.</p>
+<div class="pilwrap" id="callback-item-index-done">
+  <h4>
+    <a href="#callback-item-index-done" name="callback-item-index-done" class="pilcrow"></a>
+callback(item, index, done)
+  </h4>
+</div>
+<p>A function which is called for each item in the array with the following arguments:</p>
+<ul>
+<li><code>item</code>: the current item in the array</li>
+<li><code>index</code>: the current index</li>
+<li><code>done([error])</code>: call this when you're done with an optional error. Supplying anything other than <code>undefined</code>/<code>null</code> will stop the iteration.</li>
+</ul>
+<p>Note that order is not guaranteed since each item is handled concurrently.</p>
+<div class="pilwrap" id="finishedcallback-error">
+  <h4>
+    <a href="#finishedcallback-error" name="finishedcallback-error" class="pilcrow"></a>
+finishedCallback(error)
+  </h4>
+</div>
+<p>A function which is called when the iteration is finished or on the first error. First argument is the error passed from <code>done()</code> in the <code>callback</code>.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+</div>
+  </div>
+</body>
+</html>

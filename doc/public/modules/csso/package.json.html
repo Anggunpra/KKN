@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\csso\\package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"csso"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"2.3.2"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"CSSO (CSS Optimizer) is a CSS minifier with structural optimisations"</span>,
+  <span class="hljs-attr">"keywords"</span>: [
+    <span class="hljs-string">"css"</span>,
+    <span class="hljs-string">"minifier"</span>,
+    <span class="hljs-string">"minify"</span>,
+    <span class="hljs-string">"compress"</span>,
+    <span class="hljs-string">"optimisation"</span>
+  ],
+  <span class="hljs-attr">"homepage"</span>: <span class="hljs-string">"https://github.com/css/csso"</span>,
+  <span class="hljs-attr">"author"</span>: <span class="hljs-string">"Sergey Kryzhanovsky &lt;skryzhanovsky@ya.ru&gt; (https://github.com/afelix)"</span>,
+  <span class="hljs-attr">"maintainers"</span>: [
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Roman Dvornov"</span>,
+      <span class="hljs-attr">"email"</span>: <span class="hljs-string">"rdvornov@gmail.com"</span>,
+      <span class="hljs-attr">"github-username"</span>: <span class="hljs-string">"lahmatiy"</span>
+    }
+  ],
+  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"MIT"</span>,
+  <span class="hljs-attr">"repository"</span>: <span class="hljs-string">"css/csso"</span>,
+  <span class="hljs-attr">"bugs"</span>: {
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/css/csso/issues"</span>
+  },
+  <span class="hljs-attr">"bin"</span>: {
+    <span class="hljs-attr">"csso"</span>: <span class="hljs-string">"./bin/csso"</span>
+  },
+  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"./lib/index"</span>,
+  <span class="hljs-attr">"eslintConfig"</span>: {
+    <span class="hljs-attr">"env"</span>: {
+      <span class="hljs-attr">"node"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"mocha"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"es6"</span>: <span class="hljs-literal">true</span>
+    },
+    <span class="hljs-attr">"rules"</span>: {
+      <span class="hljs-attr">"no-duplicate-case"</span>: <span class="hljs-number">2</span>,
+      <span class="hljs-attr">"no-undef"</span>: <span class="hljs-number">2</span>,
+      <span class="hljs-attr">"no-unused-vars"</span>: [<span class="hljs-number">2</span>, {<span class="hljs-attr">"vars"</span>: <span class="hljs-string">"all"</span>, <span class="hljs-attr">"args"</span>: <span class="hljs-string">"after-used"</span>}]
+    }
+  },
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"mocha --reporter dot"</span>,
+    <span class="hljs-attr">"codestyle"</span>: <span class="hljs-string">"jscs lib &amp;&amp; eslint lib test"</span>,
+    <span class="hljs-attr">"codestyle-and-test"</span>: <span class="hljs-string">"npm run codestyle &amp;&amp; npm test"</span>,
+    <span class="hljs-attr">"hydrogen"</span>: <span class="hljs-string">"node --trace-hydrogen --trace-phase=Z --trace-deopt --code-comments --hydrogen-track-positions --redirect-code-traces --redirect-code-traces-to=code.asm --trace_hydrogen_file=code.cfg --print-opt-code bin/csso --stat -o /dev/null"</span>,
+    <span class="hljs-attr">"coverage"</span>: <span class="hljs-string">"istanbul cover _mocha -- -R dot"</span>,
+    <span class="hljs-attr">"coveralls"</span>: <span class="hljs-string">"istanbul cover _mocha --report lcovonly -- -R dot &amp;&amp; cat ./coverage/lcov.info | coveralls"</span>,
+    <span class="hljs-attr">"travis"</span>: <span class="hljs-string">"npm run codestyle-and-test &amp;&amp; npm run coveralls"</span>,
+    <span class="hljs-attr">"browserify"</span>: <span class="hljs-string">"browserify --standalone csso lib/index.js | uglifyjs --compress --mangle -o dist/csso-browser.js"</span>,
+    <span class="hljs-attr">"gh-pages"</span>: <span class="hljs-string">"git clone -b gh-pages https://github.com/css/csso.git .gh-pages &amp;&amp; npm run browserify &amp;&amp; cp dist/csso-browser.js .gh-pages/ &amp;&amp; cd .gh-pages &amp;&amp; git commit -am \"update\" &amp;&amp; git push &amp;&amp; cd .. &amp;&amp; rm -rf .gh-pages"</span>,
+    <span class="hljs-attr">"prepublish"</span>: <span class="hljs-string">"npm run browserify"</span>
+  },
+  <span class="hljs-attr">"dependencies"</span>: {
+    <span class="hljs-attr">"clap"</span>: <span class="hljs-string">"^1.0.9"</span>,
+    <span class="hljs-attr">"source-map"</span>: <span class="hljs-string">"^0.5.3"</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"browserify"</span>: <span class="hljs-string">"^13.0.0"</span>,
+    <span class="hljs-attr">"coveralls"</span>: <span class="hljs-string">"^2.11.6"</span>,
+    <span class="hljs-attr">"eslint"</span>: <span class="hljs-string">"^2.2.0"</span>,
+    <span class="hljs-attr">"istanbul"</span>: <span class="hljs-string">"^0.4.2"</span>,
+    <span class="hljs-attr">"jscs"</span>: <span class="hljs-string">"~2.10.0"</span>,
+    <span class="hljs-attr">"mocha"</span>: <span class="hljs-string">"~2.4.2"</span>,
+    <span class="hljs-attr">"uglify-js"</span>: <span class="hljs-string">"^2.6.1"</span>
+  },
+  <span class="hljs-attr">"engines"</span>: {
+    <span class="hljs-attr">"node"</span>: <span class="hljs-string">"&gt;=0.10.0"</span>
+  },
+  <span class="hljs-attr">"files"</span>: [
+    <span class="hljs-string">"bin"</span>,
+    <span class="hljs-string">"dist/csso-browser.js"</span>,
+    <span class="hljs-string">"lib"</span>,
+    <span class="hljs-string">"HISTORY.md"</span>,
+    <span class="hljs-string">"LICENSE"</span>,
+    <span class="hljs-string">"README.md"</span>
+  ]
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

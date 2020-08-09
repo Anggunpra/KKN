@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\glob-parent\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#glob-parent">glob-parent  </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#escaping">Escaping</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#limitations">Limitations</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#braces-and-brackets">Braces &amp;amp; Brackets</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#windows">Windows</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#change-log">Change Log</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="glob-parent">
+  <h1>
+    <a href="#glob-parent" name="glob-parent" class="pilcrow"></a>
+glob-parent <a href="https://travis-ci.org/es128/glob-parent"><img src="https://travis-ci.org/es128/glob-parent.svg" alt="Build Status"></a> <a href="https://coveralls.io/r/es128/glob-parent?branch=master"><img src="https://img.shields.io/coveralls/es128/glob-parent.svg" alt="Coverage Status"></a>
+  </h1>
+</div>
+<p>Javascript module to extract the non-magic parent path from a glob string.</p>
+<p><a href="https://nodei.co/npm/glob-parent/"><img src="https://nodei.co/npm/glob-parent.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM"></a>
+<a href="https://nodei.co/npm-dl/glob-parent/"><img src="https://nodei.co/npm-dl/glob-parent.png?height=3&amp;months=9" alt="NPM"></a></p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="sh">npm install glob-parent --save
+</code></pre>
+<p><strong>Examples</strong></p>
+<pre><code class="js"><span class="hljs-keyword">var</span> globParent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'glob-parent'</span>);
+
+globParent(<span class="hljs-string">'path/to/*.js'</span>); <span class="hljs-comment">// 'path/to'</span>
+globParent(<span class="hljs-string">'/root/path/to/*.js'</span>); <span class="hljs-comment">// '/root/path/to'</span>
+globParent(<span class="hljs-string">'/*.js'</span>); <span class="hljs-comment">// '/'</span>
+globParent(<span class="hljs-string">'*.js'</span>); <span class="hljs-comment">// '.'</span>
+globParent(<span class="hljs-string">'**/*.js'</span>); <span class="hljs-comment">// '.'</span>
+globParent(<span class="hljs-string">'path/{to,from}'</span>); <span class="hljs-comment">// 'path'</span>
+globParent(<span class="hljs-string">'path/!(to|from)'</span>); <span class="hljs-comment">// 'path'</span>
+globParent(<span class="hljs-string">'path/?(to|from)'</span>); <span class="hljs-comment">// 'path'</span>
+globParent(<span class="hljs-string">'path/+(to|from)'</span>); <span class="hljs-comment">// 'path'</span>
+globParent(<span class="hljs-string">'path/*(to|from)'</span>); <span class="hljs-comment">// 'path'</span>
+globParent(<span class="hljs-string">'path/@(to|from)'</span>); <span class="hljs-comment">// 'path'</span>
+globParent(<span class="hljs-string">'path/**/*'</span>); <span class="hljs-comment">// 'path'</span>
+
+<span class="hljs-comment">// if provided a non-glob path, returns the nearest dir</span>
+globParent(<span class="hljs-string">'path/foo/bar.js'</span>); <span class="hljs-comment">// 'path/foo'</span>
+globParent(<span class="hljs-string">'path/foo/'</span>); <span class="hljs-comment">// 'path/foo'</span>
+globParent(<span class="hljs-string">'path/foo'</span>); <span class="hljs-comment">// 'path' (see issue #3 for details)</span>
+</code></pre>
+<div class="pilwrap" id="escaping">
+  <h2>
+    <a href="#escaping" name="escaping" class="pilcrow"></a>
+Escaping
+  </h2>
+</div>
+<p>The following characters have special significance in glob patterns and must be escaped if you want them to be treated as regular path characters:</p>
+<ul>
+<li><code>?</code> (question mark)</li>
+<li><code>*</code> (star)</li>
+<li><code>|</code> (pipe)</li>
+<li><code>(</code> (opening parenthesis)</li>
+<li><code>)</code> (closing parenthesis)</li>
+<li><code>{</code> (opening curly brace)</li>
+<li><code>}</code> (closing curly brace)</li>
+<li><code>[</code> (opening bracket)</li>
+<li><code>]</code> (closing bracket)</li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="js">globParent(<span class="hljs-string">'foo/[bar]/'</span>) <span class="hljs-comment">// 'foo'</span>
+globParent(<span class="hljs-string">'foo/\\[bar]/'</span>) <span class="hljs-comment">// 'foo/[bar]'</span>
+</code></pre>
+<div class="pilwrap" id="limitations">
+  <h2>
+    <a href="#limitations" name="limitations" class="pilcrow"></a>
+Limitations
+  </h2>
+</div>
+<div class="pilwrap" id="braces-and-brackets">
+  <h4>
+    <a href="#braces-and-brackets" name="braces-and-brackets" class="pilcrow"></a>
+Braces &amp; Brackets
+  </h4>
+</div>
+<p>This library attempts a quick and imperfect method of determining which path
+parts have glob magic without fully parsing/lexing the pattern. There are some
+advanced use cases that can trip it up, such as nested braces where the outer
+pair is escaped and the inner one contains a path separator. If you find
+yourself in the unlikely circumstance of being affected by this or need to
+ensure higher-fidelity glob handling in your library, it is recommended that you
+pre-process your input with <a href="https://github.com/jonschlinkert/expand-braces">expand-braces</a> and/or <a href="https://github.com/jonschlinkert/expand-brackets">expand-brackets</a>.</p>
+<div class="pilwrap" id="windows">
+  <h4>
+    <a href="#windows" name="windows" class="pilcrow"></a>
+Windows
+  </h4>
+</div>
+<p>Backslashes are not valid path separators for globs. If a path with backslashes
+is provided anyway, for simple cases, glob-parent will replace the path
+separator for you and return the non-glob parent path (now with
+forward-slashes, which are still valid as Windows path separators).</p>
+<p>This cannot be used in conjunction with escape characters.</p>
+<pre><code class="js"><span class="hljs-comment">// BAD</span>
+globParent(<span class="hljs-string">'C:\\Program Files \\(x86\\)\\*.ext'</span>) <span class="hljs-comment">// 'C:/Program Files /(x86/)'</span>
+
+<span class="hljs-comment">// GOOD</span>
+globParent(<span class="hljs-string">'C:/Program Files\\(x86\\)/*.ext'</span>) <span class="hljs-comment">// 'C:/Program Files (x86)'</span>
+</code></pre>
+<p>If you are using escape characters for a pattern without path parts (i.e.
+relative to <code>cwd</code>), prefix with <code>./</code> to avoid confusing glob-parent.</p>
+<pre><code class="js"><span class="hljs-comment">// BAD</span>
+globParent(<span class="hljs-string">'foo \\[bar]'</span>) <span class="hljs-comment">// 'foo '</span>
+globParent(<span class="hljs-string">'foo \\[bar]*'</span>) <span class="hljs-comment">// 'foo '</span>
+
+<span class="hljs-comment">// GOOD</span>
+globParent(<span class="hljs-string">'./foo \\[bar]'</span>) <span class="hljs-comment">// 'foo [bar]'</span>
+globParent(<span class="hljs-string">'./foo \\[bar]*'</span>) <span class="hljs-comment">// '.'</span>
+</code></pre>
+<div class="pilwrap" id="change-log">
+  <h2>
+    <a href="#change-log" name="change-log" class="pilcrow"></a>
+Change Log
+  </h2>
+</div>
+<p><a href="https://github.com/es128/glob-parent/releases">See release notes page on GitHub</a></p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p><a href="https://raw.github.com/es128/glob-parent/master/LICENSE">ISC</a></p>
+</div>
+  </div>
+</body>
+</html>

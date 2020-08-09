@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>_larger.scss</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\assets\\scss\\_larger.scss";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#icon-sizes">Icon Sizes</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="icon-sizes">
+  <h2>
+    <a href="#icon-sizes" name="icon-sizes" class="pilcrow"></a>
+Icon Sizes
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="scss">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>makes the font 33% larger relative to the icon container</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="scss">.#{<span class="hljs-variable">$fa-css-prefix</span>}-lg {
+  <span class="hljs-attribute">font-size</span>: (<span class="hljs-number">4em</span> / <span class="hljs-number">3</span>);
+  <span class="hljs-attribute">line-height</span>: (<span class="hljs-number">3em</span> / <span class="hljs-number">4</span>);
+  <span class="hljs-attribute">vertical-align</span>: -.<span class="hljs-number">0667em</span>;
+}
+
+.#{<span class="hljs-variable">$fa-css-prefix</span>}-xs {
+  <span class="hljs-attribute">font-size</span>: .<span class="hljs-number">75em</span>;
+}
+
+.#{<span class="hljs-variable">$fa-css-prefix</span>}-sm {
+  <span class="hljs-attribute">font-size</span>: .<span class="hljs-number">875em</span>;
+}
+
+<span class="hljs-keyword">@for</span> <span class="hljs-variable">$i</span> from <span class="hljs-number">1</span> through <span class="hljs-number">10</span> {
+  .#{<span class="hljs-variable">$fa-css-prefix</span>}-#{<span class="hljs-variable">$i</span>}x {
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-variable">$i</span> * <span class="hljs-number">1em</span>;
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\follow-redirects\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> url = <span class="hljs-built_in">require</span>(<span class="hljs-string">"url"</span>);
+<span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">"http"</span>);
+<span class="hljs-keyword">var</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">"https"</span>);
+<span class="hljs-keyword">var</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">"assert"</span>);
+<span class="hljs-keyword">var</span> Writable = <span class="hljs-built_in">require</span>(<span class="hljs-string">"stream"</span>).Writable;
+<span class="hljs-keyword">var</span> debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">"debug"</span>)(<span class="hljs-string">"follow-redirects"</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>RFC7231§4.2.1: Of the request methods defined by this specification,
+the GET, HEAD, OPTIONS, and TRACE methods are defined to be safe.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> SAFE_METHODS = { <span class="hljs-attr">GET</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">HEAD</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">OPTIONS</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">TRACE</span>: <span class="hljs-literal">true</span> };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>Create handlers that pass events from native requests</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> eventHandlers = <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>);
+[<span class="hljs-string">"abort"</span>, <span class="hljs-string">"aborted"</span>, <span class="hljs-string">"error"</span>, <span class="hljs-string">"socket"</span>, <span class="hljs-string">"timeout"</span>].forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+  eventHandlers[event] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">arg</span>) </span>{
+    <span class="hljs-keyword">this</span>._redirectable.emit(event, arg);
+  };
+});
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>An HTTP(S) request that can be redirected</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RedirectableRequest</span>(<span class="hljs-params">options, responseCallback</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>Initialize the request</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  Writable.call(<span class="hljs-keyword">this</span>);
+  options.headers = options.headers || {};
+  <span class="hljs-keyword">this</span>._options = options;
+  <span class="hljs-keyword">this</span>._redirectCount = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._redirects = [];
+  <span class="hljs-keyword">this</span>._requestBodyLength = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._requestBodyBuffers = [];
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>Since http.request treats host as an alias of hostname,
+but the url module interprets host as hostname plus port,
+eliminate the host property to avoid confusion.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (options.host) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>Use hostname if set, because it has precedence</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (!options.hostname) {
+      options.hostname = options.host;
+    }
+    <span class="hljs-keyword">delete</span> options.host;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>Attach a callback if passed</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (responseCallback) {
+    <span class="hljs-keyword">this</span>.on(<span class="hljs-string">"response"</span>, responseCallback);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>React to responses of native requests</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">this</span>._onNativeResponse = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+    self._processResponse(response);
+  };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>Complete the URL object when necessary</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (!options.pathname &amp;&amp; options.path) {
+    <span class="hljs-keyword">var</span> searchPos = options.path.indexOf(<span class="hljs-string">"?"</span>);
+    <span class="hljs-keyword">if</span> (searchPos &lt; <span class="hljs-number">0</span>) {
+      options.pathname = options.path;
+    }
+    <span class="hljs-keyword">else</span> {
+      options.pathname = options.path.substring(<span class="hljs-number">0</span>, searchPos);
+      options.search = options.path.substring(searchPos);
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>Perform the first request</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">this</span>._performRequest();
+}
+RedirectableRequest.prototype = <span class="hljs-built_in">Object</span>.create(Writable.prototype);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>Writes buffered data to the current native request</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">RedirectableRequest.prototype.write = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data, encoding, callback</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>Validate input and shift parameters if necessary</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">typeof</span> data === <span class="hljs-string">"string"</span> || <span class="hljs-keyword">typeof</span> data === <span class="hljs-string">"object"</span> &amp;&amp; (<span class="hljs-string">"length"</span> <span class="hljs-keyword">in</span> data))) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"data should be a string, Buffer or Uint8Array"</span>);
+  }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> encoding === <span class="hljs-string">"function"</span>) {
+    callback = encoding;
+    encoding = <span class="hljs-literal">null</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>Ignore empty buffers, since writing them doesn't invoke the callback
+https://github.com/nodejs/node/issues/22066</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (data.length === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">if</span> (callback) {
+      callback();
+    }
+    <span class="hljs-keyword">return</span>;
+  }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>Only write when we don't exceed the maximum body length</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._requestBodyLength + data.length &lt;= <span class="hljs-keyword">this</span>._options.maxBodyLength) {
+    <span class="hljs-keyword">this</span>._requestBodyLength += data.length;
+    <span class="hljs-keyword">this</span>._requestBodyBuffers.push({ <span class="hljs-attr">data</span>: data, <span class="hljs-attr">encoding</span>: encoding });
+    <span class="hljs-keyword">this</span>._currentRequest.write(data, encoding, callback);
+  }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>Error when we exceed the maximum body length</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">"error"</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"Request body larger than maxBodyLength limit"</span>));
+    <span class="hljs-keyword">this</span>.abort();
+  }
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<p>Ends the current native request</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">RedirectableRequest.prototype.end = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data, encoding, callback</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>Shift parameters if necessary</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> data === <span class="hljs-string">"function"</span>) {
+    callback = data;
+    data = encoding = <span class="hljs-literal">null</span>;
+  }
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> encoding === <span class="hljs-string">"function"</span>) {
+    callback = encoding;
+    encoding = <span class="hljs-literal">null</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>Write data and end</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> currentRequest = <span class="hljs-keyword">this</span>._currentRequest;
+  <span class="hljs-keyword">this</span>.write(data || <span class="hljs-string">""</span>, encoding, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    currentRequest.end(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, callback);
+  });
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
+</div>
+<p>Sets a header value on the current native request</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">RedirectableRequest.prototype.setHeader = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name, value</span>) </span>{
+  <span class="hljs-keyword">this</span>._options.headers[name] = value;
+  <span class="hljs-keyword">this</span>._currentRequest.setHeader(name, value);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
+</div>
+<p>Clears a header value on the current native request</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">RedirectableRequest.prototype.removeHeader = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) </span>{
+  <span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>._options.headers[name];
+  <span class="hljs-keyword">this</span>._currentRequest.removeHeader(name);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
+</div>
+<p>Proxy all other public ClientRequest methods</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">[
+  <span class="hljs-string">"abort"</span>, <span class="hljs-string">"flushHeaders"</span>, <span class="hljs-string">"getHeader"</span>,
+  <span class="hljs-string">"setNoDelay"</span>, <span class="hljs-string">"setSocketKeepAlive"</span>, <span class="hljs-string">"setTimeout"</span>,
+].forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">method</span>) </span>{
+  RedirectableRequest.prototype[method] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._currentRequest[method](a, b);
+  };
+});
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
+</div>
+<p>Proxy all public ClientRequest properties</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">[<span class="hljs-string">"aborted"</span>, <span class="hljs-string">"connection"</span>, <span class="hljs-string">"socket"</span>].forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">property</span>) </span>{
+  <span class="hljs-built_in">Object</span>.defineProperty(RedirectableRequest.prototype, property, {
+    <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._currentRequest[property]; },
+  });
+});
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
+</div>
+<p>Executes the next native request (initial or redirect)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">RedirectableRequest.prototype._performRequest = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
+</div>
+<p>Load the native protocol</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> protocol = <span class="hljs-keyword">this</span>._options.protocol;
+  <span class="hljs-keyword">var</span> nativeProtocol = <span class="hljs-keyword">this</span>._options.nativeProtocols[protocol];
+  <span class="hljs-keyword">if</span> (!nativeProtocol) {
+    <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">"error"</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"Unsupported protocol "</span> + protocol));
+    <span class="hljs-keyword">return</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
+</div>
+<p>If specified, use the agent corresponding to the protocol
+(HTTP and HTTPS use different types of agents)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._options.agents) {
+    <span class="hljs-keyword">var</span> scheme = protocol.substr(<span class="hljs-number">0</span>, protocol.length - <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">this</span>._options.agent = <span class="hljs-keyword">this</span>._options.agents[scheme];
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
+</div>
+<p>Create the native request</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> request = <span class="hljs-keyword">this</span>._currentRequest =
+        nativeProtocol.request(<span class="hljs-keyword">this</span>._options, <span class="hljs-keyword">this</span>._onNativeResponse);
+  <span class="hljs-keyword">this</span>._currentUrl = url.format(<span class="hljs-keyword">this</span>._options);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
+</div>
+<p>Set up event handlers</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  request._redirectable = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> event <span class="hljs-keyword">in</span> eventHandlers) {
+    <span class="hljs-comment">/* istanbul ignore else */</span>
+    <span class="hljs-keyword">if</span> (event) {
+      request.on(event, eventHandlers[event]);
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
+</div>
+<p>End a redirected request
+(The first request must be ended explicitly with RedirectableRequest#end)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._isRedirect) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30"></a>
+</div>
+<p>Write the request entity and end.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">var</span> buffers = <span class="hljs-keyword">this</span>._requestBodyBuffers;
+    (<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">writeNext</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">if</span> (i &lt; buffers.length) {
+        <span class="hljs-keyword">var</span> buffer = buffers[i++];
+        request.write(buffer.data, buffer.encoding, writeNext);
+      }
+      <span class="hljs-keyword">else</span> {
+        request.end();
+      }
+    }());
+  }
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
+</div>
+<p>Processes a response from the current native request</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">RedirectableRequest.prototype._processResponse = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
+</div>
+<p>Store the redirected response</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._options.trackRedirects) {
+    <span class="hljs-keyword">this</span>._redirects.push({
+      <span class="hljs-attr">url</span>: <span class="hljs-keyword">this</span>._currentUrl,
+      <span class="hljs-attr">headers</span>: response.headers,
+      <span class="hljs-attr">statusCode</span>: response.statusCode,
+    });
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
+</div>
+<p>RFC7231§6.4: The 3xx (Redirection) class of status code indicates
+that further action needs to be taken by the user agent in order to
+fulfill the request. If a Location header field is provided,
+the user agent MAY automatically redirect its request to the URI
+referenced by the Location field value,
+even if the specific status code is not understood.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> location = response.headers.location;
+  <span class="hljs-keyword">if</span> (location &amp;&amp; <span class="hljs-keyword">this</span>._options.followRedirects !== <span class="hljs-literal">false</span> &amp;&amp;
+      response.statusCode &gt;= <span class="hljs-number">300</span> &amp;&amp; response.statusCode &lt; <span class="hljs-number">400</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
+</div>
+<p>RFC7231§6.4: A client SHOULD detect and intervene
+in cyclical redirections (i.e., &quot;infinite&quot; redirection loops).</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (++<span class="hljs-keyword">this</span>._redirectCount &gt; <span class="hljs-keyword">this</span>._options.maxRedirects) {
+      <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">"error"</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"Max redirects exceeded."</span>));
+      <span class="hljs-keyword">return</span>;
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35"></a>
+</div>
+<p>RFC7231§6.4: Automatic redirection needs to done with
+care for methods not known to be safe […],
+since the user might not wish to redirect an unsafe request.
+RFC7231§6.4.7: The 307 (Temporary Redirect) status code indicates
+that the target resource resides temporarily under a different URI
+and the user agent MUST NOT change the request method
+if it performs an automatic redirection to that URI.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">var</span> header;
+    <span class="hljs-keyword">var</span> headers = <span class="hljs-keyword">this</span>._options.headers;
+    <span class="hljs-keyword">if</span> (response.statusCode !== <span class="hljs-number">307</span> &amp;&amp; !(<span class="hljs-keyword">this</span>._options.method <span class="hljs-keyword">in</span> SAFE_METHODS)) {
+      <span class="hljs-keyword">this</span>._options.method = <span class="hljs-string">"GET"</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36"></a>
+</div>
+<p>Drop a possible entity and headers related to it</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      <span class="hljs-keyword">this</span>._requestBodyBuffers = [];
+      <span class="hljs-keyword">for</span> (header <span class="hljs-keyword">in</span> headers) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-regexp">/^content-/i</span>.test(header)) {
+          <span class="hljs-keyword">delete</span> headers[header];
+        }
+      }
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37"></a>
+</div>
+<p>Drop the Host header, as the redirect might lead to a different host</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._isRedirect) {
+      <span class="hljs-keyword">for</span> (header <span class="hljs-keyword">in</span> headers) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-regexp">/^host$/i</span>.test(header)) {
+          <span class="hljs-keyword">delete</span> headers[header];
+        }
+      }
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38"></a>
+</div>
+<p>Perform the redirected request</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">var</span> redirectUrl = url.resolve(<span class="hljs-keyword">this</span>._currentUrl, location);
+    debug(<span class="hljs-string">"redirecting to"</span>, redirectUrl);
+    <span class="hljs-built_in">Object</span>.assign(<span class="hljs-keyword">this</span>._options, url.parse(redirectUrl));
+    <span class="hljs-keyword">this</span>._isRedirect = <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">this</span>._performRequest();
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-39" id="section-39"></a>
+</div>
+<p>Discard the remainder of the response to avoid waiting for data</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    response.destroy();
+  }
+  <span class="hljs-keyword">else</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-40" id="section-40"></a>
+</div>
+<p>The response is not a redirect; return it as-is</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    response.responseUrl = <span class="hljs-keyword">this</span>._currentUrl;
+    response.redirects = <span class="hljs-keyword">this</span>._redirects;
+    <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">"response"</span>, response);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-41" id="section-41"></a>
+</div>
+<p>Clean up</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">this</span>._requestBodyBuffers = [];
+  }
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-42" id="section-42"></a>
+</div>
+<p>Wraps the key/value object of protocols with redirect functionality</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wrap</span>(<span class="hljs-params">protocols</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43"></a>
+</div>
+<p>Default settings</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> exports = {
+    <span class="hljs-attr">maxRedirects</span>: <span class="hljs-number">21</span>,
+    <span class="hljs-attr">maxBodyLength</span>: <span class="hljs-number">10</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span>,
+  };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44"></a>
+</div>
+<p>Wrap each protocol</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> nativeProtocols = {};
+  <span class="hljs-built_in">Object</span>.keys(protocols).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">scheme</span>) </span>{
+    <span class="hljs-keyword">var</span> protocol = scheme + <span class="hljs-string">":"</span>;
+    <span class="hljs-keyword">var</span> nativeProtocol = nativeProtocols[protocol] = protocols[scheme];
+    <span class="hljs-keyword">var</span> wrappedProtocol = exports[scheme] = <span class="hljs-built_in">Object</span>.create(nativeProtocol);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45"></a>
+</div>
+<p>Executes a request, following redirects</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    wrappedProtocol.request = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">options, callback</span>) </span>{
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options === <span class="hljs-string">"string"</span>) {
+        options = url.parse(options);
+        options.maxRedirects = exports.maxRedirects;
+      }
+      <span class="hljs-keyword">else</span> {
+        options = <span class="hljs-built_in">Object</span>.assign({
+          <span class="hljs-attr">protocol</span>: protocol,
+          <span class="hljs-attr">maxRedirects</span>: exports.maxRedirects,
+          <span class="hljs-attr">maxBodyLength</span>: exports.maxBodyLength,
+        }, options);
+      }
+      options.nativeProtocols = nativeProtocols;
+      assert.equal(options.protocol, protocol, <span class="hljs-string">"protocol mismatch"</span>);
+      debug(<span class="hljs-string">"options"</span>, options);
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> RedirectableRequest(options, callback);
+    };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-46" id="section-46"></a>
+</div>
+<p>Executes a GET request, following redirects</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    wrappedProtocol.get = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">options, callback</span>) </span>{
+      <span class="hljs-keyword">var</span> request = wrappedProtocol.request(options, callback);
+      request.end();
+      <span class="hljs-keyword">return</span> request;
+    };
+  });
+  <span class="hljs-keyword">return</span> exports;
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-47" id="section-47"></a>
+</div>
+<p>Exports</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-built_in">module</span>.exports = wrap({ <span class="hljs-attr">http</span>: http, <span class="hljs-attr">https</span>: https });
+<span class="hljs-built_in">module</span>.exports.wrap = wrap;
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

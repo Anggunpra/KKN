@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>readme.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\archive-type\\readme.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#archive-type">archive-type </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#archivetype-buf">archiveType(buf)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#buf">buf</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="archive-type">
+  <h1>
+    <a href="#archive-type" name="archive-type" class="pilcrow"></a>
+archive-type <a href="https://travis-ci.org/kevva/archive-type"><img src="https://travis-ci.org/kevva/archive-type.svg?branch=master" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Detect the archive type of a Buffer/Uint8Array</p>
+</blockquote>
+<p><em>See <a href="https://github.com/kevva/archive-type-cli">archive-type-cli</a> for the command-line version.</em></p>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code>$ npm install --save archive-type
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> readFileSync = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).readFileSync;
+<span class="hljs-keyword">var</span> archiveType = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archive-type'</span>);
+
+archiveType(readFileSync(<span class="hljs-string">'foo.zip'</span>));
+<span class="hljs-comment">//=&gt; {ext: 'zip', mime: 'application/zip'}</span>
+</code></pre>
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h2>
+</div>
+<div class="pilwrap" id="archivetype-buf">
+  <h3>
+    <a href="#archivetype-buf" name="archivetype-buf" class="pilcrow"></a>
+archiveType(buf)
+  </h3>
+</div>
+<p>Returns <a href="https://github.com/kevva/is-7zip"><code>7z</code></a>, <a href="https://github.com/kevva/is-bzip2"><code>bz2</code></a>, <a href="https://github.com/kevva/is-gzip"><code>gz</code></a>, <a href="https://github.com/kevva/is-rar"><code>rar</code></a>, <a href="https://github.com/kevva/is-tar"><code>tar</code></a>, <a href="https://github.com/kevva/is-zip"><code>zip</code></a>, <a href="https://github.com/kevva/is-xz"><code>xz</code></a> or <code>false</code>.</p>
+<div class="pilwrap" id="buf">
+  <h4>
+    <a href="#buf" name="buf" class="pilcrow"></a>
+buf
+  </h4>
+</div>
+<p>Type: <code>buffer</code> <em>(Node.js)</em>, <code>uint8array</code></p>
+<p>It only needs the first 261 bytes.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/kevva">Kevin Mårtensson</a></p>
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\cssnano\\package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"cssnano"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"4.1.10"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A modular minifier, built on top of the PostCSS ecosystem."</span>,
+  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"dist/index.js"</span>,
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"bundle-size"</span>: <span class="hljs-string">"webpack --json --config src/__tests__/_webpack.config.js | webpack-bundle-size-analyzer"</span>,
+    <span class="hljs-attr">"integrations"</span>: <span class="hljs-string">"babel-node src/__tests__/util/rebuild.js"</span>,
+    <span class="hljs-attr">"prepublish"</span>: <span class="hljs-string">"cross-env BABEL_ENV=publish babel src --out-dir dist --ignore /__tests__/"</span>
+  },
+  <span class="hljs-attr">"keywords"</span>: [
+    <span class="hljs-string">"css"</span>,
+    <span class="hljs-string">"compress"</span>,
+    <span class="hljs-string">"minify"</span>,
+    <span class="hljs-string">"optimise"</span>,
+    <span class="hljs-string">"optimisation"</span>,
+    <span class="hljs-string">"postcss"</span>,
+    <span class="hljs-string">"postcss-plugin"</span>
+  ],
+  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"MIT"</span>,
+  <span class="hljs-attr">"dependencies"</span>: {
+    <span class="hljs-attr">"cosmiconfig"</span>: <span class="hljs-string">"^5.0.0"</span>,
+    <span class="hljs-attr">"cssnano-preset-default"</span>: <span class="hljs-string">"^4.0.7"</span>,
+    <span class="hljs-attr">"is-resolvable"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"postcss"</span>: <span class="hljs-string">"^7.0.0"</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"array-to-sentence"</span>: <span class="hljs-string">"^2.0.0"</span>,
+    <span class="hljs-attr">"babel-cli"</span>: <span class="hljs-string">"^6.0.0"</span>,
+    <span class="hljs-attr">"babel-core"</span>: <span class="hljs-string">"^6.0.0"</span>,
+    <span class="hljs-attr">"babel-loader"</span>: <span class="hljs-string">"^7.0.0"</span>,
+    <span class="hljs-attr">"cross-env"</span>: <span class="hljs-string">"^5.0.0"</span>,
+    <span class="hljs-attr">"cssnano-preset-advanced"</span>: <span class="hljs-string">"^4.0.7"</span>,
+    <span class="hljs-attr">"postcss-font-magician"</span>: <span class="hljs-string">"^2.0.0"</span>,
+    <span class="hljs-attr">"webpack"</span>: <span class="hljs-string">"^2.0.0"</span>,
+    <span class="hljs-attr">"webpack-bundle-size-analyzer"</span>: <span class="hljs-string">"^2.0.0"</span>
+  },
+  <span class="hljs-attr">"homepage"</span>: <span class="hljs-string">"https://github.com/cssnano/cssnano"</span>,
+  <span class="hljs-attr">"author"</span>: {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Ben Briggs"</span>,
+    <span class="hljs-attr">"email"</span>: <span class="hljs-string">"beneb.info@gmail.com"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://beneb.info"</span>
+  },
+  <span class="hljs-attr">"repository"</span>: <span class="hljs-string">"cssnano/cssnano"</span>,
+  <span class="hljs-attr">"files"</span>: [
+    <span class="hljs-string">"dist"</span>,
+    <span class="hljs-string">"LICENSE-MIT"</span>,
+    <span class="hljs-string">"quickstart.js"</span>
+  ],
+  <span class="hljs-attr">"tonicExampleFilename"</span>: <span class="hljs-string">"quickstart.js"</span>,
+  <span class="hljs-attr">"bugs"</span>: {
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/cssnano/cssnano/issues"</span>
+  },
+  <span class="hljs-attr">"engines"</span>: {
+    <span class="hljs-attr">"node"</span>: <span class="hljs-string">"&gt;=6.9.0"</span>
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

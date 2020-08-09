@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\arch\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> cp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'child_process'</span>)
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)
+<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Returns the operating system's CPU architecture. This is different than
+<code>process.arch</code> or <code>os.arch()</code> which returns the architecture the Node.js (or
+Electron) binary was compiled for.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arch</span> (<span class="hljs-params"></span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The running binary is 64-bit, so the OS is clearly 64-bit.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (process.arch === <span class="hljs-string">'x64'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'x64'</span>
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>All recent versions of Mac OS are 64-bit.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (process.platform === <span class="hljs-string">'darwin'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'x64'</span>
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>On Windows, the most reliable way to detect a 64-bit OS from within a 32-bit
+app is based on the presence of a WOW64 file: %SystemRoot%\SysNative.
+See: https://twitter.com/feross/status/776949077208510464</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (process.platform === <span class="hljs-string">'win32'</span>) {
+    <span class="hljs-keyword">var</span> useEnv = <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">try</span> {
+      useEnv = !!(process.env.SYSTEMROOT &amp;&amp; fs.statSync(process.env.SYSTEMROOT))
+    } <span class="hljs-keyword">catch</span> (err) {}
+
+    <span class="hljs-keyword">var</span> sysRoot = useEnv ? process.env.SYSTEMROOT : <span class="hljs-string">'C:\\Windows'</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>If %SystemRoot%\SysNative exists, we are in a WOW64 FS Redirected application.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">var</span> isWOW64 = <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">try</span> {
+      isWOW64 = !!fs.statSync(path.join(sysRoot, <span class="hljs-string">'sysnative'</span>))
+    } <span class="hljs-keyword">catch</span> (err) {}
+
+    <span class="hljs-keyword">return</span> isWOW64 ? <span class="hljs-string">'x64'</span> : <span class="hljs-string">'x86'</span>
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>On Linux, use the <code>getconf</code> command to get the architecture.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (process.platform === <span class="hljs-string">'linux'</span>) {
+    <span class="hljs-keyword">var</span> output = cp.execSync(<span class="hljs-string">'getconf LONG_BIT'</span>, {<span class="hljs-attr">encoding</span>: <span class="hljs-string">'utf8'</span>})
+    <span class="hljs-keyword">return</span> output === <span class="hljs-string">'64\n'</span> ? <span class="hljs-string">'x64'</span> : <span class="hljs-string">'x86'</span>
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>If none of the above, assume the architecture is 32-bit.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">return</span> <span class="hljs-string">'x86'</span>
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

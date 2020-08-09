@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\flush-write-stream\\index.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>index.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> stream = <span class="hljs-built_in">require</span>(<span class="hljs-string">'readable-stream'</span>)
+<span class="hljs-keyword">var</span> inherits = <span class="hljs-built_in">require</span>(<span class="hljs-string">'inherits'</span>)
+
+<span class="hljs-keyword">var</span> SIGNAL_FLUSH =(Buffer.from &amp;&amp; Buffer.from !== <span class="hljs-built_in">Uint8Array</span>.from)
+  ? Buffer.from([<span class="hljs-number">0</span>])
+  : <span class="hljs-keyword">new</span> Buffer([<span class="hljs-number">0</span>])
+
+<span class="hljs-built_in">module</span>.exports = WriteStream
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">WriteStream</span> (<span class="hljs-params">opts, write, flush</span>) </span>{
+  <span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> WriteStream)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> WriteStream(opts, write, flush)
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opts === <span class="hljs-string">'function'</span>) {
+    flush = write
+    write = opts
+    opts = {}
+  }
+
+  stream.Writable.call(<span class="hljs-keyword">this</span>, opts)
+
+  <span class="hljs-keyword">this</span>.destroyed = <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">this</span>._worker = write || <span class="hljs-literal">null</span>
+  <span class="hljs-keyword">this</span>._flush = flush || <span class="hljs-literal">null</span>
+}
+
+inherits(WriteStream, stream.Writable)
+
+WriteStream.obj = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">opts, worker, flush</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> opts === <span class="hljs-string">'function'</span>) <span class="hljs-keyword">return</span> WriteStream.obj(<span class="hljs-literal">null</span>, opts, worker)
+  <span class="hljs-keyword">if</span> (!opts) opts = {}
+  opts.objectMode = <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> WriteStream(opts, worker, flush)
+}
+
+WriteStream.prototype._write = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data, enc, cb</span>) </span>{
+  <span class="hljs-keyword">if</span> (SIGNAL_FLUSH === data) <span class="hljs-keyword">this</span>._flush(cb)
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">this</span>._worker(data, enc, cb)
+}
+
+WriteStream.prototype.end = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data, enc, cb</span>) </span>{
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._flush) <span class="hljs-keyword">return</span> stream.Writable.prototype.end.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>)
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> data === <span class="hljs-string">'function'</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.end(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, data)
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> enc === <span class="hljs-string">'function'</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.end(data, <span class="hljs-literal">null</span>, enc)
+  <span class="hljs-keyword">if</span> (data) <span class="hljs-keyword">this</span>.write(data)
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._writableState.ending) <span class="hljs-keyword">this</span>.write(SIGNAL_FLUSH)
+  <span class="hljs-keyword">return</span> stream.Writable.prototype.end.call(<span class="hljs-keyword">this</span>, cb)
+}
+
+WriteStream.prototype.destroy = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.destroyed) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">this</span>.destroyed = <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'error'</span>, err)
+  <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">'close'</span>)
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

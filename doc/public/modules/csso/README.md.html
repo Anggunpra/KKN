@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\csso\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#runners">Runners</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#command-line">Command line</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#source-maps">Source maps</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#usage-data">Usage data</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#selector-filtering">Selector filtering</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#scopes">Scopes</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#api">API</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#minify-source-options">minify(source[, options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#minifyblock-source-options">minifyBlock(source[, options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#parse-source-options">parse(source[, options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#compress-ast-options">compress(ast[, options])</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#clone-ast">clone(ast)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#translate-ast">translate(ast)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#translatewithsourcemap-ast">translateWithSourceMap(ast)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#walk-ast-handler">walk(ast, handler)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#walkrules-ast-handler">walkRules(ast, handler)</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#walkrulesright-ast-handler">walkRulesRight(ast, handler)</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#more-reading">More reading</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p><a href="https://www.npmjs.com/package/csso"><img src="https://img.shields.io/npm/v/csso.svg" alt="NPM version"></a>
+<a href="https://travis-ci.org/css/csso"><img src="https://travis-ci.org/css/csso.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/github/css/csso?branch=master"><img src="https://coveralls.io/repos/github/css/csso/badge.svg?branch=master" alt="Coverage Status"></a>
+<a href="https://www.npmjs.com/package/csso"><img src="https://img.shields.io/npm/dm/csso.svg" alt="NPM Downloads"></a>
+<a href="https://twitter.com/cssoptimizer"><img src="https://img.shields.io/badge/Twitter-@cssoptimizer-blue.svg" alt="Twitter"></a></p>
+<p>CSSO (CSS Optimizer) is a CSS minifier. It performs three sort of transformations: cleaning (removing redundant), compression (replacement for shorter form) and restructuring (merge of declarations, rulesets and so on). As a result your CSS becomes much smaller.</p>
+<p><a href="https://www.yandex.com/"><img src="https://cdn.rawgit.com/css/csso/8d1b89211ac425909f735e7d5df87ee16c2feec6/docs/yandex.svg" alt="Originated by Yandex"></a>
+<a href="https://www.avito.ru/"><img src="https://cdn.rawgit.com/css/csso/8d1b89211ac425909f735e7d5df87ee16c2feec6/docs/avito.svg" alt="Sponsored by Avito"></a></p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code>npm install -g csso
+</code></pre>
+<p>Or try out CSSO <a href="http://css.github.io/csso/csso.html">right in your browser</a> (web interface).</p>
+<div class="pilwrap" id="runners">
+  <h3>
+    <a href="#runners" name="runners" class="pilcrow"></a>
+Runners
+  </h3>
+</div>
+<ul>
+<li>Gulp: <a href="https://github.com/ben-eb/gulp-csso">gulp-csso</a></li>
+<li>Grunt: <a href="https://github.com/t32k/grunt-csso">grunt-csso</a></li>
+<li>Broccoli: <a href="https://github.com/sindresorhus/broccoli-csso">broccoli-csso</a></li>
+<li>PostCSS: <a href="https://github.com/lahmatiy/postcss-csso">postcss-csso</a></li>
+<li>Webpack: <a href="https://github.com/sandark7/csso-loader">csso-loader</a></li>
+</ul>
+<div class="pilwrap" id="command-line">
+  <h3>
+    <a href="#command-line" name="command-line" class="pilcrow"></a>
+Command line
+  </h3>
+</div>
+<pre><code>csso [input] [output] [options]
+
+Options:
+
+      --comments &lt;value&gt;    Comments to keep: exclamation (default), first-exclamation or none
+      --debug [level]       Output intermediate state of CSS during compression
+  -h, --help                Output usage information
+  -i, --input &lt;filename&gt;    Input file
+      --input-map &lt;source&gt;  Input source map: none, auto (default) or &lt;filename&gt;
+  -m, --map &lt;destination&gt;   Generate source map: none (default), inline, file or &lt;filename&gt;
+  -o, --output &lt;filename&gt;   Output file (result outputs to stdout if not set)
+      --restructure-off     Turns structure minimization off
+      --stat                Output statistics in stderr
+  -u, --usage &lt;filenane&gt;    Usage data file
+  -v, --version             Output version
+</code></pre>
+<p>Some examples:</p>
+<pre><code>&gt; csso in.css
+...output result in stdout...
+
+&gt; csso in.css --output out.css
+
+&gt; echo '.test { color: #ff0000; }' | csso
+.test{color:red}
+
+&gt; cat source1.css source2.css | csso | gzip -9 -c &gt; production.css.gz
+</code></pre>
+<div class="pilwrap" id="source-maps">
+  <h3>
+    <a href="#source-maps" name="source-maps" class="pilcrow"></a>
+Source maps
+  </h3>
+</div>
+<p>Source map doesn't generate by default. To generate map use <code>--map</code> CLI option, that can be:</p>
+<ul>
+<li><code>none</code> (default) – don't generate source map</li>
+<li><code>inline</code> – add source map into result CSS (via <code>/*# sourceMappingURL=application/json;base64,... */</code>)</li>
+<li><code>file</code> – write source map into file with same name as output file, but with <code>.map</code> extension (in this case <code>--output</code> option is required)</li>
+<li>any other values treat as filename for generated source map</li>
+</ul>
+<p>Examples:</p>
+<pre><code>&gt; csso my.css --map inline
+&gt; csso my.css --output my.min.css --map file
+&gt; csso my.css --output my.min.css --map maps/my.min.map
+</code></pre>
+<p>Use <code>--input-map</code> option to specify input source map if needed. Possible values for option:</p>
+<ul>
+<li><code>auto</code> (default) - attempt to fetch input source map by follow steps:
+<ul>
+<li>try to fetch inline map from input</li>
+<li>try to fetch source map filename from input and read its content</li>
+<li>(when <code>--input</code> is specified) check file with same name as input file but with <code>.map</code> extension exists and read its content</li>
+</ul>
+</li>
+<li><code>none</code> - don't use input source map; actually it's using to disable <code>auto</code>-fetching</li>
+<li>any other values treat as filename for input source map</li>
+</ul>
+<p>Generally you shouldn't care about input source map since defaults behaviour (<code>auto</code>) covers most use cases.</p>
+<blockquote>
+<p>NOTE: Input source map is using only if output source map is generating.</p>
+</blockquote>
+<div class="pilwrap" id="usage-data">
+  <h3>
+    <a href="#usage-data" name="usage-data" class="pilcrow"></a>
+Usage data
+  </h3>
+</div>
+<p><code>CSSO</code> can use data about how <code>CSS</code> is using for better compression. File with this data (<code>JSON</code> format) can be set using <code>--usage</code> option. Usage data may contain follow sections:</p>
+<ul>
+<li><code>tags</code> – white list of tags</li>
+<li><code>ids</code> – white list of ids</li>
+<li><code>classes</code> – white list of classes</li>
+<li><code>scopes</code> – groups of classes which never used with classes from other groups on single element</li>
+</ul>
+<p>All sections are optional. Value of <code>tags</code>, <code>ids</code> and <code>classes</code> should be array of strings, value of <code>scopes</code> should be an array of arrays of strings. Other values are ignoring.</p>
+<div class="pilwrap" id="selector-filtering">
+  <h4>
+    <a href="#selector-filtering" name="selector-filtering" class="pilcrow"></a>
+Selector filtering
+  </h4>
+</div>
+<p><code>tags</code>, <code>ids</code> and <code>classes</code> are using on clean stage to filter selectors that contains something that not in list. Selectors are filtering only by those kind of simple selector which white list is specified. For example, if only <code>tags</code> list is specified then type selectors are checking, and if selector hasn't any type selector (or even any type selector) it isn't filter.</p>
+<blockquote>
+<p><code>ids</code> and <code>classes</code> names are case sensitive, <code>tags</code> – is not.</p>
+</blockquote>
+<p>Input CSS:</p>
+<pre><code class="css">* { <span class="hljs-attribute">color</span>: green; }
+<span class="hljs-selector-tag">ul</span>, <span class="hljs-selector-tag">ol</span>, <span class="hljs-selector-tag">li</span> { <span class="hljs-attribute">color</span>: blue; }
+<span class="hljs-selector-tag">UL</span><span class="hljs-selector-class">.foo</span>, <span class="hljs-selector-tag">span</span><span class="hljs-selector-class">.bar</span> { <span class="hljs-attribute">color</span>: red; }
+</code></pre>
+<p>Usage data:</p>
+<pre><code class="json">{
+    <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"ul"</span>, <span class="hljs-string">"LI"</span>]
+}
+</code></pre>
+<p>Result CSS:</p>
+<pre><code class="css">*{<span class="hljs-attribute">color</span>:green}<span class="hljs-selector-tag">ul</span>,<span class="hljs-selector-tag">li</span>{<span class="hljs-attribute">color</span>:blue}<span class="hljs-selector-tag">ul</span><span class="hljs-selector-class">.foo</span>{<span class="hljs-attribute">color</span>:red}
+</code></pre>
+<div class="pilwrap" id="scopes">
+  <h4>
+    <a href="#scopes" name="scopes" class="pilcrow"></a>
+Scopes
+  </h4>
+</div>
+<p>Scopes is designed for CSS scope isolation solutions such as <a href="https://github.com/css-modules/css-modules">css-modules</a>. Scopes are similar to namespaces and defines lists of class names that exclusively used on some markup. This information allows the optimizer to move rulesets more agressive. Since it assumes selectors from different scopes can't to be matched on the same element. That leads to better ruleset merging.</p>
+<p>Suppose we have a file:</p>
+<pre><code class="css"><span class="hljs-selector-class">.module1-foo</span> { <span class="hljs-attribute">color</span>: red; }
+<span class="hljs-selector-class">.module1-bar</span> { <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.5em</span>; <span class="hljs-attribute">background</span>: yellow; }
+
+<span class="hljs-selector-class">.module2-baz</span> { <span class="hljs-attribute">color</span>: red; }
+<span class="hljs-selector-class">.module2-qux</span> { <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.5em</span>; <span class="hljs-attribute">background</span>: yellow; <span class="hljs-attribute">width</span>: <span class="hljs-number">50px</span>; }
+</code></pre>
+<p>It can be assumed that first two rules never used with second two on the same markup. But we can't know that for sure without markup. The optimizer doesn't know it eather and will perform safe transformations only. The result will be the same as input but with no spaces and some semicolons:</p>
+<pre><code class="css"><span class="hljs-selector-class">.module1-foo</span>{<span class="hljs-attribute">color</span>:red}<span class="hljs-selector-class">.module1-bar</span>{<span class="hljs-attribute">font-size</span>:<span class="hljs-number">1.5em</span>;<span class="hljs-attribute">background</span>:<span class="hljs-number">#ff0</span>}<span class="hljs-selector-class">.module2-baz</span>{<span class="hljs-attribute">color</span>:red}<span class="hljs-selector-class">.module2-qux</span>{<span class="hljs-attribute">font-size</span>:<span class="hljs-number">1.5em</span>;<span class="hljs-attribute">background</span>:<span class="hljs-number">#ff0</span>;<span class="hljs-attribute">width</span>:<span class="hljs-number">50px</span>}
+</code></pre>
+<p>But with usage data <code>CSSO</code> can get better output. If follow usage data is provided:</p>
+<pre><code class="json">{
+    <span class="hljs-attr">"scopes"</span>: [
+        [<span class="hljs-string">"module1-foo"</span>, <span class="hljs-string">"module1-bar"</span>],
+        [<span class="hljs-string">"module2-baz"</span>, <span class="hljs-string">"module2-qux"</span>]
+    ]
+}
+</code></pre>
+<p>New result (29 bytes extra saving):</p>
+<pre><code class="css"><span class="hljs-selector-class">.module1-foo</span>,<span class="hljs-selector-class">.module2-baz</span>{<span class="hljs-attribute">color</span>:red}<span class="hljs-selector-class">.module1-bar</span>,<span class="hljs-selector-class">.module2-qux</span>{<span class="hljs-attribute">font-size</span>:<span class="hljs-number">1.5em</span>;<span class="hljs-attribute">background</span>:<span class="hljs-number">#ff0</span>}<span class="hljs-selector-class">.module2-qux</span>{<span class="hljs-attribute">width</span>:<span class="hljs-number">50px</span>}
+</code></pre>
+<p>If class name doesn't specified in <code>scopes</code> it belongs to default &quot;scope&quot;. <code>scopes</code> doesn't affect <code>classes</code>. If class name presents in <code>scopes</code> but missed in <code>classes</code> (both sections specified) it will be filtered.</p>
+<p>Note that class name can't be specified in several scopes. Also selector can't has classes from different scopes. In both cases an exception throws.</p>
+<p>Currently the optimizer doesn't care about out-of-bounds selectors order changing safety (i.e. selectors that may be matched to elements with no class name of scope, e.g. <code>.scope div</code> or <code>.scope ~ :last-child</code>) since assumes scoped CSS modules doesn't relay on it's order. It may be fix in future if to be an issue.</p>
+<div class="pilwrap" id="api">
+  <h3>
+    <a href="#api" name="api" class="pilcrow"></a>
+API
+  </h3>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> csso = <span class="hljs-built_in">require</span>(<span class="hljs-string">'csso'</span>);
+
+<span class="hljs-keyword">var</span> compressedCss = csso.minify(<span class="hljs-string">'.test { color: #ff0000; }'</span>).css;
+
+<span class="hljs-built_in">console</span>.log(compressedCss);
+<span class="hljs-comment">// .test{color:red}</span>
+</code></pre>
+<p>You may minify CSS by yourself step by step:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> ast = csso.parse(<span class="hljs-string">'.test { color: #ff0000; }'</span>);
+<span class="hljs-keyword">var</span> compressResult = csso.compress(ast);
+<span class="hljs-keyword">var</span> compressedCss = csso.translate(compressResult.ast);
+
+<span class="hljs-built_in">console</span>.log(compressedCss);
+<span class="hljs-comment">// .test{color:red}</span>
+</code></pre>
+<p>Working with source maps:</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> css = fs.readFileSync(<span class="hljs-string">'path/to/my.css'</span>, <span class="hljs-string">'utf8'</span>);
+<span class="hljs-keyword">var</span> result = csso.minify(css, {
+  <span class="hljs-attr">filename</span>: <span class="hljs-string">'path/to/my.css'</span>, <span class="hljs-comment">// will be added to source map as reference to source file</span>
+  <span class="hljs-attr">sourceMap</span>: <span class="hljs-literal">true</span>             <span class="hljs-comment">// generate source map</span>
+});
+
+<span class="hljs-built_in">console</span>.log(result);
+<span class="hljs-comment">// { css: '...minified...', map: SourceMapGenerator {} }</span>
+
+<span class="hljs-built_in">console</span>.log(result.map.toString());
+<span class="hljs-comment">// '{ .. source map content .. }'</span>
+</code></pre>
+<div class="pilwrap" id="minify-source-options">
+  <h4>
+    <a href="#minify-source-options" name="minify-source-options" class="pilcrow"></a>
+minify(source[, options])
+  </h4>
+</div>
+<p>Minify <code>source</code> CSS passed as <code>String</code>.</p>
+<p>Options:</p>
+<ul>
+<li>sourceMap <code>Boolean</code> - generate source map if <code>true</code></li>
+<li>filename <code>String</code> - filename of input, uses for source map</li>
+<li>debug <code>Boolean</code> - output debug information to <code>stderr</code></li>
+<li>beforeCompress <code>function|array&lt;function&gt;</code> - called right after parse is run. Callbacks arguments are <code>ast, options</code>.</li>
+<li>afterCompress <code>function|array&lt;function&gt;</code> - called right after compress is run. Callbacks arguments are <code>compressResult, options</code>.</li>
+<li>other options are the same as for <code>compress()</code></li>
+</ul>
+<p>Returns an object with properties:</p>
+<ul>
+<li>css <code>String</code> – resulting CSS</li>
+<li>map <code>Object</code> – instance of <code>SourceMapGenerator</code> or <code>null</code></li>
+</ul>
+<pre><code class="js"><span class="hljs-keyword">var</span> result = csso.minify(<span class="hljs-string">'.test { color: #ff0000; }'</span>, {
+    <span class="hljs-attr">restructure</span>: <span class="hljs-literal">false</span>,   <span class="hljs-comment">// don't change CSS structure, i.e. don't merge declarations, rulesets etc</span>
+    <span class="hljs-attr">debug</span>: <span class="hljs-literal">true</span>           <span class="hljs-comment">// show additional debug information:</span>
+                          <span class="hljs-comment">// true or number from 1 to 3 (greater number - more details)</span>
+});
+
+<span class="hljs-built_in">console</span>.log(result.css);
+<span class="hljs-comment">// &gt; .test{color:red}</span>
+</code></pre>
+<div class="pilwrap" id="minifyblock-source-options">
+  <h4>
+    <a href="#minifyblock-source-options" name="minifyblock-source-options" class="pilcrow"></a>
+minifyBlock(source[, options])
+  </h4>
+</div>
+<p>The same as <code>minify()</code> but for style block. Usualy it's a <code>style</code> attribute content.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> result = csso.minifyBlock(<span class="hljs-string">'color: rgba(255, 0, 0, 1); color: #ff0000'</span>).css;
+
+<span class="hljs-built_in">console</span>.log(result.css);
+<span class="hljs-comment">// &gt; color:red</span>
+</code></pre>
+<div class="pilwrap" id="parse-source-options">
+  <h4>
+    <a href="#parse-source-options" name="parse-source-options" class="pilcrow"></a>
+parse(source[, options])
+  </h4>
+</div>
+<p>Parse CSS to AST.</p>
+<blockquote>
+<p>NOTE: Currenly parser omit redundant separators, spaces and comments (except exclamation comments, i.e. <code>/*! comment */</code>) on AST build, since those things are removing by compressor anyway.</p>
+</blockquote>
+<p>Options:</p>
+<ul>
+<li>context <code>String</code> – parsing context, useful when some part of CSS is parsing (see below)</li>
+<li>positions <code>Boolean</code> – should AST contains node position or not, store data in <code>info</code> property of nodes (<code>false</code> by default)</li>
+<li>filename <code>String</code> – filename of source that adds to info when <code>positions</code> is true, uses for source map generation (<code>&lt;unknown&gt;</code> by default)</li>
+<li>line <code>Number</code> – initial line number, useful when parse fragment of CSS to compute correct positions</li>
+<li>column <code>Number</code> – initial column number, useful when parse fragment of CSS to compute correct positions</li>
+</ul>
+<p>Contexts:</p>
+<ul>
+<li><code>stylesheet</code> (default) – regular stylesheet, should be suitable in most cases</li>
+<li><code>atrule</code> – at-rule (e.g. <code>@media screen, print { ... }</code>)</li>
+<li><code>atruleExpression</code> – at-rule expression (<code>screen, print</code> for example above)</li>
+<li><code>ruleset</code> – rule (e.g. <code>.foo, .bar:hover { color: red; border: 1px solid black; }</code>)</li>
+<li><code>selector</code> – selector group (<code>.foo, .bar:hover</code> for ruleset example)</li>
+<li><code>simpleSelector</code> – selector (<code>.foo</code> or <code>.bar:hover</code> for ruleset example)</li>
+<li><code>block</code> – block content w/o curly braces (<code>color: red; border: 1px solid black;</code> for ruleset example)</li>
+<li><code>declaration</code> – declaration (<code>color: red</code> or <code>border: 1px solid black</code> for ruleset example)</li>
+<li><code>value</code> – declaration value (<code>red</code> or <code>1px solid black</code> for ruleset example)</li>
+</ul>
+<pre><code class="js"><span class="hljs-comment">// simple parsing with no options</span>
+<span class="hljs-keyword">var</span> ast = csso.parse(<span class="hljs-string">'.example { color: red }'</span>);
+
+<span class="hljs-comment">// parse with options</span>
+<span class="hljs-keyword">var</span> ast = csso.parse(<span class="hljs-string">'.foo.bar'</span>, {
+    <span class="hljs-attr">context</span>: <span class="hljs-string">'simpleSelector'</span>,
+    <span class="hljs-attr">positions</span>: <span class="hljs-literal">true</span>
+});
+</code></pre>
+<div class="pilwrap" id="compress-ast-options">
+  <h4>
+    <a href="#compress-ast-options" name="compress-ast-options" class="pilcrow"></a>
+compress(ast[, options])
+  </h4>
+</div>
+<p>Does the main task – compress AST.</p>
+<blockquote>
+<p>NOTE: <code>compress</code> performs AST compression by transforming input AST by default (since AST cloning is expensive and needed in rare cases). Use <code>clone</code> option with truthy value in case you want to keep input AST untouched.</p>
+</blockquote>
+<p>Options:</p>
+<ul>
+<li>restructure <code>Boolean</code> – do the structure optimisations or not (<code>true</code> by default)</li>
+<li>clone <code>Boolean</code> - transform a copy of input AST if <code>true</code>, useful in case of AST reuse (<code>false</code> by default)</li>
+<li>comments <code>String</code> or <code>Boolean</code> – specify what comments to left
+<ul>
+<li><code>'exclamation'</code> or <code>true</code> (default) – left all exclamation comments (i.e. <code>/*! .. */</code>)</li>
+<li><code>'first-exclamation'</code> – remove every comments except first one</li>
+<li><code>false</code> – remove every comments</li>
+</ul>
+</li>
+<li>usage <code>Object</code> - usage data for advanced optimisations (see <a href="#usage-data.html">Usage data</a> for details)</li>
+<li>logger <code>Function</code> - function to track every step of transformations</li>
+</ul>
+<div class="pilwrap" id="clone-ast">
+  <h4>
+    <a href="#clone-ast" name="clone-ast" class="pilcrow"></a>
+clone(ast)
+  </h4>
+</div>
+<p>Make an AST node deep copy.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> orig = csso.parse(<span class="hljs-string">'.test { color: red }'</span>);
+<span class="hljs-keyword">var</span> copy = csso.clone(orig);
+
+csso.walk(copy, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">if</span> (node.type === <span class="hljs-string">'Class'</span>) {
+        node.name = <span class="hljs-string">'replaced'</span>;
+    }
+});
+
+<span class="hljs-built_in">console</span>.log(csso.translate(orig));
+<span class="hljs-comment">// .test{color:red}</span>
+<span class="hljs-built_in">console</span>.log(csso.translate(copy));
+<span class="hljs-comment">// .replaced{color:red}</span>
+</code></pre>
+<div class="pilwrap" id="translate-ast">
+  <h4>
+    <a href="#translate-ast" name="translate-ast" class="pilcrow"></a>
+translate(ast)
+  </h4>
+</div>
+<p>Converts AST to string.</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> ast = csso.parse(<span class="hljs-string">'.test { color: red }'</span>);
+<span class="hljs-built_in">console</span>.log(csso.translate(ast));
+<span class="hljs-comment">// &gt; .test{color:red}</span>
+</code></pre>
+<div class="pilwrap" id="translatewithsourcemap-ast">
+  <h4>
+    <a href="#translatewithsourcemap-ast" name="translatewithsourcemap-ast" class="pilcrow"></a>
+translateWithSourceMap(ast)
+  </h4>
+</div>
+<p>The same as <code>translate()</code> but also generates source map (nodes should contain positions in <code>info</code> property).</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> ast = csso.parse(<span class="hljs-string">'.test { color: red }'</span>, {
+    <span class="hljs-attr">filename</span>: <span class="hljs-string">'my.css'</span>,
+    <span class="hljs-attr">positions</span>: <span class="hljs-literal">true</span>
+});
+<span class="hljs-built_in">console</span>.log(csso.translateWithSourceMap(ast));
+<span class="hljs-comment">// { css: '.test{color:red}', map: SourceMapGenerator {} }</span>
+</code></pre>
+<div class="pilwrap" id="walk-ast-handler">
+  <h4>
+    <a href="#walk-ast-handler" name="walk-ast-handler" class="pilcrow"></a>
+walk(ast, handler)
+  </h4>
+</div>
+<p>Visit all nodes of AST and call handler for each one. <code>handler</code> receives three arguments:</p>
+<ul>
+<li>node – current AST node</li>
+<li>item – node wrapper when node is a list member; this wrapper contains references to <code>prev</code> and <code>next</code> nodes in list</li>
+<li>list – reference to list when node is a list member; it's useful for operations on list like <code>remove()</code> or <code>insert()</code></li>
+</ul>
+<p>Context for handler an object, that contains references to some parent nodes:</p>
+<ul>
+<li>root – refers to <code>ast</code> or root node</li>
+<li>stylesheet – refers to closest <code>StyleSheet</code> node, it may be a top-level or at-rule block stylesheet</li>
+<li>atruleExpression – refers to <code>AtruleExpression</code> node if current node inside at-rule expression</li>
+<li>ruleset – refers to <code>Ruleset</code> node if current node inside a ruleset</li>
+<li>selector – refers to <code>Selector</code> node if current node inside a selector</li>
+<li>declaration – refers to <code>Declaration</code> node if current node inside a declaration</li>
+<li>function – refers to closest <code>Function</code> or <code>FunctionalPseudo</code> node if current node inside one of them</li>
+</ul>
+<pre><code class="js"><span class="hljs-comment">// collect all urls in declarations</span>
+<span class="hljs-keyword">var</span> csso = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/index.js'</span>);
+<span class="hljs-keyword">var</span> urls = [];
+<span class="hljs-keyword">var</span> ast = csso.parse(<span class="hljs-string">`
+  @import url(import.css);
+  .foo { background: url('foo.jpg'); }
+  .bar { background-image: url(bar.png); }
+`</span>);
+
+csso.walk(ast, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.declaration !== <span class="hljs-literal">null</span> &amp;&amp; node.type === <span class="hljs-string">'Url'</span>) {
+        <span class="hljs-keyword">var</span> value = node.value;
+
+        <span class="hljs-keyword">if</span> (value.type === <span class="hljs-string">'Raw'</span>) {
+            urls.push(value.value);
+        } <span class="hljs-keyword">else</span> {
+            urls.push(value.value.substr(<span class="hljs-number">1</span>, value.value.length - <span class="hljs-number">2</span>));
+        }
+    }
+});
+
+<span class="hljs-built_in">console</span>.log(urls);
+<span class="hljs-comment">// [ 'foo.jpg', 'bar.png' ]</span>
+</code></pre>
+<div class="pilwrap" id="walkrules-ast-handler">
+  <h4>
+    <a href="#walkrules-ast-handler" name="walkrules-ast-handler" class="pilcrow"></a>
+walkRules(ast, handler)
+  </h4>
+</div>
+<p>Same as <code>walk()</code> but visits <code>Ruleset</code> and <code>Atrule</code> nodes only.</p>
+<div class="pilwrap" id="walkrulesright-ast-handler">
+  <h4>
+    <a href="#walkrulesright-ast-handler" name="walkrulesright-ast-handler" class="pilcrow"></a>
+walkRulesRight(ast, handler)
+  </h4>
+</div>
+<p>Same as <code>walkRules()</code> but visits nodes in reverse order (from last to first).</p>
+<div class="pilwrap" id="more-reading">
+  <h2>
+    <a href="#more-reading" name="more-reading" class="pilcrow"></a>
+More reading
+  </h2>
+</div>
+<ul>
+<li><a href="docs/debugging.md.html">Debugging</a></li>
+</ul>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT</p>
+</div>
+  </div>
+</body>
+</html>

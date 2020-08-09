@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\cleave.js\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#cleave.js">Cleave.js</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#features">Features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#why">Why?</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#npm">npm</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#old-school">old school</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#commonjs">CommonJS</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#amd">AMD</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#es-module">ES Module</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#typescript">TypeScript</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#reactjs-component-usage">ReactJS component usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#angularjs-directive-usage">AngularJS directive usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#jquery-fn-usage">jQuery fn usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#playground">Playground</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#documentation">Documentation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#run-tasks">Run tasks</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#get-in-touch">Get in touch</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#references">References</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#licence">Licence</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="cleave.js">
+  <h1>
+    <a href="#cleave.js" name="cleave.js" class="pilcrow"></a>
+Cleave.js
+  </h1>
+</div>
+<p><a href="https://travis-ci.org/nosir/cleave.js"><img src="https://img.shields.io/travis/nosir/cleave.js.svg?maxAge=2592000" alt="Travis"></a>
+<a href="https://www.codacy.com/app/nosir/cleave-js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nosir/cleave.js&amp;utm_campaign=badger"><img src="https://api.codacy.com/project/badge/Grade/b1c0b0da42fa418f887076a3f7352aea" alt="Codacy Badge"></a>
+<a href="https://badge.fury.io/js/cleave.js"><img src="https://badge.fury.io/js/cleave.js.svg" alt="npm version"></a>
+<a href="https://www.npmjs.com/package/cleave.js"><img src="https://img.shields.io/npm/dm/cleave.js.svg" alt="npm downloads"></a>
+<a href="https://github.com/nosir/cleave.js/blob/master/doc/doc.md"><img src="https://img.shields.io/badge/documents-check-3362c2.svg" alt="Documents"></a></p>
+<p>Cleave.js has a simple purpose: to help you format input text content automatically.</p>
+<div class="pilwrap" id="features">
+  <h2>
+    <a href="#features" name="features" class="pilcrow"></a>
+Features
+  </h2>
+</div>
+<ul>
+<li>Credit card number formatting</li>
+<li>Phone number formatting (i18n js lib separated for each country to reduce size)</li>
+<li>Date formatting</li>
+<li>Numeral formatting</li>
+<li>Custom delimiter, prefix and blocks pattern</li>
+<li>CommonJS / AMD mode</li>
+<li>ReactJS component</li>
+<li>AngularJS directive (1.x)</li>
+<li>ES Module</li>
+</ul>
+<p><strong>TL;DR</strong> <a href="http://nosir.github.io/cleave.js/">the demo page</a></p>
+<div class="pilwrap" id="why">
+  <h2>
+    <a href="#why" name="why" class="pilcrow"></a>
+Why?
+  </h2>
+</div>
+<p>The idea is to provide an easy way to increase input field readability by formatting your typed data. By using this library, you won't need to write any mind-blowing regular expressions or mask patterns to format input text.</p>
+<p>However, this isn't meant to replace any validation or mask library, you should still sanitize and validate your data in backend.</p>
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow"></a>
+Installation
+  </h2>
+</div>
+<div class="pilwrap" id="npm">
+  <h4>
+    <a href="#npm" name="npm" class="pilcrow"></a>
+npm
+  </h4>
+</div>
+<pre><code class="bash">npm install --save cleave.js
+</code></pre>
+<div class="pilwrap" id="old-school">
+  <h4>
+    <a href="#old-school" name="old-school" class="pilcrow"></a>
+old school
+  </h4>
+</div>
+<p>Grab file from <a href="https://github.com/nosir/cleave.js/tree/master/dist">dist</a> directory</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>Simply include</p>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"cleave.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"cleave-phone.{country}.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<blockquote>
+<p><code>cleave-phone.{country}.js</code> addon is only required when phone shortcut mode is enabled. See more in documentation: <a href="https://github.com/nosir/cleave.js/blob/master/doc/phone-lib-addon.md">phone lib addon</a> section</p>
+</blockquote>
+<p>Then have a text field</p>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-phone"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>/&gt;</span>
+</code></pre>
+<p>Now in your JavaScript</p>
+<pre><code class="js"><span class="hljs-keyword">var</span> cleave = <span class="hljs-keyword">new</span> Cleave(<span class="hljs-string">'.input-phone'</span>, {
+    <span class="hljs-attr">phone</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">phoneRegionCode</span>: <span class="hljs-string">'{country}'</span>
+});
+</code></pre>
+<blockquote>
+<p><code>.input-element</code> here is a unique DOM element. If you want to apply Cleave for multiple elements, you need to give different CSS selectors and apply to each of them, effectively, you might want to create individual instance by a loop, e.g. <a href="https://github.com/nosir/cleave.js/issues/138#issuecomment-268024840">loop  solution</a></p>
+</blockquote>
+<p>More examples: <a href="http://nosir.github.io/cleave.js/">the demo page</a></p>
+<div class="pilwrap" id="commonjs">
+  <h4>
+    <a href="#commonjs" name="commonjs" class="pilcrow"></a>
+CommonJS
+  </h4>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> Cleave = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cleave.js'</span>);
+<span class="hljs-built_in">require</span>(<span class="hljs-string">'cleave.js/dist/addons/cleave-phone.{country}'</span>);
+
+<span class="hljs-keyword">var</span> cleave = <span class="hljs-keyword">new</span> Cleave(...)
+</code></pre>
+<div class="pilwrap" id="amd">
+  <h4>
+    <a href="#amd" name="amd" class="pilcrow"></a>
+AMD
+  </h4>
+</div>
+<pre><code class="js"><span class="hljs-built_in">require</span>([<span class="hljs-string">'cleave.js/dist/cleave.min'</span>, <span class="hljs-string">'cleave.js/dist/addons/cleave-phone.{country}'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">Cleave</span>) </span>{
+    <span class="hljs-keyword">var</span> cleave = <span class="hljs-keyword">new</span> Cleave(...)
+});
+</code></pre>
+<div class="pilwrap" id="es-module">
+  <h4>
+    <a href="#es-module" name="es-module" class="pilcrow"></a>
+ES Module
+  </h4>
+</div>
+<pre><code class="js"><span class="hljs-comment">// Rollup, WebPack</span>
+<span class="hljs-keyword">import</span> Cleave <span class="hljs-keyword">from</span> <span class="hljs-string">'cleave.js'</span>;
+<span class="hljs-keyword">var</span> cleave = <span class="hljs-keyword">new</span> Cleave(...)
+
+<span class="hljs-comment">// Browser</span>
+<span class="hljs-keyword">import</span> Cleave <span class="hljs-keyword">from</span> <span class="hljs-string">'node_modules/cleave.js/dist/cleave-esm.min.js'</span>;
+<span class="hljs-keyword">var</span> cleave = <span class="hljs-keyword">new</span> Cleave(...)
+</code></pre>
+<div class="pilwrap" id="typescript">
+  <h4>
+    <a href="#typescript" name="typescript" class="pilcrow"></a>
+TypeScript
+  </h4>
+</div>
+<p>Types are contributed by the community and are available via <code>npm install --save-dev @types/cleave.js</code>. Once installed, you can import Cleave like the following:</p>
+<pre><code class="ts"><span class="hljs-keyword">import</span> Cleave = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cleave.js'</span>);
+</code></pre>
+<p>Types for the React-component are also available and can be imported in the same way.</p>
+<pre><code class="ts"><span class="hljs-keyword">import</span> Cleave = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cleave.js/react'</span>);
+</code></pre>
+<div class="pilwrap" id="reactjs-component-usage">
+  <h2>
+    <a href="#reactjs-component-usage" name="reactjs-component-usage" class="pilcrow"></a>
+ReactJS component usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+
+<span class="hljs-keyword">import</span> Cleave <span class="hljs-keyword">from</span> <span class="hljs-string">'cleave.js/react'</span>;
+</code></pre>
+<p>Then in JSX:</p>
+<pre><code class="js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+
+    <span class="hljs-keyword">constructor</span>(props, context) {
+        <span class="hljs-keyword">super</span>(props, context);
+        <span class="hljs-keyword">this</span>.onCreditCardChange = <span class="hljs-keyword">this</span>.onCreditCardChange.bind(<span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">this</span>.onCreditCardFocus = <span class="hljs-keyword">this</span>.onCreditCardFocus.bind(<span class="hljs-keyword">this</span>);
+    }
+
+    onCreditCardChange(event) {
+        <span class="hljs-comment">// formatted pretty value</span>
+        <span class="hljs-built_in">console</span>.log(event.target.value);
+
+        <span class="hljs-comment">// raw value</span>
+        <span class="hljs-built_in">console</span>.log(event.target.rawValue);
+    }
+
+    onCreditCardFocus(event) {
+        <span class="hljs-comment">// update some state</span>
+    }
+
+    render() {
+        <span class="hljs-keyword">return</span> (
+            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Cleave</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Enter your credit card number"</span>
+                <span class="hljs-attr">options</span>=<span class="hljs-string">{{creditCard:</span> <span class="hljs-attr">true</span>}}
+                <span class="hljs-attr">onFocus</span>=<span class="hljs-string">{this.onCreditCardFocus}</span>
+                <span class="hljs-attr">onChange</span>=<span class="hljs-string">{this.onCreditCardChange}</span> /&gt;</span></span>
+        );
+    }
+}
+</code></pre>
+<p>As you can see, here you simply use <code>&lt;Cleave/&gt;</code> as a normal <code>&lt;input/&gt;</code> field</p>
+<ul>
+<li>Attach HTML <code>&lt;input/&gt;</code> attributes</li>
+<li>Pass in the custom <code>options</code> prop</li>
+<li>Add ReactJS <code>onChange</code> event listener</li>
+</ul>
+<p>Advanced usage:</p>
+<ul>
+<li><a href="https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md#how-to-pass-default-value">How to pass default value</a></li>
+<li><a href="https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md#how-to-call-public-methods">How to get ref of cleave instance and call methods</a></li>
+<li><a href="https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md#how-to-update-raw-value">How to update raw value</a></li>
+<li><a href="https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md#how-to-get-ref-of-the-input-field">How to get ref of the input field</a></li>
+<li><a href="https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md#how-to-use-it-with-redux-form">How to use it with redux form</a></li>
+</ul>
+<p>Usage for <code>Webpack</code>, <code>Browserify</code> and more in documentation: <a href="https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md">ReactJS component usage</a></p>
+<div class="pilwrap" id="angularjs-directive-usage">
+  <h2>
+    <a href="#angularjs-directive-usage" name="angularjs-directive-usage" class="pilcrow"></a>
+AngularJS directive usage
+  </h2>
+</div>
+<p>First include the directive module:</p>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"cleave.js/dist/cleave-angular.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"cleave.js/dist/addons/cleave-phone.{country}.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>And in your model:</p>
+<pre><code class="js">angular.module(<span class="hljs-string">'app'</span>, [<span class="hljs-string">'cleave.js'</span>])
+
+.controller(<span class="hljs-string">'AppController'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope</span>) </span>{
+    $scope.onCreditCardTypeChanged = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">type</span>) </span>{
+        $scope.model.creditCardType = type;
+    };
+
+    $scope.model = {
+        <span class="hljs-attr">rawValue</span>: <span class="hljs-string">''</span>
+    };
+
+    $scope.options = {
+        <span class="hljs-attr">creditCard</span>: {
+            <span class="hljs-attr">creditCard</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">onCreditCardTypeChanged</span>: $scope.onCreditCardTypeChanged
+        }
+    };
+});
+</code></pre>
+<p>Then easily you can apply <code>cleave</code> directive to <code>input</code> field:</p>
+<pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-controller</span>=<span class="hljs-string">"AppController"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">ng-model</span>=<span class="hljs-string">"model.rawValue"</span> <span class="hljs-attr">ng-whatever</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Enter credit card number"</span>
+        <span class="hljs-attr">cleave</span>=<span class="hljs-string">"options.creditCard"</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<p>More usage in documentation: <a href="https://github.com/nosir/cleave.js/blob/master/doc/angularjs-directive-usage.md">Angular directive usage</a></p>
+<div class="pilwrap" id="jquery-fn-usage">
+  <h2>
+    <a href="#jquery-fn-usage" name="jquery-fn-usage" class="pilcrow"></a>
+jQuery fn usage
+  </h2>
+</div>
+<p>Please check <a href="https://github.com/nosir/cleave.js/issues/341">here</a></p>
+<div class="pilwrap" id="playground">
+  <h2>
+    <a href="#playground" name="playground" class="pilcrow"></a>
+Playground
+  </h2>
+</div>
+<ul>
+<li><a href="https://jsfiddle.net/nosir/kbaxx64s/">Plain JSFiddle (Basic usage)</a></li>
+<li><a href="https://jsfiddle.net/nosir/aLnhdf3z/">Plain JSFiddle (More examples)</a></li>
+<li><a href="https://jsfiddle.net/nosir/gLLsrxxf/">React JSFiddle</a></li>
+<li><a href="https://jsfiddle.net/nosir/q58sh22t/">Angular JSFiddle</a></li>
+</ul>
+<div class="pilwrap" id="documentation">
+  <h2>
+    <a href="#documentation" name="documentation" class="pilcrow"></a>
+Documentation
+  </h2>
+</div>
+<ul>
+<li><a href="https://github.com/nosir/cleave.js/blob/master/doc/js-api.md">JavaScript API</a>
+<ul>
+<li><a href="https://github.com/nosir/cleave.js/blob/master/doc/constructor.md">Constructor</a></li>
+<li><a href="https://github.com/nosir/cleave.js/blob/master/doc/options.md">Options</a></li>
+<li><a href="https://github.com/nosir/cleave.js/blob/master/doc/public-methods.md">Public methods</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/nosir/cleave.js/blob/master/doc/phone-lib-addon.md">Phone lib addon</a></li>
+<li><a href="https://github.com/nosir/cleave.js/blob/master/doc/reactjs-component-usage.md">ReactJS component usage</a></li>
+<li><a href="https://github.com/nosir/cleave.js/blob/master/doc/angularjs-directive-usage.md">AngularJS directive usage</a></li>
+</ul>
+<div class="pilwrap" id="run-tasks">
+  <h2>
+    <a href="#run-tasks" name="run-tasks" class="pilcrow"></a>
+Run tasks
+  </h2>
+</div>
+<pre><code class="bash">npm install
+</code></pre>
+<p>Build assets</p>
+<pre><code class="bash">gulp build
+</code></pre>
+<p>Run tests</p>
+<pre><code class="bash">gulp <span class="hljs-built_in">test</span>
+</code></pre>
+<p>Lint</p>
+<pre><code class="bash">gulp eslint
+</code></pre>
+<p>Publish (build, tests &amp; lint)</p>
+<pre><code class="bash">gulp publish
+</code></pre>
+<blockquote>
+<p>For contributors, please run <code>gulp publish</code> to ensure your PR passes tests and lint, also we have a <a href="https://github.com/nosir/cleave.js/blob/master/doc/not-in-the-plan.md">not in the plan</a> list you may concern.</p>
+</blockquote>
+<div class="pilwrap" id="get-in-touch">
+  <h2>
+    <a href="#get-in-touch" name="get-in-touch" class="pilcrow"></a>
+Get in touch
+  </h2>
+</div>
+<ul>
+<li>Twitter: <a href="https://twitter.com/rison">@rison</a></li>
+</ul>
+<div class="pilwrap" id="references">
+  <h2>
+    <a href="#references" name="references" class="pilcrow"></a>
+References
+  </h2>
+</div>
+<ul>
+<li>Payment credit card number IIN https://en.wikipedia.org/wiki/Payment_card_number#Issuer_identification_number_.28IIN.29</li>
+<li>Google phone numbers formatting https://github.com/googlei18n/libphonenumber</li>
+<li>Decimal mark and thousands separating style https://en.wikipedia.org/wiki/Decimal_mark#Examples_of_use</li>
+</ul>
+<div class="pilwrap" id="licence">
+  <h2>
+    <a href="#licence" name="licence" class="pilcrow"></a>
+Licence
+  </h2>
+</div>
+<p>Cleave.js is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License Version 2.0</a></p>
+<ul>
+<li>Google <a href="https://github.com/googlei18n/libphonenumber">libphonenumber</a> is included under its <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License Version 2.0</a></li>
+</ul>
+<p><a href="https://github.com/igrigorik/ga-beacon"><img src="https://ga-beacon.appspot.com/UA-79828599-1/cleave.js?pixel" alt="Analytics"></a></p>
+</div>
+  </div>
+</body>
+</html>

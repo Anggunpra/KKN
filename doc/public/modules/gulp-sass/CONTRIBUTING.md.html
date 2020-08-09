@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CONTRIBUTING.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gulp-sass\\CONTRIBUTING.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#contributing-to-gulp-sass">Contributing to Gulp Sass</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#submitting-issues">Submitting Issues</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#pull-requests">Pull Requests</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#git-commit-messages">Git Commit Messages</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#creating-a-new-version">Creating a New Version</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#maintaining-the-changelog">Maintaining the Changelog</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#emoji-cheatsheet">Emoji Cheatsheet</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="contributing-to-gulp-sass">
+  <h1>
+    <a href="#contributing-to-gulp-sass" name="contributing-to-gulp-sass" class="pilcrow"></a>
+Contributing to Gulp Sass
+  </h1>
+</div>
+<p>Gulp Sass is a very light-weight <a href="https://github.com/gulpjs/gulp">Gulp</a> wrapper for <a href="https://github.com/sass/node-sass"><code>node-sass</code></a>, which in turn is a Node binding for <a href="https://github.com/sass/libsass"><code>libsass</code></a>, which in turn is a port of <a href="https://github.com/sass/sass"><code>Sass</code></a>.</p>
+<div class="pilwrap" id="submitting-issues">
+  <h2>
+    <a href="#submitting-issues" name="submitting-issues" class="pilcrow"></a>
+Submitting Issues
+  </h2>
+</div>
+<ul>
+<li>Before creating a new issue, perform a <a href="https://github.com/issues?utf8=%E2%9C%93&amp;q=repo%3Adlmanning%2Fgulp-sass+repo%3Asass%2Fnode-sass+repo%3Asass%2Flibsass+repo%3Asass%2Fsass+repo%3Asass-eyeglass%2Feyeglass">cursory search</a> in the Gulp Sass, Node Sass, Libsass, and main Sass repos to see if a similar issue has already been submitted. Please also refer to our <a href="https://github.com/dlmanning/gulp-sass/wiki/Common-Issues-and-Their-Fixes">Common Issues and Their Fixes</a> page for some basic troubleshooting.</li>
+<li>You can create an issue <a href="https://github.com/dlmanning/gulp-sass/issues">here</a>. Please include as many details as possible in your report.</li>
+<li>Issue titles should be descriptive, explaining at the high level what it is about.</li>
+<li>Please include the version of <code>gulp-sass</code>, Node, and NPM you are using, as well as what operating system you are having a problem on.</li>
+<li><em>Do not open a <a href="#pull-requests.html">pull request</a> to resolve an issue without first receiving feedback from a <code>collaborator</code> or <code>owner</code> and having them agree on a solution forward</em>.</li>
+<li>Include screenshots and animated GIFs whenever possible; they are immensely helpful.</li>
+<li>Issues that have a number of sub-items that need to be complete should use <a href="https://github.com/blog/1375%0A-task-lists-in-gfm-issues-pulls-comments">task lists</a> to track the sub-items in the main issue comment.</li>
+</ul>
+<div class="pilwrap" id="pull-requests">
+  <h2>
+    <a href="#pull-requests" name="pull-requests" class="pilcrow"></a>
+Pull Requests
+  </h2>
+</div>
+<ul>
+<li><strong>DO NOT ISSUE A PULL REQUEST WITHOUT FIRST <a href="#submitting-issues.html">SUBMITTING AN ISSUE</a></strong></li>
+<li>Pull requests should reference their related issues. If the pull request closes an issue, <a href="https://help.github.com/articles/closing-issues-via-commit-messages/">please reference its closing in your commit messages</a>. Pull requests not referencing any issues will be closed.</li>
+<li>Pull request titles should be descriptive, explaining at the high level what it is doing, and should be written in the same style as <a href="#git-commit-messages.html">Git commit messages</a>.</li>
+<li>Update the <code>CHANGELOG</code> with the changes made by your pull request, making sure to use the proper <a href="#emoji-cheatsheet.html">Emoji</a>.</li>
+<li>Follow our JavaScript styleguides. Tests will fail if you do not.</li>
+<li>Ensure that you have <a href="http://editorconfig.org/">EditorConfig</a> installed in your editor of choice and that it is functioning properly.</li>
+<li>Do not squash or rebase your commits when submitting a Pull Request. It makes it much harder to follow your work and make incremental changes.</li>
+<li>Update the <a href="#maintaining-thechangelog.html">CHANGELOG</a> with your changes.</li>
+<li>Branches should be made off of the most current <code>master</code> branch from <code>git@github.com:dlmanning/gulp-sass.git</code></li>
+<li>Pull requests should be made into our <a href="https://github.com/dlmanning/gulp-sass/tree/master">master</a> branch.</li>
+</ul>
+<div class="pilwrap" id="git-commit-messages">
+  <h3>
+    <a href="#git-commit-messages" name="git-commit-messages" class="pilcrow"></a>
+Git Commit Messages
+  </h3>
+</div>
+<ul>
+<li>Use the present tense (<code>&quot;Add feature&quot;</code> not <code>&quot;Added Feature&quot;</code>)</li>
+<li>Use the imperative mood (<code>&quot;Move cursor to…&quot;</code> not <code>&quot;Moves cursor to…&quot;</code>)</li>
+<li>Limit the first line to 72 characters or less</li>
+<li>Consider including relevant Emoji from our <a href="#emoji-cheatsheet.html">Emoji cheatsheet</a></li>
+</ul>
+<div class="pilwrap" id="creating-a-new-version">
+  <h2>
+    <a href="#creating-a-new-version" name="creating-a-new-version" class="pilcrow"></a>
+Creating a New Version
+  </h2>
+</div>
+<p>Versioning is done through <a href="http://semver.org/">SEMVER</a>. When creating a new version, create new release branch off of <code>master</code> with the version's name, and create a new tag with <code>v</code> prefixed with the version's name from that branch.</p>
+<p>For instance, if you are creating version <code>1.1.0</code>, you would create a branch <code>release/1.1.0</code> from <code>master</code> and create a tag <code>v1.1.0</code> from branch <code>release/1.1.0</code>.</p>
+<div class="pilwrap" id="maintaining-the-changelog">
+  <h3>
+    <a href="#maintaining-the-changelog" name="maintaining-the-changelog" class="pilcrow"></a>
+Maintaining the Changelog
+  </h3>
+</div>
+<p>The Changelog should have a list of changes made for each version. They should be organized so additions come first, changes come second, and deletions come third. Version numbers should be 2nd level headers with the <code>v</code> in front (like a tag) and the date of the version's most recent update should be underneath in italics.</p>
+<p>Changelog messages do not need to cover each individual commit made, but rather should have individual summaries of the changes made. Changelog messages should be written in the same style as <a href="#git-commit-messages.html">Git commit messages</a>.</p>
+<div class="pilwrap" id="emoji-cheatsheet">
+  <h2>
+    <a href="#emoji-cheatsheet" name="emoji-cheatsheet" class="pilcrow"></a>
+Emoji Cheatsheet
+  </h2>
+</div>
+<p>When creating creating commits or updating the CHANGELOG, please <strong>start</strong> the commit message or update with one of the following applicable Emoji. Emoji should not be used at the start of issue or pull request titles.</p>
+<ul>
+<li>:art: <code>:art:</code> when improving the format/structure of the code</li>
+<li>:racehorse: <code>:racehorse:</code> when improving performance</li>
+<li>:memo: <code>:memo:</code> when writing long-form text (documentation, guidelines, principles, etc…)</li>
+<li>:bug: <code>:bug:</code> when fixing a bug</li>
+<li>:fire: <code>:fire:</code> when removing code or files</li>
+<li>:green_heart: <code>:green_heart:</code> when fixing the CI build</li>
+<li>:white_check_mark: <code>:white_check_mark:</code> when adding tests</li>
+<li>:lock: <code>:lock:</code> when dealing with security</li>
+<li>:arrow_up: <code>:arrow_up:</code> when upgrading dependencies</li>
+<li>:arrow_down: <code>:arrow_down:</code> when downgrading dependencies</li>
+<li>:shirt: <code>:shirt:</code> when removing linter warnings</li>
+<li>:shipit: <code>:shipit:</code> when creating a new release</li>
+</ul>
+</div>
+  </div>
+</body>
+</html>

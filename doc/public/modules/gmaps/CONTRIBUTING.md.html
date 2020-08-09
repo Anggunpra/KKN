@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CONTRIBUTING.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\gmaps\\CONTRIBUTING.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h2">
+        <a href="#about-requirements">About requirements</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#about-examples-and-documentation">About examples and documentation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#about-new-features">About new features</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#about-coding-standards">About coding standards</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><p>Since gmaps.js has been created to accomplish some goals about simplicity and cleanliness, the contributions must be guided by some rules, in order to keep gmaps.js simple to use and brief in code.</p>
+<div class="pilwrap" id="about-requirements">
+  <h2>
+    <a href="#about-requirements" name="about-requirements" class="pilcrow"></a>
+About requirements
+  </h2>
+</div>
+<p>gmaps.js only requires JavaScript, so new features must be written in plain JavaScript and shouldn’t depend of external libraries like jQuery, Prototype, etc.</p>
+<div class="pilwrap" id="about-examples-and-documentation">
+  <h2>
+    <a href="#about-examples-and-documentation" name="about-examples-and-documentation" class="pilcrow"></a>
+About examples and documentation
+  </h2>
+</div>
+<p>Big changes, like support for new libraries or services, or custom features, need an example file (or files, depending of the magnitude of the contribution) and an entry in the documentation page.</p>
+<p>The example file must be included in the branch <code>gh-pages</code>, and be linked in the examples page. Example file in the <code>master</code> branch is optional.</p>
+<p>The documentation must explain in an simple way any argument passed in the method, and tell if it’s argument is optional or not. No examples are required here.</p>
+<div class="pilwrap" id="about-new-features">
+  <h2>
+    <a href="#about-new-features" name="about-new-features" class="pilcrow"></a>
+About new features
+  </h2>
+</div>
+<p>The main goal of gmaps.js is to have full support to all features of native Google Maps API, so the primary goal of the contributions to cover the missing features. But other contributions are welcome.</p>
+<p>If the new feature has a functionality different from strictly work with maps (like animations, custom infoWindows or support for external services), it would be ideal to create an extension with this feature.</p>
+<div class="pilwrap" id="about-coding-standards">
+  <h2>
+    <a href="#about-coding-standards" name="about-coding-standards" class="pilcrow"></a>
+About coding standards
+  </h2>
+</div>
+<ul>
+<li>Default values must be defined.</li>
+<li>Functions must end with semi-colon.</li>
+<li>Function names in camel case.</li>
+<li>Two space for indentation.</li>
+<li>Use strict mode syntax.</li>
+<li>Don’t use prototype object to extend gmaps.js (except with extensions).</li>
+<li>Use apply for calling functions.</li>
+</ul>
+<p><em><strong>Thanks for contributing with gmaps.js</strong></em></p>
+</div>
+  </div>
+</body>
+</html>

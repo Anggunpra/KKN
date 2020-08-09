@@ -1,0 +1,5052 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>lodash.custom.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\eazy-logger\\lodash.custom.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>lodash.custom.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+<div class="dox">
+<div class="summary">
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">;(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+  <span class="hljs-comment">/** Used as a safe reference for `undefined` in pre-ES5 environments. */</span>
+  <span class="hljs-keyword">var</span> <span class="hljs-literal">undefined</span>;
+
+  <span class="hljs-comment">/** Used as the semantic version number. */</span>
+  <span class="hljs-keyword">var</span> VERSION = <span class="hljs-string">'4.12.0'</span>;
+
+  <span class="hljs-comment">/** Used as the size to enable large array optimizations. */</span>
+  <span class="hljs-keyword">var</span> LARGE_ARRAY_SIZE = <span class="hljs-number">200</span>;
+
+  <span class="hljs-comment">/** Used as the `TypeError` message for "Functions" methods. */</span>
+  <span class="hljs-keyword">var</span> FUNC_ERROR_TEXT = <span class="hljs-string">'Expected a function'</span>;
+
+  <span class="hljs-comment">/** Used to stand-in for `undefined` hash values. */</span>
+  <span class="hljs-keyword">var</span> HASH_UNDEFINED = <span class="hljs-string">'__lodash_hash_undefined__'</span>;
+
+  <span class="hljs-comment">/** Used as references for various `Number` constants. */</span>
+  <span class="hljs-keyword">var</span> INFINITY = <span class="hljs-number">1</span> / <span class="hljs-number">0</span>,
+      MAX_SAFE_INTEGER = <span class="hljs-number">9007199254740991</span>,
+      MAX_INTEGER = <span class="hljs-number">1.7976931348623157e+308</span>,
+      NAN = <span class="hljs-number">0</span> / <span class="hljs-number">0</span>;
+
+  <span class="hljs-comment">/** `Object#toString` result references. */</span>
+  <span class="hljs-keyword">var</span> argsTag = <span class="hljs-string">'[object Arguments]'</span>,
+      arrayTag = <span class="hljs-string">'[object Array]'</span>,
+      boolTag = <span class="hljs-string">'[object Boolean]'</span>,
+      dateTag = <span class="hljs-string">'[object Date]'</span>,
+      errorTag = <span class="hljs-string">'[object Error]'</span>,
+      funcTag = <span class="hljs-string">'[object Function]'</span>,
+      genTag = <span class="hljs-string">'[object GeneratorFunction]'</span>,
+      mapTag = <span class="hljs-string">'[object Map]'</span>,
+      numberTag = <span class="hljs-string">'[object Number]'</span>,
+      objectTag = <span class="hljs-string">'[object Object]'</span>,
+      promiseTag = <span class="hljs-string">'[object Promise]'</span>,
+      regexpTag = <span class="hljs-string">'[object RegExp]'</span>,
+      setTag = <span class="hljs-string">'[object Set]'</span>,
+      stringTag = <span class="hljs-string">'[object String]'</span>,
+      symbolTag = <span class="hljs-string">'[object Symbol]'</span>,
+      weakMapTag = <span class="hljs-string">'[object WeakMap]'</span>;
+
+  <span class="hljs-keyword">var</span> arrayBufferTag = <span class="hljs-string">'[object ArrayBuffer]'</span>,
+      dataViewTag = <span class="hljs-string">'[object DataView]'</span>,
+      float32Tag = <span class="hljs-string">'[object Float32Array]'</span>,
+      float64Tag = <span class="hljs-string">'[object Float64Array]'</span>,
+      int8Tag = <span class="hljs-string">'[object Int8Array]'</span>,
+      int16Tag = <span class="hljs-string">'[object Int16Array]'</span>,
+      int32Tag = <span class="hljs-string">'[object Int32Array]'</span>,
+      uint8Tag = <span class="hljs-string">'[object Uint8Array]'</span>,
+      uint8ClampedTag = <span class="hljs-string">'[object Uint8ClampedArray]'</span>,
+      uint16Tag = <span class="hljs-string">'[object Uint16Array]'</span>,
+      uint32Tag = <span class="hljs-string">'[object Uint32Array]'</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Used to match <code>RegExp</code>
+<a href="http://ecma-international.org/ecma-262/6.0/#sec-patterns">syntax characters</a>.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> reRegExpChar = <span class="hljs-regexp">/[\\^$.*+?()[\]{}|]/g</span>;
+
+  <span class="hljs-comment">/** Used to match leading and trailing whitespace. */</span>
+  <span class="hljs-keyword">var</span> reTrim = <span class="hljs-regexp">/^\s+|\s+$/g</span>;
+
+  <span class="hljs-comment">/** Used to match `RegExp` flags from their coerced string values. */</span>
+  <span class="hljs-keyword">var</span> reFlags = <span class="hljs-regexp">/\w*$/</span>;
+
+  <span class="hljs-comment">/** Used to detect bad signed hexadecimal string values. */</span>
+  <span class="hljs-keyword">var</span> reIsBadHex = <span class="hljs-regexp">/^[-+]0x[0-9a-f]+$/i</span>;
+
+  <span class="hljs-comment">/** Used to detect binary string values. */</span>
+  <span class="hljs-keyword">var</span> reIsBinary = <span class="hljs-regexp">/^0b[01]+$/i</span>;
+
+  <span class="hljs-comment">/** Used to detect host constructors (Safari). */</span>
+  <span class="hljs-keyword">var</span> reIsHostCtor = <span class="hljs-regexp">/^\[object .+?Constructor\]$/</span>;
+
+  <span class="hljs-comment">/** Used to detect octal string values. */</span>
+  <span class="hljs-keyword">var</span> reIsOctal = <span class="hljs-regexp">/^0o[0-7]+$/i</span>;
+
+  <span class="hljs-comment">/** Used to detect unsigned integer values. */</span>
+  <span class="hljs-keyword">var</span> reIsUint = <span class="hljs-regexp">/^(?:0|[1-9]\d*)$/</span>;
+
+  <span class="hljs-comment">/** Used to identify `toStringTag` values of typed arrays. */</span>
+  <span class="hljs-keyword">var</span> typedArrayTags = {};
+  typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+  typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+  typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+  typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+  typedArrayTags[uint32Tag] = <span class="hljs-literal">true</span>;
+  typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+  typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+  typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+  typedArrayTags[errorTag] = typedArrayTags[funcTag] =
+  typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+  typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
+  typedArrayTags[setTag] = typedArrayTags[stringTag] =
+  typedArrayTags[weakMapTag] = <span class="hljs-literal">false</span>;
+
+  <span class="hljs-comment">/** Used to identify `toStringTag` values supported by `_.clone`. */</span>
+  <span class="hljs-keyword">var</span> cloneableTags = {};
+  cloneableTags[argsTag] = cloneableTags[arrayTag] =
+  cloneableTags[arrayBufferTag] = cloneableTags[dataViewTag] =
+  cloneableTags[boolTag] = cloneableTags[dateTag] =
+  cloneableTags[float32Tag] = cloneableTags[float64Tag] =
+  cloneableTags[int8Tag] = cloneableTags[int16Tag] =
+  cloneableTags[int32Tag] = cloneableTags[mapTag] =
+  cloneableTags[numberTag] = cloneableTags[objectTag] =
+  cloneableTags[regexpTag] = cloneableTags[setTag] =
+  cloneableTags[stringTag] = cloneableTags[symbolTag] =
+  cloneableTags[uint8Tag] = cloneableTags[uint8ClampedTag] =
+  cloneableTags[uint16Tag] = cloneableTags[uint32Tag] = <span class="hljs-literal">true</span>;
+  cloneableTags[errorTag] = cloneableTags[funcTag] =
+  cloneableTags[weakMapTag] = <span class="hljs-literal">false</span>;
+
+  <span class="hljs-comment">/** Used to determine if values are of the language type `Object`. */</span>
+  <span class="hljs-keyword">var</span> objectTypes = {
+    <span class="hljs-string">'function'</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">'object'</span>: <span class="hljs-literal">true</span>
+  };
+
+  <span class="hljs-comment">/** Built-in method references without a dependency on `root`. */</span>
+  <span class="hljs-keyword">var</span> freeParseInt = <span class="hljs-built_in">parseInt</span>;
+
+  <span class="hljs-comment">/** Detect free variable `exports`. */</span>
+  <span class="hljs-keyword">var</span> freeExports = (objectTypes[<span class="hljs-keyword">typeof</span> exports] &amp;&amp; exports &amp;&amp; !exports.nodeType)
+    ? exports
+    : <span class="hljs-literal">undefined</span>;
+
+  <span class="hljs-comment">/** Detect free variable `module`. */</span>
+  <span class="hljs-keyword">var</span> freeModule = (objectTypes[<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span>] &amp;&amp; <span class="hljs-built_in">module</span> &amp;&amp; !<span class="hljs-built_in">module</span>.nodeType)
+    ? <span class="hljs-built_in">module</span>
+    : <span class="hljs-literal">undefined</span>;
+
+  <span class="hljs-comment">/** Detect the popular CommonJS extension `module.exports`. */</span>
+  <span class="hljs-keyword">var</span> moduleExports = (freeModule &amp;&amp; freeModule.exports === freeExports)
+    ? freeExports
+    : <span class="hljs-literal">undefined</span>;
+
+  <span class="hljs-comment">/** Detect free variable `global` from Node.js. */</span>
+  <span class="hljs-keyword">var</span> freeGlobal = checkGlobal(freeExports &amp;&amp; freeModule &amp;&amp; <span class="hljs-keyword">typeof</span> global == <span class="hljs-string">'object'</span> &amp;&amp; global);
+
+  <span class="hljs-comment">/** Detect free variable `self`. */</span>
+  <span class="hljs-keyword">var</span> freeSelf = checkGlobal(objectTypes[<span class="hljs-keyword">typeof</span> self] &amp;&amp; self);
+
+  <span class="hljs-comment">/** Detect free variable `window`. */</span>
+  <span class="hljs-keyword">var</span> freeWindow = checkGlobal(objectTypes[<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span>] &amp;&amp; <span class="hljs-built_in">window</span>);
+
+  <span class="hljs-comment">/** Detect `this` as the global object. */</span>
+  <span class="hljs-keyword">var</span> thisGlobal = checkGlobal(objectTypes[<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span>] &amp;&amp; <span class="hljs-keyword">this</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Used as a reference to the global object.</p>
+</div>
+<div class="body">
+<p>The <code>this</code> value is used if it's the global object to avoid Greasemonkey's
+restricted <code>window</code> object, otherwise the <code>window</code> object is used.</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> root = freeGlobal ||
+    ((freeWindow !== (thisGlobal &amp;&amp; thisGlobal.window)) &amp;&amp; freeWindow) ||
+      freeSelf || thisGlobal || <span class="hljs-built_in">Function</span>(<span class="hljs-string">'return this'</span>)();
+
+  <span class="hljs-comment">/*--------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Adds the key-value <code>pair</code> to <code>map</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">map</span>
+<span class="dox_type">Object</span>
+<span>The map to modify.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">pair</span>
+<span class="dox_type">Array</span>
+<span>The key-value pair to add.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addMapEntry</span>(<span class="hljs-params">map, pair</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>Don't return <code>Map#set</code> because it doesn't return the map instance in IE 11.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    map.set(pair[<span class="hljs-number">0</span>], pair[<span class="hljs-number">1</span>]);
+    <span class="hljs-keyword">return</span> map;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Adds <code>value</code> to <code>set</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">set</span>
+<span class="dox_type">Object</span>
+<span>The set to modify.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to add.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addSetEntry</span>(<span class="hljs-params">set, value</span>) </span>{
+    <span class="hljs-keyword">set</span>.add(value);
+    return <span class="hljs-keyword">set</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>A faster alternative to <code>Function#apply</code>, this function invokes <code>func</code>
+with the <code>this</code> binding of <code>thisArg</code> and the arguments of <code>args</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to invoke.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">thisArg</span>
+<span>The <code>this</code> binding of <code>func</code>.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">args</span>
+<span class="dox_type">Array</span>
+<span>The arguments to invoke <code>func</code> with.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">apply</span>(<span class="hljs-params">func, thisArg, args</span>) </span>{
+    <span class="hljs-keyword">var</span> length = args.length;
+    <span class="hljs-keyword">switch</span> (length) {
+      <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-keyword">return</span> func.call(thisArg);
+      <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-keyword">return</span> func.call(thisArg, args[<span class="hljs-number">0</span>]);
+      <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: <span class="hljs-keyword">return</span> func.call(thisArg, args[<span class="hljs-number">0</span>], args[<span class="hljs-number">1</span>]);
+      <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>: <span class="hljs-keyword">return</span> func.call(thisArg, args[<span class="hljs-number">0</span>], args[<span class="hljs-number">1</span>], args[<span class="hljs-number">2</span>]);
+    }
+    <span class="hljs-keyword">return</span> func.apply(thisArg, args);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>A specialized version of <code>_.forEach</code> for arrays without support for
+iteratee shorthands.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">array</span>
+<span class="dox_type">Array</span>
+<span>The array to iterate over.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">iteratee</span>
+<span class="dox_type">Function</span>
+<span>The function invoked per iteration.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arrayEach</span>(<span class="hljs-params">array, iteratee</span>) </span>{
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+        length = array.length;
+
+    <span class="hljs-keyword">while</span> (++index &lt; length) {
+      <span class="hljs-keyword">if</span> (iteratee(array[index], index, array) === <span class="hljs-literal">false</span>) {
+        <span class="hljs-keyword">break</span>;
+      }
+    }
+    <span class="hljs-keyword">return</span> array;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Appends the elements of <code>values</code> to <code>array</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">array</span>
+<span class="dox_type">Array</span>
+<span>The array to modify.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">values</span>
+<span class="dox_type">Array</span>
+<span>The values to append.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arrayPush</span>(<span class="hljs-params">array, values</span>) </span>{
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+        length = values.length,
+        offset = array.length;
+
+    <span class="hljs-keyword">while</span> (++index &lt; length) {
+      array[offset + index] = values[index];
+    }
+    <span class="hljs-keyword">return</span> array;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>A specialized version of <code>_.reduce</code> for arrays without support for
+iteratee shorthands.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">array</span>
+<span class="dox_type">Array</span>
+<span>The array to iterate over.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">iteratee</span>
+<span class="dox_type">Function</span>
+<span>The function invoked per iteration.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[accumulator]</span>
+<span>The initial value.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[initAccum]</span>
+<span class="dox_type">boolean</span>
+<span>Specify using the first element of <code>array</code> as  the initial value.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arrayReduce</span>(<span class="hljs-params">array, iteratee, accumulator, initAccum</span>) </span>{
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+        length = array.length;
+
+    <span class="hljs-keyword">if</span> (initAccum &amp;&amp; length) {
+      accumulator = array[++index];
+    }
+    <span class="hljs-keyword">while</span> (++index &lt; length) {
+      accumulator = iteratee(accumulator, array[index], index, array);
+    }
+    <span class="hljs-keyword">return</span> accumulator;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.times</code> without support for iteratee shorthands
+or max array length checks.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">n</span>
+<span class="dox_type">number</span>
+<span>The number of times to invoke <code>iteratee</code>.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">iteratee</span>
+<span class="dox_type">Function</span>
+<span>The function invoked per iteration.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseTimes</span>(<span class="hljs-params">n, iteratee</span>) </span>{
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+        result = <span class="hljs-built_in">Array</span>(n);
+
+    <span class="hljs-keyword">while</span> (++index &lt; n) {
+      result[index] = iteratee(index);
+    }
+    <span class="hljs-keyword">return</span> result;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a global object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkGlobal</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> (value &amp;&amp; value.Object === <span class="hljs-built_in">Object</span>) ? value : <span class="hljs-literal">null</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a host object in IE &lt; 9.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isHostObject</span>(<span class="hljs-params">value</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>Many host objects are <code>Object</code> objects that can coerce to strings
+despite having improperly defined <code>toString</code> methods.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">var</span> result = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">if</span> (value != <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-keyword">typeof</span> value.toString != <span class="hljs-string">'function'</span>) {
+      <span class="hljs-keyword">try</span> {
+        result = !!(value + <span class="hljs-string">''</span>);
+      } <span class="hljs-keyword">catch</span> (e) {}
+    }
+    <span class="hljs-keyword">return</span> result;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Converts <code>iterator</code> to an array.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">iterator</span>
+<span class="dox_type">Object</span>
+<span>The iterator to convert.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">iteratorToArray</span>(<span class="hljs-params">iterator</span>) </span>{
+    <span class="hljs-keyword">var</span> data,
+        result = [];
+
+    <span class="hljs-keyword">while</span> (!(data = iterator.next()).done) {
+      result.push(data.value);
+    }
+    <span class="hljs-keyword">return</span> result;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Converts <code>map</code> to its key-value pairs.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">map</span>
+<span class="dox_type">Object</span>
+<span>The map to convert.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapToArray</span>(<span class="hljs-params">map</span>) </span>{
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+        result = <span class="hljs-built_in">Array</span>(map.size);
+
+    map.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value, key</span>) </span>{
+      result[++index] = [key, value];
+    });
+    <span class="hljs-keyword">return</span> result;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Converts <code>set</code> to an array of its values.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">set</span>
+<span class="dox_type">Object</span>
+<span>The set to convert.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setToArray</span>(<span class="hljs-params">set</span>) </span>{
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+        result = <span class="hljs-built_in">Array</span>(<span class="hljs-keyword">set</span>.size);
+
+    <span class="hljs-keyword">set</span>.forEach(function(value) {
+      result[++index] = value;
+    });
+    <span class="hljs-keyword">return</span> result;
+  }
+
+  <span class="hljs-comment">/*--------------------------------------------------------------------------*/</span>
+
+  <span class="hljs-comment">/** Used for built-in method references. */</span>
+  <span class="hljs-keyword">var</span> arrayProto = <span class="hljs-built_in">Array</span>.prototype,
+      objectProto = <span class="hljs-built_in">Object</span>.prototype;
+
+  <span class="hljs-comment">/** Used to resolve the decompiled source of functions. */</span>
+  <span class="hljs-keyword">var</span> funcToString = <span class="hljs-built_in">Function</span>.prototype.toString;
+
+  <span class="hljs-comment">/** Used to check objects for own properties. */</span>
+  <span class="hljs-keyword">var</span> hasOwnProperty = objectProto.hasOwnProperty;
+
+  <span class="hljs-comment">/** Used to infer the `Object` constructor. */</span>
+  <span class="hljs-keyword">var</span> objectCtorString = funcToString.call(<span class="hljs-built_in">Object</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Used to resolve the
+<a href="http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring"><code>toStringTag</code></a>
+of values.</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> objectToString = objectProto.toString;
+
+  <span class="hljs-comment">/** Used to detect if a method is native. */</span>
+  <span class="hljs-keyword">var</span> reIsNative = <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^'</span> +
+    funcToString.call(hasOwnProperty).replace(reRegExpChar, <span class="hljs-string">'\\$&amp;'</span>)
+    .replace(<span class="hljs-regexp">/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g</span>, <span class="hljs-string">'$1.*?'</span>) + <span class="hljs-string">'$'</span>
+  );
+
+  <span class="hljs-comment">/** Built-in value references. */</span>
+  <span class="hljs-keyword">var</span> Buffer = moduleExports ? root.Buffer : <span class="hljs-literal">undefined</span>,
+      <span class="hljs-built_in">Reflect</span> = root.Reflect,
+      <span class="hljs-built_in">Symbol</span> = root.Symbol,
+      <span class="hljs-built_in">Uint8Array</span> = root.Uint8Array,
+      enumerate = <span class="hljs-built_in">Reflect</span> ? <span class="hljs-built_in">Reflect</span>.enumerate : <span class="hljs-literal">undefined</span>,
+      getOwnPropertySymbols = <span class="hljs-built_in">Object</span>.getOwnPropertySymbols,
+      objectCreate = <span class="hljs-built_in">Object</span>.create,
+      propertyIsEnumerable = objectProto.propertyIsEnumerable,
+      splice = arrayProto.splice;
+
+  <span class="hljs-comment">/* Built-in method references for those with the same name as other `lodash` methods. */</span>
+  <span class="hljs-keyword">var</span> nativeGetPrototype = <span class="hljs-built_in">Object</span>.getPrototypeOf,
+      nativeKeys = <span class="hljs-built_in">Object</span>.keys,
+      nativeMax = <span class="hljs-built_in">Math</span>.max;
+
+  <span class="hljs-comment">/* Built-in method references that are verified to be native. */</span>
+  <span class="hljs-keyword">var</span> <span class="hljs-built_in">DataView</span> = getNative(root, <span class="hljs-string">'DataView'</span>),
+      <span class="hljs-built_in">Map</span> = getNative(root, <span class="hljs-string">'Map'</span>),
+      <span class="hljs-built_in">Promise</span> = getNative(root, <span class="hljs-string">'Promise'</span>),
+      <span class="hljs-built_in">Set</span> = getNative(root, <span class="hljs-string">'Set'</span>),
+      <span class="hljs-built_in">WeakMap</span> = getNative(root, <span class="hljs-string">'WeakMap'</span>),
+      nativeCreate = getNative(<span class="hljs-built_in">Object</span>, <span class="hljs-string">'create'</span>);
+
+  <span class="hljs-comment">/** Used to lookup unminified function names. */</span>
+  <span class="hljs-keyword">var</span> realNames = {};
+
+  <span class="hljs-comment">/** Used to detect maps, sets, and weakmaps. */</span>
+  <span class="hljs-keyword">var</span> dataViewCtorString = toSource(<span class="hljs-built_in">DataView</span>),
+      mapCtorString = toSource(<span class="hljs-built_in">Map</span>),
+      promiseCtorString = toSource(<span class="hljs-built_in">Promise</span>),
+      setCtorString = toSource(<span class="hljs-built_in">Set</span>),
+      weakMapCtorString = toSource(<span class="hljs-built_in">WeakMap</span>);
+
+  <span class="hljs-comment">/** Used to convert symbols to primitives and strings. */</span>
+  <span class="hljs-keyword">var</span> symbolProto = <span class="hljs-built_in">Symbol</span> ? <span class="hljs-built_in">Symbol</span>.prototype : <span class="hljs-literal">undefined</span>,
+      symbolValueOf = symbolProto ? symbolProto.valueOf : <span class="hljs-literal">undefined</span>;
+
+  <span class="hljs-comment">/*------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a <code>lodash</code> object which wraps <code>value</code> to enable implicit method
+chain sequences. Methods that operate on and return arrays, collections,
+and functions can be chained together. Methods that retrieve a single value
+or may return a primitive value will automatically end the chain sequence
+and return the unwrapped value. Otherwise, the value must be unwrapped
+with <code>_#value</code>.</p>
+</div>
+<div class="body">
+<p>Explicit chain sequences, which must be unwrapped with <code>_#value</code>, may be
+enabled using <code>_.chain</code>.</p>
+<p>The execution of chained methods is lazy, that is, it's deferred until
+<code>_#value</code> is implicitly or explicitly called.</p>
+<p>Lazy evaluation allows several methods to support shortcut fusion.
+Shortcut fusion is an optimization to merge iteratee calls; this avoids
+the creation of intermediate arrays and can greatly reduce the number of
+iteratee executions. Sections of a chain sequence qualify for shortcut
+fusion if the section is applied to an array of at least <code>200</code> elements
+and any iteratees accept only one argument. The heuristic for whether a
+section qualifies for shortcut fusion is subject to change.</p>
+<p>Chaining is supported in custom builds as long as the <code>_#value</code> method is
+directly or indirectly included in the build.</p>
+<p>In addition to lodash methods, wrappers have <code>Array</code> and <code>String</code> methods.</p>
+<p>The wrapper <code>Array</code> methods are:
+<code>concat</code>, <code>join</code>, <code>pop</code>, <code>push</code>, <code>shift</code>, <code>sort</code>, <code>splice</code>, and <code>unshift</code></p>
+<p>The wrapper <code>String</code> methods are:
+<code>replace</code> and <code>split</code></p>
+<p>The wrapper methods that support shortcut fusion are:
+<code>at</code>, <code>compact</code>, <code>drop</code>, <code>dropRight</code>, <code>dropWhile</code>, <code>filter</code>, <code>find</code>,
+<code>findLast</code>, <code>head</code>, <code>initial</code>, <code>last</code>, <code>map</code>, <code>reject</code>, <code>reverse</code>, <code>slice</code>,
+<code>tail</code>, <code>take</code>, <code>takeRight</code>, <code>takeRightWhile</code>, <code>takeWhile</code>, and <code>toArray</code></p>
+<p>The chainable wrapper methods are:
+<code>after</code>, <code>ary</code>, <code>assign</code>, <code>assignIn</code>, <code>assignInWith</code>, <code>assignWith</code>, <code>at</code>,
+<code>before</code>, <code>bind</code>, <code>bindAll</code>, <code>bindKey</code>, <code>castArray</code>, <code>chain</code>, <code>chunk</code>,
+<code>commit</code>, <code>compact</code>, <code>concat</code>, <code>conforms</code>, <code>constant</code>, <code>countBy</code>, <code>create</code>,
+<code>curry</code>, <code>debounce</code>, <code>defaults</code>, <code>defaultsDeep</code>, <code>defer</code>, <code>delay</code>,
+<code>difference</code>, <code>differenceBy</code>, <code>differenceWith</code>, <code>drop</code>, <code>dropRight</code>,
+<code>dropRightWhile</code>, <code>dropWhile</code>, <code>extend</code>, <code>extendWith</code>, <code>fill</code>, <code>filter</code>,
+<code>flatMap</code>, <code>flatMapDeep</code>, <code>flatMapDepth</code>, <code>flatten</code>, <code>flattenDeep</code>,
+<code>flattenDepth</code>, <code>flip</code>, <code>flow</code>, <code>flowRight</code>, <code>fromPairs</code>, <code>functions</code>,
+<code>functionsIn</code>, <code>groupBy</code>, <code>initial</code>, <code>intersection</code>, <code>intersectionBy</code>,
+<code>intersectionWith</code>, <code>invert</code>, <code>invertBy</code>, <code>invokeMap</code>, <code>iteratee</code>, <code>keyBy</code>,
+<code>keys</code>, <code>keysIn</code>, <code>map</code>, <code>mapKeys</code>, <code>mapValues</code>, <code>matches</code>, <code>matchesProperty</code>,
+<code>memoize</code>, <code>merge</code>, <code>mergeWith</code>, <code>method</code>, <code>methodOf</code>, <code>mixin</code>, <code>negate</code>,
+<code>nthArg</code>, <code>omit</code>, <code>omitBy</code>, <code>once</code>, <code>orderBy</code>, <code>over</code>, <code>overArgs</code>,
+<code>overEvery</code>, <code>overSome</code>, <code>partial</code>, <code>partialRight</code>, <code>partition</code>, <code>pick</code>,
+<code>pickBy</code>, <code>plant</code>, <code>property</code>, <code>propertyOf</code>, <code>pull</code>, <code>pullAll</code>, <code>pullAllBy</code>,
+<code>pullAllWith</code>, <code>pullAt</code>, <code>push</code>, <code>range</code>, <code>rangeRight</code>, <code>rearg</code>, <code>reject</code>,
+<code>remove</code>, <code>rest</code>, <code>reverse</code>, <code>sampleSize</code>, <code>set</code>, <code>setWith</code>, <code>shuffle</code>,
+<code>slice</code>, <code>sort</code>, <code>sortBy</code>, <code>splice</code>, <code>spread</code>, <code>tail</code>, <code>take</code>, <code>takeRight</code>,
+<code>takeRightWhile</code>, <code>takeWhile</code>, <code>tap</code>, <code>throttle</code>, <code>thru</code>, <code>toArray</code>,
+<code>toPairs</code>, <code>toPairsIn</code>, <code>toPath</code>, <code>toPlainObject</code>, <code>transform</code>, <code>unary</code>,
+<code>union</code>, <code>unionBy</code>, <code>unionWith</code>, <code>uniq</code>, <code>uniqBy</code>, <code>uniqWith</code>, <code>unset</code>,
+<code>unshift</code>, <code>unzip</code>, <code>unzipWith</code>, <code>update</code>, <code>updateWith</code>, <code>values</code>,
+<code>valuesIn</code>, <code>without</code>, <code>wrap</code>, <code>xor</code>, <code>xorBy</code>, <code>xorWith</code>, <code>zip</code>,
+<code>zipObject</code>, <code>zipObjectDeep</code>, and <code>zipWith</code></p>
+<p>The wrapper methods that are <strong>not</strong> chainable by default are:
+<code>add</code>, <code>attempt</code>, <code>camelCase</code>, <code>capitalize</code>, <code>ceil</code>, <code>clamp</code>, <code>clone</code>,
+<code>cloneDeep</code>, <code>cloneDeepWith</code>, <code>cloneWith</code>, <code>deburr</code>, <code>divide</code>, <code>each</code>,
+<code>eachRight</code>, <code>endsWith</code>, <code>eq</code>, <code>escape</code>, <code>escapeRegExp</code>, <code>every</code>, <code>find</code>,
+<code>findIndex</code>, <code>findKey</code>, <code>findLast</code>, <code>findLastIndex</code>, <code>findLastKey</code>, <code>first</code>,
+<code>floor</code>, <code>forEach</code>, <code>forEachRight</code>, <code>forIn</code>, <code>forInRight</code>, <code>forOwn</code>,
+<code>forOwnRight</code>, <code>get</code>, <code>gt</code>, <code>gte</code>, <code>has</code>, <code>hasIn</code>, <code>head</code>, <code>identity</code>,
+<code>includes</code>, <code>indexOf</code>, <code>inRange</code>, <code>invoke</code>, <code>isArguments</code>, <code>isArray</code>,
+<code>isArrayBuffer</code>, <code>isArrayLike</code>, <code>isArrayLikeObject</code>, <code>isBoolean</code>,
+<code>isBuffer</code>, <code>isDate</code>, <code>isElement</code>, <code>isEmpty</code>, <code>isEqual</code>, <code>isEqualWith</code>,
+<code>isError</code>, <code>isFinite</code>, <code>isFunction</code>, <code>isInteger</code>, <code>isLength</code>, <code>isMap</code>,
+<code>isMatch</code>, <code>isMatchWith</code>, <code>isNaN</code>, <code>isNative</code>, <code>isNil</code>, <code>isNull</code>, <code>isNumber</code>,
+<code>isObject</code>, <code>isObjectLike</code>, <code>isPlainObject</code>, <code>isRegExp</code>, <code>isSafeInteger</code>,
+<code>isSet</code>, <code>isString</code>, <code>isUndefined</code>, <code>isTypedArray</code>, <code>isWeakMap</code>, <code>isWeakSet</code>,
+<code>join</code>, <code>kebabCase</code>, <code>last</code>, <code>lastIndexOf</code>, <code>lowerCase</code>, <code>lowerFirst</code>,
+<code>lt</code>, <code>lte</code>, <code>max</code>, <code>maxBy</code>, <code>mean</code>, <code>meanBy</code>, <code>min</code>, <code>minBy</code>, <code>multiply</code>,
+<code>noConflict</code>, <code>noop</code>, <code>now</code>, <code>nth</code>, <code>pad</code>, <code>padEnd</code>, <code>padStart</code>, <code>parseInt</code>,
+<code>pop</code>, <code>random</code>, <code>reduce</code>, <code>reduceRight</code>, <code>repeat</code>, <code>result</code>, <code>round</code>,
+<code>runInContext</code>, <code>sample</code>, <code>shift</code>, <code>size</code>, <code>snakeCase</code>, <code>some</code>, <code>sortedIndex</code>,
+<code>sortedIndexBy</code>, <code>sortedLastIndex</code>, <code>sortedLastIndexBy</code>, <code>startCase</code>,
+<code>startsWith</code>, <code>subtract</code>, <code>sum</code>, <code>sumBy</code>, <code>template</code>, <code>times</code>, <code>toFinite</code>,
+<code>toInteger</code>, <code>toJSON</code>, <code>toLength</code>, <code>toLower</code>, <code>toNumber</code>, <code>toSafeInteger</code>,
+<code>toString</code>, <code>toUpper</code>, <code>trim</code>, <code>trimEnd</code>, <code>trimStart</code>, <code>truncate</code>, <code>unescape</code>,
+<code>uniqueId</code>, <code>upperCase</code>, <code>upperFirst</code>, <code>value</code>, and <code>words</code></p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to wrap in a <code>lodash</code> instance.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">lodash</span>(<span class="hljs-params"></span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
+</div>
+<p>No operation performed.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  }
+
+  <span class="hljs-comment">/*------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a hash object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[entries]</span>
+<span class="dox_type">Array</span>
+<span>The key-value pairs to cache.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Hash</span>(<span class="hljs-params">entries</span>) </span>{
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+        length = entries ? entries.length : <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">this</span>.clear();
+    <span class="hljs-keyword">while</span> (++index &lt; length) {
+      <span class="hljs-keyword">var</span> entry = entries[index];
+      <span class="hljs-keyword">this</span>.set(entry[<span class="hljs-number">0</span>], entry[<span class="hljs-number">1</span>]);
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Removes all key-value entries from the hash.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hashClear</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.__data__ = nativeCreate ? nativeCreate(<span class="hljs-literal">null</span>) : {};
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Removes <code>key</code> and its value from the hash.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">hash</span>
+<span class="dox_type">Object</span>
+<span>The hash to modify.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the value to remove.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hashDelete</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.has(key) &amp;&amp; <span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>.__data__[key];
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the hash value for <code>key</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the value to get.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hashGet</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">var</span> data = <span class="hljs-keyword">this</span>.__data__;
+    <span class="hljs-keyword">if</span> (nativeCreate) {
+      <span class="hljs-keyword">var</span> result = data[key];
+      <span class="hljs-keyword">return</span> result === HASH_UNDEFINED ? <span class="hljs-literal">undefined</span> : result;
+    }
+    <span class="hljs-keyword">return</span> hasOwnProperty.call(data, key) ? data[key] : <span class="hljs-literal">undefined</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if a hash value for <code>key</code> exists.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the entry to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hashHas</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">var</span> data = <span class="hljs-keyword">this</span>.__data__;
+    <span class="hljs-keyword">return</span> nativeCreate ? data[key] !== <span class="hljs-literal">undefined</span> : hasOwnProperty.call(data, key);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Sets the hash <code>key</code> to <code>value</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the value to set.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to set.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hashSet</span>(<span class="hljs-params">key, value</span>) </span>{
+    <span class="hljs-keyword">var</span> data = <span class="hljs-keyword">this</span>.__data__;
+    data[key] = (nativeCreate &amp;&amp; value === <span class="hljs-literal">undefined</span>) ? HASH_UNDEFINED : value;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
+</div>
+<p>Add methods to <code>Hash</code>.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  Hash.prototype.clear = hashClear;
+  Hash.prototype[<span class="hljs-string">'delete'</span>] = hashDelete;
+  Hash.prototype.get = hashGet;
+  Hash.prototype.has = hashHas;
+  Hash.prototype.set = hashSet;
+
+  <span class="hljs-comment">/*------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates an list cache object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[entries]</span>
+<span class="dox_type">Array</span>
+<span>The key-value pairs to cache.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ListCache</span>(<span class="hljs-params">entries</span>) </span>{
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+        length = entries ? entries.length : <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">this</span>.clear();
+    <span class="hljs-keyword">while</span> (++index &lt; length) {
+      <span class="hljs-keyword">var</span> entry = entries[index];
+      <span class="hljs-keyword">this</span>.set(entry[<span class="hljs-number">0</span>], entry[<span class="hljs-number">1</span>]);
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Removes all key-value entries from the list cache.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">listCacheClear</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.__data__ = [];
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Removes <code>key</code> and its value from the list cache.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the value to remove.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">listCacheDelete</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">var</span> data = <span class="hljs-keyword">this</span>.__data__,
+        index = assocIndexOf(data, key);
+
+    <span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+    <span class="hljs-keyword">var</span> lastIndex = data.length - <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">if</span> (index == lastIndex) {
+      data.pop();
+    } <span class="hljs-keyword">else</span> {
+      splice.call(data, index, <span class="hljs-number">1</span>);
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the list cache value for <code>key</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the value to get.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">listCacheGet</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">var</span> data = <span class="hljs-keyword">this</span>.__data__,
+        index = assocIndexOf(data, key);
+
+    <span class="hljs-keyword">return</span> index &lt; <span class="hljs-number">0</span> ? <span class="hljs-literal">undefined</span> : data[index][<span class="hljs-number">1</span>];
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if a list cache value for <code>key</code> exists.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the entry to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">listCacheHas</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">return</span> assocIndexOf(<span class="hljs-keyword">this</span>.__data__, key) &gt; <span class="hljs-number">-1</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Sets the list cache <code>key</code> to <code>value</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the value to set.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to set.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">listCacheSet</span>(<span class="hljs-params">key, value</span>) </span>{
+    <span class="hljs-keyword">var</span> data = <span class="hljs-keyword">this</span>.__data__,
+        index = assocIndexOf(data, key);
+
+    <span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span>) {
+      data.push([key, value]);
+    } <span class="hljs-keyword">else</span> {
+      data[index][<span class="hljs-number">1</span>] = value;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
+</div>
+<p>Add methods to <code>ListCache</code>.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  ListCache.prototype.clear = listCacheClear;
+  ListCache.prototype[<span class="hljs-string">'delete'</span>] = listCacheDelete;
+  ListCache.prototype.get = listCacheGet;
+  ListCache.prototype.has = listCacheHas;
+  ListCache.prototype.set = listCacheSet;
+
+  <span class="hljs-comment">/*------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a map cache object to store key-value pairs.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[entries]</span>
+<span class="dox_type">Array</span>
+<span>The key-value pairs to cache.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MapCache</span>(<span class="hljs-params">entries</span>) </span>{
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+        length = entries ? entries.length : <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">this</span>.clear();
+    <span class="hljs-keyword">while</span> (++index &lt; length) {
+      <span class="hljs-keyword">var</span> entry = entries[index];
+      <span class="hljs-keyword">this</span>.set(entry[<span class="hljs-number">0</span>], entry[<span class="hljs-number">1</span>]);
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Removes all key-value entries from the map.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapCacheClear</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.__data__ = {
+      <span class="hljs-string">'hash'</span>: <span class="hljs-keyword">new</span> Hash,
+      <span class="hljs-string">'map'</span>: <span class="hljs-keyword">new</span> (<span class="hljs-built_in">Map</span> || ListCache),
+      <span class="hljs-string">'string'</span>: <span class="hljs-keyword">new</span> Hash
+    };
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Removes <code>key</code> and its value from the map.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the value to remove.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapCacheDelete</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">return</span> getMapData(<span class="hljs-keyword">this</span>, key)[<span class="hljs-string">'delete'</span>](key);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the map value for <code>key</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the value to get.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapCacheGet</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">return</span> getMapData(<span class="hljs-keyword">this</span>, key).get(key);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-39" id="section-39"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if a map value for <code>key</code> exists.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the entry to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapCacheHas</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">return</span> getMapData(<span class="hljs-keyword">this</span>, key).has(key);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-40" id="section-40"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Sets the map <code>key</code> to <code>value</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the value to set.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to set.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapCacheSet</span>(<span class="hljs-params">key, value</span>) </span>{
+    getMapData(<span class="hljs-keyword">this</span>, key).set(key, value);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-41" id="section-41"></a>
+</div>
+<p>Add methods to <code>MapCache</code>.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  MapCache.prototype.clear = mapCacheClear;
+  MapCache.prototype[<span class="hljs-string">'delete'</span>] = mapCacheDelete;
+  MapCache.prototype.get = mapCacheGet;
+  MapCache.prototype.has = mapCacheHas;
+  MapCache.prototype.set = mapCacheSet;
+
+  <span class="hljs-comment">/*------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-42" id="section-42"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a stack cache object to store key-value pairs.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[entries]</span>
+<span class="dox_type">Array</span>
+<span>The key-value pairs to cache.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Stack</span>(<span class="hljs-params">entries</span>) </span>{
+    <span class="hljs-keyword">this</span>.__data__ = <span class="hljs-keyword">new</span> ListCache(entries);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Removes all key-value entries from the stack.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stackClear</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.__data__ = <span class="hljs-keyword">new</span> ListCache;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Removes <code>key</code> and its value from the stack.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the value to remove.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stackDelete</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.__data__[<span class="hljs-string">'delete'</span>](key);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the stack value for <code>key</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the value to get.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stackGet</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.__data__.get(key);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-46" id="section-46"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if a stack value for <code>key</code> exists.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the entry to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stackHas</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.__data__.has(key);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-47" id="section-47"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Sets the stack <code>key</code> to <code>value</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the value to set.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to set.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stackSet</span>(<span class="hljs-params">key, value</span>) </span>{
+    <span class="hljs-keyword">var</span> cache = <span class="hljs-keyword">this</span>.__data__;
+    <span class="hljs-keyword">if</span> (cache <span class="hljs-keyword">instanceof</span> ListCache &amp;&amp; cache.__data__.length == LARGE_ARRAY_SIZE) {
+      cache = <span class="hljs-keyword">this</span>.__data__ = <span class="hljs-keyword">new</span> MapCache(cache.__data__);
+    }
+    cache.set(key, value);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-48" id="section-48"></a>
+</div>
+<p>Add methods to <code>Stack</code>.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  Stack.prototype.clear = stackClear;
+  Stack.prototype[<span class="hljs-string">'delete'</span>] = stackDelete;
+  Stack.prototype.get = stackGet;
+  Stack.prototype.has = stackHas;
+  Stack.prototype.set = stackSet;
+
+  <span class="hljs-comment">/*------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-49" id="section-49"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>This function is like <code>assignValue</code> except that it doesn't assign
+<code>undefined</code> values.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to modify.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the property to assign.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to assign.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assignMergeValue</span>(<span class="hljs-params">object, key, value</span>) </span>{
+    <span class="hljs-keyword">if</span> ((value !== <span class="hljs-literal">undefined</span> &amp;&amp; !eq(object[key], value)) ||
+        (<span class="hljs-keyword">typeof</span> key == <span class="hljs-string">'number'</span> &amp;&amp; value === <span class="hljs-literal">undefined</span> &amp;&amp; !(key <span class="hljs-keyword">in</span> object))) {
+      object[key] = value;
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-50" id="section-50"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Assigns <code>value</code> to <code>key</code> of <code>object</code> if the existing value is not equivalent
+using <a href="http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero"><code>SameValueZero</code></a>
+for equality comparisons.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to modify.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the property to assign.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to assign.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assignValue</span>(<span class="hljs-params">object, key, value</span>) </span>{
+    <span class="hljs-keyword">var</span> objValue = object[key];
+    <span class="hljs-keyword">if</span> (!(hasOwnProperty.call(object, key) &amp;&amp; eq(objValue, value)) ||
+        (value === <span class="hljs-literal">undefined</span> &amp;&amp; !(key <span class="hljs-keyword">in</span> object))) {
+      object[key] = value;
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-51" id="section-51"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the index at which the <code>key</code> is found in <code>array</code> of key-value pairs.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">array</span>
+<span class="dox_type">Array</span>
+<span>The array to search.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span>The key to search for.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assocIndexOf</span>(<span class="hljs-params">array, key</span>) </span>{
+    <span class="hljs-keyword">var</span> length = array.length;
+    <span class="hljs-keyword">while</span> (length--) {
+      <span class="hljs-keyword">if</span> (eq(array[length][<span class="hljs-number">0</span>], key)) {
+        <span class="hljs-keyword">return</span> length;
+      }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-52" id="section-52"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.assign</code> without support for multiple sources
+or <code>customizer</code> functions.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The destination object.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">source</span>
+<span class="dox_type">Object</span>
+<span>The source object.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseAssign</span>(<span class="hljs-params">object, source</span>) </span>{
+    <span class="hljs-keyword">return</span> object &amp;&amp; copyObject(source, keys(source), object);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-53" id="section-53"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.clone</code> and <code>_.cloneDeep</code> which tracks
+traversed objects.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to clone.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[isDeep]</span>
+<span class="dox_type">boolean</span>
+<span>Specify a deep clone.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[isFull]</span>
+<span class="dox_type">boolean</span>
+<span>Specify a clone including symbols.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[customizer]</span>
+<span class="dox_type">Function</span>
+<span>The function to customize cloning.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[key]</span>
+<span class="dox_type">string</span>
+<span>The key of <code>value</code>.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[object]</span>
+<span class="dox_type">Object</span>
+<span>The parent object of <code>value</code>.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[stack]</span>
+<span class="dox_type">Object</span>
+<span>Tracks traversed objects and their clone counterparts.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseClone</span>(<span class="hljs-params">value, isDeep, isFull, customizer, key, object, stack</span>) </span>{
+    <span class="hljs-keyword">var</span> result;
+    <span class="hljs-keyword">if</span> (customizer) {
+      result = object ? customizer(value, key, object, stack) : customizer(value);
+    }
+    <span class="hljs-keyword">if</span> (result !== <span class="hljs-literal">undefined</span>) {
+      <span class="hljs-keyword">return</span> result;
+    }
+    <span class="hljs-keyword">if</span> (!isObject(value)) {
+      <span class="hljs-keyword">return</span> value;
+    }
+    <span class="hljs-keyword">var</span> isArr = isArray(value);
+    <span class="hljs-keyword">if</span> (isArr) {
+      result = initCloneArray(value);
+      <span class="hljs-keyword">if</span> (!isDeep) {
+        <span class="hljs-keyword">return</span> copyArray(value, result);
+      }
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">var</span> tag = getTag(value),
+          isFunc = tag == funcTag || tag == genTag;
+
+      <span class="hljs-keyword">if</span> (isBuffer(value)) {
+        <span class="hljs-keyword">return</span> cloneBuffer(value, isDeep);
+      }
+      <span class="hljs-keyword">if</span> (tag == objectTag || tag == argsTag || (isFunc &amp;&amp; !object)) {
+        <span class="hljs-keyword">if</span> (isHostObject(value)) {
+          <span class="hljs-keyword">return</span> object ? value : {};
+        }
+        result = initCloneObject(isFunc ? {} : value);
+        <span class="hljs-keyword">if</span> (!isDeep) {
+          <span class="hljs-keyword">return</span> copySymbols(value, baseAssign(result, value));
+        }
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">if</span> (!cloneableTags[tag]) {
+          <span class="hljs-keyword">return</span> object ? value : {};
+        }
+        result = initCloneByTag(value, tag, baseClone, isDeep);
+      }
+    }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-54" id="section-54"></a>
+</div>
+<p>Check for circular references and return its corresponding clone.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    stack || (stack = <span class="hljs-keyword">new</span> Stack);
+    <span class="hljs-keyword">var</span> stacked = stack.get(value);
+    <span class="hljs-keyword">if</span> (stacked) {
+      <span class="hljs-keyword">return</span> stacked;
+    }
+    stack.set(value, result);
+
+    <span class="hljs-keyword">if</span> (!isArr) {
+      <span class="hljs-keyword">var</span> props = isFull ? getAllKeys(value) : keys(value);
+    }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-55" id="section-55"></a>
+</div>
+<p>Recursively populate clone (susceptible to call stack limits).</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    arrayEach(props || value, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">subValue, key</span>) </span>{
+      <span class="hljs-keyword">if</span> (props) {
+        key = subValue;
+        subValue = value[key];
+      }
+      assignValue(result, key, baseClone(subValue, isDeep, isFull, customizer, key, value, stack));
+    });
+    <span class="hljs-keyword">return</span> result;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-56" id="section-56"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.create</code> without support for assigning
+properties to the created object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">prototype</span>
+<span class="dox_type">Object</span>
+<span>The object to inherit from.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseCreate</span>(<span class="hljs-params">proto</span>) </span>{
+    <span class="hljs-keyword">return</span> isObject(proto) ? objectCreate(proto) : {};
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-57" id="section-57"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>getAllKeys</code> and <code>getAllKeysIn</code> which uses
+<code>keysFunc</code> and <code>symbolsFunc</code> to get the enumerable property names and
+symbols of <code>object</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">keysFunc</span>
+<span class="dox_type">Function</span>
+<span>The function to get the keys of <code>object</code>.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">symbolsFunc</span>
+<span class="dox_type">Function</span>
+<span>The function to get the symbols of <code>object</code>.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseGetAllKeys</span>(<span class="hljs-params">object, keysFunc, symbolsFunc</span>) </span>{
+    <span class="hljs-keyword">var</span> result = keysFunc(object);
+    <span class="hljs-keyword">return</span> isArray(object) ? result : arrayPush(result, symbolsFunc(object));
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-58" id="section-58"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.has</code> without support for deep paths.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">Array</span>
+<span class="dox_type">string</span>
+<span>The key to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseHas</span>(<span class="hljs-params">object, key</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-59" id="section-59"></a>
+</div>
+<p>Avoid a bug in IE 10-11 where objects with a [[Prototype]] of <code>null</code>,
+that are composed entirely of index properties, return <code>false</code> for
+<code>hasOwnProperty</code> checks of them.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">return</span> hasOwnProperty.call(object, key) ||
+      (<span class="hljs-keyword">typeof</span> object == <span class="hljs-string">'object'</span> &amp;&amp; key <span class="hljs-keyword">in</span> object &amp;&amp; getPrototype(object) === <span class="hljs-literal">null</span>);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-60" id="section-60"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.keys</code> which doesn't skip the constructor
+property of prototypes or treat sparse arrays as dense.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseKeys</span>(<span class="hljs-params">object</span>) </span>{
+    <span class="hljs-keyword">return</span> nativeKeys(<span class="hljs-built_in">Object</span>(object));
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-61" id="section-61"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.keysIn</code> which doesn't skip the constructor
+property of prototypes or treat sparse arrays as dense.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseKeysIn</span>(<span class="hljs-params">object</span>) </span>{
+    object = object == <span class="hljs-literal">null</span> ? object : <span class="hljs-built_in">Object</span>(object);
+
+    <span class="hljs-keyword">var</span> result = [];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> object) {
+      result.push(key);
+    }
+    <span class="hljs-keyword">return</span> result;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-62" id="section-62"></a>
+</div>
+<p>Fallback for IE &lt; 9 with es6-shim.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (enumerate &amp;&amp; !propertyIsEnumerable.call({ <span class="hljs-string">'valueOf'</span>: <span class="hljs-number">1</span> }, <span class="hljs-string">'valueOf'</span>)) {
+    baseKeysIn = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object</span>) </span>{
+      <span class="hljs-keyword">return</span> iteratorToArray(enumerate(object));
+    };
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-63" id="section-63"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.merge</code> without support for multiple sources.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The destination object.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">source</span>
+<span class="dox_type">Object</span>
+<span>The source object.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">srcIndex</span>
+<span class="dox_type">number</span>
+<span>The index of <code>source</code>.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[customizer]</span>
+<span class="dox_type">Function</span>
+<span>The function to customize merged values.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[stack]</span>
+<span class="dox_type">Object</span>
+<span>Tracks traversed source values and their merged  counterparts.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseMerge</span>(<span class="hljs-params">object, source, srcIndex, customizer, stack</span>) </span>{
+    <span class="hljs-keyword">if</span> (object === source) {
+      <span class="hljs-keyword">return</span>;
+    }
+    <span class="hljs-keyword">if</span> (!(isArray(source) || isTypedArray(source))) {
+      <span class="hljs-keyword">var</span> props = keysIn(source);
+    }
+    arrayEach(props || source, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">srcValue, key</span>) </span>{
+      <span class="hljs-keyword">if</span> (props) {
+        key = srcValue;
+        srcValue = source[key];
+      }
+      <span class="hljs-keyword">if</span> (isObject(srcValue)) {
+        stack || (stack = <span class="hljs-keyword">new</span> Stack);
+        baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
+      }
+      <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">var</span> newValue = customizer
+          ? customizer(object[key], srcValue, (key + <span class="hljs-string">''</span>), object, source, stack)
+          : <span class="hljs-literal">undefined</span>;
+
+        <span class="hljs-keyword">if</span> (newValue === <span class="hljs-literal">undefined</span>) {
+          newValue = srcValue;
+        }
+        assignMergeValue(object, key, newValue);
+      }
+    });
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-64" id="section-64"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>A specialized version of <code>baseMerge</code> for arrays and objects which performs
+deep merges and tracks traversed objects enabling objects with circular
+references to be merged.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The destination object.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">source</span>
+<span class="dox_type">Object</span>
+<span>The source object.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the value to merge.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">srcIndex</span>
+<span class="dox_type">number</span>
+<span>The index of <code>source</code>.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">mergeFunc</span>
+<span class="dox_type">Function</span>
+<span>The function to merge values.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[customizer]</span>
+<span class="dox_type">Function</span>
+<span>The function to customize assigned values.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[stack]</span>
+<span class="dox_type">Object</span>
+<span>Tracks traversed source values and their merged  counterparts.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseMergeDeep</span>(<span class="hljs-params">object, source, key, srcIndex, mergeFunc, customizer, stack</span>) </span>{
+    <span class="hljs-keyword">var</span> objValue = object[key],
+        srcValue = source[key],
+        stacked = stack.get(srcValue);
+
+    <span class="hljs-keyword">if</span> (stacked) {
+      assignMergeValue(object, key, stacked);
+      <span class="hljs-keyword">return</span>;
+    }
+    <span class="hljs-keyword">var</span> newValue = customizer
+      ? customizer(objValue, srcValue, (key + <span class="hljs-string">''</span>), object, source, stack)
+      : <span class="hljs-literal">undefined</span>;
+
+    <span class="hljs-keyword">var</span> isCommon = newValue === <span class="hljs-literal">undefined</span>;
+
+    <span class="hljs-keyword">if</span> (isCommon) {
+      newValue = srcValue;
+      <span class="hljs-keyword">if</span> (isArray(srcValue) || isTypedArray(srcValue)) {
+        <span class="hljs-keyword">if</span> (isArray(objValue)) {
+          newValue = objValue;
+        }
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isArrayLikeObject(objValue)) {
+          newValue = copyArray(objValue);
+        }
+        <span class="hljs-keyword">else</span> {
+          isCommon = <span class="hljs-literal">false</span>;
+          newValue = baseClone(srcValue, <span class="hljs-literal">true</span>);
+        }
+      }
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isPlainObject(srcValue) || isArguments(srcValue)) {
+        <span class="hljs-keyword">if</span> (isArguments(objValue)) {
+          newValue = toPlainObject(objValue);
+        }
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!isObject(objValue) || (srcIndex &amp;&amp; isFunction(objValue))) {
+          isCommon = <span class="hljs-literal">false</span>;
+          newValue = baseClone(srcValue, <span class="hljs-literal">true</span>);
+        }
+        <span class="hljs-keyword">else</span> {
+          newValue = objValue;
+        }
+      }
+      <span class="hljs-keyword">else</span> {
+        isCommon = <span class="hljs-literal">false</span>;
+      }
+    }
+    stack.set(srcValue, newValue);
+
+    <span class="hljs-keyword">if</span> (isCommon) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-65" id="section-65"></a>
+</div>
+<p>Recursively merge objects and arrays (susceptible to call stack limits).</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      mergeFunc(newValue, srcValue, srcIndex, customizer, stack);
+    }
+    stack[<span class="hljs-string">'delete'</span>](srcValue);
+    assignMergeValue(object, key, newValue);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-66" id="section-66"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The base implementation of <code>_.property</code> without support for deep paths.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the property to get.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">baseProperty</span>(<span class="hljs-params">key</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object</span>) </span>{
+      <span class="hljs-keyword">return</span> object == <span class="hljs-literal">null</span> ? <span class="hljs-literal">undefined</span> : object[key];
+    };
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-67" id="section-67"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a clone of  <code>buffer</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">buffer</span>
+<span class="dox_type">Buffer</span>
+<span>The buffer to clone.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[isDeep]</span>
+<span class="dox_type">boolean</span>
+<span>Specify a deep clone.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cloneBuffer</span>(<span class="hljs-params">buffer, isDeep</span>) </span>{
+    <span class="hljs-keyword">if</span> (isDeep) {
+      <span class="hljs-keyword">return</span> buffer.slice();
+    }
+    <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">new</span> buffer.constructor(buffer.length);
+    buffer.copy(result);
+    <span class="hljs-keyword">return</span> result;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-68" id="section-68"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a clone of <code>arrayBuffer</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">arrayBuffer</span>
+<span class="dox_type">ArrayBuffer</span>
+<span>The array buffer to clone.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cloneArrayBuffer</span>(<span class="hljs-params">arrayBuffer</span>) </span>{
+    <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">new</span> arrayBuffer.constructor(arrayBuffer.byteLength);
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(result).set(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(arrayBuffer));
+    <span class="hljs-keyword">return</span> result;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-69" id="section-69"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a clone of <code>dataView</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">dataView</span>
+<span class="dox_type">Object</span>
+<span>The data view to clone.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[isDeep]</span>
+<span class="dox_type">boolean</span>
+<span>Specify a deep clone.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cloneDataView</span>(<span class="hljs-params">dataView, isDeep</span>) </span>{
+    <span class="hljs-keyword">var</span> buffer = isDeep ? cloneArrayBuffer(dataView.buffer) : dataView.buffer;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> dataView.constructor(buffer, dataView.byteOffset, dataView.byteLength);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-70" id="section-70"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a clone of <code>map</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">map</span>
+<span class="dox_type">Object</span>
+<span>The map to clone.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cloneFunc</span>
+<span class="dox_type">Function</span>
+<span>The function to clone values.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[isDeep]</span>
+<span class="dox_type">boolean</span>
+<span>Specify a deep clone.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cloneMap</span>(<span class="hljs-params">map, isDeep, cloneFunc</span>) </span>{
+    <span class="hljs-keyword">var</span> array = isDeep ? cloneFunc(mapToArray(map), <span class="hljs-literal">true</span>) : mapToArray(map);
+    <span class="hljs-keyword">return</span> arrayReduce(array, addMapEntry, <span class="hljs-keyword">new</span> map.constructor);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-71" id="section-71"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a clone of <code>regexp</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">regexp</span>
+<span class="dox_type">Object</span>
+<span>The regexp to clone.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cloneRegExp</span>(<span class="hljs-params">regexp</span>) </span>{
+    <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">new</span> regexp.constructor(regexp.source, reFlags.exec(regexp));
+    result.lastIndex = regexp.lastIndex;
+    <span class="hljs-keyword">return</span> result;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-72" id="section-72"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a clone of <code>set</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">set</span>
+<span class="dox_type">Object</span>
+<span>The set to clone.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cloneFunc</span>
+<span class="dox_type">Function</span>
+<span>The function to clone values.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[isDeep]</span>
+<span class="dox_type">boolean</span>
+<span>Specify a deep clone.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cloneSet</span>(<span class="hljs-params">set, isDeep, cloneFunc</span>) </span>{
+    <span class="hljs-keyword">var</span> array = isDeep ? cloneFunc(setToArray(<span class="hljs-keyword">set</span>), true) : setToArray(<span class="hljs-keyword">set</span>);
+    return arrayReduce(array, addSetEntry, new <span class="hljs-keyword">set</span>.<span class="hljs-keyword">constructor</span>);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-73" id="section-73"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a clone of the <code>symbol</code> object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">symbol</span>
+<span class="dox_type">Object</span>
+<span>The symbol object to clone.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cloneSymbol</span>(<span class="hljs-params">symbol</span>) </span>{
+    <span class="hljs-keyword">return</span> symbolValueOf ? <span class="hljs-built_in">Object</span>(symbolValueOf.call(symbol)) : {};
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-74" id="section-74"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a clone of <code>typedArray</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">typedArray</span>
+<span class="dox_type">Object</span>
+<span>The typed array to clone.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[isDeep]</span>
+<span class="dox_type">boolean</span>
+<span>Specify a deep clone.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cloneTypedArray</span>(<span class="hljs-params">typedArray, isDeep</span>) </span>{
+    <span class="hljs-keyword">var</span> buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-75" id="section-75"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Copies the values of <code>source</code> to <code>array</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">source</span>
+<span class="dox_type">Array</span>
+<span>The array to copy values from.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[array=[]]</span>
+<span class="dox_type">Array</span>
+<span>The array to copy values to.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copyArray</span>(<span class="hljs-params">source, array</span>) </span>{
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+        length = source.length;
+
+    array || (array = <span class="hljs-built_in">Array</span>(length));
+    <span class="hljs-keyword">while</span> (++index &lt; length) {
+      array[index] = source[index];
+    }
+    <span class="hljs-keyword">return</span> array;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-76" id="section-76"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Copies properties of <code>source</code> to <code>object</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">source</span>
+<span class="dox_type">Object</span>
+<span>The object to copy properties from.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">props</span>
+<span class="dox_type">Array</span>
+<span>The property identifiers to copy.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[object={}]</span>
+<span class="dox_type">Object</span>
+<span>The object to copy properties to.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[customizer]</span>
+<span class="dox_type">Function</span>
+<span>The function to customize copied values.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copyObject</span>(<span class="hljs-params">source, props, object, customizer</span>) </span>{
+    object || (object = {});
+
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+        length = props.length;
+
+    <span class="hljs-keyword">while</span> (++index &lt; length) {
+      <span class="hljs-keyword">var</span> key = props[index];
+
+      <span class="hljs-keyword">var</span> newValue = customizer
+        ? customizer(object[key], source[key], key, object, source)
+        : source[key];
+
+      assignValue(object, key, newValue);
+    }
+    <span class="hljs-keyword">return</span> object;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-77" id="section-77"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Copies own symbol properties of <code>source</code> to <code>object</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">source</span>
+<span class="dox_type">Object</span>
+<span>The object to copy symbols from.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[object={}]</span>
+<span class="dox_type">Object</span>
+<span>The object to copy symbols to.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copySymbols</span>(<span class="hljs-params">source, object</span>) </span>{
+    <span class="hljs-keyword">return</span> copyObject(source, getSymbols(source), object);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-78" id="section-78"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a function like <code>_.assign</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">assigner</span>
+<span class="dox_type">Function</span>
+<span>The function to assign values.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createAssigner</span>(<span class="hljs-params">assigner</span>) </span>{
+    <span class="hljs-keyword">return</span> rest(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, sources</span>) </span>{
+      <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+          length = sources.length,
+          customizer = length &gt; <span class="hljs-number">1</span> ? sources[length - <span class="hljs-number">1</span>] : <span class="hljs-literal">undefined</span>,
+          guard = length &gt; <span class="hljs-number">2</span> ? sources[<span class="hljs-number">2</span>] : <span class="hljs-literal">undefined</span>;
+
+      customizer = (assigner.length &gt; <span class="hljs-number">3</span> &amp;&amp; <span class="hljs-keyword">typeof</span> customizer == <span class="hljs-string">'function'</span>)
+        ? (length--, customizer)
+        : <span class="hljs-literal">undefined</span>;
+
+      <span class="hljs-keyword">if</span> (guard &amp;&amp; isIterateeCall(sources[<span class="hljs-number">0</span>], sources[<span class="hljs-number">1</span>], guard)) {
+        customizer = length &lt; <span class="hljs-number">3</span> ? <span class="hljs-literal">undefined</span> : customizer;
+        length = <span class="hljs-number">1</span>;
+      }
+      object = <span class="hljs-built_in">Object</span>(object);
+      <span class="hljs-keyword">while</span> (++index &lt; length) {
+        <span class="hljs-keyword">var</span> source = sources[index];
+        <span class="hljs-keyword">if</span> (source) {
+          assigner(object, source, index, customizer);
+        }
+      }
+      <span class="hljs-keyword">return</span> object;
+    });
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-79" id="section-79"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates an array of own enumerable property names and symbols of <code>object</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAllKeys</span>(<span class="hljs-params">object</span>) </span>{
+    <span class="hljs-keyword">return</span> baseGetAllKeys(object, keys, getSymbols);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-80" id="section-80"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the &quot;length&quot; property value of <code>object</code>.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> This function is used to avoid a
+<a href="https://bugs.webkit.org/show_bug.cgi?id=142792">JIT bug</a> that affects
+Safari on at least iOS 8.1-8.3 ARM64.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> getLength = baseProperty(<span class="hljs-string">'length'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-81" id="section-81"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the data for <code>map</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">map</span>
+<span class="dox_type">Object</span>
+<span>The map to query.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The reference key.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getMapData</span>(<span class="hljs-params">map, key</span>) </span>{
+    <span class="hljs-keyword">var</span> data = map.__data__;
+    <span class="hljs-keyword">return</span> isKeyable(key)
+      ? data[<span class="hljs-keyword">typeof</span> key == <span class="hljs-string">'string'</span> ? <span class="hljs-string">'string'</span> : <span class="hljs-string">'hash'</span>]
+      : data.map;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-82" id="section-82"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the native function at <code>key</code> of <code>object</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">key</span>
+<span class="dox_type">string</span>
+<span>The key of the method to get.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getNative</span>(<span class="hljs-params">object, key</span>) </span>{
+    <span class="hljs-keyword">var</span> value = object[key];
+    <span class="hljs-keyword">return</span> isNative(value) ? value : <span class="hljs-literal">undefined</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-83" id="section-83"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the <code>[[Prototype]]</code> of <code>value</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getPrototype</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> nativeGetPrototype(<span class="hljs-built_in">Object</span>(value));
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-84" id="section-84"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates an array of the own enumerable symbol properties of <code>object</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getSymbols</span>(<span class="hljs-params">object</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-85" id="section-85"></a>
+</div>
+<p>Coerce <code>object</code> to an object to avoid non-object errors in V8.
+See https://bugs.chromium.org/p/v8/issues/detail?id=3443 for more details.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">return</span> getOwnPropertySymbols(<span class="hljs-built_in">Object</span>(object));
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-86" id="section-86"></a>
+</div>
+<p>Fallback for IE &lt; 11.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> (!getOwnPropertySymbols) {
+    getSymbols = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> [];
+    };
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-87" id="section-87"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Gets the <code>toStringTag</code> of <code>value</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getTag</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> objectToString.call(value);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-88" id="section-88"></a>
+</div>
+<p>Fallback for data views, maps, sets, and weak maps in IE 11,
+for data views in Edge, and promises in Node.js.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">if</span> ((<span class="hljs-built_in">DataView</span> &amp;&amp; getTag(<span class="hljs-keyword">new</span> <span class="hljs-built_in">DataView</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayBuffer</span>(<span class="hljs-number">1</span>))) != dataViewTag) ||
+      (<span class="hljs-built_in">Map</span> &amp;&amp; getTag(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>) != mapTag) ||
+      (<span class="hljs-built_in">Promise</span> &amp;&amp; getTag(<span class="hljs-built_in">Promise</span>.resolve()) != promiseTag) ||
+      (<span class="hljs-built_in">Set</span> &amp;&amp; getTag(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>) != setTag) ||
+      (<span class="hljs-built_in">WeakMap</span> &amp;&amp; getTag(<span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>) != weakMapTag)) {
+    getTag = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+      <span class="hljs-keyword">var</span> result = objectToString.call(value),
+          Ctor = result == objectTag ? value.constructor : <span class="hljs-literal">undefined</span>,
+          ctorString = Ctor ? toSource(Ctor) : <span class="hljs-literal">undefined</span>;
+
+      <span class="hljs-keyword">if</span> (ctorString) {
+        <span class="hljs-keyword">switch</span> (ctorString) {
+          <span class="hljs-keyword">case</span> dataViewCtorString: <span class="hljs-keyword">return</span> dataViewTag;
+          <span class="hljs-keyword">case</span> mapCtorString: <span class="hljs-keyword">return</span> mapTag;
+          <span class="hljs-keyword">case</span> promiseCtorString: <span class="hljs-keyword">return</span> promiseTag;
+          <span class="hljs-keyword">case</span> setCtorString: <span class="hljs-keyword">return</span> setTag;
+          <span class="hljs-keyword">case</span> weakMapCtorString: <span class="hljs-keyword">return</span> weakMapTag;
+        }
+      }
+      <span class="hljs-keyword">return</span> result;
+    };
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-89" id="section-89"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Initializes an array clone.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">array</span>
+<span class="dox_type">Array</span>
+<span>The array to clone.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initCloneArray</span>(<span class="hljs-params">array</span>) </span>{
+    <span class="hljs-keyword">var</span> length = array.length,
+        result = array.constructor(length);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-90" id="section-90"></a>
+</div>
+<p>Add properties assigned by <code>RegExp#exec</code>.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (length &amp;&amp; <span class="hljs-keyword">typeof</span> array[<span class="hljs-number">0</span>] == <span class="hljs-string">'string'</span> &amp;&amp; hasOwnProperty.call(array, <span class="hljs-string">'index'</span>)) {
+      result.index = array.index;
+      result.input = array.input;
+    }
+    <span class="hljs-keyword">return</span> result;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-91" id="section-91"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Initializes an object clone.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to clone.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initCloneObject</span>(<span class="hljs-params">object</span>) </span>{
+    <span class="hljs-keyword">return</span> (<span class="hljs-keyword">typeof</span> object.constructor == <span class="hljs-string">'function'</span> &amp;&amp; !isPrototype(object))
+      ? baseCreate(getPrototype(object))
+      : {};
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-92" id="section-92"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Initializes an object clone based on its <code>toStringTag</code>.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> This function only supports cloning values with tags of
+<code>Boolean</code>, <code>Date</code>, <code>Error</code>, <code>Number</code>, <code>RegExp</code>, or <code>String</code>.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to clone.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">tag</span>
+<span class="dox_type">string</span>
+<span>The <code>toStringTag</code> of the object to clone.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">cloneFunc</span>
+<span class="dox_type">Function</span>
+<span>The function to clone values.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[isDeep]</span>
+<span class="dox_type">boolean</span>
+<span>Specify a deep clone.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initCloneByTag</span>(<span class="hljs-params">object, tag, cloneFunc, isDeep</span>) </span>{
+    <span class="hljs-keyword">var</span> Ctor = object.constructor;
+    <span class="hljs-keyword">switch</span> (tag) {
+      <span class="hljs-keyword">case</span> arrayBufferTag:
+        <span class="hljs-keyword">return</span> cloneArrayBuffer(object);
+
+      <span class="hljs-keyword">case</span> boolTag:
+      <span class="hljs-keyword">case</span> dateTag:
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Ctor(+object);
+
+      <span class="hljs-keyword">case</span> dataViewTag:
+        <span class="hljs-keyword">return</span> cloneDataView(object, isDeep);
+
+      <span class="hljs-keyword">case</span> float32Tag: <span class="hljs-keyword">case</span> float64Tag:
+      <span class="hljs-keyword">case</span> int8Tag: <span class="hljs-keyword">case</span> int16Tag: <span class="hljs-keyword">case</span> int32Tag:
+      <span class="hljs-keyword">case</span> uint8Tag: <span class="hljs-keyword">case</span> uint8ClampedTag: <span class="hljs-keyword">case</span> uint16Tag: <span class="hljs-keyword">case</span> uint32Tag:
+        <span class="hljs-keyword">return</span> cloneTypedArray(object, isDeep);
+
+      <span class="hljs-keyword">case</span> mapTag:
+        <span class="hljs-keyword">return</span> cloneMap(object, isDeep, cloneFunc);
+
+      <span class="hljs-keyword">case</span> numberTag:
+      <span class="hljs-keyword">case</span> stringTag:
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Ctor(object);
+
+      <span class="hljs-keyword">case</span> regexpTag:
+        <span class="hljs-keyword">return</span> cloneRegExp(object);
+
+      <span class="hljs-keyword">case</span> setTag:
+        <span class="hljs-keyword">return</span> cloneSet(object, isDeep, cloneFunc);
+
+      <span class="hljs-keyword">case</span> symbolTag:
+        <span class="hljs-keyword">return</span> cloneSymbol(object);
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-93" id="section-93"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates an array of index keys for <code>object</code> values of arrays,
+<code>arguments</code> objects, and strings, otherwise <code>null</code> is returned.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">indexKeys</span>(<span class="hljs-params">object</span>) </span>{
+    <span class="hljs-keyword">var</span> length = object ? object.length : <span class="hljs-literal">undefined</span>;
+    <span class="hljs-keyword">if</span> (isLength(length) &amp;&amp;
+        (isArray(object) || isString(object) || isArguments(object))) {
+      <span class="hljs-keyword">return</span> baseTimes(length, <span class="hljs-built_in">String</span>);
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-94" id="section-94"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a valid array-like index.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[length=MAX_SAFE_INTEGER]</span>
+<span class="dox_type">number</span>
+<span>The upper bounds of a valid index.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isIndex</span>(<span class="hljs-params">value, length</span>) </span>{
+    length = length == <span class="hljs-literal">null</span> ? MAX_SAFE_INTEGER : length;
+    <span class="hljs-keyword">return</span> !!length &amp;&amp;
+      (<span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'number'</span> || reIsUint.test(value)) &amp;&amp;
+      (value &gt; <span class="hljs-number">-1</span> &amp;&amp; value % <span class="hljs-number">1</span> == <span class="hljs-number">0</span> &amp;&amp; value &lt; length);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-95" id="section-95"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if the given arguments are from an iteratee call.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The potential iteratee value argument.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">index</span>
+<span>The potential iteratee index or key argument.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span>The potential iteratee object argument.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isIterateeCall</span>(<span class="hljs-params">value, index, object</span>) </span>{
+    <span class="hljs-keyword">if</span> (!isObject(object)) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+    <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> index;
+    <span class="hljs-keyword">if</span> (type == <span class="hljs-string">'number'</span>
+          ? (isArrayLike(object) &amp;&amp; isIndex(index, object.length))
+          : (type == <span class="hljs-string">'string'</span> &amp;&amp; index <span class="hljs-keyword">in</span> object)
+        ) {
+      <span class="hljs-keyword">return</span> eq(object[index], value);
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-96" id="section-96"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is suitable for use as unique object key.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isKeyable</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> value;
+    <span class="hljs-keyword">return</span> (type == <span class="hljs-string">'string'</span> || type == <span class="hljs-string">'number'</span> || type == <span class="hljs-string">'symbol'</span> || type == <span class="hljs-string">'boolean'</span>)
+      ? (value !== <span class="hljs-string">'__proto__'</span>)
+      : (value === <span class="hljs-literal">null</span>);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-97" id="section-97"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is likely a prototype object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isPrototype</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">var</span> Ctor = value &amp;&amp; value.constructor,
+        proto = (<span class="hljs-keyword">typeof</span> Ctor == <span class="hljs-string">'function'</span> &amp;&amp; Ctor.prototype) || objectProto;
+
+    <span class="hljs-keyword">return</span> value === proto;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-98" id="section-98"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Converts <code>func</code> to its source code.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to process.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toSource</span>(<span class="hljs-params">func</span>) </span>{
+    <span class="hljs-keyword">if</span> (func != <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">return</span> funcToString.call(func);
+      } <span class="hljs-keyword">catch</span> (e) {}
+      <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">return</span> (func + <span class="hljs-string">''</span>);
+      } <span class="hljs-keyword">catch</span> (e) {}
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
+  }
+
+  <span class="hljs-comment">/*------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-99" id="section-99"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a function that invokes <code>func</code> with the <code>this</code> binding of the
+created function and arguments from <code>start</code> and beyond provided as
+an array.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> This method is based on the
+<a href="https://mdn.io/rest_parameters">rest parameter</a>.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">func</span>
+<span class="dox_type">Function</span>
+<span>The function to apply a rest parameter to.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[start=func.length-1]</span>
+<span class="dox_type">number</span>
+<span>The start position of the rest parameter.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rest</span>(<span class="hljs-params">func, start</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> func != <span class="hljs-string">'function'</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(FUNC_ERROR_TEXT);
+    }
+    start = nativeMax(start === <span class="hljs-literal">undefined</span> ? (func.length - <span class="hljs-number">1</span>) : toInteger(start), <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">arguments</span>,
+          index = <span class="hljs-number">-1</span>,
+          length = nativeMax(args.length - start, <span class="hljs-number">0</span>),
+          array = <span class="hljs-built_in">Array</span>(length);
+
+      <span class="hljs-keyword">while</span> (++index &lt; length) {
+        array[index] = args[start + index];
+      }
+      <span class="hljs-keyword">switch</span> (start) {
+        <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-keyword">return</span> func.call(<span class="hljs-keyword">this</span>, array);
+        <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: <span class="hljs-keyword">return</span> func.call(<span class="hljs-keyword">this</span>, args[<span class="hljs-number">0</span>], array);
+        <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: <span class="hljs-keyword">return</span> func.call(<span class="hljs-keyword">this</span>, args[<span class="hljs-number">0</span>], args[<span class="hljs-number">1</span>], array);
+      }
+      <span class="hljs-keyword">var</span> otherArgs = <span class="hljs-built_in">Array</span>(start + <span class="hljs-number">1</span>);
+      index = <span class="hljs-number">-1</span>;
+      <span class="hljs-keyword">while</span> (++index &lt; start) {
+        otherArgs[index] = args[index];
+      }
+      otherArgs[start] = array;
+      <span class="hljs-keyword">return</span> apply(func, <span class="hljs-keyword">this</span>, otherArgs);
+    };
+  }
+
+  <span class="hljs-comment">/*------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-100" id="section-100"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>This method is like <code>_.clone</code> except that it recursively clones <code>value</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to recursively clone.
+</span>
+</div>
+<div class="dox_tag_title">See</div>
+<div class="dox_tag_detail">
+<span class="dox_type">_.clone</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cloneDeep</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> baseClone(value, <span class="hljs-literal">true</span>, <span class="hljs-literal">true</span>);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-101" id="section-101"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Performs a
+<a href="http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero"><code>SameValueZero</code></a>
+comparison between two values to determine if they are equivalent.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to compare.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">other</span>
+<span>The other value to compare.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">eq</span>(<span class="hljs-params">value, other</span>) </span>{
+    <span class="hljs-keyword">return</span> value === other || (value !== value &amp;&amp; other !== other);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-102" id="section-102"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is likely an <code>arguments</code> object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isArguments</span>(<span class="hljs-params">value</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-103" id="section-103"></a>
+</div>
+<p>Safari 8.1 incorrectly makes <code>arguments.callee</code> enumerable in strict mode.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">return</span> isArrayLikeObject(value) &amp;&amp; hasOwnProperty.call(value, <span class="hljs-string">'callee'</span>) &amp;&amp;
+      (!propertyIsEnumerable.call(value, <span class="hljs-string">'callee'</span>) || objectToString.call(value) == argsTag);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-104" id="section-104"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is classified as an <code>Array</code> object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">Function</span>
+</div>
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> isArray = <span class="hljs-built_in">Array</span>.isArray;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-105" id="section-105"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is array-like. A value is considered array-like if it's
+not a function and has a <code>value.length</code> that's an integer greater than or
+equal to <code>0</code> and less than or equal to <code>Number.MAX_SAFE_INTEGER</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isArrayLike</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> value != <span class="hljs-literal">null</span> &amp;&amp; isLength(getLength(value)) &amp;&amp; !isFunction(value);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-106" id="section-106"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>This method is like <code>_.isArrayLike</code> except that it also checks if <code>value</code>
+is an object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isArrayLikeObject</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> isObjectLike(value) &amp;&amp; isArrayLike(value);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-107" id="section-107"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a buffer.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> isBuffer = !Buffer ? constant(<span class="hljs-literal">false</span>) : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> value <span class="hljs-keyword">instanceof</span> Buffer;
+  };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-108" id="section-108"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is classified as a <code>Function</code> object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isFunction</span>(<span class="hljs-params">value</span>) </span>{
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-109" id="section-109"></a>
+</div>
+<p>The use of <code>Object#toString</code> avoids issues with the <code>typeof</code> operator
+in Safari 8 which returns 'object' for typed array and weak map constructors,
+and PhantomJS 1.9 which returns 'function' for <code>NodeList</code> instances.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">var</span> tag = isObject(value) ? objectToString.call(value) : <span class="hljs-string">''</span>;
+    <span class="hljs-keyword">return</span> tag == funcTag || tag == genTag;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-110" id="section-110"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a valid array-like length.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> This function is loosely based on
+<a href="http://ecma-international.org/ecma-262/6.0/#sec-tolength"><code>ToLength</code></a>.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isLength</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'number'</span> &amp;&amp;
+      value &gt; <span class="hljs-number">-1</span> &amp;&amp; value % <span class="hljs-number">1</span> == <span class="hljs-number">0</span> &amp;&amp; value &lt;= MAX_SAFE_INTEGER;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-111" id="section-111"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is the
+<a href="http://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-language-types">language type</a>
+of <code>Object</code>. (e.g. arrays, functions, objects, regexes, <code>new Number(0)</code>, and <code>new String('')</code>)</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> value;
+    <span class="hljs-keyword">return</span> !!value &amp;&amp; (type == <span class="hljs-string">'object'</span> || type == <span class="hljs-string">'function'</span>);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-112" id="section-112"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is object-like. A value is object-like if it's not <code>null</code>
+and has a <code>typeof</code> result of &quot;object&quot;.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObjectLike</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> !!value &amp;&amp; <span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'object'</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-113" id="section-113"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a native function.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNative</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">if</span> (!isObject(value)) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+    <span class="hljs-keyword">var</span> pattern = (isFunction(value) || isHostObject(value)) ? reIsNative : reIsHostCtor;
+    <span class="hljs-keyword">return</span> pattern.test(toSource(value));
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-114" id="section-114"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is a plain object, that is, an object created by the
+<code>Object</code> constructor or one with a <code>[[Prototype]]</code> of <code>null</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isPlainObject</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">if</span> (!isObjectLike(value) ||
+        objectToString.call(value) != objectTag || isHostObject(value)) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+    <span class="hljs-keyword">var</span> proto = getPrototype(value);
+    <span class="hljs-keyword">if</span> (proto === <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+    <span class="hljs-keyword">var</span> Ctor = hasOwnProperty.call(proto, <span class="hljs-string">'constructor'</span>) &amp;&amp; proto.constructor;
+    <span class="hljs-keyword">return</span> (<span class="hljs-keyword">typeof</span> Ctor == <span class="hljs-string">'function'</span> &amp;&amp;
+      Ctor <span class="hljs-keyword">instanceof</span> Ctor &amp;&amp; funcToString.call(Ctor) == objectCtorString);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-115" id="section-115"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is classified as a <code>String</code> primitive or object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isString</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'string'</span> ||
+      (!isArray(value) &amp;&amp; isObjectLike(value) &amp;&amp; objectToString.call(value) == stringTag);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-116" id="section-116"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is classified as a <code>Symbol</code> primitive or object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSymbol</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'symbol'</span> ||
+      (isObjectLike(value) &amp;&amp; objectToString.call(value) == symbolTag);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-117" id="section-117"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Checks if <code>value</code> is classified as a typed array.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to check.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isTypedArray</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> isObjectLike(value) &amp;&amp;
+      isLength(value.length) &amp;&amp; !!typedArrayTags[objectToString.call(value)];
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-118" id="section-118"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Converts <code>value</code> to a finite number.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to convert.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toFinite</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">if</span> (!value) {
+      <span class="hljs-keyword">return</span> value === <span class="hljs-number">0</span> ? value : <span class="hljs-number">0</span>;
+    }
+    value = toNumber(value);
+    <span class="hljs-keyword">if</span> (value === INFINITY || value === -INFINITY) {
+      <span class="hljs-keyword">var</span> sign = (value &lt; <span class="hljs-number">0</span> ? <span class="hljs-number">-1</span> : <span class="hljs-number">1</span>);
+      <span class="hljs-keyword">return</span> sign * MAX_INTEGER;
+    }
+    <span class="hljs-keyword">return</span> value === value ? value : <span class="hljs-number">0</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-119" id="section-119"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Converts <code>value</code> to an integer.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> This function is loosely based on
+<a href="http://www.ecma-international.org/ecma-262/6.0/#sec-tointeger"><code>ToInteger</code></a>.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to convert.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toInteger</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">var</span> result = toFinite(value),
+        remainder = result % <span class="hljs-number">1</span>;
+
+    <span class="hljs-keyword">return</span> result === result ? (remainder ? result - remainder : result) : <span class="hljs-number">0</span>;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-120" id="section-120"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Converts <code>value</code> to a number.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to process.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toNumber</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value == <span class="hljs-string">'number'</span>) {
+      <span class="hljs-keyword">return</span> value;
+    }
+    <span class="hljs-keyword">if</span> (isSymbol(value)) {
+      <span class="hljs-keyword">return</span> NAN;
+    }
+    <span class="hljs-keyword">if</span> (isObject(value)) {
+      <span class="hljs-keyword">var</span> other = isFunction(value.valueOf) ? value.valueOf() : value;
+      value = isObject(other) ? (other + <span class="hljs-string">''</span>) : other;
+    }
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value != <span class="hljs-string">'string'</span>) {
+      <span class="hljs-keyword">return</span> value === <span class="hljs-number">0</span> ? value : +value;
+    }
+    value = value.replace(reTrim, <span class="hljs-string">''</span>);
+    <span class="hljs-keyword">var</span> isBinary = reIsBinary.test(value);
+    <span class="hljs-keyword">return</span> (isBinary || reIsOctal.test(value))
+      ? freeParseInt(value.slice(<span class="hljs-number">2</span>), isBinary ? <span class="hljs-number">2</span> : <span class="hljs-number">8</span>)
+      : (reIsBadHex.test(value) ? NAN : +value);
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-121" id="section-121"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Converts <code>value</code> to a plain object flattening inherited enumerable string
+keyed properties of <code>value</code> to own properties of the plain object.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to convert.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toPlainObject</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> copyObject(value, keysIn(value));
+  }
+
+  <span class="hljs-comment">/*------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-122" id="section-122"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates an array of the own enumerable property names of <code>object</code>.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> Non-object values are coerced to objects. See the
+<a href="http://ecma-international.org/ecma-262/6.0/#sec-object.keys">ES spec</a>
+for more details.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keys</span>(<span class="hljs-params">object</span>) </span>{
+    <span class="hljs-keyword">var</span> isProto = isPrototype(object);
+    <span class="hljs-keyword">if</span> (!(isProto || isArrayLike(object))) {
+      <span class="hljs-keyword">return</span> baseKeys(object);
+    }
+    <span class="hljs-keyword">var</span> indexes = indexKeys(object),
+        skipIndexes = !!indexes,
+        result = indexes || [],
+        length = result.length;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> object) {
+      <span class="hljs-keyword">if</span> (baseHas(object, key) &amp;&amp;
+          !(skipIndexes &amp;&amp; (key == <span class="hljs-string">'length'</span> || isIndex(key, length))) &amp;&amp;
+          !(isProto &amp;&amp; key == <span class="hljs-string">'constructor'</span>)) {
+        result.push(key);
+      }
+    }
+    <span class="hljs-keyword">return</span> result;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-123" id="section-123"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates an array of the own and inherited enumerable property names of <code>object</code>.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> Non-object values are coerced to objects.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The object to query.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keysIn</span>(<span class="hljs-params">object</span>) </span>{
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>,
+        isProto = isPrototype(object),
+        props = baseKeysIn(object),
+        propsLength = props.length,
+        indexes = indexKeys(object),
+        skipIndexes = !!indexes,
+        result = indexes || [],
+        length = result.length;
+
+    <span class="hljs-keyword">while</span> (++index &lt; propsLength) {
+      <span class="hljs-keyword">var</span> key = props[index];
+      <span class="hljs-keyword">if</span> (!(skipIndexes &amp;&amp; (key == <span class="hljs-string">'length'</span> || isIndex(key, length))) &amp;&amp;
+          !(key == <span class="hljs-string">'constructor'</span> &amp;&amp; (isProto || !hasOwnProperty.call(object, key)))) {
+        result.push(key);
+      }
+    }
+    <span class="hljs-keyword">return</span> result;
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-124" id="section-124"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>This method is like <code>_.assign</code> except that it recursively merges own and
+inherited enumerable string keyed properties of source objects into the
+destination object. Source properties that resolve to <code>undefined</code> are
+skipped if a destination value exists. Array and plain object properties
+are merged recursively. Other objects and value types are overridden by
+assignment. Source objects are applied from left to right. Subsequent
+sources overwrite property assignments of previous sources.</p>
+</div>
+<div class="body">
+<p><strong>Note:</strong> This method mutates <code>object</code>.</p>
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">object</span>
+<span class="dox_type">Object</span>
+<span>The destination object.
+</span>
+</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">[sources]</span>
+<span class="dox_type">Object</span>
+<span>The source objects.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">var</span> merge = createAssigner(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, source, srcIndex</span>) </span>{
+    baseMerge(object, source, srcIndex);
+  });
+
+  <span class="hljs-comment">/*------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-125" id="section-125"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Creates a function that returns <code>value</code>.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Params</div>
+<div class="dox_tag_detail">
+<span class="dox_tag_name">value</span>
+<span>The value to return from the new function.
+</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">constant</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> value;
+    };
+  }
+
+  <span class="hljs-comment">/*------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-126" id="section-126"></a>
+</div>
+<p>Add methods that return wrapped values in chain sequences.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  lodash.constant = constant;
+  lodash.keys = keys;
+  lodash.keysIn = keysIn;
+  lodash.merge = merge;
+  lodash.rest = rest;
+  lodash.toPlainObject = toPlainObject;
+
+  <span class="hljs-comment">/*------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-127" id="section-127"></a>
+</div>
+<p>Add methods that return unwrapped values in chain sequences.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  lodash.cloneDeep = cloneDeep;
+  lodash.eq = eq;
+  lodash.isArguments = isArguments;
+  lodash.isArray = isArray;
+  lodash.isArrayLike = isArrayLike;
+  lodash.isArrayLikeObject = isArrayLikeObject;
+  lodash.isBuffer = isBuffer;
+  lodash.isFunction = isFunction;
+  lodash.isLength = isLength;
+  lodash.isNative = isNative;
+  lodash.isObject = isObject;
+  lodash.isObjectLike = isObjectLike;
+  lodash.isPlainObject = isPlainObject;
+  lodash.isString = isString;
+  lodash.isSymbol = isSymbol;
+  lodash.isTypedArray = isTypedArray;
+  lodash.toFinite = toFinite;
+  lodash.toInteger = toInteger;
+  lodash.toNumber = toNumber;
+
+  <span class="hljs-comment">/*------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-128" id="section-128"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>The semantic version number.</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+<div class="dox_tag_title">Type</div>
+<div class="dox_tag_detail">
+<span class="dox_type">string</span>
+</div>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  lodash.VERSION = VERSION;
+
+  <span class="hljs-comment">/*--------------------------------------------------------------------------*/</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-129" id="section-129"></a>
+</div>
+<p>Expose Lodash on the free variable <code>window</code> or <code>self</code> when available so it's
+globally accessible, even when bundled with Browserify, Webpack, etc. This
+also prevents errors in cases where Lodash is loaded by a script tag in the
+presence of an AMD loader. See http://requirejs.org/docs/errors.html#mismatch
+for more details. Use <code>_.noConflict</code> to remove Lodash from the global object.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  (freeWindow || freeSelf || {})._ = lodash;
+
+  <span class="hljs-keyword">if</span> (freeExports &amp;&amp; freeModule) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-130" id="section-130"></a>
+</div>
+<p>Export for Node.js.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (moduleExports) {
+      (freeModule.exports = lodash)._ = lodash;
+    }
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-131" id="section-131"></a>
+</div>
+<p>Export for CommonJS support.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    freeExports._ = lodash;
+  }
+}.call(<span class="hljs-keyword">this</span>));
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

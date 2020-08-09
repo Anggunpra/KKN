@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\is-callable\\test.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>test.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-comment">/* eslint no-magic-numbers: 1 */</span>
+
+<span class="hljs-keyword">var</span> test = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tape'</span>);
+<span class="hljs-keyword">var</span> isCallable = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./'</span>);
+<span class="hljs-keyword">var</span> hasSymbols = <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Symbol</span> === <span class="hljs-string">'function'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'foo'</span>) === <span class="hljs-string">'symbol'</span>;
+<span class="hljs-keyword">var</span> genFn = <span class="hljs-built_in">require</span>(<span class="hljs-string">'make-generator-function'</span>);
+<span class="hljs-keyword">var</span> arrowFn = <span class="hljs-built_in">require</span>(<span class="hljs-string">'make-arrow-function'</span>)();
+<span class="hljs-keyword">var</span> weirdlyCommentedArrowFn;
+<span class="hljs-keyword">var</span> asyncFn;
+<span class="hljs-keyword">var</span> asyncArrowFn;
+<span class="hljs-keyword">try</span> {
+	<span class="hljs-comment">/* eslint no-new-func: 0 */</span>
+	weirdlyCommentedArrowFn = <span class="hljs-built_in">Function</span>(<span class="hljs-string">'return cl/*/**/=&gt;/**/ass - 1;'</span>)();
+	asyncFn = <span class="hljs-built_in">Function</span>(<span class="hljs-string">'return async function foo() {};'</span>)();
+	asyncArrowFn = <span class="hljs-built_in">Function</span>(<span class="hljs-string">'return async () =&gt; {};'</span>)();
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>} catch (e) {    / }
+var forEach = require('foreach');</p>
+</div>
+<div class="body">
+<p>var noop = function () {};
+var classFake = function classFake() { }; // eslint-disable-line func-name-matching
+var returnClass = function () { return ' class '; };
+var return3 = function () { return 3; };
+/* for coverage</p>
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">noop();
+classFake();
+returnClass();
+return3();
+<span class="hljs-comment">/* end for coverage */</span>
+
+<span class="hljs-keyword">var</span> invokeFunction = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">invokeFunctionString</span>(<span class="hljs-params">str</span>) </span>{
+	<span class="hljs-keyword">var</span> result;
+	<span class="hljs-keyword">try</span> {
+		<span class="hljs-comment">/* eslint-disable no-new-func */</span>
+		<span class="hljs-keyword">var</span> fn = <span class="hljs-built_in">Function</span>(str);
+		<span class="hljs-comment">/* eslint-enable no-new-func */</span>
+		result = fn();
+	} <span class="hljs-keyword">catch</span> (e) {}
+	<span class="hljs-keyword">return</span> result;
+};
+
+<span class="hljs-keyword">var</span> classConstructor = invokeFunction(<span class="hljs-string">'"use strict"; return class Foo {}'</span>);
+
+<span class="hljs-keyword">var</span> commentedClass = invokeFunction(<span class="hljs-string">'"use strict"; return class/*kkk*/\n//blah\n Bar\n//blah\n {}'</span>);
+<span class="hljs-keyword">var</span> commentedClassOneLine = invokeFunction(<span class="hljs-string">'"use strict"; return class/**/A{}'</span>);
+<span class="hljs-keyword">var</span> classAnonymous = invokeFunction(<span class="hljs-string">'"use strict"; return class{}'</span>);
+<span class="hljs-keyword">var</span> classAnonymousCommentedOneLine = invokeFunction(<span class="hljs-string">'"use strict"; return class/*/*/{}'</span>);
+
+test(<span class="hljs-string">'not callables'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">t</span>) </span>{
+	t.test(<span class="hljs-string">'non-number/string primitives'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">st</span>) </span>{
+		st.notOk(isCallable(), <span class="hljs-string">'undefined is not callable'</span>);
+		st.notOk(isCallable(<span class="hljs-literal">null</span>), <span class="hljs-string">'null is not callable'</span>);
+		st.notOk(isCallable(<span class="hljs-literal">false</span>), <span class="hljs-string">'false is not callable'</span>);
+		st.notOk(isCallable(<span class="hljs-literal">true</span>), <span class="hljs-string">'true is not callable'</span>);
+		st.end();
+	});
+
+	t.notOk(isCallable([]), <span class="hljs-string">'array is not callable'</span>);
+	t.notOk(isCallable({}), <span class="hljs-string">'object is not callable'</span>);
+	t.notOk(isCallable(<span class="hljs-regexp">/a/g</span>), <span class="hljs-string">'regex literal is not callable'</span>);
+	t.notOk(isCallable(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'a'</span>, <span class="hljs-string">'g'</span>)), <span class="hljs-string">'regex object is not callable'</span>);
+	t.notOk(isCallable(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()), <span class="hljs-string">'new Date() is not callable'</span>);
+
+	t.test(<span class="hljs-string">'numbers'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">st</span>) </span>{
+		st.notOk(isCallable(<span class="hljs-number">42</span>), <span class="hljs-string">'number is not callable'</span>);
+		st.notOk(isCallable(<span class="hljs-built_in">Object</span>(<span class="hljs-number">42</span>)), <span class="hljs-string">'number object is not callable'</span>);
+		st.notOk(isCallable(<span class="hljs-literal">NaN</span>), <span class="hljs-string">'NaN is not callable'</span>);
+		st.notOk(isCallable(<span class="hljs-literal">Infinity</span>), <span class="hljs-string">'Infinity is not callable'</span>);
+		st.end();
+	});
+
+	t.test(<span class="hljs-string">'strings'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">st</span>) </span>{
+		st.notOk(isCallable(<span class="hljs-string">'foo'</span>), <span class="hljs-string">'string primitive is not callable'</span>);
+		st.notOk(isCallable(<span class="hljs-built_in">Object</span>(<span class="hljs-string">'foo'</span>)), <span class="hljs-string">'string object is not callable'</span>);
+		st.end();
+	});
+
+	t.test(<span class="hljs-string">'non-function with function in its [[Prototype]] chain'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">st</span>) </span>{
+		<span class="hljs-keyword">var</span> Foo = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Bar</span>(<span class="hljs-params"></span>) </span>{};
+		Foo.prototype = noop;
+		st.equal(<span class="hljs-literal">true</span>, isCallable(Foo), <span class="hljs-string">'sanity check: Foo is callable'</span>);
+		st.equal(<span class="hljs-literal">false</span>, isCallable(<span class="hljs-keyword">new</span> Foo()), <span class="hljs-string">'instance of Foo is not callable'</span>);
+		st.end();
+	});
+
+	t.end();
+});
+
+test(<span class="hljs-string">'@@toStringTag'</span>, { <span class="hljs-attr">skip</span>: !hasSymbols || !<span class="hljs-built_in">Symbol</span>.toStringTag }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">t</span>) </span>{
+	<span class="hljs-keyword">var</span> fakeFunction = {
+		<span class="hljs-attr">toString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">String</span>(return3); },
+		<span class="hljs-attr">valueOf</span>: return3
+	};
+	fakeFunction[<span class="hljs-built_in">Symbol</span>.toStringTag] = <span class="hljs-string">'Function'</span>;
+	t.equal(<span class="hljs-built_in">String</span>(fakeFunction), <span class="hljs-built_in">String</span>(return3));
+	t.equal(<span class="hljs-built_in">Number</span>(fakeFunction), return3());
+	t.notOk(isCallable(fakeFunction), <span class="hljs-string">'fake Function with @@toStringTag "Function" is not callable'</span>);
+	t.end();
+});
+
+<span class="hljs-keyword">var</span> typedArrayNames = [
+	<span class="hljs-string">'Int8Array'</span>,
+	<span class="hljs-string">'Uint8Array'</span>,
+	<span class="hljs-string">'Uint8ClampedArray'</span>,
+	<span class="hljs-string">'Int16Array'</span>,
+	<span class="hljs-string">'Uint16Array'</span>,
+	<span class="hljs-string">'Int32Array'</span>,
+	<span class="hljs-string">'Uint32Array'</span>,
+	<span class="hljs-string">'Float32Array'</span>,
+	<span class="hljs-string">'Float64Array'</span>
+];
+
+test(<span class="hljs-string">'Functions'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">t</span>) </span>{
+	t.ok(isCallable(noop), <span class="hljs-string">'function is callable'</span>);
+	t.ok(isCallable(classFake), <span class="hljs-string">'function with name containing "class" is callable'</span>);
+	t.ok(isCallable(returnClass), <span class="hljs-string">'function with string " class " is callable'</span>);
+	t.ok(isCallable(isCallable), <span class="hljs-string">'isCallable is callable'</span>);
+	t.end();
+});
+
+test(<span class="hljs-string">'Typed Arrays'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">st</span>) </span>{
+	forEach(typedArrayNames, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">typedArray</span>) </span>{
+		<span class="hljs-comment">/* istanbul ignore if : covered in node 0.6 */</span>
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> global[typedArray] === <span class="hljs-string">'undefined'</span>) {
+			st.comment(<span class="hljs-string">'# SKIP typed array "'</span> + typedArray + <span class="hljs-string">'" not supported'</span>);
+		} <span class="hljs-keyword">else</span> {
+			st.ok(isCallable(global[typedArray]), typedArray + <span class="hljs-string">' is callable'</span>);
+		}
+	});
+	st.end();
+});
+
+test(<span class="hljs-string">'Generators'</span>, { <span class="hljs-attr">skip</span>: !genFn }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">t</span>) </span>{
+	t.ok(isCallable(genFn), <span class="hljs-string">'generator function is callable'</span>);
+	t.end();
+});
+
+test(<span class="hljs-string">'Arrow functions'</span>, { <span class="hljs-attr">skip</span>: !arrowFn }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">t</span>) </span>{
+	t.ok(isCallable(arrowFn), <span class="hljs-string">'arrow function is callable'</span>);
+	t.ok(isCallable(weirdlyCommentedArrowFn), <span class="hljs-string">'weirdly commented arrow functions are callable'</span>);
+	t.end();
+});
+
+test(<span class="hljs-string">'"Class" constructors'</span>, { <span class="hljs-attr">skip</span>: !classConstructor || !commentedClass || !commentedClassOneLine || !classAnonymous }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">t</span>) </span>{
+	t.notOk(isCallable(classConstructor), <span class="hljs-string">'class constructors are not callable'</span>);
+	t.notOk(isCallable(commentedClass), <span class="hljs-string">'class constructors with comments in the signature are not callable'</span>);
+	t.notOk(isCallable(commentedClassOneLine), <span class="hljs-string">'one-line class constructors with comments in the signature are not callable'</span>);
+	t.notOk(isCallable(classAnonymous), <span class="hljs-string">'anonymous class constructors are not callable'</span>);
+	t.notOk(isCallable(classAnonymousCommentedOneLine), <span class="hljs-string">'anonymous one-line class constructors with comments in the signature are not callable'</span>);
+	t.end();
+});
+
+test(<span class="hljs-string">'`async function`s'</span>, { <span class="hljs-attr">skip</span>: !asyncFn }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">t</span>) </span>{
+	t.ok(isCallable(asyncFn), <span class="hljs-string">'`async function`s are callable'</span>);
+	t.ok(isCallable(asyncArrowFn), <span class="hljs-string">'`async` arrow functions are callable'</span>);
+	t.end();
+});
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

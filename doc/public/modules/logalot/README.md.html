@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\logalot\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#logalot">logalot </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="logalot">
+  <h1>
+    <a href="#logalot" name="logalot" class="pilcrow"></a>
+logalot <a href="https://travis-ci.org/imagemin/logalot"><img src="http://img.shields.io/travis/imagemin/logalot.svg?style=flat" alt="Build Status"></a>
+  </h1>
+</div>
+<blockquote>
+<p>Tiny log utility</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<pre><code class="sh">$ npm install --save logalot
+</code></pre>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<pre><code class="js"><span class="hljs-keyword">var</span> log = <span class="hljs-built_in">require</span>(<span class="hljs-string">'logalot'</span>);
+
+log.info(<span class="hljs-string">'this is a message'</span>);
+log.warn(<span class="hljs-string">'this is a warning'</span>);
+log.success(<span class="hljs-string">'this is a success message'</span>);
+log.error(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'this is a error'</span>).stack);
+
+<span class="hljs-comment">/*
+  ℹ this is a message
+  ⚠ this is a warning
+  ✔ this is a success message
+  ✖ Error: this is an error
+    at ChildProcess.exithandler (child_process.js:648:15)
+    at ChildProcess.emit (events.js:98:17)
+ */</span>
+</code></pre>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>MIT © <a href="https://github.com/imagemin">imagemin</a></p>
+</div>
+  </div>
+</body>
+</html>

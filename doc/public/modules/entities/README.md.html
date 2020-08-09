@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "public\\modules\\entities\\README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#entities">entities    </a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#how-to...">How to…</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#...install-entities">…install entities</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#...use-entities">…use entities</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#security-contact-information">Security contact information</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="docs markdown"><div class="pilwrap" id="entities">
+  <h1>
+    <a href="#entities" name="entities" class="pilcrow"></a>
+entities <a href="https://npmjs.org/package/entities"><img src="http://img.shields.io/npm/v/entities.svg" alt="NPM version"></a> <a href="https://npmjs.org/package/entities"><img src="https://img.shields.io/npm/dm/entities.svg" alt="Downloads"></a> <a href="http://travis-ci.org/fb55/entities"><img src="http://img.shields.io/travis/fb55/entities.svg" alt="Build Status"></a> <a href="https://coveralls.io/r/fb55/entities"><img src="http://img.shields.io/coveralls/fb55/entities.svg" alt="Coverage"></a>
+  </h1>
+</div>
+<p>En- &amp; decoder for XML/HTML entities.</p>
+<div class="pilwrap" id="how-to...">
+  <h2>
+    <a href="#how-to..." name="how-to..." class="pilcrow"></a>
+How to…
+  </h2>
+</div>
+<div class="pilwrap" id="...install-entities">
+  <h3>
+    <a href="#...install-entities" name="...install-entities" class="pilcrow"></a>
+…install <code>entities</code>
+  </h3>
+</div>
+<pre><code>npm i entities
+</code></pre>
+<div class="pilwrap" id="...use-entities">
+  <h3>
+    <a href="#...use-entities" name="...use-entities" class="pilcrow"></a>
+…use <code>entities</code>
+  </h3>
+</div>
+<pre><code class="javascript"><span class="hljs-keyword">const</span> entities = <span class="hljs-built_in">require</span>(<span class="hljs-string">"entities"</span>);
+<span class="hljs-comment">//encoding</span>
+entities.escape(<span class="hljs-string">"&amp;#38;"</span>); <span class="hljs-comment">// "&amp;#x26;#38;"</span>
+entities.encodeXML(<span class="hljs-string">"&amp;#38;"</span>); <span class="hljs-comment">// "&amp;amp;#38;"</span>
+entities.encodeHTML(<span class="hljs-string">"&amp;#38;"</span>); <span class="hljs-comment">// "&amp;amp;&amp;num;38&amp;semi;"</span>
+<span class="hljs-comment">//decoding</span>
+entities.decodeXML(<span class="hljs-string">"asdf &amp;amp; &amp;#xFF; &amp;#xFC; &amp;apos;"</span>); <span class="hljs-comment">// "asdf &amp; ÿ ü '"</span>
+entities.decodeHTML(<span class="hljs-string">"asdf &amp;amp; &amp;yuml; &amp;uuml; &amp;apos;"</span>); <span class="hljs-comment">// "asdf &amp; ÿ ü '"</span>
+</code></pre>
+<hr>
+<p>License: BSD-2-Clause</p>
+<p><a href="https://tidelift.com/subscription/pkg/npm-entities?utm_source=npm-entities&amp;utm_medium=referral&amp;utm_campaign=readme">Get supported entities with the Tidelift Subscription</a></p>
+<div class="pilwrap" id="security-contact-information">
+  <h2>
+    <a href="#security-contact-information" name="security-contact-information" class="pilcrow"></a>
+Security contact information
+  </h2>
+</div>
+<p>To report a security vulnerability, please use the <a href="https://tidelift.com/security">Tidelift security contact</a>.
+Tidelift will coordinate the fix and disclosure.</p>
+</div>
+  </div>
+</body>
+</html>
