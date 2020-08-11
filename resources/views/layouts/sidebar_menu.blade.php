@@ -30,6 +30,13 @@
             <a href="{{ route('periode.main') }}" class="nav-link"><i class="fas fa-calendar"></i><span>Daftar
                     Periode</span></a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('official.main') }}" class="nav-link"><i class="fas fa-users"></i><span>Daftar Pejabat Desa</span></a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('letter.main') }}" class="nav-link"><i class="fas fa-sticky-note"></i><span>Daftar
+                    Pengajuan Surat</span></a>
+        </li>
         @endrole
         <li class="nav-item">
             <a href="{{ route('survey.main') }}" class="nav-link"><i class="fas fa-poll"></i><span>Daftar

@@ -9,8 +9,8 @@
                     <p>Selaras dengan program Kementerian Desa, Pembangunan Daerah Tertinggal dan Transmigrasi RI dalam membentuk Desa Tanggap COVID-19, Desa Karetan mengupayakan ikut berpartisipasi aktif dalam program tersebut.
                     </p>
                     <div class="banner-btn ">
-                        <a href="{}" class="btn btn-pink button6">Daftar Sekarang</a>
-                        <a href="" class="btn btn-blue button6">Pengajuan Surat Pernyataan</a>
+                        <a href="{{ route('register') }}" class="btn btn-pink button6">Daftar Sekarang</a>
+                        <a href="{{ route('front.letter') }}" class="btn btn-blue button6">Pengajuan Surat Pernyataan</a>
                     </div>
                 </div>
             </div>
