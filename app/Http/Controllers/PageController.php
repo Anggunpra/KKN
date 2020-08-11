@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Validator;
+use Illuminate\Support\Str;
 class PageController extends Controller
 {
     /**
@@ -103,8 +105,68 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function letter()
     {
-        //
+        return view('front.letter_submission');
+    }
+
+    public function letterSubmission(Request $request)
+    {
+        $input = $request->all();
+        $dataValidator = [
+            'nama_lengkap' => 'required|string',
+            'nik' => 'required|numeric|digits_between:16,16',
+            'tempat_lahir' => 'required|string',
+            'status_kawin' => 'required|in:Kawin,Belum Kawin,Cerai Hidup,Cerai Mati',
+            'nomor_hp' => 'required|numeric|digits_between:9,14',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'tanggal_lahir' => 'required|date',
+            'agama' => 'required|in:Islam,Hindu,Budha,Kristen,Katolik,Protestan',
+            'rt' => 'required|string',
+            'rw' => 'required|string',
+            'dusun' => 'required|in:Dusun Sidoagung,Dusun Sidodadi',
+            'pekerjaan' => 'required|string',
+            'keperluan_sk' => 'required|string',
+            'jenis_sk' => 'required',
+            'upload_pengantar_rt' => 'required|file|mimes:jpeg,jpg,png,pdf',
+            'upload_pengantar_rw' => 'required|file|mimes:jpeg,jpg,png,pdf',
+        ];
+        $validator = Validator::make($input,$dataValidator);
+        if($validator->fails()){
+            return response()->json(['status' => false, 'message' => $validator->errors()->all()], 400);
+        }
+        if($request->hasFile('upload_pengantar_rt')) {
+            $uploadBerkas = $request->file('upload_pengantar_rt');
+            $destinationPath = 'uploads/pengantar-rt/berkas/'; // upload path
+            $fileName1 = date('YmdHis'). '-' . Str::random(25) . "_scan." . $uploadBerkas->getClientOriginalExtension();
+            $uploadBerkas->move($destinationPath, $fileName1);
+            $fileName1 = $destinationPath.$fileName1;
+        }
+        if($request->hasFile('upload_pengantar_rw')) {
+            $uploadBerkas = $request->file('upload_pengantar_rw');
+            $destinationPath = 'uploads/pengantar-rw/berkas/'; // upload path
+            $fileName2 = date('YmdHis'). '-' . Str::random(25) . "_scan." . $uploadBerkas->getClientOriginalExtension();
+            $uploadBerkas->move($destinationPath, $fileName2);
+            $fileName2 = $destinationPath.$fileName2;
+        }
+        $letterSubmission = \App\LetterSubmission::create([
+            'nama_lengkap' => $request->nama_lengkap,
+            'nik' => $request->nik,
+            'tempat_lahir' => $request->tempat_lahir,
+            'status_kawin' => $request->status_kawin,
+            'nomor_hp' => $request->nomor_hp,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'agama' => $request->agama,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'dusun' => $request->dusun,
+            'pekerjaan' => $request->pekerjaan,
+            'keperluan_sk' => $request->keperluan_sk,
+            'jenis_sk' => $request->jenis_sk,
+            'upload_pengantar_rt' => $fileName1,
+            'upload_pengantar_rw' => $fileName2,
+        ]);
+        return response()->json(['status' => true, 'message' => 'Berhasil mengajukan surat, mohon untuk menunggu konfirmasi dari petugas'], 200);
     }
 }

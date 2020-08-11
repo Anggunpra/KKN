@@ -111,7 +111,11 @@ $("#update-form").submit(function (event) {
                 message : response.message,
                 position : 'topRight',
             });
-            location.reload();
+            if(response.url != undefined){
+                window.location.href = response.url;
+            }else{
+                location.reload();
+            }
         },
         error: function (xhr, status, error) {
             var json = JSON.parse(xhr.responseText);

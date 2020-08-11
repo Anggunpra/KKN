@@ -12,6 +12,7 @@
     <link href="{{ asset('front_asset/css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('modules/izitoast/dist/css/iziToast.min.css') }}">
     <link rel="stylesheet" href="{{ asset('front_asset/css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('front_asset/css/slick.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('front_asset/css/slick-theme.css') }}">
@@ -114,6 +115,28 @@
     <!--Custom js-->
     <script src="{{ asset('front_asset/js/custom.js') }}"></script>
     <script src="{{ asset('modules/chart.js/dist/Chart.min.js') }}"></script>
+    <script src="{{ asset('modules/izitoast/dist/js/iziToast.min.js') }}"></script>
+    <script src="{{ asset('assets/js/crud.js') }}"></script>
+    <script>
+      var text = "";
+      var button;
+      $('button').on('click', function (e) {
+          button = $(this);
+          text = $(this).text();
+      });
+      console.log(button);
+      $(document)
+          .ajaxStart(function () {
+              if (button != undefined) {
+                  button.prop('disabled', true).text('Tunggu Sebentar...');
+              }
+          })
+          .ajaxStop(function () {
+              if (button != undefined) {
+                  button.prop('disabled', false).text(text);
+              }
+          });
+  </script>
     @yield('custom')
 </body>
 

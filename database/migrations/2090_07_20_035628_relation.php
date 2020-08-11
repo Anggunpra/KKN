@@ -25,6 +25,9 @@ class Relation extends Migration
             $table->foreign('periode_id')->references('id')->on('periodes')->onDelete('cascade');
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
         });
+        Schema::table('letter_submissions', function (Blueprint $table) {
+            $table->foreign('official_id')->references('id')->on('officials')->onDelete('cascade');
+        });
     }
 
     /**
