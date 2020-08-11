@@ -22,18 +22,18 @@ class LetterSubmissionDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->editColumn('upload_pengantar_rt', function($row){
-                $btn = '<a href="'.asset($row->upload_pengantar_rt).'" class="btn btn-sm btn-primary" target="_blank"> Unduh</a>';
+            ->editColumn('upload_surat_pengantar', function($row){
+                $btn = '<a href="'.asset($row->upload_surat_pengantar).'" class="btn btn-sm btn-primary" target="_blank"> Unduh</a>';
                 return $btn;
             })
-            ->editColumn('upload_pengantar_rw', function($row){
-                $btn = '<a href="'.asset($row->upload_pengantar_rw).'" class="btn btn-sm btn-primary" target="_blank"> Unduh</a>';
+            ->editColumn('upload_berkas_pendukung', function($row){
+                $btn = '<a href="'.asset($row->upload_berkas_pendukung).'" class="btn btn-sm btn-primary" target="_blank"> Unduh</a>';
                 return $btn;
             })
             ->addColumn('action', function($row){
                 return view('letter.action',compact('row'))->render();
             })
-            ->rawColumns(['action','upload_pengantar_rt','upload_pengantar_rw']);
+            ->rawColumns(['action','upload_surat_pengantar','upload_berkas_pendukung']);
     }
 
     /**
@@ -97,8 +97,8 @@ class LetterSubmissionDataTable extends DataTable
             Column::make('dusun'),
             Column::make('keperluan_sk'),
             Column::make('nomor_hp'),
-            Column::make('upload_pengantar_rt'),
-            Column::make('upload_pengantar_rw'),
+            Column::make('upload_surat_pengantar'),
+            Column::make('upload_berkas_pendukung'),
             Column::make('jenis_sk'),
             Column::make('agama'),
             Column::make('jenis_kelamin'),

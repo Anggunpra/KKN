@@ -127,24 +127,25 @@ class PageController extends Controller
             'dusun' => 'required|in:Dusun Sidoagung,Dusun Sidodadi',
             'pekerjaan' => 'required|string',
             'keperluan_sk' => 'required|string',
-            'jenis_sk' => 'required',
-            'upload_pengantar_rt' => 'required|file|mimes:jpeg,jpg,png,pdf',
-            'upload_pengantar_rw' => 'required|file|mimes:jpeg,jpg,png,pdf',
+            'isi_sk' => 'required|string',
+            'jenis_sk' => 'required|in:Surat Keterangan Usaha,Surat Keterangan Domisili,Surat Keterangan Kehilangan,Lain-lain',
+            'upload_surat_pengantar' => 'required|file|mimes:jpeg,jpg,png,pdf',
+            'upload_berkas_pendukung' => 'nullable|file|mimes:jpeg,jpg,png,pdf',
         ];
         $validator = Validator::make($input,$dataValidator);
         if($validator->fails()){
             return response()->json(['status' => false, 'message' => $validator->errors()->all()], 400);
         }
-        if($request->hasFile('upload_pengantar_rt')) {
-            $uploadBerkas = $request->file('upload_pengantar_rt');
+        if($request->hasFile('upload_surat_pengantar')) {
+            $uploadBerkas = $request->file('upload_surat_pengantar');
             $destinationPath = 'uploads/pengantar-rt/berkas/'; // upload path
             $fileName1 = date('YmdHis'). '-' . Str::random(25) . "_scan." . $uploadBerkas->getClientOriginalExtension();
             $uploadBerkas->move($destinationPath, $fileName1);
             $fileName1 = $destinationPath.$fileName1;
         }
-        if($request->hasFile('upload_pengantar_rw')) {
-            $uploadBerkas = $request->file('upload_pengantar_rw');
-            $destinationPath = 'uploads/pengantar-rw/berkas/'; // upload path
+        if($request->hasFile('upload_berkas_pendukung')) {
+            $uploadBerkas = $request->file('upload_berkas_pendukung');
+            $destinationPath = 'uploads/pendukung/berkas/'; // upload path
             $fileName2 = date('YmdHis'). '-' . Str::random(25) . "_scan." . $uploadBerkas->getClientOriginalExtension();
             $uploadBerkas->move($destinationPath, $fileName2);
             $fileName2 = $destinationPath.$fileName2;
@@ -164,8 +165,9 @@ class PageController extends Controller
             'pekerjaan' => $request->pekerjaan,
             'keperluan_sk' => $request->keperluan_sk,
             'jenis_sk' => $request->jenis_sk,
-            'upload_pengantar_rt' => $fileName1,
-            'upload_pengantar_rw' => $fileName2,
+            'isi_sk' => $request->isi_sk,
+            'upload_surat_pengantar' => $fileName1,
+            'upload_berkas_pendukung' => isset($fileName2) ? $fileName2 : '',
         ]);
         return response()->json(['status' => true, 'message' => 'Berhasil mengajukan surat, mohon untuk menunggu konfirmasi dari petugas'], 200);
     }

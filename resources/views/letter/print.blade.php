@@ -95,7 +95,7 @@
         </tr>
     </table>
     <hr style="border-top: 4px double black;">
-    <h3 class="kop" style="text-decoration:underline; text-align:center;">SURAT KETERANGAN</h3>
+    <h3 class="kop" style="text-decoration:underline; text-align:center;text-transform:uppercase;">{{ $letter->jenis_sk == 'Lain-lain' ? 'Surat Keterangan' : $letter->jenis_sk  }}</h3>
 <h4 class="kop" style="text-align:center;margin-bottom:10px;"><strong> Nomor : {{ $letter->nomor_surat }}</strong></h4>
     {{-- <p style="font-size:12pt; position: relative;margin:0;padding:0;">Yang bertanda tangan dibawah ini :</p> --}}
     <table id="data" style="margin-top:20px;margin-bottom:20px;"  width="100%">
@@ -134,7 +134,7 @@
             <td width="5%">c.</td>
             <td width="25%">Tempat, Tanggal Lahir</td>
             <td class="nowrap">:</td>
-            <td width="55%">{{ $letter->tempat_lahir }}, {{ \Carbon\Carbon::parse($letter->tanggal_lahir)->format('d F Y') }}</td>
+            <td width="55%">{{ $letter->tempat_lahir }}, {{ \Carbon\Carbon::parse($letter->tanggal_lahir)->translatedFormat('d F Y') }}</td>
         </tr>
         <tr>
             <td width="5%">d.</td>
@@ -178,14 +178,14 @@
                 <ol>
                     <li>Orang tersebut diatas benar - benar penduduk Desa Karetan Kecamatan Purwoharjo Kabupaten Banyuwangi.</li>
                     <li>
-                        Atas pengakuan yang bersangkutan, sampai surat keterangan ini dibuat orang tersebut diatas {{ $letter->jenis_sk }}.
+                        Sepanjang pengetahuan kami, orang tersebut diatas sampai surat keterangan ini dibuat yang bersangkutan {{ $letter->isi_sk }}.
                     </li>
                 </ol>
                 <p style="margin-left:20px;">Surat keterangan ini digunakan untuk <strong>{{ $letter->keperluan_sk }}</strong>.</p>
             </td>
         </tr>
         <tr>
-            <td colspan="4">Demikian surat keterangan dibuat untuk dipergunakan sebagaimana mestinya.</td>
+            <td colspan="4">Demikian surat keterangan kami buat dengan sebenarnya, agar dapat dipergunakan sebagaimana mestinya.</td>
         </tr>
     </table>
         {{-- <p style="padding-left:3em;text-indent: 1.5 cm;font-family:niconne; font-size:15pt; position: relative;line-height:0.8em;text-justify: distribute-all-lines; vertical-align: middle; display:inline;">{{ $letter->letter_finish }}</p> --}}
@@ -200,10 +200,11 @@
             <td width="40%">
                 <div style="text-align:left;">
                     <p class="kop" style="font-size:12pt;">Dibuat di : Karetan</p>
-                    <p class="kop" style="font-size:12pt;text-decoration:underline;">Pada Tanggal : {{ \Carbon\Carbon::now()->format('d F Y') }}</p>
+                    <p class="kop" style="font-size:12pt;text-decoration:underline;">Pada Tanggal : {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
                     <p class="kop" style="font-size:12pt;">{{ $letter->official->jabatan_pejabat }}</p>
                     {{-- <p class="kop" style="font-size:15pt;line-height:0.9;margin-bottom:1;padding:0;">Kabupaten Jember</p> --}}
-                    
+                    <br>
+                    <br>
                     <br>
                     <br>
                     <br>

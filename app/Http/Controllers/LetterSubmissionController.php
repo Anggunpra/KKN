@@ -89,7 +89,8 @@ class LetterSubmissionController extends Controller
             'dusun' => 'required|in:Dusun Sidoagung,Dusun Sidodadi',
             'pekerjaan' => 'required|string',
             'keperluan_sk' => 'required|string',
-            'jenis_sk' => 'required',
+            'isi_sk' => 'required|string',
+            'jenis_sk' => 'required|in:Surat Keterangan Usaha,Surat Keterangan Domisili,Surat Keterangan Kehilangan,Lain-lain',
         ];
         if($letter->nomor_surat != $request->nomor_surat){
             $dataValidator['nomor_surat'] = 'required|unique:letter_submissions,nomor_surat';
@@ -114,6 +115,7 @@ class LetterSubmissionController extends Controller
             'dusun' => $request->dusun,
             'pekerjaan' => $request->pekerjaan,
             'keperluan_sk' => $request->keperluan_sk,
+            'isi_sk' => $request->isi_sk,
             'jenis_sk' => $request->jenis_sk,
         ]);
         if($request->has('cetak')){

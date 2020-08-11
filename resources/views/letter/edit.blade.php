@@ -175,6 +175,17 @@
                                     <small id="helpPEKERJAAN" class="text-muted">Pekerjaan Anda saat ini</small>
                                 </div>
                                 <div class="form-group">
+                                    <label for="jenis_sk">Jenis Surat Keterangan</label>
+                                    <select class="form-control" name="jenis_sk" id="jenis-sk" aria-describedby="helpJSK">
+                                        <option>Pilih Jenis Surat Keterangan</option>
+                                        <option value="Surat Keterangan Usaha" {{ $letter->jenis_sk == 'Surat Keterangan Usaha' ? 'selected' : '' }}>Surat Keterangan Usaha</option>
+                                        <option value="Surat Keterangan Domisili" {{ $letter->jenis_sk == 'Surat Keterangan Domisili' ? 'selected' : '' }}>Surat Keterangan Domisili</option>
+                                        <option value="Surat Keterangan Kehilangan" {{ $letter->jenis_sk == 'Surat Keterangan Kehilangan' ? 'selected' : '' }}>Surat Keterangan Kehilangan</option>
+                                        <option value="Lain-lain" {{ $letter->jenis_sk == 'Lain-lain' ? 'selected' : '' }}>Lain-lain</option>
+                                    </select>
+                                    <small id="helpJSK" class="text-muted">Jenis Surat yang diajukan</small>
+                                </div>
+                                <div class="form-group">
                                     <label for="keperluan_sk">Keperluan Surat Pernyataan</label>
                                     <input type="text" name="keperluan_sk" id="keperluan_sk" class="form-control"
                                         value="{{ $letter->keperluan_sk }}" placeholder=""
@@ -183,20 +194,19 @@
                                         surat</small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="jenis_sk">Jenis Surat Pernyataan</label>
-                                    <input type="text" name="jenis_sk" id="jenis_sk" class="form-control"
-                                        value="{{ $letter->jenis_sk }}" placeholder="" aria-describedby="helpKeperluan">
-                                    <small id="helpSK" class="text-muted">Jenis Surat yang diajukan</small>
+                                    <label for="isi_sk">Menerangkan Isi Surat</label>
+                                    <input type="text" name="isi_sk" id="isi_sk" class="form-control" placeholder="" aria-describedby="helpIsi" value="{{ $letter->isi_sk }}">
+                                    <small id="helpIsi" class="text-muted">Isikan keterangan isi surat, Contoh : Menjalankan usaha konter hp</small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="upload_pengantar_rt">Upload Berkas Surat Pengantar RT</label>
-                                    <a href="{{ asset($letter->upload_pengantar_rt) }}" target="_blank"
+                                    <label for="upload_surat_pengantar">Upload Berkas Surat Pengantar RT/RW</label>
+                                    <a href="{{ asset($letter->upload_surat_pengantar) }}" target="_blank"
                                         class="btn btn-primary"><i class="fas fa-download"></i> Unduh</a>
 
                                 </div>
                                 <div class="form-group">
-                                    <label for="upload_pengantar_rw">Upload Berkas Surat Pengantar RW</label>
-                                    <a href="{{ asset($letter->upload_pengantar_rw) }}" target="_blank"
+                                    <label for="upload_pengantar_rw">Upload Berkas Pendukung</label>
+                                    <a href="{{ asset($letter->upload_berkas_pendukung) }}" target="_blank"
                                         class="btn btn-primary"><i class="fas fa-download"></i> Unduh</a>
                                 </div>
                             </div>

@@ -19,7 +19,7 @@
                                     <small id="helpId" class="text-muted">Nama Lengkap sesuaikan dengan KTP</small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nik">Nomor Induk Keluarga</label>
+                                    <label for="nik">Nomor Induk Kependudukan</label>
                                     <input type="number" name="nik" id="nik" class="form-control" placeholder="" aria-describedby="helpNIK">
                                     <small id="helpNIK" class="text-muted">NIK tercantum pada KTP atau KK</small>
                                 </div>
@@ -113,24 +113,34 @@
                                     <small id="helpPEKERJAAN" class="text-muted">Pekerjaan Anda saat ini</small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="keperluan_sk">Keperluan Surat Pernyataan</label>
+                                    <label for="jenis_sk">Jenis Surat Keterangan</label>
+                                    <select class="form-control" name="jenis_sk" id="jenis-sk" aria-describedby="helpJSK">
+                                        <option>Pilih Jenis Surat Keterangan</option>
+                                        <option value="Surat Keterangan Usaha">Surat Keterangan Usaha</option>
+                                        <option value="Surat Keterangan Domisili">Surat Keterangan Domisili</option>
+                                        <option value="Surat Keterangan Kehilangan">Surat Keterangan Kehilangan</option>
+                                        <option value="Lain-lain">Lain-lain</option>
+                                    </select>
+                                    <small id="helpJSK" class="text-muted">Jenis Surat yang diajukan</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="keperluan_sk">Keperluan Surat Keterangan</label>
                                     <input type="text" name="keperluan_sk" id="keperluan_sk" class="form-control" placeholder="" aria-describedby="helpKeperluan">
                                     <small id="helpKeperluan" class="text-muted">Tuliskan maksud dan tujuan pengajuan surat</small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="jenis_sk">Jenis Surat Pernyataan</label>
-                                    <input type="text" name="jenis_sk" id="jenis_sk" class="form-control"
-                                        placeholder="" aria-describedby="helpKeperluan">
-                                    <small id="helpSK" class="text-muted">Jenis Surat yang diajukan</small>
+                                    <label for="isi_sk">Menerangkan Isi Surat</label>
+                                    <input type="text" name="isi_sk" id="isi_sk" class="form-control" placeholder="" aria-describedby="helpIsi">
+                                    <small id="helpIsi" class="text-muted">Isikan keterangan isi surat, Contoh : Menjalankan usaha konter hp</small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="upload_pengantar_rt">Upload Berkas Surat Pengantar RT</label>
-                                    <input type="file" name="upload_pengantar_rt" id="upload_pengantar_rt" class="form-control" placeholder="" aria-describedby="helpUPRT">
+                                    <label for="upload_surat_pengantar">Upload Berkas Surat Pengantar RT RW</label>
+                                    <input type="file" name="upload_surat_pengantar" id="upload_surat_pengantar" class="form-control" placeholder="" aria-describedby="helpUPRT">
                                     <small id="helpUPRT" class="text-muted">Berkas dapat berupa scan/foto dengan format berkas pdf, jpeg, jpg, atau png</small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="upload_pengantar_rw">Upload Berkas Surat Pengantar RW</label>
-                                    <input type="file" name="upload_pengantar_rw" id="upload_pengantar_rw" class="form-control" placeholder="" aria-describedby="helpUPRW">
+                                    <label for="upload_berkas_pendukung">Upload Berkas Pendukung (Jika diperlukan)</label>
+                                    <input type="file" name="upload_berkas_pendukung" id="upload_berkas_pendukung" class="form-control" placeholder="" aria-describedby="helpUPRW">
                                     <small id="helpUPRW" class="text-muted">Berkas dapat berupa scan/foto dengan format berkas pdf, jpeg, jpg, atau png</small>
                                 </div>
                             </div>
