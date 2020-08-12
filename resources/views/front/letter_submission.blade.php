@@ -12,7 +12,21 @@
                    <div id="mc_embed_signup_scroll">
                       <div class="input-aling">
                          <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="jenis_sk">Jenis Surat Keterangan</label>
+                                    <select class="form-control" name="jenis_sk" id="jenis-sk" aria-describedby="helpJSK">
+                                        <option>Pilih Jenis Surat Keterangan</option>
+                                        <option value="Surat Keterangan Usaha">Surat Keterangan Usaha</option>
+                                        <option value="Surat Keterangan Domisili">Surat Keterangan Domisili</option>
+                                        <option value="Surat Keterangan Kehilangan">Surat Keterangan Kehilangan</option>
+                                        <option value="Lain-lain">Lain-lain</option>
+                                    </select>
+                                    <small id="helpJSK" class="text-muted">Jenis Surat yang diajukan</small>
+                                </div>
+                            </div>
                             <div class="col-md-6">
+                                
                                 <div class="form-group">
                                     <label for="">Nama Lengkap</label>
                                     <input type="text" name="nama_lengkap" id="" class="form-control" placeholder="" aria-describedby="helpId">
@@ -111,18 +125,7 @@
                                     <label for="pekerjaan">Pekerjaan</label>
                                     <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" placeholder="" aria-describedby="helpPEKERJAAN">
                                     <small id="helpPEKERJAAN" class="text-muted">Pekerjaan Anda saat ini</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="jenis_sk">Jenis Surat Keterangan</label>
-                                    <select class="form-control" name="jenis_sk" id="jenis-sk" aria-describedby="helpJSK">
-                                        <option>Pilih Jenis Surat Keterangan</option>
-                                        <option value="Surat Keterangan Usaha">Surat Keterangan Usaha</option>
-                                        <option value="Surat Keterangan Domisili">Surat Keterangan Domisili</option>
-                                        <option value="Surat Keterangan Kehilangan">Surat Keterangan Kehilangan</option>
-                                        <option value="Lain-lain">Lain-lain</option>
-                                    </select>
-                                    <small id="helpJSK" class="text-muted">Jenis Surat yang diajukan</small>
-                                </div>
+                                </div>  
                                 <div class="form-group">
                                     <label for="keperluan_sk">Keperluan Surat Keterangan</label>
                                     <input type="text" name="keperluan_sk" id="keperluan_sk" class="form-control" placeholder="" aria-describedby="helpKeperluan">
