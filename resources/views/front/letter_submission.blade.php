@@ -1,5 +1,5 @@
 @extends('layouts.front')
-@section('title', 'Pengajuan Surat Pernyataan')
+@section('title', 'Pengajuan Surat Keterangan')
 @section('content')
 <section class="contact-section">
     <div class="container">
