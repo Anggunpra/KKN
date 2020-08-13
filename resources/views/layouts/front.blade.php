@@ -38,7 +38,7 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Profil Desa <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('front.history') }}">Sejarah</a></li>
-                                <li><a href="{{ route('front.team') }}">Pemimpin</a></li>
+                                <li><a href="{{ route('front.team') }}">Pengurus</a></li>
                                 <li><a href="#">Wilayah</a></li>
                              </ul>
                         </li>

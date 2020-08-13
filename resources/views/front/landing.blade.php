@@ -10,13 +10,13 @@
                     </p>
                     <div class="banner-btn ">
                         <a href="{{ route('register') }}" class="btn btn-pink button6">Daftar Sekarang</a>
-                        <a href="{{ route('front.letter') }}" class="btn btn-blue button6">Pengajuan Surat Pernyataan</a>
+                        <a href="{{ route('front.letter') }}" class="btn btn-blue button6">Pengajuan Surat Keterangan</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 no-padd">
                 <div class=" wow animated zoomIn">
-                    <img src="{{ asset('front_asset/image/web-app.png') }}" class="img-responsive" alt="image">
+                    <img src="{{ asset('front_asset/image/desa/2.jpg') }}" class="img-responsive" alt="image">
                 </div>
             </div>
         </div>
@@ -37,8 +37,8 @@
                         <img src="{{ asset('front_asset/image/feature1.png') }}" alt="feature">
                         <img src="{{ asset('front_asset/image/feature1-hover.png') }}" class="img-feature" alt="feature">
                     </div>
-                    <h4>Pembuatan Surat</h4>
-                    <p>Pembuatan surat keterangan atau pernyataan dari desa setempat.</p>
+                    <h4>Pengajuan Surat Keterangan</h4>
+                    <p>Pembuatan surat keterangan usaha, domisili, kehilangan dan lain-lain bisa diajukan secara online.</p>
                 </div>
             </div>
 
@@ -74,17 +74,15 @@
             <div class="col-md-6 col-sm-6">
                 <div class="right-text  wow animated slideInLeft">
                     <h4>Dapatkan Info Terbaru</h4>
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                        suffered alteration in some form, by injected humour lorem ipsum is simply free text in the
-                        market or randomised words.</p>
+                    <p>Informasi perkembangan terbaru mengenai Desa Karetan dapat Anda lihat disini.</p>
                     <div class="button-center ">
-                        <a href="" class="btn button3">Learn More</a>
+                        <a href="{{ route('front.information') }}" class="btn button3">Baca Selengkapnya</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-6">
                 <div class=" wow animated zoomIn">
-                    <img src="{{ asset('front_asset/image/desktop-in-image.png') }}" class="img-responsive"
+                    <img src="{{ asset('front_asset/image/desa/5294.png') }}" class="img-responsive"
                         alt="desktop">
                 </div>
             </div>
@@ -96,17 +94,15 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class=" wow animated zoomIn">
-                        <img src="{{ asset('front_asset/image/map-images.png') }}" class="img-responsive" alt="map">
+                        <img src="{{ asset('front_asset/image/desa/Grafik.png') }}" height="100px" class="img-responsive" alt="map">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <div class="right-text wow animated slideInRight">
-                        <h4>Real time graphs working system</h4>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                            suffered alteration in some form, by injected humour lorem ipsum is simply free text in
-                            the market or randomised words.</p>
+                        <h4>Kawal COVID-19</h4>
+                        <p>Dapatkan info terbaru mengenai perkembangan COVID-19. Anda juga dapat berpatisipasi dalam program pencegahan penyebaran COVID-19. Daftar Sekarang dan isi surveynya</p>
                         <div class="button-center">
-                            <button type="button" class="btn button3">Learn More</button>
+                            <a href="{{ route('front.graphic') }}" class="btn button3">Baca Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -114,7 +110,7 @@
         </div>
     </div>
 </section>
-<section class="newsletter">
+{{-- <section class="newsletter">
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12">
@@ -132,14 +128,14 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 <section class="screenshot">
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <div class="heading text-center wow animated slideInUp">
-                    <h3>Would you like to see software </h3>
-                    <h3>checkout screenshot:</h3>
+                    <h3>Desa Karetan </h3>
+                    <h3>Desa Tanggap COVID-19</h3>
                 </div>
             </div>
         </div>
@@ -153,23 +149,30 @@
                         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                         <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                         <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
                     </ol>
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
-                            <img src="{{ asset('front_asset/image/screenshot.png')}}" class="img-responsive"
+                            <img src="{{ asset('front_asset/image/desa/12.jpg')}}" class="img-responsive"
                                 alt="image">
                             <div class="carousel-caption">
                             </div>
                         </div>
                         <div class="item">
-                            <img src="{{ asset('front_asset/image/screenshot1.png')}}" class="img-responsive"
+                            <img src="{{ asset('front_asset/image/desa/13.jpg')}}" class="img-responsive"
                                 alt="image">
                             <div class="carousel-caption">
                             </div>
                         </div>
                         <div class="item">
-                            <img src="{{ asset('front_asset/image/screenshot.png')}}" class="img-responsive"
+                            <img src="{{ asset('front_asset/image/desa/14.jpg')}}" class="img-responsive"
+                                alt="image">
+                            <div class="carousel-caption">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="{{ asset('front_asset/image/desa/15.jpg')}}" class="img-responsive"
                                 alt="image">
                             <div class="carousel-caption">
                             </div>
@@ -178,11 +181,11 @@
                     <!-- Controls -->
                     <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
                         <i class="	fa fa-chevron-left" aria-hidden="true"></i>
-                        <span class="sr-only">Previous</span>
+                        <span class="sr-only">Sebelumnya</span>
                     </a>
                     <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
                         <i class="	fa fa-chevron-right" aria-hidden="true"></i>
-                        <span class="sr-only">Next</span>
+                        <span class="sr-only">Selanjutnya</span>
                     </a>
                 </div>
             </div>
@@ -225,111 +228,17 @@
         </div>
     </div>
 </section>
-<section class="team">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 text-center heading wow animated slideInUp">
-                <h3>People behind the sooper app</h3>
-                <h3>Meet the team:</h3>
-            </div>
-            <div class="col-md-3 col-sm-3 team-border">
-                <div class="team-member  text-center">
-                    <img src="image/team1.jpg" class="img-responsive img-circle" alt="team">
-                    <h4>Jessica brown</h4>
-                    <p>Developer</p>
-                    <div class="main-3-section">
-                        <ul>
-                            <li class="twitter-icon"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            </li>
-                            <li class="facebook-icon"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            </li>
-                            <li class="youtube-icon"><a href="#"><i class="fa fa-youtube-play"
-                                        aria-hidden="true"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-3 team-border">
-                <div class="team-member  text-center">
-                    <img src="{{ asset('front_asset/image/team2.jpg') }}" class="img-responsive img-circle" alt="team">
-                    <h4>Mark Jason</h4>
-                    <p>Developer</p>
-                    <div class="main-3-section">
-                        <ul>
-                            <li class="twitter-icon"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            </li>
-                            <li class="facebook-icon"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            </li>
-                            <li class="youtube-icon"><a href="#"><i class="fa fa-youtube-play"
-                                        aria-hidden="true"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-3 team-border">
-                <div class="team-member  text-center">
-                    <img src="{{ asset('front_asset/image/team3.jpg') }}" class="img-responsive img-circle" alt="team">
-                    <h4>Reena Scot</h4>
-                    <p>Adword Manager</p>
-                    <div class="main-3-section">
-                        <ul>
-                            <li class="twitter-icon"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            </li>
-                            <li class="facebook-icon"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            </li>
-                            <li class="youtube-icon"><a href="#"><i class="fa fa-youtube-play"
-                                        aria-hidden="true"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-3">
-                <div class="team-member text-center">
-                    <img src="image/team4.jpg" class="img-responsive img-circle" alt="team">
-                    <h4>Kevin Smith</h4>
-                    <p>Developer</p>
-                    <div class="main-3-section">
-                        <ul>
-                            <li class="twitter-icon"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            </li>
-                            <li class="facebook-icon"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            </li>
-                            <li class="youtube-icon"><a href="#"><i class="fa fa-youtube-play"
-                                        aria-hidden="true"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <section class="newsletter2">
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12 ">
                 <div class="heading text-center newsletter1 ">
-                    <h3>Trusted by great businesses</h3>
+                    <h3>Link tarkait :</h3>
                 </div>
                 <div class="desk-trust">
                     <div class="responsive2">
-                        <div><img src="{{ asset('front_asset/image/ron.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/faster.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/nc2.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/sweets.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/Untitled-2.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/goldimage.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/ron.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/faster.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/nc2.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/sweets.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/Untitled-2.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/goldimage.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/ron.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/faster.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/nc2.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/sweets.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/Untitled-2.png') }}" alt="image"></div>
-                        <div> <img src="{{ asset('front_asset/image/goldimage.png') }}" alt="image"></div>
+                        <div><a href="http://banyuwangikab.go.id" target="_blank" rel="noopener noreferrer"><img src="{{ asset('front_asset/image/desa/smart.png') }}"  height="80" alt="image"></a> </div>
+                        <div><a href="http://smartkampung.id" target="_blank" rel="noopener noreferrer"><img src="{{ asset('front_asset/image/bwi.png') }}" height="70" alt="image"></a> </div>
                     </div>
                 </div>
             </div>

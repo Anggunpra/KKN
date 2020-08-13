@@ -10,7 +10,7 @@
             </div>
             <div class="col-md-6 col-sm-6">
                 <div class="image-text-about wow  zoomIn animated">
-                    <img src="{{ asset('front_asset/image/about4.jpg')}}" class="img-responsive" alt="about">
+                    <img src="{{ asset('front_asset/image/desa/karetan.jpg') }}" class="img-responsive" alt="about">
                 </div>
             </div>
             <div class="col-md-6 col-sm-6">
@@ -122,8 +122,8 @@
    <div class="container">
        <div class="row">
            <div class="col-md-12 col-sm-12 text-center heading wow animated slideInUp">
-               <h3>People behind the sooper app</h3>
-               <h3>Meet the team:</h3>
+               <h3>Daftar Kepala Desa Karetan</h3>
+               <h3>Mulai dari Awal hingga saat ini:</h3>
            </div>
            <div class="col-md-3 col-sm-3 team-border">
                <div class="team-member  text-center ">
