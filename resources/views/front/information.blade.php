@@ -19,7 +19,7 @@
                     <p>
                         {!! $item->deskripsi !!}
                     </p>
-                    <a href="{{ route('front.information.detail',$item->slug) }}" class="btn btn-info" target="_blank" rel="noopener noreferrer">Detail</a>
+                    <a href="{{ route('front.information.detail',$item->id) }}" class="btn btn-info" target="_blank" rel="noopener noreferrer">Detail</a>
                 </div>
             </div>
             @empty

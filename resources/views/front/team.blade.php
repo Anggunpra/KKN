@@ -38,8 +38,50 @@
             <div class="col-md-3 col-sm-3 team-border">
                 <div class="team-member  text-center ">
                     <img src="{{ asset('front_asset/image/desa/3.png') }}" class="img-responsive" alt="team">
-                    <h4>Bu Ani</h4>
-                    <p>Bendahara Desa</p>
+                    <h4>Wahyu Kristiani</h4>
+                    <p>KAUR Keuangan</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 team-border">
+                <div class="team-member  text-center ">
+                    <img src="{{ asset('front_asset/image/desa/4.png') }}" class="img-responsive" alt="team">
+                    <h4>Eko Witanto</h4>
+                    <p>KAUR Perencanaan</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 team-border">
+                <div class="team-member  text-center ">
+                    <img src="{{ asset('front_asset/image/desa/5.png') }}" class="img-responsive" alt="team">
+                    <h4>Wawan Priwantoro</h4>
+                    <p>KASI Pemerintah</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 team-border">
+                <div class="team-member  text-center ">
+                    <img src="{{ asset('front_asset/image/desa/6.png') }}" class="img-responsive" alt="team">
+                    <h4>Luis Kukuh T.</h4>
+                    <p>KASI Kesejahteraan</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 team-border">
+                <div class="team-member  text-center ">
+                    <img src="{{ asset('front_asset/image/desa/7.png') }}" class="img-responsive" alt="team">
+                    <h4>Kosong.</h4>
+                    <p>KASI Pelayanan</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 team-border">
+                <div class="team-member  text-center ">
+                    <img src="{{ asset('front_asset/image/desa/8.png') }}" class="img-responsive" alt="team">
+                    <h4>SUKARI</h4>
+                    <p>KADUS Sidodadi</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 team-border">
+                <div class="team-member  text-center ">
+                    <img src="{{ asset('front_asset/image/desa/9.png') }}" class="img-responsive" alt="team">
+                    <h4>Judi Riyanto</h4>
+                    <p>KADUS Sidoagung</p>
                 </div>
             </div>
         </div>

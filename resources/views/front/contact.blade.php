@@ -60,30 +60,29 @@
           </div>
           <div class="col-md-4 col-sm-4">
              <div class="bg-section wow animated  slideInRight">
-                <div class="main-3-section">
-                   <h5><b>Address</b></h5>
-                   <p>Suite 20 Sooper Street West - 018 United States</p>
-                </div>
-                <div class="main-3-section">
-                   <h5><b>Phone</b></h5>
-                   <p>Local: 2800 256 508<br>
-                      Mobile: 666 777 888
-                   </p>
-                </div>
-                <div class="main-3-section">
-                   <h5><b>Email:</b></h5>
-                   <p>needhelp@sooper.com<br>
-                      inquiry@sooper.com
-                   </p>
-                </div>
-                <div class="main-3-section">
-                   <ul>
-                      <li class="twitter-icon"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                      <li class="facebook-icon"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                      <li class="youtube-icon"><a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-                      <li class="gmail-icon"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                   </ul>
-                </div>
+               <div class="main-3-section">
+                  <h5><b>Alamat</b></h5>
+                  <p>Jalan Grajagan No. 145 Kode Pos 68483 Kec. Purwoharjo, Kabupaten Banyuwangi, Jawa Timur</p>
+               </div>
+               <div class="main-3-section">
+                  <h5><b>Telpon</b></h5>
+                  <p>Kantor : (0333) 393552<br>
+                     Layanan : -
+                  </p>
+               </div>
+               <div class="main-3-section">
+                  <h5><b>Email:</b></h5>
+                  <p>desakaretan@gmail.com<br>
+                  </p>
+               </div>
+               <div class="main-3-section">
+                  <ul>
+                      <li class="twitter-icon"><a href="https://twitter.com/desakaretan"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                      </li>
+                      <li class="facebook-icon"><a href="https://id-id.facebook.com/ds.karetan"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                      </li>
+                  </ul>
+              </div>
              </div>
           </div>
        </div>

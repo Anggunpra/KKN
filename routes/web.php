@@ -19,9 +19,10 @@ Route::get('/', function () {
 Route::group(['as' => 'front.','prefix' => 'page'], function () {
     Route::get('/sejarah', 'PageController@history')->name('history');
     Route::get('/redaksi', 'PageController@information')->name('information');
-    Route::get('/redaksi/{slug}', 'PageController@showInformation')->name('information.detail');
+    Route::get('/redaksi/{id}', 'PageController@showInformation')->name('information.detail');
     Route::get('/struktur-pengurus', 'PageController@team')->name('team');
     Route::get('/grafik', 'PageController@showGraphic')->name('graphic');
+    Route::get('/wilayah', 'PageController@showWilayah')->name('location');
     Route::get('/kontak', 'PageController@contact')->name('contact');
     Route::get('/pengajuan-surat', 'PageController@letter')->name('letter');
     Route::post('/pengajuan-surat/submit', 'PageController@letterSubmission')->name('letter.submission');

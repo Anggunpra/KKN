@@ -192,42 +192,6 @@
         </div>
     </div>
 </section>
-<section class="question">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 ">
-                <div class="heading text-center wow animated slideInUp">
-                    <h3>Do you have any questions?</h3>
-                    <h3>find out Answers:</h3>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="quest-text wow animated slideInLeft">
-                    <h4>How sooper works?<span class="pull-right purple "><i class="	fa fa-question"></i></span>
-                    </h4>
-                    <p>There are many variations of passages of available but majority have suffer alteration in
-                        some form by inject humor.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="quest-text wow animated slideInUp">
-                    <h4>In Sooper safe to use? <span class="pull-right yellow"><i class="	fa fa-question"></i></span>
-                    </h4>
-                    <p>There are many variations of passages of available but majority have suffer alteration in
-                        some form by inject humor.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="quest-text wow animated slideInRight">
-                    <h4>Why Sooper Charge us? <span class="pull-right pink"><i class="	fa fa-question"></i></span>
-                    </h4>
-                    <p>There are many variations of passages of available but majority have suffer alteration in
-                        some form by inject humor.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <section class="newsletter2">
     <div class="container">
         <div class="row">

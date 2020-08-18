@@ -112,7 +112,8 @@ $("#update-form").submit(function (event) {
                 position : 'topRight',
             });
             if(response.url != undefined){
-                window.location.href = response.url;
+                // window.location.href = response.url;
+                window.open(response.url,'_blank');
             }else{
                 location.reload();
             }

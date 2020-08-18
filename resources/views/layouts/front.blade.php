@@ -39,7 +39,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('front.history') }}">Sejarah</a></li>
                                 <li><a href="{{ route('front.team') }}">Pengurus</a></li>
-                                <li><a href="#">Wilayah</a></li>
+                                <li><a href="{{ route('front.location') }}">Wilayah</a></li>
                              </ul>
                         </li>
                         <li><a href="{{ route('front.graphic') }}">Info Grafik</a></li>

@@ -41,16 +41,17 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showInformation($slug)
+    public function showInformation($id)
     {
-        $information = \App\Information::whereSlug($slug)->get();
-        if($information->isEmpty()){
-            abort(404);
-        }
-        $information = $information->first();
+        $information = \App\Information::findOrFail($id);
         return view('front.information_detail',compact('information'));
     }
 
+    public function showWilayah()
+    {
+        return view('front.wilayah');
+    }
+ 
     /**
      * Show the form for editing the specified resource.
      *

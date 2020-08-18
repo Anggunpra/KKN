@@ -22,6 +22,11 @@ class LetterSubmissionDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
+            ->editColumn('status_pengerjaan', function($row){
+                $color = $row->status_pengerjaan == 'Dalam Proses' ? 'warning' : 'success';
+                $badge = '<span class="badge badge-'.$color.'">'. $row->status_pengerjaan .'</span>';
+                return $badge;
+            })
             ->editColumn('upload_surat_pengantar', function($row){
                 $btn = '<a href="'.asset($row->upload_surat_pengantar).'" class="btn btn-sm btn-primary" target="_blank"> Unduh</a>';
                 return $btn;
@@ -30,10 +35,14 @@ class LetterSubmissionDataTable extends DataTable
                 $btn = '<a href="'.asset($row->upload_berkas_pendukung).'" class="btn btn-sm btn-primary" target="_blank"> Unduh</a>';
                 return $btn;
             })
+            ->editColumn('upload_scan_ktp', function($row){
+                $btn = '<a href="'.asset($row->upload_scan_ktp).'" class="btn btn-sm btn-primary" target="_blank"> Unduh</a>';
+                return $btn;
+            })
             ->addColumn('action', function($row){
                 return view('letter.action',compact('row'))->render();
             })
-            ->rawColumns(['action','upload_surat_pengantar','upload_berkas_pendukung']);
+            ->rawColumns(['action','upload_surat_pengantar','upload_berkas_pendukung','status_pengerjaan']);
     }
 
     /**
@@ -91,10 +100,11 @@ class LetterSubmissionDataTable extends DataTable
             Column::make('nik'),
             Column::make('tempat_lahir'),
             Column::make('tanggal_lahir'),
-            Column::make('pekerjaan'),
+            Column::make('status_pengerjaan'),
             Column::make('rt'),
             Column::make('rw'),
             Column::make('dusun'),
+            Column::make('pekerjaan'),
             Column::make('keperluan_sk'),
             Column::make('nomor_hp'),
             Column::make('upload_surat_pengantar'),
@@ -103,7 +113,6 @@ class LetterSubmissionDataTable extends DataTable
             Column::make('agama'),
             Column::make('jenis_kelamin'),
             Column::make('status_kawin'),
-            Column::make('status_pengerjaan'),
             Column::make('created_at'),
             Column::make('action'),
         ];

@@ -103,13 +103,24 @@
                         </li>
                         <li class="timeline-item">
                             <div class="timeline-info">
-                                <span>2011</span>
+                                <span>2013</span>
                             </div>
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
                                 <h4 class="timeline-title">Masa Pemerintahan Gimo Purwoko</h4>
                                 <p>Pemilihan Kepala Desa kembali dilakukan dengan dua calon Kepala Desa Karetan dan
                                     dimenangkan oleh Gimo Purwoko.</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-info">
+                                <span>2019</span>
+                            </div>
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4 class="timeline-title">Masa Pemerintahan Bonari</h4>
+                                <p>Pemilihan Kepala Desa kembali dilakukan dengan dua calon Kepala Desa Karetan dan
+                                    dimenangkan oleh bonari.</p>
                             </div>
                         </li>
                     </ul>
@@ -127,30 +138,30 @@
            </div>
            <div class="col-md-3 col-sm-3 team-border">
                <div class="team-member  text-center ">
-                   <img src="image/team1.jpg" class="img-responsive img-circle" alt="team">
-                   <h4>Jessica brown</h4>
-                   <p>Developer</p>
+                   <img src="{{ asset('front_asset/image/desa/1.png') }}" class="img-responsive" alt="team">
+                   <h4>Bonari</h4>
+                   <p>Periode 2019 - 2025</p>
                </div>
            </div>
            <div class="col-md-3 col-sm-3 team-border">
                <div class="team-member  text-center ">
-                   <img src="image/team2.jpg" class="img-responsive img-circle" alt="team">
-                   <h4>Mark Jason</h4>
-                   <p>Developer</p>
+                   <img src="{{ asset('front_asset/image/desa/14.png') }}" class="img-responsive" alt="team">
+                   <h4>Gimo Purwoko</h4>
+                   <p>Periode 2007 - 2019</p>
                </div>
            </div>
            <div class="col-md-3 col-sm-3 team-border">
                <div class="team-member  text-center ">
-                   <img src="image/team3.jpg" class="img-responsive img-circle" alt="team">
-                   <h4>Reena Scot</h4>
-                   <p>Adword Manager</p>
+                   <img src="{{ asset('front_asset/image/desa/7.png') }}" class="img-responsive" alt="team">
+                   <h4>Sudarminto</h4>
+                   <p>Periode 2003 - 2007</p>
                </div>
            </div>
            <div class="col-md-3 col-sm-3">
                <div class="team-member text-center ">
-                   <img src="image/team4.jpg" class="img-responsive img-circle" alt="team">
-                   <h4>Kevin Smith</h4>
-                   <p>Developer</p>
+                   <img src="{{ asset('front_asset/image/desa/7.png') }}" class="img-responsive" alt="team">
+                   <h4>Kadeni</h4>
+                   <p>Periode 2001 - 2003</p>
                </div>
            </div>
        </div>
