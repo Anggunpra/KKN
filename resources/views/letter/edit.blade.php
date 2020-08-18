@@ -205,6 +205,12 @@
 
                                 </div>
                                 <div class="form-group">
+                                    <label for="upload_scan_ktp">Upload Scan KTP/KK</label>
+                                    <a href="{{ asset($letter->upload_scan_ktp) }}" target="_blank"
+                                        class="btn btn-primary"><i class="fas fa-download"></i> Unduh</a>
+
+                                </div>
+                                <div class="form-group">
                                     <label for="upload_pengantar_rw">Upload Berkas Pendukung</label>
                                     <a href="{{ asset($letter->upload_berkas_pendukung) }}" target="_blank"
                                         class="btn btn-primary"><i class="fas fa-download"></i> Unduh</a>

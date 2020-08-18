@@ -103,6 +103,7 @@ class LetterSubmissionDataTable extends DataTable
             Column::make('agama'),
             Column::make('jenis_kelamin'),
             Column::make('status_kawin'),
+            Column::make('status_pengerjaan'),
             Column::make('created_at'),
             Column::make('action'),
         ];

@@ -216,29 +216,14 @@ function acceptData(link, item) {
         },
         buttonsStyling: false
     })
-    const inputOptions = new Promise((resolve) => {
-        setTimeout(() => {
-          resolve({
-            'Kolektif': 'Kolektif',
-            'Individu': 'Individu',
-          })
-        }, 100)
-    })
     swalWithBootstrapButtons.fire({
-        title: 'Apakah Anda yakin akan menerima data pembayaran dan/atau berkas dari ' + item + ' ?',
+        title: 'Apakah Anda yakin akan menandai surat dengan nomor ' + item + ' ?',
         text: "Anda tidak dapat mengembalikan ini",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Lanjutkan',
         cancelButtonText: 'Batalkan',
-        title: 'Pilih Skema Pembayaran',
-        input: 'radio',
-        inputOptions: inputOptions,
-        inputValidator: (value) => {
-            if (!value) {
-            return 'Anda wajib memilih salah satu'
-            }
-        },
+        title: 'Tanda Surat Telah Dikerjakan',
         reverseButtons: true
     }).then((result) => {
         var url = link;
@@ -286,7 +271,7 @@ function acceptData(link, item) {
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             swalWithBootstrapButtons.fire(
                 'Dibatalkan',
-                'Anda batal menerima data pembayaran ini',
+                'Anda batal menandai surat',
                 'error'
             )
         }

@@ -61,6 +61,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/{id}/edit', 'LetterSubmissionController@edit')->name('edit')->middleware('role:Perangkat Desa');
         Route::patch('/{id}/edit', 'LetterSubmissionController@update')->name('update')->middleware('role:Perangkat Desa');
         Route::delete('/{id}/hapus', 'LetterSubmissionController@destroy')->name('delete')->middleware('role:Perangkat Desa');
+        Route::patch('/{id}/verif', 'LetterSubmissionController@verification')->name('verification')->middleware('role:Perangkat Desa');
     });
     Route::group(['as' => 'atribute.','prefix' => 'atribut'], function () {
         Route::get('/', 'AtributeController@index')->name('main')->middleware('role:Perangkat Desa');

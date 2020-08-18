@@ -130,6 +130,7 @@ class PageController extends Controller
             'isi_sk' => 'required|string',
             'jenis_sk' => 'required|in:Surat Keterangan Usaha,Surat Keterangan Domisili,Surat Keterangan Kehilangan,Lain-lain',
             'upload_surat_pengantar' => 'required|file|mimes:jpeg,jpg,png,pdf',
+            'upload_scan_ktp' => 'required|file|mimes:jpeg,jpg,png,pdf',
             'upload_berkas_pendukung' => 'nullable|file|mimes:jpeg,jpg,png,pdf',
         ];
         $validator = Validator::make($input,$dataValidator);
@@ -142,6 +143,13 @@ class PageController extends Controller
             $fileName1 = date('YmdHis'). '-' . Str::random(25) . "_scan." . $uploadBerkas->getClientOriginalExtension();
             $uploadBerkas->move($destinationPath, $fileName1);
             $fileName1 = $destinationPath.$fileName1;
+        }
+        if($request->hasFile('upload_scan_ktp')) {
+            $uploadBerkas = $request->file('upload_scan_ktp');
+            $destinationPath = 'uploads/ktp/berkas/'; // upload path
+            $fileName3 = date('YmdHis'). '-' . Str::random(25) . "_scan." . $uploadBerkas->getClientOriginalExtension();
+            $uploadBerkas->move($destinationPath, $fileName3);
+            $fileName3 = $destinationPath.$fileName3;
         }
         if($request->hasFile('upload_berkas_pendukung')) {
             $uploadBerkas = $request->file('upload_berkas_pendukung');
@@ -168,6 +176,7 @@ class PageController extends Controller
             'isi_sk' => $request->isi_sk,
             'upload_surat_pengantar' => $fileName1,
             'upload_berkas_pendukung' => isset($fileName2) ? $fileName2 : '',
+            'upload_scan_ktp' => isset($fileName3) ? $fileName3 : '',
         ]);
         return response()->json(['status' => true, 'message' => 'Berhasil mengajukan surat, mohon untuk menunggu konfirmasi dari petugas'], 200);
     }

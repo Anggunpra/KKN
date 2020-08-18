@@ -142,6 +142,11 @@
                                     <small id="helpUPRT" class="text-muted">Berkas dapat berupa scan/foto dengan format berkas pdf, jpeg, jpg, atau png</small>
                                 </div>
                                 <div class="form-group">
+                                    <label for="upload_scan_ktp">Upload Scan KTP/KK</label>
+                                    <input type="file" name="upload_scan_ktp" id="upload_scan_ktp" class="form-control" placeholder="" aria-describedby="helpUPRT">
+                                    <small id="helpUPRT" class="text-muted">Berkas dapat berupa scan/foto dengan format berkas pdf, jpeg, jpg, atau png</small>
+                                </div>
+                                <div class="form-group">
                                     <label for="upload_berkas_pendukung">Upload Berkas Pendukung (Jika diperlukan)</label>
                                     <input type="file" name="upload_berkas_pendukung" id="upload_berkas_pendukung" class="form-control" placeholder="" aria-describedby="helpUPRW">
                                     <small id="helpUPRW" class="text-muted">Berkas dapat berupa scan/foto dengan format berkas pdf, jpeg, jpg, atau png</small>

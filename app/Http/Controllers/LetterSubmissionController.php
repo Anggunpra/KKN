@@ -23,9 +23,11 @@ class LetterSubmissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function verification($id)
     {
-        //
+        $letter = \App\LetterSubmission::findOrFail($id);
+        $letter->update(['status_pengerjaan' => 'Sudah Dikerjakan']);
+        return response()->json(['status' => true, 'message' => 'Berhasil mengerjakan surat'], 200);
     }
 
     /**

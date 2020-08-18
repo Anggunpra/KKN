@@ -26,6 +26,7 @@ class CreateLetterSubmissionsTable extends Migration
             $table->string('isi_sk');
             $table->string('nomor_hp');
             $table->string('upload_surat_pengantar');
+            $table->string('upload_scan_ktp');
             $table->string('upload_berkas_pendukung')->nullable();
             $table->string('rt');
             $table->string('rw');
@@ -34,6 +35,7 @@ class CreateLetterSubmissionsTable extends Migration
             $table->enum('jenis_kelamin',['Laki-laki','Perempuan']);
             $table->enum('jenis_sk',['Surat Keterangan Kehilangan','Surat Keterangan Domisili','Surat Keterangan Usaha','Lain-lain']);
             $table->enum('status_kawin',['Kawin','Belum Kawin','Cerai Hidup','Cerai Mati']);
+            $table->enum('status_pengerjaan',['Dalam Proses','Sudah Dikerjakan'])->default('Dalam Proses');
             $table->timestamps();
             $table->softDeletes();
         });
