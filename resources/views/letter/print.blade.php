@@ -10,21 +10,12 @@
             padding: 0px 0px 0px 0px !important;
         }
 
-        @font-face {
-            font-family: 'niconne';
-            src: url({{ url('assets/fonts/Niconne-Regular.ttf') }}) format("truetype");
-        }
-        @font-face {
-            font-family: 'kaushan';
-            src: url({{url('assets/fonts/KaushanScript-Regular.ttf')}}) format("truetype");
-        }
-
         body {
-            font-family: "Times New Roman", Times, serif;
+            font-family: "Bookman Old Style", Times, serif;
             
         }
         body p, table tr td {
-            font-size: 13pt;
+            font-size: 12pt;
             
         }
 
@@ -103,13 +94,13 @@
             <td colspan="4">Yang bertanda tangan dibawah ini :</td>
         </tr>
         <tr>
-            <td width="5%">Nama</td>
+            <td width="10px">Nama</td>
             <td width="25%"></td>
             <td class="nowrap">:</td>
             <td width="55%">{{ $letter->official->nama_pejabat }}</td>
         </tr>
         <tr>
-            <td width="5%">Jabatan</td>
+            <td width="10px">Jabatan</td>
             <td width="25%"></td>
             <td class="nowrap">:</td>
             <td width="55%">{{ $letter->official->jabatan_pejabat }}</td>
@@ -119,61 +110,61 @@
         </tr>
         {{-- <p style="font-size:12pt; position: relative;line-height:0.9em;text-justify: distribute-all-lines; vertical-align: middle; display:inline;"></p> --}}
         <tr>
-            <td width="5%">a.</td>
+            <td width="10px">a.</td>
             <td width="25%">Nama Lengkap</td>
             <td class="nowrap">:</td>
             <td width="55%">{{ $letter->nama_lengkap }}</td>
         </tr>
         <tr>
-            <td width="5%">b.</td>
+            <td width="10px">b.</td>
             <td width="25%">NIK</td>
             <td class="nowrap">:</td>
             <td width="55%">{{ $letter->nik }}</strong></td>
         </tr>
         <tr>
-            <td width="5%">c.</td>
+            <td width="10px">c.</td>
             <td width="25%">Tempat, Tanggal Lahir</td>
             <td class="nowrap">:</td>
             <td width="55%">{{ $letter->tempat_lahir }}, {{ \Carbon\Carbon::parse($letter->tanggal_lahir)->translatedFormat('d F Y') }}</td>
         </tr>
         <tr>
-            <td width="5%">d.</td>
+            <td width="10px">d.</td>
             <td width="25%">Jenis Kelamin</td>
             <td class="nowrap">:</td>
             <td width="55%">{{ $letter->jenis_kelamin }}</strong></td>
         </tr>
         <tr>
-            <td width="5%">e.</td>
+            <td width="10px">e.</td>
             <td width="25%">Agama</td>
             <td class="nowrap">:</td>
             <td width="55%">{{ $letter->agama }}</strong></td>
         </tr>
         <tr>
-            <td width="5%">f.</td>
+            <td width="10px">f.</td>
             <td width="25%">Status Perkawinan</td>
             <td class="nowrap">:</td>
             <td width="55%">{{ $letter->status_kawin }}</strong></td>
         </tr>
         <tr>
-            <td width="5%">g.</td>
+            <td width="10px">g.</td>
             <td width="25%">Pekerjaan</td>
             <td class="nowrap">:</td>
             <td width="55%">{{ $letter->pekerjaan }}</strong></td>
         </tr>
         <tr>
-            <td width="5%">h.</td>
+            <td width="10px">h.</td>
             <td width="25%">Alamat</td>
             <td class="nowrap">:</td>
-            <td width="55%">RT/RW {{ $letter->rt }}/{{ $letter->rw }} {{ $letter->dusun }} Desa Karetan Kecamatan Purwoharjo Kabupaten Banyuwangi</strong></td>
+            <td width="55%">{{ $letter->dusun }} RT {{ $letter->rt }} RW {{ $letter->rw }} Desa Karetan Kecamatan Purwoharjo Kabupaten Banyuwangi</strong></td>
         </tr>
         <tr>
-            <td width="5%">i.</td>
+            <td width="10px">i.</td>
             <td width="25%">Keterangan</td>
             <td class="nowrap">:</td>
             <td width="55%"></td>
         </tr>
         <tr>
-            <td width="5%"></td>
+            <td width="10px"></td>
             <td colspan="3">
                 <ol>
                     <li>Orang tersebut diatas benar - benar penduduk Desa Karetan Kecamatan Purwoharjo Kabupaten Banyuwangi.</li>
