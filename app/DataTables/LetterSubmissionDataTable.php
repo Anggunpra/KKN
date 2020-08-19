@@ -42,7 +42,7 @@ class LetterSubmissionDataTable extends DataTable
             ->addColumn('action', function($row){
                 return view('letter.action',compact('row'))->render();
             })
-            ->rawColumns(['action','upload_surat_pengantar','upload_berkas_pendukung','status_pengerjaan']);
+            ->rawColumns(['action','upload_surat_pengantar','upload_berkas_pendukung','status_pengerjaan','upload_scan_ktp']);
     }
 
     /**
