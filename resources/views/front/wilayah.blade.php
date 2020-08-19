@@ -46,7 +46,7 @@
                      <div class="main-3-section">
                         <h5><b>Telpon</b></h5>
                         <p>Kantor : (0333) 393552<br>
-                           Layanan : -
+                           Layanan : +62 877 5627 3469
                         </p>
                      </div>
                      <div class="main-3-section">
