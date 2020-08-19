@@ -29,7 +29,7 @@
         <section class="section">
             <div class="container mt-5">
                 <div class="row justify-content-md-center">
-                    <div class="col-5">
+                    <div class="col-sm-12 col-md-12 col-lg-5">
                         <div class="login-brand">
                             <img src="{{ asset('assets/img/unej.png') }}" alt="logo" width="100"
                                 class="shadow-light">
