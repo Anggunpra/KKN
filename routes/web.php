@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', 'InformationController@index')->name('main')->middleware('role:Perangkat Desa');
         Route::get('/tambah', 'InformationController@create')->name('create')->middleware('role:Perangkat Desa');
         Route::post('/tambah', 'InformationController@store')->name('store')->middleware('role:Perangkat Desa');
+        Route::post('/upload-image', 'InformationController@upload')->name('upload')->middleware('role:Perangkat Desa');
         Route::get('/{id}/edit', 'InformationController@edit')->name('edit')->middleware('role:Perangkat Desa');
         Route::patch('/{id}/edit', 'InformationController@update')->name('update')->middleware('role:Perangkat Desa');
         Route::delete('/{id}/hapus', 'InformationController@destroy')->name('delete')->middleware('role:Perangkat Desa');

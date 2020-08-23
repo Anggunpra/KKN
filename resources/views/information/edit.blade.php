@@ -59,7 +59,10 @@
 @section('custom')
 <script src="{{ asset('assets/plugin/ckeditor/ckeditor.js') }}"></script>
 <script>
-    var editor = CKEDITOR.replace('ck_editor');
+    var editor = CKEDITOR.replace('ck_editor',{
+      filebrowserUploadUrl: "{{route('information.upload', ['_token' => csrf_token() ])}}",
+      filebrowserUploadMethod: 'form'
+    });
     editor.on('change', function (e) {
         $('input[name=deskripsi]').val(e.editor.getData());
     });

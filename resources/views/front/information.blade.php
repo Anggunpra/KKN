@@ -16,8 +16,8 @@
                         </div>
                     </div>
                     <h4>{{ $item->judul}}</h4>
-                    <p>
-                        {!! $item->deskripsi !!}
+                    <p>     
+                        {!!  $item->summary !!}
                     </p>
                     <a href="{{ route('front.information.detail',$item->id) }}" class="btn btn-info" target="_blank" rel="noopener noreferrer">Detail</a>
                 </div>
