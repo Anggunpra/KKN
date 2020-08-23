@@ -31,8 +31,7 @@
                 <div class="row justify-content-md-center">
                     <div class="col-sm-12 col-md-12 col-lg-5">
                         <div class="login-brand">
-                            <img src="{{ asset('front_asset/image/bwi.png') }}" alt="logo" width="100"
-                                class="shadow-light">
+                            <img src="{{ asset('front_asset/image/Desa Karetan black.png') }}" alt="logo" height="100">
                         </div>
 
                         @yield('content')
