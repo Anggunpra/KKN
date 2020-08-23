@@ -7,7 +7,7 @@
     </div>
     <ul class="sidebar-menu">
         <li class="nav-item">
-            <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+            <a href="{{ route('home') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
         </li>
         @role('Perangkat Desa')
         <li class="nav-item">
